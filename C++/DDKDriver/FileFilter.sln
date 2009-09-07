@@ -1,0 +1,39 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FileFilter.WNET", "FileFilter\FileFilter.WNET.vcproj", "{B1C94D68-66D4-48C9-8ED3-207DDF57EA33}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		WNET checked = WNET checked
+		WNET free = WNET free
+		WNET2K checked = WNET2K checked
+		WNET2K free = WNET2K free
+		WNETXP checked = WNETXP checked
+		WNETXP free = WNETXP free
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{B1C94D68-66D4-48C9-8ED3-207DDF57EA33}.WNET checked.ActiveCfg = WNET checked|Win32
+		{B1C94D68-66D4-48C9-8ED3-207DDF57EA33}.WNET checked.Build.0 = WNET checked|Win32
+		{B1C94D68-66D4-48C9-8ED3-207DDF57EA33}.WNET checked.Deploy.0 = WNET checked|Win32
+		{B1C94D68-66D4-48C9-8ED3-207DDF57EA33}.WNET free.ActiveCfg = WNET free|Win32
+		{B1C94D68-66D4-48C9-8ED3-207DDF57EA33}.WNET free.Build.0 = WNET free|Win32
+		{B1C94D68-66D4-48C9-8ED3-207DDF57EA33}.WNET free.Deploy.0 = WNET free|Win32
+		{B1C94D68-66D4-48C9-8ED3-207DDF57EA33}.WNET2K checked.ActiveCfg = WNET2K checked|Win32
+		{B1C94D68-66D4-48C9-8ED3-207DDF57EA33}.WNET2K checked.Build.0 = WNET2K checked|Win32
+		{B1C94D68-66D4-48C9-8ED3-207DDF57EA33}.WNET2K checked.Deploy.0 = WNET2K checked|Win32
+		{B1C94D68-66D4-48C9-8ED3-207DDF57EA33}.WNET2K free.ActiveCfg = WNET2K free|Win32
+		{B1C94D68-66D4-48C9-8ED3-207DDF57EA33}.WNET2K free.Build.0 = WNET2K free|Win32
+		{B1C94D68-66D4-48C9-8ED3-207DDF57EA33}.WNET2K free.Deploy.0 = WNET2K free|Win32
+		{B1C94D68-66D4-48C9-8ED3-207DDF57EA33}.WNETXP checked.ActiveCfg = WNETXP checked|Win32
+		{B1C94D68-66D4-48C9-8ED3-207DDF57EA33}.WNETXP checked.Build.0 = WNETXP checked|Win32
+		{B1C94D68-66D4-48C9-8ED3-207DDF57EA33}.WNETXP checked.Deploy.0 = WNETXP checked|Win32
+		{B1C94D68-66D4-48C9-8ED3-207DDF57EA33}.WNETXP free.ActiveCfg = WNETXP free|Win32
+		{B1C94D68-66D4-48C9-8ED3-207DDF57EA33}.WNETXP free.Build.0 = WNETXP free|Win32
+		{B1C94D68-66D4-48C9-8ED3-207DDF57EA33}.WNETXP free.Deploy.0 = WNETXP free|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

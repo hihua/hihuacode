@@ -1,0 +1,7 @@
+TARGETNAME=FileFilter
+TARGETPATH=obj
+TARGETTYPE=DRIVER
+DRIVERTYPE=FS
+
+SOURCES=FileFilter.c   \
+        FileFilter.rc

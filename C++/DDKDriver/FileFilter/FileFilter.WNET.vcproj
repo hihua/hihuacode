@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="gb2312"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="7.10"
+	Name="FileFilter.WNET"
+	ProjectGUID="{B1C94D68-66D4-48C9-8ED3-207DDF57EA33}">
+	<Platforms>
+		<Platform
+			Name="Win32"/>
+	</Platforms>
+	<Configurations>
+		<Configuration
+			Name="WNET free|Win32"
+			IntermediateDirectory=".\"
+			ConfigurationType="0">
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="ddkbuild.cmd -WNET free ."
+				ReBuildCommandLine="ddkbuild.cmd -WNET free . -cZ"/>
+		</Configuration>
+		<Configuration
+			Name="WNET checked|Win32"
+			IntermediateDirectory=".\"
+			ConfigurationType="0">
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="ddkbuild.cmd -WNET checked ."
+				ReBuildCommandLine="ddkbuild.cmd -WNET checked . -cZ"/>
+		</Configuration>
+		<Configuration
+			Name="WNETXP free|Win32"
+			IntermediateDirectory=".\"
+			ConfigurationType="0">
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="ddkbuild.cmd -WNETXP free ."
+				ReBuildCommandLine="ddkbuild.cmd -WNETXP free . -cZ"/>
+		</Configuration>
+		<Configuration
+			Name="WNETXP checked|Win32"
+			IntermediateDirectory=".\"
+			ConfigurationType="0">
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="ddkbuild.cmd -WNETXP checked ."
+				ReBuildCommandLine="ddkbuild.cmd -WNETXP checked . -cZ"/>
+		</Configuration>
+		<Configuration
+			Name="WNET2K free|Win32"
+			IntermediateDirectory=".\"
+			ConfigurationType="0">
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="ddkbuild.cmd -WNET2K free ."
+				ReBuildCommandLine="ddkbuild.cmd -WNET2K free . -cZ"/>
+		</Configuration>
+		<Configuration
+			Name="WNET2K checked|Win32"
+			IntermediateDirectory=".\"
+			ConfigurationType="0">
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="ddkbuild.cmd -WNET2K checked ."
+				ReBuildCommandLine="ddkbuild.cmd -WNET2K checked . -cZ"/>
+		</Configuration>
+	</Configurations>
+	<References>
+	</References>
+	<Files>
+		<Filter
+			Name="Source Files"
+			Filter="cpp;c;cxx;def;asm;mc">
+			<File
+				RelativePath=".\FileFilter.c">
+			</File>
+		</Filter>
+		<Filter
+			Name="Header Files"
+			Filter="h;hpp;hxx">
+			<File
+				RelativePath=".\FileFilter.h">
+			</File>
+		</Filter>
+		<Filter
+			Name="Resource Files"
+			Filter="rc;mc;ico;cur;bmp;dlg;rc2">
+			<File
+				RelativePath=".\FileFilter.rc">
+			</File>
+		</Filter>
+		<Filter
+			Name="Special Files"
+			Filter="*">
+			<File
+				RelativePath=".\makefile">
+			</File>
+			<File
+				RelativePath=".\sources">
+			</File>
+		</Filter>
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>
