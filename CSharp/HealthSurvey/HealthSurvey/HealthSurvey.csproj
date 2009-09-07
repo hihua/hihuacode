@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D7F93E5C-7E04-4021-B018-1B160EAE54F8}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HealthSurvey</RootNamespace>
+    <AssemblyName>HealthSurvey</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ChoiClasses, Version=1.2.3069.2103, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\ChoiClasses.dll</HintPath>
+    </Reference>
+    <Reference Include="ChoiControls, Version=1.0.3069.2104, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\ChoiControls.dll</HintPath>
+    </Reference>
+    <Reference Include="Excel, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\System.Windows.Forms.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization.Design, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\System.Windows.Forms.DataVisualization.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="WinFormsUI, Version=2.2.3062.38442, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\WinFormsUI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class_AnswerInfo.cs" />
+    <Compile Include="Class_AnswerList.cs" />
+    <Compile Include="Class_AnswerTable.cs" />
+    <Compile Include="Class_Chart.cs" />
+    <Compile Include="Class_ClientInfo.cs" />
+    <Compile Include="Class_Question.cs" />
+    <Compile Include="Class_QuestionCase.cs" />
+    <Compile Include="Class_QuestionSelect.cs" />
+    <Compile Include="CommonFunction.cs" />
+    <Compile Include="Control_QuestionCase2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control_QuestionCase2.Designer.cs">
+      <DependentUpon>Control_QuestionCase2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control_QuestionList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control_QuestionList.Designer.cs">
+      <DependentUpon>Control_QuestionList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control_QuestionCase1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control_QuestionCase1.Designer.cs">
+      <DependentUpon>Control_QuestionCase1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DBConnection.cs" />
+    <Compile Include="Class_Excel.cs" />
+    <Compile Include="Form_AnswerInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_AnswerInfo.Designer.cs">
+      <DependentUpon>Form_AnswerInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Class.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Class.Designer.cs">
+      <DependentUpon>Form_Class.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_ClientDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ClientDetail.Designer.cs">
+      <DependentUpon>Form_ClientDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_ClientInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ClientInfo.Designer.cs">
+      <DependentUpon>Form_ClientInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_ClientList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ClientList.Designer.cs">
+      <DependentUpon>Form_ClientList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Main.Designer.cs">
+      <DependentUpon>Form_Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_OutExcel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_OutExcel.Designer.cs">
+      <DependentUpon>Form_OutExcel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Question.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Question.Designer.cs">
+      <DependentUpon>Form_Question.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_QuestionList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_QuestionList.Designer.cs">
+      <DependentUpon>Form_QuestionList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Result.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Result.Designer.cs">
+      <DependentUpon>Form_Result.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Search.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Search.Designer.cs">
+      <DependentUpon>Form_Search.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Function_AnswerInfo.cs" />
+    <Compile Include="Function_AnswerList.cs" />
+    <Compile Include="Function_ClientInfo.cs" />
+    <Compile Include="Function_Question.cs" />
+    <Compile Include="Function_QuestionCase.cs" />
+    <Compile Include="Function_QuestionDescription.cs" />
+    <Compile Include="Function_QuestionList.cs" />
+    <Compile Include="Function_QuestionManual.cs" />
+    <Compile Include="ObjectDelegate.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Control_QuestionCase2.resx">
+      <DependentUpon>Control_QuestionCase2.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control_QuestionList.resx">
+      <DependentUpon>Control_QuestionList.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control_QuestionCase1.resx">
+      <DependentUpon>Control_QuestionCase1.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_AnswerInfo.resx">
+      <DependentUpon>Form_AnswerInfo.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_ClientDetail.resx">
+      <DependentUpon>Form_ClientDetail.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_ClientInfo.resx">
+      <DependentUpon>Form_ClientInfo.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_ClientList.resx">
+      <DependentUpon>Form_ClientList.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Main.resx">
+      <DependentUpon>Form_Main.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_OutExcel.resx">
+      <DependentUpon>Form_OutExcel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Question.resx">
+      <DependentUpon>Form_Question.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_QuestionList.resx">
+      <DependentUpon>Form_QuestionList.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Result.resx">
+      <DependentUpon>Form_Result.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Search.resx">
+      <DependentUpon>Form_Search.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="app.ico" />
+    <None Include="Resources\Arrow6.jpg" />
+    <None Include="Resources\Arrow9.jpg" />
+    <None Include="Resources\Arrow8.jpg" />
+    <None Include="Resources\Arrow7.jpg" />
+    <None Include="Resources\Arrow2.jpg" />
+    <None Include="Resources\Arrow10.jpg" />
+    <None Include="Resources\Arrow11.jpg" />
+    <None Include="Resources\Arrow5.jpg" />
+    <None Include="Resources\Arrow4.jpg" />
+    <None Include="Resources\Arrow3.jpg" />
+    <None Include="Resources\Arrow1.jpg" />
+    <None Include="Resources\Result6.jpg" />
+    <None Include="Resources\Result5.jpg" />
+    <None Include="Resources\Result4.jpg" />
+    <None Include="Resources\Result3.jpg" />
+    <None Include="Resources\Result2.jpg" />
+    <None Include="Resources\Result1.jpg" />
+    <None Include="Resources\Logo2.bmp" />
+    <None Include="Resources\Logo1.bmp" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
