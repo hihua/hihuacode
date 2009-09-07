@@ -1,0 +1,90 @@
+;;;
+;;; Sfilter
+;;;
+;;;
+;;; Copyright (c) 2000, Microsoft Corporation
+;;;
+
+[Version]
+signature  	= "$Windows NT$"
+Class		= "File Filter"					;This is determined by the work this filter driver does
+ClassGuid 	= {4A04099B-2F6C-4850-81A6-62E498C7824A}	;This value is determined by the Class	
+Provider 	= %Msft%
+DriverVer 	= 07/02/2009,1.0.0.1
+
+[DestinationDirs]
+DefaultDestDir	         = 12
+FileFilter.DriverFiles      = 12 			;%windir%\system32\drivers
+
+[SourceDisksNames]
+1 = %Disk1%
+
+[SourceDisksFiles]
+FileFilter.sys = 1
+
+;;
+;; Default install sections
+;;
+
+[DefaultInstall]
+OptionDesc          = %FileFilterServiceDesc%
+CopyFiles           = FileFilter.DriverFiles
+
+[DefaultInstall.Services]
+AddService          = %FileFilterServiceName%,,FileFilter.Service
+AddReg              = FileFilter.AddRegistry
+
+;;
+;; Default uninstall sections
+;;
+
+[DefaultUninstall]
+DelFiles   = FileFilter.DriverFiles
+DelReg     = FileFilter.DelRegistry
+
+[DefaultUninstall.Services]
+DelService = FileFilter,0x200		; Flags note to stop service first
+
+;
+; Services Section
+;
+
+[FileFilter.Service]
+DisplayName      = %FileFilterServiceName%
+Description      = %FileFilterServiceDesc%
+ServiceBinary    = %12%\FileFilter.sys			;%windir%\system32\drivers\FileFilter.sys
+ServiceType      = 2					;SERVICE_FILE_SYSTEM_DRIVER
+StartType        = 0					;SERVICE_BOOT_START
+ErrorControl     = 1					;SERVICE_ERROR_NORMAL
+LoadOrderGroup   = "File Filter Monitor"
+AddReg			= FileFilter.AddRegistry
+
+;
+; Registry Modifications
+;
+
+[FileFilter.AddRegistry]
+HKLM,%FileFilterRegistry%,%FileFilterDebugFlags%,0x00010001 ,0
+
+[FileFilter.DelRegistry]
+HKLM,%FileFilterRegistry%,%FileFilterDebugFlags%
+
+;
+; Copy Files
+;
+
+[FileFilter.DriverFiles]
+FileFilter.sys
+
+;;
+;; String Section
+;;
+
+[Strings]
+Msft	            	= "Richinfo"
+FileFilterServiceDesc  	= "File Filter Driver"
+FileFilterServiceName  	= "FileFilter"
+FileFilterRegistry     	= "system\currentcontrolset\services\FileFilter"
+FileFilterDebugFlags   	= "DebugFlags"
+Disk1               	= "File Filter Source"
+
