@@ -1,0 +1,20 @@
+/*
+========================================================================
+ Name        : CalendarManagerListBox.hrh
+ Author      : 
+ Copyright   : 
+ Description : 
+========================================================================
+*/
+enum TCalendarManagerListBoxViewCommands
+	{
+	ECalendarManagerListBoxView_MenuItemCommand = 0x6000,
+	ECalendarManagerListBoxView_MenuItem1Command,
+	ECalendarManagerListBoxView_MenuItem2Command
+	};
+
+enum TCalendarManagerListBoxView_KeyCommands
+	{
+	ECalendarManagerListBoxView_KeyCommand = 0x9000,
+	ECalendarManagerListBoxView_Key1Command
+	};

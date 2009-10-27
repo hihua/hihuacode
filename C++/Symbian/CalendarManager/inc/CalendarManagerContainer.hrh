@@ -1,0 +1,21 @@
+/*
+========================================================================
+ Name        : CalendarManagerContainer.hrh
+ Author      : 
+ Copyright   : 
+ Description : 
+========================================================================
+*/
+enum TCalendarManagerContainerViewCommands
+	{
+	ECalendarManagerContainerView_MenuItemCommand = 0x6000,
+	ECalendarManagerContainerView_MenuItem1Command,
+	ECalendarManagerContainerView_MenuItem2Command,
+	ECalendarManagerContainerView_MenuItem3Command
+	};
+
+enum TCalendarManagerContainerView_KeyCommands
+	{
+	ECalendarManagerContainerView_KeyCommand = 0x9000,
+	ECalendarManagerContainerView_Key1Command
+	};

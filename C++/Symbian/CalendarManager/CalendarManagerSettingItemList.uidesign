@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<designerData version="1.1.0">
+  <componentManifest>
+    <manifestEntry id="com.nokia.sdt.series60.CAknView" version="1.2.0"/>
+    <manifestEntry id="com.nokia.sdt.series60.DesignTimeContainer" version="1.0.0"/>
+    <manifestEntry id="com.nokia.sdt.series60.CommonBase" version="1.0.0"/>
+    <manifestEntry id="com.nokia.sdt.series60.StatusPane" version="1.0.0"/>
+    <manifestEntry id="com.nokia.sdt.series60.ControlBase" version="1.0.0"/>
+    <manifestEntry id="com.nokia.sdt.series60.NaviText" version="1.0.0"/>
+    <manifestEntry id="com.nokia.sdt.series60.NaviBase" version="1.0.0"/>
+    <manifestEntry id="com.nokia.sdt.series60.CBA" version="1.0.0"/>
+    <manifestEntry id="com.nokia.sdt.series60.CBABase" version="1.0.0"/>
+    <manifestEntry id="com.nokia.sdt.series60.CAknSettingItemList" version="1.1.0"/>
+    <manifestEntry id="com.nokia.sdt.series60.ContainerBase" version="1.0.0"/>
+    <manifestEntry id="com.nokia.sdt.series60.CEikDateEditor" version="1.0.0"/>
+    <manifestEntry id="com.nokia.sdt.series60.CEikMfneBase" version="1.0.0"/>
+    <manifestEntry id="com.nokia.sdt.series60.EditorBase" version="1.0.0"/>
+    <manifestEntry id="com.nokia.sdt.series60.CCoeControlBase" version="1.0.0"/>
+    <manifestEntry id="com.nokia.sdt.series60.CEikTimeEditor" version="1.0.0"/>
+    <manifestEntry id="com.nokia.sdt.series60.CEikEdwin" version="1.0.0"/>
+    <manifestEntry id="com.nokia.sdt.series60.CEikEdwinBase" version="1.0.0"/>
+    <manifestEntry id="com.nokia.sdt.series60.CAknEnumeratedTextPopupSettingItem" version="1.0.0"/>
+    <manifestEntry id="com.nokia.sdt.series60.EnumeratedTextPopupBase" version="1.0.0"/>
+  </componentManifest>
+  <property id="com.nokia.sdt.symbian.dm.RESOURCE_DIRECTORY_ID">data</property>
+  <property id="com.nokia.sdt.component.symbian.vendor">com.nokia.series60</property>
+  <property id="com.nokia.sdt.component.symbian.version">3.2.0</property>
+  <property id="com.nokia.sdt.symbian.dm.COMPONENT_PROVIDER">com.nokia.sdt.component.symbian.Symbian-Provider</property>
+  <property id="com.nokia.sdt.symbian.dm.INCLUDE_DIRECTORY_ID">inc</property>
+  <property id="com.nokia.sdt.symbian.dm.SOURCE_DIRECTORY_ID">src</property>
+  <property id="com.nokia.sdt.symbian.dm.SOURCEGEN_PROVIDER">com.nokia.sdt.sourcegen.Symbian-Provider</property>
+  <property id="com.nokia.sdt.symbian.dm.BUILD_DIRECTORY_ID">group</property>
+  <component id="com.nokia.sdt.series60.CAknView">
+    <property id="className">CCalendarManagerSettingItemListView</property>
+    <compoundProperty id="location">
+      <property id="x">51</property>
+      <property id="y">44</property>
+    </compoundProperty>
+    <property id="name">CalendarManagerSettingItemListView</property>
+    <compoundProperty id="size">
+      <property id="width">240</property>
+      <property id="height">320</property>
+    </compoundProperty>
+    <component id="com.nokia.sdt.series60.StatusPane">
+      <compoundProperty id="location">
+        <property id="x">20</property>
+      </compoundProperty>
+      <property id="name">statusPane</property>
+      <compoundProperty id="size">
+        <property id="width">204</property>
+        <property id="height">63</property>
+      </compoundProperty>
+      <component id="com.nokia.sdt.series60.NaviText">
+        <compoundProperty id="location">
+          <property id="x">60</property>
+          <property id="y">43</property>
+        </compoundProperty>
+        <property id="name">naviText1</property>
+        <property id="text" type="i18n">STR_CalendarManagerSettingItemListView_11</property>
+        <compoundProperty id="size">
+          <property id="width">144</property>
+          <property id="height">20</property>
+        </compoundProperty>
+      </component>
+    </component>
+    <component id="com.nokia.sdt.series60.CBA">
+      <compoundProperty id="location">
+        <property id="y">288</property>
+      </compoundProperty>
+      <compoundProperty id="info">
+        <property id="leftText" type="i18n">STR_CalendarManagerSettingItemListView_2</property>
+        <property id="rightText" type="i18n">STR_CalendarManagerSettingItemListView_3</property>
+        <property id="middleText" type="i18n">STR_CalendarManagerSettingItemListView_4</property>
+        <property id="rightId">EAknSoftkeyCancel</property>
+        <property id="type">R_AVKON_SOFTKEYS_OK_CANCEL__SELECT</property>
+        <property id="leftId">EAknSoftkeyOk</property>
+        <property id="middleId">EAknSoftkeySelect</property>
+      </compoundProperty>
+      <property id="name">controlPane</property>
+      <compoundProperty id="size">
+        <property id="width">240</property>
+        <property id="height">32</property>
+      </compoundProperty>
+      <eventBinding id="middleSoftKeyPressed" handlerDisplay="HandleControlPaneMiddleSoftKeyPressedL" handlerSymbol="cpp@src//CalendarManagerSettingItemListView.cpp/function(CCalendarManagerSettingItemListView::HandleControlPaneMiddleSoftKeyPressedL(TInt))"/>
+      <eventBinding id="rightSoftKeyPressed" handlerDisplay="HandleControlPaneRightSoftKeyPressedL" handlerSymbol="cpp@src//CalendarManagerSettingItemListView.cpp/function(CCalendarManagerSettingItemListView::HandleControlPaneRightSoftKeyPressedL(TInt))"/>
+      <eventBinding id="leftSoftKeyPressed" handlerDisplay="HandleControlPaneLeftSoftKeyPressedL" handlerSymbol="cpp@src//CalendarManagerSettingItemListView.cpp/function(CCalendarManagerSettingItemListView::HandleControlPaneLeftSoftKeyPressedL(TInt))"/>
+    </component>
+    <component id="com.nokia.sdt.series60.CAknSettingItemList">
+      <property id="title" type="i18n">STR_CalendarManagerSettingItemListView_1</property>
+      <compoundProperty id="location">
+        <property id="y">66</property>
+      </compoundProperty>
+      <property id="className">CCalendarManagerSettingItemList</property>
+      <property id="name">CalendarManagerSettingItemList</property>
+      <compoundProperty id="size">
+        <property id="width">240</property>
+        <property id="height">222</property>
+      </compoundProperty>
+      <component id="com.nokia.sdt.series60.CEikDateEditor">
+        <compoundProperty id="minDate"/>
+        <compoundProperty id="size">
+          <property id="height">56</property>
+          <property id="width">240</property>
+        </compoundProperty>
+        <compoundProperty id="maxDate">
+          <property id="month">11</property>
+          <property id="day">30</property>
+          <property id="year">2099</property>
+        </compoundProperty>
+        <compoundProperty id="location">
+          <property id="x">0</property>
+          <property id="y">0</property>
+        </compoundProperty>
+        <property id="itemTitle" type="i18n">STR_CalendarManagerSettingItemListView_5</property>
+        <property id="name">Schedule_Date</property>
+        <compoundProperty id="date"/>
+      </component>
+      <component id="com.nokia.sdt.series60.CEikTimeEditor">
+        <compoundProperty id="maxTime">
+          <property id="hour">23</property>
+          <property id="minute">59</property>
+          <property id="second">59</property>
+        </compoundProperty>
+        <compoundProperty id="size">
+          <property id="height">56</property>
+          <property id="width">240</property>
+        </compoundProperty>
+        <compoundProperty id="location">
+          <property id="x">0</property>
+          <property id="y">56</property>
+        </compoundProperty>
+        <property id="itemTitle" type="i18n">STR_CalendarManagerSettingItemListView_6</property>
+        <compoundProperty id="flags"/>
+        <property id="name">Schedule_Time</property>
+        <compoundProperty id="time"/>
+        <compoundProperty id="minTime"/>
+      </component>
+      <component id="com.nokia.sdt.series60.CEikEdwin">
+        <compoundProperty id="size">
+          <property id="height">56</property>
+          <property id="width">240</property>
+        </compoundProperty>
+        <compoundProperty id="avkonFlags"/>
+        <compoundProperty id="location">
+          <property id="x">0</property>
+          <property id="y">112</property>
+        </compoundProperty>
+        <property id="itemTitle" type="i18n">STR_CalendarManagerSettingItemListView_9</property>
+        <compoundProperty id="flags"/>
+        <compoundProperty id="allowedCaseModes"/>
+        <property id="name">Schedule_Content</property>
+        <property id="text" type="i18n">STR_CalendarManagerSettingItemListView_8</property>
+        <compoundProperty id="allowedInputModes">
+          <property id="EAknEditorKatakanaInputMode">true</property>
+          <property id="EAknEditorFullWidthTextInputMode">true</property>
+          <property id="EAknEditorFullWidthNumericInputMode">true</property>
+          <property id="EAknEditorFullWidthKatakanaInputMode">true</property>
+          <property id="EAknEditorHiraganaKanjiInputMode">true</property>
+          <property id="EAknEditorHalfWidthTextInputMode">true</property>
+        </compoundProperty>
+      </component>
+      <component id="com.nokia.sdt.series60.CAknEnumeratedTextPopupSettingItem">
+        <sequenceProperty id="items">
+          <compoundElement>
+            <property id="settingText" type="i18n">STR_CalendarManagerSettingItemListView_15</property>
+            <property id="popupText" type="i18n">STR_CalendarManagerSettingItemListView_16</property>
+            <property id="value">0</property>
+          </compoundElement>
+          <compoundElement>
+            <property id="settingText" type="i18n">STR_CalendarManagerSettingItemListView_28</property>
+            <property id="popupText" type="i18n">STR_CalendarManagerSettingItemListView_29</property>
+            <property id="value">1</property>
+          </compoundElement>
+          <compoundElement>
+            <property id="settingText" type="i18n">STR_CalendarManagerSettingItemListView_30</property>
+            <property id="popupText" type="i18n">STR_CalendarManagerSettingItemListView_31</property>
+            <property id="value">2</property>
+          </compoundElement>
+          <compoundElement>
+            <property id="settingText" type="i18n">STR_CalendarManagerSettingItemListView_32</property>
+            <property id="popupText" type="i18n">STR_CalendarManagerSettingItemListView_33</property>
+            <property id="value">3</property>
+          </compoundElement>
+        </sequenceProperty>
+        <compoundProperty id="location">
+          <property id="x">0</property>
+          <property id="y">168</property>
+        </compoundProperty>
+        <property id="name">Schedule_Reminder</property>
+        <property id="itemTitle" type="i18n">STR_CalendarManagerSettingItemListView_10</property>
+        <compoundProperty id="size">
+          <property id="height">56</property>
+          <property id="width">240</property>
+        </compoundProperty>
+      </component>
+    </component>
+  </component>
+  <stringBundle>
+    <stringTable language="LANG_PrcChinese">
+      <string id="STR_CalendarManagerSettingItemListView_1">Settings</string>
+      <string id="STR_CalendarManagerSettingItemListView_2"/>
+      <string id="STR_CalendarManagerSettingItemListView_3"/>
+      <string id="STR_CalendarManagerSettingItemListView_4"/>
+      <string id="STR_CalendarManagerSettingItemListView_5">日期</string>
+      <string id="STR_CalendarManagerSettingItemListView_6">时间</string>
+      <string id="STR_CalendarManagerSettingItemListView_8"/>
+      <string id="STR_CalendarManagerSettingItemListView_9">内容</string>
+      <string id="STR_CalendarManagerSettingItemListView_10">提醒方式</string>
+      <string id="STR_CalendarManagerSettingItemListView_15">无</string>
+      <string id="STR_CalendarManagerSettingItemListView_16">无</string>
+      <string id="STR_CalendarManagerSettingItemListView_28">铃声</string>
+      <string id="STR_CalendarManagerSettingItemListView_29">铃声</string>
+      <string id="STR_CalendarManagerSettingItemListView_30">振动</string>
+      <string id="STR_CalendarManagerSettingItemListView_31">振动</string>
+      <string id="STR_CalendarManagerSettingItemListView_32">铃声＋振动</string>
+      <string id="STR_CalendarManagerSettingItemListView_33">铃声＋振动</string>
+      <string id="STR_CalendarManagerSettingItemListView_11"/>
+    </stringTable>
+  </stringBundle>
+  <macroTable/>
+  <sourceMappingState>
+    <resourceMappings>
+      <resourceMapping instanceName="Schedule_Date" rsrcId="member$setting_page_resource">r_calendar_manager_setting_item_list_schedule_date_setting_page_resource</resourceMapping>
+      <resourceMapping instanceName="Schedule_Content" rsrcId="member$setting_page_resource">r_calendar_manager_setting_item_list_schedule_content_setting_page_resource</resourceMapping>
+      <resourceMapping instanceName="Schedule_Content">r_calendar_manager_setting_item_list_schedule_content_editor_resource_id</resourceMapping>
+      <resourceMapping instanceName="Schedule_Reminder" rsrcId="member$setting_page_resource">r_calendar_manager_setting_item_list_schedule_reminder_setting_page_resource</resourceMapping>
+      <resourceMapping instanceName="Schedule_Reminder" rsrcId="popup">r_calendar_manager_setting_item_list_schedule_reminder_popped_up_texts_resource</resourceMapping>
+      <resourceMapping instanceName="Schedule_Reminder" rsrcId="setting">r_calendar_manager_setting_item_list_schedule_reminder_setting_texts_resource</resourceMapping>
+      <resourceMapping instanceName="Schedule_Time">r_calendar_manager_setting_item_list_schedule_time_editor_resource_id</resourceMapping>
+      <resourceMapping instanceName="Schedule_Reminder">r_calendar_manager_setting_item_list_schedule_reminder_editor_resource_id</resourceMapping>
+      <resourceMapping instanceName="naviText1">r_calendar_manager_setting_item_list_navi_text1_resource</resourceMapping>
+      <resourceMapping instanceName="CalendarManagerSettingItemList">r_calendar_manager_setting_item_list_calendar_manager_setting_item_list</resourceMapping>
+      <resourceMapping instanceName="Schedule_Reminder" rsrcId="associated">r_calendar_manager_setting_item_list_schedule_reminder</resourceMapping>
+      <resourceMapping instanceName="statusPane">r_calendar_manager_setting_item_list_status_pane</resourceMapping>
+      <resourceMapping instanceName="Schedule_Content" rsrcId="text">r_calendar_manager_setting_item_list_schedule_content</resourceMapping>
+      <resourceMapping instanceName="naviText1" rsrcId="text">r_calendar_manager_setting_item_list_navi_text1</resourceMapping>
+      <resourceMapping instanceName="CalendarManagerSettingItemListView">r_calendar_manager_setting_item_list_calendar_manager_setting_item_list_view</resourceMapping>
+      <resourceMapping instanceName="Schedule_Date">r_calendar_manager_setting_item_list_schedule_date_editor_resource_id</resourceMapping>
+      <resourceMapping instanceName="Schedule_Time" rsrcId="member$setting_page_resource">r_calendar_manager_setting_item_list_schedule_time_setting_page_resource</resourceMapping>
+    </resourceMappings>
+    <enumMappings>
+      <enumMapping instanceName="Schedule_Date" propertyId="" nameAlgorithm="com.nokia.sdt.component.symbian.NAME_ALG_CONTROL_TYPE">EEikCtDateEditor</enumMapping>
+      <enumMapping instanceName="Schedule_Reminder" propertyId="" nameAlgorithm="com.nokia.sdt.component.symbian.NAME_ALG_CONTROL_TYPE">EAknCtPopupSettingList</enumMapping>
+      <enumMapping instanceName="Schedule_Content" propertyId="" nameAlgorithm="com.nokia.sdt.component.symbian.NAME_ALG_SETTING_ITEM_ID">ECalendarManagerSettingItemListViewSchedule_Content</enumMapping>
+      <enumMapping instanceName="naviText1" propertyId="" nameAlgorithm="com.nokia.sdt.component.symbian.NAME_ALG_STATUS_PANE_ID">EEikStatusPaneUidNavi</enumMapping>
+      <enumMapping instanceName="menuItem1" propertyId="command" nameAlgorithm="com.nokia.sdt.component.symbian.NAME_ALG_COMMANDS">ECalendarManagerSettingItemListViewMenuItem1Command</enumMapping>
+      <enumMapping instanceName="Schedule_Reminder" propertyId="" nameAlgorithm="com.nokia.sdt.component.symbian.NAME_ALG_SETTING_ITEM_ID">ECalendarManagerSettingItemListViewSchedule_Reminder</enumMapping>
+      <enumMapping instanceName="Schedule_Time" propertyId="" nameAlgorithm="com.nokia.sdt.component.symbian.NAME_ALG_CONTROL_TYPE">EEikCtTimeEditor</enumMapping>
+      <enumMapping instanceName="CalendarManagerSettingItemListView" propertyId="" nameAlgorithm="com.nokia.sdt.component.symbian.NAME_ALG_VIEW_UID">ECalendarManagerSettingItemListViewId</enumMapping>
+      <enumMapping instanceName="Schedule_Date" propertyId="" nameAlgorithm="com.nokia.sdt.component.symbian.NAME_ALG_SETTING_ITEM_ID">ECalendarManagerSettingItemListViewSchedule_Date</enumMapping>
+      <enumMapping instanceName="Schedule_Content" propertyId="defaultInputMode">EAknEditorTextInputMode</enumMapping>
+      <enumMapping instanceName="Schedule_Content" propertyId="" nameAlgorithm="com.nokia.sdt.component.symbian.NAME_ALG_CONTROL_TYPE">EEikCtEdwin</enumMapping>
+      <enumMapping instanceName="naviText1" propertyId="" nameAlgorithm="com.nokia.sdt.component.symbian.NAME_ALG_CONTROL_TYPE">EAknCtNaviPane</enumMapping>
+      <enumMapping instanceName="Schedule_Content" propertyId="defaultCase">EAknEditorTextCase</enumMapping>
+      <enumMapping instanceName="Schedule_Content" propertyId="numericKeymap">EAknEditorStandardNumberModeKeymap</enumMapping>
+      <enumMapping instanceName="Schedule_Time" propertyId="" nameAlgorithm="com.nokia.sdt.component.symbian.NAME_ALG_SETTING_ITEM_ID">ECalendarManagerSettingItemListViewSchedule_Time</enumMapping>
+    </enumMappings>
+    <arrayMappings/>
+  </sourceMappingState>
+  <generatedFiles>
+    <file>inc/calendarmanagersettingitemlistsettings.h</file>
+    <file>inc/calendarmanagersettingitemlist.h</file>
+    <file>src/calendarmanagersettingitemlist.cpp</file>
+    <file>src/calendarmanagersettingitemlistsettings.cpp</file>
+    <file>inc/calendarmanagersettingitemlistview.h</file>
+    <file>src/calendarmanagersettingitemlistview.cpp</file>
+    <file>data/calendarmanager.rss</file>
+    <file>data/calendarmanagersettingitemlist.rssi</file>
+    <file>inc/calendarmanager.hrh</file>
+    <file>data/calendarmanagercontainer.rssi</file>
+    <file>inc/calendarmanagercontainer.hrh</file>
+    <file>data/calendarmanagerlistbox.rssi</file>
+    <file>inc/calendarmanagerlistbox.hrh</file>
+    <file>inc/calendarmanagersettingitemlist.hrh</file>
+    <file>data/calendarmanager.loc</file>
+    <file>data/calendarmanager.l31</file>
+    <file>data/calendarmanagercontainer.loc</file>
+    <file>data/calendarmanagercontainer.l31</file>
+    <file>data/calendarmanagerlistbox.loc</file>
+    <file>data/calendarmanagerlistbox.l31</file>
+    <file>data/calendarmanagersettingitemlist.loc</file>
+    <file>data/calendarmanagersettingitemlist.l31</file>
+  </generatedFiles>
+</designerData>

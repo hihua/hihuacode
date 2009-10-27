@@ -1,0 +1,11 @@
+/*
+========================================================================
+ Name        : CalendarManagerSettingItemList.loc
+ Author      : 
+ Copyright   : 
+ Description : 
+========================================================================
+*/
+#ifdef LANGUAGE_31
+#include "CalendarManagerSettingItemList.l31"
+#endif

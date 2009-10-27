@@ -1,0 +1,18 @@
+/*
+========================================================================
+ Name        : CalendarManagerListBox.l31
+ Author      : 
+ Copyright   : 
+ Description : 
+========================================================================
+*/
+// localized strings for language: Peoples Republic of Chinas Chinese (31)
+CHARACTER_SET UTF8
+
+#define STR_CalendarManagerListBoxView_1 ""
+#define STR_CalendarManagerListBoxView_2 ""
+#define STR_CalendarManagerListBoxView_3 ""
+#define STR_CalendarManagerListBoxView_4 "新建"
+#define STR_CalendarManagerListBoxView_5 "打开"
+#define STR_CalendarManagerListBoxView_6 "删除"
+#define STR_CalendarManagerListBoxView_7 ""

@@ -1,0 +1,24 @@
+/*
+========================================================================
+ Name        : CalendarManagerSettingItemList.hrh
+ Author      : 
+ Copyright   : 
+ Description : 
+========================================================================
+*/
+enum TCalendarManagerSettingItemListViewCommands
+	{
+	ECalendarManagerSettingItemListViewMenuItem1Command = 0x6000
+	};
+enum TCalendarManagerSettingItemListViewItems
+	{
+	ECalendarManagerSettingItemListViewSchedule_Date = 1,
+	ECalendarManagerSettingItemListViewSchedule_Time,
+	ECalendarManagerSettingItemListViewSchedule_Content,
+	ECalendarManagerSettingItemListViewSchedule_Reminder
+	};
+
+enum TCalendarManagerSettingItemListView_KeyCommands
+	{
+	ECalendarManagerSettingItemListView_KeyCommand = 0x9000		
+	};

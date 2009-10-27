@@ -1,0 +1,11 @@
+/*
+========================================================================
+ Name        : CalendarManagerListBox.loc
+ Author      : 
+ Copyright   : 
+ Description : 
+========================================================================
+*/
+#ifdef LANGUAGE_31
+#include "CalendarManagerListBox.l31"
+#endif

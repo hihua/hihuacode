@@ -1,0 +1,11 @@
+/*
+========================================================================
+ Name        : CalendarManager.loc
+ Author      : 
+ Copyright   : 
+ Description : 
+========================================================================
+*/
+#ifdef LANGUAGE_31
+#include "CalendarManager.l31"
+#endif

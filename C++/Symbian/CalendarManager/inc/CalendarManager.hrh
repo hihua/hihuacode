@@ -1,0 +1,21 @@
+/*
+========================================================================
+ Name        : CalendarManager.hrh
+ Author      : 
+ Copyright   : 
+ Description : 
+========================================================================
+*/
+enum TCalendarManagerViewUids
+	{
+	ECalendarManagerContainerViewId = 1,
+	ECalendarManagerListBoxViewId,
+	ECalendarManagerSettingItemListViewId
+	};
+
+enum TCalendarManager_ViewCommands
+	{
+	CalendarManager_ContainerView_KeyCommand = 0x8000,
+	CalendarManager_ListBoxView_KeyCommand,
+	CalendarManager_SettingItemList_KeyCommand	
+	};

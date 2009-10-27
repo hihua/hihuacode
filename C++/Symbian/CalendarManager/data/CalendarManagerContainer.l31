@@ -1,0 +1,19 @@
+/*
+========================================================================
+ Name        : CalendarManagerContainer.l31
+ Author      : 
+ Copyright   : 
+ Description : 
+========================================================================
+*/
+// localized strings for language: Peoples Republic of Chinas Chinese (31)
+CHARACTER_SET UTF8
+
+#define STR_CalendarManagerContainerView_1 ""
+#define STR_CalendarManagerContainerView_2 ""
+#define STR_CalendarManagerContainerView_3 ""
+#define STR_CalendarManagerContainerView_9 "同步"
+#define STR_CalendarManagerContainerView_10 "设置"
+#define STR_CalendarManagerContainerView_7 "新建"
+#define STR_CalendarManagerContainerView_8 "打开"
+#define STR_CalendarManagerContainerView_11 ""

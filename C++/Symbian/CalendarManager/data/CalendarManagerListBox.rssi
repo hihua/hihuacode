@@ -1,0 +1,76 @@
+/*
+========================================================================
+ Name        : CalendarManagerListBox.rssi
+ Author      : 
+ Copyright   : 
+ Description : 
+========================================================================
+*/
+#include "CalendarManagerListBox.hrh"
+#include "CalendarManagerListBox.loc"
+
+RESOURCE AVKON_VIEW r_calendar_manager_list_box_calendar_manager_list_box_view
+	{
+	cba = R_AVKON_SOFTKEYS_OPTIONS_BACK__SELECT;
+	menubar = r_calendar_manager_list_box_options_menu;
+	toolbar = 0;
+	}
+RESOURCE MENU_BAR r_calendar_manager_list_box_options_menu
+	{titles =
+			{
+			MENU_TITLE
+				{
+				menu_pane = r_calendar_manager_list_box_menu_pane1_menu_pane;
+				}
+			};
+
+	}
+RESOURCE STATUS_PANE_APP_MODEL r_calendar_manager_list_box_status_pane
+	{
+	panes =
+		{
+		SPANE_PANE
+			{
+			id = EEikStatusPaneUidNavi;
+			type = EAknCtNaviPane;
+			resource = r_calendar_manager_list_box_navi_text1_resource;
+			}
+		};
+}
+RESOURCE LISTBOX r_calendar_manager_list_box_list_box
+	{
+	flags = EAknListBoxSelectionList;
+	}
+RESOURCE MENU_PANE r_calendar_manager_list_box_menu_pane1_menu_pane
+	{
+	items =
+		{
+		MENU_ITEM
+			{
+			command = ECalendarManagerListBoxView_MenuItemCommand;
+			txt = STR_CalendarManagerListBoxView_4;
+			},
+		MENU_ITEM
+			{
+			command = ECalendarManagerListBoxView_MenuItem1Command;
+			txt = STR_CalendarManagerListBoxView_5;
+			},
+		MENU_ITEM
+			{
+			command = ECalendarManagerListBoxView_MenuItem2Command;
+			txt = STR_CalendarManagerListBoxView_6;
+			}
+		};
+	}
+RESOURCE NAVI_DECORATOR r_calendar_manager_list_box_navi_text1_resource
+	{
+	type = ENaviDecoratorLabel;
+	control = NAVI_LABEL
+		{
+		txt = STR_CalendarManagerListBoxView_7;
+		};
+	}
+RESOURCE TBUF r_calendar_manager_list_box_navi_text1
+	{
+	buf = STR_CalendarManagerListBoxView_7;
+	}

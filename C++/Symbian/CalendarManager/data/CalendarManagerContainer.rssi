@@ -1,0 +1,77 @@
+/*
+========================================================================
+ Name        : CalendarManagerContainer.rssi
+ Author      : 
+ Copyright   : 
+ Description : 
+========================================================================
+*/
+#include "CalendarManagerContainer.hrh"
+#include "CalendarManagerContainer.loc"
+
+RESOURCE AVKON_VIEW r_calendar_manager_container_calendar_manager_container_view
+	{
+	cba = R_AVKON_SOFTKEYS_OPTIONS_EXIT__SELECT;
+	menubar = r_calendar_manager_container_options_menu;
+	toolbar = 0;
+	}
+RESOURCE MENU_BAR r_calendar_manager_container_options_menu
+	{titles =
+			{
+			MENU_TITLE
+				{
+				menu_pane = r_calendar_manager_container_menu_pane1_menu_pane;
+				}
+			};
+
+	}
+RESOURCE STATUS_PANE_APP_MODEL r_calendar_manager_container_status_pane
+	{
+	panes =
+		{
+		SPANE_PANE
+			{
+			id = EEikStatusPaneUidNavi;
+			type = EAknCtNaviPane;
+			resource = r_calendar_manager_container_navi_text1_resource;
+			}
+		};
+}
+RESOURCE MENU_PANE r_calendar_manager_container_menu_pane1_menu_pane
+	{
+	items =
+		{
+		MENU_ITEM
+			{
+			command = ECalendarManagerContainerView_MenuItemCommand;
+			txt = STR_CalendarManagerContainerView_7;
+			},
+		MENU_ITEM
+			{
+			command = ECalendarManagerContainerView_MenuItem1Command;
+			txt = STR_CalendarManagerContainerView_8;
+			},
+		MENU_ITEM
+			{
+			command = ECalendarManagerContainerView_MenuItem2Command;
+			txt = STR_CalendarManagerContainerView_9;
+			},
+		MENU_ITEM
+			{
+			command = ECalendarManagerContainerView_MenuItem3Command;
+			txt = STR_CalendarManagerContainerView_10;
+			}
+		};
+	}
+RESOURCE NAVI_DECORATOR r_calendar_manager_container_navi_text1_resource
+	{
+	type = ENaviDecoratorLabel;
+	control = NAVI_LABEL
+		{
+		txt = STR_CalendarManagerContainerView_11;
+		};
+	}
+RESOURCE TBUF r_calendar_manager_container_navi_text1
+	{
+	buf = STR_CalendarManagerContainerView_11;
+	}
