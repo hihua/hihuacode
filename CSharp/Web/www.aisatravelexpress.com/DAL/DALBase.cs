@@ -16,9 +16,17 @@ namespace DAL
         public DALBase()
         {
             string i_ServerIP = HttpContext.Current.Request.ServerVariables["Local_Addr"];
-
+            
             if (i_ServerIP == "127.0.0.1")
-                g_DBConnectionString = WebConfigurationManager.AppSettings["DBConnectString_Location"];            
+            {
+                string i_ServerName = HttpContext.Current.Server.MachineName.ToUpper();
+
+                if (i_ServerName == "HIHUA-X61")
+                    g_DBConnectionString = WebConfigurationManager.AppSettings["DBConnectString_Location_1"];
+
+                if (i_ServerName == "HUANGHAIHUA")
+                    g_DBConnectionString = WebConfigurationManager.AppSettings["DBConnectString_Location_2"];
+            }
             else
                 g_DBConnectionString = WebConfigurationManager.AppSettings["DBConnectString_Remote"];                                    
         }

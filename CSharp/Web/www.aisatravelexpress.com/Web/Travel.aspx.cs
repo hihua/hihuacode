@@ -9,15 +9,13 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 
-using DAL;
-
 namespace Web
 {
-    public partial class Index : System.Web.UI.Page
+    public partial class Travel : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
         }
     }
 }
