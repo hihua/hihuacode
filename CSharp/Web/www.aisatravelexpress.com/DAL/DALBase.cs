@@ -31,7 +31,7 @@ namespace DAL
                 g_DBConnectionString = WebConfigurationManager.AppSettings["DBConnectString_Remote"];                                    
         }
 
-        public DataTable ExecuteDataTable(string Sql)
+        protected DataTable ExecuteDataTable(string Sql)
         {
             g_SqlDataAdapter = new SqlDataAdapter(Sql, g_DBConnectionString);
 
@@ -44,7 +44,7 @@ namespace DAL
                 return null;
         }
 
-        public DataSet ExecuteDataSet(string Sql)
+        protected DataSet ExecuteDataSet(string Sql)
         {
             g_SqlDataAdapter = new SqlDataAdapter(Sql, g_DBConnectionString);
 

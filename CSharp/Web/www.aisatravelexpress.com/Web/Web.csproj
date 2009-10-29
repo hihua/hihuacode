@@ -41,6 +41,39 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\Code.aspx" />
+    <Content Include="Admin\css.css" />
+    <Content Include="Admin\images\admin-button-exit.gif" />
+    <Content Include="Admin\images\admin-button-qygl.gif" />
+    <Content Include="Admin\images\admin-button-wzgl.gif" />
+    <Content Include="Admin\images\admin.gif" />
+    <Content Include="Admin\images\admin_back.jpg" />
+    <Content Include="Admin\images\admin_left_1.gif" />
+    <Content Include="Admin\images\admin_left_2.gif" />
+    <Content Include="Admin\images\admin_left_3.gif" />
+    <Content Include="Admin\images\admin_left_4.gif" />
+    <Content Include="Admin\images\admin_left_5.gif" />
+    <Content Include="Admin\images\admin_left_6.gif" />
+    <Content Include="Admin\images\admin_left_7.gif" />
+    <Content Include="Admin\images\admin_left_8.gif" />
+    <Content Include="Admin\images\admin_left_9.gif" />
+    <Content Include="Admin\images\bold.gif" />
+    <Content Include="Admin\images\center.gif" />
+    <Content Include="Admin\images\close.gif" />
+    <Content Include="Admin\images\image.gif" />
+    <Content Include="Admin\images\italicize.gif" />
+    <Content Include="Admin\images\menudown.gif" />
+    <Content Include="Admin\images\menuup.gif" />
+    <Content Include="Admin\images\no_bt.gif" />
+    <Content Include="Admin\images\ok_bt.gif" />
+    <Content Include="Admin\images\open.gif" />
+    <Content Include="Admin\images\ow_login_back.gif" />
+    <Content Include="Admin\images\space.gif" />
+    <Content Include="Admin\images\title.gif" />
+    <Content Include="Admin\images\titlebg.gif" />
+    <Content Include="Admin\images\title_bg_quit.gif" />
+    <Content Include="Admin\images\underline.gif" />
+    <Content Include="Admin\Login.aspx" />
     <Content Include="css\aisa.css" />
     <Content Include="images\home_1.jpg" />
     <Content Include="images\home_3.jpg" />
@@ -91,6 +124,20 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\Code.aspx.cs">
+      <DependentUpon>Code.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Code.aspx.designer.cs">
+      <DependentUpon>Code.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -108,13 +155,20 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BLL\BLL.csproj">
+      <Project>{3D50243F-86EC-4553-9587-F53BF073FD5C}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DAL\DAL.csproj">
       <Project>{EB407CE4-E878-40A2-B9D3-80413669D36D}</Project>
       <Name>DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Entity\Entity.csproj">
+      <Project>{81CB87A9-B36F-4D5E-9501-D6053676EB84}</Project>
+      <Name>Entity</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Admin\" />
     <Folder Include="App_Data\" />
     <Folder Include="WebService\" />
   </ItemGroup>

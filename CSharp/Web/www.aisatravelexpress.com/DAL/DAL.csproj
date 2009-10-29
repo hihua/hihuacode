@@ -37,6 +37,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminUser.cs" />
     <Compile Include="DALBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
