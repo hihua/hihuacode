@@ -12,6 +12,7 @@ namespace DAL
     {
         protected SqlDataAdapter g_SqlDataAdapter = null;
         private string g_DBConnectionString = "";
+        protected string g_SelectProcedure = "p_ALL_Pager ";
        
         public DALBase()
         {
