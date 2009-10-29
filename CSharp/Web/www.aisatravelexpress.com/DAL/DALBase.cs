@@ -12,8 +12,7 @@ namespace DAL
     {
         protected SqlDataAdapter g_SqlDataAdapter = null;
         private string g_DBConnectionString = "";
-        protected string g_SelectProcedure = "p_ALL_Pager ";
-       
+        
         public DALBase()
         {
             string i_ServerIP = HttpContext.Current.Request.ServerVariables["Local_Addr"];
@@ -32,35 +31,9 @@ namespace DAL
                 g_DBConnectionString = WebConfigurationManager.AppSettings["DBConnectString_Remote"];                                    
         }
 
-        protected DataTable ExecuteDataTable(string Sql)
-        {
-            g_SqlDataAdapter = new SqlDataAdapter(Sql, g_DBConnectionString);
-           
-            DataTable o_DataTable = new DataTable();
-            g_SqlDataAdapter.Fill(o_DataTable);
-            
-            if (o_DataTable.Rows != null && o_DataTable.Rows.Count > 0)
-                return o_DataTable;
-            else
-                return null;                   
-        }
-
-        protected DataSet ExecuteDataSet(string Sql)
-        {
-            g_SqlDataAdapter = new SqlDataAdapter(Sql, g_DBConnectionString);
-
-            DataSet o_DataSet = new DataSet();
-            g_SqlDataAdapter.Fill(o_DataSet);
-
-            if (o_DataSet.Tables.Count > 0 && o_DataSet.Tables[0].Rows != null && o_DataSet.Tables[0].Rows.Count > 0)
-                return o_DataSet;
-            else
-                return null;
-        }
-
         protected DataTable Execute_Select_DataTable(string TableName, string TableFields, string TableOrderByFields, int PageSize, int PageIndex, int IsCount, int OrderByType, string SelectWhere, ref int TotalCount, ref int TotalPage)
         {
-            g_SqlDataAdapter = new SqlDataAdapter("p_ALL_Pager", g_DBConnectionString);
+            g_SqlDataAdapter = new SqlDataAdapter("P_ALL_Pager", g_DBConnectionString);
             g_SqlDataAdapter.SelectCommand.CommandType = CommandType.StoredProcedure;
             
             g_SqlDataAdapter.SelectCommand.Parameters.Add("@TableName", SqlDbType.VarChar, 255);
