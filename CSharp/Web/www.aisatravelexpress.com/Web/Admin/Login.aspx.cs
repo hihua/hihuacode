@@ -59,6 +59,7 @@ namespace Web.Admin
             else
             {
                 Session["AdminUser"] = e_AdminUser;
+                Response.Redirect("Main.aspx");
             }
         }
     }
