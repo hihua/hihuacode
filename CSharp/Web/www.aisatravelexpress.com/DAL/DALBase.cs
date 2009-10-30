@@ -111,14 +111,66 @@ namespace DAL
 
             g_SqlDataAdapter.SelectCommand.Parameters[0].Value = p_TableName;
             g_SqlDataAdapter.SelectCommand.Parameters[1].Value = p_SelectWhere;
-
             g_SqlDataAdapter.SelectCommand.Parameters[2].Direction = ParameterDirection.Output;
             g_SqlDataAdapter.SelectCommand.Parameters[2].Value = i_TotalCount;
 
             DataTable o_DataTable = new DataTable();
             g_SqlDataAdapter.Fill(o_DataTable);
 
+            string s_TotalCount = g_SqlDataAdapter.SelectCommand.Parameters[2].Value.ToString();
+            if (!string.IsNullOrEmpty(s_TotalCount))
+                i_TotalCount = Convert.ToInt32(s_TotalCount);
+
             return i_TotalCount;
+        }
+
+        protected void Execute_Insert(string p_TableName, string p_FieldsName, string p_FieldsValue)
+        {
+            g_SqlDataAdapter = new SqlDataAdapter("P_Insert", g_DBConnectionString);
+            g_SqlDataAdapter.SelectCommand.CommandType = CommandType.StoredProcedure;
+
+            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_TableName", SqlDbType.VarChar, 255);
+            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_FieldsName", SqlDbType.VarChar, 4000);
+            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_FieldsValue", SqlDbType.VarChar);
+
+            g_SqlDataAdapter.SelectCommand.Parameters[0].Value = p_TableName;
+            g_SqlDataAdapter.SelectCommand.Parameters[1].Value = p_FieldsName;
+            g_SqlDataAdapter.SelectCommand.Parameters[2].Value = p_FieldsValue;
+
+            DataTable o_DataTable = new DataTable();
+            g_SqlDataAdapter.Fill(o_DataTable);
+        }
+
+        protected void Execute_Update(string p_TableName, string p_FieldsValue, string p_Where)
+        {
+            g_SqlDataAdapter = new SqlDataAdapter("P_Update", g_DBConnectionString);
+            g_SqlDataAdapter.SelectCommand.CommandType = CommandType.StoredProcedure;
+
+            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_TableName", SqlDbType.VarChar, 255);
+            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_FieldsValue", SqlDbType.VarChar);
+            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_Where", SqlDbType.VarChar, 3000);
+
+            g_SqlDataAdapter.SelectCommand.Parameters[0].Value = p_TableName;
+            g_SqlDataAdapter.SelectCommand.Parameters[1].Value = p_FieldsValue;
+            g_SqlDataAdapter.SelectCommand.Parameters[2].Value = p_Where;
+
+            DataTable o_DataTable = new DataTable();
+            g_SqlDataAdapter.Fill(o_DataTable);
+        }
+
+        protected void Execute_Delete(string p_TableName, string p_Where)
+        {
+            g_SqlDataAdapter = new SqlDataAdapter("P_Delete", g_DBConnectionString);
+            g_SqlDataAdapter.SelectCommand.CommandType = CommandType.StoredProcedure;
+
+            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_TableName", SqlDbType.VarChar, 255);
+            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_Where", SqlDbType.VarChar, 3000);
+
+            g_SqlDataAdapter.SelectCommand.Parameters[0].Value = p_TableName;
+            g_SqlDataAdapter.SelectCommand.Parameters[1].Value = p_Where;
+
+            DataTable o_DataTable = new DataTable();
+            g_SqlDataAdapter.Fill(o_DataTable);
         }
     }
 }
