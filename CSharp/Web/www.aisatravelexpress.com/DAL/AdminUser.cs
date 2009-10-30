@@ -30,13 +30,61 @@ namespace DAL
             g_TableOrderByFields = "AdminUser_Status";
 
             string o_Where = "";
-            if (p_AdminUser.AdminUser_Status == Entity.AdminUser_Status.AdminUser_Admin)
+            if (p_AdminUser.AdminUser_Status == 0)
                 o_Where = "AdminUser_ID=" + p_AdminUser.AdminUser_ID.ToString() + " or AdminUser_Status=1";
             else
                 o_Where = "AdminUser_ID=" + p_AdminUser.AdminUser_ID.ToString();
 
             DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, p_PageSize, p_PageIndex, 0, 0, o_Where, ref g_TotalCount, ref g_TotalPage);
             return o_DataTable;
+        }
+
+        public void Insert_AdminUser(Entity.AdminUser p_AdminUser)
+        {
+            if (p_AdminUser == null)
+                return;
+
+            string o_FieldsValue = "";
+            o_FieldsValue += "'" + p_AdminUser.AdminUser_Name + "'";
+            o_FieldsValue += ",";
+            o_FieldsValue += "'" + p_AdminUser.AdminUser_NickName + "'";
+            o_FieldsValue += ",";
+            o_FieldsValue += "'" + p_AdminUser.AdminUser_PassWord + "'";
+            o_FieldsValue += ",";
+            o_FieldsValue += p_AdminUser.AdminUser_Status.ToString();
+            o_FieldsValue += ",";
+            o_FieldsValue += p_AdminUser.AdminUser_AddTime.ToString();
+
+            Execute_Insert(g_TableName, g_TableFields, o_FieldsValue);
+        }
+
+        public void Update_AdminUser(Entity.AdminUser p_AdminUser)
+        {
+            if (p_AdminUser == null)
+                return;
+
+            string o_FieldsValue = "";
+            o_FieldsValue += "AdminUser_Name='" + p_AdminUser.AdminUser_Name + "'";
+            o_FieldsValue += ",";
+            o_FieldsValue += "AdminUser_NickName='" + p_AdminUser.AdminUser_NickName + "'";
+            o_FieldsValue += ",";
+
+            if (!string.IsNullOrEmpty(p_AdminUser.AdminUser_PassWord))
+            {
+                o_FieldsValue += "AdminUser_PassWord='" + p_AdminUser.AdminUser_NickName + "'";
+                o_FieldsValue += ",";
+            }
+
+            o_FieldsValue += "AdminUser_Status=" + p_AdminUser.AdminUser_Status.ToString();
+            string o_Where = "AdminUser_ID=" + p_AdminUser.AdminUser_ID;
+
+            Execute_Update(g_TableName, o_FieldsValue, o_Where);
+        }
+
+        public void Delete_AdminUser(int p_AdminUser_ID)
+        {
+            string o_Where = "AdminUser_ID=" + p_AdminUser_ID.ToString();
+            Execute_Delete(g_TableName, o_Where);
         }
     }
 }

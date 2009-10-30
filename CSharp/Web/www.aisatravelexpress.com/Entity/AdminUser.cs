@@ -10,7 +10,7 @@ namespace Entity
         private string _AdminUser_Name;
         private string _AdminUser_NickName;
         private string _AdminUser_PassWord;
-        private AdminUser_Status _AdminUser_Status;
+        private int _AdminUser_Status;
         private DateTime _AdminUser_AddTime;
 
         public int AdminUser_ID
@@ -37,7 +37,7 @@ namespace Entity
             set { _AdminUser_PassWord = value; }
         }
 
-        public AdminUser_Status AdminUser_Status
+        public int AdminUser_Status
         {
             get { return _AdminUser_Status; }
             set { _AdminUser_Status = value; }

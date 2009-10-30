@@ -48,7 +48,7 @@ namespace Web.Admin
                     o_HtmlTableRow.Controls.Add(o_HtmlTableCell);
 
                     o_HtmlTableCell = new HtmlTableCell();
-                    if (o_AdminUser.AdminUser_Status == AdminUser_Status.AdminUser_Admin)
+                    if (o_AdminUser.AdminUser_Status == 0)
                         o_HtmlTableCell.InnerText = "管理员";
                     else
                         o_HtmlTableCell.InnerText = "普通用户";
