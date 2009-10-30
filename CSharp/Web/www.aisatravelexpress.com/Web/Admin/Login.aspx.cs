@@ -18,7 +18,7 @@ namespace Web.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Session.Remove("AdminUser");
         }
 
         protected void Login_Submit_Click(object sender, EventArgs e)
