@@ -9,12 +9,16 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 
 using Entity;
+using Utility;
 
 namespace Web.Admin
 {
     public class PageBase : System.Web.UI.Page
     {
-        protected AdminUser g_AdminUser;
+        protected Entity.AdminUser g_AdminUser;
+        protected int g_Page = 1;
+        protected int g_TotalCount;
+        protected int g_TotalPage;
 
         protected override void OnInit(EventArgs e)
         {
@@ -25,7 +29,10 @@ namespace Web.Admin
                 Response.End();
             }
             else
-                g_AdminUser = Session["AdminUser"] as AdminUser;
+                g_AdminUser = Session["AdminUser"] as Entity.AdminUser;
+
+            if (!string.IsNullOrEmpty(Request["Page"]) && VerifyUtility.Is_Number(Request["Page"], 1))
+                g_Page = Convert.ToInt32(Request["Page"]);            
         }
 
         protected override void OnError(EventArgs e)

@@ -25,11 +25,17 @@ namespace DAL
             return o_DataTable;
         }
 
-        public DataTable Select_AdminUser(int p_PageSize, int p_PageIndex, ref int p_CountTotal, ref int p_PageTotal)
+        public DataTable Select_AdminUser(Entity.AdminUser p_AdminUser, int p_PageSize, int p_PageIndex, ref int p_CountTotal, ref int p_PageTotal)
         {
             g_TableOrderByFields = "AdminUser_Status";
 
-            DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, p_PageSize, p_PageIndex, 0, 0, "", ref g_TotalCount, ref g_TotalPage);
+            string o_Where = "";
+            if (p_AdminUser.AdminUser_Status == Entity.AdminUser_Status.AdminUser_Admin)
+                o_Where = "AdminUser_ID=" + p_AdminUser.AdminUser_ID.ToString() + " or AdminUser_Status=1";
+            else
+                o_Where = "AdminUser_ID=" + p_AdminUser.AdminUser_ID.ToString();
+
+            DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, p_PageSize, p_PageIndex, 0, 0, o_Where, ref g_TotalCount, ref g_TotalPage);
             return o_DataTable;
         }
     }

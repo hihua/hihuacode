@@ -6,6 +6,8 @@ using System.Text;
 using System.Web;
 using System.Web.Configuration;
 
+using Utility;
+
 namespace DAL
 {
     public class DALBase
@@ -57,13 +59,19 @@ namespace DAL
             g_SqlDataAdapter.SelectCommand.Parameters[7].Value = p_SelectWhere;
             g_SqlDataAdapter.SelectCommand.Parameters[8].Direction = ParameterDirection.Output;
             g_SqlDataAdapter.SelectCommand.Parameters[9].Direction = ParameterDirection.Output;
-
-            g_SqlDataAdapter.SelectCommand.Parameters[8].Value = r_TotalCount;
-            g_SqlDataAdapter.SelectCommand.Parameters[9].Value = r_TotalPage;
-
+                        
             DataTable o_DataTable = new DataTable();
             g_SqlDataAdapter.Fill(o_DataTable);
 
+            string s_TotalCount = g_SqlDataAdapter.SelectCommand.Parameters[8].Value.ToString();
+            string s_TotalPage = g_SqlDataAdapter.SelectCommand.Parameters[9].Value.ToString();
+
+            if (!string.IsNullOrEmpty(s_TotalCount) && VerifyUtility.Is_Number(s_TotalCount, 1))
+                r_TotalCount = Convert.ToInt32(s_TotalCount);
+
+            if (!string.IsNullOrEmpty(s_TotalPage) && VerifyUtility.Is_Number(s_TotalPage, 1))
+                r_TotalPage = Convert.ToInt32(s_TotalPage);
+            
             if (o_DataTable == null || o_DataTable.Rows.Count <= 0)
                 return null;
             else

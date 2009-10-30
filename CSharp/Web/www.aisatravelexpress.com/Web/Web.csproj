@@ -41,6 +41,7 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\AdminUser.aspx" />
     <Content Include="Admin\Code.aspx" />
     <Content Include="Admin\css.css" />
     <Content Include="Admin\images\admin-button-exit.gif" />
@@ -129,6 +130,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\AdminUser.aspx.cs">
+      <DependentUpon>AdminUser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminUser.aspx.designer.cs">
+      <DependentUpon>AdminUser.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\Code.aspx.cs">
       <DependentUpon>Code.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -209,6 +217,10 @@
     <ProjectReference Include="..\Entity\Entity.csproj">
       <Project>{81CB87A9-B36F-4D5E-9501-D6053676EB84}</Project>
       <Name>Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utility\Utility.csproj">
+      <Project>{F0AA03D2-EB17-4D19-8694-D61419D8B7B6}</Project>
+      <Name>Utility</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

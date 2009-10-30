@@ -38,7 +38,7 @@
 						            <td><a href="#" target="Main" class="IndexMenuLink1">添加管理员</a></td>
 						        </tr>
 					            <tr>
-						            <td><a href="#" target="Main" class="IndexMenuLink1">管理员管理</a></td>
+						            <td><a href="AdminUser.aspx" target="Main" class="IndexMenuLink1">管理员管理</a></td>
 						        </tr>					            
 				            </table>
 			            </div>

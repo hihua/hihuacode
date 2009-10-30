@@ -41,10 +41,10 @@ namespace BLL
             return e_AdminUser;
         }
 
-        public Entity.AdminUser[] Select_AdminUser(int p_PageSize, int p_PageIndex, ref int p_CountTotal, ref int p_PageTotal)
+        public Entity.AdminUser[] Select_AdminUser(Entity.AdminUser p_AdminUser, int p_PageSize, int p_PageIndex, ref int p_TotalCount, ref int p_TotalPage)
         {
             DAL.AdminUser d_AdminUser = new DAL.AdminUser();
-            DataTable o_DataTable = d_AdminUser.Select_AdminUser(p_PageSize, p_PageIndex, ref p_CountTotal, ref p_PageTotal);
+            DataTable o_DataTable = d_AdminUser.Select_AdminUser(p_AdminUser, p_PageSize, p_PageIndex, ref p_TotalCount, ref p_TotalPage);
             if (o_DataTable == null)
                 return null;
 
