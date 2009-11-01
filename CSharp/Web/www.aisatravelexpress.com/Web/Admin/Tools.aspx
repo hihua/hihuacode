@@ -10,7 +10,7 @@
 </head>
 <body bgcolor="#799AE1">
     <form id="form1" runat="server">
-        <div>
+        <div>            
             <table id="Table1" align="left" cellspacing="0" cellpadding="0" width="158">
                 <tr>
 		            <td><img width="158" height="38" src="images/title.gif" alt=""/></td>
@@ -35,7 +35,7 @@
 			            <div class="ToolsSpan3" style="width: 158px">
 				            <table cellspacing="3" cellpadding="0" width="130" align="center">
 					            <tr>
-						            <td><a href="#" target="Main" class="IndexMenuLink1">添加管理员</a></td>
+						            <td><a href="#" target="Main" onclick="window.open('AdminUser_Detail.aspx','AdminUser','toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=680px,height=510px');return false;" class="IndexMenuLink1">添加管理员</a></td>
 						        </tr>
 					            <tr>
 						            <td><a href="AdminUser.aspx" target="Main" class="IndexMenuLink1">管理员管理</a></td>

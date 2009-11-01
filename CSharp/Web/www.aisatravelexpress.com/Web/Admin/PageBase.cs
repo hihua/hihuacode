@@ -31,7 +31,7 @@ namespace Web.Admin
             else
                 g_AdminUser = Session["AdminUser"] as Entity.AdminUser;
 
-            if (!string.IsNullOrEmpty(Request["Page"]) && VerifyUtility.Is_Number(Request["Page"], 1))
+            if (VerifyUtility.IsNumber_NotNull(Request["Page"]))
                 g_Page = Convert.ToInt32(Request["Page"]);            
         }
 

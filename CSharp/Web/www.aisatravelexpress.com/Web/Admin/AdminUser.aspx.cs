@@ -31,7 +31,8 @@ namespace Web.Admin
                     HtmlAnchor o_HtmlAnchor;
 
                     o_HtmlAnchor = new HtmlAnchor();
-                    o_HtmlAnchor.HRef = "AdminUser_Detail.aspx?AdminUser_ID=" + o_AdminUser.AdminUser_ID.ToString();                                        
+                    o_HtmlAnchor.HRef = "#";
+                    o_HtmlAnchor.Attributes.Add("onclick", "window.open('AdminUser_Detail.aspx?AdminUser_ID=" + o_AdminUser.AdminUser_ID.ToString() + "','AdminUser','toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=680px,height=510px');return false;");
                     o_HtmlAnchor.Attributes.Add("class", "AdminToolsLink2");
                     o_HtmlAnchor.InnerText = i.ToString();
                     

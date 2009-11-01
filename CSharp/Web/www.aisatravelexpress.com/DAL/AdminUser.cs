@@ -25,6 +25,12 @@ namespace DAL
             return o_DataTable;
         }
 
+        public DataTable Select_AdminUser(int p_AdminUser_ID)
+        {
+            DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, 1, 1, 1, 0, "AdminUser_ID='" + p_AdminUser_ID.ToString() + "'", ref g_TotalCount, ref g_TotalPage);
+            return o_DataTable;
+        }
+
         public DataTable Select_AdminUser(Entity.AdminUser p_AdminUser, int p_PageSize, int p_PageIndex, ref int p_CountTotal, ref int p_PageTotal)
         {
             g_TableOrderByFields = "AdminUser_Status";

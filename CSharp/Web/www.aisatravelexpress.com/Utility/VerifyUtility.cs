@@ -6,11 +6,16 @@ namespace Utility
 {
     public class VerifyUtility
     {
+        public static bool Is_Number(string Str)
+        {
+            return Is_Number(Str, 0);
+        }
+
         public static bool Is_Number(string Str, int NumberType)
         {
             try
             {
-                if (String.IsNullOrEmpty(Str))
+                if (string.IsNullOrEmpty(Str))
                     return false;
 
                 if (NumberType == 0)
@@ -46,6 +51,28 @@ namespace Utility
             {
                 return false;
             }
+        }
+
+        public static bool IsNumber_NotNull(string Str)
+        {
+            if (string.IsNullOrEmpty(Str))
+                return false;
+
+            if (Str.Trim().Length > 0 && Is_Number(Str, 1))
+                return true;
+            else
+                return false;
+        }
+
+        public static bool IsString_NotNull(string Str)
+        {
+            if (string.IsNullOrEmpty(Str))
+                return false;
+
+            if (Str.Trim().Length > 0)
+                return true;
+            else
+                return false;
         }
     }
 }

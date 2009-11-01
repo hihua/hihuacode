@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Admin\AdminUser.aspx" />
+    <Content Include="Admin\AdminUser_Detail.aspx" />
     <Content Include="Admin\Code.aspx" />
     <Content Include="Admin\css.css" />
     <Content Include="Admin\images\admin-button-exit.gif" />
@@ -136,6 +137,13 @@
     </Compile>
     <Compile Include="Admin\AdminUser.aspx.designer.cs">
       <DependentUpon>AdminUser.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdminUser_Detail.aspx.cs">
+      <DependentUpon>AdminUser_Detail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminUser_Detail.aspx.designer.cs">
+      <DependentUpon>AdminUser_Detail.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Code.aspx.cs">
       <DependentUpon>Code.aspx</DependentUpon>

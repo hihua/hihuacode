@@ -41,6 +41,23 @@ namespace BLL
             return e_AdminUser;
         }
 
+        public Entity.AdminUser Select_AdminUser(int p_AdminUser_ID)
+        {
+            DataTable o_DataTable = g_AdminUser.Select_AdminUser(p_AdminUser_ID);
+            if (o_DataTable == null)
+                return null;
+
+            Entity.AdminUser e_AdminUser = new Entity.AdminUser();
+            e_AdminUser.AdminUser_ID = p_AdminUser_ID;
+            e_AdminUser.AdminUser_Name = o_DataTable.Rows[0]["AdminUser_Name"].ToString();
+            e_AdminUser.AdminUser_NickName = o_DataTable.Rows[0]["AdminUser_NickName"].ToString();
+            e_AdminUser.AdminUser_PassWord = o_DataTable.Rows[0]["AdminUser_PassWord"].ToString();
+            e_AdminUser.AdminUser_Status = Convert.ToInt32(o_DataTable.Rows[0]["AdminUser_Status"].ToString());
+            e_AdminUser.AdminUser_AddTime = DateTime.Parse(o_DataTable.Rows[0]["AdminUser_AddTime"].ToString());
+
+            return e_AdminUser;
+        }
+
         public Entity.AdminUser[] Select_AdminUser(Entity.AdminUser p_AdminUser, int p_PageSize, int p_PageIndex, ref int p_TotalCount, ref int p_TotalPage)
         {
             DataTable o_DataTable = g_AdminUser.Select_AdminUser(p_AdminUser, p_PageSize, p_PageIndex, ref p_TotalCount, ref p_TotalPage);

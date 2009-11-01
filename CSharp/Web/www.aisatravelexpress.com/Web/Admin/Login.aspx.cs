@@ -11,6 +11,7 @@ using System.Web.UI.WebControls.WebParts;
 
 using BLL;
 using Entity;
+using Utility;
 
 namespace Web.Admin
 {
@@ -23,19 +24,19 @@ namespace Web.Admin
 
         protected void Login_Submit_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(AdminUser_Name.Text))
+            if (!VerifyUtility.IsString_NotNull(AdminUser_Name.Text))
             {
                 Response.Write("<script type=\"text/javascript\">alert(\"请输入用户名\");window.history.back();</script>");
                 Response.End();
             }
 
-            if (string.IsNullOrEmpty(AdminUser_PassWord.Text))
+            if (!VerifyUtility.IsString_NotNull(AdminUser_PassWord.Text))
             {
                 Response.Write("<script type=\"text/javascript\">alert(\"请输入密码\");window.history.back();</script>");
                 Response.End();
             }
 
-            if (string.IsNullOrEmpty(Code.Text))
+            if (!VerifyUtility.IsString_NotNull(Code.Text))
             {
                 Response.Write("<script type=\"text/javascript\">alert(\"请输入验证码\");window.history.back();</script>");
                 Response.End();
