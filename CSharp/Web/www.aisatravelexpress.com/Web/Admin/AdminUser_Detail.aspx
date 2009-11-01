@@ -34,9 +34,9 @@
                     </td>
 	            </tr>
 	            <tr bgcolor="#E3E3E3">
-	                <td height="30" align="center">
+	                <td height="30" align="center" id="AdminUser_PassWord_TD" runat="server">
 	                    原密码：<asp:TextBox ID="AdminUser_PassWord2" runat="server" TextMode="Password" MaxLength="16" Width="149"></asp:TextBox></td>
-	                <td align="center">
+	                <td height="30" align="center" id="AdminUser_Status_TD" runat="server">
 	                    &nbsp;&nbsp;权限：
 	                    <asp:RadioButton ID="AdminUser_Status1" runat="server" GroupName="AdminUser_Status" Text="管理员" />
                         <asp:RadioButton ID="AdminUser_Status2" runat="server" GroupName="AdminUser_Status" Text="普通用户" Checked="true" />

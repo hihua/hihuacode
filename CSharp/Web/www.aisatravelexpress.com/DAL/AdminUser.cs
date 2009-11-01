@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 
+using Utility;
+
 namespace DAL
 {
     public class AdminUser : DALBase
@@ -75,9 +77,9 @@ namespace DAL
             o_FieldsValue += "AdminUser_NickName='" + p_AdminUser.AdminUser_NickName + "'";
             o_FieldsValue += ",";
 
-            if (!string.IsNullOrEmpty(p_AdminUser.AdminUser_PassWord))
+            if (VerifyUtility.IsString_NotNull(p_AdminUser.AdminUser_PassWord))
             {
-                o_FieldsValue += "AdminUser_PassWord='" + p_AdminUser.AdminUser_NickName + "'";
+                o_FieldsValue += "AdminUser_PassWord='" + p_AdminUser.AdminUser_PassWord + "'";
                 o_FieldsValue += ",";
             }
 
