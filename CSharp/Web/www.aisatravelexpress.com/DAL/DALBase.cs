@@ -38,14 +38,14 @@ namespace DAL
             g_SqlDataAdapter = new SqlDataAdapter("P_ALL_Pager", g_DBConnectionString);
             g_SqlDataAdapter.SelectCommand.CommandType = CommandType.StoredProcedure;
 
-            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_TableName", SqlDbType.VarChar, 255);
-            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_FieldsName", SqlDbType.VarChar, 4000);
-            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_OrderByFields", SqlDbType.VarChar, 255);
+            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_TableName", SqlDbType.NVarChar, 255);
+            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_FieldsName", SqlDbType.NVarChar);
+            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_OrderByFields", SqlDbType.NVarChar, 255);
             g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_PageSize", SqlDbType.Int);
             g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_PageIndex", SqlDbType.Int);
             g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_IsCount", SqlDbType.Int);
             g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_OrderByType", SqlDbType.Bit);
-            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_Where", SqlDbType.VarChar, 3000);
+            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_Where", SqlDbType.NVarChar);
             g_SqlDataAdapter.SelectCommand.Parameters.Add("@o_TotalCount", SqlDbType.Int);
             g_SqlDataAdapter.SelectCommand.Parameters.Add("@o_TotalPage", SqlDbType.Int);
 
@@ -105,8 +105,8 @@ namespace DAL
             g_SqlDataAdapter = new SqlDataAdapter("P_Select_Count", g_DBConnectionString);
             g_SqlDataAdapter.SelectCommand.CommandType = CommandType.StoredProcedure;
 
-            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_TableName", SqlDbType.VarChar, 255);
-            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_Where", SqlDbType.VarChar, 3000);
+            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_TableName", SqlDbType.NVarChar, 255);
+            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_Where", SqlDbType.NVarChar);
             g_SqlDataAdapter.SelectCommand.Parameters.Add("@o_TotalCount", SqlDbType.Int);
 
             g_SqlDataAdapter.SelectCommand.Parameters[0].Value = p_TableName;
@@ -129,9 +129,9 @@ namespace DAL
             g_SqlDataAdapter = new SqlDataAdapter("P_Insert", g_DBConnectionString);
             g_SqlDataAdapter.SelectCommand.CommandType = CommandType.StoredProcedure;
 
-            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_TableName", SqlDbType.VarChar, 255);
-            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_FieldsName", SqlDbType.VarChar, 4000);
-            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_FieldsValue", SqlDbType.VarChar);
+            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_TableName", SqlDbType.NVarChar, 255);
+            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_FieldsName", SqlDbType.NVarChar);
+            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_FieldsValue", SqlDbType.NVarChar);
 
             g_SqlDataAdapter.SelectCommand.Parameters[0].Value = p_TableName;
             g_SqlDataAdapter.SelectCommand.Parameters[1].Value = p_FieldsName;
@@ -146,9 +146,9 @@ namespace DAL
             g_SqlDataAdapter = new SqlDataAdapter("P_Update", g_DBConnectionString);
             g_SqlDataAdapter.SelectCommand.CommandType = CommandType.StoredProcedure;
 
-            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_TableName", SqlDbType.VarChar, 255);
-            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_FieldsValue", SqlDbType.VarChar);
-            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_Where", SqlDbType.VarChar, 3000);
+            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_TableName", SqlDbType.NVarChar, 255);
+            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_FieldsValue", SqlDbType.NVarChar);
+            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_Where", SqlDbType.NVarChar);
 
             g_SqlDataAdapter.SelectCommand.Parameters[0].Value = p_TableName;
             g_SqlDataAdapter.SelectCommand.Parameters[1].Value = p_FieldsValue;
@@ -163,8 +163,8 @@ namespace DAL
             g_SqlDataAdapter = new SqlDataAdapter("P_Delete", g_DBConnectionString);
             g_SqlDataAdapter.SelectCommand.CommandType = CommandType.StoredProcedure;
 
-            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_TableName", SqlDbType.VarChar, 255);
-            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_Where", SqlDbType.VarChar, 3000);
+            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_TableName", SqlDbType.NVarChar, 255);
+            g_SqlDataAdapter.SelectCommand.Parameters.Add("@i_Where", SqlDbType.NVarChar);
 
             g_SqlDataAdapter.SelectCommand.Parameters[0].Value = p_TableName;
             g_SqlDataAdapter.SelectCommand.Parameters[1].Value = p_Where;

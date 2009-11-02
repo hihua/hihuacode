@@ -11,12 +11,12 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <table align="center" border="0" width="70%" cellpadding="0" cellspacing="0">
+            <table align="center" border="0" width="80%" cellpadding="0" cellspacing="0">
 	            <tr>
 		            <td align="center" class="DivTitle1" height="30">管理员管理</td>
 	            </tr>
             </table>
-            <table id="g_MainTable" width="70%" border="1" align="center" cellpadding="0" cellspacing="0" class="Table1" runat="server">
+            <table id="g_MainTable" width="80%" border="1" align="center" cellpadding="0" cellspacing="0" class="Table1" runat="server">
                 <tr height="30" align="center" bgcolor="#C0C0C0">
                     <td width="10%">序号</td>
 	                <td width="23%">用户名</td>

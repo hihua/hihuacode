@@ -74,6 +74,8 @@ namespace Web.Admin
                     o_HtmlTableRow.Height = "30";
 
                     g_MainTable.Rows.Add(o_HtmlTableRow);
+
+                    i++;
                 }
             }
         }

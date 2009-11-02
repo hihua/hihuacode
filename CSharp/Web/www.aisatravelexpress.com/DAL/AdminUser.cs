@@ -52,16 +52,18 @@ namespace DAL
             if (p_AdminUser == null)
                 return;
 
+            g_TableFields = "AdminUser_Name,AdminUser_NickName,AdminUser_PassWord,AdminUser_Status,AdminUser_AddTime";
+
             string o_FieldsValue = "";
-            o_FieldsValue += "'" + p_AdminUser.AdminUser_Name + "'";
+            o_FieldsValue += "N'" + p_AdminUser.AdminUser_Name + "'";
             o_FieldsValue += ",";
-            o_FieldsValue += "'" + p_AdminUser.AdminUser_NickName + "'";
+            o_FieldsValue += "N'" + p_AdminUser.AdminUser_NickName + "'";
             o_FieldsValue += ",";
-            o_FieldsValue += "'" + p_AdminUser.AdminUser_PassWord + "'";
+            o_FieldsValue += "N'" + p_AdminUser.AdminUser_PassWord + "'";
             o_FieldsValue += ",";
             o_FieldsValue += p_AdminUser.AdminUser_Status.ToString();
             o_FieldsValue += ",";
-            o_FieldsValue += p_AdminUser.AdminUser_AddTime.ToString();
+            o_FieldsValue += "N'" + p_AdminUser.AdminUser_AddTime.ToString() + "'";
 
             Execute_Insert(g_TableName, g_TableFields, o_FieldsValue);
         }
@@ -72,14 +74,14 @@ namespace DAL
                 return;
 
             string o_FieldsValue = "";
-            o_FieldsValue += "AdminUser_Name='" + p_AdminUser.AdminUser_Name + "'";
+            o_FieldsValue += "AdminUser_Name=N'" + p_AdminUser.AdminUser_Name + "'";
             o_FieldsValue += ",";
-            o_FieldsValue += "AdminUser_NickName='" + p_AdminUser.AdminUser_NickName + "'";
+            o_FieldsValue += "AdminUser_NickName=N'" + p_AdminUser.AdminUser_NickName + "'";
             o_FieldsValue += ",";
 
             if (VerifyUtility.IsString_NotNull(p_AdminUser.AdminUser_PassWord))
             {
-                o_FieldsValue += "AdminUser_PassWord='" + p_AdminUser.AdminUser_PassWord + "'";
+                o_FieldsValue += "AdminUser_PassWord=N'" + p_AdminUser.AdminUser_PassWord + "'";
                 o_FieldsValue += ",";
             }
 
