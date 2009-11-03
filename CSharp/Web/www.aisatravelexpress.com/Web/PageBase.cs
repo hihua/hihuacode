@@ -2,6 +2,7 @@
 using System.Data;
 using System.Configuration;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
@@ -14,7 +15,7 @@ using Utility;
 namespace Web
 {
     public class PageBase : System.Web.UI.Page
-    {
+    {        
         protected override void OnInit(EventArgs e)
         {
             base.OnInit(e);            
@@ -75,6 +76,16 @@ namespace Web
                 Response.Write("<script type=\"text/javascript\">alert(\"" + Message + "\");window.top.location.href='" + Url + "';</script>");
                 Response.End();
             }
+        }
+
+        public string GetMSN_herf(string Invitee)
+        {
+            return WebConfigurationManager.AppSettings["MSN_herf"] + Invitee + WebConfigurationManager.AppSettings["MSN_link"];
+        }
+
+        public string GetMSN_img(string Invitee)
+        {
+            return WebConfigurationManager.AppSettings["MSN_img_herf"] + Invitee + WebConfigurationManager.AppSettings["MSN_img_link"];
         }
     }
 }

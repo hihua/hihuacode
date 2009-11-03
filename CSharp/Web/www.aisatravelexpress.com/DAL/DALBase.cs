@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -21,16 +22,16 @@ namespace DAL
             
             if (i_ServerIP == "127.0.0.1")
             {
-                string i_ServerName = HttpContext.Current.Server.MachineName.ToUpper();
+                string i_ServerName = HttpContext.Current.Server.MachineName.ToUpper();                               
 
-                if (i_ServerName == "HIHUA-X61")
-                    g_DBConnectionString = WebConfigurationManager.AppSettings["DBConnectString_Location_1"];
-
+                if (i_ServerName == "HIHUA-X61")                
+                    g_DBConnectionString = WebConfigurationManager.ConnectionStrings["DBConnectString_Location_1"].ConnectionString;
+                                
                 if (i_ServerName == "HUANGHAIHUA")
-                    g_DBConnectionString = WebConfigurationManager.AppSettings["DBConnectString_Location_2"];
+                    g_DBConnectionString = WebConfigurationManager.ConnectionStrings["DBConnectString_Location_2"].ConnectionString;
             }
             else
-                g_DBConnectionString = WebConfigurationManager.AppSettings["DBConnectString_Remote"];                                    
+                g_DBConnectionString = WebConfigurationManager.ConnectionStrings["DBConnectString_Remote"].ConnectionString;                
         }
 
         protected DataTable Execute_Select_DataTable(string p_TableName, string p_TableFields, string p_TableOrderByFields, int p_PageSize, int p_PageIndex, int p_IsCount, int p_OrderByType, string p_SelectWhere, ref int r_TotalCount, ref int r_TotalPage)
