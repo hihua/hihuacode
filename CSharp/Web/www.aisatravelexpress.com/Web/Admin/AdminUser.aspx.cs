@@ -61,8 +61,7 @@ namespace Web.Admin
                     o_HtmlTableRow.Controls.Add(o_HtmlTableCell);
 
                     o_HtmlAnchor = new HtmlAnchor();
-                    o_HtmlAnchor.Attributes.Add("onclick", "ActionSubmit(3, " + o_AdminUser.AdminUser_ID + ")");
-                    o_HtmlAnchor.Attributes.Add("style", "cursor:pointer");
+                    o_HtmlAnchor.HRef = "AdminUser_Delete.aspx?AdminUser_ID=" + o_AdminUser.AdminUser_ID.ToString();
                     o_HtmlAnchor.Attributes.Add("class", "AdminToolsLink2");
                     o_HtmlAnchor.InnerText = "删除";
 

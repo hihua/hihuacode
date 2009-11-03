@@ -58,43 +58,25 @@ namespace Web.Admin
 
         protected void AdminUser_Submit_Click(object sender, EventArgs e)
         {
-            if (!VerifyUtility.IsString_NotNull(AdminUser_Name.Text))
-            {
-                Response.Write("<script type=\"text/javascript\">alert(\"请输入用户名\");window.history.back();</script>");
-                Response.End();
-            }
+            if (!VerifyUtility.IsString_NotNull(AdminUser_Name.Text))                            
+                ResponseError("请输入用户名");            
 
-            if (!VerifyUtility.IsString_NotNull(AdminUser_NickName.Text))
-            {
-                Response.Write("<script type=\"text/javascript\">alert(\"请输入呢称\");window.history.back();</script>");
-                Response.End();
-            }
-
-            if (!AdminUser_Status1.Checked && !AdminUser_Status2.Checked)
-            {
-                Response.Write("<script type=\"text/javascript\">alert(\"请选择权限\");window.history.back();</script>");
-                Response.End();
-            }
+            if (!VerifyUtility.IsString_NotNull(AdminUser_NickName.Text))            
+                ResponseError("请输入呢称");
+            
+            if (!AdminUser_Status1.Checked && !AdminUser_Status2.Checked)            
+                ResponseError("请选择权限");            
 
             if (AdminUser_ID == 0)
             {
-                if (!VerifyUtility.IsString_NotNull(AdminUser_PassWord.Text))
-                {
-                    Response.Write("<script type=\"text/javascript\">alert(\"请输入密码\");window.history.back();</script>");
-                    Response.End();
-                }
+                if (!VerifyUtility.IsString_NotNull(AdminUser_PassWord.Text))                
+                    ResponseError("请输入密码");                
 
-                if (!VerifyUtility.IsString_NotNull(AdminUser_PassWord1.Text))
-                {
-                    Response.Write("<script type=\"text/javascript\">alert(\"请输入确认密码\");window.history.back();</script>");
-                    Response.End();
-                }
+                if (!VerifyUtility.IsString_NotNull(AdminUser_PassWord1.Text))                
+                    ResponseError("请输入确认密码"); 
 
-                if (AdminUser_PassWord.Text != AdminUser_PassWord1.Text)
-                {
-                    Response.Write("<script type=\"text/javascript\">alert(\"确认密码输入不正确\");window.history.back();</script>");
-                    Response.End();
-                }
+                if (AdminUser_PassWord.Text != AdminUser_PassWord1.Text)                                    
+                    ResponseError("确认密码输入不正确");                
                                 
                 if (AdminUser_Status1.Checked)
                     b_AdminUser.Insert_AdminUser(AdminUser_Name.Text, AdminUser_NickName.Text, AdminUser_PassWord.Text, 0);
@@ -104,36 +86,24 @@ namespace Web.Admin
                         b_AdminUser.Insert_AdminUser(AdminUser_Name.Text, AdminUser_NickName.Text, AdminUser_PassWord.Text, 1);
                 }
 
-                Response.Write("<script type=\"text/javascript\">alert(\"添加成功!\");window.location.href='AdminUser_Detail.aspx';</script>");
-                Response.End();
+                ResponseSuccess("添加成功", "AdminUser_Detail.aspx");
             }
             else
             {
                 if (VerifyUtility.IsString_NotNull(AdminUser_PassWord.Text))
                 {
-                    if (!VerifyUtility.IsString_NotNull(AdminUser_PassWord1.Text))
-                    {
-                        Response.Write("<script type=\"text/javascript\">alert(\"请输入确认密码\");window.history.back();</script>");
-                        Response.End();
-                    }
+                    if (!VerifyUtility.IsString_NotNull(AdminUser_PassWord1.Text))                    
+                        ResponseError("请输入密码");                    
 
-                    if (!VerifyUtility.IsString_NotNull(AdminUser_PassWord2.Text))
-                    {
-                        Response.Write("<script type=\"text/javascript\">alert(\"请输入原密码\");window.history.back();</script>");
-                        Response.End();
-                    }
+                    if (!VerifyUtility.IsString_NotNull(AdminUser_PassWord2.Text))                    
+                        ResponseError("请输入确认密码");                     
 
-                    if (AdminUser_PassWord.Text != AdminUser_PassWord1.Text)
-                    {
-                        Response.Write("<script type=\"text/javascript\">alert(\"确认密码输入不正确\");window.history.back();</script>");
-                        Response.End();
-                    }
+                    if (AdminUser_PassWord.Text != AdminUser_PassWord1.Text)                    
+                        ResponseError("确认密码输入不正确");                     
 
-                    if (AdminUser_PassWord2.Text != e_AdminUser.AdminUser_PassWord)
-                    {
-                        Response.Write("<script type=\"text/javascript\">alert(\"原密码输入不正确\");window.history.back();</script>");
-                        Response.End();
-                    }                                        
+                    if (AdminUser_PassWord2.Text != e_AdminUser.AdminUser_PassWord)                    
+                        ResponseError("原密码输入不正确"); 
+                                                            
                 }
                 if (AdminUser_Status1.Checked)
                     b_AdminUser.Update_AdminUser(e_AdminUser.AdminUser_ID, AdminUser_Name.Text, AdminUser_NickName.Text, AdminUser_PassWord.Text, 0);
@@ -141,10 +111,9 @@ namespace Web.Admin
                 {
                     if (AdminUser_Status2.Checked)
                         b_AdminUser.Update_AdminUser(e_AdminUser.AdminUser_ID, AdminUser_Name.Text, AdminUser_NickName.Text, AdminUser_PassWord.Text, 1);
-                }
-                
-                Response.Write("<script type=\"text/javascript\">alert(\"修改成功!\");window.location.href='AdminUser_Detail.aspx?AdminUser_ID=" + e_AdminUser.AdminUser_ID.ToString() + "';</script>");
-                Response.End();
+                }               
+               
+                ResponseSuccess("修改成功", "AdminUser_Detail.aspx?AdminUser_ID=" + e_AdminUser.AdminUser_ID.ToString());
             }                      
         }
     }
