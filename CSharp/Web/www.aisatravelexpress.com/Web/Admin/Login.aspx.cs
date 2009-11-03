@@ -15,7 +15,7 @@ using Utility;
 
 namespace Web.Admin
 {
-    public partial class Login : System.Web.UI.Page
+    public partial class Login : Web.PageBase
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -24,38 +24,28 @@ namespace Web.Admin
 
         protected void Login_Submit_Click(object sender, EventArgs e)
         {
-            if (!VerifyUtility.IsString_NotNull(AdminUser_Name.Text))
-            {
-                Response.Write("<script type=\"text/javascript\">alert(\"请输入用户名\");window.history.back();</script>");
-                Response.End();
-            }
+            if (!VerifyUtility.IsString_NotNull(AdminUser_Name.Text))                            
+                ResponseError("请输入用户名");            
 
-            if (!VerifyUtility.IsString_NotNull(AdminUser_PassWord.Text))
-            {
-                Response.Write("<script type=\"text/javascript\">alert(\"请输入密码\");window.history.back();</script>");
-                Response.End();
-            }
+            if (!VerifyUtility.IsString_NotNull(AdminUser_PassWord.Text))                           
+                ResponseError("请输入密码");            
 
             if (!VerifyUtility.IsString_NotNull(Code.Text))
-            {
-                Response.Write("<script type=\"text/javascript\">alert(\"请输入验证码\");window.history.back();</script>");
-                Response.End();
-            }
+                ResponseError("请输入验证码");  
+            
 
             if (Session["Code"] == null || Code.Text != Session["Code"].ToString())
             {
                 Session.Remove("Code");
-                Response.Write("<script type=\"text/javascript\">alert(\"输入验证码错误\");window.history.back();</script>");
-                Response.End();
+                ResponseError("输入验证码错误");  
             }
 
             BLL.AdminUser b_AdminUser = new BLL.AdminUser();
             Entity.AdminUser e_AdminUser = b_AdminUser.Select_AdminUser(AdminUser_Name.Text, AdminUser_PassWord.Text);
             if (e_AdminUser == null)
             {
-                Session.Remove("Code");
-                Response.Write("<script type=\"text/javascript\">alert(\"用户名，密码错误\");window.history.back();</script>");
-                Response.End();
+                Session.Remove("Code");               
+                ResponseError("用户名，密码错误");  
             }
             else
             {

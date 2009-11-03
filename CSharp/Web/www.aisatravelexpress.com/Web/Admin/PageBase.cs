@@ -13,7 +13,7 @@ using Utility;
 
 namespace Web.Admin
 {
-    public class PageBase : System.Web.UI.Page
+    public class PageBase : Web.PageBase
     {
         protected Entity.AdminUser g_AdminUser;
         protected int g_Page = 1;
@@ -35,58 +35,6 @@ namespace Web.Admin
         protected override void OnError(EventArgs e)
         {
             base.OnError(e);            
-        }
-
-        protected void ResponseError(string Message)
-        {
-            Response.Write("<script type=\"text/javascript\">alert(\"" + Message + "\");window.history.back();</script>");
-            Response.End();
-        }
-
-        protected void ResponseError(string Message, string Url)
-        {
-            Response.Write("<script type=\"text/javascript\">alert(\"" + Message + "\");window.location.href='" + Url + "';</script>");
-            Response.End();            
-        }
-
-        protected void ResponseError(string Message, string Url, int Top)
-        {
-            if (Top == 0)
-            {
-                Response.Write("<script type=\"text/javascript\">alert(\"" + Message + "\");window.location.href='" + Url + "';</script>");
-                Response.End();
-            }
-            else
-            {
-                Response.Write("<script type=\"text/javascript\">alert(\"" + Message + "\");window.top.location.href='" + Url + "';</script>");
-                Response.End();
-            }
-        }
-
-        protected void ResponseSuccess(string Message)
-        {
-            Response.Write("<script type=\"text/javascript\">alert(\"" + Message + "\");window.history.back();</script>");
-            Response.End();
-        }
-
-        protected void ResponseSuccess(string Message, string Url)
-        {
-            Response.Write("<script type=\"text/javascript\">alert(\"" + Message + "\");window.location.href='" + Url + "';</script>");
-            Response.End();
-        }
-
-        protected void ResponseSuccess(string Message, string Url, int Top)
-        {
-            if (Top == 0)
-            {
-                Response.Write("<script type=\"text/javascript\">alert(\"" + Message + "\");window.location.href='" + Url + "';</script>");
-                Response.End();
-            }
-            else
-            {
-                Response.Write("<script type=\"text/javascript\">alert(\"" + Message + "\");window.top.location.href='" + Url + "';</script>");
-                Response.End();
-            }
-        }
+        }                
     }
 }
