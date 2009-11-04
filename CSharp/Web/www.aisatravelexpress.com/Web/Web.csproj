@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FredCK.FCKeditorV2, Version=2.6.3.22452, Culture=neutral, PublicKeyToken=4f86767c9b519a06, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\FredCK.FCKeditorV2.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -46,6 +50,7 @@
     <Content Include="Admin\AdminUser_Detail.aspx" />
     <Content Include="Admin\Code.aspx" />
     <Content Include="Admin\css.css" />
+    <Content Include="Admin\FCKeditor.aspx" />
     <Content Include="Admin\images\admin-button-exit.gif" />
     <Content Include="Admin\images\admin-button-qygl.gif" />
     <Content Include="Admin\images\admin-button-wzgl.gif" />
@@ -163,6 +168,13 @@
     <Compile Include="Admin\Code.aspx.designer.cs">
       <DependentUpon>Code.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\FCKeditor.aspx.cs">
+      <DependentUpon>FCKeditor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\FCKeditor.aspx.designer.cs">
+      <DependentUpon>FCKeditor.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -247,6 +259,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="UpLoad\image\" />
     <Folder Include="WebService\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
