@@ -92,6 +92,7 @@
     <Content Include="AirportListChina.html" />
     <Content Include="AirportListUS.html" />
     <Content Include="css\aisa.css" />
+    <Content Include="css\window.css" />
     <Content Include="images\home_1.jpg" />
     <Content Include="images\home_3.jpg" />
     <Content Include="images\home_4.jpg" />
