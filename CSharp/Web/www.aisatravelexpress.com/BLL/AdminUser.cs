@@ -11,11 +11,11 @@ namespace BLL
 {
     public class AdminUser
     {
-        DAL.AdminUser g_AdminUser;
+        DAL.AdminUser d_AdminUser;
 
         public AdminUser()
         {
-            g_AdminUser = new DAL.AdminUser();
+            d_AdminUser = new DAL.AdminUser();
         }
 
         public Entity.AdminUser Select_AdminUser(string p_AdminUser_Name, string p_AdminUser_PassWord)
@@ -23,7 +23,7 @@ namespace BLL
             p_AdminUser_Name = FilterUtility.FilterSQL(p_AdminUser_Name);
             p_AdminUser_PassWord = FilterUtility.FilterSQL(p_AdminUser_PassWord);
 
-            DataTable o_DataTable = g_AdminUser.Select_AdminUser(p_AdminUser_Name, p_AdminUser_PassWord);
+            DataTable o_DataTable = d_AdminUser.Select_AdminUser(p_AdminUser_Name, p_AdminUser_PassWord);
             if (o_DataTable == null)
                 return null;
 
@@ -43,7 +43,7 @@ namespace BLL
 
         public Entity.AdminUser Select_AdminUser(int p_AdminUser_ID)
         {
-            DataTable o_DataTable = g_AdminUser.Select_AdminUser(p_AdminUser_ID);
+            DataTable o_DataTable = d_AdminUser.Select_AdminUser(p_AdminUser_ID);
             if (o_DataTable == null)
                 return null;
 
@@ -58,9 +58,9 @@ namespace BLL
             return e_AdminUser;
         }
 
-        public Entity.AdminUser[] Select_AdminUser(Entity.AdminUser p_AdminUser, int p_PageSize, int p_PageIndex, ref int p_TotalCount, ref int p_TotalPage)
+        public Entity.AdminUser[] Select_AdminUser(Entity.AdminUser p_AdminUser)
         {
-            DataTable o_DataTable = g_AdminUser.Select_AdminUser(p_AdminUser, p_PageSize, p_PageIndex, ref p_TotalCount, ref p_TotalPage);
+            DataTable o_DataTable = d_AdminUser.Select_AdminUser(p_AdminUser);
             if (o_DataTable == null)
                 return null;
 
@@ -98,7 +98,7 @@ namespace BLL
             o_AdminUser.AdminUser_Status = p_AdminUser_Status;
             o_AdminUser.AdminUser_AddTime = DateTime.Now;
 
-            g_AdminUser.Insert_AdminUser(o_AdminUser);
+            d_AdminUser.Insert_AdminUser(o_AdminUser);
         }
 
         public void Update_AdminUser(int p_AdminUser_ID, string p_AdminUser_Name, string p_AdminUser_NickName, string p_AdminUser_PassWord, int p_AdminUser_Status)
@@ -115,12 +115,12 @@ namespace BLL
             o_AdminUser.AdminUser_Status = p_AdminUser_Status;
             o_AdminUser.AdminUser_AddTime = DateTime.Now;
 
-            g_AdminUser.Update_AdminUser(o_AdminUser);
+            d_AdminUser.Update_AdminUser(o_AdminUser);
         }
 
         public void Delete_AdminUser(int p_AdminUser_ID)
         {
-            g_AdminUser.Delete_AdminUser(p_AdminUser_ID);
+            d_AdminUser.Delete_AdminUser(p_AdminUser_ID);
         }
     }
 }

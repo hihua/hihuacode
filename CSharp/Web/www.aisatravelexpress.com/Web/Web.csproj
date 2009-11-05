@@ -48,6 +48,7 @@
     <Content Include="Admin\AdminUser.aspx" />
     <Content Include="Admin\AdminUser_Delete.aspx" />
     <Content Include="Admin\AdminUser_Detail.aspx" />
+    <Content Include="Admin\Article.aspx" />
     <Content Include="Admin\Code.aspx" />
     <Content Include="Admin\css.css" />
     <Content Include="Admin\FCKeditor.aspx" />
@@ -160,6 +161,13 @@
     </Compile>
     <Compile Include="Admin\AdminUser_Detail.aspx.designer.cs">
       <DependentUpon>AdminUser_Detail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Article.aspx.cs">
+      <DependentUpon>Article.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Article.aspx.designer.cs">
+      <DependentUpon>Article.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Code.aspx.cs">
       <DependentUpon>Code.aspx</DependentUpon>

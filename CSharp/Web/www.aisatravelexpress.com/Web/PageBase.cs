@@ -1,6 +1,8 @@
 ﻿using System;
-using System.Data;
+using System.Collections;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Security;
@@ -15,10 +17,15 @@ using Utility;
 namespace Web
 {
     public class PageBase : System.Web.UI.Page
-    {        
+    {
+        protected Dictionary<int, string> g_Language = new Dictionary<int, string>();
+                
         protected override void OnInit(EventArgs e)
         {
-            base.OnInit(e);            
+            base.OnInit(e);
+
+            g_Language.Add(1, "中文");
+            g_Language.Add(2, "英文");
         }
 
         protected override void OnError(EventArgs e)

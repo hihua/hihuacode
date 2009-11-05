@@ -21,7 +21,7 @@ namespace Web.Admin
             if (!IsPostBack)
             {                
                 BLL.AdminUser b_AdminUser = new BLL.AdminUser();
-                Entity.AdminUser[] e_AdminUser = b_AdminUser.Select_AdminUser(g_AdminUser, 30, g_Page, ref g_TotalCount, ref g_TotalPage);
+                Entity.AdminUser[] e_AdminUser = b_AdminUser.Select_AdminUser(g_AdminUser);
 
                 int i = 1;
                 foreach (Entity.AdminUser o_AdminUser in e_AdminUser)

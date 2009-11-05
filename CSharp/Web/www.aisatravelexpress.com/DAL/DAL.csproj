@@ -39,6 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminUser.cs" />
+    <Compile Include="Article.cs" />
     <Compile Include="DALBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

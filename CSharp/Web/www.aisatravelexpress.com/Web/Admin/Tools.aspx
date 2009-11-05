@@ -46,6 +46,26 @@
 		            </td>
 	            </tr>
 	            <tr>
+		            <td id="Menu2" class="ToolsSpan1" onmouseover="this.className='ToolsSpan2';" onclick="ShowSubMenu(2)" onmouseout="this.className='ToolsSpan1';" style="cursor:pointer" background="images/menudown.gif" height="25">
+			            <span>文章管理</span>
+		            </td>
+	            </tr>
+	            <tr>
+		            <td id="SubMenu2" style="display:none">
+			            <div class="ToolsSpan3" style="width: 158px">
+				            <table cellspacing="3" cellpadding="0" width="130" align="center">
+					            <tr>
+						            <td><a href="#" target="Main" onclick="window.open('Article.aspx?Article_ClassID=1','Article','toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=800px,height=600px');return false;" class="IndexMenuLink1">关于华捷</a></td>
+						        </tr>
+					            <tr>
+						            <td><a href="#" target="Main" onclick="window.open('Article.aspx?Article_ClassID=2','Article','toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=800px,height=600px');return false;" class="IndexMenuLink1">关于我们</a></td>
+						        </tr>					            
+				            </table>
+			            </div>
+			            <br />		
+		            </td>
+	            </tr>
+	            <tr>
                     <td><iframe src="RefreshSession.aspx" scrolling="no" width="0" height="0" frameborder="0"></iframe></td>
                 </tr>
             </table>            

@@ -12,10 +12,7 @@ namespace DAL
         private string g_TableName = "t_AdminUser";
         private string g_TableFields = "AdminUser_ID,AdminUser_Name,AdminUser_NickName,AdminUser_PassWord,AdminUser_Status,AdminUser_AddTime";
         private string g_TableOrderByFields = "AdminUser_ID";
-
-        public int g_TotalCount = 0;
-        public int g_TotalPage = 0;
-
+               
         public AdminUser()
         {
 
@@ -23,17 +20,17 @@ namespace DAL
 
         public DataTable Select_AdminUser(string p_AdminUser_Name, string p_AdminUser_PassWord)
         {
-            DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, 1, 1, 1, 0, "AdminUser_Name='" + p_AdminUser_Name + "' and AdminUser_PassWord='" + p_AdminUser_PassWord + "'", ref g_TotalCount, ref g_TotalPage);
+            DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, 1, 1, 1, 0, "AdminUser_Name='" + p_AdminUser_Name + "' and AdminUser_PassWord='" + p_AdminUser_PassWord + "'");
             return o_DataTable;
         }
 
         public DataTable Select_AdminUser(int p_AdminUser_ID)
         {
-            DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, 1, 1, 1, 0, "AdminUser_ID='" + p_AdminUser_ID.ToString() + "'", ref g_TotalCount, ref g_TotalPage);
+            DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, 1, 1, 1, 0, "AdminUser_ID='" + p_AdminUser_ID.ToString() + "'");
             return o_DataTable;
         }
 
-        public DataTable Select_AdminUser(Entity.AdminUser p_AdminUser, int p_PageSize, int p_PageIndex, ref int p_CountTotal, ref int p_PageTotal)
+        public DataTable Select_AdminUser(Entity.AdminUser p_AdminUser)
         {
             g_TableOrderByFields = "AdminUser_Status";
 
@@ -43,7 +40,7 @@ namespace DAL
             else
                 o_Where = "AdminUser_ID=" + p_AdminUser.AdminUser_ID.ToString();
 
-            DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, p_PageSize, p_PageIndex, 0, 0, o_Where, ref g_TotalCount, ref g_TotalPage);
+            DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, 1, 1, -1, 0, o_Where);
             return o_DataTable;
         }
 
