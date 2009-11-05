@@ -135,7 +135,6 @@
     <Content Include="images\inside_photo_4.jpg" />
     <Content Include="Index.aspx" />
     <Content Include="Index.html" />
-    <Content Include="Js\aisa.js" />
     <Content Include="Js\Ajax.js" />
     <Content Include="Js\jquery.js" />
     <Content Include="Travel.aspx" />
