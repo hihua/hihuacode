@@ -55,10 +55,10 @@
 			            <div class="ToolsSpan3" style="width: 158px">
 				            <table cellspacing="3" cellpadding="0" width="130" align="center">
 					            <tr>
-						            <td><a href="#" target="Main" onclick="window.open('Article.aspx?Article_ClassID=1','Article','toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=800px,height=600px');return false;" class="IndexMenuLink1">关于华捷</a></td>
+						            <td><a href="#" target="Main" onclick="window.open('Article.aspx?Article_ClassID=1','Article','toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=1024px,height=700px');return false;" class="IndexMenuLink1">关于华捷</a></td>
 						        </tr>
 					            <tr>
-						            <td><a href="#" target="Main" onclick="window.open('Article.aspx?Article_ClassID=2','Article','toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=800px,height=600px');return false;" class="IndexMenuLink1">关于我们</a></td>
+						            <td><a href="#" target="Main" onclick="window.open('Article.aspx?Article_ClassID=2','Article','toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=1024px,height=700px');return false;" class="IndexMenuLink1">关于我们</a></td>
 						        </tr>					            
 				            </table>
 			            </div>

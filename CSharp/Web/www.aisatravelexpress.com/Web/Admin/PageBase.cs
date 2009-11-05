@@ -35,21 +35,24 @@ namespace Web.Admin
             base.OnError(e);            
         }
 
-        public void GetArticleTXT()
-        {            
-            switch (g_Article_ClassID)
+        public void GetArticleTXT(Label p_Label)
+        {
+            if (p_Label != null)
             {
-                case 1:
-                    Response.Write("关于华捷");
-                    break;
+                switch (g_Article_ClassID)
+                {
+                    case 1:
+                        p_Label.Text = "关于华捷";
+                        break;
 
-                case 2:
-                    Response.Write("联系我们");
-                    break;
+                    case 2:
+                        p_Label.Text = "联系我们";
+                        break;
 
-                default:
-                    Response.Write("");
-                    break;
+                    default:
+                        p_Label.Text = "";
+                        break;
+                }
             }
         }
 
@@ -57,6 +60,8 @@ namespace Web.Admin
         {
             if (p_DropDownList != null)
             {
+                p_DropDownList.Items.Clear();
+
                 foreach (int i_Key in g_Language.Keys)
                 {                    
                     ListItem o_ListItem = new ListItem(g_Language[i_Key], i_Key.ToString());

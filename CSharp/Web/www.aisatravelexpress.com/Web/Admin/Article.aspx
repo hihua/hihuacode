@@ -14,7 +14,7 @@
         <div>
             <table width="100%" align="center" border="0" cellpadding="0" cellspacing="0">
 	            <tr>
-		            <td align="center" class="DivTitle1" height="30"><%GetArticleTXT();%></td>
+		            <td align="center" class="DivTitle1" height="30"><asp:Label ID="Article_Name" runat="server"></asp:Label></td>
 	            </tr>
             </table>
             <table width="100%" align="left" border="0" cellpadding="0" cellspacing="0">		        		
