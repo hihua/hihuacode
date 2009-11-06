@@ -18,6 +18,7 @@ namespace Web
 {
     public class PageBase : System.Web.UI.Page
     {
+        protected int g_LanguageID = 1;
         protected Dictionary<int, string> g_Language = new Dictionary<int, string>();
                 
         protected override void OnInit(EventArgs e)
@@ -26,6 +27,9 @@ namespace Web
 
             g_Language.Add(1, "中文");
             g_Language.Add(2, "英文");
+
+            if (Session["LanguageID"] != null)
+                g_LanguageID = Convert.ToInt32(Session["LanguageID"].ToString());
         }
 
         protected override void OnError(EventArgs e)
