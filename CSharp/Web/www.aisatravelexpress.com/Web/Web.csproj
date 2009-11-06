@@ -91,6 +91,13 @@
     <Content Include="AirportList.html" />
     <Content Include="AirportListChina.html" />
     <Content Include="AirportListUS.html" />
+    <Content Include="Controls\Form.ascx" />
+    <Content Include="Controls\Left.ascx" />
+    <Content Include="Controls\Login.ascx" />
+    <Content Include="Controls\Offers.ascx" />
+    <Content Include="Controls\Service.ascx" />
+    <Content Include="Controls\Tail.ascx" />
+    <Content Include="Controls\Top.ascx" />
     <Content Include="css\aisa.css" />
     <Content Include="css\window.css" />
     <Content Include="images\home_1.jpg" />
@@ -240,6 +247,55 @@
     </Compile>
     <Compile Include="Admin\Welcome.aspx.designer.cs">
       <DependentUpon>Welcome.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Form.ascx.cs">
+      <DependentUpon>Form.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Form.ascx.designer.cs">
+      <DependentUpon>Form.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Left.ascx.cs">
+      <DependentUpon>Left.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Left.ascx.designer.cs">
+      <DependentUpon>Left.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Login.ascx.cs">
+      <DependentUpon>Login.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Login.ascx.designer.cs">
+      <DependentUpon>Login.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Offers.ascx.cs">
+      <DependentUpon>Offers.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Offers.ascx.designer.cs">
+      <DependentUpon>Offers.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Service.ascx.cs">
+      <DependentUpon>Service.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Service.ascx.designer.cs">
+      <DependentUpon>Service.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Tail.ascx.cs">
+      <DependentUpon>Tail.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Tail.ascx.designer.cs">
+      <DependentUpon>Tail.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Top.ascx.cs">
+      <DependentUpon>Top.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Top.ascx.designer.cs">
+      <DependentUpon>Top.ascx</DependentUpon>
     </Compile>
     <Compile Include="Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>

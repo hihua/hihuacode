@@ -8,45 +8,45 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Web {
+namespace Web.Controls {
     
     
-    public partial class Travel {
+    public partial class Left {
         
         /// <summary>
-        /// form1 控件。
+        /// Web_Login 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::Web.Controls.Login Web_Login;
         
         /// <summary>
-        /// Web_Top 控件。
+        /// Web_Form 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::Web.Controls.Top Web_Top;
+        protected global::Web.Controls.Form Web_Form;
         
         /// <summary>
-        /// Web_Left 控件。
+        /// Web_Service 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::Web.Controls.Left Web_Left;
+        protected global::Web.Controls.Service Web_Service;
         
         /// <summary>
-        /// Web_Tail 控件。
+        /// Web_Offers 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::Web.Controls.Tail Web_Tail;
+        protected global::Web.Controls.Offers Web_Offers;
     }
 }

@@ -1,4 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Travel.aspx.cs" Inherits="Web.Travel" %>
+<%@ Register src="Controls/Top.ascx" tagname="Top" tagprefix="Controls_Top" %>
+<%@ Register src="Controls/Left.ascx" tagname="Left" tagprefix="Controls_Left" %>
+<%@ Register src="Controls/Tail.ascx" tagname="Tail" tagprefix="Controls_Tail" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -9,68 +12,15 @@
     <link type="text/css" href="css/aisa.css" rel="stylesheet" />
 </head>
 <body style="background:url(images/inside_12.jpg) repeat-x #e9faff top;">
-    <form id="form1" runat="server">
-        <div class="inside">
-		    <div class="inside_topanv">
-		        <a href="Index.aspx" class="inside_topanv_a nav8">首页</a>
-		        <a href="#" class="inside_topanv_a nav8">邮件</a>
-		        <a href="#" style="display:block;float:left;" class="nav8">Engilsh</a>
-		    </div>
-		    <div style="height:89px; width:510px; margin:17px 0 0 0;">
-		        <a href="#" style="margin:4px 0 0 0;" class="inside_nav2 inside_anv_icon"></a>
-		        <a href="#" style="margin:4px 0 0 23px;" class="inside_nav3 inside_anv_icon"></a>
-		        <a href="#" style="margin:4px 0 0 23px;" class="inside_nav4 inside_anv_icon"></a>
-		        <a href="#" style="margin:4px 0 0 23px;" class="inside_nav5 inside_anv_icon"></a>
-		        <a href="#" style="margin:4px 0 0 23px;" class="inside_nav6 inside_anv_icon"></a>
-		        <a href="#" style="margin:4px 0 0 23px;" class="inside_nav7 inside_anv_icon"></a>
-		    </div>		
-        </div>
-        <div class="inside_top"></div>
+    <form id="form1" runat="server">        
+        <Controls_Top:Top ID="Web_Top" runat="server" />                     
         <div class="inside_content" style=" background-color:#ddf6fe">
 	        <div class="inside_content_left"></div>
 	        <div class="inside_content_center">
 		        <table width="200" height="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="ddf6fe">
                     <tr>
                         <td align="left" valign="top"bgcolor="ddf6fe" height="10px">
-                            <div class="inside_content_leftanv">
-		                        <div class="inside_content_column inside_content_button1">
-			                        <span class="inside_content_login">帐号：密码：</span>
-			                        <div class="inside_content_input">
-			                            <span><input name="1" type="text" class="input" /></span>
-			                            <span><input name="2" type="text" class="input" /></span>
-			                        </div>
-			                        <a href="#" class="inside_content_inputgo" title="go"></a>
-			                        <span style=" float:left; width:200px; text-align:center; line-height:20px; margin-top:10px;">
-			                            <a href="#" class="input3">立即注册</a>
-			                            <a href="#" class="input3">忘记密码</a>
-			                        </span>
-			                        <span style="float:left; width:200px; text-align:center; margin-top:5px;">
-			                            <a href="#" class="input3">成为会员能享受什么好处？</a>
-			                        </span>			
-		                        </div>
-		                        <div style="clear:both;"></div>
-		                        <div class="inside_content_column inside_content_button2">
-		                            <a href="#"></a>
-		                        </div>
-		                        <div style="clear:both;"></div>
-		                        <div class="inside_content_column inside_content_button3">
-		                            <a href="#" class="nav8 inside_content_button3a1">客服人员：Alex</a><br />
-			                        <a href="#" class="nav8 inside_content_button3a2">客服人员：Nicole</a><br />
-			                        <a href="#" class="nav8 inside_content_button3a1">客服人员：Aime</a><br />
-			                        <a href="#" class="nav8 inside_content_button3a2">客服人员：Terry</a><br />
-		                        </div>
-		                        <div style="clear:both;"></div>
-		                        <div class="inside_content_column inside_content_button4">
-		                            <a href="#" class="nav8">留学加拿大利好迭出：加元贬值... </a><br />
-			                        <a href="#" class="nav8">美国留学三大利好 移民签证申...</a><br />
-			                        <a href="#" class="nav8">美国TN签证有效期延长三年 有...</a><br />
-			                        <a href="#" class="nav8">不做签证官黑名单上的4类人.</a><br />
-			                        <a href="#" class="nav8">赴美旅游签证年底扩预约服务范...</a><br />
-			                        <a href="#" class="nav8">法国：中国公民赴法工作可申请...</a><br />
-			                        <a href="#" class="nav8" style="background:none; border:none; text-align:right;">更多>>></a><br />
-		                        </div>        		  
-		                        <div style="clear:both;"></div>        		  
-		                    </div>        		
+                            <Controls_Left:Left ID="Web_Left" runat="server" />        		
 		                </td>
 			            <td rowspan="2" valign="top"bgcolor="#ddf6fe">
 			                <div class="inside_content_rightanv">
@@ -161,12 +111,7 @@
 	        </div>
 	        <div class="inside_content_right"></div>
 	        <div style="clear:both;"></div>
-	        <div class="inside_footer"></div>
-	        <div class="inside_footer2">
-	            <p><a href="#">关于华捷</a> | <a href="#">旅游线路</a> | <a href="#">机票问价</a> | <a href="#">最新资讯</a> | <a href="#">旅游需知</a> | <a href="#">联系我们</a> | <a href="#">表格下载</a> | <a href="#">在线客服</a></p>
-                <p>Copyright<span style="font-size:20px;">&reg;</span>2009 Aisa travel express. All Rights Reserved</p>
-            </div>
-	        <div class="inside_footer3"></div>
+	        <Controls_Tail:Tail ID="Web_Tail" runat="server" />
         </div>
     </form>
 </body>
