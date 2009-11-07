@@ -19,10 +19,10 @@
 	        <div class="inside_content_center">
 		        <table width="200" height="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="ddf6fe">
                     <tr>
-                        <td align="left" valign="top"bgcolor="ddf6fe" height="10px">
+                        <td align="left" valign="top" bgcolor="ddf6fe" height="10px">
                             <Controls_Left:Left ID="Web_Left" runat="server" />        		
 		                </td>
-			            <td rowspan="2" valign="top"bgcolor="#ddf6fe">
+			            <td rowspan="2" valign="top" bgcolor="#ddf6fe">
 			                <div class="inside_content_rightanv">
 			                    <a href="#"><img src="images/inside_photo_1.jpg" alt="" /></a>
 			                    <div class="inside_content_rightlink">

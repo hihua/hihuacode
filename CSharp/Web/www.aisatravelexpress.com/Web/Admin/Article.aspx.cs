@@ -18,13 +18,15 @@ namespace Web.Admin
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            GetArticleTXT(Article_Name);            
+            GetArticleTXT(Article_Title);            
             b_Article = new BLL.Article();
 
             if (!IsPostBack)
             {
                 SetLanguageControl(Article_LanguageID);
                 e_Article = b_Article.Select_Article(g_Article_ClassID, Convert.ToInt32(Article_LanguageID.SelectedValue));
+                Article_Title.Text = e_Article.Article_Name;
+                Article_Name.Text = e_Article.Article_Name;
                 Article_Content.Value = e_Article.Article_Content;
             }
         }
@@ -32,9 +34,10 @@ namespace Web.Admin
         protected void Article_Submit_Click(object sender, EventArgs e)
         {
             e_Article = b_Article.Select_Article(g_Article_ClassID, Convert.ToInt32(Article_LanguageID.SelectedValue));
-
+            
+            e_Article.Article_Name = Article_Name.Text;
             e_Article.Article_Content = Article_Content.Value;
-            b_Article.Update_Article(e_Article.Article_ID, e_Article.Article_ClassID, e_Article.Article_LanguageID, e_Article.Article_Content);
+            b_Article.Update_Article(e_Article.Article_ID, e_Article.Article_ClassID, e_Article.Article_LanguageID, e_Article.Article_Name, e_Article.Article_Content);
 
             ResponseSuccess("修改成功", "Article.aspx?Article_ClassID=" + e_Article.Article_ClassID);
         }
@@ -42,6 +45,8 @@ namespace Web.Admin
         protected void Article_LanguageID_SelectedIndexChanged(object sender, EventArgs e)
         {
             e_Article = b_Article.Select_Article(g_Article_ClassID, Convert.ToInt32(Article_LanguageID.SelectedValue));
+            Article_Title.Text = e_Article.Article_Name;
+            Article_Name.Text = e_Article.Article_Name;
             Article_Content.Value = e_Article.Article_Content;
         }
     }

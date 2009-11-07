@@ -20,7 +20,10 @@ namespace Web
     {
         protected int g_LanguageID = 1;
         protected Dictionary<int, string> g_Language = new Dictionary<int, string>();
-                
+        protected Dictionary<int, string> g_Title = new Dictionary<int, string>();
+
+        protected int g_Article_ClassID = 1;
+                        
         protected override void OnInit(EventArgs e)
         {
             base.OnInit(e);
@@ -28,8 +31,14 @@ namespace Web
             g_Language.Add(1, "中文");
             g_Language.Add(2, "英文");
 
+            g_Title.Add(1, "华捷国际旅游");
+            g_Title.Add(2, "HuaJie Travel");
+
             if (Session["LanguageID"] != null)
                 g_LanguageID = Convert.ToInt32(Session["LanguageID"].ToString());
+
+            if (VerifyUtility.IsNumber_NotNull(Request["Article_ClassID"]) && Request["Article_ClassID"] != "0")
+                g_Article_ClassID = Convert.ToInt32(Request["Article_ClassID"]);
         }
 
         protected override void OnError(EventArgs e)
@@ -97,6 +106,20 @@ namespace Web
         public string GetMSN_img(string Invitee)
         {
             return WebConfigurationManager.AppSettings["MSN_img_herf"] + Invitee + WebConfigurationManager.AppSettings["MSN_img_link"];
+        }
+
+        public string GetTitle()
+        {
+            return g_Title[g_LanguageID];
+        }
+
+        public void SetHyperLinkTitle(HyperLink p_HyperLink)
+        {
+            if (p_HyperLink != null)
+            {
+                p_HyperLink.NavigateUrl = "Index.aspx";
+                p_HyperLink.Text = GetTitle();
+            }
         }
     }
 }

@@ -80,12 +80,12 @@
 		        </div>	
 	        </div>
 	        <div class="home_nav">
-		        <a href="#" style=" margin:4px 0 0 56px!important; margin:3px 0 0 28px;" class="nav2 home_nav_icon"></a>
+		        <a href="Article.aspx?Article_ClassID=1" style=" margin:4px 0 0 56px!important; margin:3px 0 0 28px;" class="nav2 home_nav_icon"></a>
 		        <a href="#" style=" margin:4px 0 0 20px;" class="nav3 home_nav_icon"></a>
 		        <a href="#" style=" margin:4px 0 0 22px;" class="nav4 home_nav_icon"></a>
 		        <a href="#" style=" margin:4px 0 0 22px;" class="nav5 home_nav_icon"></a>
 		        <a href="#" style=" margin:4px 0 0 22px;" class="nav6 home_nav_icon"></a>
-		        <a href="#" style=" margin:4px 0 0 22px;" class="nav7 home_nav_icon"></a>
+		        <a href="Article.aspx?Article_ClassID=2" style=" margin:4px 0 0 22px;" class="nav7 home_nav_icon"></a>
         		<dl class="home_nav_link">
 			        <a href="#" class="nav8">表格下载</a>
 			        <a href="#" class="nav8" style="padding-left:45px;">在线客服</a>		

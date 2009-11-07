@@ -9,6 +9,7 @@ namespace Entity
         private int _Article_ID;
         private int _Article_ClassID;
         private int _Article_LanguageID;
+        private string _Article_Name;
         private string _Article_Content;
         private DateTime _Article_AddTime;
 
@@ -28,6 +29,12 @@ namespace Entity
         {
             get { return _Article_LanguageID; }
             set { _Article_LanguageID = value; }
+        }
+
+        public string Article_Name
+        {
+            get { return _Article_Name; }
+            set { _Article_Name = value; }
         }
 
         public string Article_Content

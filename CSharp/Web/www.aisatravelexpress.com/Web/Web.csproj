@@ -91,9 +91,12 @@
     <Content Include="AirportList.html" />
     <Content Include="AirportListChina.html" />
     <Content Include="AirportListUS.html" />
+    <Content Include="Article.aspx" />
+    <Content Include="ChangeLanguage.aspx" />
     <Content Include="Controls\Form.ascx" />
     <Content Include="Controls\Left.ascx" />
     <Content Include="Controls\Login.ascx" />
+    <Content Include="Controls\Mid.ascx" />
     <Content Include="Controls\Offers.ascx" />
     <Content Include="Controls\Service.ascx" />
     <Content Include="Controls\Tail.ascx" />
@@ -248,6 +251,20 @@
     <Compile Include="Admin\Welcome.aspx.designer.cs">
       <DependentUpon>Welcome.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Article.aspx.cs">
+      <DependentUpon>Article.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Article.aspx.designer.cs">
+      <DependentUpon>Article.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ChangeLanguage.aspx.cs">
+      <DependentUpon>ChangeLanguage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ChangeLanguage.aspx.designer.cs">
+      <DependentUpon>ChangeLanguage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Form.ascx.cs">
       <DependentUpon>Form.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -268,6 +285,13 @@
     </Compile>
     <Compile Include="Controls\Login.ascx.designer.cs">
       <DependentUpon>Login.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Mid.ascx.cs">
+      <DependentUpon>Mid.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Mid.ascx.designer.cs">
+      <DependentUpon>Mid.ascx</DependentUpon>
     </Compile>
     <Compile Include="Controls\Offers.ascx.cs">
       <DependentUpon>Offers.ascx</DependentUpon>

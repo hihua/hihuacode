@@ -14,10 +14,16 @@
         <div>
             <table width="100%" align="center" border="0" cellpadding="0" cellspacing="0">
 	            <tr>
-		            <td align="center" class="DivTitle1" height="30"><asp:Label ID="Article_Name" runat="server"></asp:Label></td>
+		            <td align="center" class="DivTitle1" height="30"><asp:Label ID="Article_Title" runat="server"></asp:Label></td>
 	            </tr>
             </table>
-            <table width="100%" align="left" border="0" cellpadding="0" cellspacing="0">		        		
+            <table width="100%" align="left" border="0" cellpadding="0" cellspacing="0">
+                <tr bgcolor="#D0D0D0">
+		            <td align="right" height="30">名称：</td>
+			        <td>
+                        <asp:TextBox ID="Article_Name" runat="server" MaxLength="50"></asp:TextBox>
+                    </td>
+		        </tr>		        		
 		        <tr bgcolor="#E3E3E3">
 		            <td align="right" height="30">语言：</td>
 			        <td>

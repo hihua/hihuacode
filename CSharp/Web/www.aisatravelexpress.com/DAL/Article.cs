@@ -10,7 +10,7 @@ namespace DAL
     public class Article : DALBase
     {
         private string g_TableName = "t_Article";
-        private string g_TableFields = "Article_ID,Article_ClassID,Article_LanguageID,Article_Content,Article_AddTime";
+        private string g_TableFields = "Article_ID,Article_ClassID,Article_LanguageID,Article_Name,Article_Content,Article_AddTime";
         private string g_TableOrderByFields = "Article_ID";
                 
         public Article()
@@ -30,6 +30,8 @@ namespace DAL
                 return;
 
             string o_FieldsValue = "";
+            o_FieldsValue += "Article_Name=N'" + p_Article.Article_Name + "'";
+            o_FieldsValue += ",";
             o_FieldsValue += "Article_Content=N'" + p_Article.Article_Content + "'";
             o_FieldsValue += ",";
             o_FieldsValue += "Article_AddTime=N'" + p_Article.Article_AddTime.ToString() + "'";

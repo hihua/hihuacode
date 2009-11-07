@@ -81,7 +81,7 @@ a.nav11:hover,a.nav11:active{color:#ffffff;text-decoration:underline;}
 /*内页*/
 .inside{ width:550px; height:144px; margin:0 auto; overflow:hidden; background:url(../images/inside_1.jpg) no-repeat; padding-left:447px;}
 .inside_topanv{ width:240px; margin-top:5px; height:30px; margin-left:310px; text-align:center; }
-.inside_topanv_a{display:block; letter-spacing:10px; float:left; margin-right:30px;*margin-right:40px;}
+.inside_topanv_a{display:block; letter-spacing:10px; float:left; margin-right:30px;margin-right:40px;}
 .inside_anv_icon{display:block; width:65px; height:85px; float:left;}
 .inside_top{ width:1004px; height:15px; background:url(../images/inside_3.jpg); margin:0 auto;}
 .inside_content{ width:1004px; height:auto; margin:0 auto; background-color:#e9faff; overflow:hidden;}
@@ -101,7 +101,7 @@ a.nav11:hover,a.nav11:active{color:#ffffff;text-decoration:underline;}
 .inside_content_input{float:left;width:120px; padding-top:2px; }
 .inside_content_input span{float:left; margin-bottom:10px; width:100px;}
 .inside_content_inputgo{float:left; background:url(../images/inside_button_2.jpg) no-repeat; display:block; width:46px; height:47px; margin-top:10px;}
-.inside_content_rightanv{float:left;overflow: hidden; background-color:#ffffff;width:689px; padding-left:11px;*padding-left:11px;border-left:solid 1px #83d8f6;min-height:910px;}
+.inside_content_rightanv{float:left;overflow: hidden; background-color:#ffffff;width:689px; padding-left:11px;padding-left:11px;border-left:solid 1px #83d8f6;min-height:910px;}
 .inside_content_rightlink{width:680px; height:32px; background:url(../images/inside_9.jpg) repeat-x; color:#ffffff; font-size:14px; margin-bottom:10px;}
 .inside_content_rightlink2{background:url(../images/inside_7.jpg) no-repeat; float:left; padding-left:4px; height:32px;}
 .inside_content_rightlink3{float:left; text-indent:5px; width:530px; padding-top:10px;}
@@ -127,7 +127,7 @@ a.nav11:hover,a.nav11:active{color:#ffffff;text-decoration:underline;}
 .inside2 h1{color:#71bae1; font-size:16px;text-align:center; letter-spacing:1px; margin-bottom:10px;}
 
 .inside2 p{ text-align:left; line-height:20px; color:#6a6a6a; letter-spacing:1px;}
-.inside2_photo span {float: right;;background:#dfdfdf;position:relative;margin:1px;margin-left:5px;}
+.inside2_photo span {float: right;background:#dfdfdf;position:relative;margin:1px;margin-left:5px;}
 .inside2_photo span img {position:relative;display:block;top:-2px;left:-2px;border:1px solid #ccc;background:#fff;padding:4px;}
 .inside2_photo_demo{ width:646px; height:106px; padding:5px; border:1px solid #e3e3e3; margin:0 auto; padding-right:2px; margin-top:10px; margin-bottom:10px;}
 .inside2_photo_demo img{ float:left; margin-right:3px;}

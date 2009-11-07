@@ -8,10 +8,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Web.Admin {
+namespace Web {
     
     
     public partial class Article {
+        
+        /// <summary>
+        /// Head1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlHead Head1;
         
         /// <summary>
         /// form1 控件。
@@ -23,31 +32,49 @@ namespace Web.Admin {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// Article_Title 控件。
+        /// Web_Top 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Article_Title;
+        protected global::Web.Controls.Top Web_Top;
         
         /// <summary>
-        /// Article_Name 控件。
+        /// Web_Left 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Article_Name;
+        protected global::Web.Controls.Left Web_Left;
         
         /// <summary>
-        /// Article_LanguageID 控件。
+        /// Mid 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList Article_LanguageID;
+        protected global::Web.Controls.Mid Mid;
+        
+        /// <summary>
+        /// HyperLink_Title 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_Title;
+        
+        /// <summary>
+        /// HyperLink_Article_Name 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_Article_Name;
         
         /// <summary>
         /// Article_Content 控件。
@@ -56,33 +83,15 @@ namespace Web.Admin {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FredCK.FCKeditorV2.FCKeditor Article_Content;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Article_Content;
         
         /// <summary>
-        /// Article_Submit 控件。
+        /// Web_Tail 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Article_Submit;
-        
-        /// <summary>
-        /// Article_Reset 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Article_Reset;
-        
-        /// <summary>
-        /// Article_Close 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Article_Close;
+        protected global::Web.Controls.Tail Web_Tail;
     }
 }
