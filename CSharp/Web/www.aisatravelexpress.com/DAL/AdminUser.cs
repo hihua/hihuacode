@@ -83,7 +83,7 @@ namespace DAL
             }
 
             o_FieldsValue += "AdminUser_Status=" + p_AdminUser.AdminUser_Status.ToString();
-            string o_Where = "AdminUser_ID=" + p_AdminUser.AdminUser_ID;
+            string o_Where = "AdminUser_ID=" + p_AdminUser.AdminUser_ID.ToString();
 
             Execute_Update(g_TableName, o_FieldsValue, o_Where);
         }

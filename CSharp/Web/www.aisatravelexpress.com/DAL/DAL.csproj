@@ -41,6 +41,7 @@
     <Compile Include="AdminUser.cs" />
     <Compile Include="Article.cs" />
     <Compile Include="DALBase.cs" />
+    <Compile Include="MSN.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
