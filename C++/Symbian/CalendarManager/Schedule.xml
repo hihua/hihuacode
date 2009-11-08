@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<Schedule>
+	<Schedule_List>
+		<Schedule_Date>2009-10-14</Schedule_Date>
+		<Schedule_Content Schedule_Time="15:32">Test1</Schedule_Content>
+		<Schedule_Content Schedule_Time="12:32">Test2</Schedule_Content>		
+	</Schedule_List>
+	<Schedule_List>
+		<Schedule_Date>2009-10-15</Schedule_Date>
+		<Schedule_Content Schedule_Time="11:32">Test1</Schedule_Content>
+	</Schedule_List>	
+</Schedule>
