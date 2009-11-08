@@ -27,7 +27,7 @@
 	            </tr>
 	            <tr>
 		            <td id="Menu1" class="ToolsSpan1" onmouseover="this.className='ToolsSpan2';" onclick="ShowSubMenu(1)" onmouseout="this.className='ToolsSpan1';" style="cursor:pointer" background="images/menudown.gif" height="25">
-			            <span>系统管理</span>
+			            <span>用户管理</span>
 		            </td>
 	            </tr>
 	            <tr>
