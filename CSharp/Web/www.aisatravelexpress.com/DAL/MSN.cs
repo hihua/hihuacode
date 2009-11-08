@@ -20,7 +20,7 @@ namespace DAL
 
         public DataTable Select_MSN()
         {
-            DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, 1, 1, -2, 0, "");
+            DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, 1, 1, -1, 0, "");
             return o_DataTable;
         }
 
@@ -48,8 +48,7 @@ namespace DAL
             o_FieldsValue += "MSN_Name=N'" + p_MSN.MSN_Name + "'";
             o_FieldsValue += ",";
             o_FieldsValue += "MSN_Invitee=N'" + p_MSN.MSN_Invitee + "'";
-            o_FieldsValue += ",";
-
+            
             string o_Where = "MSN_ID=" + p_MSN.MSN_ID.ToString();
 
             Execute_Update(g_TableName, o_FieldsValue, o_Where);

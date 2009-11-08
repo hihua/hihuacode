@@ -39,7 +39,10 @@
 						        </tr>
 					            <tr>
 						            <td><a href="AdminUser.aspx" target="Main" class="IndexMenuLink1">管理员管理</a></td>
-						        </tr>					            
+						        </tr>
+						        <tr>
+						            <td><a href="MSN.aspx" target="Main" class="IndexMenuLink1">MSN管理</a></td>
+						        </tr>						        					            
 				            </table>
 			            </div>
 			            <br />		

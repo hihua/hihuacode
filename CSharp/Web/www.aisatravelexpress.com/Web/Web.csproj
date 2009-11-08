@@ -85,6 +85,8 @@
     <Content Include="Admin\Login.aspx" />
     <Content Include="Admin\Logout.aspx" />
     <Content Include="Admin\Main.aspx" />
+    <Content Include="Admin\MSN.aspx" />
+    <Content Include="Admin\MSN_Submit.aspx" />
     <Content Include="Admin\RefreshSession.aspx" />
     <Content Include="Admin\Tools.aspx" />
     <Content Include="Admin\Welcome.aspx" />
@@ -226,6 +228,20 @@
     </Compile>
     <Compile Include="Admin\Main.aspx.designer.cs">
       <DependentUpon>Main.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\MSN.aspx.cs">
+      <DependentUpon>MSN.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\MSN.aspx.designer.cs">
+      <DependentUpon>MSN.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\MSN_Submit.aspx.cs">
+      <DependentUpon>MSN_Submit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\MSN_Submit.aspx.designer.cs">
+      <DependentUpon>MSN_Submit.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\PageBase.cs">
       <SubType>ASPXCodeBehind</SubType>

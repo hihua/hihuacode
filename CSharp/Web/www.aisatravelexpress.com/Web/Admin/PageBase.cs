@@ -16,7 +16,8 @@ namespace Web.Admin
     public class PageBase : Web.PageBase
     {
         protected Entity.AdminUser g_AdminUser;
-        protected int g_Article_ClassID = 0;
+        protected int g_Article_ClassID = 1;
+        protected int g_Action_ID = 0;
         
         protected override void OnInit(EventArgs e)
         {
@@ -26,8 +27,11 @@ namespace Web.Admin
             else
                 g_AdminUser = Session["AdminUser"] as Entity.AdminUser;
 
-            if (VerifyUtility.IsNumber_NotNull(Request["Article_ClassID"]))            
-                g_Article_ClassID = Convert.ToInt32(Request["Article_ClassID"]);              
+            if (VerifyUtility.IsNumber_NotNull(Request["Article_ClassID"]) && Request["Article_ClassID"] != "0")            
+                g_Article_ClassID = Convert.ToInt32(Request["Article_ClassID"]);
+
+            if (VerifyUtility.IsNumber_NotNull(Request["Action_ID"]) && Request["Action_ID"] != "0")
+                g_Action_ID = Convert.ToInt32(Request["Action_ID"]);
         }
 
         protected override void OnError(EventArgs e)
