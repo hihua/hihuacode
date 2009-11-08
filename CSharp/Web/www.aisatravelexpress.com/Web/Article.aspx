@@ -28,7 +28,7 @@
 			                    <Controls_Mid:Mid ID="Mid" runat="server" />
 			                    <div class="inside_content_rightlink">
 				                    <span class="inside_content_rightlink2"></span>
-				                    <span class="inside_content_rightlink3"><asp:HyperLink ID="HyperLink_Title" runat="server" class="nav10"></asp:HyperLink>>><asp:HyperLink ID="HyperLink_Article_Name" runat="server" class="nav10"></asp:HyperLink></span>
+				                    <span class="inside_content_rightlink3"><asp:HyperLink ID="HyperLink_Title" runat="server" class="nav10"></asp:HyperLink>>><asp:HyperLink ID="HyperLink_Article" runat="server" class="nav10"></asp:HyperLink></span>
 				                    <span class="inside_content_rightlink4"></span>
 				                </div>
 			                    <div class="inside2" id="Article_Content" runat="server" style="height:910px;"></div>                   			

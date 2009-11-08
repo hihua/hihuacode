@@ -20,14 +20,13 @@ namespace Web
         {
             if (!IsPostBack)
             {
-                SetHyperLinkTitle(HyperLink_Title);
+                SetHyperLinkTitle(HyperLink_Title);                
+                SetHyperLinkArticle(HyperLink_Article);
 
                 BLL.Article b_Article = new BLL.Article();
                 Entity.Article e_Article = b_Article.Select_Article(g_Article_ClassID, g_LanguageID);
                 if (e_Article != null && VerifyUtility.IsString_NotNull(e_Article.Article_Content))
-                {
-                    HyperLink_Article_Name.NavigateUrl = Request.RawUrl;
-                    HyperLink_Article_Name.Text = e_Article.Article_Name;
+                {                                        
                     Article_Content.InnerHtml = e_Article.Article_Content;
                 }
             }

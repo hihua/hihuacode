@@ -87,6 +87,7 @@
     <Content Include="Admin\Main.aspx" />
     <Content Include="Admin\MSN.aspx" />
     <Content Include="Admin\MSN_Submit.aspx" />
+    <Content Include="Admin\News.aspx" />
     <Content Include="Admin\RefreshSession.aspx" />
     <Content Include="Admin\Tools.aspx" />
     <Content Include="Admin\Welcome.aspx" />
@@ -242,6 +243,13 @@
     </Compile>
     <Compile Include="Admin\MSN_Submit.aspx.designer.cs">
       <DependentUpon>MSN_Submit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\News.aspx.cs">
+      <DependentUpon>News.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\News.aspx.designer.cs">
+      <DependentUpon>News.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\PageBase.cs">
       <SubType>ASPXCodeBehind</SubType>

@@ -21,6 +21,7 @@ namespace Web
         protected int g_LanguageID = 1;
         protected Dictionary<int, string> g_Language = new Dictionary<int, string>();
         protected Dictionary<int, string> g_Title = new Dictionary<int, string>();
+        protected Dictionary<int, string[]> g_Article = new Dictionary<int, string[]>();
 
         protected int g_Article_ClassID = 1;
                         
@@ -33,6 +34,17 @@ namespace Web
 
             g_Title.Add(1, "华捷国际旅游");
             g_Title.Add(2, "HuaJie Travel");
+
+            string[] g_ArticleName;
+            g_ArticleName = new string[2];
+            g_ArticleName[0] = "关于华捷";
+            g_ArticleName[1] = "About HuaJie";
+            g_Article.Add(1, g_ArticleName);
+
+            g_ArticleName = new string[2];
+            g_ArticleName[0] = "关于我们";
+            g_ArticleName[1] = "About us";
+            g_Article.Add(2, g_ArticleName);
 
             if (Session["LanguageID"] != null)
                 g_LanguageID = Convert.ToInt32(Session["LanguageID"].ToString());
@@ -119,6 +131,15 @@ namespace Web
             {
                 p_HyperLink.NavigateUrl = "Index.aspx";
                 p_HyperLink.Text = GetTitle();
+            }
+        }
+
+        public void SetHyperLinkArticle(HyperLink p_HyperLink)
+        {
+            if (p_HyperLink != null)
+            {
+                p_HyperLink.NavigateUrl = "Article.aspx?Article_ClassID=" + g_Article_ClassID.ToString();
+                p_HyperLink.Text = g_Article[g_Article_ClassID][g_LanguageID - 1];
             }
         }
     }
