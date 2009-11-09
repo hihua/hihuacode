@@ -62,6 +62,15 @@
 						        </tr>
 					            <tr>
 						            <td><a href="#" target="Main" onclick="window.open('Article.aspx?Article_ClassID=2','Article','toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=1024px,height=700px');return false;" class="IndexMenuLink1">关于我们</a></td>
+						        </tr>
+						        <tr>
+						            <td><a href="News.aspx?News_ClassID=1" target="Main" class="IndexMenuLink1">优惠资讯</a></td>
+						        </tr>
+						        <tr>
+						            <td><a href="News.aspx?News_ClassID=2" target="Main" class="IndexMenuLink1">行业资讯</a></td>
+						        </tr>
+						        <tr>
+						            <td><a href="News.aspx?News_ClassID=3" target="Main" class="IndexMenuLink1">旅游需知</a></td>
 						        </tr>					            
 				            </table>
 			            </div>

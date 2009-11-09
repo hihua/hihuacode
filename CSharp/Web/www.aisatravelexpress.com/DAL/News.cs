@@ -20,7 +20,39 @@ namespace DAL
 
         public DataTable Select_News(int p_News_ClassID, int p_News_LanguageID, int p_PageSize, int p_PageIndex, ref int o_TotalCount, ref int o_TotalPage)
         {
-            DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, p_PageSize, p_PageIndex, 0, 1, "News_ClassID=" + p_News_ClassID.ToString() + " and News_LanguageID=" + p_News_LanguageID.ToString());
+            string o_Where = "News_ClassID=" + p_News_ClassID.ToString();
+            if (p_News_LanguageID > 0)
+                o_Where += " and News_LanguageID=" + p_News_LanguageID.ToString();
+
+            DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, p_PageSize, p_PageIndex, 0, 1, o_Where);
+            return o_DataTable;
+        }
+
+        public DataTable Select_News(int p_News_ClassID, int p_News_LanguageID, string p_Search_Content, int p_Search_Method, int p_PageSize, int p_PageIndex, ref int o_TotalCount, ref int o_TotalPage)
+        {
+            string o_Where = "News_ID=" + p_News_ClassID.ToString();
+            if (p_News_LanguageID > 0)
+                o_Where += " and News_LanguageID=" + p_News_LanguageID.ToString();
+
+            if (VerifyUtility.IsString_NotNull(p_Search_Content))
+            {
+                switch (p_Search_Method)
+                {
+                    case 0:
+                        o_Where += " and (News_Title Like '%" + p_Search_Content + "%' or News_Content Like '" + p_Search_Content + "')";
+                        break;
+
+                    case 1:
+                        o_Where += " and News_Title Like '%" + p_Search_Content + "%'";
+                        break;
+
+                    case 2:
+                        o_Where += " and News_Content Like '%" + p_Search_Content + "%'";
+                        break;
+                }                
+            }
+
+            DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, p_PageSize, p_PageIndex, 0, 1, o_Where);
             return o_DataTable;
         }
 

@@ -17,7 +17,9 @@ namespace Web.Admin
     {
         protected Entity.AdminUser g_AdminUser;
         protected int g_Article_ClassID = 1;
+        protected int g_News_ClassID = 1;
         protected int g_Action_ID = 0;
+        protected int g_Page = 1;
         
         protected override void OnInit(EventArgs e)
         {
@@ -29,6 +31,9 @@ namespace Web.Admin
 
             if (VerifyUtility.IsNumber_NotNull(Request["Article_ClassID"]) && Request["Article_ClassID"] != "0")            
                 g_Article_ClassID = Convert.ToInt32(Request["Article_ClassID"]);
+
+            if (VerifyUtility.IsNumber_NotNull(Request["News_ClassID"]) && Request["News_ClassID"] != "0")
+                g_News_ClassID = Convert.ToInt32(Request["News_ClassID"]);
 
             if (VerifyUtility.IsNumber_NotNull(Request["Action_ID"]) && Request["Action_ID"] != "0")
                 g_Action_ID = Convert.ToInt32(Request["Action_ID"]);
@@ -46,11 +51,36 @@ namespace Web.Admin
                 switch (g_Article_ClassID)
                 {
                     case 1:
-                        p_Label.Text = "关于华捷";
+                        p_Label.Text = g_Article[g_Article_ClassID][0];
                         break;
 
                     case 2:
-                        p_Label.Text = "联系我们";
+                        p_Label.Text = g_Article[g_Article_ClassID][0];
+                        break;
+
+                    default:
+                        p_Label.Text = "";
+                        break;
+                }
+            }
+        }
+
+        public void GetNewsTXT(Label p_Label)
+        {
+            if (p_Label != null)
+            {
+                switch (g_News_ClassID)
+                {
+                    case 1:
+                        p_Label.Text = g_News[g_News_ClassID][0];
+                        break;
+
+                    case 2:
+                        p_Label.Text = g_News[g_News_ClassID][0];
+                        break;
+
+                    case 3:
+                        p_Label.Text = g_News[g_News_ClassID][0];
                         break;
 
                     default:
