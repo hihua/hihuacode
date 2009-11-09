@@ -25,6 +25,7 @@ namespace Web
         protected Dictionary<int, string[]> g_News = new Dictionary<int, string[]>();
 
         protected int g_Article_ClassID = 1;
+        protected int g_News_ClassID = 1;
                         
         protected override void OnInit(EventArgs e)
         {
@@ -68,6 +69,9 @@ namespace Web
 
             if (VerifyUtility.IsNumber_NotNull(Request["Article_ClassID"]) && Request["Article_ClassID"] != "0")
                 g_Article_ClassID = Convert.ToInt32(Request["Article_ClassID"]);
+
+            if (VerifyUtility.IsNumber_NotNull(Request["News_ClassID"]) && Request["News_ClassID"] != "0")
+                g_News_ClassID = Convert.ToInt32(Request["News_ClassID"]);
         }
 
         protected override void OnError(EventArgs e)

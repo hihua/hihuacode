@@ -15,9 +15,7 @@ namespace Web.Admin
 {
     public class PageBase : Web.PageBase
     {
-        protected Entity.AdminUser g_AdminUser;
-        protected int g_Article_ClassID = 1;
-        protected int g_News_ClassID = 1;
+        protected Entity.AdminUser g_AdminUser;        
         protected int g_Action_ID = 0;
         protected int g_Page = 1;
         
@@ -28,13 +26,7 @@ namespace Web.Admin
                 ResponseError("超时请重新登录", "Login.aspx", 1);            
             else
                 g_AdminUser = Session["AdminUser"] as Entity.AdminUser;
-
-            if (VerifyUtility.IsNumber_NotNull(Request["Article_ClassID"]) && Request["Article_ClassID"] != "0")            
-                g_Article_ClassID = Convert.ToInt32(Request["Article_ClassID"]);
-
-            if (VerifyUtility.IsNumber_NotNull(Request["News_ClassID"]) && Request["News_ClassID"] != "0")
-                g_News_ClassID = Convert.ToInt32(Request["News_ClassID"]);
-
+                        
             if (VerifyUtility.IsNumber_NotNull(Request["Action_ID"]) && Request["Action_ID"] != "0")
                 g_Action_ID = Convert.ToInt32(Request["Action_ID"]);
         }
