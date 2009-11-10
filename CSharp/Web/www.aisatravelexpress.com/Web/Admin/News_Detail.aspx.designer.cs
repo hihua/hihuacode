@@ -32,6 +32,15 @@ namespace Web.Admin {
         protected global::System.Web.UI.WebControls.Label News_Name;
         
         /// <summary>
+        /// g_MainTable 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable g_MainTable;
+        
+        /// <summary>
         /// News_LanguageID 控件。
         /// </summary>
         /// <remarks>
@@ -102,5 +111,41 @@ namespace Web.Admin {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button News_Close;
+        
+        /// <summary>
+        /// g_TipsTable 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable g_TipsTable;
+        
+        /// <summary>
+        /// TipsMessage 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label TipsMessage;
+        
+        /// <summary>
+        /// TipsLink1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink TipsLink1;
+        
+        /// <summary>
+        /// TipsLink2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton TipsLink2;
     }
 }

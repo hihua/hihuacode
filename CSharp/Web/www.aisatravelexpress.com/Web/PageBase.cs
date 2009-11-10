@@ -131,6 +131,12 @@ namespace Web
             }
         }
 
+        public void ResponseClose(string Message)
+        {
+            Response.Write("<script type=\"text/javascript\">alert(\"" + Message + "\");window.close();</script>");
+            Response.End();
+        }
+
         public string GetMSN_herf(string Invitee)
         {
             return WebConfigurationManager.AppSettings["MSN_herf"] + Invitee + WebConfigurationManager.AppSettings["MSN_link"];

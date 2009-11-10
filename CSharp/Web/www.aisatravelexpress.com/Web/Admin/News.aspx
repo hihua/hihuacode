@@ -10,20 +10,18 @@
     <script type="text/javascript">
         function ActionSubmit(Action_ID, News_ID, News_ClassID)
         {
+            var URL = "News_Detail.aspx?Action_ID=" + Action_ID + "&News_ID=" + News_ID + "&News_ClassID=" + News_ClassID;                                
             switch (Action_ID)
             {
                 case 1:
-                    var URL = "News_Detail.aspx?Action_ID=" + Action_ID + "&News_ID=" + News_ID + "&News_ClassID=" + News_ClassID;            
                     window.open(URL,"News","toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=1024px,height=700px");   
                     break;
                     
                 case 2:
-                    var URL = "News_Detail.aspx?Action_ID=" + Action_ID + "&News_ID=" + News_ID + "&News_ClassID=" + News_ClassID;            
                     window.open(URL,"News","toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=1024px,height=700px");   
                     break;                    
                     
                 case 3:
-                    var URL = "News_Submit.aspx?Action_ID=" + Action_ID + "&News_ID=" + News_ID + "&News_ClassID=" + News_ClassID;
                     window.open(URL,"News","toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=1024px,height=700px");                    
                     break;            
             }        
@@ -50,8 +48,8 @@
 	      	            <asp:DropDownList ID="News_LanguageID" runat="server">
                             <asp:ListItem Value="0" Selected="True">==语言==</asp:ListItem>
                         </asp:DropDownList>					
-                        <asp:Button ID="Search_Submit" runat="server" Text=" 搜索 " />
-                        <asp:Button ID="Search_Refresh" runat="server" Text=" 刷新 " />
+                        <asp:Button ID="Search_Submit" runat="server" Text=" 搜索 " onclick="Search_Submit_Click" />
+                        <asp:Button ID="Search_Refresh" runat="server" Text=" 刷新 " onclick="Search_Refresh_Click" />
 	  	            </td>
 	  	            <td align="right"><asp:Button ID="News_Add" runat="server" Text="  添加  " /></td>                    
 	            </tr>

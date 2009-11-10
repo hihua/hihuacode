@@ -85,17 +85,10 @@ namespace Web.Admin
         public void SetLanguageControl(DropDownList p_DropDownList)
         {
             if (p_DropDownList != null)
-            {
-                p_DropDownList.Items.Clear();
-
+            {               
                 foreach (int i_Key in g_Language.Keys)
                 {                    
-                    ListItem o_ListItem = new ListItem(g_Language[i_Key], i_Key.ToString());
-                    if (i_Key == 1)
-                        o_ListItem.Selected = true;
-                    else
-                        o_ListItem.Selected = false;
-
+                    ListItem o_ListItem = new ListItem(g_Language[i_Key], i_Key.ToString());                   
                     p_DropDownList.Items.Add(o_ListItem);
                 }                                
             }

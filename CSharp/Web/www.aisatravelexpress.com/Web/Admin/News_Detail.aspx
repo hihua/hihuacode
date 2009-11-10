@@ -17,7 +17,7 @@
 		            <td align="center" class="DivTitle1" height="30"><asp:Label ID="News_Name" runat="server"></asp:Label></td>
 	            </tr>
             </table>
-            <table width="100%" align="left" border="0" cellpadding="0" cellspacing="0">                		        		
+            <table id="g_MainTable" width="100%" align="left" border="0" cellpadding="0" cellspacing="0" runat="server">                		        		
 		        <tr bgcolor="#E3E3E3">
 		            <td align="right" height="30">语言：</td>
 			        <td>
@@ -50,7 +50,18 @@
                         <asp:Button ID="News_Close" runat="server" Text=" 关闭 " OnClientClick="window.close();" />							
 			        </td>
 		        </tr>
-  	        </table>    
+  	        </table>
+  	        <table id="g_TipsTable" width="100%" align="left" border="0" cellpadding="0" cellspacing="0" runat="server" visible="false">
+  	            <tr>
+  	                <td height="30"><asp:Label ID="TipsMessage" runat="server" Text=""></asp:Label></td>                      
+  	            </tr>
+  	            <tr>
+  	                <td height="30"><asp:HyperLink ID="TipsLink1" runat="server" CssClass="AdminToolsLink2"></asp:HyperLink></td>                                           
+  	            </tr>
+  	            <tr>
+  	                <td height="30"><asp:LinkButton ID="TipsLink2" runat="server" CssClass="AdminToolsLink2" OnClientClick="window.close();">关闭</asp:LinkButton></td>                                                                 
+  	            </tr>
+  	        </table>
         </div>
     </form>
 </body>

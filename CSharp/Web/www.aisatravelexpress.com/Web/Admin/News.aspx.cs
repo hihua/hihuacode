@@ -21,7 +21,7 @@ namespace Web.Admin
             {
                 GetNewsTXT(News_Name);
                 SetLanguageControl(News_LanguageID);
-                News_Add.OnClientClick = "ActionSubmit(1, 0, " + g_News_ClassID.ToString() + ")";
+                News_Add.OnClientClick = "ActionSubmit(1, 0, " + g_News_ClassID.ToString() + ");return false;";
                 GetNews();
             }
         }
@@ -60,7 +60,7 @@ namespace Web.Admin
                     o_HtmlTableCell = new HtmlTableCell();
                     o_HtmlAnchor = new HtmlAnchor();
                     o_HtmlAnchor.HRef = "#";
-                    o_HtmlAnchor.Attributes.Add("onclick", "ActionSubmit(2, " + o_News.News_ID.ToString() + ", " + g_News_ClassID.ToString() + ")");
+                    o_HtmlAnchor.Attributes.Add("onclick", "ActionSubmit(2, " + o_News.News_ID.ToString() + ", " + g_News_ClassID.ToString() + ");return false;");
                     o_HtmlAnchor.Attributes.Add("class", "AdminToolsLink2");
                     o_HtmlAnchor.InnerText = "修改";
                     o_HtmlTableCell.Controls.Add(o_HtmlAnchor);
@@ -71,15 +71,18 @@ namespace Web.Admin
 
                     o_HtmlAnchor = new HtmlAnchor();
                     o_HtmlAnchor.HRef = "#";
-                    o_HtmlAnchor.Attributes.Add("onclick", "ActionSubmit(3, " + o_News.News_ID.ToString() + ", " + g_News_ClassID.ToString() + ")");
+                    o_HtmlAnchor.Attributes.Add("onclick", "ActionSubmit(3, " + o_News.News_ID.ToString() + ", " + g_News_ClassID.ToString() + ");return false;");
                     o_HtmlAnchor.Attributes.Add("class", "AdminToolsLink2");
                     o_HtmlAnchor.InnerText = "删除";
                     o_HtmlTableCell.Controls.Add(o_HtmlAnchor);
+                    o_HtmlTableRow.Controls.Add(o_HtmlTableCell);
 
                     o_HtmlTableRow.Align = "center";
                     o_HtmlTableRow.Height = "30";
 
                     g_MainTable.Rows.Add(o_HtmlTableRow);
+
+                    i++;
                 }
 
                 Current_Page.Text = g_Page.ToString();
@@ -105,6 +108,8 @@ namespace Web.Admin
                 {
                     Next_Page.Visible = false;
                 }
+
+                Splite_Page.Visible = true;
             }
             else
                 Splite_Page.Visible = false;
@@ -119,6 +124,17 @@ namespace Web.Admin
         protected void Next_Page_Click(object sender, EventArgs e)
         {
             g_Page = Convert.ToInt32(Next_Page.CommandArgument);
+            GetNews();
+        }
+
+        protected void Search_Submit_Click(object sender, EventArgs e)
+        {
+            g_Page = 1;
+            GetNews();
+        }
+
+        protected void Search_Refresh_Click(object sender, EventArgs e)
+        {
             GetNews();
         }
     }
