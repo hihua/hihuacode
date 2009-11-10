@@ -57,7 +57,7 @@
 	            </tr>
             </table>            
             <table id="g_MainTable" width="100%" border="1" align="center" cellpadding="0" cellspacing="0" class="Table1" runat="server">
-                <tr height="30" align="center" bgcolor="#C0C0C0">
+                <tr align="center" bgcolor="#C0C0C0" style="height:30px">
                     <td>序号</td>	                
 	                <td>语言</td>
 	                <td>标题</td>

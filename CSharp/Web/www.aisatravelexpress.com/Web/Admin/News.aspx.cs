@@ -78,7 +78,7 @@ namespace Web.Admin
                     o_HtmlTableRow.Controls.Add(o_HtmlTableCell);
 
                     o_HtmlTableRow.Align = "center";
-                    o_HtmlTableRow.Height = "30";
+                    o_HtmlTableRow.Style.Add(HtmlTextWriterStyle.Height, "30px");
 
                     g_MainTable.Rows.Add(o_HtmlTableRow);
 
