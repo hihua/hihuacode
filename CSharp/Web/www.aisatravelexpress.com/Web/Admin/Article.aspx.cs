@@ -17,12 +17,12 @@ namespace Web.Admin
         private Entity.Article e_Article;
 
         protected void Page_Load(object sender, EventArgs e)
-        {
-            GetArticleTXT(Article_Name);            
+        {              
             b_Article = new BLL.Article();
 
             if (!IsPostBack)
             {
+                GetArticleTXT(Article_Name);
                 SetLanguageControl(Article_LanguageID);
                 e_Article = b_Article.Select_Article(g_Article_ClassID, Convert.ToInt32(Article_LanguageID.SelectedValue));
                 Article_Content.Value = e_Article.Article_Content;

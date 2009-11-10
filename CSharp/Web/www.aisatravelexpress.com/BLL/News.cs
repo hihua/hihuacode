@@ -78,6 +78,27 @@ namespace BLL
             }
         }
 
+        public Entity.News Select_News(int p_News_ID)
+        {
+            DataTable o_DataTable = d_News.Select_News(p_News_ID);
+            if (o_DataTable == null)
+                return null;
+            else
+            {
+                Entity.News e_News = new Entity.News();
+                DataRow o_DataRow = o_DataTable.Rows[0];
+                                
+                e_News.News_ID = Convert.ToInt32(o_DataRow["News_ID"].ToString());
+                e_News.News_ClassID = Convert.ToInt32(o_DataRow["News_ClassID"].ToString());
+                e_News.News_LanguageID = Convert.ToInt32(o_DataRow["News_LanguageID"].ToString());
+                e_News.News_Title = o_DataRow["News_Title"].ToString();
+                e_News.News_Content = o_DataRow["News_Content"].ToString();
+                e_News.News_AddTime = DateTime.Parse(o_DataRow["News_AddTime"].ToString());
+
+                return e_News;
+            }
+        }
+
         public void Insert_News(int p_News_ClassID, int p_News_LanguageID, string p_News_Title, string p_News_Content)
         {
             p_News_Title = FilterUtility.FilterSQL(p_News_Title);

@@ -10,18 +10,20 @@
     <script type="text/javascript">
         function ActionSubmit(Action_ID, News_ID, News_ClassID)
         {
-            var URL = "News_Detail.aspx?Action_ID=" + Action_ID + "&News_ID=" + News_ID + "&News_ClassID=" + News_ClassID;
             switch (Action_ID)
             {
                 case 1:
+                    var URL = "News_Detail.aspx?Action_ID=" + Action_ID + "&News_ID=" + News_ID + "&News_ClassID=" + News_ClassID;            
                     window.open(URL,"News","toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=1024px,height=700px");   
                     break;
                     
                 case 2:
+                    var URL = "News_Detail.aspx?Action_ID=" + Action_ID + "&News_ID=" + News_ID + "&News_ClassID=" + News_ClassID;            
                     window.open(URL,"News","toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=1024px,height=700px");   
                     break;                    
                     
                 case 3:
+                    var URL = "News_Submit.aspx?Action_ID=" + Action_ID + "&News_ID=" + News_ID + "&News_ClassID=" + News_ClassID;
                     window.open(URL,"News","toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=1024px,height=700px");                    
                     break;            
             }        
