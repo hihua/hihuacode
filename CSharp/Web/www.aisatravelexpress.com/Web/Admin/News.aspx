@@ -22,7 +22,9 @@
                     break;                    
                     
                 case 3:
-                    window.open(URL,"News","toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=1024px,height=700px");                    
+                    if (confirm("确实删除"))
+                        window.open(URL,"News","toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=1024px,height=700px");                    
+                        
                     break;            
             }        
         }
