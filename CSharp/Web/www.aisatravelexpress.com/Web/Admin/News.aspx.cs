@@ -109,10 +109,17 @@ namespace Web.Admin
                     Next_Page.Visible = false;
                 }
 
+                Current_Page.Visible = true;
                 Splite_Page.Visible = true;
+                Total_Page.Visible = true;
             }
             else
+            {
+                Current_Page.Visible = false;
                 Splite_Page.Visible = false;
+                Total_Page.Visible = false;
+                Total_Count.Text = "0";
+            }
         }
 
         protected void Previous_Page_Click(object sender, EventArgs e)

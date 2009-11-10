@@ -39,15 +39,15 @@ namespace DAL
                 switch (p_Search_Method)
                 {
                     case 0:
-                        o_Where += " and (News_Title Like '%" + p_Search_Content + "%' or News_Content Like '" + p_Search_Content + "')";
+                        o_Where += " and (News_Title Like N'%" + p_Search_Content + "%' or News_Content Like N'%" + p_Search_Content + "%')";
                         break;
 
                     case 1:
-                        o_Where += " and News_Title Like '%" + p_Search_Content + "%'";
+                        o_Where += " and News_Title Like N'%" + p_Search_Content + "%'";
                         break;
 
                     case 2:
-                        o_Where += " and News_Content Like '%" + p_Search_Content + "%'";
+                        o_Where += " and News_Content Like N'%" + p_Search_Content + "%'";
                         break;
                 }                
             }
