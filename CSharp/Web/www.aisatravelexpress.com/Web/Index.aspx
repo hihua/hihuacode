@@ -124,25 +124,13 @@
 	                </div>
 	            </div>
 	            <div id="foda1">
-	                <div id="rollImgs1" class="home_comtent_txt" onclick="register0410('qzone',1)">
-	  	                <ul>
-	  	                    <li><a href="#" class="nav9"> 留学加拿大利好迭出：加元贬值签证担保放宽</a>&nbsp;&nbsp;2009-10-21</li>        	 
-	                        <li><a href="#" class="nav9"> 留学加拿大利好迭出：加元贬值签证担保放宽</a>&nbsp;&nbsp;2009-10-21</li>
-	                        <li><a href="#" class="nav9"> 留学加拿大利好迭出：加元贬值签证担保放宽</a>&nbsp;&nbsp;2009-10-21</li>
-	                        <li><a href="#" class="nav9"> 留学加拿大利好迭出：加元贬值签证担保放宽</a>&nbsp;&nbsp;2009-10-21</li>
-	                        <li><a href="#" class="nav9"> 留学加拿大利好迭出：加元贬值签证担保放宽</a>&nbsp;&nbsp;2009-10-21</li>
-	                        <li><a href="#" class="nav9"> 标题字数控制在二十四个字以内</a>&nbsp;&nbsp;2009-10-21</li>
+	                <div id="rollImgs1" class="home_comtent_txt">
+	  	                <ul id="News_ClassID_1_Controls" runat="server">	  	                    
 	                    </ul>        	 
 	                    <div class="home_comternt_dl"><a href="#" class="nav8">更多>>></a></div>
 	                </div>        	  
-	                <div id="rollImgs2" class="home_comtent_txt2" style="display:none;"onclick="register0410('qzone',2)">
-	  	                <ul>
-	  	                    <li><a href="#" class="nav9"> 加元贬值签证担保：加元贬值签证担保放宽</a>&nbsp;&nbsp;2009-10-21</li>        	 
-	                        <li><a href="#" class="nav9"> 加元贬值签证担保：加元贬值签证担保放宽</a>&nbsp;&nbsp;2009-10-21</li>
-        	  	            <li><a href="#" class="nav9"> 加元贬值签证担保：加元贬值签证担保放宽</a>&nbsp;&nbsp;2009-10-21</li>        	 
-	                        <li><a href="#" class="nav9"> 加元贬值签证担保：加元贬值签证担保放宽</a>&nbsp;&nbsp;2009-10-21</li>        	  
-	                        <li><a href="#" class="nav9"> 留学加拿大利好迭出：加元贬值签证担保放宽</a>&nbsp;&nbsp;2009-10-21</li>
-        	  	            <li><a href="#" class="nav9"> 标题字数控制在二十四个字以内</a>&nbsp;&nbsp;2009-10-21</li>
+	                <div id="rollImgs2" class="home_comtent_txt2" style="display:none;">
+	  	                <ul id="News_ClassID_2_Controls" runat="server">	  	                    
 	                    </ul>        	 
 	                    <div class="home_comternt_dl"><a href="#" class="nav8">更多>>></a></div>
 	                </div>

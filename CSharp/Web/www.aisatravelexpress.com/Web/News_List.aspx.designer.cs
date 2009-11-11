@@ -11,7 +11,16 @@
 namespace Web {
     
     
-    public partial class Article {
+    public partial class News_List {
+        
+        /// <summary>
+        /// Head1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlHead Head1;
         
         /// <summary>
         /// form1 控件。
@@ -41,40 +50,13 @@ namespace Web {
         protected global::Web.Controls.Left Web_Left;
         
         /// <summary>
-        /// Mid 控件。
+        /// News_Lists 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::Web.Controls.Mid Mid;
-        
-        /// <summary>
-        /// HyperLink_Title 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink_Title;
-        
-        /// <summary>
-        /// HyperLink_Article 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink_Article;
-        
-        /// <summary>
-        /// Article_Content 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Article_Content;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl News_Lists;
         
         /// <summary>
         /// Web_Tail 控件。
