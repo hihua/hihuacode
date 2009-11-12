@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="News_List.aspx.cs" Inherits="Web.News_List" %>
 <%@ Register src="Controls/Top.ascx" tagname="Top" tagprefix="Controls_Top" %>
 <%@ Register src="Controls/Left.ascx" tagname="Left" tagprefix="Controls_Left" %>
+<%@ Register src="Controls/Mid.ascx" tagname="Mid" tagprefix="Controls_Mid" %>
 <%@ Register src="Controls/Tail.ascx" tagname="Tail" tagprefix="Controls_Tail" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -25,13 +26,12 @@
 			            <td rowspan="2" valign="top" bgcolor="#ddf6fe">
 			                <div class="inside_content_rightanv">
 			                    <Controls_Mid:Mid ID="Mid" runat="server" />
-			                    <div class="inside_content_rightlink">
+			                    <div id="News_Lists" class="inside_content_rightlink" runat="server" style="height:910px;">
 				                    <span class="inside_content_rightlink2"></span>
 				                    <span class="inside_content_rightlink3"><asp:HyperLink ID="HyperLink_Title" runat="server" class="nav10"></asp:HyperLink>>><asp:HyperLink ID="HyperLink_News" runat="server" class="nav10"></asp:HyperLink></span>
-				                    <span style=" float:left; padding-top:10px;"><asp:HyperLink ID="HyperLink_News_ClassID_1" runat="server" class="nav10"></asp:HyperLink> | <asp:HyperLink ID="HyperLink_News_ClassID_2" runat="server" class="nav10"></asp:HyperLink></span>
-				                    <span class="inside_content_rightlink4"></span>
-				                </div>
-			                    <div class="inside2" id="News_Lists" runat="server" style="height:910px;"></div>                   			
+				                    <span style=" float:left; padding-top:10px;"><asp:HyperLink ID="HyperLink_News_ClassID_1" runat="server"></asp:HyperLink> <asp:Label ID="Label_News_ClassID" Text="|" runat="server"></asp:Label> <asp:HyperLink ID="HyperLink_News_ClassID_2" runat="server"></asp:HyperLink></span>
+				                    <span class="inside_content_rightlink4"></span>				                    
+				                </div>			                                      			
 		                    </div>
 		                </td>
                     </tr>

@@ -19,6 +19,7 @@ namespace Web
     public class PageBase : System.Web.UI.Page
     {
         protected int g_LanguageID = 1;
+        protected int g_Page = 1;
         protected Dictionary<int, string> g_Language = new Dictionary<int, string>();
         protected Dictionary<int, string> g_Title = new Dictionary<int, string>();
         protected Dictionary<int, string[]> g_Article = new Dictionary<int, string[]>();
@@ -72,6 +73,9 @@ namespace Web
 
             if (VerifyUtility.IsNumber_NotNull(Request["News_ClassID"]) && Request["News_ClassID"] != "0")
                 g_News_ClassID = Convert.ToInt32(Request["News_ClassID"]);
+
+            if (VerifyUtility.IsNumber_NotNull(Request["Page"]) && Request["Page"] != "0")
+                g_Page = Convert.ToInt32(Request["Page"]);
         }
 
         protected override void OnError(EventArgs e)
@@ -167,6 +171,34 @@ namespace Web
             {
                 p_HyperLink.NavigateUrl = "Article.aspx?Article_ClassID=" + g_Article_ClassID.ToString();
                 p_HyperLink.Text = g_Article[g_Article_ClassID][g_LanguageID - 1];
+            }
+        }
+
+        public void SetHyperLinkNews(HyperLink p_HyperLink)
+        {
+            if (p_HyperLink != null)
+            {
+                p_HyperLink.NavigateUrl = "News_List.aspx?News_ClassID=" + g_News_ClassID.ToString();
+                p_HyperLink.Text = g_News[g_News_ClassID][g_LanguageID - 1];
+            }
+        }
+
+        public void SetHyperLinkNewsClass(HyperLink p_HyperLink1, HyperLink p_HyperLink2, Label p_Label)
+        {
+            if (p_HyperLink1 != null && p_HyperLink2 != null && p_Label != null)
+            {
+                p_HyperLink1.NavigateUrl = "News_List.aspx?News_ClassID=1";
+                p_HyperLink1.Text = g_News[1][g_LanguageID - 1];
+                if (g_News_ClassID != 1)
+                    p_HyperLink1.CssClass = "nav10";
+
+                p_HyperLink2.NavigateUrl = "News_List.aspx?News_ClassID=2";
+                p_HyperLink2.Text = g_News[2][g_LanguageID - 1];
+                if (g_News_ClassID != 2)
+                    p_HyperLink2.CssClass = "nav10";
+
+                if (g_News_ClassID != 1 && g_News_ClassID != 2)
+                    p_Label.Visible = false;
             }
         }
     }
