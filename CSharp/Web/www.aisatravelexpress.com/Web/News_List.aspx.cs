@@ -41,10 +41,14 @@ namespace Web
 
                         HtmlGenericControl o_H3 = new HtmlGenericControl("h3");
                         HtmlGenericControl o_Strong = new HtmlGenericControl("strong");
-                        o_Strong.InnerText = o_News.News_Title;
+                        HtmlAnchor o_Anchor = new HtmlAnchor();
+                        o_Anchor.HRef = "News_Detail.aspx?News_ID=" + o_News.News_ID.ToString();
+                        o_Anchor.InnerText = o_News.News_Title;
+                        o_Anchor.Style.Add(HtmlTextWriterStyle.Color, "#0355a3");
                         HtmlGenericControl o_Span = new HtmlGenericControl("span");
                         o_Span.Style.Add(HtmlTextWriterStyle.Color, "#636363");
                         o_Span.InnerText = "(" + o_News.News_AddTime.ToShortDateString() + ")";
+                        o_Strong.Controls.Add(o_Anchor);
                         o_Strong.Controls.Add(o_Span);
                         o_H3.Controls.Add(o_Strong);
                         o_Div.Controls.Add(o_H3);
@@ -52,11 +56,10 @@ namespace Web
                         o_Span = new HtmlGenericControl("span");
                         o_Span.Attributes.Add("style", "line-height:20px; color:#636363; text-indent:2em; float:left; width:620px; margin-top:10px;");
 
-                        string News_Content = Server.HtmlDecode(o_News.News_Content);
-                        if (News_Content.Length > 182)
-                            o_Span.InnerText = News_Content.Substring(0, 182);
+                        if (o_News.News_Intro.Length > 182)
+                            o_Span.InnerText = o_News.News_Intro.Substring(0, 182);
                         else
-                            o_Span.InnerText = News_Content;
+                            o_Span.InnerText = o_News.News_Intro;
 
                         o_Div.Controls.Add(o_Span);
                         News_Lists.Controls.Add(o_Div);

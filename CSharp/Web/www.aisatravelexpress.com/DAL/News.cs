@@ -10,7 +10,7 @@ namespace DAL
     public class News : DALBase
     {
         private string g_TableName = "t_News";
-        private string g_TableFields = "News_ID,News_ClassID,News_LanguageID,News_Title,News_Content,News_AddTime";
+        private string g_TableFields = "News_ID,News_ClassID,News_LanguageID,News_Title,News_Intro,News_Content,News_AddTime";
         private string g_TableOrderByFields = "News_ID";
 
         public News()
@@ -69,7 +69,7 @@ namespace DAL
             if (p_News == null)
                 return;
 
-            g_TableFields = "News_ClassID,News_LanguageID,News_Title,News_Content,News_AddTime";
+            g_TableFields = "News_ClassID,News_LanguageID,News_Title,News_Intro,News_Content,News_AddTime";
 
             string o_FieldsValue = "";
             o_FieldsValue += p_News.News_ClassID.ToString();
@@ -77,6 +77,8 @@ namespace DAL
             o_FieldsValue += p_News.News_LanguageID.ToString();
             o_FieldsValue += ",";
             o_FieldsValue += "N'" + p_News.News_Title + "'";
+            o_FieldsValue += ",";
+            o_FieldsValue += "N'" + p_News.News_Intro + "'";
             o_FieldsValue += ",";
             o_FieldsValue += "N'" + p_News.News_Content + "'";
             o_FieldsValue += ",";
@@ -96,6 +98,8 @@ namespace DAL
             o_FieldsValue += "News_LanguageID=" + p_News.News_LanguageID.ToString();
             o_FieldsValue += ",";
             o_FieldsValue += "News_Title=N'" + p_News.News_Title + "'";
+            o_FieldsValue += ",";
+            o_FieldsValue += "News_Intro=N'" + p_News.News_Intro + "'";
             o_FieldsValue += ",";
             o_FieldsValue += "News_Content=N'" + p_News.News_Content + "'";
             o_FieldsValue += ",";

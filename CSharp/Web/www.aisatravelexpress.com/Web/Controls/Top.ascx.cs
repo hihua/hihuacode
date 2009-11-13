@@ -24,17 +24,25 @@ namespace Web.Controls
                     switch (i_LanguageID)
                     {
                         case 1:
+                            ChangeLanguage.NavigateUrl += "?Language=2";
                             ChangeLanguage.Text = "Engilsh";
                             break;
 
                         case 2:
+                            ChangeLanguage.NavigateUrl += "?Language=1";
                             ChangeLanguage.Text = "中文";
                             break;
 
                         default:
+                            ChangeLanguage.NavigateUrl += "?Language=2";
                             ChangeLanguage.Text = "Engilsh";
                             break;
                     }
+                }
+                else
+                {
+                    ChangeLanguage.NavigateUrl += "?Language=2";
+                    ChangeLanguage.Text = "Engilsh";
                 }
             }
         }

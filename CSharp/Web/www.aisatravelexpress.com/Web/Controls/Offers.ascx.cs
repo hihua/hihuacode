@@ -47,7 +47,7 @@ namespace Web.Controls
                     }
 
                     HyperLink m_HyperLink = new HyperLink();
-                    m_HyperLink.NavigateUrl = "News_List.aspx?News_ClassID=1";
+                    m_HyperLink.NavigateUrl = "../News_List.aspx?News_ClassID=1";
                     m_HyperLink.Text = "更多>>>";
                     m_HyperLink.CssClass = "nav8";
                     m_HyperLink.Style.Add(HtmlTextWriterStyle.BackgroundImage, "none");

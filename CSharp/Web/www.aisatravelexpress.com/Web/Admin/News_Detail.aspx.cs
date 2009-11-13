@@ -17,15 +17,11 @@ namespace Web.Admin
     {
         private BLL.News g_News;
         private Entity.News e_News;
-        private int g_News_ID = 0;
-
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             g_News = new BLL.News();
-
-            if (VerifyUtility.IsNumber_NotNull(Request["News_ID"]) && Request["News_ID"] != "0")
-                g_News_ID = Convert.ToInt32(Request["News_ID"]);
-
+                        
             if (!IsPostBack)
             {
                 GetNewsTXT(News_Name);
@@ -47,6 +43,7 @@ namespace Web.Admin
                         {
                             News_LanguageID.SelectedValue = e_News.News_LanguageID.ToString();
                             News_AddTime.Text = e_News.News_AddTime.ToString();
+                            News_Intro.Text = e_News.News_Intro;
                             News_Title.Text = e_News.News_Title;
                             News_Content.Value = e_News.News_Content;
                         }
@@ -70,7 +67,7 @@ namespace Web.Admin
             switch (g_Action_ID)
             {
                 case 1:
-                    g_News.Insert_News(g_News_ClassID, Convert.ToInt32(News_LanguageID.SelectedValue), News_Title.Text, News_Content.Value);
+                    g_News.Insert_News(g_News_ClassID, Convert.ToInt32(News_LanguageID.SelectedValue), News_Title.Text, News_Intro.Text, News_Content.Value);
                     g_TipsTable.Visible = true;
                     g_MainTable.Visible = false;
                     TipsMessage.Text = "添加成功";
@@ -79,7 +76,7 @@ namespace Web.Admin
                     break;
 
                 case 2:
-                    g_News.Update_News(g_News_ID, g_News_ClassID, Convert.ToInt32(News_LanguageID.SelectedValue), News_Title.Text, News_Content.Value);
+                    g_News.Update_News(g_News_ID, g_News_ClassID, Convert.ToInt32(News_LanguageID.SelectedValue), News_Title.Text, News_Intro.Text, News_Content.Value);
                     g_TipsTable.Visible = true;
                     g_MainTable.Visible = false;
                     TipsMessage.Text = "修改成功";

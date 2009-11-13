@@ -9,35 +9,36 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 
+using Utility;
+
 namespace Web
 {
     public partial class ChangeLanguage : PageBase
     {
+        private int g_Language = 1;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                if (Session["LanguageID"] == null)
-                    Session["LanguageID"] = 2;
-                else
+                if (VerifyUtility.IsNumber_NotNull(Request["Language"]) && Request["Language"] != "0")
+                    g_Language = Convert.ToInt32(Request["Language"]);
+
+                switch (g_Language)
                 {
-                    int i_LanguageID = Convert.ToInt32(Session["LanguageID"]);
+                    case 1:
+                        Session["LanguageID"] = g_Language;
+                        break;
 
-                    switch (i_LanguageID)
-                    {
-                        case 1:
-                            Session["LanguageID"] = 2;
-                            break;
+                    case 2:
+                        Session["LanguageID"] = g_Language;
+                        break;
 
-                        case 2:
-                            Session["LanguageID"] = 1;
-                            break;
-
-                        default:
-                            Session["LanguageID"] = 1;
-                            break;
-                    }
+                    default:
+                        Session["LanguageID"] = 1;
+                        break;
                 }
+                
 
                 if (Request.UrlReferrer == null)
                     Response.Redirect("Index.aspx");

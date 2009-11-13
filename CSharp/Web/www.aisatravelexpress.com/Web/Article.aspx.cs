@@ -25,7 +25,7 @@ namespace Web
 
                 BLL.Article b_Article = new BLL.Article();
                 Entity.Article e_Article = b_Article.Select_Article(g_Article_ClassID, g_LanguageID);
-                if (e_Article != null && VerifyUtility.IsString_NotNull(e_Article.Article_Content))
+                if (e_Article != null)
                 {                                        
                     Article_Content.InnerHtml = e_Article.Article_Content;
                 }

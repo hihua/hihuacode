@@ -35,13 +35,19 @@
                     </td>
 		        </tr>
 		        <tr bgcolor="#E3E3E3">
+		            <td align="right" height="30">简介：</td>
+			        <td>
+                        <asp:TextBox ID="News_Intro" runat="server" MaxLength="500" Width="780px" TextMode="MultiLine" Height="120px"></asp:TextBox>
+                    </td>
+		        </tr>
+		        <tr bgcolor="#D0D0D0">
 			        <td align="right">编辑内容：</td>
 			        <td>
 			            <FCKeditorV2:FCKeditor ID="News_Content" runat="server" Height="600">
                         </FCKeditorV2:FCKeditor>
                     </td>
 		        </tr>		
-		        <tr bgcolor="#D0D0D0">
+		        <tr bgcolor="#E3E3E3">
 	  	  	        <td colspan="2" align="center" height="40">	
 			            <asp:Button ID="News_Submit" runat="server" Text=" 提交 " onclick="News_Submit_Click" />
 			            &nbsp;

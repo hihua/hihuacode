@@ -164,6 +164,7 @@
     <Content Include="Js\aisa.js" />
     <Content Include="Js\Ajax.js" />
     <Content Include="Js\jquery.js" />
+    <Content Include="News_Detail.aspx" />
     <Content Include="News_List.aspx" />
     <Content Include="Travel.aspx" />
     <Content Include="Web.config" />
@@ -360,6 +361,13 @@
     </Compile>
     <Compile Include="Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="News_Detail.aspx.cs">
+      <DependentUpon>News_Detail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="News_Detail.aspx.designer.cs">
+      <DependentUpon>News_Detail.aspx</DependentUpon>
     </Compile>
     <Compile Include="News_List.aspx.cs">
       <DependentUpon>News_List.aspx</DependentUpon>

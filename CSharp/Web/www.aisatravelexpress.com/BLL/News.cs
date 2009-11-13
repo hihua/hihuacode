@@ -38,6 +38,7 @@ namespace BLL
                     e_News[i].News_ClassID = Convert.ToInt32(o_DataRow["News_ClassID"].ToString());
                     e_News[i].News_LanguageID = Convert.ToInt32(o_DataRow["News_LanguageID"].ToString());
                     e_News[i].News_Title = o_DataRow["News_Title"].ToString();
+                    e_News[i].News_Intro = o_DataRow["News_Intro"].ToString();
                     e_News[i].News_Content = o_DataRow["News_Content"].ToString();
                     e_News[i].News_AddTime = DateTime.Parse(o_DataRow["News_AddTime"].ToString());
 
@@ -68,6 +69,7 @@ namespace BLL
                     e_News[i].News_ClassID = Convert.ToInt32(o_DataRow["News_ClassID"].ToString());
                     e_News[i].News_LanguageID = Convert.ToInt32(o_DataRow["News_LanguageID"].ToString());
                     e_News[i].News_Title = o_DataRow["News_Title"].ToString();
+                    e_News[i].News_Intro = o_DataRow["News_Intro"].ToString();
                     e_News[i].News_Content = o_DataRow["News_Content"].ToString();
                     e_News[i].News_AddTime = DateTime.Parse(o_DataRow["News_AddTime"].ToString());
 
@@ -92,6 +94,7 @@ namespace BLL
                 e_News.News_ClassID = Convert.ToInt32(o_DataRow["News_ClassID"].ToString());
                 e_News.News_LanguageID = Convert.ToInt32(o_DataRow["News_LanguageID"].ToString());
                 e_News.News_Title = o_DataRow["News_Title"].ToString();
+                e_News.News_Intro = o_DataRow["News_Intro"].ToString();
                 e_News.News_Content = o_DataRow["News_Content"].ToString();
                 e_News.News_AddTime = DateTime.Parse(o_DataRow["News_AddTime"].ToString());
 
@@ -99,7 +102,7 @@ namespace BLL
             }
         }
 
-        public void Insert_News(int p_News_ClassID, int p_News_LanguageID, string p_News_Title, string p_News_Content)
+        public void Insert_News(int p_News_ClassID, int p_News_LanguageID, string p_News_Title, string p_News_Intro, string p_News_Content)
         {
             p_News_Title = FilterUtility.FilterSQL(p_News_Title);
             p_News_Content = FilterUtility.FilterSQL(p_News_Content);
@@ -108,13 +111,14 @@ namespace BLL
             o_News.News_ClassID = p_News_ClassID;
             o_News.News_LanguageID = p_News_LanguageID;
             o_News.News_Title = p_News_Title;
+            o_News.News_Intro = p_News_Intro;
             o_News.News_Content = p_News_Content;
             o_News.News_AddTime = DateTime.Now;
 
             d_News.Insert_News(o_News);
         }
 
-        public void Update_News(int p_News_ID, int p_News_ClassID, int p_News_LanguageID, string p_News_Title, string p_News_Content)
+        public void Update_News(int p_News_ID, int p_News_ClassID, int p_News_LanguageID, string p_News_Title, string p_News_Intro, string p_News_Content)
         {
             p_News_Title = FilterUtility.FilterSQL(p_News_Title);
             p_News_Content = FilterUtility.FilterSQL(p_News_Content);
@@ -124,6 +128,7 @@ namespace BLL
             o_News.News_ClassID = p_News_ClassID;
             o_News.News_LanguageID = p_News_LanguageID;
             o_News.News_Title = p_News_Title;
+            o_News.News_Intro = p_News_Intro;
             o_News.News_Content = p_News_Content;
             o_News.News_AddTime = DateTime.Now;
 

@@ -60,25 +60,8 @@ namespace Web.Admin
         public void GetNewsTXT(Label p_Label)
         {
             if (p_Label != null)
-            {
-                switch (g_News_ClassID)
-                {
-                    case 1:
-                        p_Label.Text = g_News[g_News_ClassID][0];
-                        break;
-
-                    case 2:
-                        p_Label.Text = g_News[g_News_ClassID][0];
-                        break;
-
-                    case 3:
-                        p_Label.Text = g_News[g_News_ClassID][0];
-                        break;
-
-                    default:
-                        p_Label.Text = "";
-                        break;
-                }
+            {                
+                p_Label.Text = g_News[g_News_ClassID][0];                 
             }
         }
 

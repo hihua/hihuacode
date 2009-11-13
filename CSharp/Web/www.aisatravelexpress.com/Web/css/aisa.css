@@ -90,8 +90,8 @@ a.nav11:hover,a.nav11:active{color:#ffffff;text-decoration:underline;}
 .inside_content_leftanv{ width:254px; background:#ddf6fe; float:left;}
 .inside_content_column{ width:225px; height:auto; padding-top:40px; padding-left:15px; margin:0 0 0 9px; }
 .inside_content_button1{ background: url(../images/inside_button_1.jpg) no-repeat;}
-.inside_content_button2{ background: url(../images/inside_button_3.jpg) no-repeat; margin-top:10px; padding-top:0px; padding-left:0px; width:239px; }
-.inside_content_button2 a{height:40px; width:240px; display:block;}
+.inside_content_button2{ background: url(../images/inside_button_3.jpg) no-repeat; margin-top:10px; padding-left:10px; width:239px; }
+.inside_content_button2 a{ display:block; width:200px; height:auto; background:url(../images/inside_icon_4.jpg) no-repeat ; padding-left:20px; border-bottom:1px dashed #b7b7b7; padding-bottom:3px;}
 .inside_content_button3{ background: url(../images/inside_button_4.jpg) no-repeat; margin-top:10px; }
 .inside_content_button3a1{ display:block; width:100px; height:auto; background:url(../images/inside_icon_1.jpg) no-repeat right; padding-right:20px; margin-left:20px;}
 .inside_content_button3a2{ display:block; width:100px; height:auto; background:url(../images/inside_icon_2.jpg) no-repeat right; padding-right:20px; margin-left:20px;}

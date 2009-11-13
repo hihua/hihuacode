@@ -27,6 +27,7 @@ namespace Web
 
         protected int g_Article_ClassID = 1;
         protected int g_News_ClassID = 1;
+        protected int g_News_ID = 1;
                         
         protected override void OnInit(EventArgs e)
         {
@@ -48,8 +49,13 @@ namespace Web
             g_ArticleName[0] = "关于我们";
             g_ArticleName[1] = "About us";
             g_Article.Add(2, g_ArticleName);
-
+            
             string[] g_NewsName;
+            g_NewsName = new string[2];
+            g_NewsName[0] = "最新资讯";
+            g_NewsName[1] = "News";
+            g_News.Add(0, g_NewsName);
+
             g_NewsName = new string[2];
             g_NewsName[0] = "优惠资讯";
             g_NewsName[1] = "Offers";
@@ -64,6 +70,11 @@ namespace Web
             g_NewsName[0] = "旅游需知";
             g_NewsName[1] = "Travel Knows";
             g_News.Add(3, g_NewsName);
+
+            g_NewsName = new string[2];
+            g_NewsName[0] = "表格下载";
+            g_NewsName[1] = "Form Download";
+            g_News.Add(4, g_NewsName);
             
             if (Session["LanguageID"] != null)
                 g_LanguageID = Convert.ToInt32(Session["LanguageID"].ToString());
@@ -73,6 +84,9 @@ namespace Web
 
             if (VerifyUtility.IsNumber_NotNull(Request["News_ClassID"]) && Request["News_ClassID"] != "0")
                 g_News_ClassID = Convert.ToInt32(Request["News_ClassID"]);
+
+            if (VerifyUtility.IsNumber_NotNull(Request["News_ID"]) && Request["News_ID"] != "0")
+                g_News_ID = Convert.ToInt32(Request["News_ID"]);
 
             if (VerifyUtility.IsNumber_NotNull(Request["Page"]) && Request["Page"] != "0")
                 g_Page = Convert.ToInt32(Request["Page"]);
@@ -178,27 +192,43 @@ namespace Web
         {
             if (p_HyperLink != null)
             {
-                p_HyperLink.NavigateUrl = "News_List.aspx?News_ClassID=" + g_News_ClassID.ToString();
-                p_HyperLink.Text = g_News[g_News_ClassID][g_LanguageID - 1];
+                if (g_News_ClassID == 1 || g_News_ClassID == 2)
+                {
+                    p_HyperLink.NavigateUrl = "News_List.aspx?News_ClassID=1";
+                    p_HyperLink.Text = g_News[0][g_LanguageID - 1];
+                }
+                else
+                {
+                    p_HyperLink.NavigateUrl = "News_List.aspx?News_ClassID=" + g_News_ClassID.ToString();
+                    p_HyperLink.Text = g_News[g_News_ClassID][g_LanguageID - 1];
+                }
             }
         }
 
         public void SetHyperLinkNewsClass(HyperLink p_HyperLink1, HyperLink p_HyperLink2, Label p_Label)
         {
-            if (p_HyperLink1 != null && p_HyperLink2 != null && p_Label != null)
+            if (g_News_ClassID == 1 || g_News_ClassID == 2)
             {
-                p_HyperLink1.NavigateUrl = "News_List.aspx?News_ClassID=1";
-                p_HyperLink1.Text = g_News[1][g_LanguageID - 1];
-                if (g_News_ClassID != 1)
-                    p_HyperLink1.CssClass = "nav10";
+                if (p_HyperLink1 != null)
+                {
+                    p_HyperLink1.NavigateUrl = "News_List.aspx?News_ClassID=1";
+                    p_HyperLink1.Text = g_News[1][g_LanguageID - 1];
+                    if (g_News_ClassID != 1)
+                        p_HyperLink1.CssClass = "nav10";
+                }
 
-                p_HyperLink2.NavigateUrl = "News_List.aspx?News_ClassID=2";
-                p_HyperLink2.Text = g_News[2][g_LanguageID - 1];
-                if (g_News_ClassID != 2)
-                    p_HyperLink2.CssClass = "nav10";
+                if (p_HyperLink2 != null)
+                {
+                    p_HyperLink2.NavigateUrl = "News_List.aspx?News_ClassID=2";
+                    p_HyperLink2.Text = g_News[2][g_LanguageID - 1];
+                    if (g_News_ClassID != 2)
+                        p_HyperLink2.CssClass = "nav10";
+                }
 
-                if (g_News_ClassID != 1 && g_News_ClassID != 2)
-                    p_Label.Visible = false;
+                if (p_Label != null)
+                {
+                    p_Label.Visible = true;
+                }
             }
         }
     }

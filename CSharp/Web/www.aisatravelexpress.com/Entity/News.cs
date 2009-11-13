@@ -10,6 +10,7 @@ namespace Entity
         private int _News_ClassID;
         private int _News_LanguageID;        
         private string _News_Title;
+        private string _News_Intro;
         private string _News_Content;
         private DateTime _News_AddTime;
 
@@ -35,6 +36,12 @@ namespace Entity
         {
             get { return _News_Title; }
             set { _News_Title = value; }
+        }
+
+        public string News_Intro
+        {
+            get { return _News_Intro; }
+            set { _News_Intro = value; }
         }
 
         public string News_Content

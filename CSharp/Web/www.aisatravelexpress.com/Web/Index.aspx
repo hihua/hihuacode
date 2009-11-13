@@ -62,8 +62,8 @@
         <div style="width:1165px; margin:0 auto; height:auto;">
 	        <div class="home_top">
 		        <div class="home_top_login">
-				    <a class="home_top_a" href="#" title="中文版"></a>
-				    <a class="home_top_a" style="margin-top:20px;" href="#" title="英文版"></a>
+				    <a class="home_top_a" href="ChangeLanguage.aspx?Language=1" title="中文版"></a>
+				    <a class="home_top_a" style="margin-top:20px;" href="ChangeLanguage.aspx?Language=2" title="英文版"></a>
 				    <dl class="home_top_input">
 					    <dt class="home_top_input2" style="float:left;">
 						    <input name="1" type="text" class="input" />
@@ -138,7 +138,7 @@
 	        </div>
 	        
 	        <div class="home_footer">
-	            <p style="color:#666666;"><a href="Article.aspx?Article_ClassID=1">关于华捷</a> | <a href="#">旅游线路</a> | <a href="#">机票问价</a> | <a href="News_List.aspx?News_ClassID=1">最新资讯</a> | <a href="News_List.aspx?News_ClassID=3">旅游需知</a> | <a href="Article.aspx?Article_ClassID=2">联系我们</a> | <a href="#">表格下载</a> | <a href="#">在线客服</a></p>
+	            <p style="color:#666666;"><a href="Article.aspx?Article_ClassID=1">关于华捷</a> | <a href="#">旅游线路</a> | <a href="#">机票问价</a> | <a href="News_List.aspx?News_ClassID=1">最新资讯</a> | <a href="News_List.aspx?News_ClassID=3">旅游需知</a> | <a href="Article.aspx?Article_ClassID=2">联系我们</a> | <a href="News_List.aspx?News_ClassID=4">表格下载</a> | <a href="#">在线客服</a></p>
                 <p>Copyright<span style="font-size:20px;">&reg;</span>2009 Aisa travel express. All Rights Reserved</p>
             </div>
         </div>
