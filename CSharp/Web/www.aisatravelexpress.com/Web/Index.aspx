@@ -83,8 +83,8 @@
 		        <a href="Article.aspx?Article_ClassID=1" style=" margin:4px 0 0 56px!important; margin:3px 0 0 28px;" class="nav2 home_nav_icon"></a>
 		        <a href="#" style=" margin:4px 0 0 20px;" class="nav3 home_nav_icon"></a>
 		        <a href="#" style=" margin:4px 0 0 22px;" class="nav4 home_nav_icon"></a>
-		        <a href="#" style=" margin:4px 0 0 22px;" class="nav5 home_nav_icon"></a>
-		        <a href="#" style=" margin:4px 0 0 22px;" class="nav6 home_nav_icon"></a>
+		        <a href="News_List.aspx?News_ClassID=1" style=" margin:4px 0 0 22px;" class="nav5 home_nav_icon"></a>
+		        <a href="News_List.aspx?News_ClassID=3" style=" margin:4px 0 0 22px;" class="nav6 home_nav_icon"></a>
 		        <a href="Article.aspx?Article_ClassID=2" style=" margin:4px 0 0 22px;" class="nav7 home_nav_icon"></a>
         		<dl class="home_nav_link">
 			        <a href="#" class="nav8">表格下载</a>
@@ -92,11 +92,11 @@
 		        </dl>
 		        <div class="fod">
 		            <dl class="fod_v1">
-				        <a><img id="imgq1" onmouseover="changeImgg(1)" src="images/home_iconn_1.jpg" alt="" /></a>
+				        <a href="News_List.aspx?News_ClassID=1"><img id="imgq1" onmouseover="changeImgg(1)" src="images/home_iconn_1.jpg" alt="" /></a>
 					</dl>
 				    <span class="dd">&nbsp;&nbsp;</span>
 				    <dl class="fod_v2">
-				    	<a><img id="imgq2" onmouseover="changeImgg(2)" src="images/home_iconss_2.jpg" alt="" /></a>
+				    	<a href="News_List.aspx?News_ClassID=2"><img id="imgq2" onmouseover="changeImgg(2)" src="images/home_iconss_2.jpg" alt="" /></a>
 			        </dl>
 			    </div>		
 	        </div>
@@ -127,18 +127,18 @@
 	                <div id="rollImgs1" class="home_comtent_txt">
 	  	                <ul id="News_ClassID_1_Controls" runat="server">	  	                    
 	                    </ul>        	 
-	                    <div class="home_comternt_dl"><a href="#" class="nav8">更多>>></a></div>
+	                    <div id="News_ClassID_1_More" class="home_comternt_dl" runat="server"><a href="News_List.aspx?News_ClassID=1" class="nav8">更多>>></a></div>
 	                </div>        	  
 	                <div id="rollImgs2" class="home_comtent_txt2" style="display:none;">
 	  	                <ul id="News_ClassID_2_Controls" runat="server">	  	                    
 	                    </ul>        	 
-	                    <div class="home_comternt_dl"><a href="#" class="nav8">更多>>></a></div>
+	                    <div id="News_ClassID_2_More" class="home_comternt_dl" runat="server"><a href="News_List.aspx?News_ClassID=2" class="nav8">更多>>></a></div>
 	                </div>
 	            </div>	  
 	        </div>
 	        
 	        <div class="home_footer">
-	            <p style="color:#666666;"><a href="#">关于华捷</a> | <a href="#">旅游线路</a> | <a href="#">机票问价</a> | <a href="#">最新资讯</a> | <a href="#">旅游需知</a> | <a href="#">联系我们</a> | <a href="#">表格下载</a> | <a href="#">在线客服</a></p>
+	            <p style="color:#666666;"><a href="Article.aspx?Article_ClassID=1">关于华捷</a> | <a href="#">旅游线路</a> | <a href="#">机票问价</a> | <a href="News_List.aspx?News_ClassID=1">最新资讯</a> | <a href="News_List.aspx?News_ClassID=3">旅游需知</a> | <a href="Article.aspx?Article_ClassID=2">联系我们</a> | <a href="#">表格下载</a> | <a href="#">在线客服</a></p>
                 <p>Copyright<span style="font-size:20px;">&reg;</span>2009 Aisa travel express. All Rights Reserved</p>
             </div>
         </div>

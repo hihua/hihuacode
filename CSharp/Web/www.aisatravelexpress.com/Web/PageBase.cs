@@ -52,12 +52,12 @@ namespace Web
             string[] g_NewsName;
             g_NewsName = new string[2];
             g_NewsName[0] = "优惠资讯";
-            g_NewsName[1] = "Offers Info";
+            g_NewsName[1] = "Offers";
             g_News.Add(1, g_NewsName);
 
             g_NewsName = new string[2];
             g_NewsName[0] = "行业资讯";
-            g_NewsName[1] = "Industry Info";
+            g_NewsName[1] = "Industry";
             g_News.Add(2, g_NewsName);
 
             g_NewsName = new string[2];

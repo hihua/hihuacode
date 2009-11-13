@@ -45,6 +45,8 @@ namespace Web
                         News_ClassID_1_Controls.InnerHtml += "<li>" + o_StringBuilder.ToString() + "&nbsp;&nbsp;" + o_News.News_AddTime.ToShortDateString() + "</li>";
                     }
                 }
+                else
+                    News_ClassID_1_More.Visible = false;
 
                 e_News = b_News.Select_News(2, g_LanguageID, 5, 1);
                 if (e_News != null)
@@ -69,6 +71,8 @@ namespace Web
                         News_ClassID_2_Controls.InnerHtml += "<li>" + o_StringBuilder.ToString() + "&nbsp;&nbsp;" + o_News.News_AddTime.ToShortDateString() + "</li>";
                     }
                 }
+                else
+                    News_ClassID_2_More.Visible = false;
             }
         }
     }

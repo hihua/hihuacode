@@ -19,36 +19,48 @@ namespace Web
             {
                 SetHyperLinkTitle(HyperLink_Title);
                 SetHyperLinkNews(HyperLink_News);
-                SetHyperLinkNewsClass(HyperLink_News_ClassID_1, HyperLink_News_ClassID_2, Label_News_ClassID);
+
+                if (g_News_ClassID == 1 || g_News_ClassID == 2)
+                    SetHyperLinkNewsClass(HyperLink_News_ClassID_1, HyperLink_News_ClassID_2, Label_News_ClassID);
+                else
+                {
+                    HyperLink_News_ClassID_1.Visible = false;
+                    HyperLink_News_ClassID_2.Visible = false;
+                    Label_News_ClassID.Visible = false;
+                }
                 
                 BLL.News b_News = new BLL.News();
                 Entity.News[] e_News = b_News.Select_News(g_News_ClassID, g_LanguageID, 7, g_Page);
-                foreach (Entity.News o_News in e_News)
+
+                if (e_News != null)
                 {
-                    HtmlGenericControl o_Div = new HtmlGenericControl("div");
-                    o_Div.Attributes.Add("class", "inside3_news");
+                    foreach (Entity.News o_News in e_News)
+                    {
+                        HtmlGenericControl o_Div = new HtmlGenericControl("div");
+                        o_Div.Attributes.Add("class", "inside3_news");
 
-                    HtmlGenericControl o_H3 = new HtmlGenericControl("h3");
-                    HtmlGenericControl o_Strong = new HtmlGenericControl("strong");
-                    o_Strong.InnerText = o_News.News_Title;
-                    HtmlGenericControl o_Span = new HtmlGenericControl("span");
-                    o_Span.Style.Add(HtmlTextWriterStyle.Color, "#636363");
-                    o_Span.InnerText = "(" + o_News.News_AddTime.ToShortDateString() + ")";
-                    o_Strong.Controls.Add(o_Span);
-                    o_H3.Controls.Add(o_Strong);
-                    o_Div.Controls.Add(o_H3);
+                        HtmlGenericControl o_H3 = new HtmlGenericControl("h3");
+                        HtmlGenericControl o_Strong = new HtmlGenericControl("strong");
+                        o_Strong.InnerText = o_News.News_Title;
+                        HtmlGenericControl o_Span = new HtmlGenericControl("span");
+                        o_Span.Style.Add(HtmlTextWriterStyle.Color, "#636363");
+                        o_Span.InnerText = "(" + o_News.News_AddTime.ToShortDateString() + ")";
+                        o_Strong.Controls.Add(o_Span);
+                        o_H3.Controls.Add(o_Strong);
+                        o_Div.Controls.Add(o_H3);
 
-                    o_Span = new HtmlGenericControl("span");
-                    o_Span.Attributes.Add("style", "line-height:20px; color:#636363; text-indent:2em; float:left; width:620px; margin-top:10px;");
+                        o_Span = new HtmlGenericControl("span");
+                        o_Span.Attributes.Add("style", "line-height:20px; color:#636363; text-indent:2em; float:left; width:620px; margin-top:10px;");
 
-                    string News_Content = Server.HtmlDecode(o_News.News_Content);
-                    if (News_Content.Length > 182)
-                        o_Span.InnerText = News_Content.Substring(0, 182);
-                    else
-                        o_Span.InnerText = News_Content;
+                        string News_Content = Server.HtmlDecode(o_News.News_Content);
+                        if (News_Content.Length > 182)
+                            o_Span.InnerText = News_Content.Substring(0, 182);
+                        else
+                            o_Span.InnerText = News_Content;
 
-                    o_Div.Controls.Add(o_Span);
-                    News_Lists.Controls.Add(o_Div);
+                        o_Div.Controls.Add(o_Span);
+                        News_Lists.Controls.Add(o_Div);
+                    }
                 }
             }
         }
