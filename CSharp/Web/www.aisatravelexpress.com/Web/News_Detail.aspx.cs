@@ -30,7 +30,8 @@ namespace Web
                     SetHyperLinkNews(HyperLink_News);
                     SetHyperLinkNewsClass(HyperLink_News_Class, null, null);
 
-                    News_Content.InnerHtml = e_News.News_Content;
+                    News_Content.InnerHtml += "<h1><strong>" + e_News.News_Title + "</strong></h1>";                    
+                    News_Content.InnerHtml += e_News.News_Content;
                 }
             }
         }
