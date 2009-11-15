@@ -10,7 +10,7 @@ namespace DAL
     public class Travel : DALBase
     {
         private string g_TableName = "t_Travel";
-        private string g_TableFields = "Travel_ID,Travel_LanguageID,Travel_Type,Travel_Code,Travel_Name,Travel_Price,Travel_Points,Travel_StartDate,Travel_EndDate,Travel_Views,Travel_Route,Travel_PreView1,Travel_PreView2,Travel_PreViews,Travel_StartAddr,Travel_EndAddr,Travel_AddTime";
+        private string g_TableFields = "Travel_ID,Travel_LanguageID,Travel_TypeID,Travel_Code,Travel_Name,Travel_Price,Travel_Points,Travel_StartDate,Travel_EndDate,Travel_Views,Travel_Route,Travel_PreView1,Travel_PreView2,Travel_PreViews,Travel_StartAddr,Travel_EndAddr,Travel_AddTime";
         private string g_TableOrderByFields = "Travel_ID";
 
         public Travel()
@@ -20,10 +20,13 @@ namespace DAL
 
         public DataTable Select_Travel(int p_Travel_LanguageID, int p_Travel_TypeID, string p_Search_Content, int p_Search_Method, int p_PageSize, int p_PageIndex, ref int o_TotalCount, ref int o_TotalPage)
         {
-            string o_Where = "";
-            o_Where += "Travel_LanguageID=" + p_Travel_LanguageID.ToString();
-            o_Where += "Travel_TypeID=" + p_Travel_TypeID.ToString();
+            string o_Where = "1=1";
+            if (p_Travel_LanguageID > 0)
+                o_Where += " and Travel_LanguageID=" + p_Travel_LanguageID.ToString();
 
+            if (p_Travel_TypeID > 0)
+                o_Where += " and Travel_TypeID=" + p_Travel_TypeID.ToString();
+            
             if (VerifyUtility.IsString_NotNull(p_Search_Content))
             {
                 switch (p_Search_Method)

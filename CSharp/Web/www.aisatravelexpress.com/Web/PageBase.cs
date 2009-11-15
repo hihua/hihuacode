@@ -25,7 +25,7 @@ namespace Web
         protected Dictionary<int, string[]> g_Article = new Dictionary<int, string[]>();
         protected Dictionary<int, string[]> g_News = new Dictionary<int, string[]>();
         protected Dictionary<int, string[]> g_Travel = new Dictionary<int, string[]>();
-
+       
         protected int g_Article_ClassID = 1;
         protected int g_News_ClassID = 1;
         protected int g_News_ID = 1;
@@ -78,11 +78,21 @@ namespace Web
             g_NewsName[1] = "Form Download";
             g_News.Add(4, g_NewsName);
 
-            string[] g_TravelTitle;
-            g_TravelTitle = new string[2];
-            g_TravelTitle[0] = "旅游路线";
-            g_TravelTitle[1] = "Travel Routes";
-            g_Travel.Add(0, g_TravelTitle);
+            string[] g_TravelName;
+            g_TravelName = new string[2];
+            g_TravelName[0] = "旅游路线";
+            g_TravelName[1] = "Travel Routes";
+            g_Travel.Add(0, g_TravelName);
+
+            g_TravelName = new string[2];
+            g_TravelName[0] = "国外旅游";
+            g_TravelName[1] = "Travel Abroad";
+            g_Travel.Add(1, g_TravelName);
+
+            g_TravelName = new string[2];
+            g_TravelName[0] = "中国旅游";
+            g_TravelName[1] = "China Tourism";
+            g_Travel.Add(2, g_TravelName);
             
             if (Session["LanguageID"] != null)
                 g_LanguageID = Convert.ToInt32(Session["LanguageID"].ToString());

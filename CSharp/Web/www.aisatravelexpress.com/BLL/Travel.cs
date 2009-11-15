@@ -21,7 +21,7 @@ namespace BLL
             d_Travel = new DAL.Travel();
         }
 
-        public Entity.Travel[] Select_Travel(int p_Travel_LanguageID, int p_Travel_TypeID, string p_Search_Content, int p_Search_Method, int p_PageSize, int p_PageIndex, ref int o_TotalCount, ref int o_TotalPage)
+        public Entity.Travel[] Select_Travel(int p_Travel_LanguageID, int p_Travel_TypeID, string p_Search_Content, int p_Search_Method, int p_PageSize, int p_PageIndex)
         {
             p_Search_Content = FilterUtility.FilterSQL(p_Search_Content);
 

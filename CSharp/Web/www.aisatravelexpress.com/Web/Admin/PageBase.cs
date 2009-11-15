@@ -84,5 +84,20 @@ namespace Web.Admin
                 }                                
             }
         }
+
+        public void SetTravelTypeControl(DropDownList p_DropDownList)
+        {
+            if (p_DropDownList != null)
+            {
+                foreach (int i_Key in g_Travel.Keys)
+                {
+                    if (i_Key > 0)
+                    {
+                        ListItem o_ListItem = new ListItem(g_Travel[i_Key][0], i_Key.ToString());
+                        p_DropDownList.Items.Add(o_ListItem);
+                    }
+                }
+            }
+        }
     }
 }

@@ -44,8 +44,14 @@
 		                <asp:TextBox ID="Search_Content" runat="server" Width="200"></asp:TextBox>
 		                <asp:DropDownList ID="Search_Method" runat="server">
                             <asp:ListItem Value="0" Selected="True">==搜索形式==</asp:ListItem>
-                            <asp:ListItem Value="1">按标题</asp:ListItem>
-                            <asp:ListItem Value="2">按内容</asp:ListItem>
+                            <asp:ListItem Value="1">标题</asp:ListItem>
+                            <asp:ListItem Value="2">名称</asp:ListItem>
+                            <asp:ListItem Value="3">价格</asp:ListItem>
+                            <asp:ListItem Value="4">积分信息</asp:ListItem>
+                            <asp:ListItem Value="5">出团开始时间</asp:ListItem>
+                            <asp:ListItem Value="6">出团结束时间</asp:ListItem>
+                            <asp:ListItem Value="7">出发地</asp:ListItem>
+                            <asp:ListItem Value="8">结束地</asp:ListItem>                            
                         </asp:DropDownList>                 
 	      	            <asp:DropDownList ID="Travel_LanguageID" runat="server">
                             <asp:ListItem Value="0" Selected="True">==语言==</asp:ListItem>
@@ -55,8 +61,8 @@
                             <asp:ListItem Value="1">国外旅游</asp:ListItem>
                             <asp:ListItem Value="2">中国旅游</asp:ListItem>
                         </asp:DropDownList>					
-                        <asp:Button ID="Search_Submit" runat="server" Text=" 搜索 " />
-                        <asp:Button ID="Search_Refresh" runat="server" Text=" 刷新 " />
+                        <asp:Button ID="Search_Submit" runat="server" Text=" 搜索 " onclick="Search_Submit_Click" />
+                        <asp:Button ID="Search_Refresh" runat="server" Text=" 刷新 " onclick="Search_Refresh_Click" />
 	  	            </td>
 	  	            <td align="right"><asp:Button ID="Travel_Add" runat="server" Text="  添加  " /></td>                    
 	            </tr>
@@ -68,18 +74,20 @@
 	                <td>分类</td>
 	                <td>名称</td>
 	                <td>线路编号</td>
-	                <td>价格</td>
+	                <td>价格</td>	                
 	                <td>出发地</td>
 	                <td>结束地</td>
 	                <td>积分信息</td>
 	                <td>出团日期</td>
+	                <td>录入时间</td>
+	                <td>处理</td>
                 </tr>
             </table>
             <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
                 <tr>
                     <td align="left">
-                        <asp:LinkButton ID="Previous_Page" runat="server" Visible="false" CssClass="AdminToolsLink2">上一页</asp:LinkButton>                        
-                        <asp:LinkButton ID="Next_Page" runat="server" Visible="false" CssClass="AdminToolsLink2">下一页</asp:LinkButton>
+                        <asp:LinkButton ID="Previous_Page" runat="server" Visible="false" CssClass="AdminToolsLink2" onclick="Previous_Page_Click">上一页</asp:LinkButton>                        
+                        <asp:LinkButton ID="Next_Page" runat="server" Visible="false" CssClass="AdminToolsLink2" onclick="Next_Page_Click">下一页</asp:LinkButton>
                         &nbsp;
                         <asp:Label ID="Current_Page" runat="server" Text=""></asp:Label>
                         <asp:Label ID="Splite_Page" runat="server" Text="/"></asp:Label>
