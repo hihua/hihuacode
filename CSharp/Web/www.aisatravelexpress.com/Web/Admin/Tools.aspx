@@ -74,6 +74,9 @@
 						        </tr>
 						        <tr>
 						            <td><a href="News.aspx?News_ClassID=4" target="Main" class="IndexMenuLink1">表格下载</a></td>
+						        </tr>
+						        <tr>
+						            <td><a href="Travel.aspx" target="Main" class="IndexMenuLink1">旅游路线</a></td>
 						        </tr>					            
 				            </table>
 			            </div>

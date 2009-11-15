@@ -91,6 +91,7 @@
     <Content Include="Admin\News_Detail.aspx" />
     <Content Include="Admin\RefreshSession.aspx" />
     <Content Include="Admin\Tools.aspx" />
+    <Content Include="Admin\Travel.aspx" />
     <Content Include="Admin\Welcome.aspx" />
     <Content Include="AirportList.html" />
     <Content Include="AirportListChina.html" />
@@ -278,6 +279,13 @@
     <Compile Include="Admin\Tools.aspx.designer.cs">
       <DependentUpon>Tools.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\Travel.aspx.cs">
+      <DependentUpon>Travel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Travel.aspx.designer.cs">
+      <DependentUpon>Travel.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\Welcome.aspx.cs">
       <DependentUpon>Welcome.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -408,6 +416,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Travel_Images\" />
     <Folder Include="UpLoad\image\" />
     <Folder Include="WebService\" />
   </ItemGroup>

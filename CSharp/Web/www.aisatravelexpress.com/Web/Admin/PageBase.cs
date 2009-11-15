@@ -65,6 +65,14 @@ namespace Web.Admin
             }
         }
 
+        public void GetTravelTXT(Label p_Label)
+        {
+            if (p_Label != null)
+            {
+                p_Label.Text = g_Travel[0][0];
+            }
+        }
+
         public void SetLanguageControl(DropDownList p_DropDownList)
         {
             if (p_DropDownList != null)

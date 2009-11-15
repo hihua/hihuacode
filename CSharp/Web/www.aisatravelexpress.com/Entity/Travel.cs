@@ -20,12 +20,12 @@ namespace Entity
             get { return _Travel_LanguageID; }
             set { _Travel_LanguageID = value; }
         }
-        private int _Travel_Type;
+        private int _Travel_TypeID;
 
-        public int Travel_Type
+        public int Travel_TypeID
         {
-            get { return _Travel_Type; }
-            set { _Travel_Type = value; }
+            get { return _Travel_TypeID; }
+            set { _Travel_TypeID = value; }
         }
         private string _Travel_Code;
 
@@ -97,41 +97,29 @@ namespace Entity
             get { return _Travel_PreView2; }
             set { _Travel_PreView2 = value; }
         }
-        private string _Travel_PreViews;
+        private string[] _Travel_PreViews;
 
-        public string Travel_PreViews
+        public string[] Travel_PreViews
         {
             get { return _Travel_PreViews; }
             set { _Travel_PreViews = value; }
         }
-        private string _Travel_StartAddr1;
+        private string _Travel_StartAddr;
 
-        public string Travel_StartAddr1
+        public string Travel_StartAddr
         {
-            get { return _Travel_StartAddr1; }
-            set { _Travel_StartAddr1 = value; }
+            get { return _Travel_StartAddr; }
+            set { _Travel_StartAddr = value; }
         }
-        private string _Travel_StartAddr2;
 
-        public string Travel_StartAddr2
-        {
-            get { return _Travel_StartAddr2; }
-            set { _Travel_StartAddr2 = value; }
-        }
-        private string _Travel_EndAddr1;
+        private string _Travel_EndAddr;
 
-        public string Travel_EndAddr1
+        public string Travel_EndAddr
         {
-            get { return _Travel_EndAddr1; }
-            set { _Travel_EndAddr1 = value; }
-        }
-        private string _Travel_EndAddr2;
-
-        public string Travel_EndAddr2
-        {
-            get { return _Travel_EndAddr2; }
-            set { _Travel_EndAddr2 = value; }
-        }
+            get { return _Travel_EndAddr; }
+            set { _Travel_EndAddr = value; }
+        }              
+        
         private DateTime _Travel_AddTime;
 
         public DateTime Travel_AddTime

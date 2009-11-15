@@ -24,10 +24,12 @@ namespace Web
         protected Dictionary<int, string> g_Title = new Dictionary<int, string>();
         protected Dictionary<int, string[]> g_Article = new Dictionary<int, string[]>();
         protected Dictionary<int, string[]> g_News = new Dictionary<int, string[]>();
+        protected Dictionary<int, string[]> g_Travel = new Dictionary<int, string[]>();
 
         protected int g_Article_ClassID = 1;
         protected int g_News_ClassID = 1;
         protected int g_News_ID = 1;
+        protected int g_Travel_ID = 1;
                         
         protected override void OnInit(EventArgs e)
         {
@@ -75,6 +77,12 @@ namespace Web
             g_NewsName[0] = "表格下载";
             g_NewsName[1] = "Form Download";
             g_News.Add(4, g_NewsName);
+
+            string[] g_TravelTitle;
+            g_TravelTitle = new string[2];
+            g_TravelTitle[0] = "旅游路线";
+            g_TravelTitle[1] = "Travel Routes";
+            g_Travel.Add(0, g_TravelTitle);
             
             if (Session["LanguageID"] != null)
                 g_LanguageID = Convert.ToInt32(Session["LanguageID"].ToString());
@@ -87,6 +95,9 @@ namespace Web
 
             if (VerifyUtility.IsNumber_NotNull(Request["News_ID"]) && Request["News_ID"] != "0")
                 g_News_ID = Convert.ToInt32(Request["News_ID"]);
+
+            if (VerifyUtility.IsNumber_NotNull(Request["Travel_ID"]) && Request["Travel_ID"] != "0")
+                g_Travel_ID = Convert.ToInt32(Request["Travel_ID"]);
 
             if (VerifyUtility.IsNumber_NotNull(Request["Page"]) && Request["Page"] != "0")
                 g_Page = Convert.ToInt32(Request["Page"]);
