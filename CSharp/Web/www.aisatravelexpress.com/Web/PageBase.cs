@@ -30,6 +30,8 @@ namespace Web
         protected int g_News_ClassID = 1;
         protected int g_News_ID = 1;
         protected int g_Travel_ID = 1;
+
+        protected string g_Travel_Images = "Travel_Images";
                         
         protected override void OnInit(EventArgs e)
         {

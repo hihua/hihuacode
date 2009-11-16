@@ -101,8 +101,12 @@
 		            <td align="right" height="30">精彩瞬间：</td>
 			        <td>
                         <asp:TextBox ID="Travel_PreViews_Num" runat="server" MaxLength="8"></asp:TextBox>
-                        <asp:Button ID="Travel_PreViews_Buttom" runat="server" Text=" 确定 " />
+                        <asp:Button ID="Travel_PreViews_Buttom" runat="server" Text=" 确定 " onclick="Travel_PreViews_Buttom_Click" />
                     </td>
+		        </tr>
+		        <tr bgcolor="#D0D0D0">
+		            <td align="right" height="30">&nbsp;</td>
+			        <td id="Travel_PreViews_Panel" runat="server"></td>
 		        </tr>
 		        <tr bgcolor="#E3E3E3">
 		            <td align="right" height="30">出发地：</td>

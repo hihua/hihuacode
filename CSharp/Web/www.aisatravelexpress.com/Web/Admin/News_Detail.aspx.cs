@@ -15,12 +15,12 @@ namespace Web.Admin
 {
     public partial class News_Detail : PageBase
     {
-        private BLL.News g_News;
+        private BLL.News b_News;
         private Entity.News e_News;
         
         protected void Page_Load(object sender, EventArgs e)
         {
-            g_News = new BLL.News();
+            b_News = new BLL.News();
                         
             if (!IsPostBack)
             {
@@ -38,7 +38,7 @@ namespace Web.Admin
                         if (g_News_ID == 0)
                             ResponseError("参数错误");
 
-                        e_News = g_News.Select_News(g_News_ID);
+                        e_News = b_News.Select_News(g_News_ID);
                         if (e_News != null)
                         {
                             News_LanguageID.SelectedValue = e_News.News_LanguageID.ToString();
@@ -55,7 +55,7 @@ namespace Web.Admin
                         if (g_News_ID == 0)
                             ResponseError("参数错误");
 
-                        g_News.Delete_News(g_News_ID);
+                        b_News.Delete_News(g_News_ID);
                         ResponseClose("删除成功");
                         break;
                 }                
@@ -67,7 +67,7 @@ namespace Web.Admin
             switch (g_Action_ID)
             {
                 case 1:
-                    g_News.Insert_News(g_News_ClassID, Convert.ToInt32(News_LanguageID.SelectedValue), News_Title.Text, News_Intro.Text, News_Content.Value);
+                    b_News.Insert_News(g_News_ClassID, Convert.ToInt32(News_LanguageID.SelectedValue), News_Title.Text, News_Intro.Text, News_Content.Value);
                     g_TipsTable.Visible = true;
                     g_MainTable.Visible = false;
                     TipsMessage.Text = "添加成功";
@@ -76,7 +76,7 @@ namespace Web.Admin
                     break;
 
                 case 2:
-                    g_News.Update_News(g_News_ID, g_News_ClassID, Convert.ToInt32(News_LanguageID.SelectedValue), News_Title.Text, News_Intro.Text, News_Content.Value);
+                    b_News.Update_News(g_News_ID, g_News_ClassID, Convert.ToInt32(News_LanguageID.SelectedValue), News_Title.Text, News_Intro.Text, News_Content.Value);
                     g_TipsTable.Visible = true;
                     g_MainTable.Visible = false;
                     TipsMessage.Text = "修改成功";
