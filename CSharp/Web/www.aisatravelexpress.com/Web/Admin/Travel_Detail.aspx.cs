@@ -230,8 +230,14 @@ namespace Web.Admin
                         e_Travel.Travel_StartAddr = Travel_StartAddr.Text;
                         e_Travel.Travel_EndAddr = Travel_EndAddr.Text;
 
+                        //
 
                         b_Travel.Update_Travel(e_Travel);
+                        g_TipsTable.Visible = true;
+                        g_MainTable.Visible = false;
+                        TipsMessage.Text = "修改成功";
+                        TipsLink1.NavigateUrl = "?Action_ID=" + g_Action_ID.ToString() + "&Travel_ID=" + g_Travel_ID.ToString();
+                        TipsLink1.Text = "继续添加";
                     }
                     break;
             }
@@ -259,7 +265,9 @@ namespace Web.Admin
                 if (e_Travel.Travel_PreViews != null)
                 {
                     int i = 0;
-                    Travel_PreViews_Num.Text = e_Travel.Travel_PreViews.Length.ToString();
+
+                    if (!VerifyUtility.IsNumber_NotNull(Travel_PreViews_Num.Text))                        
+                        Travel_PreViews_Num.Text = e_Travel.Travel_PreViews.Length.ToString();
 
                     foreach (string Travel_PreViews in e_Travel.Travel_PreViews)
                     {
@@ -308,12 +316,28 @@ namespace Web.Admin
                 GetTravel();
 
                 int m = Convert.ToInt32(Travel_PreViews_Num.Text);
-                for (int i = 0; i < m; i++)
+                int n = 0;
+
+                if (g_Action_ID == 2)
+                {
+                    if (m > 0)
+                    {
+                        if (m > e_Travel.Travel_PreViews.Length)                        
+                            n = e_Travel.Travel_PreViews.Length;                        
+                        else
+                            return;
+                    }
+                    else
+                        return;
+                }
+
+                for (int i = n; i < m; i++)
                 {
                     FileUpload o_FileUpload = new FileUpload();                    
                     o_FileUpload.ID = "Travel_PreViews_" + i.ToString();
 
-                    HtmlGenericControl o_HtmlGenericControl = new HtmlGenericControl("br");
+                    HtmlGenericControl o_HtmlGenericControl = new HtmlGenericControl();
+                    o_HtmlGenericControl.InnerHtml = "<br/>";
 
                     Travel_PreViews_Panel.Controls.Add(o_FileUpload);
                     Travel_PreViews_Panel.Controls.Add(o_HtmlGenericControl);

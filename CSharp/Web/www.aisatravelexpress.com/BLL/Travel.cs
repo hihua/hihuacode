@@ -167,13 +167,13 @@ namespace BLL
             o_Travel.Travel_LanguageID = p_Travel.Travel_LanguageID;
             o_Travel.Travel_TypeID = p_Travel.Travel_TypeID;
             o_Travel.Travel_Code = FilterUtility.FilterSQL(p_Travel.Travel_Code);
-            o_Travel.Travel_Name = FilterUtility.FilterSQL(p_Travel.Travel_Code);
-            o_Travel.Travel_Price = FilterUtility.FilterSQL(p_Travel.Travel_Code);
+            o_Travel.Travel_Name = FilterUtility.FilterSQL(p_Travel.Travel_Name);
+            o_Travel.Travel_Price = FilterUtility.FilterSQL(p_Travel.Travel_Price);
             o_Travel.Travel_Points = p_Travel.Travel_Points;
             o_Travel.Travel_StartDate = p_Travel.Travel_StartDate;
             o_Travel.Travel_EndDate = p_Travel.Travel_EndDate;
-            o_Travel.Travel_Views = FilterUtility.FilterSQL(p_Travel.Travel_Code);
-            o_Travel.Travel_Route = FilterUtility.FilterSQL(p_Travel.Travel_Code);
+            o_Travel.Travel_Views = FilterUtility.FilterSQL(p_Travel.Travel_Views);
+            o_Travel.Travel_Route = FilterUtility.FilterSQL(p_Travel.Travel_Route);
             o_Travel.Travel_PreView1 = p_Travel.Travel_PreView1;
             o_Travel.Travel_PreView2 = p_Travel.Travel_PreView2;
             o_Travel.Travel_PreViews = p_Travel.Travel_PreViews;
@@ -184,10 +184,13 @@ namespace BLL
             d_Travel.Update_Travel(o_Travel);
         }
 
-        public void Update_Travel(Entity.Travel p_Travel, string p_Travel_Images)
+        public void Update_Travel(Entity.Travel p_Travel, string p_Travel_Images, string p_Travel_ImagesPath)
         {
             if (p_Travel != null)
             {
+                if (!p_Travel_ImagesPath.EndsWith("\\") && !p_Travel_ImagesPath.EndsWith("/"))
+                    p_Travel_ImagesPath += "\\";
+
                 if (p_Travel.Travel_PreViews.Length == 1)                
                     p_Travel.Travel_PreViews = null;                
                 else
@@ -203,24 +206,26 @@ namespace BLL
                         i++;
                     }
 
-                    p_Travel.Travel_PreViews = Travel_PreViews;
-                    d_Travel.Update_Travel(p_Travel);
+                    p_Travel.Travel_PreViews = Travel_PreViews;                    
                 }
+
+                if (File.Exists(p_Travel_ImagesPath + p_Travel_Images))
+                    File.Delete(p_Travel_ImagesPath + p_Travel_Images);
             }
         }
 
-        public void Delete_Travel(int p_Travel_ID, string p_Travel_Images)
+        public void Delete_Travel(int p_Travel_ID, string p_Travel_ImagesPath)
         {
-            if (!p_Travel_Images.EndsWith("\\") && !p_Travel_Images.EndsWith("/"))
-                p_Travel_Images += "\\";
+            if (!p_Travel_ImagesPath.EndsWith("\\") && !p_Travel_ImagesPath.EndsWith("/"))
+                p_Travel_ImagesPath += "\\";
 
             Entity.Travel o_Travel = Select_Travel(p_Travel_ID);
             if (o_Travel != null && o_Travel.Travel_PreViews != null)
             {
                 foreach (string Travel_PreViews in o_Travel.Travel_PreViews)
                 {
-                    if (File.Exists(p_Travel_Images + Travel_PreViews))
-                        File.Delete(p_Travel_Images + Travel_PreViews);
+                    if (File.Exists(p_Travel_ImagesPath + Travel_PreViews))
+                        File.Delete(p_Travel_ImagesPath + Travel_PreViews);
                 }
             }
 
