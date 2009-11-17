@@ -42,69 +42,7 @@ namespace Web.Admin
                         if (g_Travel_ID == 0)
                             ResponseError("参数错误");
 
-                        e_Travel = b_Travel.Select_Travel(g_Travel_ID);
-                        if (e_Travel != null)
-                        {
-                            Travel_AddTime.Text = e_Travel.Travel_AddTime.ToString();
-                            Travel_LanguageID.SelectedValue = e_Travel.Travel_LanguageID.ToString();
-                            Travel_TypeID.SelectedValue = e_Travel.Travel_TypeID.ToString();
-                            Travel_Code.Text = e_Travel.Travel_Code;
-                            Travel_Name.Text = e_Travel.Travel_Name;
-                            Travel_Price.Text = e_Travel.Travel_Price;
-                            Travel_Points.Text = e_Travel.Travel_Points.ToString();
-                            Travel_StartDate.Text = e_Travel.Travel_StartDate.ToString();
-                            Travel_EndDate.Text = e_Travel.Travel_EndDate.ToString();
-                            Travel_Views.Text = e_Travel.Travel_Views;
-                            Travel_Route.Value = e_Travel.Travel_Route;
-                            Travel_PreView1_Image.ImageUrl = "../" + g_Travel_Images + "/" + e_Travel.Travel_PreView1;
-                            Travel_PreView2_Image.ImageUrl = "../" + g_Travel_Images + "/" + e_Travel.Travel_PreView2;
-
-                            if (e_Travel.Travel_PreViews != null)
-                            {
-                                int i = 0;
-                                Travel_PreViews_Num.Text = e_Travel.Travel_PreViews.Length.ToString();
-
-                                foreach (string Travel_PreViews in e_Travel.Travel_PreViews)
-                                {
-                                    Image o_Image = new Image();
-                                    o_Image.EnableViewState = true;
-                                    o_Image.ImageUrl = "../" + g_Travel_Images + "/" + Travel_PreViews;
-                                    Travel_PreViews_Panel.Controls.Add(o_Image);
-
-                                    LinkButton o_LinkButton = new LinkButton();
-                                    o_LinkButton.EnableViewState = true;
-                                    o_LinkButton.CssClass = "AdminToolsLink2";
-                                    o_LinkButton.ID = "Del_Travel_PreViews_" + i.ToString();
-                                    o_LinkButton.OnClientClick = "return IsDel()";
-                                    o_LinkButton.CommandArgument = Travel_PreViews;
-                                    o_LinkButton.Text = "删除";
-                                    Travel_PreViews_Panel.Controls.Add(o_LinkButton);
-
-                                    HtmlGenericControl o_HtmlGenericControl;
-                                    o_HtmlGenericControl = new HtmlGenericControl();
-                                    o_HtmlGenericControl.InnerHtml = "<br/>";
-                                    Travel_PreViews_Panel.Controls.Add(o_HtmlGenericControl);
-                                                                       
-                                    FileUpload o_FileUpload = new FileUpload();
-                                    o_FileUpload.EnableViewState = true;
-                                    o_FileUpload.ID = "Travel_PreViews_" + i.ToString();
-                                    Travel_PreViews_Panel.Controls.Add(o_FileUpload);
-                                                                        
-                                    o_HtmlGenericControl = new HtmlGenericControl();
-                                    o_HtmlGenericControl.InnerHtml = "<br/>";
-                                    Travel_PreViews_Panel.Controls.Add(o_HtmlGenericControl);
-
-                                    i++;
-                                }
-
-                                Travel_PreViews_TD.Visible = true;
-                            }
-                            else
-                                Travel_PreViews_Num.Text = "0";
-
-                            Travel_StartAddr.Text = e_Travel.Travel_StartAddr;
-                            Travel_EndAddr.Text = e_Travel.Travel_EndAddr;
-                        }
+                        GetTravel();
 
                         Travel_Submit.Text = " 修改 ";
                         break;
@@ -299,10 +237,76 @@ namespace Web.Admin
             }
         }
 
+        private void GetTravel()
+        {
+            e_Travel = b_Travel.Select_Travel(g_Travel_ID);
+            if (e_Travel != null)
+            {
+                Travel_AddTime.Text = e_Travel.Travel_AddTime.ToString();
+                Travel_LanguageID.SelectedValue = e_Travel.Travel_LanguageID.ToString();
+                Travel_TypeID.SelectedValue = e_Travel.Travel_TypeID.ToString();
+                Travel_Code.Text = e_Travel.Travel_Code;
+                Travel_Name.Text = e_Travel.Travel_Name;
+                Travel_Price.Text = e_Travel.Travel_Price;
+                Travel_Points.Text = e_Travel.Travel_Points.ToString();
+                Travel_StartDate.Text = e_Travel.Travel_StartDate.ToString();
+                Travel_EndDate.Text = e_Travel.Travel_EndDate.ToString();
+                Travel_Views.Text = e_Travel.Travel_Views;
+                Travel_Route.Value = e_Travel.Travel_Route;
+                Travel_PreView1_Image.ImageUrl = "../" + g_Travel_Images + "/" + e_Travel.Travel_PreView1;
+                Travel_PreView2_Image.ImageUrl = "../" + g_Travel_Images + "/" + e_Travel.Travel_PreView2;
+
+                if (e_Travel.Travel_PreViews != null)
+                {
+                    int i = 0;
+                    Travel_PreViews_Num.Text = e_Travel.Travel_PreViews.Length.ToString();
+
+                    foreach (string Travel_PreViews in e_Travel.Travel_PreViews)
+                    {
+                        Image o_Image = new Image();
+                        o_Image.ImageUrl = "../" + g_Travel_Images + "/" + Travel_PreViews;
+                        Travel_PreViews_Panel.Controls.Add(o_Image);
+
+                        LinkButton o_LinkButton = new LinkButton();
+                        o_LinkButton.CssClass = "AdminToolsLink2";
+                        o_LinkButton.ID = "Del_Travel_PreViews_" + i.ToString();
+                        o_LinkButton.OnClientClick = "return IsDel()";
+                        o_LinkButton.CommandArgument = Travel_PreViews;
+                        o_LinkButton.Text = "删除";
+                        Travel_PreViews_Panel.Controls.Add(o_LinkButton);
+
+                        HtmlGenericControl o_HtmlGenericControl;
+                        o_HtmlGenericControl = new HtmlGenericControl();
+                        o_HtmlGenericControl.InnerHtml = "<br/>";
+                        Travel_PreViews_Panel.Controls.Add(o_HtmlGenericControl);
+
+                        FileUpload o_FileUpload = new FileUpload();
+                        o_FileUpload.ID = "Travel_PreViews_" + i.ToString();
+                        Travel_PreViews_Panel.Controls.Add(o_FileUpload);
+
+                        o_HtmlGenericControl = new HtmlGenericControl();
+                        o_HtmlGenericControl.InnerHtml = "<br/>";
+                        Travel_PreViews_Panel.Controls.Add(o_HtmlGenericControl);
+
+                        i++;
+                    }
+
+                    Travel_PreViews_TD.Visible = true;
+                }
+                else
+                    Travel_PreViews_Num.Text = "0";
+
+                Travel_StartAddr.Text = e_Travel.Travel_StartAddr;
+                Travel_EndAddr.Text = e_Travel.Travel_EndAddr;
+            }
+        }
+
         protected void Travel_PreViews_Buttom_Click(object sender, EventArgs e)
         {
             if (VerifyUtility.IsNumber_NotNull(Travel_PreViews_Num.Text))
             {
+                GetTravel();
+
                 int m = Convert.ToInt32(Travel_PreViews_Num.Text);
                 for (int i = 0; i < m; i++)
                 {
