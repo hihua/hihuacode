@@ -117,12 +117,12 @@ namespace DAL
             if (p_Travel.Travel_PreViews != null)
             {
                 foreach (string Travel_PreViews in p_Travel.Travel_PreViews)
-                    o_Travel_PreViews += "," + Travel_PreViews;
+                    o_Travel_PreViews += ";" + Travel_PreViews;
             }
 
             if (VerifyUtility.IsString_NotNull(o_Travel_PreViews))
             {
-                if (o_Travel_PreViews.StartsWith(","))
+                if (o_Travel_PreViews.StartsWith(";"))
                     o_Travel_PreViews.Remove(0, 1);
             }
 

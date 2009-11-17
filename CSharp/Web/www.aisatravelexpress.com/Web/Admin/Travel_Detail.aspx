@@ -88,6 +88,7 @@
 			        <td>
                         <asp:Image ID="Travel_PreView1_Image" runat="server" /><br />
                         <asp:FileUpload ID="Travel_PreView1" runat="server" />
+                        <span style="color:#FF0000">160 * 95</span>
                     </td>
 		        </tr>		        
                 <tr bgcolor="#E3E3E3">
@@ -95,6 +96,7 @@
 			        <td>
                         <asp:Image ID="Travel_PreView2_Image" runat="server" /><br />
                         <asp:FileUpload ID="Travel_PreView2" runat="server" />
+                        <span style="color:#FF0000">308 * 208</span>
                     </td>
 		        </tr>
 		        <tr bgcolor="#D0D0D0">
@@ -102,9 +104,10 @@
 			        <td>
                         <asp:TextBox ID="Travel_PreViews_Num" runat="server" MaxLength="8"></asp:TextBox>
                         <asp:Button ID="Travel_PreViews_Buttom" runat="server" Text=" 确定 " onclick="Travel_PreViews_Buttom_Click" />
+                        <span style="color:#FF0000">158 * 106</span>
                     </td>
 		        </tr>
-		        <tr bgcolor="#D0D0D0">
+		        <tr id="Travel_PreViews_TD" bgcolor="#D0D0D0" runat="server">
 		            <td align="right" height="30">&nbsp;</td>
 			        <td id="Travel_PreViews_Panel" runat="server"></td>
 		        </tr>

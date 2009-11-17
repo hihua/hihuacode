@@ -74,5 +74,31 @@ namespace Utility
             else
                 return false;
         }
+
+        public static string Check_UploadFile(string UploadFile, ref string UploadFileExt)
+        {
+            UploadFileExt = "";
+            if (IsString_NotNull(UploadFile) && UploadFile.Length > 3)
+            {
+                UploadFileExt = UploadFile.Substring(UploadFile.Length - 3, 3);
+                UploadFileExt = UploadFileExt.ToLower();
+
+                if (UploadFileExt == "jpg" || UploadFileExt == "gif" || UploadFileExt == "png")
+                    return "";
+                else
+                {
+                    UploadFileExt = "";
+                    return "只能上传jpg,gif,png图片";
+                }
+            }
+            else
+                return "请上传正确的文件";
+        }
+
+        public static bool Check_Date(string Str)
+        {
+            DateTime o_DateTime;
+            return DateTime.TryParse(Str, out o_DateTime);            
+        }
     }
 }
