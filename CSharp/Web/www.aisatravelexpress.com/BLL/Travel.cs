@@ -160,38 +160,53 @@ namespace BLL
             d_Travel.Insert_Travel(o_Travel);
         }
 
-        public void Update_Travel(int p_Travel_ID, int p_Travel_LanguageID, int p_Travel_TypeID, string p_Travel_Code, string p_Travel_Name, string p_Travel_Price, int p_Travel_Points, DateTime p_Travel_StartDate, DateTime p_Travel_EndDate, string p_Travel_Views, string p_Travel_Route, string p_Travel_PreView1, string p_Travel_PreView2, string[] p_Travel_PreViews, string p_Travel_StartAddr, string p_Travel_EndAddr)
-        {
-            p_Travel_Code = FilterUtility.FilterSQL(p_Travel_Code);
-            p_Travel_Name = FilterUtility.FilterSQL(p_Travel_Name);
-            p_Travel_Price = FilterUtility.FilterSQL(p_Travel_Price);
-            p_Travel_Views = FilterUtility.FilterSQL(p_Travel_Views);
-            p_Travel_Route = FilterUtility.FilterSQL(p_Travel_Route);
-            p_Travel_PreView1 = FilterUtility.FilterSQL(p_Travel_PreView1);
-            p_Travel_PreView2 = FilterUtility.FilterSQL(p_Travel_PreView2);
-            p_Travel_StartAddr = FilterUtility.FilterSQL(p_Travel_StartAddr);
-            p_Travel_EndAddr = FilterUtility.FilterSQL(p_Travel_EndAddr);
-
+        public void Update_Travel(Entity.Travel p_Travel)
+        {           
             Entity.Travel o_Travel = new Entity.Travel();
-            o_Travel.Travel_ID = p_Travel_ID;
-            o_Travel.Travel_LanguageID = p_Travel_LanguageID;
-            o_Travel.Travel_TypeID = p_Travel_TypeID;
-            o_Travel.Travel_Code = p_Travel_Code;
-            o_Travel.Travel_Name = p_Travel_Name;
-            o_Travel.Travel_Price = p_Travel_Price;
-            o_Travel.Travel_Points = p_Travel_Points;
-            o_Travel.Travel_StartDate = p_Travel_StartDate;
-            o_Travel.Travel_EndDate = p_Travel_EndDate;
-            o_Travel.Travel_Views = p_Travel_Views;
-            o_Travel.Travel_Route = p_Travel_Route;
-            o_Travel.Travel_PreView1 = p_Travel_PreView1;
-            o_Travel.Travel_PreView2 = p_Travel_PreView2;
-            o_Travel.Travel_PreViews = p_Travel_PreViews;
-            o_Travel.Travel_StartAddr = p_Travel_StartAddr;
-            o_Travel.Travel_EndAddr = p_Travel_EndAddr;
-            o_Travel.Travel_AddTime = DateTime.Now;
+            o_Travel.Travel_ID = p_Travel.Travel_ID;
+            o_Travel.Travel_LanguageID = p_Travel.Travel_LanguageID;
+            o_Travel.Travel_TypeID = p_Travel.Travel_TypeID;
+            o_Travel.Travel_Code = FilterUtility.FilterSQL(p_Travel.Travel_Code);
+            o_Travel.Travel_Name = FilterUtility.FilterSQL(p_Travel.Travel_Code);
+            o_Travel.Travel_Price = FilterUtility.FilterSQL(p_Travel.Travel_Code);
+            o_Travel.Travel_Points = p_Travel.Travel_Points;
+            o_Travel.Travel_StartDate = p_Travel.Travel_StartDate;
+            o_Travel.Travel_EndDate = p_Travel.Travel_EndDate;
+            o_Travel.Travel_Views = FilterUtility.FilterSQL(p_Travel.Travel_Code);
+            o_Travel.Travel_Route = FilterUtility.FilterSQL(p_Travel.Travel_Code);
+            o_Travel.Travel_PreView1 = p_Travel.Travel_PreView1;
+            o_Travel.Travel_PreView2 = p_Travel.Travel_PreView2;
+            o_Travel.Travel_PreViews = p_Travel.Travel_PreViews;
+            o_Travel.Travel_StartAddr = FilterUtility.FilterSQL(p_Travel.Travel_StartAddr);
+            o_Travel.Travel_EndAddr = FilterUtility.FilterSQL(p_Travel.Travel_EndAddr);
+            o_Travel.Travel_AddTime = p_Travel.Travel_AddTime;
 
             d_Travel.Update_Travel(o_Travel);
+        }
+
+        public void Update_Travel(Entity.Travel p_Travel, string p_Travel_Images)
+        {
+            if (p_Travel != null)
+            {
+                if (p_Travel.Travel_PreViews.Length == 1)                
+                    p_Travel.Travel_PreViews = null;                
+                else
+                {
+                    int i = 0;
+                    string[] Travel_PreViews = new string[p_Travel.Travel_PreViews.Length - 1];
+
+                    foreach (string Travel_Images in p_Travel.Travel_PreViews)
+                    {
+                        if (Travel_Images != p_Travel_Images)
+                            Travel_PreViews[i] = Travel_Images;
+
+                        i++;
+                    }
+
+                    p_Travel.Travel_PreViews = Travel_PreViews;
+                    d_Travel.Update_Travel(p_Travel);
+                }
+            }
         }
 
         public void Delete_Travel(int p_Travel_ID, string p_Travel_Images)

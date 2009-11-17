@@ -8,6 +8,15 @@
     <title>华捷国际旅游后台</title>
     <link type="text/css" href="css.css" rel="stylesheet" />
     <script type="text/javascript" src="../Js/jquery.js"></script>
+    <script type="text/javascript">
+    function IsDel()
+    {
+        if (confirm("确实删除"))
+            return true;
+        else
+            return false;    
+    }
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -103,13 +112,15 @@
 		            <td align="right" height="30">精彩瞬间：</td>
 			        <td>
                         <asp:TextBox ID="Travel_PreViews_Num" runat="server" MaxLength="8"></asp:TextBox>
+                        张
+                        &nbsp;
                         <asp:Button ID="Travel_PreViews_Buttom" runat="server" Text=" 确定 " onclick="Travel_PreViews_Buttom_Click" />
                         <span style="color:#FF0000">158 * 106</span>
                     </td>
 		        </tr>
 		        <tr id="Travel_PreViews_TD" bgcolor="#D0D0D0" runat="server">
 		            <td align="right" height="30">&nbsp;</td>
-			        <td id="Travel_PreViews_Panel" runat="server"></td>
+			        <td id="Travel_PreViews_Panel" runat="server" enableviewstate="true"></td>
 		        </tr>
 		        <tr bgcolor="#E3E3E3">
 		            <td align="right" height="30">出发地：</td>

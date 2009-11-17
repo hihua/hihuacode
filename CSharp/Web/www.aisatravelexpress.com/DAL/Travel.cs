@@ -85,7 +85,7 @@ namespace DAL
             if (p_Travel == null)
                 return;
 
-            g_TableFields = "Travel_LanguageID,Travel_Type,Travel_Code,Travel_Name,Travel_Price,Travel_Points,Travel_StartDate,Travel_EndDate,Travel_Views,Travel_Route,Travel_PreView1,Travel_PreView2,Travel_PreViews,Travel_StartAddr,Travel_EndAddr,Travel_AddTime";
+            g_TableFields = "Travel_LanguageID,Travel_TypeID,Travel_Code,Travel_Name,Travel_Price,Travel_Points,Travel_StartDate,Travel_EndDate,Travel_Views,Travel_Route,Travel_PreView1,Travel_PreView2,Travel_PreViews,Travel_StartAddr,Travel_EndAddr,Travel_AddTime";
 
             string o_FieldsValue = "";
             o_FieldsValue += p_Travel.Travel_LanguageID.ToString();
@@ -123,7 +123,7 @@ namespace DAL
             if (VerifyUtility.IsString_NotNull(o_Travel_PreViews))
             {
                 if (o_Travel_PreViews.StartsWith(";"))
-                    o_Travel_PreViews.Remove(0, 1);
+                    o_Travel_PreViews = o_Travel_PreViews.Remove(0, 1);
             }
 
             o_FieldsValue += "N'" + o_Travel_PreViews + "'";
@@ -133,8 +133,7 @@ namespace DAL
             o_FieldsValue += "N'" + p_Travel.Travel_EndAddr + "'";
             o_FieldsValue += ",";
             o_FieldsValue += "N'" + p_Travel.Travel_AddTime + "'";
-            o_FieldsValue += ",";
-
+            
             Execute_Insert(g_TableName, g_TableFields, o_FieldsValue);
         }
 
@@ -166,7 +165,21 @@ namespace DAL
             o_FieldsValue += ",";
             o_FieldsValue += "Travel_PreView2=N'" + p_Travel.Travel_PreView2 + "'";
             o_FieldsValue += ",";
-            o_FieldsValue += "Travel_PreViews=N'" + p_Travel.Travel_PreViews + "'";
+
+            string o_Travel_PreViews = "";
+            if (p_Travel.Travel_PreViews != null)
+            {
+                foreach (string Travel_PreViews in p_Travel.Travel_PreViews)
+                    o_Travel_PreViews += ";" + Travel_PreViews;
+            }
+
+            if (VerifyUtility.IsString_NotNull(o_Travel_PreViews))
+            {
+                if (o_Travel_PreViews.StartsWith(";"))
+                    o_Travel_PreViews = o_Travel_PreViews.Remove(0, 1);
+            }
+
+            o_FieldsValue += "Travel_PreViews=N'" + o_Travel_PreViews + "'";
             o_FieldsValue += ",";
             o_FieldsValue += "Travel_StartAddr=N'" + p_Travel.Travel_StartAddr + "'";            
             o_FieldsValue += ",";

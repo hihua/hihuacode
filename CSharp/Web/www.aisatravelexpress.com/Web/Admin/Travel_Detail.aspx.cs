@@ -61,20 +61,49 @@ namespace Web.Admin
 
                             if (e_Travel.Travel_PreViews != null)
                             {
+                                int i = 0;
                                 Travel_PreViews_Num.Text = e_Travel.Travel_PreViews.Length.ToString();
-                                for (int i = 0; i < e_Travel.Travel_PreViews.Length; i++)
+
+                                foreach (string Travel_PreViews in e_Travel.Travel_PreViews)
                                 {
-                                    FileUpload o_FileUpload = new FileUpload();                                    
-                                    o_FileUpload.ID = "Travel_PreViews_" + i.ToString();
+                                    Image o_Image = new Image();
+                                    o_Image.EnableViewState = true;
+                                    o_Image.ImageUrl = "../" + g_Travel_Images + "/" + Travel_PreViews;
+                                    Travel_PreViews_Panel.Controls.Add(o_Image);
 
-                                    HtmlGenericControl o_HtmlGenericControl = new HtmlGenericControl("br");
+                                    LinkButton o_LinkButton = new LinkButton();
+                                    o_LinkButton.EnableViewState = true;
+                                    o_LinkButton.CssClass = "AdminToolsLink2";
+                                    o_LinkButton.ID = "Del_Travel_PreViews_" + i.ToString();
+                                    o_LinkButton.OnClientClick = "return IsDel()";
+                                    o_LinkButton.CommandArgument = Travel_PreViews;
+                                    o_LinkButton.Text = "删除";
+                                    Travel_PreViews_Panel.Controls.Add(o_LinkButton);
 
-                                    Travel_PreViews_Panel.Controls.Add(o_FileUpload);
+                                    HtmlGenericControl o_HtmlGenericControl;
+                                    o_HtmlGenericControl = new HtmlGenericControl();
+                                    o_HtmlGenericControl.InnerHtml = "<br/>";
                                     Travel_PreViews_Panel.Controls.Add(o_HtmlGenericControl);
+                                                                       
+                                    FileUpload o_FileUpload = new FileUpload();
+                                    o_FileUpload.EnableViewState = true;
+                                    o_FileUpload.ID = "Travel_PreViews_" + i.ToString();
+                                    Travel_PreViews_Panel.Controls.Add(o_FileUpload);
+                                                                        
+                                    o_HtmlGenericControl = new HtmlGenericControl();
+                                    o_HtmlGenericControl.InnerHtml = "<br/>";
+                                    Travel_PreViews_Panel.Controls.Add(o_HtmlGenericControl);
+
+                                    i++;
                                 }
 
                                 Travel_PreViews_TD.Visible = true;
                             }
+                            else
+                                Travel_PreViews_Num.Text = "0";
+
+                            Travel_StartAddr.Text = e_Travel.Travel_StartAddr;
+                            Travel_EndAddr.Text = e_Travel.Travel_EndAddr;
                         }
 
                         Travel_Submit.Text = " 修改 ";
@@ -137,62 +166,135 @@ namespace Web.Admin
 
             switch (g_Action_ID)
             {
-                case 1:                    
-                    if (Request.Files["Travel_PreView1"] == null)
-                        ResponseError("请选择上传预览图1");
-
-                    if (Request.Files["Travel_PreView2"] == null)
-                        ResponseError("请选择上传预览图2");
-
-                    string o_DateTime = DateTime.Now.ToString("PreView_yyyyMMddHHmmss");
-                    string Travel_PreView_1 = o_DateTime + "-1";
-                    string Travel_PreView_2 = o_DateTime + "-2";
-                    
-                    string UploadFileExt = "";
-                    string UploadFile = "";
-                    HttpPostedFile o_HttpPostedFile = null;                    
-                    
-                    o_HttpPostedFile = Request.Files["Travel_PreView1"];
-                    UploadFile = VerifyUtility.Check_UploadFile(o_HttpPostedFile.FileName, ref UploadFileExt);
-                    if (VerifyUtility.IsString_NotNull(UploadFile))
-                        ResponseError(UploadFile);
-
-                    o_HttpPostedFile.SaveAs(Server.MapPath("../" + g_Travel_Images + "/") + Travel_PreView_1 + "." + UploadFileExt);
-
-                    o_HttpPostedFile = Request.Files["Travel_PreView2"];
-                    UploadFile = VerifyUtility.Check_UploadFile(o_HttpPostedFile.FileName, ref UploadFileExt);
-                    if (VerifyUtility.IsString_NotNull(UploadFile))
-                        ResponseError(UploadFile);
-
-                    o_HttpPostedFile.SaveAs(Server.MapPath("../" + g_Travel_Images + "/") + Travel_PreView_2 + "." + UploadFileExt);
-
-                    string[] Travel_PreViews = null;                    
-                    if (VerifyUtility.IsNumber_NotNull(Travel_PreViews_Num.Text))
+                case 1:
                     {
-                        int m = Convert.ToInt32(Travel_PreViews_Num.Text);
-                        Travel_PreViews = new string[m];
+                        if (Request.Files["Travel_PreView1"] == null)
+                            ResponseError("请选择上传预览图1");
 
-                        for (int i = 0; i < m; i++)
-                        {                            
-                            o_HttpPostedFile = Request.Files["Travel_PreViews_" + i.ToString()];
-                            if (o_HttpPostedFile != null)
+                        if (Request.Files["Travel_PreView2"] == null)
+                            ResponseError("请选择上传预览图2");
+
+                        string o_DateTime = DateTime.Now.ToString("yyyyMMddHHmmss");
+                        string Travel_PreView_1 = "PreView_" + o_DateTime + "-1";
+                        string Travel_PreView_2 = "PreView_" + o_DateTime + "-2";
+
+                        string UploadFileExt = "";
+                        string UploadFile = "";
+                        HttpPostedFile o_HttpPostedFile = null;
+
+                        o_HttpPostedFile = Request.Files["Travel_PreView1"];
+                        UploadFile = VerifyUtility.Check_UploadFile(o_HttpPostedFile.FileName, ref UploadFileExt);
+                        if (VerifyUtility.IsString_NotNull(UploadFile))
+                            ResponseError(UploadFile);
+
+                        o_HttpPostedFile.SaveAs(Server.MapPath("../" + g_Travel_Images + "/") + Travel_PreView_1 + "." + UploadFileExt);
+                        Travel_PreView_1 += "." + UploadFileExt;
+
+                        o_HttpPostedFile = Request.Files["Travel_PreView2"];
+                        UploadFile = VerifyUtility.Check_UploadFile(o_HttpPostedFile.FileName, ref UploadFileExt);
+                        if (VerifyUtility.IsString_NotNull(UploadFile))
+                            ResponseError(UploadFile);
+
+                        o_HttpPostedFile.SaveAs(Server.MapPath("../" + g_Travel_Images + "/") + Travel_PreView_2 + "." + UploadFileExt);
+                        Travel_PreView_2 += "." + UploadFileExt;
+
+                        string[] Travel_PreViews = null;
+                        if (VerifyUtility.IsNumber_NotNull(Travel_PreViews_Num.Text))
+                        {
+                            int m = Convert.ToInt32(Travel_PreViews_Num.Text);
+                            Travel_PreViews = new string[m];
+
+                            for (int i = 0; i < m; i++)
                             {
-                                UploadFile = VerifyUtility.Check_UploadFile(o_HttpPostedFile.FileName, ref UploadFileExt);
-                                if (VerifyUtility.IsString_NotNull(UploadFile))
-                                    ResponseError(UploadFile);
-                                                 
-                                o_DateTime = DateTime.Now.ToString("PreViews_yyyyMMddHHmmss") + "-" + i.ToString(); 
-                                o_HttpPostedFile.SaveAs(Server.MapPath("../" + g_Travel_Images + "/") + o_DateTime + "." + UploadFileExt);
-                                Travel_PreViews[i] = o_DateTime;
-                            }                            
-                        }
-                    }
+                                o_HttpPostedFile = Request.Files["Travel_PreViews_" + i.ToString()];
+                                if (o_HttpPostedFile != null)
+                                {
+                                    UploadFile = VerifyUtility.Check_UploadFile(o_HttpPostedFile.FileName, ref UploadFileExt);
+                                    if (VerifyUtility.IsString_NotNull(UploadFile))
+                                        ResponseError(UploadFile);
 
-                    b_Travel.Insert_Travel(Convert.ToInt32(Travel_LanguageID.SelectedValue), Convert.ToInt32(Travel_TypeID.SelectedValue), Travel_Code.Text, Travel_Name.Text, Travel_Price.Text, Convert.ToInt32(Travel_Points.Text), DateTime.Parse(Travel_StartDate.Text), DateTime.Parse(Travel_EndDate.Text), Travel_Views.Text, Travel_Route.Value, Travel_PreView_1, Travel_PreView_2, Travel_PreViews, Travel_StartAddr.Text, Travel_EndAddr.Text);
+                                    o_DateTime = "PreViews_" + DateTime.Now.ToString("yyyyMMddHHmmss") + "-" + i.ToString();
+                                    o_HttpPostedFile.SaveAs(Server.MapPath("../" + g_Travel_Images + "/") + o_DateTime + "." + UploadFileExt);
+                                    Travel_PreViews[i] = o_DateTime + "." + UploadFileExt;
+                                }
+                            }
+                        }
+
+                        b_Travel.Insert_Travel(Convert.ToInt32(Travel_LanguageID.SelectedValue), Convert.ToInt32(Travel_TypeID.SelectedValue), Travel_Code.Text, Travel_Name.Text, Travel_Price.Text, Convert.ToInt32(Travel_Points.Text), DateTime.Parse(Travel_StartDate.Text), DateTime.Parse(Travel_EndDate.Text), Travel_Views.Text, Travel_Route.Value, Travel_PreView_1, Travel_PreView_2, Travel_PreViews, Travel_StartAddr.Text, Travel_EndAddr.Text);
+                        g_TipsTable.Visible = true;
+                        g_MainTable.Visible = false;
+                        TipsMessage.Text = "添加成功";
+                        TipsLink1.NavigateUrl = "?Action_ID=" + g_Action_ID.ToString() + "&Travel_ID=0";
+                        TipsLink1.Text = "继续添加";
+                    }
                     break;
 
                 case 2:
-                    
+                    {
+                        e_Travel = b_Travel.Select_Travel(g_Travel_ID);
+
+                        int n = 0;
+                        if (!VerifyUtility.IsNumber_NotNull(Travel_PreViews_Num.Text))
+                            ResponseError("请输入正确数字");
+
+                        int m = Convert.ToInt32(Travel_PreViews_Num.Text);
+                        if (e_Travel.Travel_PreViews != null)
+                            n = e_Travel.Travel_PreViews.Length;
+
+                        string o_DateTime = DateTime.Now.ToString("yyyyMMddHHmmss");
+                        string Travel_PreView_1 = "";
+                        string Travel_PreView_2 = "";
+
+                        string UploadFileExt = "";
+                        string UploadFile = "";
+                        HttpPostedFile o_HttpPostedFile = null;
+
+                        o_HttpPostedFile = Request.Files["Travel_PreView1"];
+                        if (o_HttpPostedFile != null && VerifyUtility.IsString_NotNull(o_HttpPostedFile.FileName))
+                        {
+                            UploadFile = VerifyUtility.Check_UploadFile(o_HttpPostedFile.FileName, ref UploadFileExt);
+                            if (VerifyUtility.IsString_NotNull(UploadFile))
+                                ResponseError(UploadFile);
+
+                            o_HttpPostedFile.SaveAs(Server.MapPath("../" + g_Travel_Images + "/") + Travel_PreView_1 + "." + UploadFileExt);
+                            Travel_PreView_1 = "PreView_" + o_DateTime + "-1" + "." + UploadFileExt;
+                        }
+
+                        o_HttpPostedFile = Request.Files["Travel_PreView2"];
+                        if (o_HttpPostedFile != null && VerifyUtility.IsString_NotNull(o_HttpPostedFile.FileName))
+                        {
+                            UploadFile = VerifyUtility.Check_UploadFile(o_HttpPostedFile.FileName, ref UploadFileExt);
+                            if (VerifyUtility.IsString_NotNull(UploadFile))
+                                ResponseError(UploadFile);
+
+                            o_HttpPostedFile.SaveAs(Server.MapPath("../" + g_Travel_Images + "/") + Travel_PreView_2 + "." + UploadFileExt);
+                            Travel_PreView_2 = "PreView_" + o_DateTime + "-2" + "." + UploadFileExt;
+                        }
+
+                        e_Travel.Travel_ID = g_Travel_ID;
+                        e_Travel.Travel_LanguageID = Convert.ToInt32(Travel_LanguageID.SelectedValue);
+                        e_Travel.Travel_TypeID = Convert.ToInt32(Travel_TypeID.SelectedValue);
+                        e_Travel.Travel_Code = Travel_Code.Text;
+                        e_Travel.Travel_Name = Travel_Name.Text;
+                        e_Travel.Travel_Price = Travel_Price.Text;
+                        e_Travel.Travel_Points = Convert.ToInt32(Travel_Points.Text);
+                        e_Travel.Travel_StartDate = DateTime.Parse(Travel_StartDate.Text);
+                        e_Travel.Travel_EndDate = DateTime.Parse(Travel_EndDate.Text);
+                        e_Travel.Travel_Views = Travel_Views.Text;
+                        e_Travel.Travel_Route = Travel_Route.Value;
+
+                        if (VerifyUtility.IsString_NotNull(Travel_PreView_1))
+                            e_Travel.Travel_PreView1 = Travel_PreView_1;
+
+                        if (VerifyUtility.IsString_NotNull(Travel_PreView_2))
+                            e_Travel.Travel_PreView2 = Travel_PreView_2;
+
+                        e_Travel.Travel_StartAddr = Travel_StartAddr.Text;
+                        e_Travel.Travel_EndAddr = Travel_EndAddr.Text;
+
+
+                        b_Travel.Update_Travel(e_Travel);
+                    }
                     break;
             }
         }
