@@ -81,7 +81,7 @@
 	        </div>
 	        <div class="home_nav">
 		        <a href="Article.aspx?Article_ClassID=1" style=" margin:4px 0 0 56px!important; margin:3px 0 0 28px;" class="nav2 home_nav_icon"></a>
-		        <a href="#" style=" margin:4px 0 0 20px;" class="nav3 home_nav_icon"></a>
+		        <a href="Travel_List.aspx?Travel_TypeID=1" style=" margin:4px 0 0 20px;" class="nav3 home_nav_icon"></a>
 		        <a href="#" style=" margin:4px 0 0 22px;" class="nav4 home_nav_icon"></a>
 		        <a href="News_List.aspx?News_ClassID=1" style=" margin:4px 0 0 22px;" class="nav5 home_nav_icon"></a>
 		        <a href="News_List.aspx?News_ClassID=3" style=" margin:4px 0 0 22px;" class="nav6 home_nav_icon"></a>
@@ -138,7 +138,7 @@
 	        </div>
 	        
 	        <div class="home_footer">
-	            <p style="color:#666666;"><a href="Article.aspx?Article_ClassID=1">关于华捷</a> | <a href="#">旅游线路</a> | <a href="#">机票问价</a> | <a href="News_List.aspx?News_ClassID=1">最新资讯</a> | <a href="News_List.aspx?News_ClassID=3">旅游需知</a> | <a href="Article.aspx?Article_ClassID=2">联系我们</a> | <a href="News_List.aspx?News_ClassID=4">表格下载</a> | <a href="#">在线客服</a></p>
+	            <p style="color:#666666;"><a href="Article.aspx?Article_ClassID=1">关于华捷</a> | <a href="Travel_List.aspx?Travel_TypeID=1">旅游线路</a> | <a href="#">机票问价</a> | <a href="News_List.aspx?News_ClassID=1">最新资讯</a> | <a href="News_List.aspx?News_ClassID=3">旅游需知</a> | <a href="Article.aspx?Article_ClassID=2">联系我们</a> | <a href="News_List.aspx?News_ClassID=4">表格下载</a> | <a href="#">在线客服</a></p>
                 <p>Copyright<span style="font-size:20px;">&reg;</span>2009 Aisa travel express. All Rights Reserved</p>
             </div>
         </div>

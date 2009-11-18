@@ -31,7 +31,7 @@ namespace Web.Controls
                     foreach (Entity.News o_News in e_News)
                     {
                         HyperLink o_HyperLink = new HyperLink();
-                        o_HyperLink.NavigateUrl = "News_Detail.aspx?News_ID=" + o_News.News_ID.ToString();
+                        o_HyperLink.NavigateUrl = "../News_Detail.aspx?News_ID=" + o_News.News_ID.ToString();
 
                         if (o_News.News_Title.Length > 24)
                             o_HyperLink.Text = o_News.News_Title.Substring(0, 24);

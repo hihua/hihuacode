@@ -89,12 +89,12 @@ namespace Web
 
             g_TravelName = new string[2];
             g_TravelName[0] = "国外旅游";
-            g_TravelName[1] = "Travel Abroad";
+            g_TravelName[1] = "Abroad";
             g_Travel.Add(1, g_TravelName);
 
             g_TravelName = new string[2];
             g_TravelName[0] = "中国旅游";
-            g_TravelName[1] = "China Tourism";
+            g_TravelName[1] = "China";
             g_Travel.Add(2, g_TravelName);
             
             if (Session["LanguageID"] != null)

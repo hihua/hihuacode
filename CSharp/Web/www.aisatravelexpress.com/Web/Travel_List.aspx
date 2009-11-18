@@ -24,22 +24,14 @@
                             <Controls_Left:Left ID="Web_Left" runat="server" />        		
 		                </td>
 			            <td rowspan="2" valign="top" bgcolor="#ddf6fe">
-			                <div class="inside_content_rightanv">
-			                    <Controls_Mid:Mid ID="Mid1" runat="server" />
-			                    <div id="Travel_Lists" class="inside_content_rightlink" runat="server" style="height:910px;">
+			                <div id="Travel_Lists" class="inside_content_rightanv" runat="server" style="height:910px;">
+			                    <Controls_Mid:Mid ID="Mid" runat="server" />
+			                    <div class="inside_content_rightlink">
 				                    <span class="inside_content_rightlink2"></span>
 				                    <span class="inside_content_rightlink3"><asp:HyperLink ID="HyperLink_Title" runat="server" class="nav10"></asp:HyperLink>>><asp:HyperLink ID="HyperLink_Travel" runat="server" class="nav10"></asp:HyperLink>>><asp:HyperLink ID="HyperLink_Travel_TypeID" runat="server" class="nav10"></asp:HyperLink></span>
 				                    <span style=" float:left; padding-top:10px;"><asp:HyperLink ID="HyperLink_Travel_TypeID_1" runat="server"></asp:HyperLink> <asp:Label ID="Label_Travel_TypeID" Text="|" runat="server"></asp:Label> <asp:HyperLink ID="HyperLink_Travel_TypeID_2" runat="server"></asp:HyperLink></span>
 				                    <span class="inside_content_rightlink4"></span>				                    
-				                </div>
-				                <%--<div class="inside_content_news">
-				                    <a href="#" class="inside_content_newsa"><img src="images/inside_photo_2.jpg" alt="" /></a>
-				                    <span class="inside_content_span">
-				                        <h3><strong>西峡谷玻璃桥West Grand Canyon Skywalk</strong></h3>
-				                        <span class="inside_content_span1"><strong>出团日期：</strong>2009-10-10至2009-11-10				</span><br>
-				                        <span class="inside_content_span1"><strong>主要景点：</strong><a style="color:#f7860f;" href="#">西峡谷玻璃桥-西峡谷玻璃桥边-西峡谷玻璃桥-西峡谷玻璃桥-西峡谷玻璃桥-西峡谷玻璃桥-西峡谷玻璃桥</a><br /></span>
-				                    </span>
-				                </div>--%>		                    			                                     			
+				                </div>				                	                    			                                     			
 		                    </div>
 		                </td>
                     </tr>
