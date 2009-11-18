@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -222,10 +223,20 @@ namespace Web.Admin
                         e_Travel.Travel_Route = Travel_Route.Value;
 
                         if (VerifyUtility.IsString_NotNull(Travel_PreView_1))
+                        {
+                            if (File.Exists(Server.MapPath("../" + g_Travel_Images + "/" + e_Travel.Travel_PreView1)))
+                                File.Delete(Server.MapPath("../" + g_Travel_Images + "/" + e_Travel.Travel_PreView1));
+
                             e_Travel.Travel_PreView1 = Travel_PreView_1;
+                        }
 
                         if (VerifyUtility.IsString_NotNull(Travel_PreView_2))
+                        {
+                            if (File.Exists(Server.MapPath("../" + g_Travel_Images + "/" + e_Travel.Travel_PreView2)))
+                                File.Delete(Server.MapPath("../" + g_Travel_Images + "/" + e_Travel.Travel_PreView2));
+
                             e_Travel.Travel_PreView2 = Travel_PreView_2;
+                        }
 
                         e_Travel.Travel_StartAddr = Travel_StartAddr.Text;
                         e_Travel.Travel_EndAddr = Travel_EndAddr.Text;

@@ -214,6 +214,40 @@ namespace BLL
             }
         }
 
+        public void Update_Travel(Entity.Travel p_Travel, int p_Pos, string p_Travel_Images, string p_Travel_ImagesPath)
+        {
+            if (p_Travel != null)
+            {
+                if (!p_Travel_ImagesPath.EndsWith("\\") && !p_Travel_ImagesPath.EndsWith("/"))
+                    p_Travel_ImagesPath += "\\";
+
+                if (p_Travel.Travel_PreViews == null || p_Travel.Travel_PreViews.Length == 0)
+                {
+                    string[] Travel_PreViews = new string[1];
+                    Travel_PreViews[0] = p_Travel_Images;
+                    p_Travel.Travel_PreViews = Travel_PreViews;
+                }
+                else
+                {
+                    int i = 0;
+                    foreach (string Travel_Images in p_Travel.Travel_PreViews)
+                    {
+                        if (i == p_Pos)
+                        {
+                            if (File.Exists(p_Travel_ImagesPath + p_Travel.Travel_PreViews[i]))
+                                File.Delete(p_Travel_ImagesPath + p_Travel.Travel_PreViews[i]);
+
+                            p_Travel.Travel_PreViews[i] = p_Travel_Images;
+
+                            break;
+                        }
+
+                        i++;
+                    }
+                }
+            }
+        }
+
         public void Delete_Travel(int p_Travel_ID, string p_Travel_ImagesPath)
         {
             if (!p_Travel_ImagesPath.EndsWith("\\") && !p_Travel_ImagesPath.EndsWith("/"))
