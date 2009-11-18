@@ -190,8 +190,8 @@ namespace Web.Admin
                             if (VerifyUtility.IsString_NotNull(UploadFile))
                                 ResponseError(UploadFile);
 
-                            o_HttpPostedFile.SaveAs(Server.MapPath("../" + g_Travel_Images + "/") + Travel_PreView_1 + "." + UploadFileExt);
                             Travel_PreView_1 = "PreView_" + o_DateTime + "-1" + "." + UploadFileExt;
+                            o_HttpPostedFile.SaveAs(Server.MapPath("../" + g_Travel_Images + "/") + Travel_PreView_1);                            
                         }
 
                         o_HttpPostedFile = Request.Files["Travel_PreView2"];
@@ -201,8 +201,8 @@ namespace Web.Admin
                             if (VerifyUtility.IsString_NotNull(UploadFile))
                                 ResponseError(UploadFile);
 
-                            o_HttpPostedFile.SaveAs(Server.MapPath("../" + g_Travel_Images + "/") + Travel_PreView_2 + "." + UploadFileExt);
                             Travel_PreView_2 = "PreView_" + o_DateTime + "-2" + "." + UploadFileExt;
+                            o_HttpPostedFile.SaveAs(Server.MapPath("../" + g_Travel_Images + "/") + Travel_PreView_2);                            
                         }
 
                         e_Travel.Travel_ID = g_Travel_ID;
@@ -215,7 +215,9 @@ namespace Web.Admin
                         e_Travel.Travel_StartDate = DateTime.Parse(Travel_StartDate.Text);
                         e_Travel.Travel_EndDate = DateTime.Parse(Travel_EndDate.Text);
                         e_Travel.Travel_Views = Travel_Views.Text;
-                        e_Travel.Travel_Route = Travel_Route.Value;
+                        e_Travel.Travel_Route = Travel_Route.Value;                                                
+                        e_Travel.Travel_StartAddr = Travel_StartAddr.Text;
+                        e_Travel.Travel_EndAddr = Travel_EndAddr.Text;
 
                         if (VerifyUtility.IsString_NotNull(Travel_PreView_1))
                         {
@@ -233,10 +235,6 @@ namespace Web.Admin
                             e_Travel.Travel_PreView2 = Travel_PreView_2;
                         }
 
-                        e_Travel.Travel_StartAddr = Travel_StartAddr.Text;
-                        e_Travel.Travel_EndAddr = Travel_EndAddr.Text;
-
-                        //
                         if (VerifyUtility.IsNumber_NotNull(Travel_PreViews_Num.Text))
                         {
                             int m = Convert.ToInt32(Travel_PreViews_Num.Text);
@@ -244,7 +242,7 @@ namespace Web.Admin
                             for (int i = 0; i < m; i++)
                             {
                                 o_HttpPostedFile = Request.Files["Travel_PreViews_" + i.ToString()];
-                                if (o_HttpPostedFile != null)
+                                if (o_HttpPostedFile != null && VerifyUtility.IsString_NotNull(o_HttpPostedFile.FileName))
                                 {
                                     UploadFile = VerifyUtility.Check_UploadFile(o_HttpPostedFile.FileName, ref UploadFileExt);
                                     if (VerifyUtility.IsString_NotNull(UploadFile))
@@ -263,7 +261,7 @@ namespace Web.Admin
                         g_MainTable.Visible = false;
                         TipsMessage.Text = "修改成功";
                         TipsLink1.NavigateUrl = "?Action_ID=" + g_Action_ID.ToString() + "&Travel_ID=" + g_Travel_ID.ToString();
-                        TipsLink1.Text = "继续添加";
+                        TipsLink1.Text = "继续修改";
                     }
                     break;
             }
@@ -281,8 +279,8 @@ namespace Web.Admin
                 Travel_Name.Text = e_Travel.Travel_Name;
                 Travel_Price.Text = e_Travel.Travel_Price;
                 Travel_Points.Text = e_Travel.Travel_Points.ToString();
-                Travel_StartDate.Text = e_Travel.Travel_StartDate.ToString();
-                Travel_EndDate.Text = e_Travel.Travel_EndDate.ToString();
+                Travel_StartDate.Text = e_Travel.Travel_StartDate.ToString("yyyy-MM-dd");
+                Travel_EndDate.Text = e_Travel.Travel_EndDate.ToString("yyyy-MM-dd");
                 Travel_Views.Text = e_Travel.Travel_Views;
                 Travel_Route.Value = e_Travel.Travel_Route;
                 Travel_PreView1_Image.ImageUrl = "../" + g_Travel_Images + "/" + e_Travel.Travel_PreView1;

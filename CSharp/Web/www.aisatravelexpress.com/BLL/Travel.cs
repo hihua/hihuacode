@@ -54,6 +54,7 @@ namespace BLL
                     string o_Travel_PreViews = o_DataRow["Travel_PreViews"].ToString();
                     if (VerifyUtility.IsString_NotNull(o_Travel_PreViews))
                     {
+                        e_Travel[i].Travel_PreViews = new List<string>();
                         if (o_Travel_PreViews.IndexOf(";") > -1)
                         {
                             string[] Travel_PreViews = o_Travel_PreViews.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
@@ -106,6 +107,7 @@ namespace BLL
                 string o_Travel_PreViews = o_DataRow["Travel_PreViews"].ToString();
                 if (VerifyUtility.IsString_NotNull(o_Travel_PreViews))
                 {
+                    e_Travel.Travel_PreViews = new List<string>();
                     if (o_Travel_PreViews.IndexOf(";") > -1)
                     {
                         string[] Travel_PreViews = o_Travel_PreViews.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);

@@ -29,6 +29,7 @@ namespace Web
         protected int g_Article_ClassID = 1;
         protected int g_News_ClassID = 1;
         protected int g_News_ID = 1;
+        protected int g_Travel_TypeID = 1;
         protected int g_Travel_ID = 1;
 
         protected string g_Travel_Images = "Travel_Images";
@@ -107,6 +108,9 @@ namespace Web
 
             if (VerifyUtility.IsNumber_NotNull(Request["News_ID"]) && Request["News_ID"] != "0")
                 g_News_ID = Convert.ToInt32(Request["News_ID"]);
+
+            if (VerifyUtility.IsNumber_NotNull(Request["Travel_TypeID"]) && Request["Travel_TypeID"] != "0")
+                g_Travel_TypeID = Convert.ToInt32(Request["Travel_TypeID"]);
 
             if (VerifyUtility.IsNumber_NotNull(Request["Travel_ID"]) && Request["Travel_ID"] != "0")
                 g_Travel_ID = Convert.ToInt32(Request["Travel_ID"]);
@@ -252,6 +256,37 @@ namespace Web
                 {
                     p_Label.Visible = true;
                 }
+            }
+        }
+
+        public void SetHyperLinkTravel(HyperLink p_HyperLink, HyperLink p_HyperLinkTypeID)
+        {
+            if (p_HyperLink != null)
+            {
+                p_HyperLink.NavigateUrl = "Travel_List.aspx?Travel_TypeID=1";
+                p_HyperLink.Text = g_Travel[0][g_LanguageID - 1];                               
+            }
+
+            if (p_HyperLinkTypeID != null)
+            {
+                p_HyperLinkTypeID.NavigateUrl = "Travel_List.aspx?Travel_TypeID=" + g_Travel_TypeID.ToString();
+                p_HyperLinkTypeID.Text = g_Travel[g_Travel_TypeID][g_LanguageID - 1];
+            }
+        }
+
+        public void SetHyperLinkTravelType(HyperLink p_HyperLink1, HyperLink p_HyperLink2)
+        {
+            if (p_HyperLink1 != null)
+            {
+                p_HyperLink1.NavigateUrl = "Travel_List.aspx?Travel_TypeID=1";
+                p_HyperLink1.Text = g_Travel[1][g_LanguageID - 1];
+                if (g_Travel_TypeID != 1)
+                    p_HyperLink1.CssClass = "nav10";
+
+                p_HyperLink2.NavigateUrl = "Travel_List.aspx?Travel_TypeID=2";
+                p_HyperLink2.Text = g_Travel[2][g_LanguageID - 1];
+                if (g_Travel_TypeID != 2)
+                    p_HyperLink2.CssClass = "nav10";
             }
         }
     }
