@@ -57,13 +57,13 @@ namespace BLL
                         if (o_Travel_PreViews.IndexOf(";") > -1)
                         {
                             string[] Travel_PreViews = o_Travel_PreViews.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
-                            e_Travel[i].Travel_PreViews = Travel_PreViews;
+
+                            foreach (string Travel_Images in Travel_PreViews)
+                                e_Travel[i].Travel_PreViews.Add(Travel_Images);
                         }
                         else
                         {
-                            string[] Travel_PreViews = new string[1];
-                            Travel_PreViews[0] = o_Travel_PreViews;
-                            e_Travel[i].Travel_PreViews = Travel_PreViews;
+                            e_Travel[i].Travel_PreViews.Add(o_Travel_PreViews);
                         }
                     }
 
@@ -109,13 +109,13 @@ namespace BLL
                     if (o_Travel_PreViews.IndexOf(";") > -1)
                     {
                         string[] Travel_PreViews = o_Travel_PreViews.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
-                        e_Travel.Travel_PreViews = Travel_PreViews;
+
+                        foreach (string Travel_Images in Travel_PreViews)
+                            e_Travel.Travel_PreViews.Add(Travel_Images);
                     }
                     else
                     {
-                        string[] Travel_PreViews = new string[1];
-                        Travel_PreViews[0] = o_Travel_PreViews;
-                        e_Travel.Travel_PreViews = Travel_PreViews;
+                        e_Travel.Travel_PreViews.Add(o_Travel_PreViews);
                     }
                 }
 
@@ -127,7 +127,7 @@ namespace BLL
             }
         }
 
-        public void Insert_Travel(int p_Travel_LanguageID, int p_Travel_TypeID, string p_Travel_Code, string p_Travel_Name, string p_Travel_Price, int p_Travel_Points, DateTime p_Travel_StartDate, DateTime p_Travel_EndDate, string p_Travel_Views, string p_Travel_Route, string p_Travel_PreView1, string p_Travel_PreView2, string[] p_Travel_PreViews, string p_Travel_StartAddr, string p_Travel_EndAddr)
+        public void Insert_Travel(int p_Travel_LanguageID, int p_Travel_TypeID, string p_Travel_Code, string p_Travel_Name, string p_Travel_Price, int p_Travel_Points, DateTime p_Travel_StartDate, DateTime p_Travel_EndDate, string p_Travel_Views, string p_Travel_Route, string p_Travel_PreView1, string p_Travel_PreView2, List<string> p_Travel_PreViews, string p_Travel_StartAddr, string p_Travel_EndAddr)
         {
             p_Travel_Code = FilterUtility.FilterSQL(p_Travel_Code);
             p_Travel_Name = FilterUtility.FilterSQL(p_Travel_Name);
@@ -184,66 +184,47 @@ namespace BLL
             d_Travel.Update_Travel(o_Travel);
         }
 
-        public void Update_Travel(Entity.Travel p_Travel, string p_Travel_Images, string p_Travel_ImagesPath)
+        public void Insert_Travel_PreViews(Entity.Travel p_Travel, string p_Travel_Images)
         {
             if (p_Travel != null)
-            {
-                if (!p_Travel_ImagesPath.EndsWith("\\") && !p_Travel_ImagesPath.EndsWith("/"))
-                    p_Travel_ImagesPath += "\\";
-
-                if (p_Travel.Travel_PreViews.Length == 1)                
-                    p_Travel.Travel_PreViews = null;                
+            {                
+                if (p_Travel.Travel_PreViews == null || p_Travel.Travel_PreViews.Count <= 0)
+                {
+                    p_Travel.Travel_PreViews = new List<string>();
+                    p_Travel.Travel_PreViews.Add(p_Travel_Images);
+                }
                 else
                 {
-                    int i = 0;
-                    string[] Travel_PreViews = new string[p_Travel.Travel_PreViews.Length - 1];
-
-                    foreach (string Travel_Images in p_Travel.Travel_PreViews)
-                    {
-                        if (Travel_Images != p_Travel_Images)
-                            Travel_PreViews[i] = Travel_Images;
-
-                        i++;
-                    }
-
-                    p_Travel.Travel_PreViews = Travel_PreViews;                    
+                    p_Travel.Travel_PreViews.Add(p_Travel_Images);
                 }
-
-                if (File.Exists(p_Travel_ImagesPath + p_Travel_Images))
-                    File.Delete(p_Travel_ImagesPath + p_Travel_Images);
             }
         }
 
-        public void Update_Travel(Entity.Travel p_Travel, int p_Pos, string p_Travel_Images, string p_Travel_ImagesPath)
+        public void Update_Travel_PreViews(Entity.Travel p_Travel, int p_Pos, string p_Travel_Images, string p_Travel_ImagesPath)
         {
             if (p_Travel != null)
             {
                 if (!p_Travel_ImagesPath.EndsWith("\\") && !p_Travel_ImagesPath.EndsWith("/"))
                     p_Travel_ImagesPath += "\\";
 
-                if (p_Travel.Travel_PreViews == null || p_Travel.Travel_PreViews.Length == 0)
+                if (p_Travel.Travel_PreViews == null || p_Travel.Travel_PreViews.Count <= 0)
                 {
-                    string[] Travel_PreViews = new string[1];
-                    Travel_PreViews[0] = p_Travel_Images;
-                    p_Travel.Travel_PreViews = Travel_PreViews;
+                    Insert_Travel_PreViews(p_Travel, p_Travel_Images);
                 }
                 else
                 {
-                    int i = 0;
-                    foreach (string Travel_Images in p_Travel.Travel_PreViews)
+                    if (p_Pos <= p_Travel.Travel_PreViews.Count - 1)
                     {
-                        if (i == p_Pos)
-                        {
-                            if (File.Exists(p_Travel_ImagesPath + p_Travel.Travel_PreViews[i]))
-                                File.Delete(p_Travel_ImagesPath + p_Travel.Travel_PreViews[i]);
+                        string Travel_PreViews = p_Travel.Travel_PreViews[p_Pos];
+                        if (File.Exists(p_Travel_ImagesPath + Travel_PreViews))
+                            File.Delete(p_Travel_ImagesPath + Travel_PreViews);
 
-                            p_Travel.Travel_PreViews[i] = p_Travel_Images;
-
-                            break;
-                        }
-
-                        i++;
+                        p_Travel.Travel_PreViews[p_Pos] = p_Travel_Images;
                     }
+                    else
+                    {
+                        p_Travel.Travel_PreViews.Add(p_Travel_Images);
+                    }                    
                 }
             }
         }

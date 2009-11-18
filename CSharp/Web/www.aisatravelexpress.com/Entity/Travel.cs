@@ -97,9 +97,9 @@ namespace Entity
             get { return _Travel_PreView2; }
             set { _Travel_PreView2 = value; }
         }
-        private string[] _Travel_PreViews;
+        private List<string> _Travel_PreViews;
 
-        public string[] Travel_PreViews
+        public List<string> Travel_PreViews
         {
             get { return _Travel_PreViews; }
             set { _Travel_PreViews = value; }

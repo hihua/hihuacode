@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.IO;
@@ -137,11 +137,11 @@ namespace Web.Admin
                         o_HttpPostedFile.SaveAs(Server.MapPath("../" + g_Travel_Images + "/") + Travel_PreView_2 + "." + UploadFileExt);
                         Travel_PreView_2 += "." + UploadFileExt;
 
-                        string[] Travel_PreViews = null;
+                        List<string> o_Travel_PreViews = null;
                         if (VerifyUtility.IsNumber_NotNull(Travel_PreViews_Num.Text))
                         {
                             int m = Convert.ToInt32(Travel_PreViews_Num.Text);
-                            Travel_PreViews = new string[m];
+                            o_Travel_PreViews = new List<string>();
 
                             for (int i = 0; i < m; i++)
                             {
@@ -153,13 +153,13 @@ namespace Web.Admin
                                         ResponseError(UploadFile);
 
                                     o_DateTime = "PreViews_" + DateTime.Now.ToString("yyyyMMddHHmmss") + "-" + i.ToString();
-                                    o_HttpPostedFile.SaveAs(Server.MapPath("../" + g_Travel_Images + "/") + o_DateTime + "." + UploadFileExt);
-                                    Travel_PreViews[i] = o_DateTime + "." + UploadFileExt;
+                                    o_HttpPostedFile.SaveAs(Server.MapPath("../" + g_Travel_Images + "/") + o_DateTime + "." + UploadFileExt);                                    
+                                    o_Travel_PreViews.Add(o_DateTime + "." + UploadFileExt);
                                 }
                             }
                         }
 
-                        b_Travel.Insert_Travel(Convert.ToInt32(Travel_LanguageID.SelectedValue), Convert.ToInt32(Travel_TypeID.SelectedValue), Travel_Code.Text, Travel_Name.Text, Travel_Price.Text, Convert.ToInt32(Travel_Points.Text), DateTime.Parse(Travel_StartDate.Text), DateTime.Parse(Travel_EndDate.Text), Travel_Views.Text, Travel_Route.Value, Travel_PreView_1, Travel_PreView_2, Travel_PreViews, Travel_StartAddr.Text, Travel_EndAddr.Text);
+                        b_Travel.Insert_Travel(Convert.ToInt32(Travel_LanguageID.SelectedValue), Convert.ToInt32(Travel_TypeID.SelectedValue), Travel_Code.Text, Travel_Name.Text, Travel_Price.Text, Convert.ToInt32(Travel_Points.Text), DateTime.Parse(Travel_StartDate.Text), DateTime.Parse(Travel_EndDate.Text), Travel_Views.Text, Travel_Route.Value, Travel_PreView_1, Travel_PreView_2, o_Travel_PreViews, Travel_StartAddr.Text, Travel_EndAddr.Text);
                         g_TipsTable.Visible = true;
                         g_MainTable.Visible = false;
                         TipsMessage.Text = "添加成功";
@@ -171,15 +171,10 @@ namespace Web.Admin
                 case 2:
                     {
                         e_Travel = b_Travel.Select_Travel(g_Travel_ID);
-
-                        int n = 0;
+                                                
                         if (!VerifyUtility.IsNumber_NotNull(Travel_PreViews_Num.Text))
                             ResponseError("请输入正确数字");
-
-                        int m = Convert.ToInt32(Travel_PreViews_Num.Text);
-                        if (e_Travel.Travel_PreViews != null)
-                            n = e_Travel.Travel_PreViews.Length;
-
+                                                
                         string o_DateTime = DateTime.Now.ToString("yyyyMMddHHmmss");
                         string Travel_PreView_1 = "";
                         string Travel_PreView_2 = "";
@@ -242,6 +237,26 @@ namespace Web.Admin
                         e_Travel.Travel_EndAddr = Travel_EndAddr.Text;
 
                         //
+                        if (VerifyUtility.IsNumber_NotNull(Travel_PreViews_Num.Text))
+                        {
+                            int m = Convert.ToInt32(Travel_PreViews_Num.Text);
+                            
+                            for (int i = 0; i < m; i++)
+                            {
+                                o_HttpPostedFile = Request.Files["Travel_PreViews_" + i.ToString()];
+                                if (o_HttpPostedFile != null)
+                                {
+                                    UploadFile = VerifyUtility.Check_UploadFile(o_HttpPostedFile.FileName, ref UploadFileExt);
+                                    if (VerifyUtility.IsString_NotNull(UploadFile))
+                                        ResponseError(UploadFile);
+
+                                    o_DateTime = "PreViews_" + DateTime.Now.ToString("yyyyMMddHHmmss") + "-" + i.ToString();
+                                    o_HttpPostedFile.SaveAs(Server.MapPath("../" + g_Travel_Images + "/") + o_DateTime + "." + UploadFileExt);
+
+                                    b_Travel.Update_Travel_PreViews(e_Travel, i, o_DateTime + "." + UploadFileExt, Server.MapPath("../" + g_Travel_Images + "/"));
+                                }
+                            }
+                        }
 
                         b_Travel.Update_Travel(e_Travel);
                         g_TipsTable.Visible = true;
@@ -278,7 +293,7 @@ namespace Web.Admin
                     int i = 0;
 
                     if (!VerifyUtility.IsNumber_NotNull(Travel_PreViews_Num.Text))                        
-                        Travel_PreViews_Num.Text = e_Travel.Travel_PreViews.Length.ToString();
+                        Travel_PreViews_Num.Text = e_Travel.Travel_PreViews.Count.ToString();
 
                     foreach (string Travel_PreViews in e_Travel.Travel_PreViews)
                     {
@@ -333,8 +348,8 @@ namespace Web.Admin
                 {
                     if (m > 0)
                     {
-                        if (m > e_Travel.Travel_PreViews.Length)                        
-                            n = e_Travel.Travel_PreViews.Length;                        
+                        if (m > e_Travel.Travel_PreViews.Count)
+                            n = e_Travel.Travel_PreViews.Count;                        
                         else
                             return;
                     }
