@@ -7,7 +7,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head id="Head1" runat="server">
+<head runat="server">
     <meta http-equiv="x-ua-compatible" content="ie=7" />
     <title>华捷国际旅游</title>
     <link type="text/css" href="css/aisa.css" rel="stylesheet" />
@@ -70,7 +70,7 @@
                             <Controls_Left:Left ID="Web_Left" runat="server" />        		
 		                </td>
 			            <td rowspan="2" valign="top" bgcolor="#ddf6fe">
-			                <div id="Travel_Lists" class="inside_content_rightanv" runat="server" style="height:910px;">
+			                <div id="Travel_Lists" class="inside_content_rightanv" runat="server">
 			                    <Controls_Mid:Mid ID="Mid" runat="server" />
 			                    <div class="inside_content_rightlink">
 				                    <span class="inside_content_rightlink2"></span>
@@ -79,25 +79,25 @@
 				                    <span class="inside_content_rightlink4"></span>				                    
 				                </div>
 				                <div class="inside2">
-				                    <h1><strong>空中漫步,西峡谷玻璃桥,拉斯维加斯刺激两日游</strong></h1>
-				                    <div class="inside2_photo"><span><a href="#" title="景点图片"><img src="images/inside2_photo_3.jpg" /></a></span></div>
-				                    <p><strong>线路编号：</strong>USLA5-371 </p>				
-                                    <p><strong>价格：</strong>$88.00 起 </p> 
-                                    <p><strong>出发地：</strong>洛杉矶, CA, USA</p>
-                                    <p><strong>结束地：</strong>洛杉矶, CA, USA</p>
-                                    <p><strong>积分信息：</strong>176 个积分 </p> 
-                                    <p><strong>出团日期：</strong>2009年5月23日 - 2009年12月31日</p> 
+				                    <h1><strong id="Travel_Name" runat="server"></strong></h1>
+				                    <div class="inside2_photo"><span id="Travel_PreView2" runat="server"></span></div>
+				                    <p><strong>线路编号：</strong><span id="Travel_Code" runat="server"></span></p>				
+                                    <p><strong>价格：</strong><span id="Travel_Price" runat="server"></span></p> 
+                                    <p><strong>出发地：</strong><span id="Travel_StartAddr" runat="server"></span></p>
+                                    <p><strong>结束地：</strong><span id="Travel_EndAddr" runat="server"></span></p>
+                                    <p><strong>积分信息：</strong><span id="Travel_Points" runat="server"></span>个积分</p> 
+                                    <p><strong>出团日期：</strong><span id="Travel_Date" runat="server"></span></p> 
                                     <p><strong>主要景点：</strong></p>
-                                    <p class="letter"></p>
+                                    <p id="Travel_Views" class="letter" runat="server"></p>
                                     <p><strong>详细行程：</strong></p> 
-                                    <p></p>
+                                    <p id="Travel_Route" runat="server"></p>
                                     <p><strong>精彩瞬间：</strong>(点击图片放大)</p>			
 			                    </div>			
-			                    <div class="inside2_photo_demo" style="position:relative;">
-			                        <a href="#" title="景点图片"onclick="return false"><img name="small" src="images/inside2_photo_1.jpg" onclick="MM_showHideLayers('layer2','','show');MM_showHideLayers('layer','','hide');MM_showHideLayers('layer1','','hide');" alt=""/></a>
-			                        <a href="#" title="景点图片"onclick="return false"><img name="small" src="images/inside2_photo_2.jpg" onclick="MM_showHideLayers('layer3','','show');MM_showHideLayers('layer','','hide');MM_showHideLayers('layer1','','hide');" alt=""/></a>
-			                        <a href="#" title="景点图片"onclick="return false"><img name="small" src="images/inside2_photo_1.jpg" onclick="MM_showHideLayers('layer4','','show');MM_showHideLayers('layer','','hide');MM_showHideLayers('layer1','','hide');" alt=""/></a>
-			                        <a href="#" title="景点图片"onclick="return false"><img name="small" src="images/inside2_photo_2.jpg" onclick="MM_showHideLayers('layer5','','show');MM_showHideLayers('layer','','hide');MM_showHideLayers('layer1','','hide');" alt=""/></a>			
+			                    <div id="Travel_PreViews" class="inside2_photo_demo" style="position:relative;" runat="server">
+			                        <%--<a href="#" title="景点图片" onclick="return false"><img name="small" src="images/inside2_photo_1.jpg" onclick="MM_showHideLayers('layer2','','show');MM_showHideLayers('layer','','hide');MM_showHideLayers('layer1','','hide');" alt=""/></a>
+			                        <a href="#" title="景点图片" onclick="return false"><img name="small" src="images/inside2_photo_2.jpg" onclick="MM_showHideLayers('layer3','','show');MM_showHideLayers('layer','','hide');MM_showHideLayers('layer1','','hide');" alt=""/></a>
+			                        <a href="#" title="景点图片" onclick="return false"><img name="small" src="images/inside2_photo_1.jpg" onclick="MM_showHideLayers('layer4','','show');MM_showHideLayers('layer','','hide');MM_showHideLayers('layer1','','hide');" alt=""/></a>
+			                        <a href="#" title="景点图片" onclick="return false"><img name="small" src="images/inside2_photo_2.jpg" onclick="MM_showHideLayers('layer5','','show');MM_showHideLayers('layer','','hide');MM_showHideLayers('layer1','','hide');" alt=""/></a>			
 			                        <div id="layer2" class="inside2_photo_layer"> 
                                         <a href="" onclick="return false"><img name="big" src="images/inside2_photo_1.jpg" onclick="MM_showHideLayers('layer2','','hide');MM_showHideLayers('layer','','show');MM_showHideLayers('layer1','','show');return false;" border="0" width="450" height="280" alt=""/><strong>点击图片关闭</strong></a> 
 			                        </div>
@@ -109,7 +109,7 @@
 			                        </div>
 			                        <div id="layer5" class="inside2_photo_layer"> 
                                         <a href="" onclick="return false"><img name="big" src="images/inside2_photo_2.jpg" onclick="MM_showHideLayers('layer5','','hide');MM_showHideLayers('layer','','show');MM_showHideLayers('layer1','','show');return false;" border="0" width="450" height="280" alt=""/><strong>点击图片关闭</strong></a> 
-			                        </div>			
+			                        </div>--%>			
 			                    </div>			                			                	                    			                                     			
 		                    </div>
 		                </td>
