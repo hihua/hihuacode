@@ -35,7 +35,7 @@ namespace Web.Admin
                         Travel_AddTime_TD.Visible = false;
                         Travel_PreView1_Image.Visible = false;
                         Travel_PreView2_Image.Visible = false;
-                        Travel_PreViews_TD.Visible = false;                        
+                        Travel_PreViews_TD.Visible = false;
                         Travel_Submit.Text = " 添加 ";
                         break;
 
@@ -55,6 +55,14 @@ namespace Web.Admin
                         b_Travel.Delete_Travel(g_Travel_ID, Server.MapPath("../" + g_Travel_Images + "/"));
                         ResponseClose("删除成功");
                         break;
+                }
+            }
+            else
+            {
+                string ControlID = Request.Params["__EVENTTARGET"];
+                if (VerifyUtility.IsString_NotNull(ControlID) && ControlID.IndexOf("Del_Travel_PreViews_") == 0)
+                {
+
                 }
             }
         }
