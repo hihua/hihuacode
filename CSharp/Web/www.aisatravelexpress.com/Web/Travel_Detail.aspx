@@ -11,6 +11,52 @@
     <meta http-equiv="x-ua-compatible" content="ie=7" />
     <title>华捷国际旅游</title>
     <link type="text/css" href="css/aisa.css" rel="stylesheet" />
+    <script type="text/javascript">
+    function MM_showHideLayers() 
+    { 
+        var i,p,v,obj,args=MM_showHideLayers.arguments;
+        for (i=0; i<(args.length-2); i+=3) 
+        {
+            if ((obj=MM_findObj(args[i]))!=null) 
+            { 
+                v=args[i+2];
+                if (obj.style) 
+                { 
+                    obj=obj.style; 
+                    v=(v=='show')?'visible':(v='hide')?'hidden':v; 
+                }
+                
+                obj.visibility=v; 
+            }
+        }
+    }
+
+    function MM_findObj(n, d) 
+    {
+        var p,i,x;
+        if (!d) 
+            d=document; 
+            
+        if ((p=n.indexOf("?"))>0&&parent.frames.length) 
+        {
+            d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);
+        }
+        
+        if (!(x=d[n])&&d.all) 
+            x=d.all[n];
+            
+        for (i=0;!x&&i<d.forms.length;i++) 
+            x=d.forms[i][n];
+        
+        for (i=0;!x&&d.layers&&i<d.layers.length;i++) 
+            x=MM_findObj(n,d.layers[i].document);
+        
+        if (!x && d.getElementById) 
+            x=d.getElementById(n); 
+        
+        return x;
+    }
+    </script>
 </head>
 <body style="background:url(images/inside_12.jpg) repeat-x #e9faff top;">
     <form id="form1" runat="server">        
@@ -31,7 +77,40 @@
 				                    <span class="inside_content_rightlink3"><asp:HyperLink ID="HyperLink_Title" runat="server" class="nav10"></asp:HyperLink>>><asp:HyperLink ID="HyperLink_Travel" runat="server" class="nav10"></asp:HyperLink>>><asp:HyperLink ID="HyperLink_Travel_TypeID" runat="server" class="nav10"></asp:HyperLink></span>
 				                    <span style="float:left; padding-top:10px;"><asp:HyperLink ID="HyperLink_Travel_TypeID_1" runat="server"></asp:HyperLink> <asp:Label ID="Label_Travel_TypeID" Text="|" runat="server"></asp:Label> <asp:HyperLink ID="HyperLink_Travel_TypeID_2" runat="server"></asp:HyperLink></span>
 				                    <span class="inside_content_rightlink4"></span>				                    
-				                </div>				                			                	                    			                                     			
+				                </div>
+				                <div class="inside2">
+				                    <h1><strong>空中漫步,西峡谷玻璃桥,拉斯维加斯刺激两日游</strong></h1>
+				                    <div class="inside2_photo"><span><a href="#" title="景点图片"><img src="images/inside2_photo_3.jpg" /></a></span></div>
+				                    <p><strong>线路编号：</strong>USLA5-371 </p>				
+                                    <p><strong>价格：</strong>$88.00 起 </p> 
+                                    <p><strong>出发地：</strong>洛杉矶, CA, USA</p>
+                                    <p><strong>结束地：</strong>洛杉矶, CA, USA</p>
+                                    <p><strong>积分信息：</strong>176 个积分 </p> 
+                                    <p><strong>出团日期：</strong>2009年5月23日 - 2009年12月31日</p> 
+                                    <p><strong>主要景点：</strong></p>
+                                    <p class="letter"></p>
+                                    <p><strong>详细行程：</strong></p> 
+                                    <p></p>
+                                    <p><strong>精彩瞬间：</strong>(点击图片放大)</p>			
+			                    </div>			
+			                    <div class="inside2_photo_demo" style="position:relative;">
+			                        <a href="#" title="景点图片"onclick="return false"><img name="small" src="images/inside2_photo_1.jpg" onclick="MM_showHideLayers('layer2','','show');MM_showHideLayers('layer','','hide');MM_showHideLayers('layer1','','hide');" alt=""/></a>
+			                        <a href="#" title="景点图片"onclick="return false"><img name="small" src="images/inside2_photo_2.jpg" onclick="MM_showHideLayers('layer3','','show');MM_showHideLayers('layer','','hide');MM_showHideLayers('layer1','','hide');" alt=""/></a>
+			                        <a href="#" title="景点图片"onclick="return false"><img name="small" src="images/inside2_photo_1.jpg" onclick="MM_showHideLayers('layer4','','show');MM_showHideLayers('layer','','hide');MM_showHideLayers('layer1','','hide');" alt=""/></a>
+			                        <a href="#" title="景点图片"onclick="return false"><img name="small" src="images/inside2_photo_2.jpg" onclick="MM_showHideLayers('layer5','','show');MM_showHideLayers('layer','','hide');MM_showHideLayers('layer1','','hide');" alt=""/></a>			
+			                        <div id="layer2" class="inside2_photo_layer"> 
+                                        <a href="" onclick="return false"><img name="big" src="images/inside2_photo_1.jpg" onclick="MM_showHideLayers('layer2','','hide');MM_showHideLayers('layer','','show');MM_showHideLayers('layer1','','show');return false;" border="0" width="450" height="280" alt=""/><strong>点击图片关闭</strong></a> 
+			                        </div>
+			                        <div id="layer3" class="inside2_photo_layer"> 
+                                        <a href="" onclick="return false"><img name="big" src="images/inside2_photo_2.jpg" onclick="MM_showHideLayers('layer3','','hide');MM_showHideLayers('layer','','show');MM_showHideLayers('layer1','','show');return false;" border="0" width="450" height="280" alt=""/><strong>点击图片关闭</strong></a> 
+			                        </div>
+			                        <div id="layer4" class="inside2_photo_layer"> 
+                                        <a href="" onclick="return false"><img name="big" src="images/inside2_photo_1.jpg" onclick="MM_showHideLayers('layer4','','hide');MM_showHideLayers('layer','','show');MM_showHideLayers('layer1','','show');return false;" border="0" width="450" height="280" alt=""/><strong>点击图片关闭</strong></a> 
+			                        </div>
+			                        <div id="layer5" class="inside2_photo_layer"> 
+                                        <a href="" onclick="return false"><img name="big" src="images/inside2_photo_2.jpg" onclick="MM_showHideLayers('layer5','','hide');MM_showHideLayers('layer','','show');MM_showHideLayers('layer1','','show');return false;" border="0" width="450" height="280" alt=""/><strong>点击图片关闭</strong></a> 
+			                        </div>			
+			                    </div>			                			                	                    			                                     			
 		                    </div>
 		                </td>
                     </tr>
