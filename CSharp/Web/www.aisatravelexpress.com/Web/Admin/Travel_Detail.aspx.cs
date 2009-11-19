@@ -62,7 +62,13 @@ namespace Web.Admin
                 string ControlID = Request.Params["__EVENTTARGET"];
                 if (VerifyUtility.IsString_NotNull(ControlID) && ControlID.IndexOf("Del_Travel_PreViews_") == 0)
                 {
-
+                    string[] Travel_PreViews = ControlID.Split(new string[] { "_" }, StringSplitOptions.RemoveEmptyEntries);
+                    if (Travel_PreViews.Length == 4 && VerifyUtility.IsNumber_NotNull(Travel_PreViews[3]))
+                    {
+                        int Travel_Images = Convert.ToInt32(Travel_PreViews[3]);
+                        b_Travel.Delete_Travel_PreViews(g_Travel_ID, Travel_Images, Server.MapPath("../" + g_Travel_Images + "/"));
+                        ResponseSuccess("删除成功", Request.RawUrl);
+                    }
                 }
             }
         }
@@ -91,13 +97,13 @@ namespace Web.Admin
                 ResponseError("请输入出团开始日期");
 
             if (!VerifyUtility.Check_Date(Travel_StartDate.Text))
-                ResponseError("出团开始日期, 请输入正确的日期格式如: " + DateTime.Now.ToString("yyyyMMdd"));
+                ResponseError("出团开始日期, 请输入正确的日期格式如: " + DateTime.Now.ToString("yyyy-MM-dd"));
 
             if (!VerifyUtility.IsString_NotNull(Travel_EndDate.Text))
                 ResponseError("请输入出团结束日期");
 
             if (!VerifyUtility.Check_Date(Travel_EndDate.Text))
-                ResponseError("出团结束日期, 请输入正确的日期格式如: " + DateTime.Now.ToString("yyyyMMdd"));
+                ResponseError("出团结束日期, 请输入正确的日期格式如: " + DateTime.Now.ToString("yyyy-MM-dd"));
 
             if (!VerifyUtility.IsString_NotNull(Travel_Views.Text))
                 ResponseError("请输入主要景点");
@@ -294,11 +300,11 @@ namespace Web.Admin
                 Travel_PreView1_Image.ImageUrl = "../" + g_Travel_Images + "/" + e_Travel.Travel_PreView1;
                 Travel_PreView2_Image.ImageUrl = "../" + g_Travel_Images + "/" + e_Travel.Travel_PreView2;
 
-                if (e_Travel.Travel_PreViews != null)
+                if (e_Travel.Travel_PreViews != null && e_Travel.Travel_PreViews.Count > 0)
                 {
                     int i = 0;
 
-                    if (!VerifyUtility.IsNumber_NotNull(Travel_PreViews_Num.Text))                        
+                    if (!VerifyUtility.IsNumber_NotNull(Travel_PreViews_Num.Text))
                         Travel_PreViews_Num.Text = e_Travel.Travel_PreViews.Count.ToString();
 
                     foreach (string Travel_PreViews in e_Travel.Travel_PreViews)
@@ -334,7 +340,10 @@ namespace Web.Admin
                     Travel_PreViews_TD.Visible = true;
                 }
                 else
+                {
                     Travel_PreViews_Num.Text = "0";
+                    Travel_PreViews_TD.Visible = false;
+                }
 
                 Travel_StartAddr.Text = e_Travel.Travel_StartAddr;
                 Travel_EndAddr.Text = e_Travel.Travel_EndAddr;

@@ -239,6 +239,12 @@ namespace BLL
             Entity.Travel o_Travel = Select_Travel(p_Travel_ID);
             if (o_Travel != null && o_Travel.Travel_PreViews != null)
             {
+                if (File.Exists(p_Travel_ImagesPath + o_Travel.Travel_PreView1))
+                    File.Delete(p_Travel_ImagesPath + o_Travel.Travel_PreView1);
+
+                if (File.Exists(p_Travel_ImagesPath + o_Travel.Travel_PreView2))
+                    File.Delete(p_Travel_ImagesPath + o_Travel.Travel_PreView2);
+
                 foreach (string Travel_PreViews in o_Travel.Travel_PreViews)
                 {
                     if (File.Exists(p_Travel_ImagesPath + Travel_PreViews))
@@ -247,6 +253,23 @@ namespace BLL
             }
 
             d_Travel.Delete_Travel(p_Travel_ID);
+        }
+
+        public void Delete_Travel_PreViews(int p_Travel_ID, int p_Pos, string p_Travel_ImagesPath)
+        {
+            Entity.Travel o_Travel = Select_Travel(p_Travel_ID);
+            if (o_Travel != null && o_Travel.Travel_PreViews != null)
+            {
+                if (p_Pos <= o_Travel.Travel_PreViews.Count - 1)
+                {
+                    if (File.Exists(p_Travel_ImagesPath + o_Travel.Travel_PreViews[p_Pos]))
+                        File.Delete(p_Travel_ImagesPath + o_Travel.Travel_PreViews[p_Pos]);
+
+                    o_Travel.Travel_PreViews.RemoveAt(p_Pos);
+
+                    Update_Travel(o_Travel);
+                }
+            }
         }
     }
 }
