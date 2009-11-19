@@ -87,7 +87,7 @@
 		        <a href="News_List.aspx?News_ClassID=3" style=" margin:4px 0 0 22px;" class="nav6 home_nav_icon"></a>
 		        <a href="Article.aspx?Article_ClassID=2" style=" margin:4px 0 0 22px;" class="nav7 home_nav_icon"></a>
         		<dl class="home_nav_link">
-			        <a href="#" class="nav8">表格下载</a>
+			        <a href="News_List.aspx?News_ClassID=4" class="nav8">表格下载</a>
 			        <a href="#" class="nav8" style="padding-left:45px;">在线客服</a>		
 		        </dl>
 		        <div class="fod">
