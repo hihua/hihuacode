@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Travel_List.aspx.cs" Inherits="Web.Travel" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Travel_Detail.aspx.cs" Inherits="Web.Travel_Detail" %>
 <%@ Register src="Controls/Top.ascx" tagname="Top" tagprefix="Controls_Top" %>
 <%@ Register src="Controls/Left.ascx" tagname="Left" tagprefix="Controls_Left" %>
 <%@ Register src="Controls/Mid.ascx" tagname="Mid" tagprefix="Controls_Mid" %>
@@ -7,7 +7,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head id="Head1" runat="server">
     <meta http-equiv="x-ua-compatible" content="ie=7" />
     <title>华捷国际旅游</title>
     <link type="text/css" href="css/aisa.css" rel="stylesheet" />
@@ -31,7 +31,7 @@
 				                    <span class="inside_content_rightlink3"><asp:HyperLink ID="HyperLink_Title" runat="server" class="nav10"></asp:HyperLink>>><asp:HyperLink ID="HyperLink_Travel" runat="server" class="nav10"></asp:HyperLink>>><asp:HyperLink ID="HyperLink_Travel_TypeID" runat="server" class="nav10"></asp:HyperLink></span>
 				                    <span style="float:left; padding-top:10px;"><asp:HyperLink ID="HyperLink_Travel_TypeID_1" runat="server"></asp:HyperLink> <asp:Label ID="Label_Travel_TypeID" Text="|" runat="server"></asp:Label> <asp:HyperLink ID="HyperLink_Travel_TypeID_2" runat="server"></asp:HyperLink></span>
 				                    <span class="inside_content_rightlink4"></span>				                    
-				                </div>				                	                    			                                     			
+				                </div>				                			                	                    			                                     			
 		                    </div>
 		                </td>
                     </tr>

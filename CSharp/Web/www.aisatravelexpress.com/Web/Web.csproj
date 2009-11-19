@@ -168,6 +168,7 @@
     <Content Include="Js\jquery.js" />
     <Content Include="News_Detail.aspx" />
     <Content Include="News_List.aspx" />
+    <Content Include="Travel_Detail.aspx" />
     <Content Include="Travel_List.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -396,6 +397,13 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Travel_Detail.aspx.cs">
+      <DependentUpon>Travel_Detail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Travel_Detail.aspx.designer.cs">
+      <DependentUpon>Travel_Detail.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Travel_List.aspx.cs">
       <DependentUpon>Travel_List.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
