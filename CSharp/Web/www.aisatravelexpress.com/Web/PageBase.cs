@@ -25,10 +25,13 @@ namespace Web
         protected Dictionary<int, string[]> g_Article = new Dictionary<int, string[]>();
         protected Dictionary<int, string[]> g_News = new Dictionary<int, string[]>();
         protected Dictionary<int, string[]> g_Travel = new Dictionary<int, string[]>();
+        protected Dictionary<int, string[]> g_Knows = new Dictionary<int, string[]>();
        
         protected int g_Article_ClassID = 1;
         protected int g_News_ClassID = 1;
         protected int g_News_ID = 1;
+        protected int g_Knows_ID = 1;
+        protected int g_Knows_ClassID = 1;
         protected int g_Travel_TypeID = 1;
         protected int g_Travel_ID = 1;
 
@@ -69,17 +72,28 @@ namespace Web
             g_NewsName = new string[2];
             g_NewsName[0] = "行业资讯";
             g_NewsName[1] = "Industry";
-            g_News.Add(2, g_NewsName);
-
-            g_NewsName = new string[2];
-            g_NewsName[0] = "旅游需知";
-            g_NewsName[1] = "Travel Knows";
-            g_News.Add(3, g_NewsName);
+            g_News.Add(2, g_NewsName);                       
 
             g_NewsName = new string[2];
             g_NewsName[0] = "表格下载";
             g_NewsName[1] = "Form Download";
-            g_News.Add(4, g_NewsName);
+            g_News.Add(3, g_NewsName);
+
+            string[] g_KnowsName;
+            g_KnowsName = new string[2];
+            g_KnowsName[0] = "旅游需知";
+            g_KnowsName[1] = "Knows";
+            g_Knows.Add(0, g_KnowsName);
+
+            g_KnowsName = new string[2];
+            g_KnowsName[0] = "行李规定";
+            g_KnowsName[1] = "Luggage";
+            g_Knows.Add(1, g_KnowsName);
+
+            g_KnowsName = new string[2];
+            g_KnowsName[0] = "机楼地图";
+            g_KnowsName[1] = "Maps";
+            g_Knows.Add(2, g_KnowsName);
 
             string[] g_TravelName;
             g_TravelName = new string[2];
@@ -108,6 +122,12 @@ namespace Web
 
             if (VerifyUtility.IsNumber_NotNull(Request["News_ID"]) && Request["News_ID"] != "0")
                 g_News_ID = Convert.ToInt32(Request["News_ID"]);
+
+            if (VerifyUtility.IsNumber_NotNull(Request["Knows_ClassID"]) && Request["Knows_ClassID"] != "0")
+                g_Knows_ClassID = Convert.ToInt32(Request["Knows_ClassID"]);
+
+            if (VerifyUtility.IsNumber_NotNull(Request["Knows_ID"]) && Request["Knows_ID"] != "0")
+                g_Knows_ID = Convert.ToInt32(Request["Knows_ID"]);
 
             if (VerifyUtility.IsNumber_NotNull(Request["Travel_TypeID"]) && Request["Travel_TypeID"] != "0")
                 g_Travel_TypeID = Convert.ToInt32(Request["Travel_TypeID"]);
@@ -249,6 +269,50 @@ namespace Web
                     p_HyperLink2.NavigateUrl = "News_List.aspx?News_ClassID=2";
                     p_HyperLink2.Text = g_News[2][g_LanguageID - 1];
                     if (g_News_ClassID != 2)
+                        p_HyperLink2.CssClass = "nav10";
+                }
+
+                if (p_Label != null)
+                {
+                    p_Label.Visible = true;
+                }
+            }
+        }
+
+        public void SetHyperLinkKnows(HyperLink p_HyperLink)
+        {
+            if (p_HyperLink != null)
+            {
+                if (g_Knows_ClassID == 1 || g_Knows_ClassID == 2)
+                {
+                    p_HyperLink.NavigateUrl = "Knows_List.aspx?Knows_ClassID=1";
+                    p_HyperLink.Text = g_Knows[0][g_LanguageID - 1];
+                }
+                else
+                {
+                    p_HyperLink.NavigateUrl = "Knows_List.aspx?Knows_ClassID=" + g_Knows_ClassID.ToString();
+                    p_HyperLink.Text = g_Knows[g_Knows_ClassID][g_LanguageID - 1];
+                }
+            }
+        }
+
+        public void SetHyperLinkKnowsClass(HyperLink p_HyperLink1, HyperLink p_HyperLink2, Label p_Label)
+        {
+            if (g_Knows_ClassID == 1 || g_Knows_ClassID == 2)
+            {
+                if (p_HyperLink1 != null)
+                {
+                    p_HyperLink1.NavigateUrl = "Knows_List.aspx?Knows_ClassID=1";
+                    p_HyperLink1.Text = g_Knows[1][g_LanguageID - 1];
+                    if (g_Knows_ClassID != 1)
+                        p_HyperLink1.CssClass = "nav10";
+                }
+
+                if (p_HyperLink2 != null)
+                {
+                    p_HyperLink2.NavigateUrl = "Knows_List.aspx?Knows_ClassID=2";
+                    p_HyperLink2.Text = g_Knows[2][g_LanguageID - 1];
+                    if (g_Knows_ClassID != 2)
                         p_HyperLink2.CssClass = "nav10";
                 }
 

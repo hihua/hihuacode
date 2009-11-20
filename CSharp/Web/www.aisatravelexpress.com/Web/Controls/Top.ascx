@@ -11,7 +11,7 @@
 		<a href="Travel_List.aspx?Travel_TypeID=1" style=" margin:4px 0 0 23px;" class="inside_nav3 inside_anv_icon"></a>
 		<a href="#" style=" margin:4px 0 0 23px;" class="inside_nav4 inside_anv_icon"></a>
 		<a href="News_List.aspx?News_ClassID=1" style=" margin:4px 0 0 23px;" class="inside_nav5 inside_anv_icon"></a>
-		<a href="News_List.aspx?News_ClassID=3" style=" margin:4px 0 0 23px;" class="inside_nav6 inside_anv_icon"></a>
+		<a href="Knows_List.aspx?Knows_ClassID=1" style=" margin:4px 0 0 23px;" class="inside_nav6 inside_anv_icon"></a>
 		<a href="Article.aspx?Article_ClassID=2" style=" margin:4px 0 0 23px;" class="inside_nav7 inside_anv_icon"></a>
 	</div>	
 </div>

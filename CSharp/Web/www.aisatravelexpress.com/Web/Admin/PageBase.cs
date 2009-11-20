@@ -65,6 +65,29 @@ namespace Web.Admin
             }
         }
 
+        public void GetKnowsTXT(Label p_Label)
+        {
+            if (p_Label != null)
+            {
+                p_Label.Text = g_Knows[0][0];
+            }
+        }
+
+        public void SetKnowsClassControl(DropDownList p_DropDownList)
+        {
+            if (p_DropDownList != null)
+            {
+                foreach (int i_Key in g_Knows.Keys)
+                {
+                    if (i_Key > 0)
+                    {
+                        ListItem o_ListItem = new ListItem(g_Knows[i_Key][0], i_Key.ToString());
+                        p_DropDownList.Items.Add(o_ListItem);
+                    }
+                }
+            }
+        }
+
         public void GetTravelTXT(Label p_Label)
         {
             if (p_Label != null)

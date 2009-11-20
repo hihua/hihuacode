@@ -25,7 +25,7 @@ namespace Web.Controls
                 BLL.News b_News = new BLL.News();
                 Entity.News[] e_News;
 
-                e_News = b_News.Select_News(4, g_LanguageID, 3, 1);
+                e_News = b_News.Select_News(3, g_LanguageID, 3, 1);
                 if (e_News != null)
                 {
                     foreach (Entity.News o_News in e_News)
