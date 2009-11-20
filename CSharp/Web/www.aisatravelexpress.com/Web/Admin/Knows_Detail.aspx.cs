@@ -69,7 +69,7 @@ namespace Web.Admin
             switch (g_Action_ID)
             {
                 case 1:
-                    if (Knows_ClassID.SelectedValue == "1" && Knows_TypeID.SelectedValue == "0")                    
+                    if (Knows_ClassID.SelectedValue == "2" && Knows_TypeID.SelectedValue == "0")                    
                         ResponseError("请选择地图分类");
 
                     b_Knows.Insert_Knows(Convert.ToInt32(Knows_ClassID.SelectedValue), Convert.ToInt32(Knows_TypeID.SelectedValue), Convert.ToInt32(Knows_LanguageID.SelectedValue), Knows_Title.Text, Knows_Content.Value);
@@ -81,7 +81,7 @@ namespace Web.Admin
                     break;
 
                 case 2:
-                    if (Knows_ClassID.SelectedValue == "1" && Knows_TypeID.SelectedValue == "0")
+                    if (Knows_ClassID.SelectedValue == "2" && Knows_TypeID.SelectedValue == "0")
                         ResponseError("请选择地图分类");
 
                     b_Knows.Update_Knows(g_Knows_ID, Convert.ToInt32(Knows_ClassID.SelectedValue), Convert.ToInt32(Knows_TypeID.SelectedValue), Convert.ToInt32(Knows_LanguageID.SelectedValue), Knows_Title.Text, Knows_Content.Value);
