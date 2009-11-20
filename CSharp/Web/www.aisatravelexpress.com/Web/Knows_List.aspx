@@ -31,7 +31,21 @@
 				                    <span class="inside_content_rightlink3"><asp:HyperLink ID="HyperLink_Title" runat="server" class="nav10"></asp:HyperLink>>><asp:HyperLink ID="HyperLink_Knows" runat="server" class="nav10"></asp:HyperLink></span>
 				                    <span style="float:left; padding-top:10px;"><asp:HyperLink ID="HyperLink_Knows_ClassID_1" runat="server"></asp:HyperLink> <asp:Label ID="Label_Knows_ClassID" Text="|" runat="server"></asp:Label> <asp:HyperLink ID="HyperLink_Knows_ClassID_2" runat="server"></asp:HyperLink></span>
 				                    <span class="inside_content_rightlink4"></span>				                    
-				                </div>			                                      			
+				                    				                    
+				                </div>		
+				                <div id="AirportCode" runat="server" style="margin-left:20px;">
+				                    <div style="float:left; font-weight:bold">Search by Airport Code:</div>
+				                    <table id="AirportCode_Table" width="100%" cellpadding="0" cellspacing="0" border="0" runat="server">
+				                    
+				                    </table>
+				                </div>
+				                <br />
+			                    <div id="AirportName" runat="server" style="margin-left:20px;">
+			                        <div style="float:left; font-weight:bold">Search by Airport Name:</div>
+			                        <table id="AirportName_Table" width="100%" cellpadding="0" cellspacing="0" border="0" runat="server">
+				                    
+				                    </table>
+			                    </div>                                			
 		                    </div>
 		                </td>
                     </tr>

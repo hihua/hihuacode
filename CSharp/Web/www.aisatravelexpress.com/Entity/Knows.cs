@@ -8,6 +8,7 @@ namespace Entity
     {
         private int _Knows_ID;
         private int _Knows_ClassID;
+        private int _Knows_TypeID;
         private int _Knows_LanguageID;
         private string _Knows_Title;        
         private string _Knows_Content;
@@ -23,6 +24,12 @@ namespace Entity
         {
             get { return _Knows_ClassID; }
             set { _Knows_ClassID = value; }
+        }
+
+        public int Knows_TypeID
+        {
+            get { return _Knows_TypeID; }
+            set { _Knows_TypeID = value; }
         }
 
         public int Knows_LanguageID

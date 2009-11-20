@@ -95,6 +95,42 @@ namespace Web {
         protected global::System.Web.UI.WebControls.HyperLink HyperLink_Knows_ClassID_2;
         
         /// <summary>
+        /// AirportCode 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl AirportCode;
+        
+        /// <summary>
+        /// AirportCode_Table 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable AirportCode_Table;
+        
+        /// <summary>
+        /// AirportName 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl AirportName;
+        
+        /// <summary>
+        /// AirportName_Table 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable AirportName_Table;
+        
+        /// <summary>
         /// Web_Tail 控件。
         /// </summary>
         /// <remarks>

@@ -30,6 +30,16 @@
                         <asp:DropDownList ID="Knows_ClassID" runat="server"></asp:DropDownList>
                     </td>
 		        </tr>
+		        <tr bgcolor="#D0D0D0">
+		            <td align="right" height="30">地图分类：</td>
+			        <td>
+                        <asp:DropDownList ID="Knows_TypeID" runat="server">
+                            <asp:ListItem Value="0" Selected="True">地图分类</asp:ListItem>
+                            <asp:ListItem Value="1">Airport Code</asp:ListItem>
+                            <asp:ListItem Value="2">Airport Name</asp:ListItem>
+                        </asp:DropDownList>
+                    </td>
+		        </tr>
 		        <tr bgcolor="#E3E3E3" runat="server" id="Knows_AddTime_TD">
 		            <td align="right" height="30">添加时间：</td>
 			        <td><asp:Label ID="Knows_AddTime" runat="server"></asp:Label></td>
