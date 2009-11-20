@@ -143,11 +143,17 @@
     <Content Include="images\inside_7.jpg" />
     <Content Include="images\inside_8.jpg" />
     <Content Include="images\inside_9.jpg" />
+    <Content Include="images\inside_a.jpg" />
+    <Content Include="images\inside_b.jpg" />
     <Content Include="images\inside_button_1.jpg" />
     <Content Include="images\inside_button_2.jpg" />
     <Content Include="images\inside_button_3.jpg" />
     <Content Include="images\inside_button_4.jpg" />
     <Content Include="images\inside_button_5.jpg" />
+    <Content Include="images\inside_c.jpg" />
+    <Content Include="images\inside_d.jpg" />
+    <Content Include="images\inside_e.jpg" />
+    <Content Include="images\inside_f.jpg" />
     <Content Include="images\inside_icon_1.jpg" />
     <Content Include="images\inside_icon_2.jpg" />
     <Content Include="images\inside_icon_3.jpg" />
