@@ -31,7 +31,7 @@ namespace BLL
             p_Member.Member_Name_CN = p_DataRow["Member_Name_CN"].ToString();
             p_Member.Member_Name_EN = p_DataRow["Member_Name_EN"].ToString();
 
-            if (p_DataRow["Member_Sex"].ToString() == "1")
+            if (p_DataRow["Member_Sex"].ToString().ToUpper() == "TRUE")
                 p_Member.Member_Sex = true;
             else
                 p_Member.Member_Sex = false;
@@ -81,11 +81,65 @@ namespace BLL
             p_Member.Member_Serial = p_DataRow["Member_Serial"].ToString();
             p_Member.Member_Points = Convert.ToInt32(p_DataRow["Member_Points"].ToString());
             p_Member.Member_Commission = Convert.ToInt32(p_DataRow["Member_Commission"].ToString());
-            p_Member.Member_Consumption = Convert.ToInt32(DateTime.Parse(p_DataRow["Member_Consumption"].ToString()));
+            p_Member.Member_Consumption = Convert.ToInt32(p_DataRow["Member_Consumption"].ToString());
             p_Member.Member_Times = Convert.ToInt32(p_DataRow["Member_Times"].ToString());
             p_Member.Member_Recommended = Convert.ToInt32(p_DataRow["Member_Recommended"].ToString());
             p_Member.Member_Level = Convert.ToInt32(p_DataRow["Member_Level"].ToString());
             p_Member.Member_AddTime = DateTime.Parse(p_DataRow["Member_AddTime"].ToString());                    
+        }
+
+        public string Show_Member_Level(int p_Member_Level)
+        {
+            switch (p_Member_Level)
+            {
+                case 1:
+                    return "普通";
+
+                case 2:
+                    return "高级";
+
+                case 3:
+                    return "VIP";
+
+                default:
+                    return "";
+            }
+        }
+
+        public string Random_Member()
+        {
+            string Member_Serial = "";
+
+            while (true)
+            {
+                Member_Serial = FilterUtility.FilterNumber(20);
+
+                Entity.Member o_Member = Select_Member(Member_Serial);
+                if (o_Member == null)
+                    return Member_Serial;
+            }
+        }
+
+        public bool Check_Account(string p_Member_Account)
+        {
+            p_Member_Account = FilterUtility.FilterSQL(p_Member_Account);
+
+            DataTable o_DataTable = d_Member.Select_Account(p_Member_Account);
+            if (o_DataTable == null)
+                return false;
+            else            
+                return true;            
+        }
+
+        public bool Check_Email(string p_Member_Email)
+        {
+            p_Member_Email = FilterUtility.FilterSQL(p_Member_Email);
+
+            DataTable o_DataTable = d_Member.Select_Email(p_Member_Email);
+            if (o_DataTable == null)
+                return false;
+            else
+                return true;
         }
 
         public Entity.Member[] Select_Member(string p_Search_Content, int p_Search_Method, int p_PageSize, int p_PageIndex)

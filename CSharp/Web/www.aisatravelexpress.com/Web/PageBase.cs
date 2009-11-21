@@ -20,6 +20,7 @@ namespace Web
     {
         protected int g_LanguageID = 1;
         protected int g_Page = 1;
+        protected Entity.Member g_Member = null;
         protected Dictionary<int, string> g_Language = new Dictionary<int, string>();
         protected Dictionary<int, string> g_Title = new Dictionary<int, string>();
         protected Dictionary<int, string[]> g_Article = new Dictionary<int, string[]>();
@@ -110,7 +111,10 @@ namespace Web
             g_TravelName[0] = "中国旅游";
             g_TravelName[1] = "China";
             g_Travel.Add(2, g_TravelName);
-            
+
+            if (Session["Member"] != null)
+                g_Member = Session["Member"] as Entity.Member;
+
             if (Session["LanguageID"] != null)
                 g_LanguageID = Convert.ToInt32(Session["LanguageID"].ToString());
 

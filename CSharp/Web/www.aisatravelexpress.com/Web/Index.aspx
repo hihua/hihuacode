@@ -73,7 +73,7 @@
 					    <div style="clear:both;"></div>
 					    <dt class="home_top_input3">
 						    <a href="#" class="input3">成为会员能享受什么好处？</a>
-						    <a href="#" class="input3" style="margin-left:22px;">立即注册</a>
+						    <a href="#" class="input3" style="margin-left:22px;" onclick="window.open('Member_Reg.aspx','Member','toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=630px,height=660px');return false;">立即注册</a>
 						    <a href="#" class="input3">忘记密码</a>						
 					    </dt>				
 				    </dl>

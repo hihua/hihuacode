@@ -176,6 +176,9 @@
     <Content Include="Js\jquery.js" />
     <Content Include="Knows_Detail.aspx" />
     <Content Include="Knows_List.aspx" />
+    <Content Include="Member_Info.aspx" />
+    <Content Include="Member_Quit.aspx" />
+    <Content Include="Member_Reg.aspx" />
     <Content Include="News_Detail.aspx" />
     <Content Include="News_List.aspx" />
     <Content Include="Travel_Detail.aspx" />
@@ -416,6 +419,27 @@
     </Compile>
     <Compile Include="Knows_List.aspx.designer.cs">
       <DependentUpon>Knows_List.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Member_Info.aspx.cs">
+      <DependentUpon>Member_Info.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Member_Info.aspx.designer.cs">
+      <DependentUpon>Member_Info.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Member_Quit.aspx.cs">
+      <DependentUpon>Member_Quit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Member_Quit.aspx.designer.cs">
+      <DependentUpon>Member_Quit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Member_Reg.aspx.cs">
+      <DependentUpon>Member_Reg.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Member_Reg.aspx.designer.cs">
+      <DependentUpon>Member_Reg.aspx</DependentUpon>
     </Compile>
     <Compile Include="News_Detail.aspx.cs">
       <DependentUpon>News_Detail.aspx</DependentUpon>

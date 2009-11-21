@@ -13,6 +13,8 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 
+using Utility;
+
 namespace Web.Admin
 {
     public partial class Code : System.Web.UI.Page
@@ -27,7 +29,7 @@ namespace Web.Admin
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
             Response.AppendHeader("Pragma", "No-Cache");
 
-            string s_RandomCode = RandomValidateCode();
+            string s_RandomCode = FilterUtility.FilterNumber(4);
             Session["Code"] = s_RandomCode;
             ResponseValidateCode(s_RandomCode);
         }
@@ -46,20 +48,6 @@ namespace Web.Admin
             Response.Clear();
             Response.BinaryWrite(o_MemoryStream.ToArray());
             Response.End();
-        }
-
-        private string RandomValidateCode()
-        {
-            char[] c_ValidateCode = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
-            string s_RandomCode = "";
-            Random o_Random = new Random();
-
-            for (int i = 0; i < 4; i++)
-            {
-                s_RandomCode += c_ValidateCode[o_Random.Next(0, c_ValidateCode.Length)].ToString();
-            }
-
-            return s_RandomCode;
         }
     }
 }

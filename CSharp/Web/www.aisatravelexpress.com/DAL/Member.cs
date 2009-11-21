@@ -99,12 +99,28 @@ namespace DAL
             return o_DataTable;
         }
 
+        public DataTable Select_Account(string p_Member_Account)
+        {
+            string o_Where = "Member_Account=N'" + p_Member_Account + "'";
+
+            DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, 1, 1, 1, 0, o_Where);
+            return o_DataTable;
+        }
+
+        public DataTable Select_Email(string p_Member_Email)
+        {
+            string o_Where = "Member_Email=N'" + p_Member_Email + "'";
+
+            DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, 1, 1, 1, 0, o_Where);
+            return o_DataTable;
+        }
+
         public void Insert_Member(Entity.Member p_Member)
         {
             if (p_Member == null)
                 return;
 
-            g_TableFields = "Member_Account,Member_PassWord,Member_Name_CN,Member_Name_EN,Member_Sex,Member_Work,Member_Tel,Member_Mobile,Member_Email,Member_Address,Member_Company_Name,Member_Company_Tel,Member_Company_Address,Member_Months,Member_Airlines,Member_Serial,Member_Points,Member_Commission,Member_Consumption,Member_Times,Member_AddTime";
+            g_TableFields = "Member_Account,Member_PassWord,Member_Name_CN,Member_Name_EN,Member_Sex,Member_Work,Member_Tel,Member_Mobile,Member_Email,Member_Address,Member_Company_Name,Member_Company_Tel,Member_Company_Address,Member_Months,Member_Airlines,Member_Serial,Member_Points,Member_Commission,Member_Consumption,Member_Times,Member_Recommended,Member_Level,Member_AddTime";
 
             string o_FieldsValue = "";
             o_FieldsValue += "N'" + p_Member.Member_Account + "'";
