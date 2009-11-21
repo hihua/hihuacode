@@ -16,9 +16,11 @@ namespace Web
     public partial class Index : PageBase
     {
         protected void Page_Load(object sender, EventArgs e)
-        {           
+        {
+            Member_Account_PassWord.Style.Add(HtmlTextWriterStyle.MarginLeft, "50px");
+
             if (!IsPostBack)
-            {
+            {                
                 BLL.News b_News = new BLL.News();
                 Entity.News[] e_News;
 
@@ -73,6 +75,20 @@ namespace Web
                 }
                 else
                     News_ClassID_2_More.Visible = false;
+            }
+        }
+
+        protected void Member_Account_Submit_Click(object sender, EventArgs e)
+        {
+            BLL.Member b_Member = new BLL.Member();
+            Entity.Member o_Member = b_Member.Select_Member(Member_Account_Name.Text, Member_Account_PassWord.Text);
+            if (o_Member == null)            
+                ResponseError("帐号或密码错误");            
+            else
+            {
+                Session["Member"] = o_Member;
+
+                Response.Redirect("Article.aspx?Article_ClassID=2");
             }
         }
     }

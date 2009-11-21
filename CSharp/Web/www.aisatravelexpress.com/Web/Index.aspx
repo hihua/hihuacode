@@ -66,10 +66,10 @@
 				    <a class="home_top_a" style="margin-top:20px;" href="ChangeLanguage.aspx?Language=2" title="英文版"></a>
 				    <dl class="home_top_input">
 					    <dt class="home_top_input2" style="float:left;">
-						    <input name="1" type="text" class="input" />
-						    <input name="1" type="text" class="input" style="margin-left:50px;" />						
+						    <asp:TextBox ID="Member_Account_Name" runat="server" CssClass="input" MaxLength="30"></asp:TextBox>
+						    <asp:TextBox ID="Member_Account_PassWord" runat="server" CssClass="input" MaxLength="20" TextMode="Password"></asp:TextBox>					
 					    </dt>
-					    <dd style=" float:left;"><a class="input_a" href="#" title="GO"></a></dd>
+					    <dd style=" float:left;"><asp:LinkButton ID="Member_Account_Submit" runat="server" ToolTip="登录" CssClass="input_a" onclick="Member_Account_Submit_Click"></asp:LinkButton></dd>
 					    <div style="clear:both;"></div>
 					    <dt class="home_top_input3">
 						    <a href="#" class="input3">成为会员能享受什么好处？</a>
