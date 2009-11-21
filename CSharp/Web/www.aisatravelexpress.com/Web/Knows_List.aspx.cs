@@ -71,9 +71,7 @@ namespace Web
                     Entity.Knows[] e_Knows = b_Knows.Select_Knows(g_Knows_ClassID, 1, g_LanguageID, 0x7FFFFFFF, g_Page);
 
                     if (e_Knows != null)
-                    {
-                        int i = 0, j = 0;
-
+                    {                        
                         foreach (Entity.Knows o_Knows in e_Knows)
                         {                            
                             if (o_Knows.Knows_TypeID == 1)
