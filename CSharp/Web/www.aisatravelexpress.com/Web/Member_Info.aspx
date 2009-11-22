@@ -8,55 +8,51 @@
     <title>华捷国际旅游</title>
     <link type="text/css" href="css/aisa.css" rel="stylesheet" />
     <link type="text/css" href="css/window.css" rel="stylesheet" />
-    <script type="text/javascript">
-	    function getNames(obj,name,tij)
-	    {	
-		    var p = document.getElementById(obj);
-		    var plist = p.getElementsByTagName(tij);
-		    var rlist = new Array();
-		    for(i=0;i<plist.length;i++)
+    <script type="text/javascript">	    		
+		function ShowDiv(Obj, Pos)
+		{
+		    var li = Obj.parentNode.getElementsByTagName("li");
+		    if (li == null)
+		        return li;
+		        
+		    for (var i = 0;i < li.length;i++)
 		    {
-			    if(plist[i].getAttribute("name") == name)
-			    {
-				    rlist[rlist.length] = plist[i];
+		        if (li != null)
+		        {
+			        if (li[i] == Obj)			        
+				        li[i].className = "win_pic_li1";
+				    else
+				        li[i].className = "win_pic_li2";				        			        
 			    }
 		    }
-		    
-		    return rlist;
-	    }
-
-		function win_pic(obj,name)
-		{ 
-			var p = obj.parentNode.getElementsByTagName("li");
-			var p1 = getNames(name,"f","div"); // document.getElementById(name).getElementsByTagName("div");
-			for(i=0;i<p1.length;i++)
-			{
-				if(obj==p[i])
-				{
-					p[i].className = "win_pic_li1";
-					p1[i].className = "win_pic_txt";
-				}
-				else
-				{
-					p[i].className = "win_pic_li2";
-					p1[i].className = "win_pic_txt2";
-				}
-			}
-		}
 		
-		function ShowDiv(Pos)
-		{
 		    for (var i = 1;i <= 3;i++)
 		    {
-		        var div = document.getElementById("Div" + Pos);
+		        var div = document.getElementById("Div" + i);
 		        if (div != null)
 		        {
-		            if (i == Pos)
-		                div.style.display = "block";
+		            if (i == Pos)		            
+		                div.className = "win_pic_txt";		            
 		            else
-		                div.style.display = "none";
+		                div.className = "win_pic_txt2";
 		        }
 		    }		
+		}
+		
+		function ClearPassWord()
+		{
+		    var Text;
+		    Text = document.getElementById("Member_PassWord");
+		    if (Text != null)
+		        Text.value = "";
+		        
+		    Text = document.getElementById("Member_PassWord1");
+		    if (Text != null)
+		        Text.value = "";
+		        
+		    Text = document.getElementById("Member_PassWord2");
+		    if (Text != null)
+		        Text.value = "";		
 		}
 	</script>
 </head>
@@ -66,16 +62,16 @@
             <div class="win_top">
 		        <div class="win_logo"></div>
 		        <div class="win_pic">
-			        <div class="win_picimg"><a href="#"><img src="images/window_3.jpg" alt="" /></a></div>
+			        <div class="win_picimg"><a href="#" onclick="window.close();return false;"><img src="images/window_3.jpg" alt="" /></a></div>
 			        <ul>
-				        <li class="win_pic_li1" style="height:22px; margin-bottom:-1px;" onmouseover="win_pic(this,'foda1')" onclick="register0410('qzone',1)">会员信息</li>
-				        <li class="win_pic_li2" style="height:22px; margin-bottom:-1px;" onmouseover="win_pic(this,'foda1')" onclick="register0410('qzone',2)">修改密码</li>
-				        <li class="win_pic_li2" style="height:22px; margin-bottom:-1px;" onmouseover="win_pic(this,'foda1')" onclick="register0410('qzone',3)">查询消费记录</li>
+				        <li id="Li1" class="win_pic_li1" style="height:22px; margin-bottom:-1px;" onmouseover="ShowDiv(this,1)" runat="server">会员信息</li>
+				        <li id="Li2" class="win_pic_li2" style="height:22px; margin-bottom:-1px;" onmouseover="ShowDiv(this,2)" runat="server">修改密码</li>
+				        <li id="Li3" class="win_pic_li2" style="height:22px; margin-bottom:-1px;" onmouseover="ShowDiv(this,3)" runat="server">查询消费记录</li>
 			        </ul>
                 </div>
 	        </div>
 	        <div id="foda1">
-	            <div id="Div1" class="win_pic_txt">
+	            <div id="Div1" class="win_pic_txt" runat="server">
 		            <dl>
 			            <dt>帐&nbsp;&nbsp;&nbsp;&nbsp;号：</dt>
 			            <dd><asp:TextBox ID="Member_Account" runat="server" ToolTip="输入帐号" Width="155" MaxLength="30"></asp:TextBox></dd>
@@ -157,35 +153,37 @@
                             <asp:Button ID="Member_Reset" runat="server" Text="重新填写" CssClass="win_input" OnClientClick="window.location.href=window.location.href;" />
                             &nbsp;
 			            </dt>
-			            <dd style=" padding-top:15px;">
+			            <dd style="padding-top:15px;">
 			                &nbsp;
-			                <asp:Button ID="Member_Submit" runat="server" Text="确定注册" CssClass="win_input" OnClick="Member_Submit_Click" />
+			                <asp:Button ID="Member_Submit" runat="server" Text="确定修改" CssClass="win_input" OnClick="Member_Submit_Click" />
 			            </dd>
 		            </dl>         
 		        </div>
-		        <div id="Div2" class="win_pic_txt2" style="padding-left:100px; padding-right:100px; width:365px;" onclick="register0410('qzone',2)">
+		        <div id="Div2" class="win_pic_txt2" style="padding-left:100px; padding-right:100px; width:365px;" runat="server">
 		            <dl style=" padding-top:100px;" class="win_pic_txt2dl">
 			            <dt>输入旧密码：</dt>
-			            <dd><asp:TextBox ID="Member_PassWord" runat="server" ToolTip="输入旧密码" Width="155" MaxLength="20"></asp:TextBox></dd>            		
+			            <dd><asp:TextBox ID="Member_PassWord" runat="server" ToolTip="输入旧密码" Width="155" MaxLength="20" TextMode="Password"></asp:TextBox></dd>            		
 		            </dl>
 		            <dl class="win_pic_txt2dl">
 			            <dt>输入新密码：</dt>
-			            <dd><asp:TextBox ID="Member_PassWord1" runat="server" ToolTip="输入旧密码" Width="155" MaxLength="20"></asp:TextBox></dd>            		
+			            <dd><asp:TextBox ID="Member_PassWord1" runat="server" ToolTip="输入旧密码" Width="155" MaxLength="20" TextMode="Password"></asp:TextBox></dd>            		
 		            </dl>
 		            <dl class="win_pic_txt2dl">
 			            <dt>确认新密码：</dt>
-			            <dd><asp:TextBox ID="Member_PassWord2" runat="server" ToolTip="输入旧密码" Width="155" MaxLength="20"></asp:TextBox></dd>            		
+			            <dd><asp:TextBox ID="Member_PassWord2" runat="server" ToolTip="输入旧密码" Width="155" MaxLength="20" TextMode="Password"></asp:TextBox></dd>            		
 		            </dl>
 		            <dl class="win_pic_txt2dl" style=" padding-left:100px; padding-top:10px;">
 			            <dt>
-			                <asp:Button ID="Member_PassWord_Reset" runat="server" Text="重新填写" CssClass="win_input" OnClientClick="Member_PassWord.vale='';Member_PassWord1.vale='';Member_PassWord2.vale='';" />
+			                <asp:Button ID="Member_PassWord_Reset" runat="server" Text="重新填写" CssClass="win_input" OnClientClick="ClearPassWord();return false;" />
+			                &nbsp;
 			            </dt>
 			            <dd style="padding-top:15px;">
-			                <asp:Button ID="Member_PassWord_Submit" runat="server" Text="确认修改" CssClass="win_input" />
+			                &nbsp;
+			                <asp:Button ID="Member_PassWord_Submit" runat="server" Text="确认修改" CssClass="win_input" OnClick="Member_PassWord_Submit_Click" />
 			            </dd>
 		            </dl>            	
 	            </div>    	            	        
-	            <div id="Div3" class="win_pic_txt2" onclick="register0410('qzone',3)">
+	            <div id="Div3" class="win_pic_txt2" runat="server">
 			        <div style="height:435px; width:540px; border:1px solid #ffffff; overflow: scroll; margin:0 auto; margin-top:20px;">
 		                <dl style="color:#797979; float:left; text-indent:10px; width:540px;">你的账号是：alex</dl>
 	                    <dl class="win_pic_txtdl_1">

@@ -15,7 +15,7 @@
             <div class="win_top">
 		        <div class="win_logo"></div>
 		        <div class="win_pic">
-			        <div class="win_picimg"><a href="#" onclick="window.close();"><img src="images/window_3.jpg" alt="" /></a></div>			        
+			        <div class="win_picimg"><a href="#" onclick="window.close();return false;"><img src="images/window_3.jpg" alt="" /></a></div>			        
                 </div>
 	        </div>
 	        <div id="foda1">
@@ -109,7 +109,7 @@
                             <asp:Button ID="Member_Reset" runat="server" Text="重新填写" CssClass="win_input" OnClientClick="window.location.href=window.location.href;" />
                             &nbsp;
 			            </dt>
-			            <dd style=" padding-top:15px;">
+			            <dd style="padding-top:15px;">
 			                &nbsp;
 			                <asp:Button ID="Member_Submit" runat="server" Text="确定注册" CssClass="win_input" OnClick="Member_Submit_Click" />
 			            </dd>

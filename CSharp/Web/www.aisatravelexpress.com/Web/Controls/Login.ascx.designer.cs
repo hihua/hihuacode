@@ -95,31 +95,31 @@ namespace Web.Controls {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Member_Level;
         
         /// <summary>
-        /// Member_Info 控件。
+        /// Member_Info_Detail 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink Member_Info;
+        protected global::System.Web.UI.WebControls.LinkButton Member_Info_Detail;
         
         /// <summary>
-        /// Member_PassWord 控件。
+        /// Member_Info_PassWord 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink Member_PassWord;
+        protected global::System.Web.UI.WebControls.LinkButton Member_Info_PassWord;
         
         /// <summary>
-        /// Member_Consumption 控件。
+        /// Member_Info_Consumption 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink Member_Consumption;
+        protected global::System.Web.UI.WebControls.LinkButton Member_Info_Consumption;
         
         /// <summary>
         /// Member_Quit 控件。
