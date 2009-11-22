@@ -17,5 +17,10 @@ namespace Web
         {
 
         }
+
+        protected void Member_Submit_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

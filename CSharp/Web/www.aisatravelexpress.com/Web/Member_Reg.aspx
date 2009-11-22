@@ -11,7 +11,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div id="window">
+        <div id="window">
             <div class="win_top">
 		        <div class="win_logo"></div>
 		        <div class="win_pic">
