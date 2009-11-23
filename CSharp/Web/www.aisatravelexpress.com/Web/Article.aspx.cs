@@ -23,6 +23,21 @@ namespace Web
                 SetHyperLinkTitle(HyperLink_Title);                
                 SetHyperLinkArticle(HyperLink_Article);
 
+                switch (g_Article_ClassID)
+                {
+                    case 1:
+                        Banner.ImageUrl = "images/inside_a.jpg";
+                        break;
+
+                    case 2:
+                        Banner.ImageUrl = "images/inside_f.jpg";
+                        break;
+
+                    default:
+                        Banner.ImageUrl = "images/inside_a.jpg";
+                        break;
+                }
+
                 BLL.Article b_Article = new BLL.Article();
                 Entity.Article e_Article = b_Article.Select_Article(g_Article_ClassID, g_LanguageID);
                 if (e_Article != null)
