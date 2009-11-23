@@ -185,16 +185,16 @@
 	            </div>    	            	        
 	            <div id="Div3" class="win_pic_txt2" runat="server">
 			        <div style="height:435px; width:540px; border:1px solid #ffffff; overflow: scroll; margin:0 auto; margin-top:20px;">
-		                <dl style="color:#797979; float:left; text-indent:10px; width:540px;">你的账号是：alex</dl>
+		                <dl style="color:#797979; float:left; text-indent:10px; width:540px;">你的账号是：<asp:Label ID="Member_Consumption_Account" runat="server"></asp:Label></dl>
 	                    <dl class="win_pic_txtdl_1">
-		                    <dd style=" float:left;">你的佣金为：50(美元)</dd>
-		                    <dd style=" float:left; padding-left:100px;">成功介绍旅行次数为：10次</dd>	
+		                    <dd style=" float:left;">你的佣金为：<asp:Label ID="Member_Consumption_Commission" runat="server"></asp:Label>(美元)</dd>
+		                    <dd style=" float:left; padding-left:100px;">成功介绍旅行次数为：<asp:Label ID="Member_Consumption_Times" runat="server"></asp:Label>次</dd>	
 		                </dl>
 	                    <dl class="win_pic_txtdl1">
-	                        <dd style=" float:left;">你现在的积分为:400</dd>
-		                    <dd style=" float:left; padding-left:100px;">总消费为2000元</dd>
+	                        <dd style=" float:left;">你现在的积分为:<asp:Label ID="Member_Consumption_Points" runat="server"></asp:Label></dd>
+		                    <dd style=" float:left; padding-left:100px;">总消费为<asp:Label ID="Member_Consumption_Consumption" runat="server"></asp:Label>元</dd>
 	    	            </dl>
-    	                <dl class="win_pic_txtdl2">
+    	                <dl id="Member_Consumption_List" class="win_pic_txtdl2" runat="server">
 	                        <dt class="win_pic_txtdl3" style="margin-top:-5px;">出行时间</dt>
 	                        <dt class="win_pic_txtdl4" style="margin-top:-5px;">类型</dt>
 	                        <dt class="win_pic_txtdl3" style="margin-top:-5px;">出发地</dt>

@@ -93,6 +93,12 @@ namespace Web
 
                 Member_Account.ReadOnly = true;
                 Member_Serial.ReadOnly = true;
+
+                Member_Consumption_Account.Text = g_Member.Member_Account;
+                Member_Consumption_Commission.Text = g_Member.Member_Commission.ToString();
+                Member_Consumption_Times.Text = g_Member.Member_Times.ToString();
+                Member_Consumption_Points.Text = g_Member.Member_Points.ToString();
+                Member_Consumption_Consumption.Text = g_Member.Member_Consumption.ToString();
             }
         }
 
