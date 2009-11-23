@@ -35,6 +35,7 @@ namespace Web
         protected int g_Knows_ClassID = 1;
         protected int g_Travel_TypeID = 1;
         protected int g_Travel_ID = 1;
+        protected int g_Member_ID = 1;
 
         protected string g_Travel_Images = "Travel_Images";
                         
@@ -138,6 +139,9 @@ namespace Web
 
             if (VerifyUtility.IsNumber_NotNull(Request["Travel_ID"]) && Request["Travel_ID"] != "0")
                 g_Travel_ID = Convert.ToInt32(Request["Travel_ID"]);
+
+            if (VerifyUtility.IsNumber_NotNull(Request["Member_ID"]) && Request["Member_ID"] != "0")
+                g_Member_ID = Convert.ToInt32(Request["Member_ID"]);
 
             if (VerifyUtility.IsNumber_NotNull(Request["Page"]) && Request["Page"] != "0")
                 g_Page = Convert.ToInt32(Request["Page"]);

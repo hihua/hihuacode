@@ -24,43 +24,43 @@ namespace DAL
             switch (p_Search_Method)
             {
                 case 1:
-                    o_Where += " and Member_Account Like N'%" + p_Search_Content + "'";                        
+                    o_Where += " and Member_Account Like N'%" + p_Search_Content + "%'";                        
                     break;
 
                 case 2:
-                    o_Where += " and Member_Name_CN Like N'%" + p_Search_Content + "'";
+                    o_Where += " and Member_Name_CN Like N'%" + p_Search_Content + "%'";
                     break;
 
                 case 3:
-                    o_Where += " and Member_Name_EN Like N'%" + p_Search_Content + "'";
+                    o_Where += " and Member_Name_EN Like N'%" + p_Search_Content + "%'";
                     break;
 
                 case 4:
-                    o_Where += " and Member_Work Like N'%" + p_Search_Content + "'";
+                    o_Where += " and Member_Work Like N'%" + p_Search_Content + "%'";
                     break;
 
                 case 5:
-                    o_Where += " and Member_Tel Like N'%" + p_Search_Content + "'";
+                    o_Where += " and Member_Tel Like N'%" + p_Search_Content + "%'";
                     break;
 
                 case 6:
-                    o_Where += " and Member_Mobile Like N'%" + p_Search_Content + "'";
+                    o_Where += " and Member_Mobile Like N'%" + p_Search_Content + "%'";
                     break;
 
                 case 7:
-                    o_Where += " and Member_Email Like N'%" + p_Search_Content + "'";
+                    o_Where += " and Member_Email Like N'%" + p_Search_Content + "%'";
                     break;
 
                 case 8:
-                    o_Where += " and Member_Address Like N'%" + p_Search_Content + "'";
+                    o_Where += " and Member_Address Like N'%" + p_Search_Content + "%'";
                     break;
 
                 case 9:
-                    o_Where += " and Member_Airlines Like N'%" + p_Search_Content + "'";
+                    o_Where += " and Member_Airlines Like N'%" + p_Search_Content + "%'";
                     break;
 
                 case 10:
-                    o_Where += " and Member_Serial Like N'%" + p_Search_Content + "'";
+                    o_Where += " and Member_Serial Like N'%" + p_Search_Content + "%'";
                     break;
 
                 case 11:
@@ -70,8 +70,8 @@ namespace DAL
                 default:
                     break;
             }
-            
-            DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, p_PageSize, p_PageIndex, 0, 1, o_Where);
+
+            DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, p_PageSize, p_PageIndex, 0, 1, o_Where, ref o_TotalCount, ref o_TotalPage);
             return o_DataTable;
         }
 

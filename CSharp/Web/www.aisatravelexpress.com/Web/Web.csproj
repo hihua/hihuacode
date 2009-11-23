@@ -87,6 +87,8 @@
     <Content Include="Admin\Login.aspx" />
     <Content Include="Admin\Logout.aspx" />
     <Content Include="Admin\Main.aspx" />
+    <Content Include="Admin\Member.aspx" />
+    <Content Include="Admin\Member_Detail.aspx" />
     <Content Include="Admin\MSN.aspx" />
     <Content Include="Admin\MSN_Submit.aspx" />
     <Content Include="Admin\News.aspx" />
@@ -262,6 +264,20 @@
     </Compile>
     <Compile Include="Admin\Main.aspx.designer.cs">
       <DependentUpon>Main.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Member.aspx.cs">
+      <DependentUpon>Member.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Member.aspx.designer.cs">
+      <DependentUpon>Member.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Member_Detail.aspx.cs">
+      <DependentUpon>Member_Detail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Member_Detail.aspx.designer.cs">
+      <DependentUpon>Member_Detail.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\MSN.aspx.cs">
       <DependentUpon>MSN.aspx</DependentUpon>

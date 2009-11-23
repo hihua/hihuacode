@@ -84,6 +84,23 @@
 		            </td>
 	            </tr>
 	            <tr>
+		            <td id="Menu3" class="ToolsSpan1" onmouseover="this.className='ToolsSpan2';" onclick="ShowSubMenu(3)" onmouseout="this.className='ToolsSpan1';" style="cursor:pointer" background="images/menudown.gif" height="25">
+			            <span>会员管理</span>
+		            </td>
+	            </tr>
+	            <tr>
+		            <td id="SubMenu3" style="display:none">
+			            <div class="ToolsSpan3" style="width: 158px">
+				            <table cellspacing="3" cellpadding="0" width="130" align="center">					            
+						        <tr>
+						            <td><a href="Member.aspx" target="Main" class="IndexMenuLink1">会员信息</a></td>
+						        </tr>						        					            
+				            </table>
+			            </div>
+			            <br />		
+		            </td>
+	            </tr>
+	            <tr>
                     <td><iframe src="RefreshSession.aspx" scrolling="no" width="0" height="0" frameborder="0"></iframe></td>
                 </tr>
             </table>            
