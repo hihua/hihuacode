@@ -93,24 +93,7 @@
                                     <p id="Travel_Route" runat="server"></p>
                                     <p><strong>精彩瞬间：</strong>(点击图片放大)</p>			
 			                    </div>			
-			                    <div id="Travel_PreViews" class="inside2_photo_demo" style="position:relative;" runat="server">
-			                        <%--<a href="#" title="景点图片" onclick="return false"><img name="small" src="images/inside2_photo_1.jpg" onclick="MM_showHideLayers('layer2','','show');MM_showHideLayers('layer','','hide');MM_showHideLayers('layer1','','hide');" alt=""/></a>
-			                        <a href="#" title="景点图片" onclick="return false"><img name="small" src="images/inside2_photo_2.jpg" onclick="MM_showHideLayers('layer3','','show');MM_showHideLayers('layer','','hide');MM_showHideLayers('layer1','','hide');" alt=""/></a>
-			                        <a href="#" title="景点图片" onclick="return false"><img name="small" src="images/inside2_photo_1.jpg" onclick="MM_showHideLayers('layer4','','show');MM_showHideLayers('layer','','hide');MM_showHideLayers('layer1','','hide');" alt=""/></a>
-			                        <a href="#" title="景点图片" onclick="return false"><img name="small" src="images/inside2_photo_2.jpg" onclick="MM_showHideLayers('layer5','','show');MM_showHideLayers('layer','','hide');MM_showHideLayers('layer1','','hide');" alt=""/></a>			
-			                        <div id="layer2" class="inside2_photo_layer"> 
-                                        <a href="" onclick="return false"><img name="big" src="images/inside2_photo_1.jpg" onclick="MM_showHideLayers('layer2','','hide');MM_showHideLayers('layer','','show');MM_showHideLayers('layer1','','show');return false;" border="0" width="450" height="280" alt=""/><strong>点击图片关闭</strong></a> 
-			                        </div>
-			                        <div id="layer3" class="inside2_photo_layer"> 
-                                        <a href="" onclick="return false"><img name="big" src="images/inside2_photo_2.jpg" onclick="MM_showHideLayers('layer3','','hide');MM_showHideLayers('layer','','show');MM_showHideLayers('layer1','','show');return false;" border="0" width="450" height="280" alt=""/><strong>点击图片关闭</strong></a> 
-			                        </div>
-			                        <div id="layer4" class="inside2_photo_layer"> 
-                                        <a href="" onclick="return false"><img name="big" src="images/inside2_photo_1.jpg" onclick="MM_showHideLayers('layer4','','hide');MM_showHideLayers('layer','','show');MM_showHideLayers('layer1','','show');return false;" border="0" width="450" height="280" alt=""/><strong>点击图片关闭</strong></a> 
-			                        </div>
-			                        <div id="layer5" class="inside2_photo_layer"> 
-                                        <a href="" onclick="return false"><img name="big" src="images/inside2_photo_2.jpg" onclick="MM_showHideLayers('layer5','','hide');MM_showHideLayers('layer','','show');MM_showHideLayers('layer1','','show');return false;" border="0" width="450" height="280" alt=""/><strong>点击图片关闭</strong></a> 
-			                        </div>--%>			
-			                    </div>			                			                	                    			                                     			
+			                    <div id="Travel_PreViews" class="inside2_photo_demo" style="position:relative;" runat="server"></div>			                			                	                    			                                     			
 		                    </div>
 		                </td>
                     </tr>
