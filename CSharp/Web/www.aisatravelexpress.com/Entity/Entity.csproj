@@ -38,7 +38,10 @@
   <ItemGroup>
     <Compile Include="AdminUser.cs" />
     <Compile Include="Article.cs" />
+    <Compile Include="City.cs" />
     <Compile Include="Knows.cs" />
+    <Compile Include="LowFare.cs" />
+    <Compile Include="LowFare_Detail.cs" />
     <Compile Include="Member.cs" />
     <Compile Include="MSN.cs" />
     <Compile Include="News.cs" />
