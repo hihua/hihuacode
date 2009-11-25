@@ -40,6 +40,7 @@
   <ItemGroup>
     <Compile Include="AdminUser.cs" />
     <Compile Include="Article.cs" />
+    <Compile Include="City.cs" />
     <Compile Include="DALBase.cs" />
     <Compile Include="Knows.cs" />
     <Compile Include="Member.cs" />

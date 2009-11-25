@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="News_Detail.aspx.cs" Inherits="Web.News_Detail" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="LowFare.aspx.cs" Inherits="Web.LowFare" %>
 <%@ Register src="Controls/Top.ascx" tagname="Top" tagprefix="Controls_Top" %>
 <%@ Register src="Controls/Left.ascx" tagname="Left" tagprefix="Controls_Left" %>
 <%@ Register src="Controls/Mid.ascx" tagname="Mid" tagprefix="Controls_Mid" %>
@@ -25,13 +25,18 @@
 		                </td>
 			            <td rowspan="2" valign="top" bgcolor="#ddf6fe">
 			                <div class="inside_content_rightanv" style="height:910px;">
-			                    <img src="images/inside_d.jpg" alt="" />
+			                    <img src="images/inside_c.jpg" alt="" />
 			                    <div class="inside_content_rightlink">
 				                    <span class="inside_content_rightlink2"></span>
-				                    <span class="inside_content_rightlink3"><asp:HyperLink ID="HyperLink_Title" runat="server" class="nav10"></asp:HyperLink>>><asp:HyperLink ID="HyperLink_News" runat="server" class="nav10"></asp:HyperLink>>><asp:HyperLink ID="HyperLink_News_Class" runat="server" class="nav10"></asp:HyperLink></span>
+				                    <span class="inside_content_rightlink3"><asp:HyperLink ID="HyperLink_Title" runat="server" class="nav10"></asp:HyperLink>>><asp:HyperLink ID="HyperLink_LowFare" runat="server" class="nav10"></asp:HyperLink></span>
 				                    <span class="inside_content_rightlink4"></span>
 				                </div>
-			                    <div class="inside2" id="News_Content" runat="server"></div>                   			
+			                    <div class="inside2" id="LowFare_Tips" runat="server">
+			                        <div style="text-align:center">请先登录</div>
+			                    </div>
+			                    <div class="inside2" id="LowFare_Content" runat="server">
+			                    
+			                    </div>                   			
 		                    </div>
 		                </td>
                     </tr>

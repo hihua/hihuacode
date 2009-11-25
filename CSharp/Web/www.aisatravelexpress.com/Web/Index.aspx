@@ -82,7 +82,7 @@
 	        <div class="home_nav">
 		        <a href="Article.aspx?Article_ClassID=1" style=" margin:4px 0 0 56px!important; margin:3px 0 0 28px;" class="nav2 home_nav_icon"></a>
 		        <a href="Travel_List.aspx?Travel_TypeID=1" style=" margin:4px 0 0 20px;" class="nav3 home_nav_icon"></a>
-		        <a href="#" style=" margin:4px 0 0 22px;" class="nav4 home_nav_icon"></a>
+		        <a href="LowFare.aspx" style=" margin:4px 0 0 22px;" class="nav4 home_nav_icon"></a>
 		        <a href="News_List.aspx?News_ClassID=1" style=" margin:4px 0 0 22px;" class="nav5 home_nav_icon"></a>
 		        <a href="Knows_List.aspx?Knows_ClassID=1" style=" margin:4px 0 0 22px;" class="nav6 home_nav_icon"></a>
 		        <a href="Article.aspx?Article_ClassID=2" style=" margin:4px 0 0 22px;" class="nav7 home_nav_icon"></a>

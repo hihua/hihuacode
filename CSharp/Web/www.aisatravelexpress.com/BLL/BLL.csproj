@@ -33,11 +33,13 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminUser.cs" />
     <Compile Include="Article.cs" />
+    <Compile Include="City.cs" />
     <Compile Include="Knows.cs" />
     <Compile Include="Member.cs" />
     <Compile Include="MSN.cs" />

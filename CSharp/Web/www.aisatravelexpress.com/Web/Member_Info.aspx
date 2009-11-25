@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
-<head id="Head1" runat="server">
+<head runat="server">
     <meta http-equiv="x-ua-compatible" content="ie=7" />
     <title>华捷国际旅游</title>
     <link type="text/css" href="css/aisa.css" rel="stylesheet" />

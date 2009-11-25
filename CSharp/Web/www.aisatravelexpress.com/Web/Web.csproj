@@ -98,6 +98,7 @@
     <Content Include="Admin\Travel.aspx" />
     <Content Include="Admin\Travel_Detail.aspx" />
     <Content Include="Admin\Welcome.aspx" />
+    <Content Include="AirportList.aspx" />
     <Content Include="AirportList.html" />
     <Content Include="AirportListChina.html" />
     <Content Include="AirportListUS.html" />
@@ -178,6 +179,7 @@
     <Content Include="Js\jquery.js" />
     <Content Include="Knows_Detail.aspx" />
     <Content Include="Knows_List.aspx" />
+    <Content Include="LowFare.aspx" />
     <Content Include="Member_Info.aspx" />
     <Content Include="Member_Quit.aspx" />
     <Content Include="Member_Reg.aspx" />
@@ -186,6 +188,7 @@
     <Content Include="Travel_Detail.aspx" />
     <Content Include="Travel_List.aspx" />
     <Content Include="Web.config" />
+    <Content Include="WebService\City.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\AdminUser.aspx.cs">
@@ -345,6 +348,13 @@
     <Compile Include="Admin\Welcome.aspx.designer.cs">
       <DependentUpon>Welcome.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AirportList.aspx.cs">
+      <DependentUpon>AirportList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AirportList.aspx.designer.cs">
+      <DependentUpon>AirportList.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Article.aspx.cs">
       <DependentUpon>Article.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -436,6 +446,13 @@
     <Compile Include="Knows_List.aspx.designer.cs">
       <DependentUpon>Knows_List.aspx</DependentUpon>
     </Compile>
+    <Compile Include="LowFare.aspx.cs">
+      <DependentUpon>LowFare.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LowFare.aspx.designer.cs">
+      <DependentUpon>LowFare.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Member_Info.aspx.cs">
       <DependentUpon>Member_Info.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -489,6 +506,13 @@
     <Compile Include="Travel_List.aspx.designer.cs">
       <DependentUpon>Travel_List.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WebService\City.aspx.cs">
+      <DependentUpon>City.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebService\City.aspx.designer.cs">
+      <DependentUpon>City.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BLL\BLL.csproj">
@@ -512,7 +536,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Travel_Images\" />
     <Folder Include="UpLoad\image\" />
-    <Folder Include="WebService\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />

@@ -11,7 +11,7 @@
 namespace Web {
     
     
-    public partial class Knows_Detail {
+    public partial class LowFare {
         
         /// <summary>
         /// form1 控件。
@@ -50,31 +50,31 @@ namespace Web {
         protected global::System.Web.UI.WebControls.HyperLink HyperLink_Title;
         
         /// <summary>
-        /// HyperLink_Knows 控件。
+        /// HyperLink_LowFare 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink_Knows;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_LowFare;
         
         /// <summary>
-        /// HyperLink_Knows_Class 控件。
+        /// LowFare_Tips 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink_Knows_Class;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LowFare_Tips;
         
         /// <summary>
-        /// Knows_Content 控件。
+        /// LowFare_Content 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Knows_Content;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LowFare_Content;
         
         /// <summary>
         /// Web_Tail 控件。
