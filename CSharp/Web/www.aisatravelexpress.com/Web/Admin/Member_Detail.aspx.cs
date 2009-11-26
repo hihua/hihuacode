@@ -37,6 +37,13 @@ namespace Web.Admin
                         b_Member.Delete_Member(g_Member_ID);
                         ResponseClose("删除成功");
                         break;
+
+                    case 4:
+                        if (g_Member_ID == 0)
+                            ResponseError("参数错误");
+                                                
+                        ResponseClose("转换成功");
+                        break;
                 }
             }
         }
@@ -89,6 +96,17 @@ namespace Web.Admin
                 Member_Consumption_Times.Text = o_Member.Member_Times.ToString();
                 Member_Consumption_Points.Text = o_Member.Member_Points.ToString();
                 Member_Consumption_Consumption.Text = o_Member.Member_Consumption.ToString();
+            }
+        }
+
+        private void ToVIP()
+        {
+            Entity.Member o_Member = b_Member.Select_Member(g_Member_ID);
+
+            if (o_Member != null)
+            {
+                o_Member.Member_Level = 3;
+                b_Member.Update_Member(o_Member);
             }
         }
     }

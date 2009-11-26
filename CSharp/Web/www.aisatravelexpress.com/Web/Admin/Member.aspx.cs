@@ -97,6 +97,21 @@ namespace Web.Admin
                     o_HtmlGenericControl.InnerHtml = "&nbsp;&nbsp;";
                     o_HtmlTableCell.Controls.Add(o_HtmlGenericControl);
 
+                    if (o_Member.Member_Level < 3)
+                    {
+                        o_HtmlTableCell = new HtmlTableCell();
+                        o_HtmlAnchor = new HtmlAnchor();
+                        o_HtmlAnchor.HRef = "#";
+                        o_HtmlAnchor.Attributes.Add("onclick", "ActionSubmit(4, " + o_Member.Member_ID.ToString() + ");return false;");
+                        o_HtmlAnchor.Attributes.Add("class", "AdminToolsLink2");
+                        o_HtmlAnchor.InnerText = "转成VIP";
+                        o_HtmlTableCell.Controls.Add(o_HtmlAnchor);
+
+                        o_HtmlGenericControl = new HtmlGenericControl();
+                        o_HtmlGenericControl.InnerHtml = "&nbsp;&nbsp;";
+                        o_HtmlTableCell.Controls.Add(o_HtmlGenericControl);
+                    }                                        
+
                     o_HtmlAnchor = new HtmlAnchor();
                     o_HtmlAnchor.HRef = "#";
                     o_HtmlAnchor.Attributes.Add("onclick", "ActionSubmit(3, " + o_Member.Member_ID.ToString() + ");return false;");

@@ -60,6 +60,11 @@ namespace Web
             g_ArticleName[0] = "关于我们";
             g_ArticleName[1] = "About us";
             g_Article.Add(2, g_ArticleName);
+
+            g_ArticleName = new string[2];
+            g_ArticleName[0] = "成为会员能享受什么好处";
+            g_ArticleName[1] = "To Be Member";
+            g_Article.Add(3, g_ArticleName);
             
             string[] g_NewsName;
             g_NewsName = new string[2];

@@ -277,7 +277,7 @@ namespace BLL
             o_Member.Member_Times = p_Member.Member_Times;
             o_Member.Member_Recommended = p_Member.Member_Recommended;
             o_Member.Member_Level = p_Member.Member_Level;
-            o_Member.Member_AddTime = DateTime.Now;
+            o_Member.Member_AddTime = p_Member.Member_AddTime;
 
             d_Member.Update_Member(o_Member);
         }

@@ -12,7 +12,7 @@
 		<a href="#" class="input3">忘记密码</a>
 	</span>
 	<span style="float:left; width:200px; text-align:center; margin-top:5px;">
-		<a href="#" class="input3">成为会员能享受什么好处？</a>
+		<a href="Article.aspx?Article_ClassID=3" class="input3">成为会员能享受什么好处？</a>
     </span>			
 </div>
 <div id="Member_Record" class="inside_content_column inside_content_button1" runat="server">

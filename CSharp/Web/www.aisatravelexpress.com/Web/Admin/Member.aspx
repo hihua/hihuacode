@@ -25,6 +25,10 @@
                     if (confirm("确实删除"))
                         window.open(URL,"Member","toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=630px,height=660px");                    
                         
+                case 4:
+                    if (confirm("确实转换"))
+                        window.open(URL,"Member","toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=630px,height=660px");                    
+                
                     break;            
             }        
         }
