@@ -64,7 +64,7 @@
 						            <td><a href="#" target="Main" onclick="window.open('Article.aspx?Article_ClassID=2','Article','toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=1024px,height=700px');return false;" class="IndexMenuLink1">关于我们</a></td>
 						        </tr>
 						        <tr>
-						            <td><a href="#" target="Main" onclick="window.open('Article.aspx?Article_ClassID=3','Article','toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=1024px,height=700px');return false;" class="IndexMenuLink1">成为会员好处</a></td>
+						            <td><a href="#" target="Main" onclick="window.open('Article.aspx?Article_ClassID=3','Article','toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=1024px,height=700px');return false;" class="IndexMenuLink1">成为会员享受什么好处</a></td>
 						        </tr>
 						        <tr>
 						            <td><a href="News.aspx?News_ClassID=1" target="Main" class="IndexMenuLink1">优惠资讯</a></td>

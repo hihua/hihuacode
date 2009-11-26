@@ -40,20 +40,7 @@ namespace Web.Admin
         {
             if (p_Label != null)
             {
-                switch (g_Article_ClassID)
-                {
-                    case 1:
-                        p_Label.Text = g_Article[g_Article_ClassID][0];
-                        break;
-
-                    case 2:
-                        p_Label.Text = g_Article[g_Article_ClassID][0];
-                        break;
-
-                    default:
-                        p_Label.Text = "";
-                        break;
-                }
+                p_Label.Text = g_Article[g_Article_ClassID][0];
             }
         }
 
