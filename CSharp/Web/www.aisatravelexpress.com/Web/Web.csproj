@@ -114,6 +114,8 @@
     <Content Include="Controls\Top.ascx" />
     <Content Include="css\aisa.css" />
     <Content Include="css\window.css" />
+    <Content Include="images\button_list.gif" />
+    <Content Include="images\calendar.gif" />
     <Content Include="images\home_1.jpg" />
     <Content Include="images\home_2.jpg" />
     <Content Include="images\home_3.jpg" />

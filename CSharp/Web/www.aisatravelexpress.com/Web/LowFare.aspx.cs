@@ -34,5 +34,40 @@ namespace Web
                 }
             }
         }
+
+        protected void LowFare_Type_CheckedChanged(object sender, EventArgs e)
+        {
+            if (LowFare_Type1.Checked)
+            {
+                LowFare_Text_Type1.Visible = true;
+                LowFare_Text_Type2.Visible = false;
+                LowFare_Text_Type3.Visible = false;
+
+                LowFare_Flexibility_TD.Visible = true;
+            }
+
+            if (LowFare_Type2.Checked)
+            {
+                LowFare_Text_Type1.Visible = false;
+                LowFare_Text_Type2.Visible = true;
+                LowFare_Text_Type3.Visible = false;
+
+                LowFare_Flexibility_TD.Visible = true;
+            }
+
+            if (LowFare_Type3.Checked)
+            {
+                LowFare_Text_Type1.Visible = false;
+                LowFare_Text_Type2.Visible = false;
+                LowFare_Text_Type3.Visible = true;
+
+                LowFare_Flexibility_TD.Visible = false;
+            }
+        }
+
+        protected void LowFare_Submit_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
