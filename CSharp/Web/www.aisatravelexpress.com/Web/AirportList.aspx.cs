@@ -17,7 +17,7 @@ namespace Web
     public partial class AirportList : PageBase
     {
         private int City_Country = 0;
-        protected string CityTextBox = "";
+        protected string City_TextBox = "";
         protected StringBuilder o_CityList = new StringBuilder();
 
         protected void Page_Load(object sender, EventArgs e)
@@ -33,8 +33,8 @@ namespace Web
             if (VerifyUtility.IsNumber_NotNull(Request["City_Country"]))
                 City_Country = Convert.ToInt32(Request["City_Country"]);
 
-            if (VerifyUtility.IsString_NotNull(Request["CityTextBox"]))
-                CityTextBox = Request["CityTextBox"];
+            if (VerifyUtility.IsString_NotNull(Request["City_TextBox"]))
+                City_TextBox = Request["City_TextBox"];
 
             BLL.City b_City = new BLL.City();
             Entity.City[] e_City = b_City.Select_City(City_Country);

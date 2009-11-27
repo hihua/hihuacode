@@ -6,12 +6,12 @@
 <head runat="server">
     <title>华捷国际旅游</title>
     <script type="text/javascript">
-        var CityTextBox = "<%Response.Write(CityTextBox);%>";
+        var City_TextBox = "<%Response.Write(City_TextBox);%>";
         function SetCity(City)
         {
-            if (City != "" && CityTextBox != "")
+            if (City != "" && City_TextBox != "")
             {
-                window.parent.opener.document.getElementById(CityTextBox).value = City;
+                window.parent.opener.document.getElementById(City_TextBox).value = City;
                 window.close();
             }
         }
@@ -108,7 +108,7 @@
         <div>
             <a name="TOP"></a>
             <div class="title">
-                <a href="?City_Country=0&CityTextBox=<%Response.Write(CityTextBox);%>" class="AdminToolsLink2">All Cities</a> | <a href="?City_Country=1&CityTextBox=<%Response.Write(CityTextBox);%>" class="AdminToolsLink2">China Cities</a> | <a href="?City_Country=2&CityTextBox=<%Response.Write(CityTextBox);%>" class="AdminToolsLink2">US Cities</a>
+                <a href="?City_Country=0&City_TextBox=<%Response.Write(City_TextBox);%>" class="AdminToolsLink2">All Cities</a> | <a href="?City_Country=1&City_TextBox=<%Response.Write(City_TextBox);%>" class="AdminToolsLink2">China Cities</a> | <a href="?City_Country=2&City_TextBox=<%Response.Write(City_TextBox);%>" class="AdminToolsLink2">US Cities</a>
             </div><br/>
             <div class="pre"><a href="#A">A</a>|<a href="#B">B</a>|<a href="#C">C</a>|<a href="#D">D</a>|<a href="#E">E</a>|<a href="#F">F</a>|<a href="#G">G</a>|<a href="#H">H</a>|<a href="#I">I</a>|<a href="#J">J</a>|<a href="#K">K</a>|<a href="#L">L</a>|<a href="#M">M</a><br/>
             <a href="#N">N</a>|<a href="#O">O</a>|<a href="#P">P</a>|<a href="#Q">Q</a>|<a href="#R">R</a>|<a href="#S">S</a>|<a href="#T">T</a>|<a href="#U">U</a>|<a href="#V">V</a>|<a href="#W">W</a>|<a href="#X">X</a>|<a href="#Y">Y</a>|<a href="#Z">Z</a></div>

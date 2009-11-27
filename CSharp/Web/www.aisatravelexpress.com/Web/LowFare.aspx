@@ -1,22 +1,30 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="LowFare.aspx.cs" Inherits="Web.LowFare" %>
-
 <%@ Register Src="Controls/Top.ascx" TagName="Top" TagPrefix="Controls_Top" %>
 <%@ Register Src="Controls/Left.ascx" TagName="Left" TagPrefix="Controls_Left" %>
 <%@ Register Src="Controls/Mid.ascx" TagName="Mid" TagPrefix="Controls_Mid" %>
 <%@ Register Src="Controls/Tail.ascx" TagName="Tail" TagPrefix="Controls_Tail" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="x-ua-compatible" content="ie=7" />
     <title>华捷国际旅游</title>
     <link type="text/css" href="css/aisa.css" rel="stylesheet" />
+    <script type="text/javascript">
+        function CityList(LowFare_TextBox)
+        {
+            if (LowFare_TextBox != "")
+            {
+                window.open('AirportList.aspx?City_Country=0&City_TextBox=' + LowFare_TextBox,'AirportList','toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=630px,height=660px');            
+            }                    
+        }
+    </script>
 </head>
 <body style="background: url(images/inside_12.jpg) repeat-x #e9faff top;">
     <form id="form1" runat="server">
     <Controls_Top:Top ID="Web_Top" runat="server" />
     <div class="inside_content" style="background-color: #ddf6fe">
-        <div class="inside_content_left">
-        </div>
+        <div class="inside_content_left"></div>
         <div class="inside_content_center">
             <table width="200" height="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="ddf6fe">
                 <tr>
@@ -28,13 +36,11 @@
                             <img src="images/inside_c.jpg" alt="" />
                             <div class="inside_content_rightlink">
                                 <span class="inside_content_rightlink2"></span><span class="inside_content_rightlink3">
-                                    <asp:HyperLink ID="HyperLink_Title" runat="server" class="nav10"></asp:HyperLink>>><asp:HyperLink
-                                        ID="HyperLink_LowFare" runat="server" class="nav10"></asp:HyperLink></span>
+                                    <asp:HyperLink ID="HyperLink_Title" runat="server" class="nav10"></asp:HyperLink>>><asp:HyperLink ID="HyperLink_LowFare" runat="server" class="nav10"></asp:HyperLink></span>
                                 <span class="inside_content_rightlink4"></span>
                             </div>
                             <div class="inside2" id="LowFare_Tips" runat="server">
-                                <div style="text-align: center">
-                                    请先登录</div>
+                                <div style="text-align: center">请先登录</div>
                             </div>
                             <div class="inside2" id="LowFare_Content" runat="server">
                                 <div style="text-align: center">
@@ -55,12 +61,12 @@
                                             <td align="left" style="height: 50px">
                                                 &nbsp;From
                                                 <br />
-                                                &nbsp;<asp:TextBox ID="LowFare_Detail_From_Text_Type1" Width="180" runat="server"></asp:TextBox><asp:Image ID="LowFare_Detail_From_List_Type1" ImageUrl="images/button_list.gif" runat="server" />
+                                                &nbsp;<asp:TextBox ID="LowFare_Detail_From_Text_Type1" Width="180" runat="server"></asp:TextBox><img src="images/button_list.gif" alt="" onclick="CityList('LowFare_Detail_From_Text_Type1');" style="cursor:pointer" />
                                                 <br />
                                                 <br />
                                                 &nbsp;To
                                                 <br />
-                                                &nbsp;<asp:TextBox ID="LowFare_Detail_To_Text_Type1" Width="180" runat="server"></asp:TextBox><asp:Image ID="LowFare_Detail_To_List_Type1" ImageUrl="images/button_list.gif" runat="server" />
+                                                &nbsp;<asp:TextBox ID="LowFare_Detail_To_Text_Type1" Width="180" runat="server"></asp:TextBox><img src="images/button_list.gif" alt="" onclick="CityList('LowFare_Detail_To_Text_Type1');" style="cursor:pointer" />
                                                 <br />
                                                 <br />
                                                 <table align="left" width="95" cellpadding="0" cellspacing="0" border="0">
@@ -74,7 +80,7 @@
                                                     </tr>
                                                     <tr style="height: 30px">
                                                         <td>
-                                                            &nbsp;<asp:TextBox ID="LowFare_Detail_Departing_Text_Type1" Text="mm/dd/yy" Width="100px" runat="server"></asp:TextBox>&nbsp;<asp:Image ID="LowFare_Detail_Departing_Image_Type1" ImageUrl="images/calendar.gif" runat="server" />
+                                                            &nbsp;<asp:TextBox ID="LowFare_Detail_Departing_Text_Type1" Text="mm/dd/yy" Width="100px" runat="server"></asp:TextBox>&nbsp;<img src="images/calendar.gif" alt="" style="cursor:pointer" />
                                                         </td>
                                                         <td>
                                                             &nbsp;<asp:DropDownList ID="LowFare_Detail_Time1_Select_Type1" runat="server">
@@ -126,7 +132,7 @@
                                                     </tr>
                                                     <tr style="height: 30px">
                                                         <td>
-                                                            &nbsp;<asp:TextBox ID="LowFare_Detail_Returning_Text_Type1" Text="mm/dd/yy" Width="100px" runat="server"></asp:TextBox>&nbsp;<asp:Image ID="LowFare_Detail_Returning_Image_Type1" ImageUrl="images/calendar.gif" runat="server" />
+                                                            &nbsp;<asp:TextBox ID="LowFare_Detail_Returning_Text_Type1" Text="mm/dd/yy" Width="100px" runat="server"></asp:TextBox>&nbsp;<img src="images/calendar.gif" alt="" style="cursor:pointer" />
                                                         </td>
                                                         <td>
                                                             &nbsp;<asp:DropDownList ID="LowFare_Detail_Time2_Select_Type1" runat="server">
@@ -167,12 +173,12 @@
                                             <td align="left" style="height: 50px">
                                                 &nbsp;From
                                                 <br />
-                                                &nbsp;<asp:TextBox ID="LowFare_Detail_From_Text_Type2" Width="180" runat="server"></asp:TextBox><asp:Image ID="LowFare_Detail_From_List_Type2" ImageUrl="images/button_list.gif" runat="server" />
+                                                &nbsp;<asp:TextBox ID="LowFare_Detail_From_Text_Type2" Width="180" runat="server"></asp:TextBox><img src="images/button_list.gif" alt="" onclick="CityList('LowFare_Detail_From_Text_Type2');" style="cursor:pointer" />
                                                 <br />
                                                 <br />
                                                 &nbsp;To
                                                 <br />
-                                                &nbsp;<asp:TextBox ID="LowFare_Detail_To_Text_Type2" Width="180" runat="server"></asp:TextBox><asp:Image ID="LowFare_Detail_To_List_Type2" ImageUrl="images/button_list.gif" runat="server" />
+                                                &nbsp;<asp:TextBox ID="LowFare_Detail_To_Text_Type2" Width="180" runat="server"></asp:TextBox><img src="images/button_list.gif" alt="" onclick="CityList('LowFare_Detail_To_Text_Type2');" style="cursor:pointer" />
                                                 <br />
                                                 <br />
                                                 <table align="left" width="95" cellpadding="0" cellspacing="0" border="0">
@@ -186,7 +192,7 @@
                                                     </tr>
                                                     <tr style="height: 30px">
                                                         <td>
-                                                            &nbsp;<asp:TextBox ID="LowFare_Detail_Departing_Text_Type2" Text="mm/dd/yy" Width="100px" runat="server"></asp:TextBox>&nbsp;<asp:Image ID="Image4" ImageUrl="images/calendar.gif" runat="server" />
+                                                            &nbsp;<asp:TextBox ID="LowFare_Detail_Departing_Text_Type2" Text="mm/dd/yy" Width="100px" runat="server"></asp:TextBox>&nbsp;<img src="images/calendar.gif" alt="" style="cursor:pointer" />
                                                         </td>
                                                         <td>
                                                             &nbsp;<asp:DropDownList ID="LowFare_Detail_Time1_Select_Type2" runat="server">
@@ -229,12 +235,12 @@
                                                 <br />
                                                 &nbsp;From
                                                 <br />
-                                                &nbsp;<asp:TextBox ID="LowFare_Detail_From_Text_Type3_1" Width="180" runat="server"></asp:TextBox><asp:Image ID="LowFare_Detail_From_List_Type3_1" ImageUrl="images/button_list.gif" runat="server" />
+                                                &nbsp;<asp:TextBox ID="LowFare_Detail_From_Text_Type3_1" Width="180" runat="server"></asp:TextBox><img src="images/button_list.gif" alt="" onclick="CityList('LowFare_Detail_From_Text_Type3_1');" style="cursor:pointer" />
                                                 <br />
                                                 <br />                                                
                                                 &nbsp;To
                                                 <br />
-                                                &nbsp;<asp:TextBox ID="LowFare_Detail_To_Text_Type3_1" Width="180" runat="server"></asp:TextBox><asp:Image ID="LowFare_Detail_To_List_Type3_1" ImageUrl="images/button_list.gif" runat="server" />
+                                                &nbsp;<asp:TextBox ID="LowFare_Detail_To_Text_Type3_1" Width="180" runat="server"></asp:TextBox><img src="images/button_list.gif" alt="" onclick="CityList('LowFare_Detail_To_Text_Type3_1');" style="cursor:pointer" />
                                                 <br />
                                                 <br />
                                                 <table align="left" width="95" cellpadding="0" cellspacing="0" border="0">
@@ -248,7 +254,7 @@
                                                     </tr>
                                                     <tr style="height: 30px">
                                                         <td>
-                                                            &nbsp;<asp:TextBox ID="LowFare_Detail_Returning_Text_Type3_1" Text="mm/dd/yy" Width="100px" runat="server"></asp:TextBox>&nbsp;<asp:Image ID="LowFare_Detail_Returning_Image_Type3_1" ImageUrl="images/calendar.gif" runat="server" />
+                                                            &nbsp;<asp:TextBox ID="LowFare_Detail_Returning_Text_Type3_1" Text="mm/dd/yy" Width="100px" runat="server"></asp:TextBox>&nbsp;<img src="images/calendar.gif" alt="" style="cursor:pointer" />
                                                         </td>
                                                         <td>
                                                             &nbsp;<asp:DropDownList ID="LowFare_Detail_Time1_Select_Type3_1" runat="server">
@@ -288,12 +294,12 @@
                                                 <br />
                                                 &nbsp;From
                                                 <br />
-                                                &nbsp;<asp:TextBox ID="LowFare_Detail_From_Text_Type3_2" Width="180" runat="server"></asp:TextBox><asp:Image ID="LowFare_Detail_From_List_Type3_2" ImageUrl="images/button_list.gif" runat="server" />
+                                                &nbsp;<asp:TextBox ID="LowFare_Detail_From_Text_Type3_2" Width="180" runat="server"></asp:TextBox><img src="images/button_list.gif" alt="" onclick="CityList('LowFare_Detail_From_Text_Type3_2');" style="cursor:pointer" />
                                                 <br />
                                                 <br />                                                
                                                 &nbsp;To
                                                 <br />
-                                                &nbsp;<asp:TextBox ID="LowFare_Detail_To_Text_Type3_2" Width="180" runat="server"></asp:TextBox><asp:Image ID="LowFare_Detail_To_List_Type3_2" ImageUrl="images/button_list.gif" runat="server" />
+                                                &nbsp;<asp:TextBox ID="LowFare_Detail_To_Text_Type3_2" Width="180" runat="server"></asp:TextBox><img src="images/button_list.gif" alt="" onclick="CityList('LowFare_Detail_To_Text_Type3_2');" style="cursor:pointer" />
                                                 <br />
                                                 <br />
                                                 <table align="left" width="95" cellpadding="0" cellspacing="0" border="0">
@@ -307,7 +313,7 @@
                                                     </tr>
                                                     <tr style="height: 30px">
                                                         <td>
-                                                            &nbsp;<asp:TextBox ID="LowFare_Detail_Returning_Text_Type3_2" Text="mm/dd/yy" Width="100px" runat="server"></asp:TextBox>&nbsp;<asp:Image ID="LowFare_Detail_Returning_Image_Type3_2" ImageUrl="images/calendar.gif" runat="server" />
+                                                            &nbsp;<asp:TextBox ID="LowFare_Detail_Returning_Text_Type3_2" Text="mm/dd/yy" Width="100px" runat="server"></asp:TextBox>&nbsp;<img src="images/calendar.gif" alt="" style="cursor:pointer" />
                                                         </td>
                                                         <td>
                                                             &nbsp;<asp:DropDownList ID="LowFare_Detail_Time1_Select_Type3_2" runat="server">
@@ -347,12 +353,12 @@
                                                 <br />
                                                 &nbsp;From
                                                 <br />
-                                                &nbsp;<asp:TextBox ID="LowFare_Detail_From_Text_Type3_3" Width="180" runat="server"></asp:TextBox><asp:Image ID="LowFare_Detail_From_List_Type3_3" ImageUrl="images/button_list.gif" runat="server" />
+                                                &nbsp;<asp:TextBox ID="LowFare_Detail_From_Text_Type3_3" Width="180" runat="server"></asp:TextBox><img src="images/button_list.gif" alt="" onclick="CityList('LowFare_Detail_From_Text_Type3_3');" style="cursor:pointer" />
                                                 <br />
                                                 <br />                                                
                                                 &nbsp;To
                                                 <br />
-                                                &nbsp;<asp:TextBox ID="LowFare_Detail_To_Text_Type3_3" Width="180" runat="server"></asp:TextBox><asp:Image ID="LowFare_Detail_To_List_Type3_3" ImageUrl="images/button_list.gif" runat="server" />
+                                                &nbsp;<asp:TextBox ID="LowFare_Detail_To_Text_Type3_3" Width="180" runat="server"></asp:TextBox><img src="images/button_list.gif" alt="" onclick="CityList('LowFare_Detail_To_Text_Type3_3');" style="cursor:pointer" />
                                                 <br />
                                                 <br />
                                                 <table align="left" width="95" cellpadding="0" cellspacing="0" border="0">
@@ -366,7 +372,7 @@
                                                     </tr>
                                                     <tr style="height: 30px">
                                                         <td>
-                                                            &nbsp;<asp:TextBox ID="LowFare_Detail_Returning_Text_Type3_3" Text="mm/dd/yy" Width="100px" runat="server"></asp:TextBox>&nbsp;<asp:Image ID="LowFare_Detail_Returning_Image_Type3_3" ImageUrl="images/calendar.gif" runat="server" />
+                                                            &nbsp;<asp:TextBox ID="LowFare_Detail_Returning_Text_Type3_3" Text="mm/dd/yy" Width="100px" runat="server"></asp:TextBox>&nbsp;<img src="images/calendar.gif" alt="" style="cursor:pointer" />
                                                         </td>
                                                         <td>
                                                             &nbsp;<asp:DropDownList ID="LowFare_Detail_Time1_Select_Type3_3" runat="server">
@@ -406,12 +412,12 @@
                                                 <br />
                                                 &nbsp;From
                                                 <br />
-                                                &nbsp;<asp:TextBox ID="LowFare_Detail_From_Text_Type3_4" Width="180" runat="server"></asp:TextBox><asp:Image ID="LowFare_Detail_From_List_Type3_4" ImageUrl="images/button_list.gif" runat="server" />
+                                                &nbsp;<asp:TextBox ID="LowFare_Detail_From_Text_Type3_4" Width="180" runat="server"></asp:TextBox><img src="images/button_list.gif" alt="" onclick="CityList('LowFare_Detail_From_Text_Type3_4');" style="cursor:pointer" />
                                                 <br />
                                                 <br />                                                
                                                 &nbsp;To
                                                 <br />
-                                                &nbsp;<asp:TextBox ID="LowFare_Detail_To_Text_Type3_4" Width="180" runat="server"></asp:TextBox><asp:Image ID="LowFare_Detail_To_List_Type3_4" ImageUrl="images/button_list.gif" runat="server" />
+                                                &nbsp;<asp:TextBox ID="LowFare_Detail_To_Text_Type3_4" Width="180" runat="server"></asp:TextBox><img src="images/button_list.gif" alt="" onclick="CityList('LowFare_Detail_To_Text_Type3_4');" style="cursor:pointer" />
                                                 <br />
                                                 <br />
                                                 <table align="left" width="95" cellpadding="0" cellspacing="0" border="0">
@@ -425,7 +431,7 @@
                                                     </tr>
                                                     <tr style="height: 30px">
                                                         <td>
-                                                            &nbsp;<asp:TextBox ID="LowFare_Detail_Returning_Text_Type3_4" Text="mm/dd/yy" Width="100px" runat="server"></asp:TextBox>&nbsp;<asp:Image ID="LowFare_Detail_Returning_Image_Type3_4" ImageUrl="images/calendar.gif" runat="server" />
+                                                            &nbsp;<asp:TextBox ID="LowFare_Detail_Returning_Text_Type3_4" Text="mm/dd/yy" Width="100px" runat="server"></asp:TextBox>&nbsp;<img src="images/calendar.gif" alt="" style="cursor:pointer" />
                                                         </td>
                                                         <td>
                                                             &nbsp;<asp:DropDownList ID="LowFare_Detail_Time1_Select_Type3_4" runat="server">

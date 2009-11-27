@@ -140,15 +140,6 @@ namespace Web {
         protected global::System.Web.UI.WebControls.TextBox LowFare_Detail_From_Text_Type1;
         
         /// <summary>
-        /// LowFare_Detail_From_List_Type1 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image LowFare_Detail_From_List_Type1;
-        
-        /// <summary>
         /// LowFare_Detail_To_Text_Type1 控件。
         /// </summary>
         /// <remarks>
@@ -158,15 +149,6 @@ namespace Web {
         protected global::System.Web.UI.WebControls.TextBox LowFare_Detail_To_Text_Type1;
         
         /// <summary>
-        /// LowFare_Detail_To_List_Type1 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image LowFare_Detail_To_List_Type1;
-        
-        /// <summary>
         /// LowFare_Detail_Departing_Text_Type1 控件。
         /// </summary>
         /// <remarks>
@@ -174,15 +156,6 @@ namespace Web {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox LowFare_Detail_Departing_Text_Type1;
-        
-        /// <summary>
-        /// LowFare_Detail_Departing_Image_Type1 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image LowFare_Detail_Departing_Image_Type1;
         
         /// <summary>
         /// LowFare_Detail_Time1_Select_Type1 控件。
@@ -201,15 +174,6 @@ namespace Web {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox LowFare_Detail_Returning_Text_Type1;
-        
-        /// <summary>
-        /// LowFare_Detail_Returning_Image_Type1 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image LowFare_Detail_Returning_Image_Type1;
         
         /// <summary>
         /// LowFare_Detail_Time2_Select_Type1 控件。
@@ -239,15 +203,6 @@ namespace Web {
         protected global::System.Web.UI.WebControls.TextBox LowFare_Detail_From_Text_Type2;
         
         /// <summary>
-        /// LowFare_Detail_From_List_Type2 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image LowFare_Detail_From_List_Type2;
-        
-        /// <summary>
         /// LowFare_Detail_To_Text_Type2 控件。
         /// </summary>
         /// <remarks>
@@ -257,15 +212,6 @@ namespace Web {
         protected global::System.Web.UI.WebControls.TextBox LowFare_Detail_To_Text_Type2;
         
         /// <summary>
-        /// LowFare_Detail_To_List_Type2 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image LowFare_Detail_To_List_Type2;
-        
-        /// <summary>
         /// LowFare_Detail_Departing_Text_Type2 控件。
         /// </summary>
         /// <remarks>
@@ -273,15 +219,6 @@ namespace Web {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox LowFare_Detail_Departing_Text_Type2;
-        
-        /// <summary>
-        /// Image4 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image4;
         
         /// <summary>
         /// LowFare_Detail_Time1_Select_Type2 控件。
@@ -311,15 +248,6 @@ namespace Web {
         protected global::System.Web.UI.WebControls.TextBox LowFare_Detail_From_Text_Type3_1;
         
         /// <summary>
-        /// LowFare_Detail_From_List_Type3_1 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image LowFare_Detail_From_List_Type3_1;
-        
-        /// <summary>
         /// LowFare_Detail_To_Text_Type3_1 控件。
         /// </summary>
         /// <remarks>
@@ -329,15 +257,6 @@ namespace Web {
         protected global::System.Web.UI.WebControls.TextBox LowFare_Detail_To_Text_Type3_1;
         
         /// <summary>
-        /// LowFare_Detail_To_List_Type3_1 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image LowFare_Detail_To_List_Type3_1;
-        
-        /// <summary>
         /// LowFare_Detail_Returning_Text_Type3_1 控件。
         /// </summary>
         /// <remarks>
@@ -345,15 +264,6 @@ namespace Web {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox LowFare_Detail_Returning_Text_Type3_1;
-        
-        /// <summary>
-        /// LowFare_Detail_Returning_Image_Type3_1 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image LowFare_Detail_Returning_Image_Type3_1;
         
         /// <summary>
         /// LowFare_Detail_Time1_Select_Type3_1 控件。
@@ -374,15 +284,6 @@ namespace Web {
         protected global::System.Web.UI.WebControls.TextBox LowFare_Detail_From_Text_Type3_2;
         
         /// <summary>
-        /// LowFare_Detail_From_List_Type3_2 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image LowFare_Detail_From_List_Type3_2;
-        
-        /// <summary>
         /// LowFare_Detail_To_Text_Type3_2 控件。
         /// </summary>
         /// <remarks>
@@ -392,15 +293,6 @@ namespace Web {
         protected global::System.Web.UI.WebControls.TextBox LowFare_Detail_To_Text_Type3_2;
         
         /// <summary>
-        /// LowFare_Detail_To_List_Type3_2 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image LowFare_Detail_To_List_Type3_2;
-        
-        /// <summary>
         /// LowFare_Detail_Returning_Text_Type3_2 控件。
         /// </summary>
         /// <remarks>
@@ -408,15 +300,6 @@ namespace Web {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox LowFare_Detail_Returning_Text_Type3_2;
-        
-        /// <summary>
-        /// LowFare_Detail_Returning_Image_Type3_2 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image LowFare_Detail_Returning_Image_Type3_2;
         
         /// <summary>
         /// LowFare_Detail_Time1_Select_Type3_2 控件。
@@ -437,15 +320,6 @@ namespace Web {
         protected global::System.Web.UI.WebControls.TextBox LowFare_Detail_From_Text_Type3_3;
         
         /// <summary>
-        /// LowFare_Detail_From_List_Type3_3 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image LowFare_Detail_From_List_Type3_3;
-        
-        /// <summary>
         /// LowFare_Detail_To_Text_Type3_3 控件。
         /// </summary>
         /// <remarks>
@@ -455,15 +329,6 @@ namespace Web {
         protected global::System.Web.UI.WebControls.TextBox LowFare_Detail_To_Text_Type3_3;
         
         /// <summary>
-        /// LowFare_Detail_To_List_Type3_3 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image LowFare_Detail_To_List_Type3_3;
-        
-        /// <summary>
         /// LowFare_Detail_Returning_Text_Type3_3 控件。
         /// </summary>
         /// <remarks>
@@ -471,15 +336,6 @@ namespace Web {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox LowFare_Detail_Returning_Text_Type3_3;
-        
-        /// <summary>
-        /// LowFare_Detail_Returning_Image_Type3_3 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image LowFare_Detail_Returning_Image_Type3_3;
         
         /// <summary>
         /// LowFare_Detail_Time1_Select_Type3_3 控件。
@@ -500,15 +356,6 @@ namespace Web {
         protected global::System.Web.UI.WebControls.TextBox LowFare_Detail_From_Text_Type3_4;
         
         /// <summary>
-        /// LowFare_Detail_From_List_Type3_4 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image LowFare_Detail_From_List_Type3_4;
-        
-        /// <summary>
         /// LowFare_Detail_To_Text_Type3_4 控件。
         /// </summary>
         /// <remarks>
@@ -518,15 +365,6 @@ namespace Web {
         protected global::System.Web.UI.WebControls.TextBox LowFare_Detail_To_Text_Type3_4;
         
         /// <summary>
-        /// LowFare_Detail_To_List_Type3_4 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image LowFare_Detail_To_List_Type3_4;
-        
-        /// <summary>
         /// LowFare_Detail_Returning_Text_Type3_4 控件。
         /// </summary>
         /// <remarks>
@@ -534,15 +372,6 @@ namespace Web {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox LowFare_Detail_Returning_Text_Type3_4;
-        
-        /// <summary>
-        /// LowFare_Detail_Returning_Image_Type3_4 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image LowFare_Detail_Returning_Image_Type3_4;
         
         /// <summary>
         /// LowFare_Detail_Time1_Select_Type3_4 控件。
