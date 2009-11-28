@@ -66,6 +66,17 @@ namespace DAL
             return o_DataTable;
         }
 
+        public DataTable Select_LowFare(int p_LowFare_ID, ref int o_TotalCount, ref int o_TotalPage)
+        {
+            if (p_LowFare_ID <= 0)
+                return null;
+
+            string o_Where = "LowFare_ID=" + p_LowFare_ID.ToString();
+
+            DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, 1, 1, 1, 0, o_Where, ref o_TotalCount, ref o_TotalPage);
+            return o_DataTable;
+        }
+
         public void Insert_LowFare(Entity.LowFare o_LowFare)
         {
             if (o_LowFare == null)
@@ -80,13 +91,14 @@ namespace DAL
             if (o_LowFare.LowFare_Flexibility)
                 o_FieldsValue += "1";
             else
-                o_FieldsValue += "0";                      
+                o_FieldsValue += "0";
 
-            if (o_LowFare.LowFare_Detail_ID != null)
-            {
-                o_FieldsValue += ",";
-                o_FieldsValue += o_LowFare.LowFare_Detail_ID[0].LowFare_Detail_ID.ToString();
-            }
+            o_FieldsValue += ",";
+
+            if (o_LowFare.LowFare_Detail_ID != null && o_LowFare.LowFare_Detail_ID.Count > 0)             
+                o_FieldsValue += o_LowFare.LowFare_Detail_ID[0].LowFare_Detail_LowFare_ID.ToString();
+            else
+                o_FieldsValue += "0";
 
             o_FieldsValue += ",";
             o_FieldsValue += o_LowFare.LowFare_Adults.ToString();
@@ -98,28 +110,95 @@ namespace DAL
             o_FieldsValue += o_LowFare.LowFare_Airline;
             o_FieldsValue += ",";
             o_FieldsValue += o_LowFare.LowFare_Class;
+            o_FieldsValue += ",";
 
-            if (o_LowFare.LowFare_Member_ID != null)
-            {
-                o_FieldsValue += ",";
+            if (o_LowFare.LowFare_Member_ID != null)                            
                 o_FieldsValue += o_LowFare.LowFare_Member_ID.Member_ID.ToString();
-            }
+            else
+                o_FieldsValue += "0";
 
-            if (o_LowFare.LowFare_AdminUser_ID != null)
-            {
-                o_FieldsValue += ",";
+            o_FieldsValue += ",";
+
+            if (o_LowFare.LowFare_AdminUser_ID != null)            
                 o_FieldsValue += o_LowFare.LowFare_AdminUser_ID.AdminUser_ID.ToString();
-            }
+            else
+                o_FieldsValue += "0";
                         
             o_FieldsValue += ",";
             o_FieldsValue += o_LowFare.LowFare_Status.ToString();
             o_FieldsValue += ",";
             o_FieldsValue += o_LowFare.LowFare_AddTime.ToString();
-
-            LowFare_Detail o_LowFare_Detail = new LowFare_Detail();
-            o_LowFare_Detail.Insert_LowFare_Detail(o_LowFare.LowFare_Detail_ID);
-
+                        
             Execute_Insert(g_TableName, g_TableFields, o_FieldsValue);
+        }
+
+        public void Update_LowFare(Entity.LowFare o_LowFare)
+        {
+            if (o_LowFare == null)
+                return;
+
+            string o_FieldsValue = "";
+            o_FieldsValue += "LowFare_Type=" + o_LowFare.LowFare_Type.ToString();
+            o_FieldsValue += ",";
+
+            if (o_LowFare.LowFare_Flexibility)
+                o_FieldsValue += "LowFare_Flexibility=1";
+            else
+                o_FieldsValue += "LowFare_Flexibility=0";
+
+            o_FieldsValue += ",";
+
+            if (o_LowFare.LowFare_Detail_ID != null && o_LowFare.LowFare_Detail_ID.Count > 0)
+                o_FieldsValue += "LowFare_Detail_ID=" + o_LowFare.LowFare_Detail_ID[0].LowFare_Detail_ID.ToString();
+            else
+                o_FieldsValue += "LowFare_Detail_ID=0";
+
+            o_FieldsValue += ",";
+            o_FieldsValue += "LowFare_Adults=" + o_LowFare.LowFare_Adults.ToString();
+            o_FieldsValue += ",";
+            o_FieldsValue += "LowFare_Children=" + o_LowFare.LowFare_Children.ToString();
+            o_FieldsValue += ",";
+            o_FieldsValue += "LowFare_Infants=" + o_LowFare.LowFare_Infants.ToString();
+            o_FieldsValue += ",";
+            o_FieldsValue += "LowFare_Airline=" + o_LowFare.LowFare_Airline;
+            o_FieldsValue += ",";
+            o_FieldsValue += "LowFare_Airline=N'" + o_LowFare.LowFare_Class + "'";
+            o_FieldsValue += ",";
+
+            if (o_LowFare.LowFare_Member_ID != null)
+                o_FieldsValue += "LowFare_Member_ID=" + o_LowFare.LowFare_Member_ID.Member_ID.ToString();
+            else
+                o_FieldsValue += "0";
+
+            o_FieldsValue += ",";
+
+            if (o_LowFare.LowFare_AdminUser_ID != null)            
+                o_FieldsValue += "LowFare_AdminUser_ID=" + o_LowFare.LowFare_AdminUser_ID.AdminUser_ID.ToString();            
+            else
+                o_FieldsValue += "0";
+
+            o_FieldsValue += ",";
+            o_FieldsValue += "LowFare_Status=" + o_LowFare.LowFare_Status.ToString();
+            o_FieldsValue += ",";
+            o_FieldsValue += "LowFare_AddTime=" + o_LowFare.LowFare_AddTime.ToString();
+
+            string o_Where = "LowFare_ID=" + o_LowFare.LowFare_ID.ToString();
+            Execute_Update(g_TableName, o_FieldsValue, o_Where);
+        }
+
+        public void Delete_LowFare(Entity.LowFare o_LowFare)
+        {
+            if (o_LowFare == null)
+                return;
+
+            if (o_LowFare.LowFare_Detail_ID != null && o_LowFare.LowFare_Detail_ID.Count > 0)
+            {
+                LowFare_Detail d_LowFare_Detail = new LowFare_Detail();
+                d_LowFare_Detail.Delete_LowFare_Detail_LowFare_ID(o_LowFare.LowFare_Detail_ID[0].LowFare_Detail_LowFare_ID);                
+            }
+
+            string o_Where = "LowFare_ID=" + o_LowFare.LowFare_ID.ToString();
+            Execute_Delete(g_TableName, o_Where);
         }
     }
 }

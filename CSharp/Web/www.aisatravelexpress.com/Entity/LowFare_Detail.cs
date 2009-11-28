@@ -13,6 +13,13 @@ namespace Entity
             get { return _LowFare_Detail_ID; }
             set { _LowFare_Detail_ID = value; }
         }
+        private int _LowFare_Detail_LowFare_ID;
+
+        public int LowFare_Detail_LowFare_ID
+        {
+            get { return _LowFare_Detail_LowFare_ID; }
+            set { _LowFare_Detail_LowFare_ID = value; }
+        }
         private string _LowFare_Detail_From;
 
         public string LowFare_Detail_From
