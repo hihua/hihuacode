@@ -85,6 +85,7 @@
     <Content Include="Admin\Knows_Detail.aspx" />
     <Content Include="Admin\Login.aspx" />
     <Content Include="Admin\Logout.aspx" />
+    <Content Include="Admin\LowFare.aspx" />
     <Content Include="Admin\Main.aspx" />
     <Content Include="Admin\Member.aspx" />
     <Content Include="Admin\Member_Detail.aspx" />
@@ -252,6 +253,13 @@
     </Compile>
     <Compile Include="Admin\Logout.aspx.designer.cs">
       <DependentUpon>Logout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\LowFare.aspx.cs">
+      <DependentUpon>LowFare.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\LowFare.aspx.designer.cs">
+      <DependentUpon>LowFare.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Main.aspx.cs">
       <DependentUpon>Main.aspx</DependentUpon>

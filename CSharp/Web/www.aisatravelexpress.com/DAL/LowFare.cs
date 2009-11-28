@@ -10,7 +10,7 @@ namespace DAL
     public class LowFare : DALBase
     {
         private string g_TableName = "t_LowFare";
-        private string g_TableFields = "LowFare_ID,LowFare_Type,LowFare_Flexibility,LowFare_Detail_ID,LowFare_Adults,LowFare_Children,LowFare_Infants,LowFare_Airline,LowFare_Class,LowFare_Member_ID,LowFare_AdminUser_ID,LowFare_Status,LowFare_AddTime";
+        private string g_TableFields = "LowFare_ID,LowFare_Type,LowFare_Flexibility,LowFare_Detail_ID,LowFare_Adults,LowFare_Children,LowFare_Infants,LowFare_Airline,LowFare_Class,LowFare_Member_ID,LowFare_AdminUser_ID,LowFare_Status,LowFare_AddTime,LowFare_SubmitTime";
         private string g_TableOrderByFields = "LowFare_ID";
 
         public LowFare()
@@ -18,9 +18,9 @@ namespace DAL
 
         }
 
-        public DataTable Select_LowFare(string p_Search_Content, int p_Search_Method, int p_PageSize, int p_PageIndex, ref int o_TotalCount, ref int o_TotalPage)
+        public DataTable Select_LowFare(string p_Search_Content, int p_Search_Method, int p_LowFare_Status, int p_PageSize, int p_PageIndex, ref int o_TotalCount, ref int o_TotalPage)
         {
-            string o_Where = "1 and 1";
+            string o_Where = "1=1";
             if (VerifyUtility.IsString_NotNull(p_Search_Content))
             {
                 switch (p_Search_Method)
@@ -56,10 +56,24 @@ namespace DAL
                     case 8:
                         o_Where += " and LowFare_AdminUser_ID=" + p_Search_Content;
                         break;
-
+                    
                     default:
                         break;
                 }
+            }
+
+            switch (p_LowFare_Status)
+            {
+                case 1:
+                    o_Where += " and LowFare_Status=0";
+                    break;
+
+                case 2:
+                    o_Where += " and LowFare_Status=1";
+                    break;
+
+                default:
+                    break;
             }
 
             DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, p_PageSize, p_PageIndex, 0, 1, o_Where, ref o_TotalCount, ref o_TotalPage);
@@ -82,7 +96,7 @@ namespace DAL
             if (o_LowFare == null)
                 return;
 
-            g_TableFields = "LowFare_Type,LowFare_Flexibility,LowFare_Detail_ID,LowFare_Adults,LowFare_Children,LowFare_Infants,LowFare_Airline,LowFare_Class,LowFare_Member_ID,LowFare_AdminUser_ID,LowFare_Status,LowFare_AddTime";
+            g_TableFields = "LowFare_Type,LowFare_Flexibility,LowFare_Detail_ID,LowFare_Adults,LowFare_Children,LowFare_Infants,LowFare_Airline,LowFare_Class,LowFare_Member_ID,LowFare_AdminUser_ID,LowFare_Status,LowFare_AddTime,LowFare_SubmitTime";
 
             string o_FieldsValue = "";
             o_FieldsValue += o_LowFare.LowFare_Type.ToString();
@@ -128,6 +142,8 @@ namespace DAL
             o_FieldsValue += o_LowFare.LowFare_Status.ToString();
             o_FieldsValue += ",";
             o_FieldsValue += "'" + o_LowFare.LowFare_AddTime.ToString() + "'";
+            o_FieldsValue += ",";
+            o_FieldsValue += "'" + o_LowFare.LowFare_SubmitTime + "'";
                         
             Execute_Insert(g_TableName, g_TableFields, o_FieldsValue);
         }
@@ -181,6 +197,8 @@ namespace DAL
             o_FieldsValue += "LowFare_Status=" + o_LowFare.LowFare_Status.ToString();
             o_FieldsValue += ",";
             o_FieldsValue += "LowFare_AddTime=" + o_LowFare.LowFare_AddTime.ToString();
+            o_FieldsValue += ",";
+            o_FieldsValue += "LowFare_SubmitTime=" + o_LowFare.LowFare_SubmitTime;
 
             string o_Where = "LowFare_ID=" + o_LowFare.LowFare_ID.ToString();
             Execute_Update(g_TableName, o_FieldsValue, o_Where);

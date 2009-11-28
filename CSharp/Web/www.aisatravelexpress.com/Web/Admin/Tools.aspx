@@ -97,6 +97,9 @@
 				            <table cellspacing="3" cellpadding="0" width="130" align="center">					            
 						        <tr>
 						            <td><a href="Member.aspx" target="Main" class="IndexMenuLink1">会员信息</a></td>
+						        </tr>
+						        <tr>
+						            <td><a href="LowFare.aspx" target="Main" class="IndexMenuLink1">机票问价</a></td>
 						        </tr>						        					            
 				            </table>
 			            </div>

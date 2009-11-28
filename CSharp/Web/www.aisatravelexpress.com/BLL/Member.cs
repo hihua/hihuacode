@@ -84,6 +84,7 @@ namespace BLL
             p_Member.Member_Consumption = Convert.ToInt32(p_DataRow["Member_Consumption"].ToString());
             p_Member.Member_Times = Convert.ToInt32(p_DataRow["Member_Times"].ToString());
             p_Member.Member_Recommended = Convert.ToInt32(p_DataRow["Member_Recommended"].ToString());
+            p_Member.Member_ReSerial = p_DataRow["Member_ReSerial"].ToString();
             p_Member.Member_Level = Convert.ToInt32(p_DataRow["Member_Level"].ToString());
             p_Member.Member_AddTime = DateTime.Parse(p_DataRow["Member_AddTime"].ToString());                    
         }
@@ -114,7 +115,7 @@ namespace BLL
             {
                 Member_Serial = FilterUtility.FilterNumber(20);
 
-                Entity.Member o_Member = Select_Member(Member_Serial);
+                Entity.Member o_Member = Select_Member(2, Member_Serial);
                 if (o_Member == null)
                     return Member_Serial;
             }
@@ -182,9 +183,9 @@ namespace BLL
             }
         }
 
-        public Entity.Member Select_Member(string p_Member_Serial)
+        public Entity.Member Select_Member(int p_Member_Method, string p_Member_Content)
         {
-            DataTable o_DataTable = d_Member.Select_Member(p_Member_Serial);
+            DataTable o_DataTable = d_Member.Select_Member(p_Member_Method, p_Member_Content);
             if (o_DataTable == null)
                 return null;
             else
@@ -242,6 +243,7 @@ namespace BLL
             o_Member.Member_Consumption = p_Member.Member_Consumption;
             o_Member.Member_Times = p_Member.Member_Times;
             o_Member.Member_Recommended = p_Member.Member_Recommended;
+            o_Member.Member_ReSerial = FilterUtility.FilterSQL(p_Member.Member_ReSerial);
             o_Member.Member_Level = p_Member.Member_Level;
             o_Member.Member_AddTime = DateTime.Now;
 
@@ -276,6 +278,7 @@ namespace BLL
             o_Member.Member_Consumption = p_Member.Member_Consumption;
             o_Member.Member_Times = p_Member.Member_Times;
             o_Member.Member_Recommended = p_Member.Member_Recommended;
+            o_Member.Member_ReSerial = FilterUtility.FilterSQL(p_Member.Member_ReSerial);
             o_Member.Member_Level = p_Member.Member_Level;
             o_Member.Member_AddTime = p_Member.Member_AddTime;
 

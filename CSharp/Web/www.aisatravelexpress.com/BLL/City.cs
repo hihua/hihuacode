@@ -51,6 +51,8 @@ namespace BLL
 
         public void Select_CityName(string p_City_Name, HttpResponse p_HttpResponse)
         {
+            p_City_Name = FilterUtility.FilterSQL(p_City_Name);
+
             DataTable o_DataTable = d_City.Select_CityName(p_City_Name, 1, 1, ref g_TotalCount, ref g_TotalPage);
             if (o_DataTable == null)
                 return;
@@ -63,6 +65,8 @@ namespace BLL
 
         public void Select_CityTitle(string p_City_Title, HttpResponse p_HttpResponse)
         {
+            p_City_Title = FilterUtility.FilterSQL(p_City_Title);
+
             DataTable o_DataTable = d_City.Select_CityTitle(p_City_Title, 1, 1, ref g_TotalCount, ref g_TotalPage);
             if (o_DataTable == null)            
                 Select_CityName(p_City_Title, p_HttpResponse);            

@@ -98,8 +98,7 @@ namespace Web.Admin
                     o_HtmlTableCell.Controls.Add(o_HtmlGenericControl);
 
                     if (o_Member.Member_Level < 3)
-                    {
-                        o_HtmlTableCell = new HtmlTableCell();
+                    {                        
                         o_HtmlAnchor = new HtmlAnchor();
                         o_HtmlAnchor.HRef = "#";
                         o_HtmlAnchor.Attributes.Add("onclick", "ActionSubmit(4, " + o_Member.Member_ID.ToString() + ");return false;");

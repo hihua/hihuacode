@@ -97,5 +97,12 @@ namespace Entity
             get { return _LowFare_AddTime; }
             set { _LowFare_AddTime = value; }
         }
+        private string _LowFare_SubmitTime;
+
+        public string LowFare_SubmitTime
+        {
+            get { return _LowFare_SubmitTime; }
+            set { _LowFare_SubmitTime = value; }
+        }
     }
 }

@@ -28,7 +28,7 @@ namespace BLL
             p_LowFare.LowFare_ID = Convert.ToInt32(p_DataRow["LowFare_ID"].ToString());
             p_LowFare.LowFare_Type = Convert.ToInt32(p_DataRow["LowFare_Type"].ToString());
 
-            if (p_DataRow["LowFare_Type"].ToString().ToUpper() == "TRUE")
+            if (p_DataRow["LowFare_Flexibility"].ToString().ToUpper() == "TRUE")
                 p_LowFare.LowFare_Flexibility = true;
             else
                 p_LowFare.LowFare_Flexibility = false;
@@ -56,11 +56,37 @@ namespace BLL
             
             p_LowFare.LowFare_Status = Convert.ToInt32(p_DataRow["LowFare_Status"].ToString());
             p_LowFare.LowFare_AddTime = DateTime.Parse(p_DataRow["LowFare_AddTime"].ToString());
+            p_LowFare.LowFare_SubmitTime = p_DataRow["LowFare_SubmitTime"].ToString();
         }
 
-        public Entity.LowFare[] Select_LowFare(string p_Search_Content, int p_Search_Method, int p_PageSize, int p_PageIndex)
+        public Entity.LowFare[] Select_LowFare(string p_Search_Content, int p_Search_Method, int p_LowFare_Status, int p_PageSize, int p_PageIndex)
         {
-            DataTable o_DataTable = d_LowFare.Select_LowFare(p_Search_Content, p_Search_Method, p_PageSize, p_PageIndex, ref g_TotalCount, ref g_TotalPage);
+            switch (p_Search_Method)
+            {
+                case 7:
+                    {
+                        BLL.Member b_Member = new Member();
+                        Entity.Member o_Member = b_Member.Select_Member(1, p_Search_Content);
+                        if (o_Member != null)
+                            p_Search_Content = o_Member.Member_ID.ToString();
+                        else
+                            return null;
+                    }
+                    break;
+
+                case 8:
+                    {
+                        BLL.Member b_Member = new Member();
+                        Entity.Member o_Member = b_Member.Select_Member(2, p_Search_Content);
+                        if (o_Member != null)
+                            p_Search_Content = o_Member.Member_ID.ToString();
+                        else
+                            return null;
+                    }
+                    break;
+            }
+
+            DataTable o_DataTable = d_LowFare.Select_LowFare(p_Search_Content, p_Search_Method, p_LowFare_Status, p_PageSize, p_PageIndex, ref g_TotalCount, ref g_TotalPage);
             if (o_DataTable == null)
                 return null;
             else
@@ -114,6 +140,7 @@ namespace BLL
             e_LowFare.LowFare_AdminUser_ID = o_LowFare.LowFare_AdminUser_ID;
             e_LowFare.LowFare_Status = o_LowFare.LowFare_Status;
             e_LowFare.LowFare_AddTime = o_LowFare.LowFare_AddTime;
+            e_LowFare.LowFare_SubmitTime = o_LowFare.LowFare_SubmitTime;
 
             BLL.LowFare_Detail b_LowFare_Detail = new LowFare_Detail();
             b_LowFare_Detail.Insert_LowFare_Detail(e_LowFare.LowFare_Detail_ID);
@@ -140,6 +167,7 @@ namespace BLL
             e_LowFare.LowFare_AdminUser_ID = o_LowFare.LowFare_AdminUser_ID;
             e_LowFare.LowFare_Status = o_LowFare.LowFare_Status;
             e_LowFare.LowFare_AddTime = o_LowFare.LowFare_AddTime;
+            e_LowFare.LowFare_SubmitTime = o_LowFare.LowFare_SubmitTime;
 
             BLL.LowFare_Detail b_LowFare_Detail = new LowFare_Detail();
             b_LowFare_Detail.Update_LowFare_Detail(e_LowFare.LowFare_Detail_ID);

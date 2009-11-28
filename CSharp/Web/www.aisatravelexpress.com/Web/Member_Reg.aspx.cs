@@ -81,7 +81,7 @@ namespace Web
             int Member_Recommended = 0;
             if (VerifyUtility.IsString_NotNull(Member_Serial.Text))
             {
-                Entity.Member e_Member = b_Member.Select_Member(Member_Serial.Text);
+                Entity.Member e_Member = b_Member.Select_Member(2, Member_Serial.Text);
                 if (e_Member == null)
                     ResponseError("没有该会员号");
                 else
@@ -131,6 +131,7 @@ namespace Web
             o_Member.Member_Consumption = 0;
             o_Member.Member_Times = 0;
             o_Member.Member_Recommended = Member_Recommended;
+            o_Member.Member_ReSerial = Member_Serial.Text;
             o_Member.Member_Level = 1;
             o_Member.Member_AddTime = DateTime.Now;
 

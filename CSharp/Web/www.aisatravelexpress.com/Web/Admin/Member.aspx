@@ -59,6 +59,7 @@
                             <asp:ListItem Value="9">常用航空公司</asp:ListItem>
                             <asp:ListItem Value="10">会员号</asp:ListItem>
                             <asp:ListItem Value="11">会员级别</asp:ListItem>
+                            <asp:ListItem Value="12">介绍码</asp:ListItem>
                         </asp:DropDownList>	            					
                         <asp:Button ID="Search_Submit" runat="server" Text=" 搜索 " onclick="Search_Submit_Click" />
                         <asp:Button ID="Search_Refresh" runat="server" Text=" 刷新 " onclick="Search_Refresh_Click" />

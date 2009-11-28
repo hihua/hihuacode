@@ -10,7 +10,7 @@ namespace DAL
     public class Member : DALBase
     {
         private string g_TableName = "t_Member";
-        private string g_TableFields = "Member_ID,Member_Account,Member_PassWord,Member_Name_CN,Member_Name_EN,Member_Sex,Member_Work,Member_Tel,Member_Mobile,Member_Email,Member_Address,Member_Company_Name,Member_Company_Tel,Member_Company_Address,Member_Months,Member_Airlines,Member_Serial,Member_Points,Member_Commission,Member_Consumption,Member_Times,Member_Recommended,Member_Level,Member_AddTime";
+        private string g_TableFields = "Member_ID,Member_Account,Member_PassWord,Member_Name_CN,Member_Name_EN,Member_Sex,Member_Work,Member_Tel,Member_Mobile,Member_Email,Member_Address,Member_Company_Name,Member_Company_Tel,Member_Company_Address,Member_Months,Member_Airlines,Member_Serial,Member_Points,Member_Commission,Member_Consumption,Member_Times,Member_Recommended,Member_ReSerial,Member_Level,Member_AddTime";
         private string g_TableOrderByFields = "Member_ID";
 
         public Member()
@@ -67,6 +67,10 @@ namespace DAL
                     o_Where += " and Member_Level = " + p_Search_Content;
                     break;
 
+                case 12:
+                    o_Where += " and Member_ReSerial Like N'%" + p_Search_Content + "%'";
+                    break;
+
                 default:
                     break;
             }
@@ -83,9 +87,22 @@ namespace DAL
             return o_DataTable;
         }
 
-        public DataTable Select_Member(string p_Member_Serial)
+        public DataTable Select_Member(int p_Member_Method, string p_Member_Content)
         {
-            string o_Where = "Member_Serial=N'" + p_Member_Serial + "'";
+            string o_Where = "";
+            switch (p_Member_Method)
+            {
+                case 1:
+                    o_Where += "Member_Account Like N'%" + p_Member_Content + "%'";
+                    break;
+
+                case 2:
+                    o_Where += "Member_Serial=N'" + p_Member_Content + "'";
+                    break;
+
+                default:
+                    break;                    
+            }            
 
             DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, 1, 1, 1, 0, o_Where);
             return o_DataTable;
@@ -120,7 +137,7 @@ namespace DAL
             if (p_Member == null)
                 return;
 
-            g_TableFields = "Member_Account,Member_PassWord,Member_Name_CN,Member_Name_EN,Member_Sex,Member_Work,Member_Tel,Member_Mobile,Member_Email,Member_Address,Member_Company_Name,Member_Company_Tel,Member_Company_Address,Member_Months,Member_Airlines,Member_Serial,Member_Points,Member_Commission,Member_Consumption,Member_Times,Member_Recommended,Member_Level,Member_AddTime";
+            g_TableFields = "Member_Account,Member_PassWord,Member_Name_CN,Member_Name_EN,Member_Sex,Member_Work,Member_Tel,Member_Mobile,Member_Email,Member_Address,Member_Company_Name,Member_Company_Tel,Member_Company_Address,Member_Months,Member_Airlines,Member_Serial,Member_Points,Member_Commission,Member_Consumption,Member_Times,Member_Recommended,Member_ReSerial,Member_Level,Member_AddTime";
 
             string o_FieldsValue = "";
             o_FieldsValue += "N'" + p_Member.Member_Account + "'";
@@ -184,6 +201,8 @@ namespace DAL
             o_FieldsValue += p_Member.Member_Times.ToString();
             o_FieldsValue += ",";
             o_FieldsValue += p_Member.Member_Recommended.ToString();
+            o_FieldsValue += ",";
+            o_FieldsValue += p_Member.Member_ReSerial.ToString();
             o_FieldsValue += ",";
             o_FieldsValue += p_Member.Member_Level.ToString();
             o_FieldsValue += ",";

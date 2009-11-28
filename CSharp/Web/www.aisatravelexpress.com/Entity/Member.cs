@@ -160,6 +160,13 @@ namespace Entity
             get { return _Member_Recommended; }
             set { _Member_Recommended = value; }
         }
+        private string _Member_ReSerial;
+
+        public string Member_ReSerial
+        {
+            get { return _Member_ReSerial; }
+            set { _Member_ReSerial = value; }
+        }
         private int _Member_Level;
 
         public int Member_Level
