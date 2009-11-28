@@ -85,7 +85,7 @@ namespace DAL
             g_TableFields = "LowFare_Type,LowFare_Flexibility,LowFare_Detail_ID,LowFare_Adults,LowFare_Children,LowFare_Infants,LowFare_Airline,LowFare_Class,LowFare_Member_ID,LowFare_AdminUser_ID,LowFare_Status,LowFare_AddTime";
 
             string o_FieldsValue = "";
-            o_FieldsValue += "N'" + o_LowFare.LowFare_Type.ToString() + "'";
+            o_FieldsValue += o_LowFare.LowFare_Type.ToString();
             o_FieldsValue += ",";
 
             if (o_LowFare.LowFare_Flexibility)
@@ -107,9 +107,9 @@ namespace DAL
             o_FieldsValue += ",";
             o_FieldsValue += o_LowFare.LowFare_Infants.ToString();
             o_FieldsValue += ",";
-            o_FieldsValue += o_LowFare.LowFare_Airline;
+            o_FieldsValue += "N'" + o_LowFare.LowFare_Airline + "'";
             o_FieldsValue += ",";
-            o_FieldsValue += o_LowFare.LowFare_Class;
+            o_FieldsValue += "N'" + o_LowFare.LowFare_Class + "'";
             o_FieldsValue += ",";
 
             if (o_LowFare.LowFare_Member_ID != null)                            
@@ -127,7 +127,7 @@ namespace DAL
             o_FieldsValue += ",";
             o_FieldsValue += o_LowFare.LowFare_Status.ToString();
             o_FieldsValue += ",";
-            o_FieldsValue += o_LowFare.LowFare_AddTime.ToString();
+            o_FieldsValue += "'" + o_LowFare.LowFare_AddTime.ToString() + "'";
                         
             Execute_Insert(g_TableName, g_TableFields, o_FieldsValue);
         }
@@ -160,7 +160,7 @@ namespace DAL
             o_FieldsValue += ",";
             o_FieldsValue += "LowFare_Infants=" + o_LowFare.LowFare_Infants.ToString();
             o_FieldsValue += ",";
-            o_FieldsValue += "LowFare_Airline=" + o_LowFare.LowFare_Airline;
+            o_FieldsValue += "LowFare_Airline=N'" + o_LowFare.LowFare_Airline + "'";
             o_FieldsValue += ",";
             o_FieldsValue += "LowFare_Airline=N'" + o_LowFare.LowFare_Class + "'";
             o_FieldsValue += ",";

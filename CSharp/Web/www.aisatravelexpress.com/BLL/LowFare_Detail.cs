@@ -31,7 +31,7 @@ namespace BLL
             p_LowFare_Detail.LowFare_Detail_To = p_DataRow["LowFare_Detail_To"].ToString();
 
             if (p_DataRow["LowFare_Detail_Departing"] != null && VerifyUtility.IsString_NotNull(p_DataRow["LowFare_Detail_Departing"].ToString()))
-                p_LowFare_Detail.LowFare_Detail_Departing = DateTime.Parse(p_DataRow["LowFare_Detail_Departing"].ToString());
+                p_LowFare_Detail.LowFare_Detail_Departing = p_DataRow["LowFare_Detail_Departing"].ToString();
             
             if (p_DataRow["LowFare_Detail_Time1"] != null && VerifyUtility.IsString_NotNull(p_DataRow["LowFare_Detail_Time1"].ToString()))
                 p_LowFare_Detail.LowFare_Detail_Time1 = p_DataRow["LowFare_Detail_Time1"].ToString();
@@ -39,7 +39,7 @@ namespace BLL
                 p_LowFare_Detail.LowFare_Detail_Time1 = "";
 
             if (p_DataRow["LowFare_Detail_Returning"] != null && VerifyUtility.IsString_NotNull(p_DataRow["LowFare_Detail_Returning"].ToString()))
-                p_LowFare_Detail.LowFare_Detail_Returning = DateTime.Parse(p_DataRow["LowFare_Detail_Returning"].ToString());
+                p_LowFare_Detail.LowFare_Detail_Returning = p_DataRow["LowFare_Detail_Returning"].ToString();
             
             if (p_DataRow["LowFare_Detail_Time2"] != null && VerifyUtility.IsString_NotNull(p_DataRow["LowFare_Detail_Time2"].ToString()))
                 p_LowFare_Detail.LowFare_Detail_Time2 = p_DataRow["LowFare_Detail_Time2"].ToString();

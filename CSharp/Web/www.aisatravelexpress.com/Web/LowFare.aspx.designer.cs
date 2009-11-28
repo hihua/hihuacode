@@ -257,13 +257,13 @@ namespace Web {
         protected global::System.Web.UI.WebControls.TextBox LowFare_Detail_To_Text_Type3_1;
         
         /// <summary>
-        /// LowFare_Detail_Returning_Text_Type3_1 控件。
+        /// LowFare_Detail_Departing_Text_Type3_1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox LowFare_Detail_Returning_Text_Type3_1;
+        protected global::System.Web.UI.WebControls.TextBox LowFare_Detail_Departing_Text_Type3_1;
         
         /// <summary>
         /// LowFare_Detail_Time1_Select_Type3_1 控件。
@@ -293,13 +293,13 @@ namespace Web {
         protected global::System.Web.UI.WebControls.TextBox LowFare_Detail_To_Text_Type3_2;
         
         /// <summary>
-        /// LowFare_Detail_Returning_Text_Type3_2 控件。
+        /// LowFare_Detail_Departing_Text_Type3_2 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox LowFare_Detail_Returning_Text_Type3_2;
+        protected global::System.Web.UI.WebControls.TextBox LowFare_Detail_Departing_Text_Type3_2;
         
         /// <summary>
         /// LowFare_Detail_Time1_Select_Type3_2 控件。
@@ -329,13 +329,13 @@ namespace Web {
         protected global::System.Web.UI.WebControls.TextBox LowFare_Detail_To_Text_Type3_3;
         
         /// <summary>
-        /// LowFare_Detail_Returning_Text_Type3_3 控件。
+        /// LowFare_Detail_Departing_Text_Type3_3 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox LowFare_Detail_Returning_Text_Type3_3;
+        protected global::System.Web.UI.WebControls.TextBox LowFare_Detail_Departing_Text_Type3_3;
         
         /// <summary>
         /// LowFare_Detail_Time1_Select_Type3_3 控件。
@@ -365,13 +365,13 @@ namespace Web {
         protected global::System.Web.UI.WebControls.TextBox LowFare_Detail_To_Text_Type3_4;
         
         /// <summary>
-        /// LowFare_Detail_Returning_Text_Type3_4 控件。
+        /// LowFare_Detail_Departing_Text_Type3_4 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox LowFare_Detail_Returning_Text_Type3_4;
+        protected global::System.Web.UI.WebControls.TextBox LowFare_Detail_Departing_Text_Type3_4;
         
         /// <summary>
         /// LowFare_Detail_Time1_Select_Type3_4 控件。

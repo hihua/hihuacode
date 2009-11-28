@@ -34,9 +34,9 @@ namespace Entity
             get { return _LowFare_Detail_To; }
             set { _LowFare_Detail_To = value; }
         }
-        private DateTime _LowFare_Detail_Departing;
+        private string _LowFare_Detail_Departing;
 
-        public DateTime LowFare_Detail_Departing
+        public string LowFare_Detail_Departing
         {
             get { return _LowFare_Detail_Departing; }
             set { _LowFare_Detail_Departing = value; }
@@ -48,9 +48,9 @@ namespace Entity
             get { return _LowFare_Detail_Time1; }
             set { _LowFare_Detail_Time1 = value; }
         }
-        private DateTime _LowFare_Detail_Returning;
+        private string _LowFare_Detail_Returning;
 
-        public DateTime LowFare_Detail_Returning
+        public string LowFare_Detail_Returning
         {
             get { return _LowFare_Detail_Returning; }
             set { _LowFare_Detail_Returning = value; }
