@@ -76,7 +76,7 @@
 			            <dd><asp:TextBox ID="Member_Account" runat="server" ToolTip="输入帐号" Width="155" MaxLength="30"></asp:TextBox></dd>
 		            </dl>
 		            <dl>
-			            <dt>介&nbsp;绍&nbsp;码：</dt>
+			            <dt>会&nbsp;员&nbsp;号：</dt>
 			            <dd><asp:TextBox ID="Member_Serial" runat="server" ToolTip="介绍码" Width="155" MaxLength="50"></asp:TextBox></dd>
 		            </dl>		            
 		            <dl>
@@ -145,7 +145,11 @@
 		            </dl>
 		            <dl>
 			            <dt>常用航空公司：</dt>
-			            <dd><asp:TextBox ID="Member_Airlines" runat="server" ToolTip="常用航空公司" Width="350" MaxLength="100"></asp:TextBox></dd>
+			            <dd><asp:TextBox ID="Member_Airlines" runat="server" ToolTip="常用航空公司" Width="420" MaxLength="100"></asp:TextBox></dd>
+		            </dl>
+		            <dl>
+			            <dt>被会员介绍：<asp:HyperLink ID="Member_ReSerial" runat="server" CssClass="AdminToolsLink2"></asp:HyperLink></dt>
+			            <dd></dd>                        
 		            </dl>		                    
 		        </div>		         	            	        
 	            <div id="Div2" class="win_pic_txt2" runat="server">

@@ -143,7 +143,7 @@ namespace DAL
             o_FieldsValue += ",";
             o_FieldsValue += "'" + o_LowFare.LowFare_AddTime.ToString() + "'";
             o_FieldsValue += ",";
-            o_FieldsValue += "'" + o_LowFare.LowFare_SubmitTime + "'";
+            o_FieldsValue += "N'" + o_LowFare.LowFare_SubmitTime + "'";
                         
             Execute_Insert(g_TableName, g_TableFields, o_FieldsValue);
         }
@@ -165,7 +165,7 @@ namespace DAL
             o_FieldsValue += ",";
 
             if (o_LowFare.LowFare_Detail_ID != null && o_LowFare.LowFare_Detail_ID.Count > 0)
-                o_FieldsValue += "LowFare_Detail_ID=" + o_LowFare.LowFare_Detail_ID[0].LowFare_Detail_ID.ToString();
+                o_FieldsValue += "LowFare_Detail_ID=" + o_LowFare.LowFare_Detail_ID[0].LowFare_Detail_LowFare_ID.ToString();
             else
                 o_FieldsValue += "LowFare_Detail_ID=0";
 
@@ -178,7 +178,7 @@ namespace DAL
             o_FieldsValue += ",";
             o_FieldsValue += "LowFare_Airline=N'" + o_LowFare.LowFare_Airline + "'";
             o_FieldsValue += ",";
-            o_FieldsValue += "LowFare_Airline=N'" + o_LowFare.LowFare_Class + "'";
+            o_FieldsValue += "LowFare_Class=N'" + o_LowFare.LowFare_Class + "'";
             o_FieldsValue += ",";
 
             if (o_LowFare.LowFare_Member_ID != null)
@@ -196,9 +196,9 @@ namespace DAL
             o_FieldsValue += ",";
             o_FieldsValue += "LowFare_Status=" + o_LowFare.LowFare_Status.ToString();
             o_FieldsValue += ",";
-            o_FieldsValue += "LowFare_AddTime=" + o_LowFare.LowFare_AddTime.ToString();
+            o_FieldsValue += "LowFare_AddTime='" + o_LowFare.LowFare_AddTime.ToString() + "'";
             o_FieldsValue += ",";
-            o_FieldsValue += "LowFare_SubmitTime=" + o_LowFare.LowFare_SubmitTime;
+            o_FieldsValue += "LowFare_SubmitTime=N'" + o_LowFare.LowFare_SubmitTime + "'"; 
 
             string o_Where = "LowFare_ID=" + o_LowFare.LowFare_ID.ToString();
             Execute_Update(g_TableName, o_FieldsValue, o_Where);

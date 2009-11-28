@@ -78,6 +78,8 @@ namespace Web
             if (!VerifyUtility.IsString_NotNull(Member_Airlines.Text))
                 ResponseError("请输入常用航空公司");
 
+            Entity.Member o_Member = new Entity.Member();
+
             int Member_Recommended = 0;
             if (VerifyUtility.IsString_NotNull(Member_Serial.Text))
             {
@@ -85,10 +87,12 @@ namespace Web
                 if (e_Member == null)
                     ResponseError("没有该会员号");
                 else
+                {
                     Member_Recommended = e_Member.Member_ID;
+                    o_Member.Member_ReSerial = Member_Serial.Text;
+                }
             }
-
-            Entity.Member o_Member = new Entity.Member();
+                        
             o_Member.Member_Account = Member_Account.Text;
             o_Member.Member_PassWord = Member_PassWord1.Text;
             o_Member.Member_Name_CN = Member_Name_CN.Text;
@@ -131,7 +135,7 @@ namespace Web
             o_Member.Member_Consumption = 0;
             o_Member.Member_Times = 0;
             o_Member.Member_Recommended = Member_Recommended;
-            o_Member.Member_ReSerial = Member_Serial.Text;
+            
             o_Member.Member_Level = 1;
             o_Member.Member_AddTime = DateTime.Now;
 

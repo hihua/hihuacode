@@ -37,6 +37,7 @@ namespace Web
         protected int g_Travel_TypeID = 1;
         protected int g_Travel_ID = 1;
         protected int g_Member_ID = 1;
+        protected int g_LowFare_ID = 1;
 
         protected string g_Travel_Images = "Travel_Images";
                         
@@ -151,6 +152,9 @@ namespace Web
 
             if (VerifyUtility.IsNumber_NotNull(Request["Member_ID"]) && Request["Member_ID"] != "0")
                 g_Member_ID = Convert.ToInt32(Request["Member_ID"]);
+
+            if (VerifyUtility.IsNumber_NotNull(Request["LowFare_ID"]) && Request["LowFare_ID"] != "0")
+                g_LowFare_ID = Convert.ToInt32(Request["LowFare_ID"]);
 
             if (VerifyUtility.IsNumber_NotNull(Request["Page"]) && Request["Page"] != "0")
                 g_Page = Convert.ToInt32(Request["Page"]);

@@ -123,6 +123,7 @@ namespace Web
                 e_LowFare.LowFare_AdminUser_ID = null;
                 e_LowFare.LowFare_Status = 0;
                 e_LowFare.LowFare_AddTime = DateTime.Now;
+                e_LowFare.LowFare_SubmitTime = "";
 
                 BLL.LowFare b_LowFare = new BLL.LowFare();
                 b_LowFare.Insert_LowFare(e_LowFare);
@@ -177,6 +178,7 @@ namespace Web
                 e_LowFare.LowFare_AdminUser_ID = null;
                 e_LowFare.LowFare_Status = 0;
                 e_LowFare.LowFare_AddTime = DateTime.Now;
+                e_LowFare.LowFare_SubmitTime = "";
 
                 BLL.LowFare b_LowFare = new BLL.LowFare();
                 b_LowFare.Insert_LowFare(e_LowFare);
@@ -315,6 +317,7 @@ namespace Web
                 e_LowFare.LowFare_AdminUser_ID = null;
                 e_LowFare.LowFare_Status = 0;
                 e_LowFare.LowFare_AddTime = DateTime.Now;
+                e_LowFare.LowFare_SubmitTime = "";
 
                 BLL.LowFare b_LowFare = new BLL.LowFare();
                 b_LowFare.Insert_LowFare(e_LowFare);

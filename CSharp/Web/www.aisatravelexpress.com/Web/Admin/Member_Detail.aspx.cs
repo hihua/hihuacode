@@ -41,7 +41,8 @@ namespace Web.Admin
                     case 4:
                         if (g_Member_ID == 0)
                             ResponseError("参数错误");
-                                                
+
+                        ToVIP();
                         ResponseClose("转换成功");
                         break;
                 }
@@ -96,6 +97,20 @@ namespace Web.Admin
                 Member_Consumption_Times.Text = o_Member.Member_Times.ToString();
                 Member_Consumption_Points.Text = o_Member.Member_Points.ToString();
                 Member_Consumption_Consumption.Text = o_Member.Member_Consumption.ToString();
+
+                if (o_Member.Member_Recommended > 0)
+                {
+                    Entity.Member c_Member = b_Member.Select_Member(o_Member.Member_Recommended);
+                    if (c_Member != null)
+                    {
+                        Member_ReSerial.NavigateUrl = "?Action_ID=2&Member_ID=" + c_Member.Member_ID;
+                        Member_ReSerial.Text = c_Member.Member_Account;
+                    }
+                    else
+                        Member_ReSerial.Visible = false;
+                }
+                else
+                    Member_ReSerial.Visible = false;
             }
         }
 

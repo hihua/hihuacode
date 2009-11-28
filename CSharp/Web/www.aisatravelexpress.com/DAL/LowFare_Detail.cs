@@ -109,28 +109,28 @@ namespace DAL
                 if (e_LowFare_Detail.LowFare_Detail_Departing != null)
                     o_FieldsValue += "LowFare_Detail_Departing=N'" + e_LowFare_Detail.LowFare_Detail_Departing.ToString() + "'";
                 else
-                    o_FieldsValue += "N''";
+                    o_FieldsValue += "LowFare_Detail_Departing=N''";
 
                 o_FieldsValue += ",";
 
                 if (VerifyUtility.IsString_NotNull(e_LowFare_Detail.LowFare_Detail_Time1))
                     o_FieldsValue += "LowFare_Detail_Time1=N'" + e_LowFare_Detail.LowFare_Detail_Time1 + "'";
                 else
-                    o_FieldsValue += "N''";
+                    o_FieldsValue += "LowFare_Detail_Time1=N''";
 
                 o_FieldsValue += ",";
 
                 if (e_LowFare_Detail.LowFare_Detail_Returning != null)
                     o_FieldsValue += "LowFare_Detail_Returning=N'" + e_LowFare_Detail.LowFare_Detail_Returning.ToString() + "'";
                 else
-                    o_FieldsValue += "N''";
+                    o_FieldsValue += "LowFare_Detail_Returning=N''";
 
                 o_FieldsValue += ",";
 
                 if (VerifyUtility.IsString_NotNull(e_LowFare_Detail.LowFare_Detail_Time2))
                     o_FieldsValue += "LowFare_Detail_Time2=N'" + e_LowFare_Detail.LowFare_Detail_Time2 + "'";
                 else
-                    o_FieldsValue += "N''";
+                    o_FieldsValue += "LowFare_Detail_Time2=N''";
 
                 string o_Where = "LowFare_Detail_ID=" + e_LowFare_Detail.LowFare_Detail_ID.ToString();
                 Execute_Update(g_TableName, o_FieldsValue, o_Where);
