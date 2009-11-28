@@ -10,12 +10,55 @@
     <meta http-equiv="x-ua-compatible" content="ie=7" />
     <title>华捷国际旅游</title>
     <link type="text/css" href="css/aisa.css" rel="stylesheet" />
+    <script type="text/javascript" src="Js/jquery.js"></script>
+    <script type="text/javascript" src="Js/Ajax.js"></script>
+    <script type="text/javascript" src="Js/lhgcalendar.js"></script>
     <script type="text/javascript">
+        var CityArray = new Array(12);
+        
+        for (var i = 0;i < CityArray.length;i++)
+            CityArray[i] = 0;
+        
         function CityList(LowFare_TextBox)
         {
             if (LowFare_TextBox != "")
             {
                 window.open('AirportList.aspx?City_Country=0&City_TextBox=' + LowFare_TextBox,'AirportList','toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=630px,height=660px');            
+            }                    
+        }
+        
+        function SetCityArray(Pos, Value)
+        {
+            CityArray[Pos] = Value;                                
+        }
+        
+        function GetCityName(Obj, Pos)
+        {
+            if (CityArray[Pos] == 0)
+            {
+                GetData(Obj);
+            }                                
+        }              
+        
+        function GetData(Obj)
+        {
+            if (Obj == null)
+                return;
+            
+            if (Obj.value != "")
+            {
+                var URL = "WebService/City.aspx";
+                var PostContent = "City_Name_Title=" + Obj.value;
+                
+                Ajax_CallBack(URL, PostContent, "xml", true, function(ret)
+	            {
+	                $(ret).find("City").each(function()
+		            {
+		                var City_Name = $(this).find("City_Name");             		            
+		                if (City_Name != null)
+		                    Obj.value = City_Name.text();
+		            });	            
+	            });                            
             }                    
         }
     </script>

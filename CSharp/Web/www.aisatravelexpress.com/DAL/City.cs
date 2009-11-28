@@ -32,9 +32,9 @@ namespace DAL
         {
             string o_Where = "";
             if (VerifyUtility.IsString_NotNull(p_City_Name))
-                o_Where += "City_Name Like N'%" + p_City_Name.ToString() + "'";
+                o_Where += "City_Name Like N'" + p_City_Name.ToString() + "%'";
 
-            DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, p_PageSize, p_PageIndex, 0, 0, o_Where, ref o_TotalCount, ref o_TotalPage);
+            DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, p_PageSize, p_PageIndex, 1, 0, o_Where, ref o_TotalCount, ref o_TotalPage);
             return o_DataTable;
         }
 

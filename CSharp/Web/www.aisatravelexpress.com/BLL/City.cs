@@ -51,20 +51,26 @@ namespace BLL
 
         public void Select_CityName(string p_City_Name, HttpResponse p_HttpResponse)
         {
-            DataTable o_DataTable = d_City.Select_CityName(p_City_Name, 0x7FFFFFFF, 1, ref g_TotalCount, ref g_TotalPage);
+            DataTable o_DataTable = d_City.Select_CityName(p_City_Name, 1, 1, ref g_TotalCount, ref g_TotalPage);
             if (o_DataTable == null)
                 return;
-            else            
-                o_DataTable.WriteXml(p_HttpResponse.OutputStream);            
+            else
+            {
+                o_DataTable.TableName = "City";
+                o_DataTable.WriteXml(p_HttpResponse.OutputStream);
+            }
         }
 
         public void Select_CityTitle(string p_City_Title, HttpResponse p_HttpResponse)
         {
-            DataTable o_DataTable = d_City.Select_CityTitle(p_City_Title, 0x7FFFFFFF, 1, ref g_TotalCount, ref g_TotalPage);
-            if (o_DataTable == null)
-                return;
+            DataTable o_DataTable = d_City.Select_CityTitle(p_City_Title, 1, 1, ref g_TotalCount, ref g_TotalPage);
+            if (o_DataTable == null)            
+                Select_CityName(p_City_Title, p_HttpResponse);            
             else
+            {
+                o_DataTable.TableName = "City";
                 o_DataTable.WriteXml(p_HttpResponse.OutputStream);
+            }
         }
     }
 }

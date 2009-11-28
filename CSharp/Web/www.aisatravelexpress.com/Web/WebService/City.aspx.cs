@@ -23,7 +23,7 @@ namespace Web
             {
                 if (VerifyUtility.IsString_NotNull(Request["City_Name_Title"]))
                 {
-                    Response.ContentType = "";
+                    Response.ContentType = "text/xml";
 
                     g_City_Name_Title = Request["City_Name_Title"];
                                         

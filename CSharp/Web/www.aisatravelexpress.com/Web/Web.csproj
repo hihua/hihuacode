@@ -179,6 +179,7 @@
     <Content Include="Js\aisa.js" />
     <Content Include="Js\Ajax.js" />
     <Content Include="Js\jquery.js" />
+    <Content Include="Js\lhgcalendar.js" />
     <Content Include="Knows_Detail.aspx" />
     <Content Include="Knows_List.aspx" />
     <Content Include="LowFare.aspx" />
