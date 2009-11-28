@@ -33,6 +33,10 @@ namespace Web
                         Banner.ImageUrl = "images/inside_f.jpg";
                         break;
 
+                    case 3:
+                        Banner.ImageUrl = "images/inside_f.jpg";
+                        break;
+
                     default:
                         Banner.ImageUrl = "images/inside_a.jpg";
                         break;
