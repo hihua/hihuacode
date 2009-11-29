@@ -31,13 +31,14 @@ namespace Web
        
         protected int g_Article_ClassID = 1;
         protected int g_News_ClassID = 1;
-        protected int g_News_ID = 1;
-        protected int g_Knows_ID = 1;
+        protected int g_News_ID = 0;
+        protected int g_Knows_ID = 0;
         protected int g_Knows_ClassID = 1;
         protected int g_Travel_TypeID = 1;
-        protected int g_Travel_ID = 1;
-        protected int g_Member_ID = 1;
-        protected int g_LowFare_ID = 1;
+        protected int g_Travel_ID = 0;
+        protected int g_Member_ID = 0;
+        protected int g_LowFare_ID = 0;
+        protected int g_Consumption_ID = 0;
 
         protected string g_Travel_Images = "Travel_Images";
                         
@@ -155,6 +156,9 @@ namespace Web
 
             if (VerifyUtility.IsNumber_NotNull(Request["LowFare_ID"]) && Request["LowFare_ID"] != "0")
                 g_LowFare_ID = Convert.ToInt32(Request["LowFare_ID"]);
+
+            if (VerifyUtility.IsNumber_NotNull(Request["Consumption_ID"]) && Request["Consumption_ID"] != "0")
+                g_Consumption_ID = Convert.ToInt32(Request["Consumption_ID"]);
 
             if (VerifyUtility.IsNumber_NotNull(Request["Page"]) && Request["Page"] != "0")
                 g_Page = Convert.ToInt32(Request["Page"]);

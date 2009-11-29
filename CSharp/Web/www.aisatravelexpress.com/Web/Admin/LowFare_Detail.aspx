@@ -46,6 +46,11 @@
     <form id="form1" runat="server">
         <div class="inside2" id="LowFare_Content" runat="server">
             <div style="text-align: center">
+                <table width="100%" align="center" border="0" cellpadding="0" cellspacing="0">
+	                <tr>
+		                <td align="center" class="DivTitle1" height="30"><asp:Label ID="LowFare_Name" Text="机票问价" runat="server"></asp:Label></td>
+	                </tr>
+                </table>
                 <table width="50%" cellpadding="0" cellspacing="0" border="0">
                     <tr>
                         <td align="left" style="height: 50px">

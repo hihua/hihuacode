@@ -30,6 +30,27 @@ namespace DAL
             return o_DataTable;
         }
 
+        public DataTable Select_AdminUser(int p_AdminUser_Method, string p_AdminUser)
+        {
+            string o_Where = "";
+            switch (p_AdminUser_Method)
+            {
+                case 1:
+                    o_Where += "AdminUser_Name Like N'%" + p_AdminUser + "%'";
+                    break;
+
+                case 2:
+                    o_Where += "AdminUser_NickName Like N'%" + p_AdminUser + "%'";
+                    break;
+
+                default:
+                    return null;
+            }
+
+            DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, 1, 1, 1, 0, o_Where);
+            return o_DataTable;
+        }
+
         public DataTable Select_AdminUser(Entity.AdminUser p_AdminUser)
         {
             g_TableOrderByFields = "AdminUser_Status";

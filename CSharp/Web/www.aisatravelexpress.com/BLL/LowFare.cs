@@ -175,12 +175,12 @@ namespace BLL
             d_LowFare.Update_LowFare(e_LowFare);
         }
 
-        public void Delete_LowFare(int LowFare_ID)
+        public void Delete_LowFare(int p_LowFare_ID)
         {
-            if (LowFare_ID <= 0)
+            if (p_LowFare_ID <= 0)
                 return;
 
-            Entity.LowFare o_LowFare = Select_LowFare(LowFare_ID);
+            Entity.LowFare o_LowFare = Select_LowFare(p_LowFare_ID);
             if (o_LowFare == null)
                 return;
 

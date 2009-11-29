@@ -101,7 +101,7 @@ namespace DAL
                     break;
 
                 default:
-                    break;                    
+                    return null;
             }            
 
             DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, 1, 1, 1, 0, o_Where);

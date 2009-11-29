@@ -50,6 +50,7 @@
     <Content Include="Admin\AdminUser_Detail.aspx" />
     <Content Include="Admin\Article.aspx" />
     <Content Include="Admin\Code.aspx" />
+    <Content Include="Admin\Consumption_Detail.aspx" />
     <Content Include="Admin\css.css" />
     <Content Include="Admin\images\admin-button-exit.gif" />
     <Content Include="Admin\images\admin-button-qygl.gif" />
@@ -226,6 +227,13 @@
     </Compile>
     <Compile Include="Admin\Code.aspx.designer.cs">
       <DependentUpon>Code.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Consumption_Detail.aspx.cs">
+      <DependentUpon>Consumption_Detail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Consumption_Detail.aspx.designer.cs">
+      <DependentUpon>Consumption_Detail.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Knows.aspx.cs">
       <DependentUpon>Knows.aspx</DependentUpon>
