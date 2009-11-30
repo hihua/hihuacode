@@ -71,7 +71,7 @@ calendar.prototype =
 		for( var i = 1; i <= md; i++ ) a.push(i);
 			
 		h += '<table cellspacing="0" cellpadding="0" id="calendar">' +
-		     '<caption><div id="py" onclick="co.py();"><img height="1"/></div><div id="pm" onclick="co.pm();"><img height="1"/></div><div align="center">' + this.y + ' 年 ' + this.m + ' 月</div><div id="nm" onclick="co.nm();"><img height="1"/></div><div id="ny" onclick="co.ny();"><img height="1"/></div></caption>' +
+		     '<caption><div id="py" onclick="co.py();"><img height="1"/></div><div id="pm" onclick="co.pm();"><img height="1"/></div><div align="center">' + this.y + ' - ' + this.m + ' </div><div id="nm" onclick="co.nm();"><img height="1"/></div><div id="ny" onclick="co.ny();"><img height="1"/></div></caption>' +
 		     '<thead><tr>';
 		
 		for( var i = 0; i < 7; i++ )
@@ -165,7 +165,8 @@ calendar.prototype =
 	setdate : function( o )
 	{
 	    //if( $(io) ) $(io).value = this.y + '-' + this.m + '-' + o.innerHTML;
-	    $(io).val(this.y + '-' + this.m + '-' + o.innerHTML);	    	    	    
+	    //$(io).val(this.y + '-' + this.m + '-' + o.innerHTML);	    	    	    
+	    $(io).val(this.m + '/' + o.innerHTML + '/' + this.y);
 		this.hide();
 	}
 };

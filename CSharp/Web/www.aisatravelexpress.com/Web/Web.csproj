@@ -112,9 +112,13 @@
     <Content Include="Controls\Tail.ascx" />
     <Content Include="Controls\Top.ascx" />
     <Content Include="css\aisa.css" />
+    <Content Include="css\gray.css" />
     <Content Include="css\window.css" />
     <Content Include="images\button_list.gif" />
     <Content Include="images\calendar.gif" />
+    <Content Include="images\g_a_bg.gif" />
+    <Content Include="images\g_h_bg.gif" />
+    <Content Include="images\g_t_bg.gif" />
     <Content Include="images\home_1.jpg" />
     <Content Include="images\home_2.jpg" />
     <Content Include="images\home_3.jpg" />

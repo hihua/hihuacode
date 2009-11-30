@@ -10,6 +10,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=7" />
     <title>华捷国际旅游</title>
     <link type="text/css" href="css/aisa.css" rel="stylesheet" />
+    <link type="text/css" href="css/gray.css" rel="stylesheet" />
     <script type="text/javascript" src="Js/jquery.js"></script>
     <script type="text/javascript" src="Js/Ajax.js"></script>
     <script type="text/javascript" src="Js/lhgcalendar.js"></script>
@@ -105,7 +106,7 @@
                                                     </tr>
                                                     <tr style="height: 30px">
                                                         <td>
-                                                            &nbsp;<asp:TextBox ID="LowFare_Detail_Departing_Text_Type1" Text="mm/dd/yy" Width="100px" runat="server" MaxLength="30"></asp:TextBox>&nbsp;<img src="images/calendar.gif" alt="" style="cursor:pointer" />
+                                                            &nbsp;<asp:TextBox ID="LowFare_Detail_Departing_Text_Type1" Text="mm/dd/yy" Width="100px" runat="server" MaxLength="30"></asp:TextBox>&nbsp;<img src="images/calendar.gif" alt="" onclick="lhgcalendar('LowFare_Detail_Departing_Text_Type1',this);" />
                                                         </td>
                                                         <td>
                                                             &nbsp;<asp:DropDownList ID="LowFare_Detail_Time1_Select_Type1" runat="server">
@@ -157,7 +158,7 @@
                                                     </tr>
                                                     <tr style="height: 30px">
                                                         <td>
-                                                            &nbsp;<asp:TextBox ID="LowFare_Detail_Returning_Text_Type1" Text="mm/dd/yy" Width="100px" runat="server" MaxLength="30"></asp:TextBox>&nbsp;<img src="images/calendar.gif" alt="" style="cursor:pointer" />
+                                                            &nbsp;<asp:TextBox ID="LowFare_Detail_Returning_Text_Type1" Text="mm/dd/yy" Width="100px" runat="server" MaxLength="30"></asp:TextBox>&nbsp;<img src="images/calendar.gif" alt="" onclick="lhgcalendar('LowFare_Detail_Returning_Text_Type1',this);" />
                                                         </td>
                                                         <td>
                                                             &nbsp;<asp:DropDownList ID="LowFare_Detail_Time2_Select_Type1" runat="server">
@@ -217,7 +218,7 @@
                                                     </tr>
                                                     <tr style="height: 30px">
                                                         <td>
-                                                            &nbsp;<asp:TextBox ID="LowFare_Detail_Departing_Text_Type2" Text="mm/dd/yy" Width="100px" runat="server" MaxLength="30"></asp:TextBox>&nbsp;<img src="images/calendar.gif" alt="" style="cursor:pointer" />
+                                                            &nbsp;<asp:TextBox ID="LowFare_Detail_Departing_Text_Type2" Text="mm/dd/yy" Width="100px" runat="server" MaxLength="30"></asp:TextBox>&nbsp;<img src="images/calendar.gif" alt="" onclick="lhgcalendar('LowFare_Detail_Departing_Text_Type2',this);" />
                                                         </td>
                                                         <td>
                                                             &nbsp;<asp:DropDownList ID="LowFare_Detail_Time1_Select_Type2" runat="server">
@@ -279,7 +280,7 @@
                                                     </tr>
                                                     <tr style="height: 30px">
                                                         <td>
-                                                            &nbsp;<asp:TextBox ID="LowFare_Detail_Departing_Text_Type3_1" Text="mm/dd/yy" Width="100px" runat="server" MaxLength="30"></asp:TextBox>&nbsp;<img src="images/calendar.gif" alt="" style="cursor:pointer" />
+                                                            &nbsp;<asp:TextBox ID="LowFare_Detail_Departing_Text_Type3_1" Text="mm/dd/yy" Width="100px" runat="server" MaxLength="30"></asp:TextBox>&nbsp;<img src="images/calendar.gif" alt="" onclick="lhgcalendar('LowFare_Detail_Departing_Text_Type3_1',this);" />
                                                         </td>
                                                         <td>
                                                             &nbsp;<asp:DropDownList ID="LowFare_Detail_Time1_Select_Type3_1" runat="server">
@@ -338,7 +339,7 @@
                                                     </tr>
                                                     <tr style="height: 30px">
                                                         <td>
-                                                            &nbsp;<asp:TextBox ID="LowFare_Detail_Departing_Text_Type3_2" Text="mm/dd/yy" Width="100px" runat="server" MaxLength="30"></asp:TextBox>&nbsp;<img src="images/calendar.gif" alt="" style="cursor:pointer" />
+                                                            &nbsp;<asp:TextBox ID="LowFare_Detail_Departing_Text_Type3_2" Text="mm/dd/yy" Width="100px" runat="server" MaxLength="30"></asp:TextBox>&nbsp;<img src="images/calendar.gif" alt="" onclick="lhgcalendar('LowFare_Detail_Departing_Text_Type3_2',this);" />
                                                         </td>
                                                         <td>
                                                             &nbsp;<asp:DropDownList ID="LowFare_Detail_Time1_Select_Type3_2" runat="server">
@@ -397,7 +398,7 @@
                                                     </tr>
                                                     <tr style="height: 30px">
                                                         <td>
-                                                            &nbsp;<asp:TextBox ID="LowFare_Detail_Departing_Text_Type3_3" Text="mm/dd/yy" Width="100px" runat="server" MaxLength="30"></asp:TextBox>&nbsp;<img src="images/calendar.gif" alt="" style="cursor:pointer" />
+                                                            &nbsp;<asp:TextBox ID="LowFare_Detail_Departing_Text_Type3_3" Text="mm/dd/yy" Width="100px" runat="server" MaxLength="30"></asp:TextBox>&nbsp;<img src="images/calendar.gif" alt="" onclick="lhgcalendar('LowFare_Detail_Departing_Text_Type3_3',this);" />
                                                         </td>
                                                         <td>
                                                             &nbsp;<asp:DropDownList ID="LowFare_Detail_Time1_Select_Type3_3" runat="server">
@@ -456,7 +457,7 @@
                                                     </tr>
                                                     <tr style="height: 30px">
                                                         <td>
-                                                            &nbsp;<asp:TextBox ID="LowFare_Detail_Departing_Text_Type3_4" Text="mm/dd/yy" Width="100px" runat="server" MaxLength="30"></asp:TextBox>&nbsp;<img src="images/calendar.gif" alt="" style="cursor:pointer" />
+                                                            &nbsp;<asp:TextBox ID="LowFare_Detail_Departing_Text_Type3_4" Text="mm/dd/yy" Width="100px" runat="server" MaxLength="30"></asp:TextBox>&nbsp;<img src="images/calendar.gif" alt="" onclick="lhgcalendar('LowFare_Detail_Departing_Text_Type3_4',this);" />
                                                         </td>
                                                         <td>
                                                             &nbsp;<asp:DropDownList ID="LowFare_Detail_Time1_Select_Type3_4" runat="server">

@@ -202,7 +202,7 @@ namespace DAL
             o_FieldsValue += ",";
             o_FieldsValue += p_Member.Member_Recommended.ToString();
             o_FieldsValue += ",";
-            o_FieldsValue += p_Member.Member_ReSerial.ToString();
+            o_FieldsValue += "N'" + p_Member.Member_ReSerial + "'";
             o_FieldsValue += ",";
             o_FieldsValue += p_Member.Member_Level.ToString();
             o_FieldsValue += ",";

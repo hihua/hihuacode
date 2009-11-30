@@ -92,6 +92,8 @@ namespace Web
                     o_Member.Member_ReSerial = Member_Serial.Text;
                 }
             }
+            else
+                o_Member.Member_ReSerial = "";
                         
             o_Member.Member_Account = Member_Account.Text;
             o_Member.Member_PassWord = Member_PassWord1.Text;
@@ -134,8 +136,7 @@ namespace Web
             o_Member.Member_Commission = 0;
             o_Member.Member_Consumption = 0;
             o_Member.Member_Times = 0;
-            o_Member.Member_Recommended = Member_Recommended;
-            
+            o_Member.Member_Recommended = Member_Recommended;            
             o_Member.Member_Level = 1;
             o_Member.Member_AddTime = DateTime.Now;
 
