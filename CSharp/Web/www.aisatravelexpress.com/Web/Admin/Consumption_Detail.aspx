@@ -103,14 +103,18 @@
 		        <tr bgcolor="#D0D0D0">
 		            <td align="right" height="30">会员：</td>
 			        <td>
-                        <asp:DropDownList ID="Consumption_Org_Member_ID" runat="server"></asp:DropDownList>
-                        <asp:LinkButton ID="Consumption_Org_Member" runat="server"></asp:LinkButton>
+                        <asp:DropDownList ID="Consumption_Org_Member_ID" runat="server"></asp:DropDownList>                        
+                        <asp:LinkButton ID="Consumption_Org_Member_Account" runat="server"></asp:LinkButton>
+                        &nbsp;
+                        <asp:Label ID="Consumption_Org_Member_Serial" runat="server"></asp:Label>
                     </td>                    
 		        </tr>
 		        <tr id="Consumption_Com_Member_TD" bgcolor="#D0D0D0" runat="server">
 		            <td align="right" height="30">推举会员：</td>
 			        <td>
-                        <asp:LinkButton ID="Consumption_Com_Member" runat="server" CssClass="AdminToolsLink2"></asp:LinkButton>
+                        <asp:LinkButton ID="Consumption_Com_Member_Account" runat="server" CssClass="AdminToolsLink2"></asp:LinkButton>
+                        &nbsp;
+                        <asp:Label ID="Consumption_Com_Member_Serial" runat="server"></asp:Label>
                     </td>                    
 		        </tr>
 		        <tr id="Consumption_Admin_Name_TD" bgcolor="#D0D0D0" runat="server">

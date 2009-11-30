@@ -19,8 +19,8 @@ img,select,input{vertical-align:middle; font-size:12px;}
 .win_pic_txt2dl{float:left; text-indent:2em; padding-top:15px; width:365px;color:#797979;}
 .win_pic_txt2dl dt{padding-top:15px;float:left;}
 .win_pic_txt2dl dd{padding-top:10px;float:left; text-indent:0em;}
-.win_pic_txtdl3{background-color:#e9faff; border-bottom:1px solid #2c98dc; border-right:1px solid #2c98dc;padding-bottom:10px; padding-right:10px; text-align:center; width:84px;}
-.win_pic_txtdl4{background-color:#e9faff; border-bottom:1px solid #2c98dc; border-right:1px solid #2c98dc;padding-bottom:10px; padding-right:10px; text-align:center;}
+.win_pic_txtdl3{background-color:#e9faff; border-bottom:1px solid #2c98dc; border-right:1px solid #2c98dc;padding-bottom:10px; padding-right:10px; text-align:center; width:84px; height:32px}
+.win_pic_txtdl4{background-color:#e9faff; border-bottom:1px solid #2c98dc; border-right:1px solid #2c98dc;padding-bottom:10px; padding-right:10px; text-align:center; height:32px}
 .win_pic_txtdl2{color:#797979; float:left;width:498px; margin-top:30px; border:1px solid #2c98dc; border-bottom:none; border-right:none;}
 .win_pic_txtdl1{color:#797979; float:left; text-indent:10px;width:490px; margin-top:30px; padding-bottom:10px; padding-left:10px; padding-right:10px;}
 .win_pic_txtdl_1{color:#797979; float:left; background-color:#e9faff; border:1px solid #2c98dc;width:480px; margin-top:10px; padding-bottom:10px; padding-left:10px; padding-right:10px;}

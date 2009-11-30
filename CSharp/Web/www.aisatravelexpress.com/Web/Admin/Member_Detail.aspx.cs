@@ -2,12 +2,15 @@
 using System.Collections;
 using System.Configuration;
 using System.Data;
+using System.Text;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
+
+using Utility;
 
 namespace Web.Admin
 {
@@ -111,6 +114,54 @@ namespace Web.Admin
                 }
                 else
                     Member_ReSerial.Visible = false;
+
+                BLL.Consumption b_Consumption = new BLL.Consumption();
+                Entity.Consumption[] e_Consumption = b_Consumption.Select_Consumption(o_Member.Member_Account, 9, 0x7FFFFFFF, 1);
+
+                if (e_Consumption != null)
+                {
+                    StringBuilder o_InnerHtml = new StringBuilder();
+                    int i = 0;
+
+                    foreach (Entity.Consumption o_Consumption in e_Consumption)
+                    {
+                        string o_CssClass = "";
+
+                        if (i % 2 == 0)
+                            o_CssClass = " win_pic_txtdl_none";
+
+                        o_InnerHtml.Append("<dt class=\"win_pic_txtdl4" + o_CssClass + "\" style=\"width:84px\">" + o_Consumption.Consumption_Date.ToString("yyyy-MM-dd") + "</dt>");
+
+                        switch (o_Consumption.Consumption_Type)
+                        {
+                            case 1:
+                                o_InnerHtml.Append("<dt class=\"win_pic_txtdl4" + o_CssClass + "\" style=\"width:48px\">单程</dt>");
+                                break;
+
+                            case 2:
+                                o_InnerHtml.Append("<dt class=\"win_pic_txtdl4" + o_CssClass + "\" style=\"width:48px\">双程</dt>");
+                                break;
+
+                            case 3:
+                                o_InnerHtml.Append("<dt class=\"win_pic_txtdl4" + o_CssClass + "\" style=\"width:48px\">多程</dt>");
+                                break;
+
+                            default:
+                                o_InnerHtml.Append("<dt class=\"win_pic_txtdl4" + o_CssClass + "\" style=\"width:48px\">&nbsp;</dt>");
+                                break;
+                        }
+
+                        o_InnerHtml.Append("<dt class=\"win_pic_txtdl4" + o_CssClass + "\" style=\"width:84px\">" + o_Consumption.Consumption_Src + "</dt>");
+                        o_InnerHtml.Append("<dt class=\"win_pic_txtdl3" + o_CssClass + "\">" + o_Consumption.Consumption_Dest + "</dt>");
+                        o_InnerHtml.Append("<dt class=\"win_pic_txtdl4" + o_CssClass + "\" style=\"width:48px\">" + o_Consumption.Consumption_Price.ToString() + "</dt>");
+                        o_InnerHtml.Append("<dt class=\"win_pic_txtdl3" + o_CssClass + "\" style=\"width:84px\">" + o_Consumption.Consumption_Points.ToString() + "</dt>");
+
+                        i++;
+                    }
+
+                    if (VerifyUtility.IsString_NotNull(o_InnerHtml.ToString()))
+                        Member_Consumption_List.InnerHtml += o_InnerHtml.ToString();
+                }
             }
         }
 

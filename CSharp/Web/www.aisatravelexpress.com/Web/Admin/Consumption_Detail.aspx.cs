@@ -77,17 +77,27 @@ namespace Web.Admin
                             if (e_Consumption.Consumption_Org_Member_ID != null)
                             {
                                 Consumption_Org_Member_ID.SelectedValue = e_Consumption.Consumption_Org_Member_ID.Member_ID.ToString();
-                                Consumption_Org_Member.Text = e_Consumption.Consumption_Org_Member_ID.Member_Serial;
-                                Consumption_Org_Member.OnClientClick = "ActionSubmit(2, " + e_Consumption.Consumption_Org_Member_ID.Member_ID.ToString() + ");return false;";
+                                Consumption_Org_Member_Account.Text = e_Consumption.Consumption_Org_Member_ID.Member_Account;
+                                Consumption_Org_Member_Account.OnClientClick = "ActionSubmit(2, " + e_Consumption.Consumption_Org_Member_ID.Member_ID.ToString() + ");return false;";
+                                Consumption_Org_Member_Serial.Text = e_Consumption.Consumption_Org_Member_ID.Member_Serial;
+                            }
+                            else
+                            {
+                                Consumption_Org_Member_Account.Visible = false;
+                                Consumption_Org_Member_Serial.Visible = false;
                             }
 
                             if (e_Consumption.Consumption_Com_Member_ID != null)
                             {
-                                Consumption_Com_Member.Text = e_Consumption.Consumption_Com_Member_ID.Member_Serial;
-                                Consumption_Com_Member.OnClientClick = "ActionSubmit(2, " + e_Consumption.Consumption_Com_Member_ID.Member_ID.ToString() + ");return false;";
+                                Consumption_Com_Member_Account.Text = e_Consumption.Consumption_Com_Member_ID.Member_Account;
+                                Consumption_Com_Member_Account.OnClientClick = "ActionSubmit(2, " + e_Consumption.Consumption_Com_Member_ID.Member_ID.ToString() + ");return false;";
+                                Consumption_Com_Member_Serial.Text = e_Consumption.Consumption_Com_Member_ID.Member_Serial;
                             }
                             else
-                                Consumption_Com_Member.Visible = false;
+                            {
+                                Consumption_Com_Member_Account.Visible = false;
+                                Consumption_Com_Member_Serial.Visible = false;
+                            }
 
                             if (e_Consumption.Consumption_Admin_ID != null)
                             {
@@ -100,6 +110,7 @@ namespace Web.Admin
                         }
 
                         Consumption_Submit.Text = " 修改 ";
+                        Consumption_Submit.Visible = false;
                         break;
 
                     case 3:

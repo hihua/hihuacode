@@ -56,7 +56,10 @@ namespace BLL
                         BLL.Member b_Member = new Member();
                         Entity.Member o_Member = b_Member.Select_Member(1, p_Search_Content);
                         if (o_Member != null)
+                        {
                             p_Search_Content = o_Member.Member_ID.ToString();
+                            p_Search_Method = 9;
+                        }
                         else
                             return null;
                     }
@@ -67,7 +70,10 @@ namespace BLL
                         BLL.Member b_Member = new Member();
                         Entity.Member o_Member = b_Member.Select_Member(2, p_Search_Content);
                         if (o_Member != null)
+                        {
                             p_Search_Content = o_Member.Member_ID.ToString();
+                            p_Search_Method = 9;
+                        }
                         else
                             return null;
                     }
@@ -78,7 +84,10 @@ namespace BLL
                         BLL.Member b_Member = new Member();
                         Entity.Member o_Member = b_Member.Select_Member(1, p_Search_Content);
                         if (o_Member != null)
+                        {
                             p_Search_Content = o_Member.Member_ID.ToString();
+                            p_Search_Method = 10;
+                        }
                         else
                             return null;
                     }
@@ -89,7 +98,10 @@ namespace BLL
                         BLL.Member b_Member = new Member();
                         Entity.Member o_Member = b_Member.Select_Member(2, p_Search_Content);
                         if (o_Member != null)
+                        {
                             p_Search_Content = o_Member.Member_ID.ToString();
+                            p_Search_Method = 10;
+                        }
                         else
                             return null;
                     }
@@ -100,7 +112,10 @@ namespace BLL
                         BLL.AdminUser b_AdminUser = new AdminUser();
                         Entity.AdminUser o_AdminUser = b_AdminUser.Select_AdminUser(1, p_Search_Content);
                         if (o_AdminUser != null)
+                        {
                             p_Search_Content = o_AdminUser.AdminUser_ID.ToString();
+                            p_Search_Method = 11;
+                        }
                         else
                             return null;
                     }
@@ -111,7 +126,10 @@ namespace BLL
                         BLL.AdminUser b_AdminUser = new AdminUser();
                         Entity.AdminUser o_AdminUser = b_AdminUser.Select_AdminUser(2, p_Search_Content);
                         if (o_AdminUser != null)
+                        {
                             p_Search_Content = o_AdminUser.AdminUser_ID.ToString();
+                            p_Search_Method = 11;
+                        }
                         else
                             return null;
                     }

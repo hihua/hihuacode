@@ -103,6 +103,9 @@
 						        </tr>
 						        <tr>
 						            <td><a href="#" target="Main" onclick="window.open('Consumption_Detail.aspx?Action_ID=1','Article','toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=800px,height=500px');return false;" class="IndexMenuLink1">消费录入</a></td>
+						        </tr>
+						        <tr>
+						            <td><a href="Consumption.aspx" target="Main" class="IndexMenuLink1">消费列表</a></td>
 						        </tr>					        					            
 				            </table>
 			            </div>

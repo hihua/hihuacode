@@ -167,13 +167,22 @@ namespace Web.Admin {
         protected global::System.Web.UI.WebControls.DropDownList Consumption_Org_Member_ID;
         
         /// <summary>
-        /// Consumption_Org_Member 控件。
+        /// Consumption_Org_Member_Account 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton Consumption_Org_Member;
+        protected global::System.Web.UI.WebControls.LinkButton Consumption_Org_Member_Account;
+        
+        /// <summary>
+        /// Consumption_Org_Member_Serial 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Consumption_Org_Member_Serial;
         
         /// <summary>
         /// Consumption_Com_Member_TD 控件。
@@ -185,13 +194,22 @@ namespace Web.Admin {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow Consumption_Com_Member_TD;
         
         /// <summary>
-        /// Consumption_Com_Member 控件。
+        /// Consumption_Com_Member_Account 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton Consumption_Com_Member;
+        protected global::System.Web.UI.WebControls.LinkButton Consumption_Com_Member_Account;
+        
+        /// <summary>
+        /// Consumption_Com_Member_Serial 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Consumption_Com_Member_Serial;
         
         /// <summary>
         /// Consumption_Admin_Name_TD 控件。
