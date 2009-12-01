@@ -44,10 +44,10 @@ namespace Web.Admin
                         {
                             Knows_LanguageID.SelectedValue = e_Knows.Knows_LanguageID.ToString();
                             Knows_ClassID.SelectedValue = e_Knows.Knows_ClassID.ToString();
-                            Knows_TypeID.SelectedValue = e_Knows.Knows_TypeID.ToString();
-                            Knows_AddTime.Text = e_Knows.Knows_AddTime.ToString();                           
+                            Knows_Summary.Text = e_Knows.Knows_Summary;
                             Knows_Title.Text = e_Knows.Knows_Title;
                             Knows_Content.Value = e_Knows.Knows_Content;
+                            Knows_AddTime.Text = e_Knows.Knows_AddTime.ToString();                                                       
                         }
 
                         Knows_Submit.Text = " 修改 ";
@@ -69,10 +69,7 @@ namespace Web.Admin
             switch (g_Action_ID)
             {
                 case 1:
-                    if (Knows_ClassID.SelectedValue == "2" && Knows_TypeID.SelectedValue == "0")                    
-                        ResponseError("请选择地图分类");
-
-                    b_Knows.Insert_Knows(Convert.ToInt32(Knows_ClassID.SelectedValue), Convert.ToInt32(Knows_TypeID.SelectedValue), Convert.ToInt32(Knows_LanguageID.SelectedValue), Knows_Title.Text, Knows_Content.Value);
+                    b_Knows.Insert_Knows(Convert.ToInt32(Knows_ClassID.SelectedValue), Convert.ToInt32(Knows_LanguageID.SelectedValue), Knows_Summary.Text, Knows_Title.Text, Knows_Content.Value);
                     g_TipsTable.Visible = true;
                     g_MainTable.Visible = false;
                     TipsMessage.Text = "添加成功";
@@ -81,10 +78,7 @@ namespace Web.Admin
                     break;
 
                 case 2:
-                    if (Knows_ClassID.SelectedValue == "2" && Knows_TypeID.SelectedValue == "0")
-                        ResponseError("请选择地图分类");
-
-                    b_Knows.Update_Knows(g_Knows_ID, Convert.ToInt32(Knows_ClassID.SelectedValue), Convert.ToInt32(Knows_TypeID.SelectedValue), Convert.ToInt32(Knows_LanguageID.SelectedValue), Knows_Title.Text, Knows_Content.Value);
+                    b_Knows.Update_Knows(g_Knows_ID, Convert.ToInt32(Knows_ClassID.SelectedValue), Convert.ToInt32(Knows_LanguageID.SelectedValue), Knows_Summary.Text, Knows_Title.Text, Knows_Content.Value);
                     g_TipsTable.Visible = true;
                     g_MainTable.Visible = false;
                     TipsMessage.Text = "修改成功";

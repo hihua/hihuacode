@@ -61,15 +61,22 @@
     <form id="form1" runat="server">
         <div style="width:1165px; margin:0 auto; height:auto;">
 	        <div class="home_top">
+	            <div style="width:1165px; height:205px;">
+	                <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="1165" height="205" title="华捷旅游">
+                        <param name="WMODE" value="transparent"/>
+		                <param name="movie" value="images/home.swf" />
+                        <param name="quality" value="high" />                        
+                    </object>
+	            </div>
 		        <div class="home_top_login">
-				    <a class="home_top_a" href="ChangeLanguage.aspx?Language=1" title="中文版"></a>
-				    <a class="home_top_a" style="margin-top:20px;" href="ChangeLanguage.aspx?Language=2" title="英文版"></a>
 				    <dl class="home_top_input">
 					    <dt class="home_top_input2" style="float:left;">
-						    <asp:TextBox ID="Member_Account_Name" runat="server" CssClass="input" MaxLength="30"></asp:TextBox>
-						    <asp:TextBox ID="Member_Account_PassWord" runat="server" CssClass="input" MaxLength="20" TextMode="Password"></asp:TextBox>					
+					        <span style="width:37px; height:18px; background:url(images/home_6.jpg) no-repeat; display:block; float:left; margin-right:10px; margin-top:3px;"></span>					
+						    <span style="display:block; float:left;"><asp:TextBox ID="Member_Account_Name" runat="server" CssClass="input" MaxLength="30"></asp:TextBox></span>
+						    <span style="display:block; float:left; background:url(images/home_7.jpg) no-repeat; width:40px; height:17px; margin-top:3px;"></span>						
+						    <span style="display:block; float:left;"><asp:TextBox ID="Member_Account_PassWord" runat="server" CssClass="input" MaxLength="20" TextMode="Password" style="margin-left:10px;"></asp:TextBox></span>
 					    </dt>
-					    <dd style=" float:left;"><asp:LinkButton ID="Member_Account_Submit" runat="server" ToolTip="登录" CssClass="input_a" onclick="Member_Account_Submit_Click"></asp:LinkButton></dd>
+					    <dd style="float:left;"><asp:LinkButton ID="Member_Account_Submit" runat="server" ToolTip="登录" CssClass="input_a" onclick="Member_Account_Submit_Click"></asp:LinkButton></dd>
 					    <div style="clear:both;"></div>
 					    <dt class="home_top_input3">
 						    <a href="Article.aspx?Article_ClassID=3" class="input3">成为会员能享受什么好处？</a>
@@ -90,7 +97,7 @@
 			        <a href="News_List.aspx?News_ClassID=4" class="nav8">表格下载</a>
 			        <a href="#" class="nav8" style="padding-left:45px;">在线客服</a>		
 		        </dl>
-		        <div class="fod">
+		        <div class="fod_v">
 		            <dl class="fod_v1">
 				        <a href="News_List.aspx?News_ClassID=1"><img id="imgq1" onmouseover="changeImgg(1)" src="images/home_iconn_1.jpg" alt="" /></a>
 					</dl>
@@ -135,8 +142,7 @@
 	                    <div id="News_ClassID_2_More" class="home_comternt_dl" runat="server"><a href="News_List.aspx?News_ClassID=2" class="nav8">更多>>></a></div>
 	                </div>
 	            </div>	  
-	        </div>
-	        
+	        </div>	        
 	        <div class="home_footer">
 	            <p style="color:#666666;"><a href="Article.aspx?Article_ClassID=1">关于华捷</a> | <a href="Travel_List.aspx?Travel_TypeID=1">旅游线路</a> | <a href="LowFare.aspx">机票问价</a> | <a href="News_List.aspx?News_ClassID=1">最新资讯</a> | <a href="Knows_List.aspx?Knows_ClassID=1">旅游需知</a> | <a href="Article.aspx?Article_ClassID=2">联系我们</a> | <a href="News_List.aspx?News_ClassID=3">表格下载</a></p>
                 <p>Copyright<span style="font-size:20px;">&reg;</span>2009 Aisa travel express. All Rights Reserved</p>

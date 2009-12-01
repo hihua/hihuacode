@@ -35,15 +35,13 @@
 				                </div>		
 				                <div id="AirportCode" runat="server" style="margin-left:20px;">
 				                    <div style="float:left; font-weight:bold">Search by Airport Code:</div>
-				                    <table id="AirportCode_Table" width="100%" cellpadding="0" cellspacing="0" border="0" runat="server">
-				                    
+				                    <table id="AirportCode_Table" width="100%" cellpadding="0" cellspacing="0" border="0" runat="server">				                    
 				                    </table>
 				                </div>
 				                <br />
 			                    <div id="AirportName" runat="server" style="margin-left:20px;">
 			                        <div style="float:left; font-weight:bold">Search by Airport Name:</div>
-			                        <table id="AirportName_Table" width="100%" cellpadding="0" cellspacing="0" border="0" runat="server">
-				                    
+			                        <table id="AirportName_Table" width="100%" cellpadding="0" cellspacing="0" border="0" runat="server">				                    
 				                    </table>
 			                    </div>                                			
 		                    </div>

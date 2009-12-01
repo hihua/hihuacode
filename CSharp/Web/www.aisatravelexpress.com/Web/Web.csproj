@@ -120,11 +120,15 @@
     <Content Include="images\g_a_bg.gif" />
     <Content Include="images\g_h_bg.gif" />
     <Content Include="images\g_t_bg.gif" />
+    <Content Include="images\home.swf" />
     <Content Include="images\home_1.jpg" />
     <Content Include="images\home_2.jpg" />
     <Content Include="images\home_3.jpg" />
     <Content Include="images\home_4.jpg" />
     <Content Include="images\home_5.jpg" />
+    <Content Include="images\home_6.jpg" />
+    <Content Include="images\home_7.jpg" />
+    <Content Include="images\home_8.jpg" />
     <Content Include="images\home_iconn_1.jpg" />
     <Content Include="images\home_iconn_2.jpg" />
     <Content Include="images\home_iconss_1.jpg" />

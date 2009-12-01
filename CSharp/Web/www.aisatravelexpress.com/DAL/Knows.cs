@@ -10,36 +10,14 @@ namespace DAL
     public class Knows : DALBase
     {
         private string g_TableName = "t_Knows";
-        private string g_TableFields = "Knows_ID,Knows_ClassID,Knows_TypeID,Knows_LanguageID,Knows_Title,Knows_Content,Knows_AddTime";
+        private string g_TableFields = "Knows_ID,Knows_ClassID,Knows_LanguageID,Knows_Summary,Knows_Title,Knows_Content,Knows_AddTime";
         private string g_TableOrderByFields = "Knows_ID";
 
         public Knows()
         {
 
         }
-
-        public DataTable Select_Knows(int p_Knows_ClassID, int p_Knows_LanguageID, int p_PageSize, int p_PageIndex, ref int o_TotalCount, ref int o_TotalPage)
-        {
-            string o_Where = "Knows_ClassID=" + p_Knows_ClassID.ToString();
-            if (p_Knows_LanguageID > 0)
-                o_Where += " and Knows_LanguageID=" + p_Knows_LanguageID.ToString();
-
-            DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, p_PageSize, p_PageIndex, 0, 1, o_Where, ref o_TotalCount, ref o_TotalPage);
-            return o_DataTable;
-        }
-
-        public DataTable Select_Knows(int p_Knows_ClassID, int p_Knows_TypeID, int p_Knows_LanguageID, int p_PageSize, int p_PageIndex, ref int o_TotalCount, ref int o_TotalPage)
-        {
-            string o_Where = "Knows_ClassID=" + p_Knows_ClassID.ToString();
-            if (p_Knows_LanguageID > 0)
-                o_Where += " and Knows_LanguageID=" + p_Knows_LanguageID.ToString();
-
-            g_TableOrderByFields = "Knows_TypeID";
-
-            DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, p_PageSize, p_PageIndex, 0, 0, o_Where, ref o_TotalCount, ref o_TotalPage);
-            return o_DataTable;
-        }
-
+                                
         public DataTable Select_Knows(int p_Knows_ClassID, int p_Knows_LanguageID, string p_Search_Content, int p_Search_Method, int p_PageSize, int p_PageIndex, ref int o_TotalCount, ref int o_TotalPage)
         {
             string o_Where = "";
@@ -48,15 +26,11 @@ namespace DAL
 
             if (p_Knows_LanguageID > 0)
                 o_Where += " and Knows_LanguageID=" + p_Knows_LanguageID.ToString();
-
+                       
             if (VerifyUtility.IsString_NotNull(p_Search_Content))
             {
                 switch (p_Search_Method)
                 {
-                    case 0:
-                        o_Where += " and (Knows_Title Like N'%" + p_Search_Content + "%' or Knows_Content Like N'%" + p_Search_Content + "%')";
-                        break;
-
                     case 1:
                         o_Where += " and Knows_Title Like N'%" + p_Search_Content + "%'";
                         break;
@@ -64,11 +38,23 @@ namespace DAL
                     case 2:
                         o_Where += " and Knows_Content Like N'%" + p_Search_Content + "%'";
                         break;
+
+                    default:
+                        break;
                 }
             }
 
-            DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, p_PageSize, p_PageIndex, 0, 1, o_Where, ref o_TotalCount, ref o_TotalPage);
-            return o_DataTable;
+            if (p_Knows_ClassID == 2)
+            {
+                g_TableOrderByFields = "Knows_Summary";
+                DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, p_PageSize, p_PageIndex, 0, 0, o_Where, ref o_TotalCount, ref o_TotalPage);
+                return o_DataTable;
+            }
+            else
+            {
+                DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, p_PageSize, p_PageIndex, 0, 1, o_Where, ref o_TotalCount, ref o_TotalPage);
+                return o_DataTable;
+            }            
         }
 
         public DataTable Select_Knows(int p_Knows_ID)
@@ -84,14 +70,14 @@ namespace DAL
             if (p_Knows == null)
                 return;
 
-            g_TableFields = "Knows_ClassID,Knows_TypeID,Knows_LanguageID,Knows_Title,Knows_Content,Knows_AddTime";
+            g_TableFields = "Knows_ClassID,Knows_LanguageID,Knows_Summary,Knows_Title,Knows_Content,Knows_AddTime";
 
             string o_FieldsValue = "";
             o_FieldsValue += p_Knows.Knows_ClassID.ToString();
             o_FieldsValue += ",";
-            o_FieldsValue += p_Knows.Knows_TypeID.ToString();
-            o_FieldsValue += ",";
             o_FieldsValue += p_Knows.Knows_LanguageID.ToString();
+            o_FieldsValue += ",";
+            o_FieldsValue += "N'" + p_Knows.Knows_Summary + "'";
             o_FieldsValue += ",";
             o_FieldsValue += "N'" + p_Knows.Knows_Title + "'";
             o_FieldsValue += ",";            
@@ -109,10 +95,10 @@ namespace DAL
 
             string o_FieldsValue = "";
             o_FieldsValue += "Knows_ClassID=" + p_Knows.Knows_ClassID.ToString();
-            o_FieldsValue += ",";
-            o_FieldsValue += "Knows_TypeID=" + p_Knows.Knows_TypeID.ToString();
-            o_FieldsValue += ",";
+            o_FieldsValue += ",";            
             o_FieldsValue += "Knows_LanguageID=" + p_Knows.Knows_LanguageID.ToString();
+            o_FieldsValue += ",";
+            o_FieldsValue += "Knows_Summary=N'" + p_Knows.Knows_Summary + "'";
             o_FieldsValue += ",";
             o_FieldsValue += "Knows_Title=N'" + p_Knows.Knows_Title + "'";
             o_FieldsValue += ",";            

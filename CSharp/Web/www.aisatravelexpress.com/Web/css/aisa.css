@@ -44,13 +44,13 @@ a.nav11:link,a.nav11:visited{color:#000000;text-decoration:none;}
 a.nav11:hover,a.nav11:active{color:#ffffff;text-decoration:underline;}
 /*首页*/
 .home_top{ width:1165px; background:url(../images/home_1.jpg) no-repeat; height:285px;}
-.home_top_login{ width:600px; height:170px; float:right; margin:110px 0 0 0;}
+.home_top_login{ width:600px; height:auto; float:right; margin:0px 0 0 0;}
 .home_top_a{ display:block; width:78px; height:22px; margin-left:310px;}
-.home_top_input{ margin:45px 0 0 60px; width:360px; height:57px; display:block;}
-.home_top_input2{ padding-top:7px; padding-left:57px;}
+.home_top_input{ margin:15px 0 0 60px; width:360px; height:57px; display:block;}
+.home_top_input2{ padding-top:7px; padding-left:20px;}
 .home_top_input3{float:left; width:300px; margin-top:10px; margin-left:40px!important; margin-left:20px;}
-.input{border:1px solid #0e759a; height:17px; width:100px; padding-top:3px; }
-.input_a{ display:block; width:20px; height:20px; margin-left:10px; margin-top:10px; }
+.input{border:1px solid #0e759a; height:17px; width:95px; padding-top:3px; }
+.input_a{ display:block; width:24px; height:24px; margin-left:10px; margin-top:4px; background:url(../images/home_8.jpg) no-repeat; }
 .home_nav{ width:1165px; height:92px; background:url(../images/home_2.jpg) no-repeat;display:table;}
 .home_nav_icon{display:block; width:66px; height:85px; float:left;}
 .home_nav_link{ width:150px; height:20px; float:left; margin-left:90px; margin-top:70px;}

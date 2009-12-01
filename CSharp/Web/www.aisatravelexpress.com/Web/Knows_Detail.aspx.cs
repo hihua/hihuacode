@@ -28,7 +28,11 @@ namespace Web
                 {
                     g_Knows_ClassID = e_Knows.Knows_ClassID;
                     SetHyperLinkKnows(HyperLink_Knows);
-                    SetHyperLinkKnowsClass(HyperLink_Knows_Class, null, null);
+
+                    if (g_Knows_ClassID == 1)
+                        SetHyperLinkKnowsClass(HyperLink_Knows_Class, null, null);
+                    else
+                        SetHyperLinkKnowsClass(null, HyperLink_Knows_Class, null);
 
                     Knows_Content.InnerHtml += "<h1><strong>" + e_Knows.Knows_Title + "</strong></h1>";
                     Knows_Content.InnerHtml += e_Knows.Knows_Content;

@@ -19,65 +19,7 @@ namespace BLL
         {
             d_Knows = new DAL.Knows();
         }
-
-        public Entity.Knows[] Select_Knows(int p_Knows_ClassID, int p_Knows_LanguageID, int p_PageSize, int p_PageIndex)
-        {
-            DataTable o_DataTable = d_Knows.Select_Knows(p_Knows_ClassID, p_Knows_LanguageID, p_PageSize, p_PageIndex, ref g_TotalCount, ref g_TotalPage);
-            if (o_DataTable == null)
-                return null;
-            else
-            {
-                Entity.Knows[] e_Knows = new Entity.Knows[o_DataTable.Rows.Count];
-
-                int i = 0;
-                foreach (DataRow o_DataRow in o_DataTable.Rows)
-                {
-                    e_Knows[i] = new Entity.Knows();
-
-                    e_Knows[i].Knows_ID = Convert.ToInt32(o_DataRow["Knows_ID"].ToString());
-                    e_Knows[i].Knows_ClassID = Convert.ToInt32(o_DataRow["Knows_ClassID"].ToString());
-                    e_Knows[i].Knows_TypeID = Convert.ToInt32(o_DataRow["Knows_TypeID"].ToString());                    
-                    e_Knows[i].Knows_LanguageID = Convert.ToInt32(o_DataRow["Knows_LanguageID"].ToString());
-                    e_Knows[i].Knows_Title = o_DataRow["Knows_Title"].ToString();                    
-                    e_Knows[i].Knows_Content = o_DataRow["Knows_Content"].ToString();
-                    e_Knows[i].Knows_AddTime = DateTime.Parse(o_DataRow["Knows_AddTime"].ToString());
-
-                    i++;
-                }
-
-                return e_Knows;
-            }
-        }
-
-        public Entity.Knows[] Select_Knows(int p_Knows_ClassID, int p_Knows_TypeID, int p_Knows_LanguageID, int p_PageSize, int p_PageIndex)
-        {
-            DataTable o_DataTable = d_Knows.Select_Knows(p_Knows_ClassID, p_Knows_TypeID, p_Knows_LanguageID, p_PageSize, p_PageIndex, ref g_TotalCount, ref g_TotalPage);
-            if (o_DataTable == null)
-                return null;
-            else
-            {
-                Entity.Knows[] e_Knows = new Entity.Knows[o_DataTable.Rows.Count];
-
-                int i = 0;
-                foreach (DataRow o_DataRow in o_DataTable.Rows)
-                {
-                    e_Knows[i] = new Entity.Knows();
-
-                    e_Knows[i].Knows_ID = Convert.ToInt32(o_DataRow["Knows_ID"].ToString());
-                    e_Knows[i].Knows_ClassID = Convert.ToInt32(o_DataRow["Knows_ClassID"].ToString());
-                    e_Knows[i].Knows_TypeID = Convert.ToInt32(o_DataRow["Knows_TypeID"].ToString());
-                    e_Knows[i].Knows_LanguageID = Convert.ToInt32(o_DataRow["Knows_LanguageID"].ToString());
-                    e_Knows[i].Knows_Title = o_DataRow["Knows_Title"].ToString();
-                    e_Knows[i].Knows_Content = o_DataRow["Knows_Content"].ToString();
-                    e_Knows[i].Knows_AddTime = DateTime.Parse(o_DataRow["Knows_AddTime"].ToString());
-
-                    i++;
-                }
-
-                return e_Knows;
-            }
-        }
-
+                       
         public Entity.Knows[] Select_Knows(int p_Knows_ClassID, int p_Knows_LanguageID, string p_Search_Content, int p_Search_Method, int p_PageSize, int p_PageIndex)
         {
             p_Search_Content = FilterUtility.FilterSQL(p_Search_Content);
@@ -96,8 +38,8 @@ namespace BLL
 
                     e_Knows[i].Knows_ID = Convert.ToInt32(o_DataRow["Knows_ID"].ToString());
                     e_Knows[i].Knows_ClassID = Convert.ToInt32(o_DataRow["Knows_ClassID"].ToString());
-                    e_Knows[i].Knows_TypeID = Convert.ToInt32(o_DataRow["Knows_TypeID"].ToString());
                     e_Knows[i].Knows_LanguageID = Convert.ToInt32(o_DataRow["Knows_LanguageID"].ToString());
+                    e_Knows[i].Knows_Summary = o_DataRow["Knows_Summary"].ToString();
                     e_Knows[i].Knows_Title = o_DataRow["Knows_Title"].ToString();
                     e_Knows[i].Knows_Content = o_DataRow["Knows_Content"].ToString();
                     e_Knows[i].Knows_AddTime = DateTime.Parse(o_DataRow["Knows_AddTime"].ToString());
@@ -121,8 +63,8 @@ namespace BLL
 
                 e_Knows.Knows_ID = Convert.ToInt32(o_DataRow["Knows_ID"].ToString());
                 e_Knows.Knows_ClassID = Convert.ToInt32(o_DataRow["Knows_ClassID"].ToString());
-                e_Knows.Knows_TypeID = Convert.ToInt32(o_DataRow["Knows_TypeID"].ToString());
                 e_Knows.Knows_LanguageID = Convert.ToInt32(o_DataRow["Knows_LanguageID"].ToString());
+                e_Knows.Knows_Summary = o_DataRow["Knows_Summary"].ToString();                
                 e_Knows.Knows_Title = o_DataRow["Knows_Title"].ToString();
                 e_Knows.Knows_Content = o_DataRow["Knows_Content"].ToString();
                 e_Knows.Knows_AddTime = DateTime.Parse(o_DataRow["Knows_AddTime"].ToString());
@@ -131,15 +73,16 @@ namespace BLL
             }
         }
 
-        public void Insert_Knows(int p_Knows_ClassID, int p_Knows_TypeID, int p_Knows_LanguageID, string p_Knows_Title, string p_Knows_Content)
+        public void Insert_Knows(int p_Knows_ClassID, int p_Knows_LanguageID, string p_Knows_Summary, string p_Knows_Title, string p_Knows_Content)
         {
+            p_Knows_Summary = FilterUtility.FilterSQL(p_Knows_Summary);
             p_Knows_Title = FilterUtility.FilterSQL(p_Knows_Title);
             p_Knows_Content = FilterUtility.FilterSQL(p_Knows_Content);
 
             Entity.Knows o_Knows = new Entity.Knows();
             o_Knows.Knows_ClassID = p_Knows_ClassID;
-            o_Knows.Knows_TypeID = p_Knows_TypeID;
             o_Knows.Knows_LanguageID = p_Knows_LanguageID;
+            o_Knows.Knows_Summary = p_Knows_Summary;
             o_Knows.Knows_Title = p_Knows_Title;
             o_Knows.Knows_Content = p_Knows_Content;
             o_Knows.Knows_AddTime = DateTime.Now;
@@ -147,16 +90,17 @@ namespace BLL
             d_Knows.Insert_Knows(o_Knows);
         }
 
-        public void Update_Knows(int p_Knows_ID, int p_Knows_ClassID, int p_Knows_TypeID, int p_Knows_LanguageID, string p_Knows_Title, string p_Knows_Content)
+        public void Update_Knows(int p_Knows_ID, int p_Knows_ClassID, int p_Knows_LanguageID, string p_Knows_Summary, string p_Knows_Title, string p_Knows_Content)
         {
+            p_Knows_Summary = FilterUtility.FilterSQL(p_Knows_Summary);
             p_Knows_Title = FilterUtility.FilterSQL(p_Knows_Title);
             p_Knows_Content = FilterUtility.FilterSQL(p_Knows_Content);
 
             Entity.Knows o_Knows = new Entity.Knows();
             o_Knows.Knows_ID = p_Knows_ID;
             o_Knows.Knows_ClassID = p_Knows_ClassID;
-            o_Knows.Knows_TypeID = p_Knows_TypeID;
             o_Knows.Knows_LanguageID = p_Knows_LanguageID;
+            o_Knows.Knows_Summary = p_Knows_Summary;
             o_Knows.Knows_Title = p_Knows_Title;
             o_Knows.Knows_Content = p_Knows_Content;
             o_Knows.Knows_AddTime = DateTime.Now;

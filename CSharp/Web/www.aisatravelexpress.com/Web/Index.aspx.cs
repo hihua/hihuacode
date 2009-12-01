@@ -17,8 +17,6 @@ namespace Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Member_Account_PassWord.Style.Add(HtmlTextWriterStyle.MarginLeft, "50px");
-
             if (!IsPostBack)
             {                
                 BLL.News b_News = new BLL.News();

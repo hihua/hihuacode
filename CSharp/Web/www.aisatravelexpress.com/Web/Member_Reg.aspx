@@ -90,8 +90,8 @@
 			                <asp:CheckBox ID="Member_Months_2" runat="server" Text="2月" />
 			                <asp:CheckBox ID="Member_Months_3" runat="server" Text="3月" />
 			                <asp:CheckBox ID="Member_Months_4" runat="server" Text="4月" />
-			                <asp:CheckBox ID="Member_Months_5" runat="server" Text="5月" />
-			                <asp:CheckBox ID="Member_Months_6" runat="server" Text="6月" />
+			                &nbsp;<asp:CheckBox ID="Member_Months_5" runat="server" Text="5月" />
+			                &nbsp;<asp:CheckBox ID="Member_Months_6" runat="server" Text="6月" /><br />
 			                <asp:CheckBox ID="Member_Months_7" runat="server" Text="7月" />
 			                <asp:CheckBox ID="Member_Months_8" runat="server" Text="8月" />
 			                <asp:CheckBox ID="Member_Months_9" runat="server" Text="9月" />

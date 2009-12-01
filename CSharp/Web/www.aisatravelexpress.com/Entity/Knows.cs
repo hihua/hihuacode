@@ -8,8 +8,8 @@ namespace Entity
     {
         private int _Knows_ID;
         private int _Knows_ClassID;
-        private int _Knows_TypeID;
         private int _Knows_LanguageID;
+        private string _Knows_Summary;
         private string _Knows_Title;        
         private string _Knows_Content;
         private DateTime _Knows_AddTime;
@@ -25,17 +25,17 @@ namespace Entity
             get { return _Knows_ClassID; }
             set { _Knows_ClassID = value; }
         }
-
-        public int Knows_TypeID
-        {
-            get { return _Knows_TypeID; }
-            set { _Knows_TypeID = value; }
-        }
-
+                
         public int Knows_LanguageID
         {
             get { return _Knows_LanguageID; }
             set { _Knows_LanguageID = value; }
+        }
+
+        public string Knows_Summary
+        {
+            get { return _Knows_Summary; }
+            set { _Knows_Summary = value; }
         }
 
         public string Knows_Title

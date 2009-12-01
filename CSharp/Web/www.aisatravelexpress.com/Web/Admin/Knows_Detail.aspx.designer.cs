@@ -68,31 +68,13 @@ namespace Web.Admin {
         protected global::System.Web.UI.WebControls.DropDownList Knows_ClassID;
         
         /// <summary>
-        /// Knows_TypeID 控件。
+        /// Knows_Summary 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList Knows_TypeID;
-        
-        /// <summary>
-        /// Knows_AddTime_TD 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow Knows_AddTime_TD;
-        
-        /// <summary>
-        /// Knows_AddTime 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Knows_AddTime;
+        protected global::System.Web.UI.WebControls.TextBox Knows_Summary;
         
         /// <summary>
         /// Knows_Title 控件。
@@ -111,6 +93,24 @@ namespace Web.Admin {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FredCK.FCKeditorV2.FCKeditor Knows_Content;
+        
+        /// <summary>
+        /// Knows_AddTime_TD 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow Knows_AddTime_TD;
+        
+        /// <summary>
+        /// Knows_AddTime 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Knows_AddTime;
         
         /// <summary>
         /// Knows_Submit 控件。

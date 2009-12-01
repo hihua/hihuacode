@@ -18,52 +18,48 @@
 	            </tr>
             </table>
             <table id="g_MainTable" width="100%" align="left" border="0" cellpadding="0" cellspacing="0" runat="server">                		        		
-		        <tr bgcolor="#E3E3E3">
+		        <tr bgcolor="#D0D0D0">
 		            <td align="right" height="30">语言：</td>
 			        <td>
                         <asp:DropDownList ID="Knows_LanguageID" runat="server"></asp:DropDownList>
                     </td>
 		        </tr>
-		        <tr bgcolor="#D0D0D0">
+		        <tr bgcolor="#E3E3E3">
 		            <td align="right" height="30">分类：</td>
 			        <td>
                         <asp:DropDownList ID="Knows_ClassID" runat="server"></asp:DropDownList>
                     </td>
 		        </tr>
 		        <tr bgcolor="#D0D0D0">
-		            <td align="right" height="30">地图分类：</td>
+		            <td align="right" height="30">简明标题：</td>
 			        <td>
-                        <asp:DropDownList ID="Knows_TypeID" runat="server">
-                            <asp:ListItem Value="0" Selected="True">地图分类</asp:ListItem>
-                            <asp:ListItem Value="1">Airport Code</asp:ListItem>
-                            <asp:ListItem Value="2">Airport Name</asp:ListItem>
-                        </asp:DropDownList>
+                        <asp:TextBox ID="Knows_Summary" runat="server" MaxLength="80" Width="780px"></asp:TextBox>
                     </td>
-		        </tr>
-		        <tr bgcolor="#E3E3E3" runat="server" id="Knows_AddTime_TD">
-		            <td align="right" height="30">添加时间：</td>
-			        <td><asp:Label ID="Knows_AddTime" runat="server"></asp:Label></td>
-		        </tr>
-		        <tr bgcolor="#D0D0D0">
+		        </tr>		        
+		        <tr bgcolor="#E3E3E3">
 		            <td align="right" height="30">标题：</td>
 			        <td>
                         <asp:TextBox ID="Knows_Title" runat="server" MaxLength="200" Width="780px"></asp:TextBox>
                     </td>
 		        </tr>		        
-		        <tr bgcolor="#E3E3E3">
+		        <tr bgcolor="#D0D0D0">
 			        <td align="right">编辑内容：</td>
 			        <td>
 			            <FCKeditorV2:FCKeditor ID="Knows_Content" runat="server" Height="600">
                         </FCKeditorV2:FCKeditor>
                     </td>
 		        </tr>		
+		        <tr bgcolor="#E3E3E3" runat="server" id="Knows_AddTime_TD">
+		            <td align="right" height="30">添加时间：</td>
+			        <td><asp:Label ID="Knows_AddTime" runat="server"></asp:Label></td>
+		        </tr>
 		        <tr bgcolor="#D0D0D0">
 	  	  	        <td colspan="2" align="center" height="40">	
 			            <asp:Button ID="Knows_Submit" runat="server" Text=" 提交 " onclick="Knows_Submit_Click" />
 			            &nbsp;
-                        <asp:Button ID="Knows_Reset" runat="server" Text=" 重置 " OnClientClick="window.location.href=window.location.href;" />
+                        <asp:Button ID="Knows_Reset" runat="server" Text=" 重置 " OnClientClick="window.location.href=window.location.href;return false;" />
                         &nbsp;
-                        <asp:Button ID="Knows_Close" runat="server" Text=" 关闭 " OnClientClick="window.close();" />							
+                        <asp:Button ID="Knows_Close" runat="server" Text=" 关闭 " OnClientClick="window.close();return false;" />							
 			        </td>
 		        </tr>
   	        </table>
