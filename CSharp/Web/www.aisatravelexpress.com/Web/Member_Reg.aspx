@@ -9,7 +9,7 @@
     <link type="text/css" href="css/aisa.css" rel="stylesheet" />
     <link type="text/css" href="css/window.css" rel="stylesheet" />
 </head>
-<body>
+<body style="background-color:#EEFBFF;">
     <form id="form1" runat="server">
         <div id="window">
             <div class="win_top">
