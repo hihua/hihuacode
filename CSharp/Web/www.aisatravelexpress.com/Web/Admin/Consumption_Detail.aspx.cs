@@ -130,10 +130,14 @@ namespace Web.Admin
 
             BLL.Member b_Member = new BLL.Member();
             Entity.Member[] e_Member = b_Member.Select_Member("", 0, 0x7FFFFFFF, 1);
-            foreach (Entity.Member o_Member in e_Member)
+
+            if (e_Member != null)
             {
-                ListItem o_ListItem = new ListItem(o_Member.Member_Serial + " " + o_Member.Member_Account, o_Member.Member_ID.ToString());
-                Consumption_Org_Member_ID.Items.Add(o_ListItem);
+                foreach (Entity.Member o_Member in e_Member)
+                {
+                    ListItem o_ListItem = new ListItem(o_Member.Member_Serial + " " + o_Member.Member_Account, o_Member.Member_ID.ToString());
+                    Consumption_Org_Member_ID.Items.Add(o_ListItem);
+                }
             }
         }
 
