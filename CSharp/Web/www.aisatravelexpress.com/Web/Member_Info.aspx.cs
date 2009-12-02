@@ -68,7 +68,7 @@ namespace Web
                 else
                     Member_Female.Checked = true;
 
-                Member_Work.Text = g_Member.Member_Work;
+                Member_Work.SelectedValue = g_Member.Member_Work;
                 Member_Tel.Text = g_Member.Member_Tel;
                 Member_Mobile.Text = g_Member.Member_Mobile;
                 Member_Email.Text = g_Member.Member_Email;
@@ -164,8 +164,8 @@ namespace Web
             if (!Member_Male.Checked && !Member_Female.Checked)
                 ResponseError("请选择性别");
 
-            if (!VerifyUtility.IsString_NotNull(Member_Work.Text))
-                ResponseError("请输入工作类型");
+            if (!VerifyUtility.IsString_NotNull(Member_Work.SelectedValue))
+                ResponseError("请输入工作状态");
 
             if (!VerifyUtility.IsString_NotNull(Member_Tel.Text))
                 ResponseError("请输入电话");
@@ -183,19 +183,7 @@ namespace Web
             }
 
             if (!VerifyUtility.IsString_NotNull(Member_Address.Text))
-                ResponseError("请输入居住地址");
-
-            if (!VerifyUtility.IsString_NotNull(Member_Company_Name.Text))
-                ResponseError("请输入公司名称");
-
-            if (!VerifyUtility.IsString_NotNull(Member_Company_Tel.Text))
-                ResponseError("请输入公司电话");
-
-            if (!VerifyUtility.IsString_NotNull(Member_Company_Address.Text))
-                ResponseError("请输入公司地址");
-
-            if (!VerifyUtility.IsString_NotNull(Member_Airlines.Text))
-                ResponseError("请输入常用航空公司");
+                ResponseError("请输入居住地址");                        
 
             g_Member.Member_Name_CN = Member_Name_CN.Text;
             g_Member.Member_Name_EN = Member_Name_EN.Text;

@@ -74,7 +74,7 @@
 	            <div id="Div1" class="win_pic_txt" runat="server">
 		            <dl>
 			            <dt>帐&nbsp;&nbsp;&nbsp;&nbsp;号：</dt>
-			            <dd><asp:TextBox ID="Member_Account" runat="server" ToolTip="输入帐号" Width="155" MaxLength="30"></asp:TextBox></dd>
+			            <dd><asp:TextBox ID="Member_Account" runat="server" ToolTip="输入帐号" Width="155" MaxLength="30"></asp:TextBox><span style="color:Red">*</span></dd>
 		            </dl>
 		            <dl>
 			            <dt>介&nbsp;绍&nbsp;码：</dt>
@@ -82,11 +82,11 @@
 		            </dl>		            
 		            <dl>
 			            <dt>中&nbsp;文&nbsp;名：</dt>
-			            <dd><asp:TextBox ID="Member_Name_CN" runat="server" ToolTip="中文名" Width="155" MaxLength="50"></asp:TextBox></dd>
+			            <dd><asp:TextBox ID="Member_Name_CN" runat="server" ToolTip="中文名" Width="155" MaxLength="50"></asp:TextBox><span style="color:Red">*</span></dd>
 		            </dl>
 		            <dl>
 			            <dt>英&nbsp;文&nbsp;名：</dt>
-			            <dd><asp:TextBox ID="Member_Name_EN" runat="server" ToolTip="英文名" Width="155" MaxLength="50"></asp:TextBox></dd>
+			            <dd><asp:TextBox ID="Member_Name_EN" runat="server" ToolTip="英文名" Width="155" MaxLength="50"></asp:TextBox><span style="color:Red">*</span></dd>
 		            </dl>
 		            <dl>
 			            <dt>性&nbsp;&nbsp;&nbsp;&nbsp;别：</dt>
@@ -96,24 +96,31 @@
 			            </dd>
 		            </dl>
 			        <dl>
-			            <dt>工作类型：</dt>
-			            <dd><asp:TextBox ID="Member_Work" runat="server" ToolTip="工作类型" Width="155" MaxLength="50"></asp:TextBox></dd>
+			            <dt>工作状态：</dt>
+			            <dd>
+			                <asp:DropDownList ID="Member_Work" runat="server" ToolTip="工作状态">
+			                    <asp:ListItem Value="学生" Selected="True">学生</asp:ListItem>
+			                    <asp:ListItem Value="待业">待业</asp:ListItem>
+			                    <asp:ListItem Value="在职">在职</asp:ListItem>
+			                    <asp:ListItem Value="退休">退休</asp:ListItem>
+			                </asp:DropDownList>
+			            </dd>
 		            </dl>
 		            <dl>
 			            <dt>电&nbsp;&nbsp;&nbsp;&nbsp;话：</dt>
-			            <dd><asp:TextBox ID="Member_Tel" runat="server" ToolTip="电话" Width="155" MaxLength="30"></asp:TextBox></dd>
+			            <dd><asp:TextBox ID="Member_Tel" runat="server" ToolTip="电话" Width="155" MaxLength="30"></asp:TextBox><span style="color:Red">*</span></dd>
 		            </dl>
 		            <dl>
 			            <dt>手机号码：</dt>
-			            <dd><asp:TextBox ID="Member_Mobile" runat="server" ToolTip="手机号码" Width="155" MaxLength="30"></asp:TextBox></dd>
+			            <dd><asp:TextBox ID="Member_Mobile" runat="server" ToolTip="手机号码" Width="155" MaxLength="30"></asp:TextBox><span style="color:Red">*</span></dd>
 		            </dl>
 		            <dl>
 			            <dt>电子邮件：</dt>
-			            <dd><asp:TextBox ID="Member_Email" runat="server" ToolTip="电子邮件" Width="422" MaxLength="100"></asp:TextBox></dd>
+			            <dd><asp:TextBox ID="Member_Email" runat="server" ToolTip="电子邮件" Width="422" MaxLength="100"></asp:TextBox><span style="color:Red">*</span></dd>
 		            </dl>
 		            <dl>
 			            <dt>居住地址：</dt>
-			            <dd><asp:TextBox ID="Member_Address" runat="server" ToolTip="居住地址" Width="422" MaxLength="200"></asp:TextBox></dd>
+			            <dd><asp:TextBox ID="Member_Address" runat="server" ToolTip="居住地址" Width="422" MaxLength="200"></asp:TextBox><span style="color:Red">*</span></dd>
 		            </dl>
 		            <dl>
 			            <dt>公司名称：</dt>
@@ -158,6 +165,8 @@
 			                <asp:Button ID="Member_Submit" runat="server" Text="确定修改" CssClass="win_input" OnClick="Member_Submit_Click" />
 			            </dd>
 		            </dl>         
+		            <div style="clear:both; height:20px;"></div>            
+		            <dl><span>如有介绍码,请正确填写,会有优惠折扣;带*号的是必添项,请如实填些,谢谢</span></dl>	                       
 		        </div>
 		        <div id="Div2" class="win_pic_txt2" style="padding-left:100px; padding-right:100px; width:365px;" runat="server">
 		            <dl style=" padding-top:100px;" class="win_pic_txt2dl">
