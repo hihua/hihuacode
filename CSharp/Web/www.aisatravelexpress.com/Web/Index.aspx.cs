@@ -18,7 +18,9 @@ namespace Web
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-            {                
+            {
+                GetMember_Info();
+
                 BLL.News b_News = new BLL.News();
                 Entity.News[] e_News;
 
@@ -89,5 +91,31 @@ namespace Web
                 Response.Redirect("Article.aspx?Article_ClassID=2");
             }
         }
+
+        private void GetMember_Info()
+        {
+            if (g_Member != null)
+            {
+                Login_Input.Visible = false;
+                Login_Info.Visible = true;
+
+                BLL.Member b_Member = new BLL.Member();
+
+                Member_Name_CN.InnerText = g_Member.Member_Name_CN;
+                if (g_Member.Member_Sex)
+                    Member_Name_CN.InnerText += "先生";
+                else
+                    Member_Name_CN.InnerText += "女士";
+
+                Member_Account.InnerText = g_Member.Member_Account;
+                Member_Points.InnerText = g_Member.Member_Points.ToString();
+                Member_Level.InnerText = b_Member.Show_Member_Level(g_Member.Member_Level);
+            }
+            else
+            {
+                Login_Input.Visible = true;
+                Login_Info.Visible = false;
+            }
+        }        
     }
 }

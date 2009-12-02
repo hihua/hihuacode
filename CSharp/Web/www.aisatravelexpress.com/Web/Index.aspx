@@ -69,7 +69,7 @@
                     </object>
 	            </div>
 		        <div class="home_top_login">
-				    <dl class="home_top_input">
+				    <dl id="Login_Input" class="home_top_input" runat="server">
 					    <dt class="home_top_input2" style="float:left;">
 					        <span style="width:37px; height:18px; background:url(images/home_6.jpg) no-repeat; display:block; float:left; margin-right:10px; margin-top:3px;"></span>					
 						    <span style="display:block; float:left;"><asp:TextBox ID="Member_Account_Name" runat="server" CssClass="input" MaxLength="30"></asp:TextBox></span>
@@ -83,6 +83,16 @@
 						    <a href="#" class="input3" style="margin-left:22px;" onclick="window.open('Member_Reg.aspx','Member','toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=630px,height=660px');return false;">立即注册</a>
 						    <a href="#" class="input3">忘记密码</a>						
 					    </dt>				
+				    </dl>
+				    <dl id="Login_Info" class="home_top_input" runat="server">
+					    <p class="inside2_login" style="line-height:18px;padding-left:15px; padding-top:3px;"><strong id="Member_Name_CN" runat="server"></strong> 您好! 欢迎你的登录,你的积分是：<span id="Member_Points" runat="server"></span></p>
+					    <p class="inside2_login" style="line-height:18px;padding-left:15px;">你的账号是：<span id="Member_Account" runat="server"></span> | 会员等级为：<span id="Member_Level" runat="server"></span></p>
+					    <p class="inside2_login" style="font-size:12px; letter-spacing:1px; line-height:18px; padding-left:15px;">
+					        <asp:LinkButton ID="Member_Info_Detail" runat="server" CssClass="input3" OnClientClick="window.open('Member_Info.aspx?Member_Info_ID=1','Member','toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=630px,height=660px');return false;">修改会员信息</asp:LinkButton> | 
+					        <asp:LinkButton ID="Member_Info_PassWord" runat="server" CssClass="input3" OnClientClick="window.open('Member_Info.aspx?Member_Info_ID=2','Member','toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=630px,height=660px');return false;">修改密码</asp:LinkButton> | 
+					        <asp:LinkButton ID="Member_Info_Consumption" runat="server" CssClass="input3" OnClientClick="window.open('Member_Info.aspx?Member_Info_ID=3','Member','toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=630px,height=660px');return false;">查询消费纪录</asp:LinkButton> | 
+					        <asp:HyperLink ID="Member_Quit" NavigateUrl="../Member_Quit.aspx" runat="server" CssClass="input3">退出登陆</asp:HyperLink>
+					    </p>						
 				    </dl>
 		        </div>	
 	        </div>
