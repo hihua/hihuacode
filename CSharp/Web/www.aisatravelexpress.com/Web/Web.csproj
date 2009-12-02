@@ -191,6 +191,7 @@
     <Content Include="Knows_Detail.aspx" />
     <Content Include="Knows_List.aspx" />
     <Content Include="LowFare.aspx" />
+    <Content Include="Member_Forget.aspx" />
     <Content Include="Member_Info.aspx" />
     <Content Include="Member_Quit.aspx" />
     <Content Include="Member_Reg.aspx" />
@@ -484,6 +485,13 @@
     </Compile>
     <Compile Include="LowFare.aspx.designer.cs">
       <DependentUpon>LowFare.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Member_Forget.aspx.cs">
+      <DependentUpon>Member_Forget.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Member_Forget.aspx.designer.cs">
+      <DependentUpon>Member_Forget.aspx</DependentUpon>
     </Compile>
     <Compile Include="Member_Info.aspx.cs">
       <DependentUpon>Member_Info.aspx</DependentUpon>

@@ -289,5 +289,21 @@ namespace BLL
         {
             d_Member.Delete_Member(p_Member_ID);
         }
+
+        public Entity.Member Get_MemberEmail(string p_Member_Email)
+        {
+            DataTable o_DataTable = d_Member.Select_Email(p_Member_Email);
+            if (o_DataTable == null)
+                return null;
+            else
+            {
+                DataRow o_DataRow = o_DataTable.Rows[0];
+
+                Entity.Member e_Member = new Entity.Member();
+                DateRow_Member(o_DataRow, e_Member);
+
+                return e_Member;
+            }
+        }
     }
 }

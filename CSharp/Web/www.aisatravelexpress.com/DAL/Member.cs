@@ -285,5 +285,13 @@ namespace DAL
             string o_Where = "Member_ID=" + p_Member_ID.ToString();
             Execute_Delete(g_TableName, o_Where);
         }
+
+        public DataTable Get_MemberEmail(string p_Member_Email)
+        {
+            string o_Where = "Member_Email=N'" + p_Member_Email + "'";
+
+            DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, 1, 1, 1, 0, o_Where);
+            return o_DataTable;
+        }
     }
 }

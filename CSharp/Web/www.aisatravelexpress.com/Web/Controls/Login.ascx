@@ -9,7 +9,7 @@
 	<asp:LinkButton ID="Member_Account_Submit" runat="server" ToolTip="登录" CssClass="inside_content_inputgo" onclick="Member_Account_Submit_Click"></asp:LinkButton>
 	<span style=" float:left; width:200px; text-align:center; line-height:20px; margin-top:10px;">
 		<a href="#" class="input3" onclick="window.open('Member_Reg.aspx','Member','toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=630px,height=660px');return false;">立即注册</a>
-		<a href="#" class="input3">忘记密码</a>
+		<a href="Member_Forget.aspx" class="input3">忘记密码</a>
 	</span>
 	<span style="float:left; width:200px; text-align:center; margin-top:5px;">
 		<a href="Article.aspx?Article_ClassID=3" class="input3">成为会员能享受什么好处？</a>

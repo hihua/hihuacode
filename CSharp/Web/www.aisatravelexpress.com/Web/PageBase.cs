@@ -28,6 +28,7 @@ namespace Web
         protected Dictionary<int, string[]> g_Travel = new Dictionary<int, string[]>();
         protected Dictionary<int, string[]> g_Knows = new Dictionary<int, string[]>();
         protected Dictionary<int, string> g_LowFare = new Dictionary<int, string>();
+        protected Dictionary<int, string> g_Member_Forget = new Dictionary<int, string>();
        
         protected int g_Article_ClassID = 1;
         protected int g_News_ClassID = 1;
@@ -123,6 +124,9 @@ namespace Web
 
             g_LowFare.Add(0, "机票问价");
             g_LowFare.Add(1, "Ticket Price");
+
+            g_Member_Forget.Add(0, "忘记密码");
+            g_Member_Forget.Add(1, "Forget Password");
 
             if (Session["Member"] != null)
                 g_Member = Session["Member"] as Entity.Member;
@@ -385,6 +389,15 @@ namespace Web
             {
                 p_HyperLink.NavigateUrl = "LowFare.aspx";
                 p_HyperLink.Text = g_LowFare[g_LanguageID - 1];
+            }
+        }
+
+        public void SetHyperLinkMemberForget(HyperLink p_HyperLink)
+        {
+            if (p_HyperLink != null)
+            {
+                p_HyperLink.NavigateUrl = "Member_Forget.aspx";
+                p_HyperLink.Text = g_Member_Forget[g_LanguageID - 1];
             }
         }
     }
