@@ -48,8 +48,8 @@ namespace Web
             if (!Member_Male.Checked && !Member_Female.Checked)
                 ResponseError("请选择性别");
 
-            if (!VerifyUtility.IsString_NotNull(Member_Work.Text))
-                ResponseError("请输入工作类型");
+            if (!VerifyUtility.IsString_NotNull(Member_Work.SelectedValue))
+                ResponseError("请选择工作状态");
 
             if (!VerifyUtility.IsString_NotNull(Member_Tel.Text))
                 ResponseError("请输入电话");
@@ -64,19 +64,7 @@ namespace Web
                 ResponseError(Member_Email.Text + "已经注册过");
 
             if (!VerifyUtility.IsString_NotNull(Member_Address.Text))
-                ResponseError("请输入居住地址");
-
-            if (!VerifyUtility.IsString_NotNull(Member_Company_Name.Text))
-                ResponseError("请输入公司名称");
-
-            if (!VerifyUtility.IsString_NotNull(Member_Company_Tel.Text))
-                ResponseError("请输入公司电话");
-
-            if (!VerifyUtility.IsString_NotNull(Member_Company_Address.Text))
-                ResponseError("请输入公司地址");
-
-            if (!VerifyUtility.IsString_NotNull(Member_Airlines.Text))
-                ResponseError("请输入常用航空公司");
+                ResponseError("请输入居住地址");                        
 
             Entity.Member o_Member = new Entity.Member();
 

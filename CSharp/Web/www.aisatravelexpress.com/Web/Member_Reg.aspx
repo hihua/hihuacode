@@ -26,7 +26,7 @@
 		            </dl>
 		            <dl>
 			            <dt>介&nbsp;绍&nbsp;码：</dt>
-			            <dd><asp:TextBox ID="Member_Serial" runat="server" ToolTip="介绍码" Width="155" MaxLength="50"></asp:TextBox><span style="color:Red">*</span></dd>
+			            <dd><asp:TextBox ID="Member_Serial" runat="server" ToolTip="介绍码" Width="155" MaxLength="50"></asp:TextBox></dd>
 		            </dl>
 		            <dl>
 			            <dt>密&nbsp;&nbsp;&nbsp;&nbsp;码：</dt>
@@ -52,9 +52,17 @@
 			            </dd>
 		            </dl>
 			        <dl>
-			            <dt>工作类型：</dt>
-			            <dd><asp:TextBox ID="Member_Work" runat="server" ToolTip="工作类型" Width="155" MaxLength="50"></asp:TextBox><span style="color:Red">*</span></dd>
+			            <dt>&nbsp;工作状态：</dt>
+			            <dd>
+			                <asp:DropDownList ID="Member_Work" runat="server" ToolTip="工作状态">
+			                    <asp:ListItem Value="学生" Selected="True">学生</asp:ListItem>
+			                    <asp:ListItem Value="待业">待业</asp:ListItem>
+			                    <asp:ListItem Value="在职">在职</asp:ListItem>
+			                    <asp:ListItem Value="退休">退休</asp:ListItem>
+			                </asp:DropDownList>
+			            </dd>                        
 		            </dl>
+		            <div style="clear:both;"></div>		            
 		            <dl>
 			            <dt>电&nbsp;&nbsp;&nbsp;&nbsp;话：</dt>
 			            <dd><asp:TextBox ID="Member_Tel" runat="server" ToolTip="电话" Width="155" MaxLength="30"></asp:TextBox><span style="color:Red">*</span></dd>
@@ -73,15 +81,15 @@
 		            </dl>
 		            <dl>
 			            <dt>公司名称：</dt>
-			            <dd><asp:TextBox ID="Member_Company_Name" runat="server" ToolTip="公司名称" Width="155" MaxLength="100"></asp:TextBox><span style="color:Red">*</span></dd>
+			            <dd><asp:TextBox ID="Member_Company_Name" runat="server" ToolTip="公司名称" Width="155" MaxLength="100"></asp:TextBox></dd>
 		            </dl>
 			            <dl>
 			            <dt>公司电话：</dt>
-			            <dd><asp:TextBox ID="Member_Company_Tel" runat="server" ToolTip="公司电话" Width="155" MaxLength="30"></asp:TextBox><span style="color:Red">*</span></dd>
+			            <dd><asp:TextBox ID="Member_Company_Tel" runat="server" ToolTip="公司电话" Width="155" MaxLength="30"></asp:TextBox></dd>
 		            </dl>
 		            <dl>
 			            <dt>公司地址：</dt>
-			            <dd><asp:TextBox ID="Member_Company_Address" runat="server" ToolTip="公司地址" Width="422" MaxLength="200"></asp:TextBox><span style="color:Red">*</span></dd>
+			            <dd><asp:TextBox ID="Member_Company_Address" runat="server" ToolTip="公司地址" Width="422" MaxLength="200"></asp:TextBox></dd>
 		            </dl>
 		            <dl>
 			            <dt>预计出行月份：（多选）1-12月：</dt>
@@ -102,7 +110,7 @@
 		            </dl>
 		            <dl>
 			            <dt>常用航空公司：</dt>
-			            <dd><asp:TextBox ID="Member_Airlines" runat="server" ToolTip="常用航空公司" Width="350" MaxLength="100"></asp:TextBox><span style="color:Red">*</span></dd>
+			            <dd><asp:TextBox ID="Member_Airlines" runat="server" ToolTip="常用航空公司" Width="350" MaxLength="100"></asp:TextBox></dd>
 		            </dl>		   
 		            <dl style="padding-left:200px; padding-top:10px;">
 			            <dt>			                
@@ -112,9 +120,11 @@
 			            <dd style="padding-top:15px;">
 			                &nbsp;
 			                <asp:Button ID="Member_Submit" runat="server" Text="确定注册" CssClass="win_input" OnClick="Member_Submit_Click" />
-			            </dd>
-		            </dl>         
-		        </div>         
+			            </dd>			            
+		            </dl>			
+		            <div style="clear:both; height:20px;"></div>            
+		            <dl><span>如有介绍码,请正确填写,会有优惠折扣;带*号的是必添项,请如实填些,谢谢</span></dl>	                       
+		        </div>      		        
 	        </div>	
 	        <div class="win_pic_footer"></div>	
 	        <div class="win_footer"></div>

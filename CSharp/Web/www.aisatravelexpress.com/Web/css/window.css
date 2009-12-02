@@ -1,6 +1,6 @@
 ﻿/*窗口内容*/
 img,select,input{vertical-align:middle; font-size:12px;}
-#window{ width:600px; height:600px; background:url(../images/window_1.jpg); background-repeat:repeat; margin:0 auto; }
+#window{ width:600px; height:auto; background:url(../images/window_1.jpg); margin:0 auto; }
 .win_top{ width:555px; height:105px; padding-left:16px; margin:0 auto; overflow:hidden;}
 .win_logo{ background:url(../images/window_2.jpg) no-repeat; width:160px; height:74px; float:left; margin-right:137px; margin-top:20px;}
 .win_pic{ width:258px; height:105px; float:left; }
@@ -9,7 +9,7 @@ img,select,input{vertical-align:middle; font-size:12px;}
 .win_pic li{width:84px;height:14px;display:block;margin-right:2px;float:left;margin-top:3px; text-align:center; padding-top:7px; cursor:pointer;}
 .win_pic_li1{ background:url(../images/window_5.jpg) no-repeat; color:#0278c2;}
 .win_pic_li2{ background:url(../images/window_4.jpg) no-repeat; }
-.win_pic_txt,.win_pic_txt2{ width:565px; height:520px; border:1px solid #cccccc; background-color:#FFFFFF; overflow:hidden; margin:0 auto; border-bottom:none; display: block;  }
+.win_pic_txt,.win_pic_txt2{ width:565px; height:auto; border:1px solid #cccccc; background-color:#FFFFFF; overflow:hidden; margin:0 auto; border-bottom:none; display: block;  }
 .win_pic_txt dl{ float:left; text-indent:2em; padding-top:5px; color:#797979;}
 .win_pic_txt dt{padding-top:15px;float:left;}
 .win_pic_txt dd{padding-top:10px;float:left; text-indent:0em;}
