@@ -58,6 +58,7 @@ namespace Web
             o_MailMessage.BodyEncoding = System.Text.Encoding.UTF8;
             o_MailMessage.IsBodyHtml = true;
 
+            o_SmtpClient.Timeout = 30;
             o_SmtpClient.Send(o_MailMessage);
 
             ResponseSuccess("发送成功");

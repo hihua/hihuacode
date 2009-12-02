@@ -96,7 +96,7 @@
 			            </dd>
 		            </dl>
 			        <dl>
-			            <dt>工作状态：</dt>
+			            <dt>&nbsp;工作状态：</dt>
 			            <dd>
 			                <asp:DropDownList ID="Member_Work" runat="server" ToolTip="工作状态">
 			                    <asp:ListItem Value="学生" Selected="True">学生</asp:ListItem>
