@@ -1,6 +1,6 @@
 ﻿/*窗口内容*/
 img,select,input{vertical-align:middle; font-size:12px;}
-#window{ width:600px; height:600px; background:url(../images/window_1.jpg) repeat; margin:0 auto; }
+#window{ width:600px; height:600px; background:url(../images/window_1.jpg); background-repeat:repeat; margin:0 auto; }
 .win_top{ width:555px; height:105px; padding-left:16px; margin:0 auto; overflow:hidden;}
 .win_logo{ background:url(../images/window_2.jpg) no-repeat; width:160px; height:74px; float:left; margin-right:137px; margin-top:20px;}
 .win_pic{ width:258px; height:105px; float:left; }
