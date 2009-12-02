@@ -167,7 +167,7 @@
 			            </dd>
 		            </dl>         
 		            <div style="clear:both; height:20px;"></div>            
-		            <dl><span>如有介绍码,请正确填写,会有优惠折扣;带*号的是必添项,请如实填些,谢谢</span></dl>	                       
+		            <dl><span>如有介绍码,请正确填写,会享受优惠折扣;带*号的是必填项,请如实填写,谢谢</span></dl>	                       
 		        </div>
 		        <div id="Div2" class="win_pic_txt2" style="padding-left:100px; padding-right:100px; width:365px;" runat="server">
 		            <dl style=" padding-top:100px;" class="win_pic_txt2dl">
