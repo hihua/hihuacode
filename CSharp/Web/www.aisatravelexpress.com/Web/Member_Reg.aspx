@@ -22,27 +22,27 @@
 	            <div class="win_pic_txt">
 		            <dl>
 			            <dt>帐&nbsp;&nbsp;&nbsp;&nbsp;号：</dt>
-			            <dd><asp:TextBox ID="Member_Account" runat="server" ToolTip="输入帐号" Width="155" MaxLength="30"></asp:TextBox></dd>
+			            <dd><asp:TextBox ID="Member_Account" runat="server" ToolTip="输入帐号" Width="155" MaxLength="30"></asp:TextBox><span style="color:Red">*</span></dd>
 		            </dl>
 		            <dl>
 			            <dt>介&nbsp;绍&nbsp;码：</dt>
-			            <dd><asp:TextBox ID="Member_Serial" runat="server" ToolTip="介绍码" Width="155" MaxLength="50"></asp:TextBox></dd>
+			            <dd><asp:TextBox ID="Member_Serial" runat="server" ToolTip="介绍码" Width="155" MaxLength="50"></asp:TextBox><span style="color:Red">*</span></dd>
 		            </dl>
 		            <dl>
 			            <dt>密&nbsp;&nbsp;&nbsp;&nbsp;码：</dt>
-			            <dd><asp:TextBox ID="Member_PassWord1" runat="server" ToolTip="密码" Width="155" MaxLength="20" TextMode="Password"></asp:TextBox></dd>
+			            <dd><asp:TextBox ID="Member_PassWord1" runat="server" ToolTip="密码" Width="155" MaxLength="20" TextMode="Password"></asp:TextBox><span style="color:Red">*</span></dd>
 		            </dl>
 		            <dl>
 			            <dt>确认密码：</dt>
-			            <dd><asp:TextBox ID="Member_PassWord2" runat="server" ToolTip="确认密码" Width="155" MaxLength="20" TextMode="Password"></asp:TextBox></dd>
+			            <dd><asp:TextBox ID="Member_PassWord2" runat="server" ToolTip="确认密码" Width="155" MaxLength="20" TextMode="Password"></asp:TextBox><span style="color:Red">*</span></dd>
 		            </dl>
 		            <dl>
 			            <dt>中&nbsp;文&nbsp;名：</dt>
-			            <dd><asp:TextBox ID="Member_Name_CN" runat="server" ToolTip="中文名" Width="155" MaxLength="50"></asp:TextBox></dd>
+			            <dd><asp:TextBox ID="Member_Name_CN" runat="server" ToolTip="中文名" Width="155" MaxLength="50"></asp:TextBox><span style="color:Red">*</span></dd>
 		            </dl>
 		            <dl>
 			            <dt>英&nbsp;文&nbsp;名：</dt>
-			            <dd><asp:TextBox ID="Member_Name_EN" runat="server" ToolTip="英文名" Width="155" MaxLength="50"></asp:TextBox></dd>
+			            <dd><asp:TextBox ID="Member_Name_EN" runat="server" ToolTip="英文名" Width="155" MaxLength="50"></asp:TextBox><span style="color:Red">*</span></dd>
 		            </dl>
 		            <dl>
 			            <dt>性&nbsp;&nbsp;&nbsp;&nbsp;别：</dt>
@@ -53,35 +53,35 @@
 		            </dl>
 			        <dl>
 			            <dt>工作类型：</dt>
-			            <dd><asp:TextBox ID="Member_Work" runat="server" ToolTip="工作类型" Width="155" MaxLength="50"></asp:TextBox></dd>
+			            <dd><asp:TextBox ID="Member_Work" runat="server" ToolTip="工作类型" Width="155" MaxLength="50"></asp:TextBox><span style="color:Red">*</span></dd>
 		            </dl>
 		            <dl>
 			            <dt>电&nbsp;&nbsp;&nbsp;&nbsp;话：</dt>
-			            <dd><asp:TextBox ID="Member_Tel" runat="server" ToolTip="电话" Width="155" MaxLength="30"></asp:TextBox></dd>
+			            <dd><asp:TextBox ID="Member_Tel" runat="server" ToolTip="电话" Width="155" MaxLength="30"></asp:TextBox><span style="color:Red">*</span></dd>
 		            </dl>
 		            <dl>
 			            <dt>手机号码：</dt>
-			            <dd><asp:TextBox ID="Member_Mobile" runat="server" ToolTip="手机号码" Width="155" MaxLength="30"></asp:TextBox></dd>
+			            <dd><asp:TextBox ID="Member_Mobile" runat="server" ToolTip="手机号码" Width="155" MaxLength="30"></asp:TextBox><span style="color:Red">*</span></dd>
 		            </dl>
 		            <dl>
 			            <dt>电子邮件：</dt>
-			            <dd><asp:TextBox ID="Member_Email" runat="server" ToolTip="电子邮件" Width="422" MaxLength="100"></asp:TextBox></dd>
+			            <dd><asp:TextBox ID="Member_Email" runat="server" ToolTip="电子邮件" Width="422" MaxLength="100"></asp:TextBox><span style="color:Red">*</span></dd>
 		            </dl>
 		            <dl>
 			            <dt>居住地址：</dt>
-			            <dd><asp:TextBox ID="Member_Address" runat="server" ToolTip="居住地址" Width="422" MaxLength="200"></asp:TextBox></dd>
+			            <dd><asp:TextBox ID="Member_Address" runat="server" ToolTip="居住地址" Width="422" MaxLength="200"></asp:TextBox><span style="color:Red">*</span></dd>
 		            </dl>
 		            <dl>
 			            <dt>公司名称：</dt>
-			            <dd><asp:TextBox ID="Member_Company_Name" runat="server" ToolTip="公司名称" Width="155" MaxLength="100"></asp:TextBox></dd>
+			            <dd><asp:TextBox ID="Member_Company_Name" runat="server" ToolTip="公司名称" Width="155" MaxLength="100"></asp:TextBox><span style="color:Red">*</span></dd>
 		            </dl>
 			            <dl>
 			            <dt>公司电话：</dt>
-			            <dd><asp:TextBox ID="Member_Company_Tel" runat="server" ToolTip="公司电话" Width="155" MaxLength="30"></asp:TextBox></dd>
+			            <dd><asp:TextBox ID="Member_Company_Tel" runat="server" ToolTip="公司电话" Width="155" MaxLength="30"></asp:TextBox><span style="color:Red">*</span></dd>
 		            </dl>
 		            <dl>
 			            <dt>公司地址：</dt>
-			            <dd><asp:TextBox ID="Member_Company_Address" runat="server" ToolTip="公司地址" Width="422" MaxLength="200"></asp:TextBox></dd>
+			            <dd><asp:TextBox ID="Member_Company_Address" runat="server" ToolTip="公司地址" Width="422" MaxLength="200"></asp:TextBox><span style="color:Red">*</span></dd>
 		            </dl>
 		            <dl>
 			            <dt>预计出行月份：（多选）1-12月：</dt>
@@ -102,7 +102,7 @@
 		            </dl>
 		            <dl>
 			            <dt>常用航空公司：</dt>
-			            <dd><asp:TextBox ID="Member_Airlines" runat="server" ToolTip="常用航空公司" Width="350" MaxLength="100"></asp:TextBox></dd>
+			            <dd><asp:TextBox ID="Member_Airlines" runat="server" ToolTip="常用航空公司" Width="350" MaxLength="100"></asp:TextBox><span style="color:Red">*</span></dd>
 		            </dl>		   
 		            <dl style="padding-left:200px; padding-top:10px;">
 			            <dt>			                
