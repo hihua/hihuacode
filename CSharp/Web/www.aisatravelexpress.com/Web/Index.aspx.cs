@@ -87,8 +87,7 @@ namespace Web
             else
             {
                 Session["Member"] = o_Member;
-
-                Response.Redirect("Article.aspx?Article_ClassID=2");
+                Response.Redirect("Index.aspx");
             }
         }
 
