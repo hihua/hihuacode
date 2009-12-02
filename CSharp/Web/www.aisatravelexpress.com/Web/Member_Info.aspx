@@ -106,6 +106,7 @@
 			                </asp:DropDownList>
 			            </dd>
 		            </dl>
+		            <div style="clear:both;"></div>
 		            <dl>
 			            <dt>电&nbsp;&nbsp;&nbsp;&nbsp;话：</dt>
 			            <dd><asp:TextBox ID="Member_Tel" runat="server" ToolTip="电话" Width="155" MaxLength="30"></asp:TextBox><span style="color:Red">*</span></dd>
