@@ -114,7 +114,7 @@ namespace Web.Admin
                     {
                         o_HtmlAnchor = new HtmlAnchor();
                         o_HtmlAnchor.HRef = "#";
-                        o_HtmlAnchor.Attributes.Add("onclick", "ActionMember(2, " + o_LowFare.LowFare_ID.ToString() + ");return false;");
+                        o_HtmlAnchor.Attributes.Add("onclick", "ActionMember(2, " + o_LowFare.LowFare_Member_ID.ToString() + ");return false;");
                         o_HtmlAnchor.Attributes.Add("class", "AdminToolsLink2");
                         o_HtmlAnchor.InnerText = o_LowFare.LowFare_Member_ID.Member_Account;
                         o_HtmlTableCell.Controls.Add(o_HtmlAnchor);
