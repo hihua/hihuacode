@@ -36,7 +36,9 @@
                                     <asp:TextBox ID="Member_Email" runat="server" Width="200"></asp:TextBox>
                                     &nbsp;
                                     <asp:Button ID="Member_Submit" runat="server" Text=" 确定 " onclick="Member_Submit_Click1" />
-			                    </div>                   			
+			                    </div>                 
+			                    <div style="clear:both; height:30px"></div>  			
+			                    <div style="text-align:center">会把密码发到注册时所填的邮箱, 如注册时填写的邮箱不正确,请联系在线客服人员</div>
 		                    </div>
 		                </td>
                     </tr>

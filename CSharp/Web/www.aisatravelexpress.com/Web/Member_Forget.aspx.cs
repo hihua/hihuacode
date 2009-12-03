@@ -71,7 +71,7 @@ namespace Web
                 BLL.Member b_Member = new BLL.Member();
                 Entity.Member e_Member = b_Member.Get_MemberEmail(Member_Email.Text);
                 if (e_Member == null)
-                    ResponseError("没有该E-mail的会员");
+                    ResponseError("没有该E-mail的会员, 如注册时填写的邮箱不正确,请联系在线客服人员");
                 else
                     SendEmail(e_Member);
             }
