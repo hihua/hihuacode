@@ -40,6 +40,31 @@
 	            });                            
             }                    
         }
+        
+        function ActionMember(Action_ID, Member_ID)
+        {
+            var URL = "Member_Detail.aspx?Action_ID=" + Action_ID + "&Member_ID=" + Member_ID;                                
+            switch (Action_ID)
+            {
+                case 1:
+                    window.open(URL,"Member","toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=630px,height=660px");   
+                    break;
+                    
+                case 2:
+                    window.open(URL,"Member","toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=630px,height=660px");   
+                    break;                    
+                    
+                case 3:
+                    if (confirm("确实删除"))
+                        window.open(URL,"Member","toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=630px,height=660px");                    
+                        
+                case 4:
+                    if (confirm("确实转换"))
+                        window.open(URL,"Member","toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=630px,height=660px");                    
+                
+                    break;            
+            }            
+        }
     </script>
 </head>
 <body>
