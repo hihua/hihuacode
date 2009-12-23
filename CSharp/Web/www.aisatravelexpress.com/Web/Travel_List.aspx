@@ -29,7 +29,7 @@
 			                    <div class="inside_content_rightlink">
 				                    <span class="inside_content_rightlink2"></span>
 				                    <span class="inside_content_rightlink3"><asp:HyperLink ID="HyperLink_Title" runat="server" class="nav10"></asp:HyperLink>>><asp:HyperLink ID="HyperLink_Travel" runat="server" class="nav10"></asp:HyperLink>>><asp:HyperLink ID="HyperLink_Travel_TypeID" runat="server" class="nav10"></asp:HyperLink></span>
-				                    <span style="float:left; padding-top:10px;"><asp:HyperLink ID="HyperLink_Travel_TypeID_1" runat="server"></asp:HyperLink> <asp:Label ID="Label_Travel_TypeID" Text="|" runat="server"></asp:Label> <asp:HyperLink ID="HyperLink_Travel_TypeID_2" runat="server"></asp:HyperLink></span>
+				                    <span style="float:left; padding-top:10px;"><!--<asp:HyperLink ID="HyperLink_Travel_TypeID_1" runat="server"></asp:HyperLink> <asp:Label ID="Label_Travel_TypeID" Text="|" runat="server"></asp:Label> <asp:HyperLink ID="HyperLink_Travel_TypeID_2" runat="server"></asp:HyperLink>--></span>
 				                    <span class="inside_content_rightlink4"></span>				                    
 				                </div>				                	                    			                                     			
 		                    </div>

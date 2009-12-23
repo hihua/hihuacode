@@ -29,8 +29,7 @@
 			                    <div id="News_Lists" class="inside_content_rightlink" runat="server">
 				                    <span class="inside_content_rightlink2"></span>
 				                    <span class="inside_content_rightlink3"><asp:HyperLink ID="HyperLink_Title" runat="server" class="nav10"></asp:HyperLink>>><asp:HyperLink ID="HyperLink_News" runat="server" class="nav10"></asp:HyperLink></span>
-				                    <span style="float:left; padding-top:10px;"><asp:HyperLink ID="HyperLink_News_ClassID_1" runat="server"></asp:HyperLink> <asp:Label ID="Label_News_ClassID" Text="|" runat="server"></asp:Label> <asp:HyperLink ID="HyperLink_News_ClassID_2" runat="server"></asp:HyperLink></span>
-				                    <span class="inside_content_rightlink4"></span>				                    
+				                    <span style="float:right;"><asp:HyperLink ID="HyperLink_News_ClassID_1" runat="server"></asp:HyperLink><asp:HyperLink ID="HyperLink_News_ClassID_2" runat="server"></asp:HyperLink><img src="images/inside_8.jpg" alt="" /></span>				                    			                    
 				                </div>			                                      			
 		                    </div>
 		                </td>

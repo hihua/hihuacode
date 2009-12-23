@@ -21,12 +21,11 @@ namespace Web
                 SetHyperLinkNews(HyperLink_News);
 
                 if (g_News_ClassID == 1 || g_News_ClassID == 2)
-                    SetHyperLinkNewsClass(HyperLink_News_ClassID_1, HyperLink_News_ClassID_2, Label_News_ClassID);
+                    SetHyperLinkNewsClass(HyperLink_News_ClassID_1, HyperLink_News_ClassID_2);
                 else
                 {
                     HyperLink_News_ClassID_1.Visible = false;
-                    HyperLink_News_ClassID_2.Visible = false;
-                    Label_News_ClassID.Visible = false;
+                    HyperLink_News_ClassID_2.Visible = false;                    
                 }
                 
                 BLL.News b_News = new BLL.News();

@@ -280,8 +280,8 @@ namespace Web
                 }
             }
         }
-
-        public void SetHyperLinkNewsClass(HyperLink p_HyperLink1, HyperLink p_HyperLink2, Label p_Label)
+       
+        public void SetHyperLinkNewsClass(HyperLink p_HyperLink1, HyperLink p_HyperLink2)
         {
             if (g_News_ClassID == 1 || g_News_ClassID == 2)
             {
@@ -289,21 +289,20 @@ namespace Web
                 {
                     p_HyperLink1.NavigateUrl = "News_List.aspx?News_ClassID=1";
                     p_HyperLink1.Text = g_News[1][g_LanguageID - 1];
-                    if (g_News_ClassID != 1)
-                        p_HyperLink1.CssClass = "nav10";
+                    if (g_News_ClassID == 1)
+                        p_HyperLink1.ImageUrl = "images/bo1_over.gif";
+                    else
+                        p_HyperLink1.ImageUrl = "images/bo1.gif";
                 }
 
                 if (p_HyperLink2 != null)
                 {
                     p_HyperLink2.NavigateUrl = "News_List.aspx?News_ClassID=2";
                     p_HyperLink2.Text = g_News[2][g_LanguageID - 1];
-                    if (g_News_ClassID != 2)
-                        p_HyperLink2.CssClass = "nav10";
-                }
-
-                if (p_Label != null)
-                {
-                    p_Label.Visible = true;
+                    if (g_News_ClassID == 2)
+                        p_HyperLink2.ImageUrl = "images/bo2_over.gif";
+                    else
+                        p_HyperLink2.ImageUrl = "images/bo2.gif";
                 }
             }
         }
@@ -325,7 +324,7 @@ namespace Web
             }
         }
 
-        public void SetHyperLinkKnowsClass(HyperLink p_HyperLink1, HyperLink p_HyperLink2, Label p_Label)
+        public void SetHyperLinkKnowsClass(HyperLink p_HyperLink1, HyperLink p_HyperLink2, HyperLink p_HyperLink3)
         {
             if (g_Knows_ClassID == 1 || g_Knows_ClassID == 2)
             {
@@ -333,21 +332,30 @@ namespace Web
                 {
                     p_HyperLink1.NavigateUrl = "Knows_List.aspx?Knows_ClassID=1";
                     p_HyperLink1.Text = g_Knows[1][g_LanguageID - 1];
-                    if (g_Knows_ClassID != 1)
-                        p_HyperLink1.CssClass = "nav10";
+                    if (g_Knows_ClassID == 1)
+                        p_HyperLink1.ImageUrl = "images/bo3_over.gif";
+                    else
+                        p_HyperLink1.ImageUrl = "images/bo3.gif";
                 }
 
                 if (p_HyperLink2 != null)
                 {
                     p_HyperLink2.NavigateUrl = "Knows_List.aspx?Knows_ClassID=2";
                     p_HyperLink2.Text = g_Knows[2][g_LanguageID - 1];
-                    if (g_Knows_ClassID != 2)
-                        p_HyperLink2.CssClass = "nav10";
+                    if (g_Knows_ClassID == 2)
+                        p_HyperLink2.ImageUrl = "images/bo4_over.gif";
+                    else
+                        p_HyperLink2.ImageUrl = "images/bo4.gif";
                 }
 
-                if (p_Label != null)
+                if (p_HyperLink3 != null)
                 {
-                    p_Label.Visible = true;
+                    p_HyperLink3.NavigateUrl = "Knows_List.aspx?Knows_ClassID=3";
+                    p_HyperLink3.Text = g_Knows[2][g_LanguageID - 1];
+                    if (g_Knows_ClassID == 3)
+                        p_HyperLink3.ImageUrl = "images/bo5_over.gif";
+                    else
+                        p_HyperLink3.ImageUrl = "images/bo5.gif";
                 }
             }
         }
