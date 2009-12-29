@@ -57,6 +57,9 @@ namespace Web
                         }
                     }
                 }
+
+                if (g_Member.Member_Level < 3)
+                    Div_Consumption.Visible = false;
                 
                 Member_Account.Text = g_Member.Member_Account;
                 Member_Serial.Text = g_Member.Member_Serial;
