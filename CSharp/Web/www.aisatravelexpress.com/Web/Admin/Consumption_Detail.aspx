@@ -83,24 +83,30 @@
                     </td>
 		        </tr>
 		        <tr bgcolor="#E3E3E3">
+		            <td align="right" height="30">利润：</td>
+			        <td>
+                        <asp:TextBox ID="Consumption_Profit" runat="server" MaxLength="8"></asp:TextBox>
+                    </td>
+		        </tr>
+		        <tr bgcolor="#D0D0D0">
 		            <td align="right" height="30">积分：</td>
 			        <td>
                         <asp:TextBox ID="Consumption_Points" runat="server" MaxLength="8"></asp:TextBox>
                     </td>
 		        </tr>
-		        <tr bgcolor="#D0D0D0">
+		        <tr bgcolor="#E3E3E3">
 		            <td align="right" height="30">佣金：</td>
 			        <td>
                         <asp:TextBox ID="Consumption_Commission" runat="server" Text="0" MaxLength="8"></asp:TextBox>
                     </td>
 		        </tr>
-		        <tr bgcolor="#E3E3E3">
+		        <tr bgcolor="#D0D0D0">
 		            <td align="right" height="30">日期：</td>
 			        <td>
                         <asp:TextBox ID="Consumption_Date" runat="server" MaxLength="30"></asp:TextBox>
                     </td>
 		        </tr>
-		        <tr bgcolor="#D0D0D0">
+		        <tr bgcolor="#E3E3E3">
 		            <td align="right" height="30">会员：</td>
 			        <td>
                         <asp:DropDownList ID="Consumption_Org_Member_ID" runat="server"></asp:DropDownList>                        
@@ -117,7 +123,7 @@
                         <asp:Label ID="Consumption_Com_Member_Serial" runat="server"></asp:Label>
                     </td>                    
 		        </tr>
-		        <tr id="Consumption_Admin_Name_TD" bgcolor="#D0D0D0" runat="server">
+		        <tr id="Consumption_Admin_Name_TD" bgcolor="#E3E3E3" runat="server">
 		            <td align="right" height="30">跟进客服用户名：</td>
 			        <td>
                         <asp:Label ID="Consumption_Admin_Name" runat="server" Text="Label"></asp:Label>

@@ -80,6 +80,10 @@ namespace Web.Admin
                     o_HtmlTableRow.Controls.Add(o_HtmlTableCell);
 
                     o_HtmlTableCell = new HtmlTableCell();
+                    o_HtmlTableCell.InnerText = (o_Consumption.Consumption_Price - o_Consumption.Consumption_DePrice).ToString();
+                    o_HtmlTableRow.Controls.Add(o_HtmlTableCell);
+
+                    o_HtmlTableCell = new HtmlTableCell();
                     o_HtmlTableCell.InnerText = o_Consumption.Consumption_Date.ToString("yyyy-MM-dd");
                     o_HtmlTableRow.Controls.Add(o_HtmlTableCell);
 

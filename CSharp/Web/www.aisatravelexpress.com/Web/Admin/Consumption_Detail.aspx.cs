@@ -70,6 +70,7 @@ namespace Web.Admin
                             Consumption_Dest.Text = e_Consumption.Consumption_Dest;
                             Consumption_Price.Text = e_Consumption.Consumption_Price.ToString();
                             Consumption_DePrice.Text = e_Consumption.Consumption_DePrice.ToString();
+                            Consumption_Profit.Text = (e_Consumption.Consumption_Price - e_Consumption.Consumption_DePrice).ToString();
                             Consumption_Points.Text = e_Consumption.Consumption_Points.ToString();
                             Consumption_Commission.Text = e_Consumption.Consumption_Commission.ToString();
                             Consumption_Date.Text = e_Consumption.Consumption_Date.ToString("yyyy-MM-dd");
