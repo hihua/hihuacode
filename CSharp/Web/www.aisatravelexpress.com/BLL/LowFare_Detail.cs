@@ -38,6 +38,11 @@ namespace BLL
             else
                 p_LowFare_Detail.LowFare_Detail_Time1 = "";
 
+            if (p_DataRow["LowFare_Flexibility1"] != null && VerifyUtility.IsString_NotNull(p_DataRow["LowFare_Flexibility1"].ToString()))
+                p_LowFare_Detail.LowFare_Flexibility1 = p_DataRow["LowFare_Flexibility1"].ToString();
+            else
+                p_LowFare_Detail.LowFare_Flexibility1 = "";
+
             if (p_DataRow["LowFare_Detail_Returning"] != null && VerifyUtility.IsString_NotNull(p_DataRow["LowFare_Detail_Returning"].ToString()))
                 p_LowFare_Detail.LowFare_Detail_Returning = p_DataRow["LowFare_Detail_Returning"].ToString();
             
@@ -45,6 +50,11 @@ namespace BLL
                 p_LowFare_Detail.LowFare_Detail_Time2 = p_DataRow["LowFare_Detail_Time2"].ToString();
             else
                 p_LowFare_Detail.LowFare_Detail_Time2 = "";
+
+            if (p_DataRow["LowFare_Flexibility2"] != null && VerifyUtility.IsString_NotNull(p_DataRow["LowFare_Flexibility2"].ToString()))
+                p_LowFare_Detail.LowFare_Flexibility2 = p_DataRow["LowFare_Flexibility2"].ToString();
+            else
+                p_LowFare_Detail.LowFare_Flexibility2 = "";
         }
                
         public int LowFare_Detail_Next_LowFare_ID()
@@ -116,8 +126,10 @@ namespace BLL
                 c_LowFare_Detail.LowFare_Detail_To = FilterUtility.FilterSQL(e_LowFare_Detail.LowFare_Detail_To);
                 c_LowFare_Detail.LowFare_Detail_Departing = e_LowFare_Detail.LowFare_Detail_Departing;
                 c_LowFare_Detail.LowFare_Detail_Time1 = FilterUtility.FilterSQL(e_LowFare_Detail.LowFare_Detail_Time1);
+                c_LowFare_Detail.LowFare_Flexibility1 = FilterUtility.FilterSQL(e_LowFare_Detail.LowFare_Flexibility1);
                 c_LowFare_Detail.LowFare_Detail_Returning = e_LowFare_Detail.LowFare_Detail_Returning;
                 c_LowFare_Detail.LowFare_Detail_Time2 = FilterUtility.FilterSQL(e_LowFare_Detail.LowFare_Detail_Time2);
+                c_LowFare_Detail.LowFare_Flexibility2 = FilterUtility.FilterSQL(e_LowFare_Detail.LowFare_Flexibility2);                
 
                 o_LowFare_Detail.Add(c_LowFare_Detail);
             }
@@ -140,9 +152,11 @@ namespace BLL
                 c_LowFare_Detail.LowFare_Detail_To = FilterUtility.FilterSQL(e_LowFare_Detail.LowFare_Detail_To);
                 c_LowFare_Detail.LowFare_Detail_Departing = e_LowFare_Detail.LowFare_Detail_Departing;
                 c_LowFare_Detail.LowFare_Detail_Time1 = FilterUtility.FilterSQL(e_LowFare_Detail.LowFare_Detail_Time1);
+                c_LowFare_Detail.LowFare_Flexibility1 = FilterUtility.FilterSQL(e_LowFare_Detail.LowFare_Flexibility1);
                 c_LowFare_Detail.LowFare_Detail_Returning = e_LowFare_Detail.LowFare_Detail_Returning;
                 c_LowFare_Detail.LowFare_Detail_Time2 = FilterUtility.FilterSQL(e_LowFare_Detail.LowFare_Detail_Time2);
-
+                c_LowFare_Detail.LowFare_Flexibility2 = FilterUtility.FilterSQL(e_LowFare_Detail.LowFare_Flexibility2);
+                
                 o_LowFare_Detail.Add(c_LowFare_Detail);
             }
 

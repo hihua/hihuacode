@@ -10,7 +10,7 @@ namespace DAL
     public class LowFare : DALBase
     {
         private string g_TableName = "t_LowFare";
-        private string g_TableFields = "LowFare_ID,LowFare_Type,LowFare_Flexibility,LowFare_Detail_ID,LowFare_Adults,LowFare_Children,LowFare_Infants,LowFare_Airline,LowFare_Class,LowFare_Member_ID,LowFare_AdminUser_ID,LowFare_Status,LowFare_AddTime,LowFare_SubmitTime";
+        private string g_TableFields = "LowFare_ID,LowFare_Type,LowFare_Detail_ID,LowFare_Adults,LowFare_Children,LowFare_Infants,LowFare_Passengers,LowFare_Airline,LowFare_Class,LowFare_Member_ID,LowFare_AdminUser_ID,LowFare_Status,LowFare_AddTime,LowFare_SubmitTime";
         private string g_TableOrderByFields = "LowFare_ID";
 
         public LowFare()
@@ -42,18 +42,22 @@ namespace DAL
                         break;
 
                     case 5:
-                        o_Where += " and LowFare_Airline Like N'%" + p_Search_Content + "%'";
+                        o_Where += " and LowFare_Passengers Like N'%" + p_Search_Content + "%'";
                         break;
 
                     case 6:
-                        o_Where += " and LowFare_Class Like N'%" + p_Search_Content + "%'";
+                        o_Where += " and LowFare_Airline Like N'%" + p_Search_Content + "%'";
                         break;
 
                     case 7:
-                        o_Where += " and LowFare_Member_ID=" + p_Search_Content;
+                        o_Where += " and LowFare_Class Like N'%" + p_Search_Content + "%'";
                         break;
 
                     case 8:
+                        o_Where += " and LowFare_Member_ID=" + p_Search_Content;
+                        break;
+
+                    case 9:
                         o_Where += " and LowFare_AdminUser_ID=" + p_Search_Content;
                         break;
                     
@@ -96,17 +100,10 @@ namespace DAL
             if (o_LowFare == null)
                 return;
 
-            g_TableFields = "LowFare_Type,LowFare_Flexibility,LowFare_Detail_ID,LowFare_Adults,LowFare_Children,LowFare_Infants,LowFare_Airline,LowFare_Class,LowFare_Member_ID,LowFare_AdminUser_ID,LowFare_Status,LowFare_AddTime,LowFare_SubmitTime";
+            g_TableFields = "LowFare_Type,LowFare_Detail_ID,LowFare_Adults,LowFare_Children,LowFare_Infants,LowFare_Passengers,LowFare_Airline,LowFare_Class,LowFare_Member_ID,LowFare_AdminUser_ID,LowFare_Status,LowFare_AddTime,LowFare_SubmitTime";
 
             string o_FieldsValue = "";
             o_FieldsValue += o_LowFare.LowFare_Type.ToString();
-            o_FieldsValue += ",";
-
-            if (o_LowFare.LowFare_Flexibility)
-                o_FieldsValue += "1";
-            else
-                o_FieldsValue += "0";
-
             o_FieldsValue += ",";
 
             if (o_LowFare.LowFare_Detail_ID != null && o_LowFare.LowFare_Detail_ID.Count > 0)             
@@ -120,6 +117,8 @@ namespace DAL
             o_FieldsValue += o_LowFare.LowFare_Children.ToString();
             o_FieldsValue += ",";
             o_FieldsValue += o_LowFare.LowFare_Infants.ToString();
+            o_FieldsValue += ",";
+            o_FieldsValue += "N'" + o_LowFare.LowFare_Passengers + "'";
             o_FieldsValue += ",";
             o_FieldsValue += "N'" + o_LowFare.LowFare_Airline + "'";
             o_FieldsValue += ",";
@@ -157,13 +156,6 @@ namespace DAL
             o_FieldsValue += "LowFare_Type=" + o_LowFare.LowFare_Type.ToString();
             o_FieldsValue += ",";
 
-            if (o_LowFare.LowFare_Flexibility)
-                o_FieldsValue += "LowFare_Flexibility=1";
-            else
-                o_FieldsValue += "LowFare_Flexibility=0";
-
-            o_FieldsValue += ",";
-
             if (o_LowFare.LowFare_Detail_ID != null && o_LowFare.LowFare_Detail_ID.Count > 0)
                 o_FieldsValue += "LowFare_Detail_ID=" + o_LowFare.LowFare_Detail_ID[0].LowFare_Detail_LowFare_ID.ToString();
             else
@@ -175,6 +167,8 @@ namespace DAL
             o_FieldsValue += "LowFare_Children=" + o_LowFare.LowFare_Children.ToString();
             o_FieldsValue += ",";
             o_FieldsValue += "LowFare_Infants=" + o_LowFare.LowFare_Infants.ToString();
+            o_FieldsValue += ",";
+            o_FieldsValue += "LowFare_Passengers=N'" + o_LowFare.LowFare_Passengers + "'";
             o_FieldsValue += ",";
             o_FieldsValue += "LowFare_Airline=N'" + o_LowFare.LowFare_Airline + "'";
             o_FieldsValue += ",";

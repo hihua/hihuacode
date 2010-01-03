@@ -20,13 +20,6 @@ namespace Entity
             get { return _LowFare_Type; }
             set { _LowFare_Type = value; }
         }
-        private bool _LowFare_Flexibility;
-
-        public bool LowFare_Flexibility
-        {
-            get { return _LowFare_Flexibility; }
-            set { _LowFare_Flexibility = value; }
-        }
         private List<LowFare_Detail> _LowFare_Detail_ID;
 
         public List<LowFare_Detail> LowFare_Detail_ID
@@ -55,6 +48,14 @@ namespace Entity
             get { return _LowFare_Infants; }
             set { _LowFare_Infants = value; }
         }
+        private string _LowFare_Passengers;
+
+        public string LowFare_Passengers
+        {
+            get { return _LowFare_Passengers; }
+            set { _LowFare_Passengers = value; }
+        }
+        
         private string _LowFare_Airline;
 
         public string LowFare_Airline

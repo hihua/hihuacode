@@ -41,18 +41,14 @@ namespace Web
             {
                 LowFare_Text_Type1.Visible = true;
                 LowFare_Text_Type2.Visible = false;
-                LowFare_Text_Type3.Visible = false;
-
-                LowFare_Flexibility_TD.Visible = true;
+                LowFare_Text_Type3.Visible = false;                          
             }
 
             if (LowFare_Type2.Checked)
             {
                 LowFare_Text_Type1.Visible = false;
                 LowFare_Text_Type2.Visible = true;
-                LowFare_Text_Type3.Visible = false;
-
-                LowFare_Flexibility_TD.Visible = true;
+                LowFare_Text_Type3.Visible = false;               
             }
 
             if (LowFare_Type3.Checked)
@@ -60,8 +56,6 @@ namespace Web
                 LowFare_Text_Type1.Visible = false;
                 LowFare_Text_Type2.Visible = false;
                 LowFare_Text_Type3.Visible = true;
-
-                LowFare_Flexibility_TD.Visible = false;
             }
         }
 
@@ -105,19 +99,15 @@ namespace Web
 
                 Entity.LowFare e_LowFare = new Entity.LowFare();
                 e_LowFare.LowFare_Type = 1;
-
-                if (LowFare_Flexibility.Checked)
-                    e_LowFare.LowFare_Flexibility = true;
-                else
-                    e_LowFare.LowFare_Flexibility = false;
-
+                
                 e_LowFare.LowFare_Detail_ID = new List<Entity.LowFare_Detail>();
                 e_LowFare.LowFare_Detail_ID.Add(e_LowFare_Detail);
 
                 e_LowFare.LowFare_Adults = Convert.ToInt32(LowFare_Adults.SelectedValue);
                 e_LowFare.LowFare_Children = Convert.ToInt32(LowFare_Children.SelectedValue);
                 e_LowFare.LowFare_Infants = Convert.ToInt32(LowFare_Infants.SelectedValue);
-                e_LowFare.LowFare_Airline = LowFare_Airline.SelectedValue;
+                e_LowFare.LowFare_Passengers = LowFare_Passengers.Text;
+                e_LowFare.LowFare_Airline = LowFare_Airline_Text.Text;
                 e_LowFare.LowFare_Class = LowFare_Class.SelectedValue;
                 e_LowFare.LowFare_Member_ID = g_Member;
                 e_LowFare.LowFare_AdminUser_ID = null;
@@ -160,19 +150,15 @@ namespace Web
                
                 Entity.LowFare e_LowFare = new Entity.LowFare();
                 e_LowFare.LowFare_Type = 2;
-
-                if (LowFare_Flexibility.Checked)
-                    e_LowFare.LowFare_Flexibility = true;
-                else
-                    e_LowFare.LowFare_Flexibility = false;
-
+              
                 e_LowFare.LowFare_Detail_ID = new List<Entity.LowFare_Detail>();
                 e_LowFare.LowFare_Detail_ID.Add(e_LowFare_Detail);
 
                 e_LowFare.LowFare_Adults = Convert.ToInt32(LowFare_Adults.SelectedValue);
                 e_LowFare.LowFare_Children = Convert.ToInt32(LowFare_Children.SelectedValue);
                 e_LowFare.LowFare_Infants = Convert.ToInt32(LowFare_Infants.SelectedValue);
-                e_LowFare.LowFare_Airline = LowFare_Airline.SelectedValue;
+                e_LowFare.LowFare_Passengers = LowFare_Passengers.Text;
+                e_LowFare.LowFare_Airline = LowFare_Airline_Text.Text;
                 e_LowFare.LowFare_Class = LowFare_Class.SelectedValue;
                 e_LowFare.LowFare_Member_ID = g_Member;
                 e_LowFare.LowFare_AdminUser_ID = null;
@@ -302,16 +288,12 @@ namespace Web
 
                 Application.Lock();
                 e_LowFare.LowFare_Type = 3;
-
-                if (LowFare_Flexibility.Checked)
-                    e_LowFare.LowFare_Flexibility = true;
-                else
-                    e_LowFare.LowFare_Flexibility = false;
-                                
+                                                
                 e_LowFare.LowFare_Adults = Convert.ToInt32(LowFare_Adults.SelectedValue);
                 e_LowFare.LowFare_Children = Convert.ToInt32(LowFare_Children.SelectedValue);
                 e_LowFare.LowFare_Infants = Convert.ToInt32(LowFare_Infants.SelectedValue);
-                e_LowFare.LowFare_Airline = LowFare_Airline.SelectedValue;
+                e_LowFare.LowFare_Passengers = LowFare_Passengers.Text;
+                e_LowFare.LowFare_Airline = LowFare_Airline_Text.Text;
                 e_LowFare.LowFare_Class = LowFare_Class.SelectedValue;
                 e_LowFare.LowFare_Member_ID = g_Member;
                 e_LowFare.LowFare_AdminUser_ID = null;

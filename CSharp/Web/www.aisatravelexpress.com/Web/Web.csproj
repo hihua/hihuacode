@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{163E46AC-EBEA-4952-98FA-B84F6317236A}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -101,6 +101,7 @@
     <Content Include="Admin\Travel.aspx" />
     <Content Include="Admin\Travel_Detail.aspx" />
     <Content Include="Admin\Welcome.aspx" />
+    <Content Include="AirlineList.aspx" />
     <Content Include="AirportList.aspx" />
     <Content Include="Article.aspx" />
     <Content Include="ChangeLanguage.aspx" />
@@ -391,6 +392,13 @@
     <Compile Include="Admin\Welcome.aspx.designer.cs">
       <DependentUpon>Welcome.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AirlineList.aspx.cs">
+      <DependentUpon>AirlineList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AirlineList.aspx.designer.cs">
+      <DependentUpon>AirlineList.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AirportList.aspx.cs">
       <DependentUpon>AirportList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -607,6 +615,9 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

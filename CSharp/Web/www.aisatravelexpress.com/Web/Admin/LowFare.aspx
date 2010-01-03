@@ -100,8 +100,7 @@
                 <tr align="center" bgcolor="#C0C0C0" style="height:30px">
                     <td>序号</td>
                     <td>状态</td>	                
-	                <td>类别</td>
-	                <td>Flexibility</td>
+	                <td>类别</td>	               
 	                <td>Adults</td>
 	                <td>Children</td>
 	                <td>Infants</td>

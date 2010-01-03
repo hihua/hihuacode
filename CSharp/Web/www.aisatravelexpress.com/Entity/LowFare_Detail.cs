@@ -48,6 +48,13 @@ namespace Entity
             get { return _LowFare_Detail_Time1; }
             set { _LowFare_Detail_Time1 = value; }
         }
+        private string _LowFare_Flexibility1;
+
+        public string LowFare_Flexibility1
+        {
+            get { return _LowFare_Flexibility1; }
+            set { _LowFare_Flexibility1 = value; }
+        }                
         private string _LowFare_Detail_Returning;
 
         public string LowFare_Detail_Returning
@@ -62,5 +69,12 @@ namespace Entity
             get { return _LowFare_Detail_Time2; }
             set { _LowFare_Detail_Time2 = value; }
         }
+        private string _LowFare_Flexibility2;
+
+        public string LowFare_Flexibility2
+        {
+            get { return _LowFare_Flexibility2; }
+            set { _LowFare_Flexibility2 = value; }
+        } 
     }
 }

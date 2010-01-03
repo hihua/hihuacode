@@ -81,12 +81,7 @@ namespace Web.Admin
                     }
                     o_HtmlTableRow.Controls.Add(o_HtmlTableCell);
 
-                    o_HtmlTableCell = new HtmlTableCell();
-                    if (o_LowFare.LowFare_Flexibility)
-                        o_HtmlTableCell.InnerText = "TRUE";
-                    else
-                        o_HtmlTableCell.InnerText = "FALSE";
-
+                    o_HtmlTableCell = new HtmlTableCell();                    
                     o_HtmlTableRow.Controls.Add(o_HtmlTableCell);
 
                     o_HtmlTableCell = new HtmlTableCell();

@@ -10,7 +10,7 @@ namespace DAL
     public class LowFare_Detail : DALBase
     {
         private string g_TableName = "t_LowFare_Detail";
-        private string g_TableFields = "LowFare_Detail_ID,LowFare_Detail_LowFare_ID,LowFare_Detail_From,LowFare_Detail_To,LowFare_Detail_Departing,LowFare_Detail_Time1,LowFare_Detail_Returning,LowFare_Detail_Time2";
+        private string g_TableFields = "LowFare_Detail_ID,LowFare_Detail_LowFare_ID,LowFare_Detail_From,LowFare_Detail_To,LowFare_Detail_Departing,LowFare_Detail_Time1,LowFare_Flexibility1,LowFare_Detail_Returning,LowFare_Detail_Time2,LowFare_Flexibility2";
         private string g_TableOrderByFields = "LowFare_Detail_ID";
 
         public LowFare_Detail()
@@ -49,7 +49,7 @@ namespace DAL
             if (o_LowFare_Detail == null)
                 return;
 
-            g_TableFields = "LowFare_Detail_LowFare_ID,LowFare_Detail_From,LowFare_Detail_To,LowFare_Detail_Departing,LowFare_Detail_Time1,LowFare_Detail_Returning,LowFare_Detail_Time2";
+            g_TableFields = "LowFare_Detail_LowFare_ID,LowFare_Detail_From,LowFare_Detail_To,LowFare_Detail_Departing,LowFare_Detail_Time1,LowFare_Flexibility1,LowFare_Detail_Returning,LowFare_Detail_Time2,LowFare_Flexibility2";
 
             foreach (Entity.LowFare_Detail e_LowFare_Detail in o_LowFare_Detail)
             {                
@@ -73,7 +73,14 @@ namespace DAL
                 else
                     o_FieldsValue += "N''";
 
-                o_FieldsValue += ",";                                    
+                o_FieldsValue += ",";
+
+                if (VerifyUtility.IsString_NotNull(e_LowFare_Detail.LowFare_Flexibility1))
+                    o_FieldsValue += "N'" + e_LowFare_Detail.LowFare_Flexibility1 + "'";
+                else
+                    o_FieldsValue += "N''";
+
+                o_FieldsValue += ",";
 
                 if (e_LowFare_Detail.LowFare_Detail_Returning != null)                 
                     o_FieldsValue += "N'" + e_LowFare_Detail.LowFare_Detail_Returning.ToString() + "'";
@@ -85,7 +92,14 @@ namespace DAL
                 if (VerifyUtility.IsString_NotNull(e_LowFare_Detail.LowFare_Detail_Time2))
                     o_FieldsValue += "N'" + e_LowFare_Detail.LowFare_Detail_Time2 + "'";                
                 else
-                    o_FieldsValue += "N''";                
+                    o_FieldsValue += "N''";
+
+                o_FieldsValue += ",";
+
+                if (VerifyUtility.IsString_NotNull(e_LowFare_Detail.LowFare_Flexibility2))
+                    o_FieldsValue += "N'" + e_LowFare_Detail.LowFare_Flexibility2 + "'";
+                else
+                    o_FieldsValue += "N''";
 
                 Execute_Insert(g_TableName, g_TableFields, o_FieldsValue);
             }
@@ -120,6 +134,13 @@ namespace DAL
 
                 o_FieldsValue += ",";
 
+                if (VerifyUtility.IsString_NotNull(e_LowFare_Detail.LowFare_Flexibility1))
+                    o_FieldsValue += "LowFare_Flexibility1=N'" + e_LowFare_Detail.LowFare_Flexibility1 + "'";
+                else
+                    o_FieldsValue += "LowFare_Flexibility1=N''";
+
+                o_FieldsValue += ",";
+
                 if (e_LowFare_Detail.LowFare_Detail_Returning != null)
                     o_FieldsValue += "LowFare_Detail_Returning=N'" + e_LowFare_Detail.LowFare_Detail_Returning.ToString() + "'";
                 else
@@ -131,6 +152,13 @@ namespace DAL
                     o_FieldsValue += "LowFare_Detail_Time2=N'" + e_LowFare_Detail.LowFare_Detail_Time2 + "'";
                 else
                     o_FieldsValue += "LowFare_Detail_Time2=N''";
+
+                o_FieldsValue += ",";
+
+                if (VerifyUtility.IsString_NotNull(e_LowFare_Detail.LowFare_Flexibility2))
+                    o_FieldsValue += "LowFare_Flexibility2=N'" + e_LowFare_Detail.LowFare_Flexibility2 + "'";
+                else
+                    o_FieldsValue += "LowFare_Flexibility2=N''";
 
                 string o_Where = "LowFare_Detail_ID=" + e_LowFare_Detail.LowFare_Detail_ID.ToString();
                 Execute_Update(g_TableName, o_FieldsValue, o_Where);

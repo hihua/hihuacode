@@ -74,8 +74,6 @@ namespace Web.Admin
                     LowFare_Text_Type1.Visible = true;
                     LowFare_Text_Type2.Visible = false;
                     LowFare_Text_Type3.Visible = false;
-
-                    LowFare_Flexibility_TD.Visible = true;
                     break;
 
                 case 2:
@@ -83,8 +81,6 @@ namespace Web.Admin
                     LowFare_Text_Type1.Visible = false;
                     LowFare_Text_Type2.Visible = true;
                     LowFare_Text_Type3.Visible = false;
-
-                    LowFare_Flexibility_TD.Visible = true;
                     break;
 
                 case 3:
@@ -92,20 +88,13 @@ namespace Web.Admin
                     LowFare_Text_Type1.Visible = false;
                     LowFare_Text_Type2.Visible = false;
                     LowFare_Text_Type3.Visible = true;
-
-                    LowFare_Flexibility_TD.Visible = false;
                     break;
             }
-
-            if (e_LowFare.LowFare_Flexibility)
-                LowFare_Flexibility.Checked = true;
-            else
-                LowFare_Flexibility.Checked = false;
-
+           
             LowFare_Adults.SelectedValue = e_LowFare.LowFare_Adults.ToString();
             LowFare_Children.SelectedValue = e_LowFare.LowFare_Children.ToString();
             LowFare_Infants.SelectedValue = e_LowFare.LowFare_Infants.ToString();
-            LowFare_Airline.SelectedValue = e_LowFare.LowFare_Airline;
+            LowFare_Airline_Text.Text = e_LowFare.LowFare_Airline;
             LowFare_Class.SelectedValue = e_LowFare.LowFare_Class;
             LowFare_AddTime.Text = e_LowFare.LowFare_AddTime.ToString();
 
@@ -199,8 +188,6 @@ namespace Web.Admin
                 LowFare_Text_Type1.Visible = true;
                 LowFare_Text_Type2.Visible = false;
                 LowFare_Text_Type3.Visible = false;
-
-                LowFare_Flexibility_TD.Visible = true;
             }
 
             if (LowFare_Type2.Checked)
@@ -208,8 +195,6 @@ namespace Web.Admin
                 LowFare_Text_Type1.Visible = false;
                 LowFare_Text_Type2.Visible = true;
                 LowFare_Text_Type3.Visible = false;
-
-                LowFare_Flexibility_TD.Visible = true;
             }
 
             if (LowFare_Type3.Checked)
@@ -217,8 +202,6 @@ namespace Web.Admin
                 LowFare_Text_Type1.Visible = false;
                 LowFare_Text_Type2.Visible = false;
                 LowFare_Text_Type3.Visible = true;
-
-                LowFare_Flexibility_TD.Visible = false;
             }
         }
 

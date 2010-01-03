@@ -27,12 +27,7 @@ namespace BLL
 
             p_LowFare.LowFare_ID = Convert.ToInt32(p_DataRow["LowFare_ID"].ToString());
             p_LowFare.LowFare_Type = Convert.ToInt32(p_DataRow["LowFare_Type"].ToString());
-
-            if (p_DataRow["LowFare_Flexibility"].ToString().ToUpper() == "TRUE")
-                p_LowFare.LowFare_Flexibility = true;
-            else
-                p_LowFare.LowFare_Flexibility = false;
-
+                        
             BLL.LowFare_Detail b_LowFare_Detail = new LowFare_Detail();
             Entity.LowFare_Detail[] e_LowFare_Detail = b_LowFare_Detail.Select_LowFare_Detail_LowFare_ID(Convert.ToInt32(p_DataRow["LowFare_Detail_ID"].ToString()), 1, 1);
             if (e_LowFare_Detail != null)
@@ -45,6 +40,7 @@ namespace BLL
             p_LowFare.LowFare_Adults = Convert.ToInt32(p_DataRow["LowFare_Adults"].ToString());
             p_LowFare.LowFare_Children = Convert.ToInt32(p_DataRow["LowFare_Children"].ToString());
             p_LowFare.LowFare_Infants = Convert.ToInt32(p_DataRow["LowFare_Infants"].ToString());
+            p_LowFare.LowFare_Passengers = p_DataRow["LowFare_Passengers"].ToString();
             p_LowFare.LowFare_Airline = p_DataRow["LowFare_Airline"].ToString();
             p_LowFare.LowFare_Class = p_DataRow["LowFare_Class"].ToString();
 
@@ -129,11 +125,11 @@ namespace BLL
             Entity.LowFare e_LowFare = new Entity.LowFare();
             e_LowFare.LowFare_ID = o_LowFare.LowFare_ID;
             e_LowFare.LowFare_Type = o_LowFare.LowFare_Type;
-            e_LowFare.LowFare_Flexibility = o_LowFare.LowFare_Flexibility;
             e_LowFare.LowFare_Detail_ID = o_LowFare.LowFare_Detail_ID;
             e_LowFare.LowFare_Adults = o_LowFare.LowFare_Adults;
             e_LowFare.LowFare_Children = o_LowFare.LowFare_Children;
             e_LowFare.LowFare_Infants = o_LowFare.LowFare_Infants;
+            e_LowFare.LowFare_Passengers = FilterUtility.FilterSQL(o_LowFare.LowFare_Passengers);
             e_LowFare.LowFare_Airline = FilterUtility.FilterSQL(o_LowFare.LowFare_Airline);
             e_LowFare.LowFare_Class = FilterUtility.FilterSQL(o_LowFare.LowFare_Class);
             e_LowFare.LowFare_Member_ID = o_LowFare.LowFare_Member_ID;
@@ -155,12 +151,12 @@ namespace BLL
 
             Entity.LowFare e_LowFare = new Entity.LowFare();
             e_LowFare.LowFare_ID = o_LowFare.LowFare_ID;
-            e_LowFare.LowFare_Type = o_LowFare.LowFare_Type;
-            e_LowFare.LowFare_Flexibility = o_LowFare.LowFare_Flexibility;
+            e_LowFare.LowFare_Type = o_LowFare.LowFare_Type;            
             e_LowFare.LowFare_Detail_ID = o_LowFare.LowFare_Detail_ID;
             e_LowFare.LowFare_Adults = o_LowFare.LowFare_Adults;
             e_LowFare.LowFare_Children = o_LowFare.LowFare_Children;
             e_LowFare.LowFare_Infants = o_LowFare.LowFare_Infants;
+            e_LowFare.LowFare_Passengers = FilterUtility.FilterSQL(o_LowFare.LowFare_Passengers);            
             e_LowFare.LowFare_Airline = FilterUtility.FilterSQL(o_LowFare.LowFare_Airline);
             e_LowFare.LowFare_Class = FilterUtility.FilterSQL(o_LowFare.LowFare_Class);
             e_LowFare.LowFare_Member_ID = o_LowFare.LowFare_Member_ID;

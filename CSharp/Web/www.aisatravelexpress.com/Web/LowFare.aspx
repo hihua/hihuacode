@@ -20,8 +20,13 @@
             if (LowFare_TextBox != "")
             {
                 window.open('AirportList.aspx?City_Country=0&City_TextBox=' + LowFare_TextBox,'AirportList','toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=630px,height=660px');            
-            }                    
-        }        
+            }
+        }
+
+        function AirlineList() 
+        {
+            window.open('AirlineList.aspx', 'AirlineList', 'toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=300px,height=360px');
+        }
        
         function GetCity(Obj)
         {
@@ -58,7 +63,7 @@
                         <Controls_Left:Left ID="Web_Left" runat="server" />
                     </td>
                     <td rowspan="2" valign="top" bgcolor="#ddf6fe">
-                        <div class="inside_content_rightanv" style="height: 1100px;">
+                        <div class="inside_content_rightanv" style="height:auto">
                             <img src="images/inside_c.jpg" alt="" />
                             <div class="inside_content_rightlink">
                                 <span class="inside_content_rightlink2"></span><span class="inside_content_rightlink3">
@@ -77,12 +82,7 @@
                                                 <asp:RadioButton ID="LowFare_Type2" GroupName="LowFare_Type" Text="One-way" runat="server" AutoPostBack="true" oncheckedchanged="LowFare_Type_CheckedChanged" />&nbsp;
                                                 <asp:RadioButton ID="LowFare_Type3" GroupName="LowFare_Type" Text="Multi-city" runat="server" AutoPostBack="true" oncheckedchanged="LowFare_Type_CheckedChanged" />&nbsp;
                                             </td>
-                                        </tr>
-                                        <tr id="LowFare_Flexibility_TD" runat="server">
-                                            <td align="left" style="height: 50px">
-                                                <asp:CheckBox ID="LowFare_Flexibility" Text="Flexibility of +/- 1 day" runat="server" Checked="true" />
-                                            </td>
-                                        </tr>
+                                        </tr>                                        
                                         <tr id="LowFare_Text_Type1" runat="server">
                                             <td align="left" style="height: 50px">
                                                 &nbsp;From
@@ -95,13 +95,16 @@
                                                 &nbsp;<asp:TextBox ID="LowFare_Detail_To_Text_Type1" Width="180" runat="server" onblur="GetCity(this);" MaxLength="200"></asp:TextBox><img src="images/button_list.gif" alt="" onclick="CityList('LowFare_Detail_To_Text_Type1');" style="cursor:pointer" />
                                                 <br />
                                                 <br />
-                                                <table align="left" width="95" cellpadding="0" cellspacing="0" border="0">
+                                                <table align="left" width="350" cellpadding="0" cellspacing="0" border="0">
                                                     <tr>
                                                         <td>
                                                             &nbsp;Departing
                                                         </td>
                                                         <td>
                                                             &nbsp;Time
+                                                        </td>
+                                                        <td>
+                                                            &nbsp;Flexibility of day
                                                         </td>
                                                     </tr>
                                                     <tr style="height: 30px">
@@ -139,8 +142,26 @@
                                                                 <asp:ListItem Value="11 pm">11 pm</asp:ListItem>                                                                
                                                             </asp:DropDownList>
                                                         </td>
+                                                        <td>
+                                                            &nbsp;<asp:DropDownList ID="LowFare_Detail_Flexibility1_Type1" runat="server">
+                                                                <asp:ListItem Value="1" Enabled="true">1</asp:ListItem>
+                                                                <asp:ListItem Value="2">2</asp:ListItem>
+                                                                <asp:ListItem Value="3">3</asp:ListItem>
+                                                                <asp:ListItem Value="4">4</asp:ListItem>
+                                                                <asp:ListItem Value="5">5</asp:ListItem>
+                                                                <asp:ListItem Value="6">6</asp:ListItem>
+                                                                <asp:ListItem Value="7">7</asp:ListItem>
+                                                                <asp:ListItem Value="8">8</asp:ListItem>
+                                                                <asp:ListItem Value="9">9</asp:ListItem>
+                                                                <asp:ListItem Value="10">10</asp:ListItem>
+                                                                <asp:ListItem Value="10+">10+</asp:ListItem>                                                                                                                       
+                                                            </asp:DropDownList>
+                                                        </td>
                                                     </tr>
                                                     <tr style="height: 10px">
+                                                        <td>
+                                                            &nbsp;
+                                                        </td>
                                                         <td>
                                                             &nbsp;
                                                         </td>
@@ -154,6 +175,9 @@
                                                         </td>
                                                         <td>
                                                             &nbsp;Time
+                                                        </td>
+                                                        <td>
+                                                            &nbsp;Flexibility of day
                                                         </td>
                                                     </tr>
                                                     <tr style="height: 30px">
@@ -191,6 +215,21 @@
                                                                 <asp:ListItem Value="11 pm">11 pm</asp:ListItem>
                                                             </asp:DropDownList>
                                                         </td>
+                                                        <td>
+                                                            &nbsp;<asp:DropDownList ID="LowFare_Detail_Flexibility2_Type2" runat="server">
+                                                                <asp:ListItem Value="1" Enabled="true">1</asp:ListItem>
+                                                                <asp:ListItem Value="2">2</asp:ListItem>
+                                                                <asp:ListItem Value="3">3</asp:ListItem>
+                                                                <asp:ListItem Value="4">4</asp:ListItem>
+                                                                <asp:ListItem Value="5">5</asp:ListItem>
+                                                                <asp:ListItem Value="6">6</asp:ListItem>
+                                                                <asp:ListItem Value="7">7</asp:ListItem>
+                                                                <asp:ListItem Value="8">8</asp:ListItem>
+                                                                <asp:ListItem Value="9">9</asp:ListItem>
+                                                                <asp:ListItem Value="10">10</asp:ListItem>
+                                                                <asp:ListItem Value="10+">10+</asp:ListItem>                                                                                                                       
+                                                            </asp:DropDownList>
+                                                        </td>
                                                     </tr>
                                                 </table>
                                             </td>
@@ -207,13 +246,16 @@
                                                 &nbsp;<asp:TextBox ID="LowFare_Detail_To_Text_Type2" Width="180" runat="server" onblur="GetCity(this);" MaxLength="200"></asp:TextBox><img src="images/button_list.gif" alt="" onclick="CityList('LowFare_Detail_To_Text_Type2');" style="cursor:pointer" />
                                                 <br />
                                                 <br />
-                                                <table align="left" width="95" cellpadding="0" cellspacing="0" border="0">
+                                                <table align="left" width="350" cellpadding="0" cellspacing="0" border="0">
                                                     <tr>
                                                         <td>
                                                             &nbsp;Departing
                                                         </td>
                                                         <td>
                                                             &nbsp;Time
+                                                        </td>
+                                                        <td>
+                                                            &nbsp;Flexibility of day
                                                         </td>
                                                     </tr>
                                                     <tr style="height: 30px">
@@ -251,6 +293,21 @@
                                                                 <asp:ListItem Value="11 pm">11 pm</asp:ListItem>
                                                             </asp:DropDownList>
                                                         </td>
+                                                        <td>
+                                                            &nbsp;<asp:DropDownList ID="LowFare_Detail_Flexibility1_Type2" runat="server">
+                                                                <asp:ListItem Value="1" Enabled="true">1</asp:ListItem>
+                                                                <asp:ListItem Value="2">2</asp:ListItem>
+                                                                <asp:ListItem Value="3">3</asp:ListItem>
+                                                                <asp:ListItem Value="4">4</asp:ListItem>
+                                                                <asp:ListItem Value="5">5</asp:ListItem>
+                                                                <asp:ListItem Value="6">6</asp:ListItem>
+                                                                <asp:ListItem Value="7">7</asp:ListItem>
+                                                                <asp:ListItem Value="8">8</asp:ListItem>
+                                                                <asp:ListItem Value="9">9</asp:ListItem>
+                                                                <asp:ListItem Value="10">10</asp:ListItem>
+                                                                <asp:ListItem Value="10+">10+</asp:ListItem>                                                                                                                       
+                                                            </asp:DropDownList>
+                                                        </td>
                                                     </tr>                                                    
                                                 </table>
                                             </td>
@@ -269,13 +326,16 @@
                                                 &nbsp;<asp:TextBox ID="LowFare_Detail_To_Text_Type3_1" Width="180" runat="server" onblur="GetCity(this);" MaxLength="200"></asp:TextBox><img src="images/button_list.gif" alt="" onclick="CityList('LowFare_Detail_To_Text_Type3_1');" style="cursor:pointer" />
                                                 <br />
                                                 <br />
-                                                <table align="left" width="95" cellpadding="0" cellspacing="0" border="0">
+                                                <table align="left" width="350" cellpadding="0" cellspacing="0" border="0">
                                                     <tr>
                                                         <td>
                                                             &nbsp;Departing
                                                         </td>
                                                         <td>
                                                             &nbsp;Time
+                                                        </td>
+                                                        <td>
+                                                            &nbsp;Flexibility of day
                                                         </td>
                                                     </tr>
                                                     <tr style="height: 30px">
@@ -313,6 +373,21 @@
                                                                 <asp:ListItem Value="11 pm">11 pm</asp:ListItem>
                                                             </asp:DropDownList>
                                                         </td>
+                                                        <td>
+                                                            &nbsp;<asp:DropDownList ID="LowFare_Detail_Flexibility1_Type3_1" runat="server">
+                                                                <asp:ListItem Value="1" Enabled="true">1</asp:ListItem>
+                                                                <asp:ListItem Value="2">2</asp:ListItem>
+                                                                <asp:ListItem Value="3">3</asp:ListItem>
+                                                                <asp:ListItem Value="4">4</asp:ListItem>
+                                                                <asp:ListItem Value="5">5</asp:ListItem>
+                                                                <asp:ListItem Value="6">6</asp:ListItem>
+                                                                <asp:ListItem Value="7">7</asp:ListItem>
+                                                                <asp:ListItem Value="8">8</asp:ListItem>
+                                                                <asp:ListItem Value="9">9</asp:ListItem>
+                                                                <asp:ListItem Value="10">10</asp:ListItem>
+                                                                <asp:ListItem Value="10+">10+</asp:ListItem>                                                                                                                       
+                                                            </asp:DropDownList>
+                                                        </td>
                                                     </tr>                                                    
                                                 </table>
                                                 <br /><br /><br /><br />
@@ -328,13 +403,16 @@
                                                 &nbsp;<asp:TextBox ID="LowFare_Detail_To_Text_Type3_2" Width="180" runat="server" onblur="GetCity(this);" MaxLength="200"></asp:TextBox><img src="images/button_list.gif" alt="" onclick="CityList('LowFare_Detail_To_Text_Type3_2');" style="cursor:pointer" />
                                                 <br />
                                                 <br />
-                                                <table align="left" width="95" cellpadding="0" cellspacing="0" border="0">
+                                                <table align="left" width="350" cellpadding="0" cellspacing="0" border="0">
                                                     <tr>
                                                         <td>
                                                             &nbsp;Departing
                                                         </td>
                                                         <td>
                                                             &nbsp;Time
+                                                        </td>
+                                                        <td>
+                                                            &nbsp;Flexibility of day
                                                         </td>
                                                     </tr>
                                                     <tr style="height: 30px">
@@ -372,6 +450,21 @@
                                                                 <asp:ListItem Value="11 pm">11 pm</asp:ListItem>
                                                             </asp:DropDownList>
                                                         </td>
+                                                        <td>
+                                                            &nbsp;<asp:DropDownList ID="LowFare_Detail_Flexibility1_Type3_2" runat="server">
+                                                                <asp:ListItem Value="1" Enabled="true">1</asp:ListItem>
+                                                                <asp:ListItem Value="2">2</asp:ListItem>
+                                                                <asp:ListItem Value="3">3</asp:ListItem>
+                                                                <asp:ListItem Value="4">4</asp:ListItem>
+                                                                <asp:ListItem Value="5">5</asp:ListItem>
+                                                                <asp:ListItem Value="6">6</asp:ListItem>
+                                                                <asp:ListItem Value="7">7</asp:ListItem>
+                                                                <asp:ListItem Value="8">8</asp:ListItem>
+                                                                <asp:ListItem Value="9">9</asp:ListItem>
+                                                                <asp:ListItem Value="10">10</asp:ListItem>
+                                                                <asp:ListItem Value="10+">10+</asp:ListItem>                                                                                                                       
+                                                            </asp:DropDownList>
+                                                        </td>
                                                     </tr>                                                    
                                                 </table>
                                                 <br /><br /><br /><br />
@@ -387,13 +480,16 @@
                                                 &nbsp;<asp:TextBox ID="LowFare_Detail_To_Text_Type3_3" Width="180" runat="server" onblur="GetCity(this);" MaxLength="200"></asp:TextBox><img src="images/button_list.gif" alt="" onclick="CityList('LowFare_Detail_To_Text_Type3_3');" style="cursor:pointer" />
                                                 <br />
                                                 <br />
-                                                <table align="left" width="95" cellpadding="0" cellspacing="0" border="0">
+                                                <table align="left" width="350" cellpadding="0" cellspacing="0" border="0">
                                                     <tr>
                                                         <td>
                                                             &nbsp;Departing
                                                         </td>
                                                         <td>
                                                             &nbsp;Time
+                                                        </td>
+                                                        <td>
+                                                            &nbsp;Flexibility of day
                                                         </td>
                                                     </tr>
                                                     <tr style="height: 30px">
@@ -431,6 +527,21 @@
                                                                 <asp:ListItem Value="11 pm">11 pm</asp:ListItem>
                                                             </asp:DropDownList>
                                                         </td>
+                                                        <td>
+                                                            &nbsp;<asp:DropDownList ID="LowFare_Detail_Flexibility1_Type3_3" runat="server">
+                                                                <asp:ListItem Value="1" Enabled="true">1</asp:ListItem>
+                                                                <asp:ListItem Value="2">2</asp:ListItem>
+                                                                <asp:ListItem Value="3">3</asp:ListItem>
+                                                                <asp:ListItem Value="4">4</asp:ListItem>
+                                                                <asp:ListItem Value="5">5</asp:ListItem>
+                                                                <asp:ListItem Value="6">6</asp:ListItem>
+                                                                <asp:ListItem Value="7">7</asp:ListItem>
+                                                                <asp:ListItem Value="8">8</asp:ListItem>
+                                                                <asp:ListItem Value="9">9</asp:ListItem>
+                                                                <asp:ListItem Value="10">10</asp:ListItem>
+                                                                <asp:ListItem Value="10+">10+</asp:ListItem>                                                                                                                       
+                                                            </asp:DropDownList>
+                                                        </td>
                                                     </tr>                                                    
                                                 </table>
                                                 <br /><br /><br /><br />
@@ -446,13 +557,16 @@
                                                 &nbsp;<asp:TextBox ID="LowFare_Detail_To_Text_Type3_4" Width="180" runat="server" onblur="GetCity(this);" MaxLength="200"></asp:TextBox><img src="images/button_list.gif" alt="" onclick="CityList('LowFare_Detail_To_Text_Type3_4');" style="cursor:pointer" />
                                                 <br />
                                                 <br />
-                                                <table align="left" width="95" cellpadding="0" cellspacing="0" border="0">
+                                                <table align="left" width="350" cellpadding="0" cellspacing="0" border="0">
                                                     <tr>
                                                         <td>
                                                             &nbsp;Departing
                                                         </td>
                                                         <td>
                                                             &nbsp;Time
+                                                        </td>
+                                                        <td>
+                                                            &nbsp;Flexibility of day
                                                         </td>
                                                     </tr>
                                                     <tr style="height: 30px">
@@ -488,6 +602,21 @@
                                                                 <asp:ListItem Value="9 pm">9 pm</asp:ListItem>
                                                                 <asp:ListItem Value="10 pm">10 pm</asp:ListItem>
                                                                 <asp:ListItem Value="11 pm">11 pm</asp:ListItem>
+                                                            </asp:DropDownList>
+                                                        </td>
+                                                        <td>
+                                                            &nbsp;<asp:DropDownList ID="LowFare_Detail_Flexibility1_Type3_4" runat="server">
+                                                                <asp:ListItem Value="1" Enabled="true">1</asp:ListItem>
+                                                                <asp:ListItem Value="2">2</asp:ListItem>
+                                                                <asp:ListItem Value="3">3</asp:ListItem>
+                                                                <asp:ListItem Value="4">4</asp:ListItem>
+                                                                <asp:ListItem Value="5">5</asp:ListItem>
+                                                                <asp:ListItem Value="6">6</asp:ListItem>
+                                                                <asp:ListItem Value="7">7</asp:ListItem>
+                                                                <asp:ListItem Value="8">8</asp:ListItem>
+                                                                <asp:ListItem Value="9">9</asp:ListItem>
+                                                                <asp:ListItem Value="10">10</asp:ListItem>
+                                                                <asp:ListItem Value="10+">10+</asp:ListItem>                                                                                                                       
                                                             </asp:DropDownList>
                                                         </td>
                                                     </tr>                                                    
@@ -553,58 +682,46 @@
                                         </tr>
                                         <tr>
                                             <td style="height:20px">&nbsp;</td>
-                                        </tr>
+                                        </tr>                                        
                                         <tr>
                                             <td>
-                                                <table align="left" width="300" cellpadding="0" cellspacing="0" border="0">
+                                                <table align="left" width="400" cellpadding="0" cellspacing="0" border="0">
+                                                    <tr align="left" style="height: 25px">
+                                                        <td>
+                                                            &nbsp;Passengers
+                                                        </td>                                                                                                               
+                                                    </tr>
+                                                    <tr align="left" style="height: 25px">
+                                                        <td>
+                                                            &nbsp;<asp:TextBox ID="LowFare_Passengers" runat="server" Width="350" MaxLength="1024"></asp:TextBox>
+                                                        </td>                                                                                                               
+                                                    </tr>
+                                                    <tr align="left" style="height: 10px">
+                                                        <td>
+                                                            &nbsp;
+                                                        </td>                                                                                                               
+                                                    </tr>
                                                     <tr align="left" style="height: 25px">
                                                         <td>
                                                             &nbsp;Airline
-                                                        </td>
-                                                        <td>
-                                                            &nbsp;Class
-                                                        </td>                                                        
+                                                        </td>                                                                                                               
                                                     </tr>
                                                     <tr align="left" style="height: 30px">
                                                         <td>
-                                                            &nbsp;<asp:DropDownList ID="LowFare_Airline" runat="server">
-                                                                <asp:ListItem Value="" Enabled="true">Search All Airlines</asp:ListItem>
-                                                                <asp:ListItem Value="Air Canada">Air Canada</asp:ListItem>
-                                                                <asp:ListItem Value="Air China">Air China</asp:ListItem>
-                                                                <asp:ListItem Value="Air France">Air France</asp:ListItem>
-                                                                <asp:ListItem Value="Alaska Airlines">Alaska Airlines</asp:ListItem>
-                                                                <asp:ListItem Value="All Nippon Airways">All Nippon Airways</asp:ListItem>
-                                                                <asp:ListItem Value="America West Airlines">America West Airlines</asp:ListItem>
-                                                                <asp:ListItem Value="American Airlines">American Airlines</asp:ListItem>
-                                                                <asp:ListItem Value="Asiana">Asiana</asp:ListItem>
-                                                                <asp:ListItem Value="British Airways">British Airways</asp:ListItem>
-                                                                <asp:ListItem Value="Cathay Pacific">Cathay Pacific</asp:ListItem>
-                                                                <asp:ListItem Value="China Airlines">China Airlines</asp:ListItem>
-                                                                <asp:ListItem Value="China Eastern Airlines">China Eastern Airlines</asp:ListItem>
-                                                                <asp:ListItem Value="China Southern Airlines">China Southern Airlines</asp:ListItem>
-                                                                <asp:ListItem Value="Continental">Continental</asp:ListItem>
-                                                                <asp:ListItem Value="Delta Airlines">Delta Airlines</asp:ListItem>
-                                                                <asp:ListItem Value="Dragon Air">Dragon Air</asp:ListItem>
-                                                                <asp:ListItem Value="Frontier Airlines">Frontier Airlines</asp:ListItem>
-                                                                <asp:ListItem Value="Hainan Airlines">Hainan Airlines</asp:ListItem>                                                                
-                                                                <asp:ListItem Value="Japan Airlines">Japan Airlines</asp:ListItem>
-                                                                <asp:ListItem Value="KLM">KLM</asp:ListItem>
-                                                                <asp:ListItem Value="Korean Air">Korean Air</asp:ListItem>
-                                                                <asp:ListItem Value="Lufthansa">Lufthansa</asp:ListItem>
-                                                                <asp:ListItem Value="Malysian Airlines">Malysian Airlines</asp:ListItem>
-                                                                <asp:ListItem Value="Northwest Airlines">Northwest Airlines</asp:ListItem>
-                                                                <asp:ListItem Value="Philippine Airlines">Philippine Airlines</asp:ListItem>
-                                                                <asp:ListItem Value="SAS">SAS</asp:ListItem>
-                                                                <asp:ListItem Value="Shanghai Airlines">Shanghai Airlines</asp:ListItem>
-                                                                <asp:ListItem Value="Singapore Airlines">Singapore Airlines</asp:ListItem>
-                                                                <asp:ListItem Value="Spirit Airlines">Spirit Airlines</asp:ListItem>                                                                
-                                                                <asp:ListItem Value="Thai Airways Intl">Thai Airways Intl</asp:ListItem>
-                                                                <asp:ListItem Value="United Airlines">United Airlines</asp:ListItem>
-                                                                <asp:ListItem Value="US Airways">US Airways</asp:ListItem>
-                                                                <asp:ListItem Value="Vietnam Airlines">Vietnam Airlines</asp:ListItem>
-                                                                <asp:ListItem Value="Virgin Atlantic">Virgin Atlantic</asp:ListItem>                                                                                                                                
-                                                            </asp:DropDownList>
-                                                        </td>                                                        
+                                                            &nbsp;<asp:TextBox ID="LowFare_Airline_Text" runat="server" onclick="AirlineList();" TextMode="MultiLine" Width="350" Height="150"></asp:TextBox>                                                      
+                                                        </td>
+                                                    </tr>
+                                                    <tr align="left" style="height: 10px">
+                                                        <td>
+                                                            &nbsp;
+                                                        </td>                                                                                                               
+                                                    </tr>
+                                                    <tr align="left" style="height: 25px">                                                    
+                                                        <td>
+                                                            &nbsp;Class
+                                                        </td>
+                                                    </tr>
+                                                    <tr align="left" style="height: 30px">                              
                                                         <td>
                                                             &nbsp;<asp:DropDownList ID="LowFare_Class" runat="server">
                                                                 <asp:ListItem Value="Economy/Coach" Enabled="true">Economy/Coach</asp:ListItem>

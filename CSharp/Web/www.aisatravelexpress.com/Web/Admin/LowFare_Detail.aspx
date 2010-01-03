@@ -16,8 +16,8 @@
             if (LowFare_TextBox != "")
             {
                 window.open('../AirportList.aspx?City_Country=0&City_TextBox=' + LowFare_TextBox,'AirportList','toolbar=no,menubar=no,location=no,status=no,resizable=yes,scrollbars=yes,width=630px,height=660px');            
-            }                    
-        }        
+            }
+        }
        
         function GetCity(Obj)
         {
@@ -83,12 +83,7 @@
                             <asp:RadioButton ID="LowFare_Type2" GroupName="LowFare_Type" Text="One-way" runat="server" AutoPostBack="true" oncheckedchanged="LowFare_Type_CheckedChanged" />&nbsp;
                             <asp:RadioButton ID="LowFare_Type3" GroupName="LowFare_Type" Text="Multi-city" runat="server" AutoPostBack="true" oncheckedchanged="LowFare_Type_CheckedChanged" />&nbsp;
                         </td>
-                    </tr>
-                    <tr id="LowFare_Flexibility_TD" runat="server">
-                        <td align="left" style="height: 50px">
-                            <asp:CheckBox ID="LowFare_Flexibility" Text="Flexibility of +/- 1 day" runat="server" Checked="true" />
-                        </td>
-                    </tr>
+                    </tr>                   
                     <tr id="LowFare_Text_Type1" runat="server">
                         <td align="left" style="height: 50px">
                             &nbsp;From
@@ -573,43 +568,7 @@
                                 </tr>
                                 <tr align="left" style="height: 30px">
                                     <td>
-                                        &nbsp;<asp:DropDownList ID="LowFare_Airline" runat="server">
-                                            <asp:ListItem Value="" Enabled="true">Search All Airlines</asp:ListItem>
-                                            <asp:ListItem Value="Air Canada">Air Canada</asp:ListItem>
-                                            <asp:ListItem Value="Air China">Air China</asp:ListItem>
-                                            <asp:ListItem Value="Air France">Air France</asp:ListItem>
-                                            <asp:ListItem Value="Alaska Airlines">Alaska Airlines</asp:ListItem>
-                                            <asp:ListItem Value="All Nippon Airways">All Nippon Airways</asp:ListItem>
-                                            <asp:ListItem Value="America West Airlines">America West Airlines</asp:ListItem>
-                                            <asp:ListItem Value="American Airlines">American Airlines</asp:ListItem>
-                                            <asp:ListItem Value="Asiana">Asiana</asp:ListItem>
-                                            <asp:ListItem Value="British Airways">British Airways</asp:ListItem>
-                                            <asp:ListItem Value="Cathay Pacific">Cathay Pacific</asp:ListItem>
-                                            <asp:ListItem Value="China Airlines">China Airlines</asp:ListItem>
-                                            <asp:ListItem Value="China Eastern Airlines">China Eastern Airlines</asp:ListItem>
-                                            <asp:ListItem Value="China Southern Airlines">China Southern Airlines</asp:ListItem>
-                                            <asp:ListItem Value="Continental">Continental</asp:ListItem>
-                                            <asp:ListItem Value="Delta Airlines">Delta Airlines</asp:ListItem>
-                                            <asp:ListItem Value="Dragon Air">Dragon Air</asp:ListItem>
-                                            <asp:ListItem Value="Frontier Airlines">Frontier Airlines</asp:ListItem>
-                                            <asp:ListItem Value="Hainan Airlines">Hainan Airlines</asp:ListItem>                                                                
-                                            <asp:ListItem Value="Japan Airlines">Japan Airlines</asp:ListItem>
-                                            <asp:ListItem Value="KLM">KLM</asp:ListItem>
-                                            <asp:ListItem Value="Korean Air">Korean Air</asp:ListItem>
-                                            <asp:ListItem Value="Lufthansa">Lufthansa</asp:ListItem>
-                                            <asp:ListItem Value="Malysian Airlines">Malysian Airlines</asp:ListItem>
-                                            <asp:ListItem Value="Northwest Airlines">Northwest Airlines</asp:ListItem>
-                                            <asp:ListItem Value="Philippine Airlines">Philippine Airlines</asp:ListItem>
-                                            <asp:ListItem Value="SAS">SAS</asp:ListItem>
-                                            <asp:ListItem Value="Shanghai Airlines">Shanghai Airlines</asp:ListItem>
-                                            <asp:ListItem Value="Singapore Airlines">Singapore Airlines</asp:ListItem>
-                                            <asp:ListItem Value="Spirit Airlines">Spirit Airlines</asp:ListItem>                                                                
-                                            <asp:ListItem Value="Thai Airways Intl">Thai Airways Intl</asp:ListItem>
-                                            <asp:ListItem Value="United Airlines">United Airlines</asp:ListItem>
-                                            <asp:ListItem Value="US Airways">US Airways</asp:ListItem>
-                                            <asp:ListItem Value="Vietnam Airlines">Vietnam Airlines</asp:ListItem>
-                                            <asp:ListItem Value="Virgin Atlantic">Virgin Atlantic</asp:ListItem>                                                                                                                                
-                                        </asp:DropDownList>
+                                        &nbsp;<asp:TextBox ID="LowFare_Airline_Text" runat="server" TextMode="MultiLine"></asp:TextBox>
                                     </td>                                                        
                                     <td>
                                         &nbsp;<asp:DropDownList ID="LowFare_Class" runat="server">
