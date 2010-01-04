@@ -24,7 +24,7 @@
                             <Controls_Left:Left ID="Web_Left" runat="server" />        		
 		                </td>
 			            <td rowspan="2" valign="top" bgcolor="#ddf6fe">
-			                <div class="inside_content_rightanv" style="height:910px;">
+			                <div class="inside_content_rightanv">
 			                    <img src="images/inside_d.jpg" alt="" />
 			                    <div class="inside_content_rightlink">
 				                    <span class="inside_content_rightlink2"></span>

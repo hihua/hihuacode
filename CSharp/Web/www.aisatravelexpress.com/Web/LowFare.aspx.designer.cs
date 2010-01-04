@@ -176,13 +176,13 @@ namespace Web {
         protected global::System.Web.UI.WebControls.DropDownList LowFare_Detail_Time2_Select_Type1;
         
         /// <summary>
-        /// LowFare_Detail_Flexibility2_Type2 控件。
+        /// LowFare_Detail_Flexibility2_Type1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList LowFare_Detail_Flexibility2_Type2;
+        protected global::System.Web.UI.WebControls.DropDownList LowFare_Detail_Flexibility2_Type1;
         
         /// <summary>
         /// LowFare_Text_Type2 控件。
@@ -464,13 +464,13 @@ namespace Web {
         protected global::System.Web.UI.WebControls.TextBox LowFare_Passengers;
         
         /// <summary>
-        /// LowFare_Airline_Text 控件。
+        /// LowFare_Airline 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox LowFare_Airline_Text;
+        protected global::System.Web.UI.WebControls.TextBox LowFare_Airline;
         
         /// <summary>
         /// LowFare_Class 控件。

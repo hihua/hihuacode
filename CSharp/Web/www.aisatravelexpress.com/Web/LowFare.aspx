@@ -216,7 +216,7 @@
                                                             </asp:DropDownList>
                                                         </td>
                                                         <td>
-                                                            &nbsp;<asp:DropDownList ID="LowFare_Detail_Flexibility2_Type2" runat="server">
+                                                            &nbsp;<asp:DropDownList ID="LowFare_Detail_Flexibility2_Type1" runat="server">
                                                                 <asp:ListItem Value="1" Enabled="true">1</asp:ListItem>
                                                                 <asp:ListItem Value="2">2</asp:ListItem>
                                                                 <asp:ListItem Value="3">3</asp:ListItem>
@@ -685,7 +685,7 @@
                                         </tr>                                        
                                         <tr>
                                             <td>
-                                                <table align="left" width="400" cellpadding="0" cellspacing="0" border="0">
+                                                <table align="left" width="450" cellpadding="0" cellspacing="0" border="0">
                                                     <tr align="left" style="height: 25px">
                                                         <td>
                                                             &nbsp;Passengers
@@ -693,7 +693,7 @@
                                                     </tr>
                                                     <tr align="left" style="height: 25px">
                                                         <td>
-                                                            &nbsp;<asp:TextBox ID="LowFare_Passengers" runat="server" Width="350" MaxLength="1024"></asp:TextBox>
+                                                            &nbsp;<asp:TextBox ID="LowFare_Passengers" runat="server" Width="300" MaxLength="1024"></asp:TextBox>(as: Jack;Tom;Marry)
                                                         </td>                                                                                                               
                                                     </tr>
                                                     <tr align="left" style="height: 10px">
@@ -708,7 +708,41 @@
                                                     </tr>
                                                     <tr align="left" style="height: 30px">
                                                         <td>
-                                                            &nbsp;<asp:TextBox ID="LowFare_Airline_Text" runat="server" onclick="AirlineList();" TextMode="MultiLine" Width="350" Height="150"></asp:TextBox>                                                      
+                                                            &nbsp;<asp:TextBox ID="LowFare_Airline" Width="180" runat="server" MaxLength="1024" ReadOnly="true" Text="Search All Airlines"></asp:TextBox><img src="images/button_list.gif" alt="" onclick="AirlineList();" style="cursor:pointer" />                                                      
+                                                            <input type="checkbox" name="checkbox1" id="checkbox1" value="Air Canada" style="display:none" />
+                                                            <input type="checkbox" name="checkbox2" id="checkbox2" value="Air China" style="display:none" />
+                                                            <input type="checkbox" name="checkbox3" id="checkbox3" value="Air France" style="display:none" />
+                                                            <input type="checkbox" name="checkbox4" id="checkbox4" value="Alaska Airlines" style="display:none" />
+                                                            <input type="checkbox" name="checkbox5" id="checkbox5" value="All Nippon Airways" style="display:none" />
+                                                            <input type="checkbox" name="checkbox6" id="checkbox6" value="America West Airlines" style="display:none" />
+                                                            <input type="checkbox" name="checkbox7" id="checkbox7" value="American Airlines" style="display:none" />
+                                                            <input type="checkbox" name="checkbox8" id="checkbox8" value="Asiana" style="display:none" />
+                                                            <input type="checkbox" name="checkbox9" id="checkbox9" value="British Airways" style="display:none" />
+                                                            <input type="checkbox" name="checkbox10" id="checkbox10" value="Cathay Pacific" style="display:none" />
+                                                            <input type="checkbox" name="checkbox11" id="checkbox11" value="China Airlines" style="display:none" />
+                                                            <input type="checkbox" name="checkbox12" id="checkbox12" value="China Eastern Airlines" style="display:none" />
+                                                            <input type="checkbox" name="checkbox13" id="checkbox13" value="China Southern Airlines" style="display:none" />
+                                                            <input type="checkbox" name="checkbox14" id="checkbox14" value="Continental" style="display:none" />
+                                                            <input type="checkbox" name="checkbox15" id="checkbox15" value="Delta Airlines" style="display:none" />
+                                                            <input type="checkbox" name="checkbox16" id="checkbox16" value="Dragon Air" style="display:none" />
+                                                            <input type="checkbox" name="checkbox17" id="checkbox17" value="Frontier Airlines" style="display:none" />
+                                                            <input type="checkbox" name="checkbox18" id="checkbox18" value="Hainan Airlines" style="display:none" />
+                                                            <input type="checkbox" name="checkbox19" id="checkbox19" value="Japan Airlines" style="display:none" />
+                                                            <input type="checkbox" name="checkbox20" id="checkbox20" value="KLM" style="display:none" />
+                                                            <input type="checkbox" name="checkbox21" id="checkbox21" value="Korean Air" style="display:none" />
+                                                            <input type="checkbox" name="checkbox22" id="checkbox22" value="Lufthansa" style="display:none" />
+                                                            <input type="checkbox" name="checkbox23" id="checkbox23" value="Malysian Airlines" style="display:none" />
+                                                            <input type="checkbox" name="checkbox24" id="checkbox24" value="Northwest Airlines" style="display:none" />
+                                                            <input type="checkbox" name="checkbox25" id="checkbox25" value="Philippine Airlines" style="display:none" />
+                                                            <input type="checkbox" name="checkbox26" id="checkbox26" value="SAS" style="display:none" />
+                                                            <input type="checkbox" name="checkbox27" id="checkbox27" value="Shanghai Airlines" style="display:none" />
+                                                            <input type="checkbox" name="checkbox28" id="checkbox28" value="Singapore Airlines" style="display:none" />
+                                                            <input type="checkbox" name="checkbox29" id="checkbox29" value="Spirit Airlines" style="display:none" />
+                                                            <input type="checkbox" name="checkbox30" id="checkbox30" value="Thai Airways Intl" style="display:none" />
+                                                            <input type="checkbox" name="checkbox31" id="checkbox31" value="United Airlines" style="display:none" />
+                                                            <input type="checkbox" name="checkbox32" id="checkbox32" value="US Airways" style="display:none" />
+                                                            <input type="checkbox" name="checkbox33" id="checkbox33" value="Vietnam Airlines" style="display:none" />
+                                                            <input type="checkbox" name="checkbox34" id="checkbox34" value="Virgin Atlantic" style="display:none" />                                                            
                                                         </td>
                                                     </tr>
                                                     <tr align="left" style="height: 10px">
@@ -741,6 +775,9 @@
                                             <td align="left">
                                                 &nbsp;<asp:Button ID="LowFare_Submit" runat="server" Text="Find Low Fares" Width="200" Height="40" OnClick="LowFare_Submit_Click" />
                                             </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="height:160px">&nbsp;</td>
                                         </tr>
                                     </table>
                                 </div>
