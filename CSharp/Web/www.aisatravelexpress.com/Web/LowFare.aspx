@@ -63,7 +63,7 @@
                         <Controls_Left:Left ID="Web_Left" runat="server" />
                     </td>
                     <td rowspan="2" valign="top" bgcolor="#ddf6fe">
-                        <div class="inside_content_rightanv" style="height:auto">
+                        <div id="Content_Height" class="inside_content_rightanv" style="height:auto" runat="server">
                             <img src="images/inside_c.jpg" alt="" />
                             <div class="inside_content_rightlink">
                                 <span class="inside_content_rightlink2"></span><span class="inside_content_rightlink3">

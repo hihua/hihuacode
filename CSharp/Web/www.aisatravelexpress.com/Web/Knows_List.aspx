@@ -29,7 +29,7 @@
 			                    <div id="Knows_Lists" class="inside_content_rightlink" runat="server">
 				                    <span class="inside_content_rightlink2"></span>
 				                    <span class="inside_content_rightlink3"><asp:HyperLink ID="HyperLink_Title" runat="server" class="nav10"></asp:HyperLink>>><asp:HyperLink ID="HyperLink_Knows" runat="server" class="nav10"></asp:HyperLink></span>
-				                    <span style="float:right;"><asp:HyperLink ID="HyperLink_Knows_ClassID_3" runat="server"></asp:HyperLink><asp:HyperLink ID="HyperLink_Knows_ClassID_1" runat="server"></asp:HyperLink><asp:HyperLink ID="HyperLink_Knows_ClassID_2" runat="server"></asp:HyperLink><img src="images/inside_8.jpg" alt="" /></span>				                    
+				                    <span style="float:right;"><span style=" float:left; padding-top:2px;"><asp:HyperLink ID="HyperLink_Knows_ClassID_3" runat="server"></asp:HyperLink>&nbsp;<asp:HyperLink ID="HyperLink_Knows_ClassID_1" runat="server"></asp:HyperLink>&nbsp;<asp:HyperLink ID="HyperLink_Knows_ClassID_2" runat="server"></asp:HyperLink></span><img src="images/inside_8.jpg" alt="" /></span>				                    
 				                </div>		
 				                <div id="AirportCode" runat="server" style="margin-left:20px;">
 				                    <div style="float:left; font-weight:bold">Search by Airport Code:</div>

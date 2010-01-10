@@ -289,10 +289,14 @@ namespace Web
                 {
                     p_HyperLink1.NavigateUrl = "News_List.aspx?News_ClassID=1";
                     p_HyperLink1.Text = g_News[1][g_LanguageID - 1];
-                    if (g_News_ClassID == 1)
-                        p_HyperLink1.ImageUrl = "images/bo1_over.gif";
+                    if (g_News_ClassID == 1)                    
+                        p_HyperLink1.ImageUrl = "images/inside_7_1.jpg";
                     else
-                        p_HyperLink1.ImageUrl = "images/bo1.gif";
+                    {
+                        p_HyperLink1.ImageUrl = "images/inside_7_2.jpg";
+                        p_HyperLink1.Attributes.Add("onmouseover", "this.children[0].src='images/inside_7_1.jpg';");
+                        p_HyperLink1.Attributes.Add("onmouseout", "this.children[0].src='images/inside_7_2.jpg';");
+                    }
                 }
 
                 if (p_HyperLink2 != null)
@@ -300,9 +304,13 @@ namespace Web
                     p_HyperLink2.NavigateUrl = "News_List.aspx?News_ClassID=2";
                     p_HyperLink2.Text = g_News[2][g_LanguageID - 1];
                     if (g_News_ClassID == 2)
-                        p_HyperLink2.ImageUrl = "images/bo2_over.gif";
+                        p_HyperLink2.ImageUrl = "images/inside_7_3.jpg";
                     else
-                        p_HyperLink2.ImageUrl = "images/bo2.gif";
+                    {
+                        p_HyperLink2.ImageUrl = "images/inside_7_4.jpg";
+                        p_HyperLink2.Attributes.Add("onmouseover", "this.children[0].src='images/inside_7_3.jpg';");
+                        p_HyperLink2.Attributes.Add("onmouseout", "this.children[0].src='images/inside_7_4.jpg';");
+                    }
                 }
             }
         }
@@ -333,9 +341,13 @@ namespace Web
                     p_HyperLink1.NavigateUrl = "Knows_List.aspx?Knows_ClassID=1";
                     p_HyperLink1.Text = g_Knows[1][g_LanguageID - 1];
                     if (g_Knows_ClassID == 1)
-                        p_HyperLink1.ImageUrl = "images/bo3_over.gif";
+                        p_HyperLink1.ImageUrl = "images/inside_7_5.jpg";
                     else
-                        p_HyperLink1.ImageUrl = "images/bo3.gif";
+                    {
+                        p_HyperLink1.ImageUrl = "images/inside_7_6.jpg";
+                        p_HyperLink1.Attributes.Add("onmouseover", "this.children[0].src='images/inside_7_5.jpg';");
+                        p_HyperLink1.Attributes.Add("onmouseout", "this.children[0].src='images/inside_7_6.jpg';");
+                    }
                 }
 
                 if (p_HyperLink2 != null)
@@ -343,9 +355,13 @@ namespace Web
                     p_HyperLink2.NavigateUrl = "Knows_List.aspx?Knows_ClassID=2";
                     p_HyperLink2.Text = g_Knows[2][g_LanguageID - 1];
                     if (g_Knows_ClassID == 2)
-                        p_HyperLink2.ImageUrl = "images/bo4_over.gif";
+                        p_HyperLink2.ImageUrl = "images/inside_7_7.jpg";
                     else
-                        p_HyperLink2.ImageUrl = "images/bo4.gif";
+                    {
+                        p_HyperLink2.ImageUrl = "images/inside_7_8.jpg";
+                        p_HyperLink2.Attributes.Add("onmouseover", "this.children[0].src='images/inside_7_7.jpg';");
+                        p_HyperLink2.Attributes.Add("onmouseout", "this.children[0].src='images/inside_7_8.jpg';");
+                    }
                 }
 
                 if (p_HyperLink3 != null)
@@ -353,9 +369,13 @@ namespace Web
                     p_HyperLink3.NavigateUrl = "Knows_List.aspx?Knows_ClassID=3";
                     p_HyperLink3.Text = g_Knows[2][g_LanguageID - 1];
                     if (g_Knows_ClassID == 3)
-                        p_HyperLink3.ImageUrl = "images/bo5_over.gif";
+                        p_HyperLink3.ImageUrl = "images/inside_7_9.jpg";
                     else
-                        p_HyperLink3.ImageUrl = "images/bo5.gif";
+                    {
+                        p_HyperLink3.ImageUrl = "images/inside_7_10.jpg";
+                        p_HyperLink3.Attributes.Add("onmouseover", "this.children[0].src='images/inside_7_9.jpg';");
+                        p_HyperLink3.Attributes.Add("onmouseout", "this.children[0].src='images/inside_7_10.jpg';");
+                    }
                 }
             }
         }

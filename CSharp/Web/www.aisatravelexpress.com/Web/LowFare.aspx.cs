@@ -26,6 +26,7 @@ namespace Web
                 {
                     LowFare_Tips.Visible = true;
                     LowFare_Content.Visible = false;
+                    Content_Height.Style[HtmlTextWriterStyle.Height] = "1024px";
                 }
                 else
                 {

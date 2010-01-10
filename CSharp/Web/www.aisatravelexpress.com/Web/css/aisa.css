@@ -38,8 +38,8 @@ a.nav8:link,a.nav8:visited{color:#074f69;text-decoration: none;}
 a.nav8:hover,a.nav8:active{color:#0e759a;text-decoration:underline;}
 a.nav9:link,a.nav9:visited{color:#6a6a6a;text-decoration: none;}
 a.nav9:hover,a.nav9:active{ color:#0e759a;text-decoration: none;}
-a.nav10:link,a.nav10:visited{color:#ffffff;text-decoration:none;}
-a.nav10:hover,a.nav10:active{color:#000000;text-decoration:underline;}
+a.nav10:link,a.nav10:visited{color:#193662;text-decoration:none;}
+a.nav10:hover,a.nav10:active{color:#193662;text-decoration:underline;}
 a.nav11:link,a.nav11:visited{color:#000000;text-decoration:none;}
 a.nav11:hover,a.nav11:active{color:#ffffff;text-decoration:underline;}
 /*首页*/
@@ -102,9 +102,9 @@ a.nav11:hover,a.nav11:active{color:#ffffff;text-decoration:underline;}
 .inside_content_input span{float:left; margin-bottom:10px; width:100px;}
 .inside_content_inputgo{float:left; background:url(../images/inside_button_2.jpg) no-repeat; display:block; width:46px; height:47px; margin-top:10px;}
 .inside_content_rightanv{float:left;overflow: hidden; background-color:#ffffff;width:689px; padding-left:11px;padding-left:11px;border-left:solid 1px #83d8f6;min-height:910px;}
-.inside_content_rightlink{width:680px; height:32px; background:url(../images/inside_9.jpg) repeat-x; color:#ffffff; font-size:14px; margin-bottom:10px;}
+.inside_content_rightlink{width:680px; height:32px; background:url(../images/inside_9.jpg) repeat-x; color:#193662; font-size:14px; margin-bottom:10px; margin-top:2px;}
 .inside_content_rightlink2{background:url(../images/inside_7.jpg) no-repeat; float:left; padding-left:4px; height:32px;}
-.inside_content_rightlink3{float:left; text-indent:5px; padding-top:10px;}
+.inside_content_rightlink3{float:left; text-indent:5px; padding-top:8px;}
 .inside_content_rightlink4{background:url(../images/inside_8.jpg) no-repeat; float: right; padding-right:5px;height:32px;}
 .inside_content_news{ width:637px; height: auto; overflow: hidden; padding-bottom:5px; border-bottom:1px solid #cbebfc; padding-top:10px; margin:0 auto;}
 .inside_content_newsa{ display:block; float:left; border:1px solid #cbebfc; padding:5px;}
