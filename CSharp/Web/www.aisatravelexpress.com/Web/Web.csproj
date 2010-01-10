@@ -116,16 +116,6 @@
     <Content Include="css\aisa.css" />
     <Content Include="css\gray.css" />
     <Content Include="css\window.css" />
-    <Content Include="images\bo1.gif" />
-    <Content Include="images\bo1_over.gif" />
-    <Content Include="images\bo2.gif" />
-    <Content Include="images\bo2_over.gif" />
-    <Content Include="images\bo3.gif" />
-    <Content Include="images\bo3_over.gif" />
-    <Content Include="images\bo4.gif" />
-    <Content Include="images\bo4_over.gif" />
-    <Content Include="images\bo5.gif" />
-    <Content Include="images\bo5_over.gif" />
     <Content Include="images\button_list.gif" />
     <Content Include="images\calendar.gif" />
     <Content Include="images\g_a_bg.gif" />
