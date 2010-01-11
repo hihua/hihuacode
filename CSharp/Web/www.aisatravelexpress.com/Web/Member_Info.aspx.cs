@@ -16,6 +16,8 @@ namespace Web
 {
     public partial class Member_Info : PageBase
     {
+        string Airlines = "";
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -79,7 +81,8 @@ namespace Web
                 Member_Company_Name.Text = g_Member.Member_Company_Name;
                 Member_Company_Tel.Text = g_Member.Member_Company_Tel;
                 Member_Company_Address.Text = g_Member.Member_Company_Address;
-                Member_Airlines.Text = g_Member.Member_Airlines;
+                Member_Airlines.Text = "Search All Airlines";
+                Airlines = g_Member.Member_Airlines;
 
                 if (g_Member.Member_Months != null)
                 {
@@ -221,9 +224,16 @@ namespace Web
                     }
                 }
             }
-
-            g_Member.Member_Airlines = Member_Airlines.Text;
-
+            
+            for (int i = 1; i <= 34; i++)
+            {
+               if (Request["checkbox" + i.ToString()] != null)
+                   g_Member.Member_Airlines += Request["checkbox" + i.ToString()] + ";";
+            }
+            
+            if (g_Member.Member_Airlines.EndsWith(";"))
+               g_Member.Member_Airlines = g_Member.Member_Airlines.Remove(g_Member.Member_Airlines.Length - 1, 1);
+            
             b_Member.Update_Member(g_Member);
             ResponseSuccess("更新资料成功");
         }
@@ -251,6 +261,14 @@ namespace Web
 
             b_Member.Update_Member(g_Member);
             ResponseSuccess("更新密码成功，请重新登录");
+        }
+
+        protected string GetMemberAirlines(string AirlinesText)
+        {
+            if (Airlines.IndexOf(AirlinesText) >= 0)            
+                return "checked=\"checked\" ";                            
+            else
+                return "";
         }
     }
 }

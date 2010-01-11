@@ -90,20 +90,20 @@ namespace Web
             g_NewsName[1] = "Form Download";
             g_News.Add(3, g_NewsName);
 
-            string[] g_KnowsName;
-            g_KnowsName = new string[2];
-            g_KnowsName[0] = "旅游需知";
-            g_KnowsName[1] = "Knows";
-            g_Knows.Add(0, g_KnowsName);
-
+            string[] g_KnowsName;           
             g_KnowsName = new string[2];
             g_KnowsName[0] = "行李规定";
             g_KnowsName[1] = "Luggage";
-            g_Knows.Add(1, g_KnowsName);
+            g_Knows.Add(0, g_KnowsName);
 
             g_KnowsName = new string[2];
             g_KnowsName[0] = "机楼地图";
             g_KnowsName[1] = "Maps";
+            g_Knows.Add(1, g_KnowsName);
+
+            g_KnowsName = new string[2];
+            g_KnowsName[0] = "旅游需知";
+            g_KnowsName[1] = "Knows";
             g_Knows.Add(2, g_KnowsName);
 
             string[] g_TravelName;
@@ -319,10 +319,10 @@ namespace Web
         {
             if (p_HyperLink != null)
             {
-                if (g_Knows_ClassID == 1 || g_Knows_ClassID == 2)
+                if (g_Knows_ClassID == 1 || g_Knows_ClassID == 2 || g_Knows_ClassID == 3)
                 {
                     p_HyperLink.NavigateUrl = "Knows_List.aspx?Knows_ClassID=1";
-                    p_HyperLink.Text = g_Knows[0][g_LanguageID - 1];
+                    p_HyperLink.Text = g_Knows[g_Knows_ClassID - 1][g_LanguageID - 1];
                 }
                 else
                 {
@@ -334,13 +334,13 @@ namespace Web
 
         public void SetHyperLinkKnowsClass(HyperLink p_HyperLink1, HyperLink p_HyperLink2, HyperLink p_HyperLink3)
         {
-            if (g_Knows_ClassID == 1 || g_Knows_ClassID == 2)
+            if (g_Knows_ClassID == 1 || g_Knows_ClassID == 2 || g_Knows_ClassID == 3)
             {
                 if (p_HyperLink1 != null)
                 {
-                    p_HyperLink1.NavigateUrl = "Knows_List.aspx?Knows_ClassID=1";
-                    p_HyperLink1.Text = g_Knows[1][g_LanguageID - 1];
-                    if (g_Knows_ClassID == 1)
+                    p_HyperLink1.NavigateUrl = "Knows_List.aspx?Knows_ClassID=3";
+                    p_HyperLink1.Text = g_Knows[0][g_LanguageID - 1];
+                    if (g_Knows_ClassID == 3)
                         p_HyperLink1.ImageUrl = "images/inside_7_5.jpg";
                     else
                     {
@@ -352,9 +352,9 @@ namespace Web
 
                 if (p_HyperLink2 != null)
                 {
-                    p_HyperLink2.NavigateUrl = "Knows_List.aspx?Knows_ClassID=2";
-                    p_HyperLink2.Text = g_Knows[2][g_LanguageID - 1];
-                    if (g_Knows_ClassID == 2)
+                    p_HyperLink2.NavigateUrl = "Knows_List.aspx?Knows_ClassID=1";
+                    p_HyperLink2.Text = g_Knows[1][g_LanguageID - 1];
+                    if (g_Knows_ClassID == 1)
                         p_HyperLink2.ImageUrl = "images/inside_7_7.jpg";
                     else
                     {
@@ -366,9 +366,9 @@ namespace Web
 
                 if (p_HyperLink3 != null)
                 {
-                    p_HyperLink3.NavigateUrl = "Knows_List.aspx?Knows_ClassID=3";
+                    p_HyperLink3.NavigateUrl = "Knows_List.aspx?Knows_ClassID=2";
                     p_HyperLink3.Text = g_Knows[2][g_LanguageID - 1];
-                    if (g_Knows_ClassID == 3)
+                    if (g_Knows_ClassID == 2)
                         p_HyperLink3.ImageUrl = "images/inside_7_9.jpg";
                     else
                     {

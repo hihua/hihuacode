@@ -63,7 +63,7 @@
                         <Controls_Left:Left ID="Web_Left" runat="server" />
                     </td>
                     <td rowspan="2" valign="top" bgcolor="#ddf6fe">
-                        <div id="Content_Height" class="inside_content_rightanv" style="height:auto" runat="server">
+                        <div id="Content_Height" class="inside_content_rightanv" style="height:auto">
                             <img src="images/inside_c.jpg" alt="" />
                             <div class="inside_content_rightlink">
                                 <span class="inside_content_rightlink2"></span><span class="inside_content_rightlink3">
@@ -798,6 +798,10 @@
         </div>
         <Controls_Tail:Tail ID="Web_Tail" runat="server" />
     </div>
+    <script type="text/javascript">
+        if ($("#Content_Height").height() < 960)
+            $("#Content_Height").height(960);
+    </script>
     </form>
 </body>
 </html>

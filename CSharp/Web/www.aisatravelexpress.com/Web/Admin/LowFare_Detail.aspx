@@ -561,15 +561,19 @@
                                 <tr align="left" style="height: 25px">
                                     <td>
                                         &nbsp;Airline
-                                    </td>
-                                    <td>
-                                        &nbsp;Class
-                                    </td>                                                        
+                                    </td>                                                                                           
                                 </tr>
                                 <tr align="left" style="height: 30px">
                                     <td>
-                                        &nbsp;<asp:TextBox ID="LowFare_Airline_Text" runat="server" TextMode="MultiLine"></asp:TextBox>
-                                    </td>                                                        
+                                        &nbsp;<asp:TextBox ID="LowFare_Airline_Text" runat="server" Width="500"></asp:TextBox>
+                                    </td>                                    
+                                </tr>                                
+                                <tr align="left" style="height: 25px">
+                                    <td>
+                                        &nbsp;Class
+                                    </td> 
+                                </tr>                                
+                                <tr align="left" style="height: 30px">                                                       
                                     <td>
                                         &nbsp;<asp:DropDownList ID="LowFare_Class" runat="server">
                                             <asp:ListItem Value="Economy/Coach" Enabled="true">Economy/Coach</asp:ListItem>

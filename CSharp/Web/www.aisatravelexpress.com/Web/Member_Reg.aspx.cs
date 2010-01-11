@@ -118,7 +118,15 @@ namespace Web
                 }
             }
 
-            o_Member.Member_Airlines = Member_Airlines.Text;
+            for (int i = 1; i <= 34; i++)
+            {
+                if (Request["checkbox" + i.ToString()] != null)
+                    o_Member.Member_Airlines += Request["checkbox" + i.ToString()] + ";";
+            }
+
+            if (o_Member.Member_Airlines.EndsWith(";"))
+                o_Member.Member_Airlines = o_Member.Member_Airlines.Remove(o_Member.Member_Airlines.Length - 1, 1);
+            
             o_Member.Member_Serial = b_Member.Random_Member();
             o_Member.Member_Points = 0;
             o_Member.Member_Commission = 0;

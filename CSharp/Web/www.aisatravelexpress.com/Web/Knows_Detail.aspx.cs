@@ -20,7 +20,8 @@ namespace Web
             if (!IsPostBack)
             {
                 SetHyperLinkTitle(HyperLink_Title);
-
+                SetHyperLinkKnowsClass(HyperLink_Knows_ClassID_1, HyperLink_Knows_ClassID_2, HyperLink_Knows_ClassID_3);
+                
                 BLL.Knows b_Knows = new BLL.Knows();
                 Entity.Knows e_Knows = b_Knows.Select_Knows(g_Knows_ID);
 
@@ -28,12 +29,7 @@ namespace Web
                 {
                     g_Knows_ClassID = e_Knows.Knows_ClassID;
                     SetHyperLinkKnows(HyperLink_Knows);
-
-                    if (g_Knows_ClassID == 1)
-                        SetHyperLinkKnowsClass(HyperLink_Knows_Class, null, null);
-                    else
-                        SetHyperLinkKnowsClass(null, HyperLink_Knows_Class, null);
-
+                                       
                     Knows_Content.InnerHtml += "<h1><strong>" + e_Knows.Knows_Title + "</strong></h1>";
                     Knows_Content.InnerHtml += e_Knows.Knows_Content;
                 }

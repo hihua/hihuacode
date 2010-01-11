@@ -40,7 +40,7 @@ namespace Web
                             HtmlGenericControl o_H3 = new HtmlGenericControl("h3");
                             HtmlGenericControl o_Strong = new HtmlGenericControl("strong");
                             HtmlAnchor o_Anchor = new HtmlAnchor();
-                            o_Anchor.HRef = "Knows_Detail.aspx?Knows_ID=" + o_Knows.Knows_ID.ToString();
+                            o_Anchor.HRef = "Knows_Detail.aspx?Knows_ClassID=" + g_Knows_ClassID.ToString() + "&Knows_ID=" + o_Knows.Knows_ID.ToString();
                             o_Anchor.InnerText = o_Knows.Knows_Title;
                             o_Anchor.Style.Add(HtmlTextWriterStyle.Color, "#0355a3");
                             HtmlGenericControl o_Span = new HtmlGenericControl("span");
@@ -75,7 +75,7 @@ namespace Web
                                     HtmlTableCell o_HtmlTableCell = new HtmlTableCell();
                                     HtmlAnchor o_HtmlAnchor = new HtmlAnchor();
 
-                                    o_HtmlAnchor.HRef = "Knows_Detail.aspx?Knows_ID=" + o_Knows.Knows_ID.ToString();
+                                    o_HtmlAnchor.HRef = "Knows_Detail.aspx?Knows_ClassID=" + g_Knows_ClassID + "&Knows_ID=" + o_Knows.Knows_ID.ToString();
                                     o_HtmlAnchor.InnerText = o_Knows.Knows_Summary;
                                     o_HtmlAnchor.Style.Add(HtmlTextWriterStyle.Color, "#0355a3");
                                     o_HtmlTableRow.Height = "30px";
@@ -96,7 +96,7 @@ namespace Web
                                         HtmlTableCell o_HtmlTableCell = new HtmlTableCell();
                                         HtmlAnchor o_HtmlAnchor = new HtmlAnchor();
 
-                                        o_HtmlAnchor.HRef = "Knows_Detail.aspx?Knows_ID=" + o_Knows.Knows_ID.ToString();
+                                        o_HtmlAnchor.HRef = "Knows_Detail.aspx?Knows_ClassID=" + g_Knows_ClassID + "&Knows_ID=" + o_Knows.Knows_ID.ToString();
                                         o_HtmlAnchor.InnerText = o_Knows.Knows_Summary;
                                         o_HtmlAnchor.Style.Add(HtmlTextWriterStyle.Color, "#0355a3");
 
@@ -109,7 +109,7 @@ namespace Web
                                         HtmlTableCell o_HtmlTableCell = new HtmlTableCell();
                                         HtmlAnchor o_HtmlAnchor = new HtmlAnchor();
 
-                                        o_HtmlAnchor.HRef = "Knows_Detail.aspx?Knows_ID=" + o_Knows.Knows_ID.ToString();
+                                        o_HtmlAnchor.HRef = "Knows_Detail.aspx?Knows_ClassID=" + g_Knows_ClassID + "&Knows_ID=" + o_Knows.Knows_ID.ToString();
                                         o_HtmlAnchor.InnerText = o_Knows.Knows_Summary;
                                         o_HtmlAnchor.Style.Add(HtmlTextWriterStyle.Color, "#0355a3");
 
@@ -124,7 +124,7 @@ namespace Web
                                     HtmlTableCell o_HtmlTableCell = new HtmlTableCell();
                                     HtmlAnchor o_HtmlAnchor = new HtmlAnchor();
 
-                                    o_HtmlAnchor.HRef = "Knows_Detail.aspx?Knows_ID=" + o_Knows.Knows_ID.ToString();
+                                    o_HtmlAnchor.HRef = "Knows_Detail.aspx?Knows_ClassID=" + g_Knows_ClassID + "&Knows_ID=" + o_Knows.Knows_ID.ToString();
                                     o_HtmlAnchor.InnerText = o_Knows.Knows_Title;
                                     o_HtmlAnchor.Style.Add(HtmlTextWriterStyle.Color, "#0355a3");
                                     o_HtmlTableRow.Height = "30px";
@@ -143,7 +143,7 @@ namespace Web
                                         HtmlTableCell o_HtmlTableCell = new HtmlTableCell();
                                         HtmlAnchor o_HtmlAnchor = new HtmlAnchor();
 
-                                        o_HtmlAnchor.HRef = "Knows_Detail.aspx?Knows_ID=" + o_Knows.Knows_ID.ToString();
+                                        o_HtmlAnchor.HRef = "Knows_Detail.aspx?Knows_ClassID=" + g_Knows_ClassID + "&Knows_ID=" + o_Knows.Knows_ID.ToString();
                                         o_HtmlAnchor.InnerText = o_Knows.Knows_Title;
                                         o_HtmlAnchor.Style.Add(HtmlTextWriterStyle.Color, "#0355a3");
                                         o_HtmlTableRow.Height = "30px";
@@ -157,7 +157,7 @@ namespace Web
                                         HtmlTableCell o_HtmlTableCell = new HtmlTableCell();
                                         HtmlAnchor o_HtmlAnchor = new HtmlAnchor();
 
-                                        o_HtmlAnchor.HRef = "Knows_Detail.aspx?Knows_ID=" + o_Knows.Knows_ID.ToString();
+                                        o_HtmlAnchor.HRef = "Knows_Detail.aspx?Knows_ClassID=" + g_Knows_ClassID + "&Knows_ID=" + o_Knows.Knows_ID.ToString();
                                         o_HtmlAnchor.InnerText = o_Knows.Knows_Title;
                                         o_HtmlAnchor.Style.Add(HtmlTextWriterStyle.Color, "#0355a3");
 
@@ -167,6 +167,10 @@ namespace Web
                                 }
                             }
                         }
+                    }
+                    else
+                    {
+
                     }
                 }
             }

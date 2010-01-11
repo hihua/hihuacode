@@ -80,10 +80,7 @@ namespace Web.Admin
                             break;
                     }
                     o_HtmlTableRow.Controls.Add(o_HtmlTableCell);
-
-                    o_HtmlTableCell = new HtmlTableCell();                    
-                    o_HtmlTableRow.Controls.Add(o_HtmlTableCell);
-
+                                        
                     o_HtmlTableCell = new HtmlTableCell();
                     o_HtmlTableCell.InnerText = o_LowFare.LowFare_Adults.ToString();
                     o_HtmlTableRow.Controls.Add(o_HtmlTableCell);

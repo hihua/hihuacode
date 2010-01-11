@@ -41,7 +41,7 @@ namespace Web
                         HtmlGenericControl o_H3 = new HtmlGenericControl("h3");
                         HtmlGenericControl o_Strong = new HtmlGenericControl("strong");
                         HtmlAnchor o_Anchor = new HtmlAnchor();
-                        o_Anchor.HRef = "News_Detail.aspx?News_ID=" + o_News.News_ID.ToString();
+                        o_Anchor.HRef = "News_Detail.aspx?News_ClassID=" + o_News.News_ClassID.ToString() + "&News_ID=" + o_News.News_ID.ToString();
                         o_Anchor.InnerText = o_News.News_Title;
                         o_Anchor.Style.Add(HtmlTextWriterStyle.Color, "#0355a3");
                         HtmlGenericControl o_Span = new HtmlGenericControl("span");

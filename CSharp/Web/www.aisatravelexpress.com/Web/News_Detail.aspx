@@ -11,6 +11,8 @@
     <meta http-equiv="x-ua-compatible" content="ie=7" />
     <title>华捷国际旅游</title>
     <link type="text/css" href="css/aisa.css" rel="stylesheet" />
+    <script type="text/javascript" src="Js/jquery.js"></script>
+    <script type="text/javascript" src="Js/Ajax.js"></script>
 </head>
 <body style="background:url(images/inside_12.jpg) repeat-x #e9faff top;">
     <form id="form1" runat="server">        
@@ -24,12 +26,12 @@
                             <Controls_Left:Left ID="Web_Left" runat="server" />        		
 		                </td>
 			            <td rowspan="2" valign="top" bgcolor="#ddf6fe">
-			                <div class="inside_content_rightanv">
+			                <div id="Content_Height" class="inside_content_rightanv" style="height:auto">
 			                    <img src="images/inside_d.jpg" alt="" />
 			                    <div class="inside_content_rightlink">
 				                    <span class="inside_content_rightlink2"></span>
-				                    <span class="inside_content_rightlink3"><asp:HyperLink ID="HyperLink_Title" runat="server" class="nav10"></asp:HyperLink>>><asp:HyperLink ID="HyperLink_News" runat="server" class="nav10"></asp:HyperLink>>><asp:HyperLink ID="HyperLink_News_Class" runat="server" class="nav10"></asp:HyperLink></span>
-				                    <span class="inside_content_rightlink4"></span>
+				                    <span class="inside_content_rightlink3"><asp:HyperLink ID="HyperLink_Title" runat="server" class="nav10"></asp:HyperLink>>><asp:HyperLink ID="HyperLink_News" runat="server" class="nav10"></asp:HyperLink></span>
+				                    <span style="float:right;"><span style=" float:left; padding-top:2px;"><asp:HyperLink ID="HyperLink_News_ClassID_1" runat="server"></asp:HyperLink>&nbsp;<asp:HyperLink ID="HyperLink_News_ClassID_2" runat="server"></asp:HyperLink></span><img src="images/inside_8.jpg" alt="" /></span>				                    			                    
 				                </div>
 			                    <div class="inside2" id="News_Content" runat="server"></div>                   			
 		                    </div>
@@ -44,6 +46,10 @@
 	        <div style="clear:both;"></div>
 	        <Controls_Tail:Tail ID="Web_Tail" runat="server" />
         </div>
+        <script type="text/javascript">
+            if ($("#Content_Height").height() < 960)
+                $("#Content_Height").height(960);
+        </script>
     </form>
 </body>
 </html>
