@@ -116,7 +116,7 @@ namespace Web.Admin
                     Member_ReSerial.Visible = false;
 
                 BLL.Consumption b_Consumption = new BLL.Consumption();
-                Entity.Consumption[] e_Consumption = b_Consumption.Select_Consumption(o_Member.Member_Account, 9, 0x7FFFFFFF, 1);
+                Entity.Consumption[] e_Consumption = b_Consumption.Select_Consumption(o_Member.Member_Account, 9, 0, 0, 0x7FFFFFFF, 1);
 
                 if (e_Consumption != null)
                 {

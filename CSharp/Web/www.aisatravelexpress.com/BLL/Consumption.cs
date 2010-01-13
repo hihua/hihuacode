@@ -47,7 +47,7 @@ namespace BLL
             p_Consumption.Consumption_Remark = p_DataRow["Consumption_Remark"].ToString();            
         }
 
-        public Entity.Consumption[] Select_Consumption(string p_Search_Content, int p_Search_Method, int p_PageSize, int p_PageIndex)
+        public Entity.Consumption[] Select_Consumption(string p_Search_Content, int p_Search_Method, int p_Search_Year, int p_Search_Month, int p_PageSize, int p_PageIndex)
         {
             switch (p_Search_Method)
             {
@@ -139,7 +139,7 @@ namespace BLL
                     break;
             }
 
-            DataTable o_DataTable = d_Consumption.Select_Consumption(p_Search_Content, p_Search_Method, p_PageSize, p_PageIndex, ref g_TotalCount, ref g_TotalPage);
+            DataTable o_DataTable = d_Consumption.Select_Consumption(p_Search_Content, p_Search_Method, p_Search_Year, p_Search_Month, p_PageSize, p_PageIndex, ref g_TotalCount, ref g_TotalPage);
             if (o_DataTable == null)
                 return null;
             else

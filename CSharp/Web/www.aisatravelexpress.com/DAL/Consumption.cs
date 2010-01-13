@@ -18,9 +18,15 @@ namespace DAL
 
         }
 
-        public DataTable Select_Consumption(string p_Search_Content, int p_Search_Method, int p_PageSize, int p_PageIndex, ref int o_TotalCount, ref int o_TotalPage)
+        public DataTable Select_Consumption(string p_Search_Content, int p_Search_Method, int p_Search_Year, int p_Search_Month, int p_PageSize, int p_PageIndex, ref int o_TotalCount, ref int o_TotalPage)
         {
             string o_Where = "1=1";
+            if (p_Search_Year > 0)
+                o_Where += " and Year(Consumption_AddTime) = " + p_Search_Year.ToString();
+
+            if (p_Search_Month > 0)
+                o_Where += " and Month(Consumption_AddTime) = " + p_Search_Month.ToString();
+
             if (VerifyUtility.IsString_NotNull(p_Search_Content))
             {
                 switch (p_Search_Method)

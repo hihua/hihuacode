@@ -82,7 +82,25 @@
                             <asp:ListItem Value="12">推荐会员号</asp:ListItem>
                             <asp:ListItem Value="13">跟进客服帐号</asp:ListItem>
                             <asp:ListItem Value="14s">跟进客服呢称</asp:ListItem>
+                        </asp:DropDownList>
+                        <asp:DropDownList ID="Search_Year" runat="server">
+                            <asp:ListItem Value="选择年份" Selected="True"></asp:ListItem>
                         </asp:DropDownList>                 	      	            					
+                        <asp:DropDownList ID="Search_Month" runat="server">
+                            <asp:ListItem Value="选择月份" Selected="True"></asp:ListItem>
+                            <asp:ListItem Value="1">1月</asp:ListItem>
+                            <asp:ListItem Value="2">2月</asp:ListItem>
+                            <asp:ListItem Value="3">3月</asp:ListItem>
+                            <asp:ListItem Value="4">4月</asp:ListItem>
+                            <asp:ListItem Value="5">5月</asp:ListItem>
+                            <asp:ListItem Value="6">6月</asp:ListItem>
+                            <asp:ListItem Value="7">7月</asp:ListItem>
+                            <asp:ListItem Value="8">8月</asp:ListItem>
+                            <asp:ListItem Value="9">9月</asp:ListItem>
+                            <asp:ListItem Value="10">10月</asp:ListItem>
+                            <asp:ListItem Value="11">11月</asp:ListItem>
+                            <asp:ListItem Value="12">12月</asp:ListItem>
+                        </asp:DropDownList>
                         <asp:Button ID="Search_Submit" runat="server" Text=" 搜索 " onclick="Search_Submit_Click" />
                         <asp:Button ID="Search_Refresh" runat="server" Text=" 刷新 " onclick="Search_Refresh_Click" />
 	  	            </td>	  	            

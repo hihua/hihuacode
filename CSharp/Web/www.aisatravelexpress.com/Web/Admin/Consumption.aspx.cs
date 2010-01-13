@@ -9,6 +9,8 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 
+using Utility;
+
 namespace Web.Admin
 {
     public partial class Consumption : PageBase
@@ -19,14 +21,29 @@ namespace Web.Admin
         {
             if (!IsPostBack)
             {
+                for (int i = DateTime.Now.Year - 2; i <= DateTime.Now.Year; i++)
+                {
+                    ListItem o_ListItem = new ListItem(i.ToString() + "年", i.ToString());
+                    Search_Year.Items.Add(o_ListItem);
+                }
+                
                 GetConsumption();
             }
         }
 
         private void GetConsumption()
         {
+            int Year = 0;
+            int Month = 0;
             BLL.Consumption b_Consumption = new BLL.Consumption();
-            Entity.Consumption[] e_Consumption = b_Consumption.Select_Consumption(Search_Content.Text, Convert.ToInt32(Search_Method.SelectedValue), g_PageSize, g_Page);
+            
+            if (VerifyUtility.IsNumber_NotNull(Search_Year.SelectedValue))
+                Year = Convert.ToInt32(Search_Year.SelectedValue);
+
+            if (VerifyUtility.IsNumber_NotNull(Search_Month.SelectedValue))
+                Month = Convert.ToInt32(Search_Month.SelectedValue);
+
+            Entity.Consumption[] e_Consumption = b_Consumption.Select_Consumption(Search_Content.Text, Convert.ToInt32(Search_Method.SelectedValue), Year, Month, g_PageSize, g_Page);
             if (e_Consumption != null)
             {
                 int i = 1;
