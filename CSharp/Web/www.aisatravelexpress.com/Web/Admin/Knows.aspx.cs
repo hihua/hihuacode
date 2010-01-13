@@ -29,7 +29,7 @@ namespace Web.Admin
         private void GetKnows()
         {
             BLL.Knows b_Knows = new BLL.Knows();
-            Entity.Knows[] e_Knows = b_Knows.Select_Knows(0, Convert.ToInt32(Knows_LanguageID.SelectedValue), Search_Content.Text, Convert.ToInt32(Search_Method.SelectedValue), g_PageSize, g_Page);
+            Entity.Knows[] e_Knows = b_Knows.Select_Knows(Convert.ToInt32(Knows_LanguageID.SelectedValue), Search_Content.Text, Convert.ToInt32(Search_Method.SelectedValue), g_PageSize, g_Page);
             if (e_Knows != null)
             {
                 int i = 1;

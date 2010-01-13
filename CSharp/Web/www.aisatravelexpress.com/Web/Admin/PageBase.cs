@@ -66,11 +66,8 @@ namespace Web.Admin
             {
                 foreach (int i_Key in g_Knows.Keys)
                 {
-                    if (i_Key > 0)
-                    {
-                        ListItem o_ListItem = new ListItem(g_Knows[i_Key][0], i_Key.ToString());
-                        p_DropDownList.Items.Add(o_ListItem);
-                    }
+                    ListItem o_ListItem = new ListItem(g_Knows[i_Key][0], i_Key.ToString());
+                    p_DropDownList.Items.Add(o_ListItem);                    
                 }
             }
         }

@@ -76,7 +76,7 @@
 						            <td><a href="News.aspx?News_ClassID=3" target="Main" class="IndexMenuLink1">表格下载</a></td>
 						        </tr>
 						        <tr>
-						            <td><a href="Knows.aspx?Knows_ClassID=1" target="Main" class="IndexMenuLink1">旅游需知</a></td>
+						            <td><a href="Knows.aspx" target="Main" class="IndexMenuLink1">旅游需知</a></td>
 						        </tr>
 						        <tr>
 						            <td><a href="Travel.aspx" target="Main" class="IndexMenuLink1">旅游路线</a></td>

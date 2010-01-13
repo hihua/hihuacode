@@ -20,9 +20,8 @@ namespace DAL
                                 
         public DataTable Select_Knows(int p_Knows_ClassID, int p_Knows_LanguageID, string p_Search_Content, int p_Search_Method, int p_PageSize, int p_PageIndex, ref int o_TotalCount, ref int o_TotalPage)
         {
-            string o_Where = "";
-            if (p_Knows_ClassID > 0)
-                o_Where = "Knows_ClassID=" + p_Knows_ClassID.ToString();
+            string o_Where = "1=1";
+            o_Where += " and Knows_ClassID=" + p_Knows_ClassID.ToString();
 
             if (p_Knows_LanguageID > 0)
                 o_Where += " and Knows_LanguageID=" + p_Knows_LanguageID.ToString();
@@ -55,6 +54,34 @@ namespace DAL
                 DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, p_PageSize, p_PageIndex, 0, 1, o_Where, ref o_TotalCount, ref o_TotalPage);
                 return o_DataTable;
             }            
+        }
+
+        public DataTable Select_Knows(int p_Knows_LanguageID, string p_Search_Content, int p_Search_Method, int p_PageSize, int p_PageIndex, ref int o_TotalCount, ref int o_TotalPage)
+        {
+            string o_Where = "1=1";
+            
+            if (p_Knows_LanguageID > 0)
+                o_Where += " and Knows_LanguageID=" + p_Knows_LanguageID.ToString();
+
+            if (VerifyUtility.IsString_NotNull(p_Search_Content))
+            {
+                switch (p_Search_Method)
+                {
+                    case 1:
+                        o_Where += " and Knows_Title Like N'%" + p_Search_Content + "%'";
+                        break;
+
+                    case 2:
+                        o_Where += " and Knows_Content Like N'%" + p_Search_Content + "%'";
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+
+            DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, p_PageSize, p_PageIndex, 0, 1, o_Where, ref o_TotalCount, ref o_TotalPage);
+            return o_DataTable;            
         }
 
         public DataTable Select_Knows(int p_Knows_ID)

@@ -92,18 +92,18 @@ namespace Web
 
             string[] g_KnowsName;           
             g_KnowsName = new string[2];
+            g_KnowsName[0] = "旅游需知";
+            g_KnowsName[1] = "Knows";
+            g_Knows.Add(0, g_KnowsName);
+
+            g_KnowsName = new string[2];
             g_KnowsName[0] = "行李规定";
             g_KnowsName[1] = "Luggage";
-            g_Knows.Add(0, g_KnowsName);
+            g_Knows.Add(1, g_KnowsName);
 
             g_KnowsName = new string[2];
             g_KnowsName[0] = "机楼地图";
             g_KnowsName[1] = "Maps";
-            g_Knows.Add(1, g_KnowsName);
-
-            g_KnowsName = new string[2];
-            g_KnowsName[0] = "旅游需知";
-            g_KnowsName[1] = "Knows";
             g_Knows.Add(2, g_KnowsName);
 
             string[] g_TravelName;
@@ -143,7 +143,7 @@ namespace Web
             if (VerifyUtility.IsNumber_NotNull(Request["News_ID"]) && Request["News_ID"] != "0")
                 g_News_ID = Convert.ToInt32(Request["News_ID"]);
 
-            if (VerifyUtility.IsNumber_NotNull(Request["Knows_ClassID"]) && Request["Knows_ClassID"] != "0")
+            if (VerifyUtility.IsNumber_NotNull(Request["Knows_ClassID"]))
                 g_Knows_ClassID = Convert.ToInt32(Request["Knows_ClassID"]);
 
             if (VerifyUtility.IsNumber_NotNull(Request["Knows_ID"]) && Request["Knows_ID"] != "0")
@@ -334,13 +334,13 @@ namespace Web
 
         public void SetHyperLinkKnowsClass(HyperLink p_HyperLink1, HyperLink p_HyperLink2, HyperLink p_HyperLink3)
         {
-            if (g_Knows_ClassID == 1 || g_Knows_ClassID == 2 || g_Knows_ClassID == 3)
+            if (g_Knows_ClassID == 0 || g_Knows_ClassID == 1 || g_Knows_ClassID == 2)
             {
                 if (p_HyperLink1 != null)
                 {
-                    p_HyperLink1.NavigateUrl = "Knows_List.aspx?Knows_ClassID=3";
+                    p_HyperLink1.NavigateUrl = "Knows_List.aspx?Knows_ClassID=0";
                     p_HyperLink1.Text = g_Knows[0][g_LanguageID - 1];
-                    if (g_Knows_ClassID == 3)
+                    if (g_Knows_ClassID == 0)
                         p_HyperLink1.ImageUrl = "images/inside_7_5.jpg";
                     else
                     {

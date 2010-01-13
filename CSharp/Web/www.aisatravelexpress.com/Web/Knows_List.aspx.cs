@@ -21,8 +21,8 @@ namespace Web
                 SetHyperLinkKnows(HyperLink_Knows);
 
                 SetHyperLinkKnowsClass(HyperLink_Knows_ClassID_1, HyperLink_Knows_ClassID_2, HyperLink_Knows_ClassID_3);
-                
-                if (g_Knows_ClassID == 1)
+
+                if (g_Knows_ClassID == 0 || g_Knows_ClassID == 1)
                 {
                     AirportCode.Visible = false;
                     AirportName.Visible = false;
@@ -167,11 +167,7 @@ namespace Web
                                 }
                             }
                         }
-                    }
-                    else
-                    {
-
-                    }
+                    }                 
                 }
             }
         }
