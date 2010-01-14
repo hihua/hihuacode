@@ -81,7 +81,7 @@
                             <asp:ListItem Value="11">推荐会员帐号</asp:ListItem>
                             <asp:ListItem Value="12">推荐会员号</asp:ListItem>
                             <asp:ListItem Value="13">跟进客服帐号</asp:ListItem>
-                            <asp:ListItem Value="14s">跟进客服呢称</asp:ListItem>
+                            <asp:ListItem Value="14">跟进客服呢称</asp:ListItem>
                         </asp:DropDownList>
                         <asp:DropDownList ID="Search_Year" runat="server">
                             <asp:ListItem Value="选择年份" Selected="True"></asp:ListItem>
