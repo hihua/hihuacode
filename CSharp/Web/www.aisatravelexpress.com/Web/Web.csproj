@@ -49,6 +49,8 @@
     <Content Include="Admin\AdminUser_Delete.aspx" />
     <Content Include="Admin\AdminUser_Detail.aspx" />
     <Content Include="Admin\Article.aspx" />
+    <Content Include="Admin\Booking.aspx" />
+    <Content Include="Admin\Booking_Detail.aspx" />
     <Content Include="Admin\Code.aspx" />
     <Content Include="Admin\Consumption.aspx" />
     <Content Include="Admin\Consumption_Detail.aspx" />
@@ -241,6 +243,20 @@
     </Compile>
     <Compile Include="Admin\Article.aspx.designer.cs">
       <DependentUpon>Article.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Booking.aspx.cs">
+      <DependentUpon>Booking.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Booking.aspx.designer.cs">
+      <DependentUpon>Booking.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Booking_Detail.aspx.cs">
+      <DependentUpon>Booking_Detail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Booking_Detail.aspx.designer.cs">
+      <DependentUpon>Booking_Detail.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Code.aspx.cs">
       <DependentUpon>Code.aspx</DependentUpon>

@@ -106,6 +106,9 @@
 						        </tr>
 						        <tr>
 						            <td><a href="Consumption.aspx" target="Main" class="IndexMenuLink1">消费列表</a></td>
+						        </tr>
+						        <tr>
+						            <td><a href="Booking.aspx" target="Main" class="IndexMenuLink1">机票预订</a></td>
 						        </tr>					        					            
 				            </table>
 			            </div>

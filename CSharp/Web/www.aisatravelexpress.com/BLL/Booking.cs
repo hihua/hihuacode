@@ -104,6 +104,21 @@ namespace BLL
             }
         }
 
+        public Entity.Booking Select_Booking(int p_Booking_ID)
+        {
+            DataTable o_DataTable = d_Booking.Select_Booking(p_Booking_ID, ref g_TotalCount, ref g_TotalPage);
+            if (o_DataTable == null)
+                return null;
+            else
+            {
+                DataRow o_DataRow = o_DataTable.Rows[0];
+                Entity.Booking e_Booking = new Entity.Booking();
+                DateRow_Booking(o_DataRow, e_Booking);
+
+                return e_Booking;
+            }
+        }
+
         public void Insert_Booking(Entity.Booking o_Booking)
         {
             if (o_Booking == null)

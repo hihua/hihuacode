@@ -109,7 +109,7 @@
             <table id="g_MainTable" width="150%" border="1" align="center" cellpadding="0" cellspacing="0" class="Table1" runat="server">
                 <tr align="center" bgcolor="#C0C0C0" style="height:30px">
                     <td>序号</td>	                
-	                <td>定位代号</td>
+	                <td>订位代号</td>
 	                <td>类型</td>
 	                <td>出发地</td>
 	                <td>目的地</td>
