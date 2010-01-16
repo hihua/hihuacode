@@ -90,9 +90,9 @@ namespace Entity
             get { return _Booking_LastTime; }
             set { _Booking_LastTime = value; }
         }
-        private DateTime _Booking_ComitTime;
+        private string _Booking_ComitTime;
 
-        public DateTime Booking_ComitTime
+        public string Booking_ComitTime
         {
             get { return _Booking_ComitTime; }
             set { _Booking_ComitTime = value; }

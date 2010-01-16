@@ -132,6 +132,8 @@ namespace DAL
             o_FieldsValue += "N'" + p_Booking.Booking_AddTime.ToString() + "'";
             o_FieldsValue += ",";
             o_FieldsValue += "N'" + p_Booking.Booking_LastTime.ToString() + "'";
+            o_FieldsValue += ",";
+            o_FieldsValue += "N'" + p_Booking.Booking_ComitTime + "'";
 
             Execute_Insert(g_TableName, g_TableFields, o_FieldsValue);
         }
@@ -173,9 +175,11 @@ namespace DAL
             o_FieldsValue += ",";
             o_FieldsValue += "Booking_LastTime=N'" + p_Booking.Booking_LastTime.ToString() + "'";
             o_FieldsValue += ",";
-            o_FieldsValue += "Booking_ComitTime=N'" + p_Booking.Booking_ComitTime.ToString() + "'";
+            o_FieldsValue += "Booking_ComitTime=N'" + p_Booking.Booking_ComitTime + "'";
 
-            Execute_Update(g_TableName, g_TableFields, o_FieldsValue);
+            string o_Where = "Booking_ID=" + p_Booking.Booking_ID.ToString();
+
+            Execute_Update(g_TableName, o_FieldsValue, o_Where);
         }
 
         public void Delete_Booking(int p_Booking_ID)

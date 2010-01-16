@@ -43,7 +43,7 @@
             </table>
             <table id="g_MainTable" width="100%" align="left" border="0" cellpadding="0" cellspacing="0" runat="server">                		        		
 		        <tr bgcolor="#E3E3E3">
-		            <td align="right" height="30">定位代号：</td>
+		            <td align="right" height="30">订位代号：</td>
 			        <td>
                         <asp:TextBox ID="Consumption_Serial" runat="server" MaxLength="40"></asp:TextBox>
                         <asp:RadioButton ID="Consumption_Serial_RadioButton1" GroupName="Consumption_Serial_RadioButton" Text="SB" runat="server" Checked="true" />

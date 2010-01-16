@@ -65,6 +65,12 @@ namespace DAL
             return o_DataTable;
         }
 
+        public DataTable Select_AdminUser()
+        {            
+            DataTable o_DataTable = Execute_Select_DataTable(g_TableName, g_TableFields, g_TableOrderByFields, 1, 1, -1, 0, "");
+            return o_DataTable;
+        }
+
         public void Insert_AdminUser(Entity.AdminUser p_AdminUser)
         {
             if (p_AdminUser == null)

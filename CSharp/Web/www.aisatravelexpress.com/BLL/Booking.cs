@@ -36,7 +36,7 @@ namespace BLL
             BLL.AdminUser b_AdminUser = new AdminUser();
             p_Booking.Booking_AdminUser_ID = b_AdminUser.Select_AdminUser(Convert.ToInt32(p_DataRow["Booking_AdminUser_ID"].ToString()));
 
-            if (p_DataRow["Booking_Kind"].ToString() == "1")
+            if (p_DataRow["Booking_Kind"].ToString().ToLower() == "true")
                 p_Booking.Booking_Kind = true;
             else
                 p_Booking.Booking_Kind = false;
@@ -45,7 +45,7 @@ namespace BLL
             p_Booking.Booking_AddTime = DateTime.Parse(p_DataRow["Booking_AddTime"].ToString());
             p_Booking.Booking_LastTime = DateTime.Parse(p_DataRow["Booking_LastTime"].ToString());
             if (p_DataRow["Booking_LastTime"] != null && VerifyUtility.IsString_NotNull(p_DataRow["Booking_LastTime"].ToString()))
-                p_Booking.Booking_ComitTime = DateTime.Parse(p_DataRow["Booking_ComitTime"].ToString());
+                p_Booking.Booking_ComitTime = p_DataRow["Booking_ComitTime"].ToString();
         }
 
         public Entity.Booking[] Select_Booking(string p_Search_Content, int p_Search_Method, int p_Search_State, int p_PageSize, int p_PageIndex)

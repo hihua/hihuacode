@@ -101,6 +101,32 @@ namespace BLL
             return e_AdminUser;
         }
 
+        public Entity.AdminUser[] Select_AdminUser()
+        {
+            DataTable o_DataTable = d_AdminUser.Select_AdminUser();
+            if (o_DataTable == null)
+                return null;
+
+            Entity.AdminUser[] e_AdminUser = new Entity.AdminUser[o_DataTable.Rows.Count];
+
+            int i = 0;
+            foreach (DataRow o_DataRow in o_DataTable.Rows)
+            {
+                e_AdminUser[i] = new Entity.AdminUser();
+
+                e_AdminUser[i].AdminUser_ID = Convert.ToInt32(o_DataRow["AdminUser_ID"].ToString());
+                e_AdminUser[i].AdminUser_Name = o_DataRow["AdminUser_Name"].ToString();
+                e_AdminUser[i].AdminUser_NickName = o_DataRow["AdminUser_NickName"].ToString();
+                e_AdminUser[i].AdminUser_PassWord = o_DataRow["AdminUser_PassWord"].ToString();
+                e_AdminUser[i].AdminUser_Status = Convert.ToInt32(o_DataRow["AdminUser_Status"].ToString());
+                e_AdminUser[i].AdminUser_AddTime = DateTime.Parse(o_DataRow["AdminUser_AddTime"].ToString());
+
+                i++;
+            }
+
+            return e_AdminUser;
+        }
+
         public void Insert_AdminUser(string p_AdminUser_Name, string p_AdminUser_NickName, string p_AdminUser_PassWord, int p_AdminUser_Status)
         {
             p_AdminUser_Name = FilterUtility.FilterSQL(p_AdminUser_Name);
