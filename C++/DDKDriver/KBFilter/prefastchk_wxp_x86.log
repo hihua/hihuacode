@@ -1,0 +1,44 @@
+-----------------------------------------------------------------------------
+Microsoft (R) PREfast Version 1.5.2402 for 80x86.
+Copyright (C) Microsoft Corporation. All rights reserved.
+-----------------------------------------------------------------------------
+Contents of defect log: PREfast_defects_chk_wxp_x86.xml
+-----------------------------------------------------------------------------
+k:\MyApp\DDK\KBFilter\KBFilter\KBFilter.cpp (120): warning 8147: The use of a default pool tag (' kdD' or ' mdW') for calls to this function defeats the purpose of pool tagging:  This may be caused by using ExAllocatePool directly, or the tag may have been copied from that macro. In any case, ExAllocatePoolWithTag (etc.) should be used with a unique tag. Note: the macros ExAllocatePool and and ExAllocatePoolWithQuota use these default values..
+	FUNCTION: KBFILTER_WriteLog (85)
+	PATH: 
+
+k:\MyApp\DDK\KBFilter\KBFilter\KBFilter.cpp (167): warning 8147: The use of a default pool tag (' kdD' or ' mdW') for calls to this function defeats the purpose of pool tagging:  This may be caused by using ExAllocatePool directly, or the tag may have been copied from that macro. In any case, ExAllocatePoolWithTag (etc.) should be used with a unique tag. Note: the macros ExAllocatePool and and ExAllocatePoolWithQuota use these default values..
+	FUNCTION: KBFILTER_Thread (144)
+	PATH: 
+
+k:\MyApp\DDK\KBFilter\KBFilter\KBFilter.cpp (193): warning 8147: The use of a default pool tag (' kdD' or ' mdW') for calls to this function defeats the purpose of pool tagging:  This may be caused by using ExAllocatePool directly, or the tag may have been copied from that macro. In any case, ExAllocatePoolWithTag (etc.) should be used with a unique tag. Note: the macros ExAllocatePool and and ExAllocatePoolWithQuota use these default values..
+	FUNCTION: KBFILTER_Thread (144)
+	PATH: 
+
+k:\MyApp\DDK\KBFilter\KBFilter\KBFilter.cpp (322): warning 314: Incorrect order of operations:  bitwise-or has higher precedence than the conditional-expression operator.  Add parenthesies to clarify intent.
+	FUNCTION: KBFILTER_Read (313)
+	PATH: 
+
+k:\MyApp\DDK\KBFilter\KBFilter\KBFilter.cpp (412): warning 8101: The Drivers module has inferred that the current function is a DriverEntry function:  This is informational only. No problem has been detected.
+	FUNCTION: DriverEntry (412)
+	PATH: 
+
+k:\MyApp\DDK\KBFilter\KBFilter\KBFilter.cpp (425): warning 8103: Leaking the resource stored in 'pdoDeviceObj'.
+	FUNCTION: DriverEntry (412)
+	PATH: 414 414 415 415 416 416 417 418 420 421 422 423 425 425 427 428 428 
+
+k:\MyApp\DDK\KBFilter\KBFilter\KBFilter.cpp (476): warning 8126: The AccessMode parameter to ObReferenceObject* should be IRP->RequestorMode..
+	FUNCTION: DriverEntry (412)
+	PATH: 
+
+k:\MyApp\DDK\KBFilter\KBFilter\KBFilter.cpp (476): warning 309: Potential NULL argument 3 to 'ObReferenceObjectByHandle'.
+	FUNCTION: DriverEntry (412)
+	PATH: 
+
+-----------------------------------------------------------------------------
+8 of 8 Defects Listed
+Filter in effect: Recommended Filters
+-----------------------------------------------------------------------------
+You can change the filter and sort options from the user interface.
+Enter PREFAST VIEW to display the defect log user interface.
