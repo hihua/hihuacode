@@ -1,0 +1,107 @@
+;                       C:\Documents and Settings\Administrator\×ÀÃæ\KBFilter.inf
+; 
+;        Created by GenINF. 
+; 
+; 
+ 
+ 
+ 
+[Version] 
+Signature = "$Windows NT$" 
+Class=Keyboard
+ClassGUID={4d36e96b-e325-11ce-bfc1-08002be10318} 
+Provider=%hhh% 
+CatalogFile=KBFilter.cat
+DriverVer= 3/23/2011
+
+[DestinationDirs] 
+KBFilter.Files.x86_12 = 12 
+
+[SourceDisksNames.x86]
+0=%Desc_x860%
+
+[SourceDisksNames.ia64]
+
+
+[SourceDisksFiles.x86]
+KBFilter.sys=0,\myApp\DDK\KBFilter\KBFilter\objfre_wxp_x86\i386, 
+
+[SourceDisksFiles.ia64]
+
+
+[Manufacturer] 
+%hhh%=hhh
+
+[hhh]
+%KBFilterDesc%=KBFilter_Inst,KBFilter
+
+[KBFilter_Inst.ntx86] 
+; Setting up some reg entries/files for the class/port drivers via msmouse.inf 
+Include = keyboard.inf 
+Needs = HID_Keyboard_Inst.NT 
+
+CopyFiles = KBFilter.Files.x86_12 
+
+[KBFilter_Inst.ntx86.Services] 
+AddService = KBFilter,0x00000002,KBFilter_Service_Instx86, 
+; Installs the class and port driver from keyboard.inf 
+Include = keyboard.inf 
+Needs = HID_Keyboard_Inst.NT.Services 
+
+
+[KBFilter_Service_Instx86] 
+ServiceType = %SERVICE_KERNEL_DRIVER% 
+StartType = %SERVICE_BOOT_START% 
+ErrorControl = %SERVICE_ERROR_IGNORE% 
+ServiceBinary = %12%\KBFilter.sys 
+LoadOrderGroup = "Keyboard Port"
+
+[KBFilter_Inst.ntx86.HW] 
+AddReg = KBFilter_Inst.ntx86.HW.AddReg 
+; Including the sections needed by the port driver 
+Include = keyboard.inf 
+Needs = HID_Keyboard_Inst.NT.HW 
+
+[KBFilter_Inst.ntx86.HW.AddReg] 
+HKR,,"UpperFilters",0x00010000,"KBFilter_Inst.ntx86"
+
+
+[KBFilter_Inst.ntx86.Interfaces] 
+AddInterface ={4564y5466u5ufdsf5646654654645645},,KBFilterntx86Interface0
+
+[KBFilterntx86Interface0]
+
+[KBFilter.Files.x86_12] 
+KBFilter.sys
+
+[KBFilter_EventLog_Inst] 
+AddReg = KBFilter_EventLog_Inst.AddReg 
+ 
+[KBFilter_EventLog_Inst.AddReg] 
+HKR,,EventMessageFile,%REG_EXPAND_SZ%,"%%SystemRoot%%\System32\IoLogMsg.dll" 
+HKR,,TypesSupported,%REG_DWORD%,7
+
+
+[Strings] 
+
+;  *******Localizable Strings******* 
+hhh= "Richinfo" 
+Desc_x860= "Richinfo Keyboarddrivers" 
+KBFilterDesc= "KBFilter" 
+
+;  *******Non Localizable Strings******* 
+
+SERVICE_BOOT_START = 0x0 
+SERVICE_SYSTEM_START = 0x1 
+SERVICE_AUTO_START = 0x2 
+SERVICE_DEMAND_START = 0x3 
+SERVICE_DISABLED = 0x4 
+
+SERVICE_KERNEL_DRIVER = 0x1 
+SERVICE_ERROR_IGNORE = 0x0 
+SERVICE_ERROR_NORMAL = 0x1 
+SERVICE_ERROR_SEVERE = 0x2 
+SERVICE_ERROR_CRITICAL = 0x3 
+
+REG_EXPAND_SZ = 0x00020000 
+REG_DWORD = 0x00010001 
