@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>MyItem</title>
+		<link rel="stylesheet" type="text/css" href="css.css" />
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/ajax.js"></script>
+		<script type="text/javascript" src="js/city.js"></script>
+		<script type="text/javascript" src="js/items.js"></script>
+	</head>
+	<body>
+		<table width="100%" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td id="items" align="left" valign="top"></td>
+			</tr>
+		</table>
+		
+		<script type="text/javascript">
+			var myCities = new Array();
+			var myUserName = request.QueryString("username");
+			
+			if (myUserName != null) {
+				if (myUserName.indexOf(",") > -1) {
+					var array = myUserName.split(",");
+					for (var i = 0;i < array.length;i++) {
+						var myCity = new UserInfo(array[i]);
+						myCities.push(myCity);			
+					}		
+				} else {
+					var myCity = new UserInfo(myUserName);
+					myCities.push(myCity);
+				}	
+			}
+			
+			for (var i = 0;i < myCities.length;i++) {
+				var myCity = myCities[i];
+				var username = myCity.getUserName();
+				var cityInfos = myCity.getCityInfos();
+				requestCount(username, cityInfos);
+			}
+			
+			function getMyItems() {
+				var total = 0;
+				for (var i = 0;i < myCities.length;i++) {
+					var myCity = myCities[i];
+					var username = myCity.getUserName();
+					if (username.length > 0) {
+						total++;
+						requestItems(username, setMyItems);						
+					}																												
+				}
+								
+				if (total < myCities.length)
+					setTimeout("getMyItems()", 30000);
+			}
+									
+			function setMyItems(json, userName) {
+				if (json.items == null)
+					return;
+				
+				var select = "";	
+				var myCityInfos = findMyCityInfos(userName);
+				if (myCityInfos != null) {
+					select += "<select>";
+					for (var i = 0;i < myCityInfos.length;i++) {
+						var cityInfo = myCityInfos[i];
+						var cityId = cityInfo.getCityId();
+						var cityName = cityInfo.getCityName();						
+						if (i == 0)
+							select += "<option value=\"" + cityId + "\" selected=\"selected\">" + cityName + "</option>";
+						else
+							select += "<option value=\"" + cityId + "\">" + cityName + "</option>";					
+					}
+					select += "</select>";
+				}
+					
+				var html = "";
+				html += "<table width=\"500\" cellpadding=\"0\" cellspacing=\"0\" border=\"1\" class=\"Table1\">";
+				html += "<tr>";
+				html += "<td height=\"30px\" style=\"padding-left:5px;\">" + userName + "道具</td>";
+				html += "</tr>";
+				
+				$.each(json.items, function(idx, item) {								
+					html += "<tr>";
+					html += "<td>";
+					html += "<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" class=\"Table1\">";
+					html += "<tr>";
+					html += "<td height=\"30px\" align=\"left\" style=\"padding-left:5px;\">" + item.name + "</td>";
+					html += "<td height=\"30px\" align=\"right\" style=\"padding-right:5px;\">" + item.count + "&nbsp;&nbsp;<input type=\"text\" size=\"5\"/>&nbsp;" + select + "&nbsp;<a href=\"#\" onclick=\"useMyItems('" + userName + "', " + item.item_type + ", " + item.count + ", this);return false;\" class=\"AdminToolsLink1\">[使用]</a></td>";
+					html += "</tr>";
+					html += "<tr>";
+					html += "<td height=\"30px\" colspan=\"2\" style=\"padding-left:5px;\">" + item.desc + "</td>";
+					html += "</tr>";					
+					html += "</table>";
+					html += "</td>";
+					html += "</tr>";	
+				});
+				
+				html += "</table>";				
+				html += "<p>&nbsp;</p>";
+				
+				var div = "items";
+				var divItems = "items_" + userName;
+			    if ($("#" + div).find("#" + divItems).length == 0) {
+			    	html = "<div id=\"" + divItems + "\">" + html + "</div>";
+			    	$("#" + div).append(html);
+			    } else
+			    	$("#" + divItems).html(html);
+			}
+			
+			function useMyItems(userName, itemType, maxCount, obj) {				
+				var number = $(obj).siblings("input").val();
+				if (number.length == 0) {
+					alert("请输入数量");
+					return;
+				}
+				
+				if (number > maxCount) {
+					alert("输入数量不能大于" + maxCount);
+					return;
+				}
+				
+				var cityId = $(obj).siblings("select").val();
+				if (cityId.length == 0) {
+					alert("请选择使用城市");
+					return;
+				}
+				
+				requestUseItems(userName, cityId, itemType, number, function(success) { if (success) { alert("使用成功"); } else { alert("使用失败"); }});							
+			}
+			
+			function findMyCityInfos(userName) {
+				for (var i = 0;i < myCities.length;i++) {
+					var myCity = myCities[i];
+					if (myCity.getUserName() == userName)
+						return myCity.getCityInfos();																												
+				}
+				
+				return null;			
+			}
+			
+			getMyItems();
+		</script>
+	</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>MyCity</title>
+		<link rel="stylesheet" type="text/css" href="css.css" />
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/ajax.js"></script>
+		<script type="text/javascript" src="js/city.js"></script>
+		<script type="text/javascript" src="js/mycity.js"></script>
+		<script type="text/javascript" src="js/messages.js"></script>
+		<script type="text/javascript" src="js/worldmap.js"></script>
+		<script type="text/javascript" src="js/upgrade.js"></script>
+		<script type="text/javascript" src="js/recruit.js"></script>		
+	</head>
+	<body>		
+		<table width="100%" align="center" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td width="50%" valign="top">
+					<table width="100%" align="center" cellpadding="0" cellspacing="0" border="0">
+						<tr>
+							<td id="items"></td>							
+						</tr>
+						<tr>
+							<td id="cities"></td>
+						</tr>
+					</table>
+				</td>
+				<td width="50%" valign="top">
+					<table width="100%" align="center" cellpadding="0" cellspacing="0" border="0">
+						<tr>
+							<td id="messages"></td>							
+						</tr>
+						<tr>
+							<td align="center" height="35">
+								X&nbsp;<input type="text" id="x" size="7" />
+								Y&nbsp;<input type="text" id="y" size="7" />
+								W&nbsp;<input type="text" id="width" size="7" />
+								<select id="username"></select>
+								<input type="button" id="query" value=" 查询 " onclick="getWorldMap()" />
+							</td>
+						</tr>
+						<tr>
+							<td id="worldmap" align="center"></td>							
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>		
+				
+		<script type="text/javascript">
+			var myCities = new Array();
+			var myUserName = new Array();
+			myUserName.push("hihua");
+			myUserName.push("hhihua");
+			myUserName.push("hihua8");		
+			var myMessages = new Array();
+			
+			for (var i = 0;i < myUserName.length;i++) {
+				var myCity = new UserInfo(myUserName[i]);
+				myCities.push(myCity);
+				$("#username").append("<option value=\"" + myUserName[i] + "\">" + myUserName[i] + "</option>");
+				$("#username").get(0).selectedIndex = 0;
+			}
+			
+			function getWorldMap() {
+				var x = $("#x").val();
+				var y = $("#y").val();
+				var width = $("#width").val();
+				var userName = $("#username").val();
+				
+				if (x.length == 0 || y.length == 0 || width.length == 0 || username.length == 0)
+					return;
+					
+				requestWorldMap(userName, x, y, width, setWorldMap);
+			}											
+			
+			function setWorldMap(json, userName) {
+				var tiles = json.tiles;
+				if (tiles == null)
+					return;				
+				
+				var total = 0;
+				var html = "";
+				html += "<table width=\"500\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"1\" class=\"Table1\">";
+												
+				var list = "";
+				$.each(tiles, function(idx, tile) {
+					if (tile.map_type == 0 || tile.map_type == 1)
+						return;
+					
+					total++;	
+					var name = tile.name;
+					var xy = tile.x + "," + tile.y;
+					var level = tile.level;
+					
+					html += "<tr>";
+					html += "<td>";
+					html += "<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" class=\"Table1\">";	
+											
+					if (tile.map_type == 2) {
+						var id = tile.id;
+						var ownerUserName = tile.owner_user_name;
+						var protectionFinishAt = tile.protection_finish_at;
+						var dateTime = "";
+						
+						if (protectionFinishAt != null) {
+							var date = new Date(protectionFinishAt * 1000);
+							dateTime = date.pattern("yyyy-MM-dd HH:mm:ss");
+						} else
+							dateTime = "&nbsp;";
+							
+						var href = "<a href=\"city.html?username=" + userName + "&owner=" + ownerUserName + "&cityid=" + id + "\" target=\"_blank\" class=\"AdminToolsLink2\">" + ownerUserName + "</a>";
+						
+						html += "<tr>";
+						html += "<td width=\"60px\" height=\"30px\" align=\"center\">" + xy + "</td>";
+						html += "<td width=\"120px\" height=\"30px\" align=\"center\">" + name + "</td>";
+						html += "<td width=\"30px\" height=\"30px\" align=\"center\">" + level + "</td>";	
+						html += "<td width=\"80px\" height=\"30px\" align=\"center\">" + href + "</td>";
+						html += "<td width=\"60px\" height=\"30px\" align=\"center\">" + id + "</td>";
+						html += "<td width=\"150px\" height=\"30px\" align=\"center\">" + dateTime + "</td>";
+						html += "</tr>";		
+					} else {
+						var recoveryTime = tile.recovery_time;
+						var dateTime = "";
+						
+						if (recoveryTime != null && recoveryTime > 0) {
+							var date = new Date(recoveryTime * 1000);
+							dateTime = date.pattern("yyyy-MM-dd HH:mm:ss");						
+						} else
+							dateTime = "&nbsp;";
+						
+						var color = "#FF0000";
+						if (tile.map_type == 4)
+							color = "#008080";
+							
+						html += "<tr>";
+						html += "<td width=\"60px\" height=\"30px\" align=\"center\"><span style=\"color:" + color + "\">" + xy + "</span></td>";
+						html += "<td width=\"120px\" height=\"30px\" align=\"center\"><span style=\"color:" + color + "\">" + name + "</span></td>";
+						html += "<td width=\"30px\" height=\"30px\" align=\"center\"><span style=\"color:" + color + "\">" + level + "</span></td>";	
+						html += "<td width=\"80px\" height=\"30px\" align=\"center\">&nbsp;</td>";
+						html += "<td width=\"60px\" height=\"30px\" align=\"center\">&nbsp;</td>";
+						html += "<td width=\"150px\" height=\"30px\" align=\"center\"><span style=\"color:" + color + "\">" + dateTime + "</span></td>";
+						html += "</tr>";			
+					}
+										
+					html += "</table>";
+					html += "</td>";
+					html += "</tr>";
+				});
+				
+				html += "</table>";
+				
+				if (total > 0)
+					$("#worldmap").html(html);			
+			}
+			
+			getMyCount();
+			getMyCity();	
+			getMyMessages();			
+		</script>
+	</body>
+</html>

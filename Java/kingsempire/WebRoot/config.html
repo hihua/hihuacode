@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Config</title>
+		<link rel="stylesheet" type="text/css" href="css.css" />
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/ajax.js"></script>
+	</head>
+	<body>
+		<div id="config"></div>
+		<input type="button" name="button" id="button" value=" 提交 " onclick="postConfig()" />				
+		<script type="text/javascript">
+			var WebConfig = "servlet/WebConfig";
+			
+			function requestConfig() {
+				var url = WebConfig; 
+				Ajax_CallBack(url, "", "xml", "", true, function(xml) {
+					if (xml == null)
+						alert("获取设置失败");
+					else
+						setConfig(xml);													
+				}, function(response, error, status) {
+			        alert("获取设置失败");
+			    });
+			}
+			
+			function postConfig() {
+				var xml = createConfig();
+				if (xml == null) {
+					alert("创建xml失败");
+					return;
+				}
+				
+				var url = WebConfig; 
+				Ajax_CallBack(url, xml, "xml", "", true, function(xml) {
+					if (xml == null) {
+						alert("提交设置失败");
+						return;
+					}
+					
+					var ret = $(xml).find("ret");
+					if (ret != null && ret.text() == "0") {
+						requestConfig();
+						alert("提交设置成功");
+					} else
+						alert("提交设置失败");												
+				}, function(response, error, status) {
+			        alert("提交设置失败");
+			    });			
+			}
+			
+			function setConfig(xml) {
+				var html = "";									
+				$(xml).find("config").each(function() {
+					var config = $(this);					
+					config.find("configs").each(function() {
+						var configs = $(this);
+						var host = configs.find("host");
+						var userName = configs.find("username");
+						var password = configs.find("password");
+						var cities = configs.find("cities");
+						var autoCities = configs.find("autocities");
+						var autoUpgrade = configs.find("autoupgrade");
+						var upgradePriority = autoUpgrade.attr("priority");
+						var autoAttack = configs.find("autoattack");
+						var attackLevel = autoAttack.attr("level");
+						var autoRecruit = configs.find("autorecruit");
+						var infantrySwords = autoRecruit.attr("infantryswords");
+						var infantryScout = autoRecruit.attr("infantryscout");
+						var infantryCrossbow = autoRecruit.attr("infantrycrossbow");
+						var infantrySquire = autoRecruit.attr("infantrysquire");												
+						var cavalryTemplar = autoRecruit.attr("cavalrytemplar");
+						var cavalryArcher = autoRecruit.attr("cavalryarcher");
+						var cavalryPaladin = autoRecruit.attr("cavalrypaladin");
+						var cavalryRoyal = autoRecruit.attr("cavalryroyal");						
+						var marketRate = configs.find("marketrate");
+						
+						if (userName == null)
+							return;															
+												
+						html += "<form id=\"" + userName.text() + "\" style=\"margin:0px\">";
+						html += "<table width=\"760\" cellpadding=\"0\" cellspacing=\"0\" border=\"1\" class=\"Table1\">";
+						html += "<tr>";
+						html += "<td style=\"padding-top:5px;padding-bottom:5px;\">";
+						html += "<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+						html += "<tr>";
+						html += "<td width=\"86\" height=\"25\" align=\"right\">用户名：</td>";
+						html += "<td colspan=\"3\"><span id=\"username\">" + userName.text() + "</span></td>";
+						html += "</tr>";
+						html += "<tr>";
+						html += "<td align=\"right\" height=\"30\">密码：</td>";
+						html += "<td colspan=\"3\"><input type=\"text\" id=\"password\" size=\"40\" value=\"" + ((password != null) ? password.text() : "") + "\" /></td>";
+						html += "</tr>";
+						html += "<tr>";
+						html += "<td align=\"right\" height=\"30\">IP地址：</td>";
+						html += "<td colspan=\"3\"><input type=\"text\" id=\"host\" size=\"40\" value=\"" + ((host != null) ? host.text() : "") + "\" /></td>";
+						html += "</tr>";
+						html += "<tr>";
+						html += "<td align=\"right\" height=\"30\">城市ID：</td>";
+						html += "<td colspan=\"3\"><input type=\"text\" id=\"cities\" size=\"40\" value=\"" + ((cities != null) ? cities.text() : "") + "\" /></td>";
+						html += "</tr>";
+						html += "<tr>";
+						html += "<td align=\"right\" height=\"30\">请求延迟：</td>";
+						html += "<td colspan=\"3\"><input type=\"text\" id=\"autocities\" size=\"40\" value=\"" + ((autoCities != null) ? autoCities.text() : "") + "\" /></td>";
+						html += "</tr>";
+						html += "<tr>";
+						html += "<td align=\"right\" height=\"30\">自动升级：</td>";
+						html += "<td width=\"379\"><input type=\"text\" id=\"upgradepriority\" size=\"40\" value=\"" + ((upgradePriority != null) ? upgradePriority : "") + "\" />&nbsp;优先级</td>";
+						html += "<td width=\"335\" colspan=\"2\"><input type=\"checkbox\" id=\"autoupgrade\"" + ((autoUpgrade != null && autoUpgrade.text() == "true") ? "checked=\"checked\"" : "") + "  />&nbsp;开启</td>";
+						html += "</tr>";
+						html += "<tr>";
+						html += "<td align=\"right\" height=\"30\">自动攻击：</td>";
+						html += "<td><input type=\"text\" id=\"attacklevel\" size=\"40\" value=\"" + ((attackLevel != null) ? attackLevel : "") + "\" />&nbsp;级别</td>";
+						html += "<td colspan=\"2\"><input type=\"text\" id=\"autoattack\" size=\"10\" value=\"" + ((autoAttack != null) ? autoAttack.text() : "") + "\" />&nbsp;攻击延迟</td>";						
+						html += "</tr>";
+						html += "<tr>";
+						html += "<td align=\"right\" height=\"30\">自动招募：</td>";
+						html += "<td colspan=\"3\"><input type=\"checkbox\" id=\"autorecruit\"" + ((autoRecruit != null && autoRecruit.text() == "true") ? "checked=\"checked\"" : "") + " />&nbsp;开启</td>";
+						html += "</tr>";
+						html += "<tr>";
+						html += "<td align=\"right\" height=\"30\">&nbsp;</td>";
+						html += "<td colspan=\"3\">";
+						html += "<table width=\"95%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+						html += "<tr>";
+						html += "<td align=\"right\">剑士：</td>";
+						html += "<td><input type=\"text\" id=\"infantryswords\" size=\"10\" value=\"" + ((infantrySwords != null) ? infantrySwords : "") + "\" /></td>";
+						html += "<td align=\"right\">侦察兵：</td>";
+						html += "<td><input type=\"text\" id=\"infantryscout\" size=\"10\" value=\"" + ((infantryScout != null) ? infantryScout : "") + "\" /></td>";
+						html += "<td align=\"right\">弩弓手：</td>";
+						html += "<td><input type=\"text\" id=\"infantrycrossbow\" size=\"10\" value=\"" + ((infantryCrossbow != null) ? infantryCrossbow : "") + "\" /></td>";
+						html += "<td align=\"right\">侍卫：</td>";
+						html += "<td><input type=\"text\" id=\"infantrysquire\" size=\"10\" value=\"" + ((infantrySquire != null) ? infantrySquire : "") + "\" /></td>";
+						html += "</tr>";
+						html += "<tr>";
+						html += "<td align=\"right\">圣武士：</td>";
+						html += "<td><input type=\"text\" id=\"cavalrytemplar\" size=\"10\" value=\"" + ((cavalryTemplar != null) ? cavalryTemplar : "") + "\" /></td>";
+						html += "<td align=\"right\">弓骑兵：</td>";
+						html += "<td><input type=\"text\" id=\"cavalryarcher\" size=\"10\" value=\"" + ((cavalryArcher != null) ? cavalryArcher : "") + "\" /></td>";
+						html += "<td align=\"right\">圣骑士：</td>";
+						html += "<td><input type=\"text\" id=\"cavalrypaladin\" size=\"10\" value=\"" + ((cavalryPaladin != null) ? cavalryPaladin : "") + "\" /></td>";
+						html += "<td align=\"right\">皇家骑士：</td>";
+						html += "<td><input type=\"text\" id=\"cavalryroyal\" size=\"10\" value=\"" + ((cavalryRoyal != null) ? cavalryRoyal : "") + "\" /></td>";
+						html += "</tr>";
+						html += "</table>";						
+						html += "</td>";
+						html += "</tr>";						
+						html += "<tr>";
+						html += "<td align=\"right\" height=\"30\">销售率：</td>";
+						html += "<td colspan=\"3\"><input type=\"text\" id=\"marketrate\" size=\"40\" value=\"" + ((marketRate != null) ? marketRate.text() : "") + "\" /></td>";
+						html += "</tr>";
+						html += "</table>";
+						html += "</td>";
+						html += "</tr>";
+						html += "</table>";					
+						html += "</form>";
+						html += "<br/>";						
+					});
+				});
+				
+				$("#config").html("");
+				$("#config").html(html);
+			}
+			
+			function createConfig() {
+				var xml = "";
+				$("form").each(function() {
+					var host = (($(this).find("#host") != null) ? $(this).find("#host").val() : "");
+					var userName = (($(this).find("#username") != null) ? $(this).find("#username").text() : "");
+					var password = (($(this).find("#password") != null) ? $(this).find("#password").val() : "");
+					var cities = (($(this).find("#cities") != null) ? $(this).find("#cities").val() : "");
+					var autoCities = (($(this).find("#autocities") != null) ? $(this).find("#autocities").val() : "");
+					var autoUpgrade = (($(this).find("#autoupgrade") != null && $(this).find("#autoupgrade").attr("checked") == "checked") ? "true" : "false");
+					var upgradePriority = (($(this).find("#upgradepriority") != null) ? $(this).find("#upgradepriority").val() : "");
+					var autoAttack = (($(this).find("#autoattack") != null) ? $(this).find("#autoattack").val() : "");
+					var attackLevel = (($(this).find("#attacklevel") != null) ? $(this).find("#attacklevel").val() : "");
+					var autoRecruit = (($(this).find("#autorecruit") != null && $(this).find("#autorecruit").attr("checked") == "checked") ? "true" : "false");
+					var infantrySwords = (($(this).find("#infantryswords") != null) ? $(this).find("#infantryswords").val() : "");
+					var infantryScout = (($(this).find("#infantryscout") != null) ? $(this).find("#infantryscout").val() : "");
+					var infantryCrossbow = (($(this).find("#infantrycrossbow") != null) ? $(this).find("#infantrycrossbow").val() : "");
+					var infantrySquire = (($(this).find("#infantrysquire") != null) ? $(this).find("#infantrysquire").val() : "");												
+					var cavalryTemplar = (($(this).find("#cavalrytemplar") != null) ? $(this).find("#cavalrytemplar").val() : "");
+					var cavalryArcher = (($(this).find("#cavalryarcher") != null) ? $(this).find("#cavalryarcher").val() : "");
+					var cavalryPaladin = (($(this).find("#cavalrypaladin") != null) ? $(this).find("#cavalrypaladin").val() : "");
+					var cavalryRoyal = (($(this).find("#cavalryroyal") != null) ? $(this).find("#cavalryroyal").val() : "");
+					var marketRate = (($(this).find("#marketrate") != null) ? $(this).find("#marketrate").val() : "");
+					
+					xml += "\t<configs>\r\n";
+					xml += "\t\t<host>" + host + "</host>\r\n";
+					xml += "\t\t<username>" + userName + "</username>\r\n";
+					xml += "\t\t<password>" + password + "</password>\r\n";
+					xml += "\t\t<cities>" + cities + "</cities>\r\n";
+					xml += "\t\t<autocities>" + autoCities + "</autocities>\r\n";
+					xml += "\t\t<autoupgrade priority=\"" + upgradePriority + "\">" + autoUpgrade + "</autoupgrade>\r\n";
+					xml += "\t\t<autoattack level=\"" + attackLevel + "\">" + autoAttack + "</autoattack>\r\n";
+					xml += "\t\t<autorecruit infantryswords=\"" + infantrySwords + "\" infantryscout=\"" + infantryScout + "\" infantrycrossbow=\"" + infantryCrossbow + "\" infantrysquire=\"" + infantrySquire + "\" cavalrytemplar=\"" + cavalryTemplar + "\" cavalryarcher=\"" + cavalryArcher + "\" cavalrypaladin=\"" + cavalryPaladin + "\" cavalryroyal=\"" + cavalryRoyal + "\">" + autoRecruit + "</autorecruit>\r\n";
+					xml += "\t\t<marketrate>" + marketRate + "</marketrate>\r\n";
+					xml += "\t</configs>\r\n";
+				});
+				
+				if (xml.length > 0) {					
+					xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n\r\n<config>\r\n" + xml + "</config>";
+					return xml;
+				} else
+					return null;
+			}
+			
+			requestConfig();
+		</script>
+	</body>
+</html>
