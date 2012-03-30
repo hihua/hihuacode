@@ -1097,7 +1097,7 @@ public class TaskMy extends TaskBase {
 	}
 	
 	private void sells(City city, Config config) {
-		if (city.getMarketLeftCapacity() == null || city.getMarketLeftCapacity() == 0)
+		if (city.getMarketLeftCapacity() == null || city.getMarketLeftCapacity() <= 0)
 			return;
 		
 		ResourcesBase resourcesWood = city.getResourcesWood();
