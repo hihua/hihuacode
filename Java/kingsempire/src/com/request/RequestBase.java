@@ -20,7 +20,7 @@ public class RequestBase {
 	protected final Logs Log = Logs.getInstance();
 	private final String[] UserAgent = { "User-Agent", "Kings%20Empire%20Zh%20Deluxe/2840 CFNetwork/548.0.4 Darwin/11.0.0" };
 	private final String[] Udid = { "Udid", "b635e22da9ab4750876a7f3cab8f495de2298a14" };
-	private final String[] Clientv = { "Clientv", "1.2" };
+	private final String[] Clientv = { "Clientv", "1.2.1" };
 	private final String[] Appid = { "Appid", "500556141" };    
 	private final String[] Locale = { "Locale", "zh" };
 	private final String[] Accept = { "Accept", "*/*" };
