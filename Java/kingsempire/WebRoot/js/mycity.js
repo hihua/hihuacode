@@ -116,6 +116,10 @@ function setMyCity(json, cityId) {
 	html += "<td align=\"left\" width=\"34%\" height=\"25px\">宝石: </td>";
 	html += "<td>" + city.resources.gems + "</td>";        
 	html += "</tr>";
+	html += "<tr>";
+	html += "<td align=\"left\" width=\"34%\" height=\"25px\">许愿次数: </td>";
+	html += "<td>" + city.left_wishing_count + "</td>";        
+	html += "</tr>";
 	
 	if (events.protection != null) {
 		$.each(events.protection, function(idx, protection) {
