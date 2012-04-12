@@ -49,21 +49,6 @@ import com.util.DateTime;
  * 12 	骑兵
  */
 
-/*
-<!--	<configs>-->
-<!--		<host>http://42.120.49.122</host>-->
-<!--		<username>player126844</username>-->
-<!--		<password>321genius123</password>-->
-<!--		<cities>13169</cities>-->
-<!--		<autocities>40</autocities>-->
-<!--		<autoupgrade priority="0,5,2,1,12,11,4,6,7,9,8">true</autoupgrade>-->
-<!--		<autoattack level="0-0">0</autoattack>-->
-<!--		<autorecruit infantryswords="0" infantryscout="0" infantrycrossbow="0" infantrysquire="0" cavalrytemplar="0" cavalryarcher="0" cavalrypaladin="0" cavalryroyal="0">true</autorecruit>-->
-<!--		<autoprotect username="" cityid="">false</autoprotect>	-->
-<!-- 		<automarket>false</automarket>  -->
-<!--	</configs>-->
-*/
-
 public class City {	
 	private BuildingCastle buildingCastle;
 	private BuildingChurch buildingChurch;

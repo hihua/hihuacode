@@ -30,6 +30,7 @@ import com.request.RequestDeals;
 import com.request.RequestItems;
 import com.request.RequestMessages;
 import com.request.RequestRecruit;
+import com.request.RequestRewards;
 import com.request.RequestSkills;
 import com.request.RequestWorldMaps;
 import com.resources.ResourcesBase;
@@ -56,6 +57,7 @@ public class TaskMy extends TaskBase {
 	private final RequestItems m_RequestItems = new RequestItems();
 	private final RequestSkills m_RequestSkills = new RequestSkills();
 	private final RequestDeals m_RequestDeals = new RequestDeals();
+	private final RequestRewards m_RequestRewards = new RequestRewards();
 	private final Hashtable<Long, AttackInfo> m_AttackInfo = new Hashtable<Long, AttackInfo>();
 	private Config m_ConfigNew = null;
 	
@@ -188,6 +190,9 @@ public class TaskMy extends TaskBase {
 			
 			if (marketRate > 0D)
 				sells(myCity, m_Config);
+			
+			if (myCity.getLeftWishingCount() != null && myCity.getLeftWishingCount() > 0)
+				m_RequestRewards.request(host, authorization, 0L, cityId);			
 		}
 		
 		ItemInfo itemInfo = m_RequestItems.request(host, authorization);
