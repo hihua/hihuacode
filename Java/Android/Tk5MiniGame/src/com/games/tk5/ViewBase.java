@@ -4,9 +4,7 @@ import com.games.tk5.util.Logs;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.media.MediaPlayer;

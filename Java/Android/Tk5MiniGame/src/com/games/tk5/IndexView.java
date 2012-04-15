@@ -18,7 +18,6 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.Typeface;
-import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 
 public class IndexView extends ViewBase {

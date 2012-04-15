@@ -1,6 +1,5 @@
 package com.games.tk5;
 
-import com.games.tk5.ViewBase.GameStatus;
 import com.games.tk5.util.ImageUtil;
 import com.games.tk5.util.Logs;
 
