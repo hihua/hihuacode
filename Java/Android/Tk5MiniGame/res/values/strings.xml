@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">太阁5迷你游戏</string>
+    <string name="mini_game">迷你遊戲</string>
+    <string name="index_square">破壞方陣</string>
+    <string name="index_cannon">鐵炮打靶</string>
+    <string name="square_desc">藉由選擇拼板，在限制時間內消去所有拼板。\n智謀與統率力越高段，限制時間就越長。軍學越高段，拼板數量就越多。\n可以在武家宅中玩到這個迷你遊戲。</string>
+
+</resources>
