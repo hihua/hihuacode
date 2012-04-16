@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="islandempire"
+  id="myeclipse.1334587411306"
+  context-root="/islandempire"
+  j2ee-spec="6.0"
+  archive="islandempire.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+
