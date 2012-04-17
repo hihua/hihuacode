@@ -11,6 +11,8 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.zip.GZIPInputStream;
 
@@ -23,6 +25,7 @@ public class RequestBase {
 	private int m_ConnectTimeout = 30000;
 	private int m_ReadTimeout = 30000;
 	private final int m_Times = 3;
+	private Map<String, List<String>> m_Headers;
 	
 	protected RequestBase() {
 		
@@ -94,13 +97,13 @@ public class RequestBase {
 		}
 	}
 	
-	protected String request(String webUrl, HashMap<String, String> header, String body) {
+	protected String request(String web, HashMap<String, String> header, String body) {
     	int times = m_Times;
     	while (times > 0) {
     		URL url = null;
     		
     		try {
-    			 url = new URL(webUrl);
+    			 url = new URL(web);
     		} catch (MalformedURLException e) {			
     			return null;
     		}
@@ -195,9 +198,9 @@ public class RequestBase {
     			continue;
     		}
     		
-    		if (responseCode != 200) {
+    		if (responseCode != HttpURLConnection.HTTP_OK) {
     			StringBuilder sb = new StringBuilder();    			
-    			sb.append(webUrl);
+    			sb.append(web);
     			if (body != null) {
     				sb.append("\n");
         			sb.append(body);
@@ -219,13 +222,19 @@ public class RequestBase {
 				if (response == null) {					
 					times--;
 					continue;
-				} else
-					return response;								
+				} else {
+					m_Headers = connection.getHeaderFields();
+					return response;
+				}
 			}    		
     	}
     	
     	return null;
     }
+	
+	public Map<String, List<String>> getHeader() {
+		return m_Headers;
+	}
     
     private String getBody(HttpURLConnection connection) {
     	InputStream inputStream = getInputStream(connection);
