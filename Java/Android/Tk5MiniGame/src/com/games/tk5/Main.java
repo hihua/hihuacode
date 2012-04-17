@@ -1,27 +1,31 @@
 package com.games.tk5;
 
+import com.games.tk5.util.Logs;
+
 import android.app.Activity;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class Main extends Activity implements ViewCallBack {
+public class Main extends Activity implements ViewCallBack, MediaCallBack, MediaPlayer.OnErrorListener {
 	
 	private IndexView m_IndexView = null;
 	private ViewBase m_TopView = null;
+	private MediaPlayer m_MediaPlayer = null;
 	    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState); 
         requestWindowFeature(Window.FEATURE_NO_TITLE);   
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        changeIndex(false);
+        changeIndex(false);        
     }
 
 	@Override
 	protected void onDestroy() {
-		super.onDestroy();		
+		super.onDestroy();
 		if (m_TopView != null)
 			m_TopView.setDestroy();			
 	}
@@ -41,7 +45,8 @@ public class Main extends Activity implements ViewCallBack {
 
 	@Override
 	protected void onPause() {
-		super.onPause();		
+		super.onPause();
+		mediaPause();
 		if (m_TopView != null)
 			m_TopView.setPause();			
 	}
@@ -49,6 +54,7 @@ public class Main extends Activity implements ViewCallBack {
 	@Override
 	protected void onRestart() {		
 		super.onRestart();
+		mediaRestart();
 		if (m_TopView != null)
 			m_TopView.setRestart();
 	}
@@ -86,5 +92,45 @@ public class Main extends Activity implements ViewCallBack {
 	@Override
 	public void endGames() {
 		finish();
+	}
+	
+	@Override
+	public void mediaStart(int res) {
+		try {
+			m_MediaPlayer = MediaPlayer.create(this, res);			
+			m_MediaPlayer.setVolume(10f, 10f);
+			m_MediaPlayer.setLooping(true);
+			m_MediaPlayer.start();
+			m_MediaPlayer.setOnErrorListener(this);
+		} catch (Exception e) {
+			Logs.LogsError(e);
+		}		
+	}
+	
+	@Override
+	public void mediaPause() {
+		if (m_MediaPlayer != null && m_MediaPlayer.isPlaying())
+			m_MediaPlayer.pause();
 	}	
+		
+	@Override
+	public void mediaRestart() {
+		if (m_MediaPlayer != null)
+			m_MediaPlayer.start();
+	}
+	
+	@Override
+	public void mediaStop() {
+		if (m_MediaPlayer != null) {		
+			m_MediaPlayer.stop();	
+			m_MediaPlayer.release();
+			m_MediaPlayer = null;
+		}		
+	}
+	
+	@Override
+	public boolean onError(MediaPlayer mediaPlayer, int what, int extra) {
+		mediaPlayer.release();
+		return false;
+	}
 }

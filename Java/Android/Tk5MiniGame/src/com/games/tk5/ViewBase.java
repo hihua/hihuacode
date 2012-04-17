@@ -20,7 +20,7 @@ public abstract class ViewBase extends SurfaceView implements SurfaceHolder.Call
 	private ViewStatus m_ViewStatus = ViewStatus.Entry;
 	private int m_Frame = 0;
 	private ViewCallBack m_ViewCallBack;
-	private MediaPlayer m_MediaPlayer;
+	private MediaCallBack m_MediaCallBack;
 	private DisplayMetrics m_DisplayMetrics;
 	private final Rect m_Sreen_Rect = new Rect();
 	private int m_Screen_Width = 0;
@@ -56,27 +56,11 @@ public abstract class ViewBase extends SurfaceView implements SurfaceHolder.Call
 	protected ViewCallBack getViewCallBack() {
 		return m_ViewCallBack;
 	}
+	
+	protected MediaCallBack getMediaCallBack() {
+		return m_MediaCallBack;
+	}
 		
-	protected void startMediaPlay(int res) {
-		try {
-			m_MediaPlayer = MediaPlayer.create(getContext(), res);			
-			m_MediaPlayer.setVolume(10f, 10f);
-			m_MediaPlayer.setLooping(true);
-			m_MediaPlayer.start();
-			m_MediaPlayer.setOnErrorListener(this);
-		} catch (Exception e) {
-			Logs.LogsError(e);
-		}		
-	}
-	
-	protected void stopMediaPlay() {
-		if (m_MediaPlayer != null) {
-			m_MediaPlayer.stop();	
-			m_MediaPlayer.release();
-			m_MediaPlayer = null;
-		}
-	}
-	
 	protected Path setTranslation(PointF left, PointF right, float step, boolean up) {
 		float x1 = left.x;
 		float y1 = left.y;
@@ -157,13 +141,7 @@ public abstract class ViewBase extends SurfaceView implements SurfaceHolder.Call
 		
 		return path;
 	}
-	
-	@Override
-	public boolean onError(MediaPlayer mp, int what, int extra) {
-		mp.release();
-		return false;
-	}
-
+		
 	@Override
 	public void surfaceChanged(SurfaceHolder arg0, int arg1, int arg2, int arg3) {
 		
@@ -302,8 +280,7 @@ public abstract class ViewBase extends SurfaceView implements SurfaceHolder.Call
     }
 	
 	private void pause() {
-		if (m_MediaPlayer != null && m_MediaPlayer.isPlaying())
-			m_MediaPlayer.pause();
+		
 		
 		onPause();
 	}
@@ -408,7 +385,7 @@ public abstract class ViewBase extends SurfaceView implements SurfaceHolder.Call
 	}
 	
 	private void exit() {
-		stopMediaPlay();
+		getMediaCallBack().mediaStop();
 		onExit();
 	}
 	
@@ -425,15 +402,11 @@ public abstract class ViewBase extends SurfaceView implements SurfaceHolder.Call
 		setGameStatus(GameStatus.Pause);
 	}
 	
-	public void setDestroy() {
-		stopMediaPlay();
+	public void setDestroy() {		
 		setGameStatus(GameStatus.Destroy);
 	}
 	
 	public void setRestart() {
-		if (m_MediaPlayer != null)
-			m_MediaPlayer.start();
-		
 		setGameStatus(GameStatus.Runing);
 	}
 	
