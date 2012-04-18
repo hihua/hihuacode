@@ -3,15 +3,11 @@ package com.request;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class RequestParent extends RequestBase {	
-	protected static String[] Cookie = { "Cookie", "" };
-	protected static Date Expires = null;
-	protected static final long Timeout = 72000000;	
 	private final String[] UserAgent = { "User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_5; en-us) AppleWebKit/526.11 (KHTML, like Gecko)" };
 	private final String[] Udid = { "Udid", "8f3c3b1d78132a495a8641cdbf51bf50b931f458" };	
 	private final String[] Appid = { "Appid", "tap4fun.islandempire.50gems" };    
@@ -24,16 +20,17 @@ public class RequestParent extends RequestBase {
 	private final String Sig = "sig";
 	private final String Clientv = "clientv";
 	private final String Authorization = "Authorization";
-	private final String Sessions = "/sessions.json";
+	private final String Cookie = "Cookie";	
 	private final String UserName = "hihua";
 	private final String Password = "hihua1012";
 	private final String Secret = "12345678";	
 	private final String Body = "device_version=iPad2,1&username=%s&password=%s&ios_version=5.0.1";
-	private final HashMap<String, String> m_Header = new HashMap<String, String>();		
+	private final HashMap<String, String> m_Header = new HashMap<String, String>();
+	private final StringBuilder m_Authorization = new StringBuilder();
 	private String m_Charset = "UTF-8";
 	
-	private String getMD5(String web, String body) {
-		String content = web;
+	private String getMD5(String webUrl, String body) {
+		String content = webUrl;
 		if (body != null)
 			content = body;	
 				
@@ -90,7 +87,7 @@ public class RequestParent extends RequestBase {
 			return "Basic " + s;
 	}
 	
-	private void setHeader(String authorization, String clientv, String md5) {
+	private void setHeader(String authorization, String clientv, String cookie, String md5) {
 		m_Header.clear();			
 		m_Header.put(Authorization, authorization);	
 		m_Header.put(Clientv, clientv);						
@@ -102,87 +99,79 @@ public class RequestParent extends RequestBase {
 		m_Header.put(Appid[0], Appid[1]);
 		m_Header.put(Locale[0], Locale[1]);
 		m_Header.put(Macid[0], Macid[1]);
-		m_Header.put(Sig, md5);		
-	}
-	
-	private boolean setCookie(String host, String url, String clientv, String username, String body) {		
-		String web = host + url;
-		String md5 = getMD5(web, body);
-		if (md5 == null)
-			return false;
 		
-		String authorization = null;
+		if (cookie != null)
+			m_Header.put(Cookie, cookie);
+		
+		m_Header.put(Sig, md5);
+	}
+		
+	protected String request(String webUrl, String clientv, String cookie, String username, String password, String body) {		
+		String md5 = getMD5(webUrl, body);
+		if (md5 == null)
+			return null;
+		
+		m_Authorization.setLength(0);		
 		if (username == null)
-			authorization = getBase64(UserName + ":" + Secret);
+			m_Authorization.append(UserName);
 		else
-			authorization = getBase64(username + ":" + Secret);
+			m_Authorization.append(username);
 		
+		m_Authorization.append(":");
+		if (password == null)
+			m_Authorization.append(Secret);
+		else
+			m_Authorization.append(password);
+		
+		String authorization = getBase64(m_Authorization.toString());		
 		if (authorization == null)
-			return false;
+			return null;
 		
-		if (Expires == null || Cookie[1].length() == 0 || System.currentTimeMillis() - Expires.getTime() > Timeout || !getCookie(host, clientv))
-			return false;
-
-		setHeader(authorization, clientv, md5);
-		m_Header.put(Cookie[0], Cookie[1]);
-		String content = request(host + Sessions, m_Header, body);
-		if (content == null)
-			return false;
-		
-		return true;				
+		setHeader(authorization, clientv, cookie, md5);
+		return request(webUrl, m_Header, body);
 	}
 	
-	private boolean getCookie(String host, String clientv) {
-		String authorization = getBase64(UserName + ":" + Password);
-		if (authorization == null)
-			return false;					
-		
-		String web = host + Sessions;
-		String body = String.format(Body, UserName, Password);
-		String md5 = getMD5(web, body);
-		if (md5 == null)
-			return false;
-		
-		setHeader(authorization, clientv, md5);		
-		String content = request(web, m_Header, body);
-		if (content == null)
-			return false;
+	protected String request(String webUrl, String clientv, String cookie, String body) {
+		return request(webUrl, clientv, cookie, null, null, body);
+	}
+	
+	protected String request(String webUrl, String clientv, String cookie, String username, String body) {
+		return request(webUrl, clientv, cookie, username, null, body);
+	}
+	
+	protected String sessions(String webUrl, String clientv) {
+		String body = String.format(Body, UserName, Password);				
+		String response = request(webUrl, clientv, null, UserName, Password, body);
+		if (response == null)
+			return null;
 		else {
 			Map<String, List<String>> map = getHeader();
 			if (map == null)
-				return false;
+				return null;
 			else {
-				if (map.containsKey("Cookie")) {
-					List<String> cookies = map.get("Cookie");
+				if (map.containsKey("Set-Cookie")) {
+					List<String> cookies = map.get("Set-Cookie");
 					StringBuilder sb = new StringBuilder();
 					for (String cookie : cookies) {
-						sb.append("; ");
-						sb.append(cookie);
+						if (cookie.indexOf("user_id=") > -1)
+							continue;
+						
+						int p = cookie.indexOf("; ");
+						if (p > 0) {
+							sb.append("; ");
+							sb.append(cookie.substring(0, p));
+						}					
 					}
 					
 					if (sb.length() == 0)
-						return false;
+						return null;
 					else {
-						sb.delete(0, 2);
-						Cookie[1] = sb.toString();
-						Expires = new Date();						
-						return true;
-					}						
+						sb = sb.delete(0, 2);
+						return sb.toString();
+					}					
 				} else
-					return false;
+					return null;
 			}
 		}
-	}
-	
-	protected String request(String host, String url, String clientv, String username, String body) {
-		if (!setCookie(host, url, clientv, username, body))
-			return null;
-		
-		String web = host + url;
-		return request(web, m_Header, body);
-	}
-	
-	protected String request(String host, String url, String clientv, String body) {
-		return request(host, url, clientv, null, body);
 	}
 }

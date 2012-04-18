@@ -97,13 +97,13 @@ public class RequestBase {
 		}
 	}
 	
-	protected String request(String web, HashMap<String, String> header, String body) {
+	protected String request(String webUrl, HashMap<String, String> header, String body) {
     	int times = m_Times;
     	while (times > 0) {
     		URL url = null;
     		
     		try {
-    			 url = new URL(web);
+    			 url = new URL(webUrl);
     		} catch (MalformedURLException e) {			
     			return null;
     		}
@@ -200,7 +200,7 @@ public class RequestBase {
     		
     		if (responseCode != HttpURLConnection.HTTP_OK) {
     			StringBuilder sb = new StringBuilder();    			
-    			sb.append(web);
+    			sb.append(webUrl);
     			if (body != null) {
     				sb.append("\n");
         			sb.append(body);

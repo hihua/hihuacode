@@ -1,8 +1,13 @@
-package com.buildings;
+package com.towns;
+
+import java.util.List;
+
+import com.queue.BattleQueue;
 
 public class OtherTown {
 	private String name;
 	private Long resourceType;
+	private List<BattleQueue> battleQueues;
 	private Long level;
 	private Long id;
 	private Long islandX;
@@ -17,6 +22,10 @@ public class OtherTown {
 
 	public Long getResourceType() {
 		return resourceType;
+	}
+
+	public List<BattleQueue> getBattleQueues() {
+		return battleQueues;
 	}
 
 	public Long getLevel() {
@@ -53,6 +62,10 @@ public class OtherTown {
 
 	public void setResourceType(Long resourceType) {
 		this.resourceType = resourceType;
+	}
+
+	public void setBattleQueues(List<BattleQueue> battleQueues) {
+		this.battleQueues = battleQueues;
 	}
 
 	public void setLevel(Long level) {

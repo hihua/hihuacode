@@ -1,4 +1,4 @@
-package com.buildings;
+package com.towns;
 
 public class Alliance {
 	private Long allianceId;

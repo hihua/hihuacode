@@ -1,4 +1,4 @@
-package com.buildings;
+package com.towns;
 
 public class Soldier {
 	private String name;

@@ -21,8 +21,7 @@ public class Queue {
 	private Long wood;
 	private Long marble;
 	private Long food;
-	private Long iron;
-	private Long fromX;
+	private Long iron;	
 	private String toTownName;
 	private Long fromTownId;
 
@@ -108,10 +107,6 @@ public class Queue {
 
 	public Long getIron() {
 		return iron;
-	}
-
-	public Long getFromX() {
-		return fromX;
 	}
 
 	public String getToTownName() {
@@ -205,11 +200,7 @@ public class Queue {
 	public void setIron(Long iron) {
 		this.iron = iron;
 	}
-
-	public void setFromX(Long fromX) {
-		this.fromX = fromX;
-	}
-
+	
 	public void setToTownName(String toTownName) {
 		this.toTownName = toTownName;
 	}
