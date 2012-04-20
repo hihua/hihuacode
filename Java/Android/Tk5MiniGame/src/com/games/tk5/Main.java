@@ -18,42 +18,57 @@ public class Main extends Activity implements ViewCallBack {
         requestWindowFeature(Window.FEATURE_NO_TITLE);   
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         m_VideoView = new VideoView(this, this);
-        setContentView(m_VideoView);
-        //m_VideoView.start();
+        setContentView(m_VideoView);        
     }
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		if (m_TopView != null)
-			m_TopView.setDestroy();			
+		if (m_VideoView != null)
+			m_VideoView.stop();			
+		else {
+			if (m_TopView != null)
+				m_TopView.setDestroy();
+		}				
 	}
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (m_TopView != null && m_TopView == m_IndexView) {
-			endGames();
-			return true;
-		}
-		
-		if (m_TopView != null && m_TopView.setKeyDown(keyCode, event))
-			return true;
+		if (m_VideoView != null) {
+			if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+				m_VideoView.stop();
+				endGames();
+				return true;
+			}			
+		} else {
+			if (m_TopView != null && m_TopView == m_IndexView) {
+				endGames();
+				return true;
+			}
+			
+			if (m_TopView != null && m_TopView.setKeyDown(keyCode, event))
+				return true;
+		}		
 		
 		return super.onKeyDown(keyCode, event);
 	}
 
 	@Override
 	protected void onPause() {
-		super.onPause();		
-		if (m_TopView != null)
-			m_TopView.setPause();			
+		super.onPause();
+		if (m_VideoView != null)
+			m_VideoView.stop();			
+		else {
+			if (m_TopView != null)
+				m_TopView.setPause();
+		}					
 	}
 
 	@Override
 	protected void onRestart() {		
-		super.onRestart();		
+		super.onRestart();
 		if (m_TopView != null)
-			m_TopView.setRestart();
+			m_TopView.setRestart();				
 	}
 	
 	private void setDestroy() {
