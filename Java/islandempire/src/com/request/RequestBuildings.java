@@ -19,5 +19,5 @@ public class RequestBuildings extends RequestParent {
 			return false;
 		else
 			return true;
-	}
+	}		
 }

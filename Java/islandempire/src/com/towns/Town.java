@@ -15,6 +15,7 @@ import com.buildings.BuildingPort;
 import com.buildings.BuildingResource;
 import com.buildings.BuildingSoldier;
 import com.buildings.BuildingStore;
+import com.buildings.BuildingTower;
 import com.buildings.BuildingWall;
 import com.hero.Hero;
 import com.queue.BattleQueue;
@@ -32,6 +33,7 @@ import com.util.DateTime;
  * 	8	黄金
  * 	9	市场
  * 10	大厅
+ * 11	城墙
  * 13	造船厂
  * 14	地窖
  */
@@ -556,7 +558,8 @@ public class Town {
 					List<BuildingLine> buildingLines = new Vector<BuildingLine>();
 					if (lines != null) {						
 						for (int j = 0; j < lines.size(); j++) {
-							JSONObject line = (JSONObject) lines.get(j);							BuildingLine buildingLine = new BuildingLine();
+							JSONObject line = (JSONObject) lines.get(j);		
+							BuildingLine buildingLine = new BuildingLine();
 							buildingLine.setLevel((line.get("level") != null) ? line.getLong("level") : null);
 							buildingLine.setId((line.get("id") != null) ? line.getLong("id") : null);
 							buildingLine.setCurrentOutput((line.get("current_output") != null) ? line.getLong("current_output") : null);
@@ -654,7 +657,40 @@ public class Town {
 					buildingHall.setStatus(status);
 					buildingHall.setAnchorIndex(anchorIndex);
 					towns.setBuildingHall(buildingHall);
-				}	
+				}
+				
+				if (buildingType.equals(11L)) {
+					BuildingWall buildingWall = new BuildingWall();
+					buildingWall.setLevel(level);						
+					buildingWall.setId(id);
+					buildingWall.setBuildingType(buildingType);
+					buildingWall.setStatus(status);
+					buildingWall.setAnchorIndex(anchorIndex);
+					if (building.get("property") != null) {
+						JSONObject property = (JSONObject) building.get("property");
+						buildingWall.setDefense((property.get("defense") != null) ? property.getLong("defense") : null);						
+					}
+					
+					if (building.get("towers") != null) {
+						JSONArray towers = building.getJSONArray("towers");
+						List<BuildingTower> buildingTowers = new Vector<BuildingTower>();						
+						for (int j = 0; j < towers.size(); j++) {
+							JSONObject tower = (JSONObject) towers.get(j);
+							BuildingTower buildingTower = new BuildingTower();
+							buildingTower.setDefense((tower.get("defense") != null) ? tower.getLong("defense") : null);
+							buildingTower.setLevel((tower.get("level") != null) ? tower.getLong("level") : null);
+							buildingTower.setId((tower.get("id") != null) ? tower.getLong("id") : null);
+							buildingTower.setType((tower.get("type") != null) ? tower.getLong("type") : null);
+							buildingTower.setStatus((tower.get("status") != null) ? tower.getString("status") : null);
+							buildingTower.setAttack((tower.get("attack") != null) ? tower.getLong("attack") : null);
+							buildingTowers.add(buildingTower);
+						}
+						
+						buildingWall.setBuildingTower(buildingTowers);
+					}
+					
+					towns.setBuildingWall(buildingWall);
+				}
 				
 				if (buildingType.equals(13L)) {
 					BuildingSoldier buildingYard = new BuildingSoldier();
@@ -771,6 +807,9 @@ public class Town {
 				res.setResourceName((resource.get("resource_name") != null) ? resource.getString("resource_name") : null);
 				res.setResourceCount((resource.get("resource_count") != null) ? resource.getLong("resource_count") : null);
 				
+				if (res.getResourceName() == null)
+					continue;
+				
 				if (res.getResourceName().equals("wood")) {
 					towns.setResourcesWood(res);
 					continue;
@@ -864,6 +903,9 @@ public class Town {
 				Soldier sold = new Soldier();
 				sold.setName((soldier.get("name") != null) ? soldier.getString("name") : null);
 				sold.setCount((soldier.get("count") != null) ? soldier.getLong("count") : null);
+				
+				if (sold.getName() == null)
+					continue;
 				
 				if (sold.getName().equals("infantry")) {
 					towns.setSoldierInfantry(sold);
