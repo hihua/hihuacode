@@ -12,7 +12,7 @@ import android.media.MediaPlayer.OnCompletionListener;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-public class VideoView extends SurfaceView implements OnBufferingUpdateListener, OnCompletionListener, MediaPlayer.OnPreparedListener, SurfaceHolder.Callback {
+public class VideoView extends SurfaceView implements OnCompletionListener, SurfaceHolder.Callback {
 	private MediaPlayer m_MediaPlayer = null;
 	private ViewCallBack m_ViewCallBack;
 	private SurfaceHolder m_SurfaceHolder;
@@ -25,23 +25,18 @@ public class VideoView extends SurfaceView implements OnBufferingUpdateListener,
 		m_SurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 	}
 	
-	public boolean start(int res) {
-		m_MediaPlayer = MediaPlayer.create(getContext(), res);
-		m_MediaPlayer.setDisplay(m_SurfaceHolder);
-		
+	public boolean start() {
 		try {
-			m_MediaPlayer.prepare();
-		} catch (IllegalStateException e) {			
-			Logs.LogsError(e);
-			return false;
-		} catch (IOException e) {			
+			m_MediaPlayer = MediaPlayer.create(getContext(), R.raw.game_welcome);
+			m_MediaPlayer.setDisplay(m_SurfaceHolder);	
+			m_MediaPlayer.setOnCompletionListener(this);
+			m_MediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);			
+			m_MediaPlayer.start();			
+		} catch (IllegalStateException e) {
 			Logs.LogsError(e);
 			return false;
 		}
 		
-		m_MediaPlayer.setOnBufferingUpdateListener(this); 
-		m_MediaPlayer.setOnPreparedListener(this); 
-		m_MediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 		return true;
 	}
 	
@@ -49,11 +44,17 @@ public class VideoView extends SurfaceView implements OnBufferingUpdateListener,
 		if (m_MediaPlayer != null) {
 			m_MediaPlayer.stop();
 			m_MediaPlayer.release();
+			m_MediaPlayer = null;
 		}
 	}
 	
+	public void restart() {
+		if (m_MediaPlayer != null)
+			m_MediaPlayer.start();
+	}
+	
 	public void pause() {
-		if (m_MediaPlayer != null && m_MediaPlayer.isPlaying())
+		if (m_MediaPlayer != null)
 			m_MediaPlayer.pause();
 	}
 
@@ -65,8 +66,7 @@ public class VideoView extends SurfaceView implements OnBufferingUpdateListener,
 
 	@Override
 	public void surfaceCreated(SurfaceHolder arg0) {
-		// TODO Auto-generated method stub
-		
+		start();
 	}
 
 	@Override
@@ -76,23 +76,8 @@ public class VideoView extends SurfaceView implements OnBufferingUpdateListener,
 	}
 
 	@Override
-	public void onPrepared(MediaPlayer mediaPlayer) {
-		if (mediaPlayer.getVideoWidth() > 0 && mediaPlayer.getVideoHeight() > 0) {
-			m_SurfaceHolder.setFixedSize(mediaPlayer.getVideoWidth(), mediaPlayer.getVideoHeight()); 
-			mediaPlayer.start();
-		} else
-			m_ViewCallBack.changeIndex(false);
-	}
-
-	@Override
 	public void onCompletion(MediaPlayer mediaPlayer) {
 		stop();
-		m_ViewCallBack.changeIndex(false);
-	}
-
-	@Override
-	public void onBufferingUpdate(MediaPlayer mediaPlayer, int percent) {
-		// TODO Auto-generated method stub
-		
-	}		
+		m_ViewCallBack.onEndVideo();
+	}	
 }

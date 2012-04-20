@@ -185,8 +185,10 @@ public class IndexView extends ViewBase {
 
 	@Override
 	protected boolean onInit() {
-		if (m_LastView)
+		if (m_LastView) {
+			audioStart(R.raw.index_background);
 			return true;
+		}
 		
 		m_LeftRigth = ((float)(getScreenWidth()) - m_Cell_Total * m_Index_Width - ((float)m_Cell_Total - 1) * m_SpaceWidth) / 2;
 		RectF rect = new RectF();
@@ -217,8 +219,7 @@ public class IndexView extends ViewBase {
 	@Override
 	protected void onPrepare() {
 		setGameStatus(GameStatus.Runing);
-		setViewStatus(ViewStatus.Started);
-		startMediaPlay(R.raw.index_background);				
+		setViewStatus(ViewStatus.Started);		
 	}
 
 	@Override

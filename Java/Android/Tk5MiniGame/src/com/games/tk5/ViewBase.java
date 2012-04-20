@@ -19,12 +19,12 @@ public abstract class ViewBase extends SurfaceView implements SurfaceHolder.Call
 	private GameStatus m_GameStatus = GameStatus.Runing;
 	private ViewStatus m_ViewStatus = ViewStatus.Entry;
 	private int m_Frame = 0;
-	private ViewCallBack m_ViewCallBack;
-	private MediaCallBack m_MediaCallBack;
+	private ViewCallBack m_ViewCallBack;	
 	private DisplayMetrics m_DisplayMetrics;
 	private final Rect m_Sreen_Rect = new Rect();
 	private int m_Screen_Width = 0;
 	private int m_Screen_Height = 0;
+	private MediaPlayer m_MediaPlayer = null;
 		
 	protected ViewBase(Context context, ViewCallBack callback) {
 		super(context);
@@ -56,9 +56,35 @@ public abstract class ViewBase extends SurfaceView implements SurfaceHolder.Call
 	protected ViewCallBack getViewCallBack() {
 		return m_ViewCallBack;
 	}
+			
+	protected void audioStart(int res) {
+		try {
+			m_MediaPlayer = MediaPlayer.create(getContext(), res);			
+			m_MediaPlayer.setVolume(10f, 10f);
+			m_MediaPlayer.setLooping(true);
+			m_MediaPlayer.start();
+			m_MediaPlayer.setOnErrorListener(this);
+		} catch (Exception e) {
+			Logs.LogsError(e);
+		}		
+	}
 	
-	protected MediaCallBack getMediaCallBack() {
-		return m_MediaCallBack;
+	protected void audioPause() {
+		if (m_MediaPlayer != null)
+			m_MediaPlayer.pause();
+	}
+	
+	protected void audioRestart() {
+		if (m_MediaPlayer != null)
+			m_MediaPlayer.start();
+	}
+	
+	protected void audioStop() {
+		if (m_MediaPlayer != null) {		
+			m_MediaPlayer.stop();	
+			m_MediaPlayer.release();
+			m_MediaPlayer = null;
+		}		
 	}
 		
 	protected Path setTranslation(PointF left, PointF right, float step, boolean up) {
@@ -155,6 +181,12 @@ public abstract class ViewBase extends SurfaceView implements SurfaceHolder.Call
 	@Override
 	public void surfaceDestroyed(SurfaceHolder arg0) {
 		
+	}
+	
+	@Override
+	public boolean onError(MediaPlayer mediaPlayer, int what, int extra) {
+		mediaPlayer.release();
+		return false;
 	}
 		
 	public boolean setKeyDown(int keyCode, KeyEvent event) {		
@@ -279,9 +311,7 @@ public abstract class ViewBase extends SurfaceView implements SurfaceHolder.Call
         }       
     }
 	
-	private void pause() {
-		
-		
+	private void pause() {		
 		onPause();
 	}
 			
@@ -384,8 +414,7 @@ public abstract class ViewBase extends SurfaceView implements SurfaceHolder.Call
 		return ret;
 	}
 	
-	private void exit() {
-		getMediaCallBack().mediaStop();
+	private void exit() {		
 		onExit();
 	}
 	
@@ -399,14 +428,17 @@ public abstract class ViewBase extends SurfaceView implements SurfaceHolder.Call
 	}
 	
 	public void setPause() {
+		audioPause();
 		setGameStatus(GameStatus.Pause);
 	}
 	
-	public void setDestroy() {		
+	public void setDestroy() {
+		audioStop();
 		setGameStatus(GameStatus.Destroy);
 	}
 	
 	public void setRestart() {
+		audioRestart();
 		setGameStatus(GameStatus.Runing);
 	}
 	

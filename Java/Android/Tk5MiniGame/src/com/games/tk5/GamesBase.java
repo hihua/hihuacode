@@ -208,8 +208,7 @@ public abstract class GamesBase extends ViewBase implements Callback {
 	@Override
 	protected void onPrepare() {
 		setGameStatus(GameStatus.Runing);
-		setViewStatus(ViewStatus.Entry);
-		startMediaPlay(R.raw.game_background);
+		setViewStatus(ViewStatus.Entry);		
 		m_Point_Left.set((float)(getScreenWidth() - 2), 0f);
 		m_Point_Right.set((float)(getScreenWidth() - 1), 1f);
 		setFrame(0);		
