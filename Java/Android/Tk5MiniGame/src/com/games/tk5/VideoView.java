@@ -1,13 +1,10 @@
 package com.games.tk5;
 
-import java.io.IOException;
-
 import com.games.tk5.util.Logs;
 
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.media.MediaPlayer.OnBufferingUpdateListener;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;

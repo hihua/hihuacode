@@ -1,5 +1,6 @@
 package com.games.tk5;
 
+import com.games.tk5.util.AudioPlayer;
 import com.games.tk5.util.ImageUtil;
 import com.games.tk5.util.Logs;
 
@@ -14,11 +15,8 @@ import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.RectF;
-import android.os.Handler;
-import android.os.Handler.Callback;
-import android.os.Message;
 
-public abstract class GamesBase extends ViewBase implements Callback {
+public abstract class GamesBase extends ViewBase {
 	private Bitmap m_Index_Image;
 	private String m_Index_Name;
 	private String[] m_Index_Desc;
@@ -34,14 +32,7 @@ public abstract class GamesBase extends ViewBase implements Callback {
 	private final RectF m_Rect = new RectF();
 	private final PointF m_Point_Left = new PointF();
 	private final PointF m_Point_Right = new PointF();
-	private final Handler m_Handler = new Handler(this);
-		
-	@Override
-	public boolean handleMessage(Message msg) {
-		getViewCallBack().changeIndex(true);
-		return false;
-	}
-
+			
 	protected GamesBase(Context context, ViewCallBack callback) {
 		super(context, callback);		
 		m_Index_Paint.setAntiAlias(true);
@@ -50,11 +41,9 @@ public abstract class GamesBase extends ViewBase implements Callback {
 		m_Index_Font.setAntiAlias(true);
 		m_Index_Font.setTextSize(17);
 		m_Entry_Paint.setAntiAlias(true);
-		m_Entry_Paint.setColor(Color.BLACK);
-		m_Entry_Paint.setStyle(Style.FILL);
+		m_Entry_Paint.setColor(Color.BLACK);		
 		m_Leave_Paint.setAntiAlias(true);
-		m_Leave_Paint.setColor(Color.BLACK);
-		m_Leave_Paint.setStyle(Style.FILL);
+		m_Leave_Paint.setColor(Color.BLACK);		
 	}
 	
 	public boolean initIndex(RectF rect) {
@@ -210,13 +199,14 @@ public abstract class GamesBase extends ViewBase implements Callback {
 		setGameStatus(GameStatus.Runing);
 		setViewStatus(ViewStatus.Entry);		
 		m_Point_Left.set((float)(getScreenWidth() - 2), 0f);
-		m_Point_Right.set((float)(getScreenWidth() - 1), 1f);
+		m_Point_Right.set((float)(getScreenWidth() - 1), 1f);		
 		setFrame(0);		
+		AudioPlayer.musicStart(getContext(), R.raw.game_background);
 	}
 		
 	@Override
 	protected void onExit() {
-		m_Handler.post(new Runnable() {			
+		getHandler().post(new Runnable() {			
 			@Override
 			public void run() {
 				getViewCallBack().changeIndex(true);
@@ -251,8 +241,8 @@ public abstract class GamesBase extends ViewBase implements Callback {
 			m_Point_Right.set(1f, (float)(getScreenHeight() - 1));
 			setViewStatus(ViewStatus.Started);
 		} else {
-			path.close();
-			canvas.drawPath(path, m_Entry_Paint);			
+			canvas.drawPath(path, m_Entry_Paint);
+			path.close();			
 		}
 	}
 
@@ -281,13 +271,13 @@ public abstract class GamesBase extends ViewBase implements Callback {
 
 	@Override
 	protected boolean onLeaveView(Canvas canvas, int deay) {
-		Path path = setTranslation(m_Point_Left, m_Point_Right, 0.25f, true);
+		Path path = setTranslation(m_Point_Left, m_Point_Right, 0.2f, true);
 		if (path == null) {			
 			setViewStatus(ViewStatus.Entry);
 			return true;
 		} else {
-			path.close();
 			canvas.drawPath(path, m_Entry_Paint);
+			path.close();			
 			return false;
 		}		
 	}

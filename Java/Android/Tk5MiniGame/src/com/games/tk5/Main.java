@@ -9,8 +9,9 @@ import android.view.WindowManager;
 public class Main extends Activity implements ViewCallBack {
 	
 	private VideoView m_VideoView = null;
+	private WelcomeView m_WelcomeView = null;
 	private IndexView m_IndexView = null;
-	private ViewBase m_TopView = null;
+	private ViewBase m_TopView = null;	
 		    
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,13 +42,13 @@ public class Main extends Activity implements ViewCallBack {
 				return true;
 			}			
 		} else {
-			if (m_TopView != null && m_TopView == m_IndexView) {
-				endGames();
-				return true;
-			}
-			
-			if (m_TopView != null && m_TopView.setKeyDown(keyCode, event))
-				return true;
+			if (m_TopView != null && (m_TopView == m_WelcomeView || m_TopView == m_IndexView)) {
+				if (m_TopView.setKeyDown(keyCode, event))
+					return true;
+			} else {
+				if (m_TopView != null && m_TopView.setKeyDown(keyCode, event))
+					return true;
+			}			
 		}		
 		
 		return super.onKeyDown(keyCode, event);
@@ -77,14 +78,25 @@ public class Main extends Activity implements ViewCallBack {
 			m_TopView = null;
 		}
 	}
+	
+	@Override
+	public void changeWelcome() {
+		m_WelcomeView = new WelcomeView(this, this);
+		if (m_WelcomeView.init()) {
+			m_TopView = m_WelcomeView;
+			setContentView(m_WelcomeView);
+		}		
+	}	
 
 	@Override
-	public void changeIndex(boolean lastView) {
-		setDestroy();
+	public void changeIndex(boolean lastView) {		
 		if (m_IndexView == null) {
+			m_WelcomeView = null;
 			m_IndexView = new IndexView(this, this);			
-		} else
+		} else {
+			setDestroy();
 			m_IndexView.setLastView(lastView);
+		}
 		
 		if (m_IndexView.init()) {
 			m_TopView = m_IndexView;
@@ -104,11 +116,13 @@ public class Main extends Activity implements ViewCallBack {
 	@Override
 	public void onEndVideo() {
 		m_VideoView = null;
-		changeIndex(false);
+		changeWelcome();
 	}
 
 	@Override
 	public void endGames() {
 		finish();
 	}
+	
+	
 }

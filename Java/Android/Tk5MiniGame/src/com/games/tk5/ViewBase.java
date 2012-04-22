@@ -1,5 +1,6 @@
 package com.games.tk5;
 
+import com.games.tk5.util.AudioPlayer;
 import com.games.tk5.util.Logs;
 
 import android.content.Context;
@@ -7,13 +8,12 @@ import android.graphics.Canvas;
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.Rect;
-import android.media.MediaPlayer;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-public abstract class ViewBase extends SurfaceView implements SurfaceHolder.Callback, MediaPlayer.OnErrorListener {
+public abstract class ViewBase extends SurfaceView implements SurfaceHolder.Callback {
 	private SurfaceHolder m_Holder;
 	private Refresh m_Refresh = null;	
 	private GameStatus m_GameStatus = GameStatus.Runing;
@@ -24,8 +24,7 @@ public abstract class ViewBase extends SurfaceView implements SurfaceHolder.Call
 	private final Rect m_Sreen_Rect = new Rect();
 	private int m_Screen_Width = 0;
 	private int m_Screen_Height = 0;
-	private MediaPlayer m_MediaPlayer = null;
-		
+				
 	protected ViewBase(Context context, ViewCallBack callback) {
 		super(context);
 		m_ViewCallBack = callback;
@@ -57,36 +56,6 @@ public abstract class ViewBase extends SurfaceView implements SurfaceHolder.Call
 		return m_ViewCallBack;
 	}
 			
-	protected void audioStart(int res) {
-		try {
-			m_MediaPlayer = MediaPlayer.create(getContext(), res);			
-			m_MediaPlayer.setVolume(10f, 10f);
-			m_MediaPlayer.setLooping(true);
-			m_MediaPlayer.start();
-			m_MediaPlayer.setOnErrorListener(this);
-		} catch (Exception e) {
-			Logs.LogsError(e);
-		}		
-	}
-	
-	protected void audioPause() {
-		if (m_MediaPlayer != null)
-			m_MediaPlayer.pause();
-	}
-	
-	protected void audioRestart() {
-		if (m_MediaPlayer != null)
-			m_MediaPlayer.start();
-	}
-	
-	protected void audioStop() {
-		if (m_MediaPlayer != null) {		
-			m_MediaPlayer.stop();	
-			m_MediaPlayer.release();
-			m_MediaPlayer = null;
-		}		
-	}
-		
 	protected Path setTranslation(PointF left, PointF right, float step, boolean up) {
 		float x1 = left.x;
 		float y1 = left.y;
@@ -94,42 +63,42 @@ public abstract class ViewBase extends SurfaceView implements SurfaceHolder.Call
 		float y2 = right.y;
 		
 		if (up) {
-			if (x1 == 0) {
-				y1 -= getScreenHeight() * step;
-				x2 += getScreenWidth() * step;
+			if (x1 == 0f) {
+				y1 -= (float)getScreenHeight() * step;
+				x2 += (float)getScreenWidth() * step;
 				
-				if (y1 <= 0 || x2 >= getScreenWidth()) {
+				if (y1 <= 0f || x2 >= getScreenWidth()) {
 					x1 = (float)getScreenWidth() * step;
-					y1 = 0;
-					x2 = (float)(getScreenWidth() - 1); 
-					y2 = getScreenHeight() - getScreenHeight() * step;
+					y1 = 0f;
+					x2 = (float)getScreenWidth() - 1f; 
+					y2 = (float)getScreenHeight() - (float)getScreenHeight() * step;
 				}
 			} else {
-				if (y1 == 0) {
-					x1 += getScreenWidth() * step;
-					y2 -= getScreenHeight() * step;
+				if (y1 == 0f) {
+					x1 += (float)getScreenWidth() * step;
+					y2 -= (float)getScreenHeight() * step;
 					
-					if (x1 >= getScreenWidth() || y2 <= 0)
+					if (x1 >= (float)getScreenWidth() || y2 <= 0f)
 						return null;					
 				}
 			}
 		} else {
-			if (y1 == 0) {
-				x1 -= getScreenWidth() * step;
-				y2 += getScreenHeight() * step;
+			if (y1 == 0f) {
+				x1 -= (float)getScreenWidth() * step;
+				y2 += (float)getScreenHeight() * step;
 				
-				if (x1 <= 0 || y2 >= getScreenHeight()) {
-					x1 = 0;
-					y1 = getScreenHeight() * step;
-					x2 = getScreenWidth() - getScreenWidth() * step;
-					y2 = (float)(getScreenHeight() - 1); 
+				if (x1 <= 0f || y2 >= (float)getScreenHeight()) {
+					x1 = 0f;
+					y1 = (float)getScreenHeight() * step;
+					x2 = (float)getScreenWidth() - (float)getScreenWidth() * step;
+					y2 = (float)getScreenHeight() - 1f; 
 				}
 			} else {
-				if (x1 == 0) {
-					y1 += getScreenHeight() * step;
-					x2 -= getScreenWidth() * step;
+				if (x1 == 0f) {
+					y1 += (float)getScreenHeight() * step;
+					x2 -= (float)getScreenWidth() * step;
 					
-					if (y1 >= getScreenHeight() || x2 <= 0)
+					if (y1 >= (float)getScreenHeight() || x2 <= 0f)
 						return null;					
 				}
 			}
@@ -143,30 +112,93 @@ public abstract class ViewBase extends SurfaceView implements SurfaceHolder.Call
 			if (x1 == 0f) {
 				path.moveTo(0f, y1);
 				path.lineTo(x2, y2);
-				path.lineTo(0f, (float)(getScreenHeight() - 1));
+				path.lineTo(0f, (float)getScreenHeight() - 1f);
 			} else {
 				path.moveTo(0f, 0f);
 				path.lineTo(x1, y1);
 				path.lineTo(x2, y2);
-				path.lineTo((float)(getScreenWidth() - 1), (float)(getScreenHeight() - 1));
-				path.lineTo(0f, (float)(getScreenHeight() - 1));
+				path.lineTo((float)getScreenWidth() - 1f, (float)getScreenHeight() - 1f);
+				path.lineTo(0f, (float)getScreenHeight() - 1f);
 			}
 		} else {
 			if (y1 == 0f) {
 				path.moveTo(0f, 0f);
 				path.lineTo(x1, y1);
 				path.lineTo(x2, y2);
-				path.lineTo((float)(getScreenWidth() - 1), (float)(getScreenHeight() - 1));
-				path.lineTo(0f, (float)(getScreenHeight() - 1));								
+				path.lineTo((float)getScreenWidth() - 1f, (float)getScreenHeight() - 1f);
+				path.lineTo(0f, (float)getScreenHeight() - 1f);
 			} else {
 				path.moveTo(x1, y1);
 				path.lineTo(x2, y2);
-				path.lineTo(0f, (float)(getScreenHeight() - 1));
+				path.lineTo(0f, (float)getScreenHeight() - 1f);
 			}
 		}
 		
 		return path;
 	}
+	
+	protected Path setTranslation(PointF point, float step, boolean up) {
+		float x1 = point.x;
+		float y1 = point.y;
+		float x2 = 0f;
+		float y2 = ((float)getScreenHeight() - 1f) / 2f;
+		
+		if (up) {
+			if (y1 == 0f) {
+				x1 -= (float)getScreenWidth() / 2f * step;
+				if (x1 < 0f) {
+					x1 = 0f;
+					y1 = 1f;
+				}
+			} else
+				y1 += (float)getScreenHeight() / 2f * step;
+			
+			if (y1 > y2)				
+				return null;			
+		} else {
+			x2 = (float)getScreenWidth() - 1f / 2f;
+			if (y1 == (float)getScreenHeight() - 1f) {
+				x1 += (float)getScreenWidth() / 2f * step;
+				if (x1 > (float)getScreenWidth()) {
+					x1 = (float)getScreenWidth() - 1f;
+					y1 = (float)getScreenHeight() - 2f;
+				}
+			} else
+				y1 -= (float)getScreenHeight() / 2f * step;
+			
+			if (y1 < y2)
+				return null;
+		}
+		
+		point.set(x1, y1);
+		
+		Path path = new Path();
+		if (up) {
+			if (y1 == 0) {
+				path.moveTo(x2, y2);
+				path.lineTo(((float)getScreenWidth() - 1f) / 2f, ((float)getScreenHeight() - 1f) / 2f);
+				path.lineTo(x1, 0f);
+				path.lineTo(0f, 0f);				
+			} else {
+				path.moveTo(x2, y2);
+				path.lineTo(((float)getScreenWidth() - 1f) / 2f, y2);
+				path.lineTo(x1, y1);
+			}
+		} else {
+			if (y1 == (float)getScreenHeight() - 1f) {
+				path.moveTo(x2, y2);
+				path.lineTo(((float)getScreenWidth() - 1f) / 2f, ((float)getScreenHeight() - 1f) / 2f);
+				path.lineTo(x1, (float)getScreenHeight() - 1f);
+				path.lineTo((float)getScreenWidth() - 1f, (float)getScreenHeight() - 1f);
+			} else {
+				path.moveTo(x2, y2);
+				path.lineTo(((float)getScreenWidth() - 1f) / 2f, y2);
+				path.lineTo(x1, y1);
+			}
+		}
+		
+		return path;
+	}	
 		
 	@Override
 	public void surfaceChanged(SurfaceHolder arg0, int arg1, int arg2, int arg3) {
@@ -182,13 +214,7 @@ public abstract class ViewBase extends SurfaceView implements SurfaceHolder.Call
 	public void surfaceDestroyed(SurfaceHolder arg0) {
 		
 	}
-	
-	@Override
-	public boolean onError(MediaPlayer mediaPlayer, int what, int extra) {
-		mediaPlayer.release();
-		return false;
-	}
-		
+			
 	public boolean setKeyDown(int keyCode, KeyEvent event) {		
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN)
 			return onBack();
@@ -428,17 +454,17 @@ public abstract class ViewBase extends SurfaceView implements SurfaceHolder.Call
 	}
 	
 	public void setPause() {
-		audioPause();
+		AudioPlayer.musicPause();
 		setGameStatus(GameStatus.Pause);
 	}
 	
 	public void setDestroy() {
-		audioStop();
+		AudioPlayer.musicStop();
 		setGameStatus(GameStatus.Destroy);
 	}
 	
 	public void setRestart() {
-		audioRestart();
+		AudioPlayer.musicRestart();
 		setGameStatus(GameStatus.Runing);
 	}
 	

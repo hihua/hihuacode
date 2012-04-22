@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Vector;
 
 import com.games.tk5.square.SquareView;
+import com.games.tk5.util.AudioPlayer;
 import com.games.tk5.util.ImageUtil;
 import com.games.tk5.util.Logs;
 
@@ -14,6 +15,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
@@ -28,8 +31,9 @@ public class IndexView extends ViewBase {
 	private Bitmap[] m_Image_Top;
 	private Bitmap[] m_Image_Bottom;
 	private Bitmap m_Image_Select;
-	private Paint m_Index_Paint;
-	private Paint m_Index_Banner;
+	private final Paint m_Index_Paint = new Paint();
+	private final Paint m_Index_Banner = new Paint();
+	private final Paint m_Entry_Paint = new Paint();
 	private int m_Banner_TopFrame = 0;
 	private int m_Banner_BottomFrame = 0;
 	private int m_Banner_Update = 0;
@@ -40,16 +44,18 @@ public class IndexView extends ViewBase {
 	private float m_LeftRigth = 0;
 	private int m_Cell_Total = 6;
 	private GamesBase m_SelectGame = null;
-	
+	private final PointF m_Point_Left = new PointF();
+	private final PointF m_Point_Right = new PointF();
+		
 	public IndexView(Context context, ViewCallBack callback) {
 		super(context, callback);		
-		m_Index_Paint = new Paint();		
-		m_Index_Paint.setAntiAlias(true);
-		m_Index_Banner = new Paint();
+		m_Index_Paint.setAntiAlias(true);		
 		m_Index_Banner.setAntiAlias(true);
 		m_Index_Banner.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));  
 		m_Index_Banner.setColor(Color.BLACK);
 		m_Index_Banner.setTextSize(24);  
+		m_Entry_Paint.setAntiAlias(true);
+		m_Entry_Paint.setColor(Color.BLACK);		
 	}
 	
 	public void setLastView(boolean lastView) {
@@ -180,13 +186,13 @@ public class IndexView extends ViewBase {
 	@Override
 	protected boolean onBack() {
 		setDestroy();
-		return true;
+		return false;
 	}
 
 	@Override
 	protected boolean onInit() {
 		if (m_LastView) {
-			audioStart(R.raw.index_background);
+			AudioPlayer.musicStart(getContext(), R.raw.index_background);
 			return true;
 		}
 		
@@ -219,7 +225,13 @@ public class IndexView extends ViewBase {
 	@Override
 	protected void onPrepare() {
 		setGameStatus(GameStatus.Runing);
-		setViewStatus(ViewStatus.Started);		
+		if (m_LastView) {
+			setViewStatus(ViewStatus.Started);
+		} else {
+			setViewStatus(ViewStatus.Entry);
+			m_Point_Left.set((float)(getScreenWidth() - 2), 0f);
+			m_Point_Right.set((float)(getScreenWidth() - 1), 1f);
+		}		
 	}
 
 	@Override
@@ -239,7 +251,16 @@ public class IndexView extends ViewBase {
 
 	@Override
 	protected void onEntryView(Canvas canvas, int frame) {
-		
+		onDrawView(canvas);
+		Path path = setTranslation(m_Point_Left, m_Point_Right, 0.3f, false);
+		if (path == null) {
+			m_Point_Left.set(0f, (float)(getScreenHeight() - 2));
+			m_Point_Right.set(1f, (float)(getScreenHeight() - 1));
+			setViewStatus(ViewStatus.Started);
+		} else {
+			canvas.drawPath(path, m_Entry_Paint);
+			path.close();			
+		}
 	}
 
 	@Override
