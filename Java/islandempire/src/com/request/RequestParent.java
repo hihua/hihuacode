@@ -106,7 +106,7 @@ public class RequestParent extends RequestBase {
 		m_Header.put(Sig, md5);
 	}
 		
-	protected String request(String webUrl, String clientv, String cookie, String username, String password, String body) {		
+	protected String requestUrl(String webUrl, String clientv, String cookie, String username, String password, String body) {		
 		String md5 = getMD5(webUrl, body);
 		if (md5 == null)
 			return null;
@@ -131,17 +131,17 @@ public class RequestParent extends RequestBase {
 		return request(webUrl, m_Header, body);
 	}
 	
-	protected String request(String webUrl, String clientv, String cookie, String body) {
-		return request(webUrl, clientv, cookie, null, null, body);
+	protected String requestUrl(String webUrl, String clientv, String cookie, String body) {
+		return requestUrl(webUrl, clientv, cookie, null, null, body);
 	}
 	
-	protected String request(String webUrl, String clientv, String cookie, String username, String body) {
-		return request(webUrl, clientv, cookie, username, null, body);
+	protected String requestUrl(String webUrl, String clientv, String cookie, String username, String body) {
+		return requestUrl(webUrl, clientv, cookie, username, null, body);
 	}
 	
-	protected String sessions(String webUrl, String clientv) {
+	protected String requestSessions(String webUrl, String clientv) {
 		String body = String.format(Body, UserName, Password);				
-		String response = request(webUrl, clientv, null, UserName, Password, body);
+		String response = requestUrl(webUrl, clientv, null, UserName, Password, body);
 		if (response == null)
 			return null;
 		else {

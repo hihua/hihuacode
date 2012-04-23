@@ -14,7 +14,7 @@ public class RequestBuildings extends RequestParent {
 		m_Body.append("building_id=");
 		m_Body.append(id);
 		
-		String response = super.request(m_URL.toString(), clientv, cookie, m_Body.toString());
+		String response = requestUrl(m_URL.toString(), clientv, cookie, m_Body.toString());
 		if (response == null)
 			return false;
 		else

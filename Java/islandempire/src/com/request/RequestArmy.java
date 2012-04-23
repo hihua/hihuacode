@@ -30,7 +30,7 @@ public class RequestArmy extends RequestParent {
 			m_Body.append(soldier.getCount());
 		}
 		
-		String response = super.request(m_URL.toString(), clientv, cookie, m_Body.toString());
+		String response = requestUrl(m_URL.toString(), clientv, cookie, m_Body.toString());
 		if (response == null)
 			return false;
 		else

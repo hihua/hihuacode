@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>MyTown</title>
+		<link rel="stylesheet" type="text/css" href="css.css" />
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/ajax.js"></script>
+		<script type="text/javascript" src="js/mytowns.js"></script>
+	</head>
+	<body>
+		<table width="100%" align="center" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td width="50%" valign="top">
+					<table width="100%" align="center" cellpadding="0" cellspacing="0" border="0">
+						<tr>
+							<td id="config"></td>							
+						</tr>
+						<tr>
+							<td id="towns"></td>
+						</tr>
+					</table>
+				</td>
+				<td width="50%" valign="top">
+					<table width="100%" align="center" cellpadding="0" cellspacing="0" border="0">
+						<tr>
+							<td id="messages"></td>							
+						</tr>
+						<tr>
+							<td align="center" height="35">
+								X&nbsp;<input type="text" id="x" size="7" />
+								Y&nbsp;<input type="text" id="y" size="7" />							
+								<input type="button" id="query" value=" 查询 " onclick="" />
+							</td>
+						</tr>
+						<tr>
+							<td id="island" align="center"></td>							
+						</tr>
+					</table>
+				</td>
+			</tr>	
+		</table>	
+		<script type="text/javascript">
+			var MyTowns = [57971, 68274, 71071, 71989, 108094];
+			
+			function getMyTowns() {
+				for (var i = 0;i < MyTowns.length;i++)
+					requestMyTowns(MyTowns[i], setMyTown);
+					
+				setTimeout("getMyTowns()", 30000);			
+			}
+			
+			function setMyTown(json, id) {
+				var town = json.town;
+				if (town == null)
+					return;				
+				
+				var buildings = town.buildings;
+				var alliance = town.alliance;
+				var resources = town.resources;
+				var soldiers = town.soldiers;
+				var heroInfo = town.hero_info;
+				var buildingQueues = town.building_queue;
+				var transportQueues = town.transport_queue;
+								
+				html += "<table width=\"640\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"1\" class=\"Table1\">";
+				html += "<tr>";
+				html += "<td width=\"10%\" align=\"center\" valign=\"middle\">基本信息</td>";
+				html += "<td width=\"40%\">";				
+				html += "<table width=\"94%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" style=\"margin-left:5px\">";
+				html += "<tr>";
+				html += "<td align=\"left\" width=\"34%\" height=\"25\">用户名: </td>";
+				html += "<td>" + town.owner + "</td>";        
+				html += "</tr>";
+				html += "<tr>";								
+				html += "<td align=\"left\" width=\"34%\" height=\"25\">城市名称: </td>";
+				if (town.is_capital == true)			        
+					html += "<td style=\"color:#FF0000\">" + town.name + "</td>";
+				else
+					html += "<td>" + town.name + "</td>";
+				 				        
+				html += "</tr>";        
+				html += "<tr>";
+				html += "<td align=\"left\" width=\"34%\" height=\"25\">城市ID: </td>";
+				html += "<td>" + town.id + "</td>";        
+				html += "</tr>";
+				html += "<tr>";
+				html += "<td align=\"left\" width=\"34%\" height=\"25\">状态: </td>";				
+				if (town.city_status == "normal")
+					html += "<td>" + town.city_status + "</td>";
+				else
+					html += "<td style=\"color:#FF0000\">" + town.city_status + "</td>";
+					        
+				html += "</tr>";
+				html += "<tr>";
+				
+				var resource_type = "";
+				if (town.resource_type == 1)
+					resource_type = "黄金";
+					
+				if (town.resource_type == 2)
+					resource_type = "大理石";
+					
+				if (town.resource_type == 3)
+					resource_type = "黑铁石";
+				
+				html += "<td align=\"left\" width=\"34%\" height=\"25\">资源类别: </td>";
+				html += "<td>" + resource_type + "</td>";        
+				html += "</tr>";
+				html += "<tr>";
+				html += "<td align=\"left\" width=\"34%\" height=\"25\">等级: </td>";
+				html += "<td>" + town.level + "</td>";        
+				html += "</tr>";
+				html += "<tr>";
+				
+				var alliance_name = "";
+				if (alliance != null)
+					alliance_name = alliance.alliance_name;
+				
+				html += "<td align=\"left\" width=\"34%\" height=\"25\">联盟: </td>";
+				html += "<td>" + alliance_name + "</td>";        
+				html += "</tr>";
+				html += "<tr>";
+				html += "<td align=\"left\" width=\"34%\" height=\"25\">坐标: </td>";
+				html += "<td>" + town.island_x + "," + town.island_y + "</td>";        
+				html += "</tr>";												
+				html += "<tr>";
+				html += "<td align=\"left\" width=\"34%\" height=\"25\">维护量: </td>";
+				html += "<td>" + town.presence_defenders + "</td>";        
+				html += "</tr>";
+				html += "<tr>";
+				html += "<td align=\"left\" width=\"34%\" height=\"25\">侦察量: </td>";
+				html += "<td>" + town.presence_scout + "</td>";        
+				html += "</tr>";				
+				html += "<tr>";
+				html += "<td align=\"left\" width=\"34%\" height=\"25\">宝石: </td>";
+				html += "<td>" + town.gems + "</td>";        
+				html += "</tr>";											    			    
+				html += "</table>";				
+				html += "</td>";
+				
+				html += "<td width=\"10%\" align=\"center\" valign=\"middle\">资源</td>";
+				html += "<td width=\"40%\" align=\"left\">";
+				
+				if (resources != null) {
+					$.each(resources, function(idx, resource) {
+						if (resource.name == "wood") {
+							html += "<table width=\"98%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+							html += "<tr>";
+							html += "<td align=\"left\" width=\"25%\" height=\"25\" rowspan=\"2\" valign=\"top\" style=\"padding-left:9px;padding-top:8px\">木头</td>";
+							html += "<td align=\"left\" width=\"45%\" height=\"25\">" + resource.resource_count + "/" + resource.max_volume + "</td>";
+							html += "<td align=\"left\" width=\"30%\">" + resource.increase_per_hour + "/h</td>";
+							html += "</tr>";							
+							html += "</table>";
+						}
+					});					
+				}																										
+			}
+			
+			getMyTowns();
+		</script>
+	</body>
+</html>

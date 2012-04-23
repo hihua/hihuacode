@@ -15,7 +15,7 @@ public class RequestUpgrade extends RequestParent {
 		m_URL.append(host);
 		m_URL.append(url);
 		
-		String response = super.request(m_URL.toString(), clientv, cookie, null);
+		String response = requestUrl(m_URL.toString(), clientv, cookie, null);
 		if (response == null)
 			return null;
 		else			

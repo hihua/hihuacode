@@ -1,0 +1,213 @@
+﻿/* CSS Document */
+
+.body,td,th {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	font-size: 12px;
+	font-family: "宋体";
+}
+
+.Table1 {    
+    border-collapse:collapse; 
+}
+
+.Table2 {
+    border-color: #0000CC #0000CC #0000CC #0000CC; 
+	border-style: dashed; 
+	border-top-width: 0px; 
+	border-right-width: 1px; 
+	border-bottom-width: 0px; 
+	border-left-width: 1px;
+}
+
+.Input1 {
+    border-color:#000000;
+	border-right-width:0px; 
+	border-left-width:0px; 
+	border-top-width:0px; 
+	border-bottom-width:1px; 
+	text-align:left;
+}
+
+.Input2 {
+    border-color:#000000;
+	border-right-width:0px; 
+	border-left-width:0px; 
+	border-top-width:0px; 
+	border-bottom-width:1px; 
+	text-align:center;
+}
+
+.Input3 {
+    border-color:#000000;
+	border-right-width:0px; 
+	border-left-width:0px; 
+	border-top-width:0px; 
+	border-bottom-width:0px; 
+	text-align:center;
+}
+
+.AdminTopLoginTitle {
+    color:#33CCFF;
+	font-family: 宋体;
+	font-size: 28px;
+	color: #0000FF;
+	font-weight:bold;
+
+}
+
+.AdminTopToolsTitle {
+    color:#33CCFF;
+	font-family: 宋体;
+	font-size: 16px;
+	color: #0000FF;
+	font-weight:bold;
+
+}
+
+a.AdminToolsLink1 {
+	font-family: 宋体;
+	font-size: 12px;
+	color: #000000;
+}
+a.AdminToolsLink1:link {
+	text-decoration: none;
+	color:#000000;
+}
+a.AdminToolsLink1:visited {
+	text-decoration: none;
+	color: #000000;
+}
+a.AdminToolsLink1:hover  {
+	text-decoration: underline;
+	color: #FF0000;
+}
+a.AdminToolsLink1:active  {
+	text-decoration: none;
+	color: #000000;
+}
+
+
+a.AdminToolsLink2 {
+	font-family: 宋体;
+	font-size: 12px;
+	color: #0000FF;
+}
+a.AdminToolsLink2:link {
+	text-decoration: none;
+	color:#0000FF;
+}
+a.AdminToolsLink2:visited {
+	text-decoration: none;
+	color: #0000FF;
+}
+a.AdminToolsLink2:hover  {
+	text-decoration: underline;
+	color: #FF0000;
+}
+a.AdminToolsLink2:active  {
+	text-decoration: none;
+	color: #000000;
+}
+
+
+.IndexNewsTitle {
+    color:#33CCFF;
+	font-family: 宋体;
+	font-size: 20px;
+	color: #000000;
+	font-weight:bold;
+
+}
+
+a.IndexMenuLink1 {
+	font-family: 宋体;
+	font-size: 12px;
+	color: #000000;
+}
+a.IndexMenuLink1:link {
+	text-decoration: none;
+	color: #000000;
+}
+a.IndexMenuLink1:visited {
+	text-decoration: none;
+	color: #000000;
+}
+a.IndexMenuLink1:hover  {
+	text-decoration: none;
+	color: #FF0000;
+}
+a.IndexMenuLink1:active  {
+	text-decoration: none;
+	color: #000000;
+}
+
+
+a.IndexProductLink1 {
+	font-family: 宋体;
+	font-size: 12px;
+	color: #000000;
+}
+a.IndexProductLink1:link {
+	text-decoration: none;
+	color: #000000;
+}
+a.IndexProductLink1:visited {
+	text-decoration: none;
+	color: #000000;
+}
+a.IndexProductLink1:hover  {
+	text-decoration: none;
+	color: #FF0000;
+}
+a.IndexProductLink1:active  {
+	text-decoration: none;
+	color: #000000;
+}
+
+
+a.IndexLink1 {
+	font-family: 宋体;
+	font-size: 12px;
+	color: #0000FF;
+}
+a.IndexLink1:link {
+	text-decoration: none;
+	color: #0000FF;
+}
+a.IndexLink1:visited {
+	text-decoration: none;
+	color: #0000FF;
+}
+a.IndexLink1:hover  {
+	text-decoration: none;
+	color: #FF0000;
+}
+a.IndexLink1:active  {
+	text-decoration: none;
+	color: #000000;
+}
+
+img.width24-normal{width:24px; }
+img.width24-normal-hd{width:48px; }
+img.width40-normal{width:40px; }
+img.width40-normal-hd{width:80px; }
+img.width102-normal{width:102px; }
+img.width102-normal-hd{width:204px; }
+.result-success-normal {font-size: 14px; color: #157e26; }
+.result-failed-normal {font-size: 14px; color: #cb0007; }
+.user-title-normal {font-size: 12px;}
+.user-title-big-normal {font-size: 14px;}
+.content-list-normal {font-size: 12px;}
+.result-success-normal-hd {font-size: 28px; color: #157e26; }
+.result-failed-normal-hd {font-size: 28px; color: #cb0007; }
+.user-title-normal-hd {font-size: 24px;}
+.user-title-big-normal-hd {font-size: 28px;}
+.content-list-normal-hd {font-size: 24px;}
+.red_text{color: #cb0007;}
+.green_text{color: #157e26;}
+.bold_text{font-weight: bold;}
+.split-line-normal{height: 1px;border-top: 1px dotted #50330b; margin-top: 12px; margin-bottom: 12px;}
+.split-line-normal-hd{height: 1px;border-top: 1px dotted #50330b; margin-top: 24px; margin-bottom: 24px;}

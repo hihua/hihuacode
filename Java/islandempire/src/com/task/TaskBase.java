@@ -29,7 +29,7 @@ public abstract class TaskBase extends Thread {
 			}
 		}
 		
-		m_CallBack.onCancel(getTaskName());
+		m_CallBack.onCancel(getTaskName(), this);
 	}
 
 	protected String getTaskName() {

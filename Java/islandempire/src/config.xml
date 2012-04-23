@@ -9,31 +9,31 @@
 		<autoupgrade priority="2,1,13">true</autoupgrade>
 		<autoattack level="1-4">3</autoattack>
 		<autorecruit>true</autorecruit>		
-		<marketrate>95</marketrate>
+		<marketrate wood="95" food="95" iron="95" marble="95" gold="95">true</marketrate>
 	</towns>
 	<towns id="68274">		
 		<autoupgrade priority="5,2,1,13">true</autoupgrade>
 		<autoattack level="1-4">3</autoattack>
 		<autorecruit>true</autorecruit>
-		<marketrate>95</marketrate>
+		<marketrate wood="95" food="95" iron="95" marble="95" gold="95">true</marketrate>
 	</towns>
 	<towns id="71071">		
 		<autoupgrade priority="5,2,1,13">true</autoupgrade>
 		<autoattack level="1-4">3</autoattack>
 		<autorecruit>true</autorecruit>
-		<marketrate>95</marketrate>
+		<marketrate wood="95" food="95" iron="95" marble="95" gold="95">true</marketrate>
 	</towns>
 	<towns id="71989">		
 		<autoupgrade priority="5,2,1,13">true</autoupgrade>
 		<autoattack level="1-4">3</autoattack>
 		<autorecruit>true</autorecruit>
-		<marketrate>95</marketrate>
+		<marketrate wood="95" food="95" iron="95" marble="95" gold="95">true</marketrate>
 	</towns>
 	<towns id="108094">		
 		<autoupgrade priority="5,8,2,1,13,14">true</autoupgrade>
 		<autoattack level="1-4">3</autoattack>
 		<autorecruit>true</autorecruit>
-		<marketrate>95</marketrate>
+		<marketrate wood="95" food="95" iron="95" marble="95" gold="95">true</marketrate>
 	</towns>	
 </config>
 	

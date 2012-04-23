@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
@@ -128,12 +129,12 @@ public class Config {
 			return null;
 		}
 						
-		Iterator<Element> iterator = elementRoot.elementIterator("towns");
-		if (iterator != null) {
+		Iterator<Element> elements = elementRoot.elementIterator("towns");
+		if (elements != null) {
 			List<ConfigTown> configTowns = new Vector<ConfigTown>();
-			while (iterator.hasNext()) {
+			while (elements.hasNext()) {
 				try {			
-					elementParent = iterator.next();
+					elementParent = elements.next();
 					ConfigTown configTown = new ConfigTown();
 					
 					Attribute attribute = elementParent.attribute("id");
@@ -236,14 +237,32 @@ public class Config {
 					element = elementParent.element("marketrate");
 					if (element != null && element.getText() != null) {
 						tmp = element.getText();
-						if (Numeric.isNumber(tmp)) {
-							Double rate = Double.parseDouble(tmp) / 100D;
-							configTown.setMarketRate(rate);
-						} else
-							configTown.setMarketRate(0D);
-					} else
-						configTown.setMarketRate(0D);
-					
+						if (tmp.equals("true")) {
+							Iterator<Attribute> attributes = element.attributeIterator();
+							if (attributes != null) {
+								HashMap<String, Double> marketRate = new HashMap<String, Double>();
+								while (attributes.hasNext()) {
+									attribute = attributes.next();
+									String name = attribute.getName();
+									String value = attribute.getText();
+									if (!Numeric.isNumber(value))
+										continue;
+									
+									Double rate = Double.parseDouble(value) / 100D;
+									marketRate.put(name, rate);
+								}
+								
+								if (marketRate.size() > 0)
+									configTown.setMarketRate(marketRate);
+								else
+									configTown.setMarketRate(null);
+							} else
+								configTown.setMarketRate(null);
+						} else 
+							configTown.setMarketRate(null);
+					} else 
+						configTown.setMarketRate(null);
+						
 					configTowns.add(configTown);
 				} catch (NumberFormatException e) {
 					

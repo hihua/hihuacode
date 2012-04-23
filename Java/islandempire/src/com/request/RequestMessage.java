@@ -14,7 +14,7 @@ public class RequestMessage extends RequestParent {
 		m_URL.append("&page=");
 		m_URL.append(page);
 		
-		return super.request(m_URL.toString(), clientv, cookie, null);
+		return requestUrl(m_URL.toString(), clientv, cookie, null);
 	}
 	
 	public String request(String host, String clientv, String cookie, String username, String to, Long page) {
@@ -26,7 +26,7 @@ public class RequestMessage extends RequestParent {
 		m_URL.append("&page=");
 		m_URL.append(page);
 		
-		return super.request(m_URL.toString(), clientv, cookie, username, null);
+		return requestUrl(m_URL.toString(), clientv, cookie, username, null);
 	}
 	
 	public String request(String host, String clientv, String cookie, String to, String from, String subject, String body) {
@@ -44,6 +44,6 @@ public class RequestMessage extends RequestParent {
 		m_Body.append("&body=");
 		m_Body.append(body);
 		
-		return super.request(m_URL.toString(), clientv, cookie, m_Body.toString());
+		return requestUrl(m_URL.toString(), clientv, cookie, m_Body.toString());
 	}
 }

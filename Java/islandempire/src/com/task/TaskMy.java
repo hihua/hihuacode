@@ -2,6 +2,7 @@ package com.task;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.TreeMap;
 import java.util.Vector;
 import java.util.Map.Entry;
 
@@ -18,14 +19,22 @@ import com.buildings.BuildingWall;
 import com.callback.CallBackTask;
 import com.config.Config;
 import com.config.ConfigTown;
+import com.deals.Deal;
 import com.entity.TownInfo;
 import com.entity.Towns;
+import com.island.IslandBuilding;
+import com.island.IslandVillage;
+import com.island.WorldMap;
 import com.queue.BuildingQueue;
 import com.request.RequestBuildings;
+import com.request.RequestDeals;
+import com.request.RequestIsland;
 import com.request.RequestMessage;
 import com.request.RequestTowns;
 import com.request.RequestUpgrade;
+import com.request.RequestWorldMaps;
 import com.towns.Resources;
+import com.towns.Soldier;
 import com.towns.Town;
 import com.util.Numeric;
 
@@ -35,6 +44,9 @@ public class TaskMy extends TaskBase {
 	private final RequestMessage m_RequestMessage = new RequestMessage();
 	private final RequestUpgrade m_RequestUpgrade = new RequestUpgrade();
 	private final RequestBuildings m_RequestBuildings = new RequestBuildings();
+	private final RequestIsland m_RequestIsland = new RequestIsland();
+	private final RequestWorldMaps m_RequestWorldMaps = new RequestWorldMaps();
+	private final RequestDeals m_RequestDeals = new RequestDeals();
 	private Config m_ConfigNew = null;
 
 	public TaskMy(String taskName, Config config, CallBackTask callBack) {
@@ -93,6 +105,8 @@ public class TaskMy extends TaskBase {
 					
 				}
 			}
+			
+			sells(town, m_Config, configTown);
 		}
 		
 		towns.setTownInfos(townInfos);
@@ -456,5 +470,234 @@ public class TaskMy extends TaskBase {
 		}		
 				
 		return false;
+	}
+	
+	private boolean recruit(Town town, Config config, ConfigTown configTown) {
+		String host = m_Config.getHost();
+		String clientv = m_Config.getClientv();
+		String cookie = m_Config.getCookie();				
+	}
+	
+	private long canAttack(Town town) { 
+		Soldier infantry = town.getSoldierInfantry();
+		Soldier musketman = town.getSoldierMusketman();
+		Soldier catapult = town.getSoldierCatapult();
+		Soldier frigate = town.getSoldierFrigate();
+		Soldier destroyer = town.getSoldierDestroyer();		
+		long total = 0;
+		
+		if (infantry != null && infantry.getCount() != null)
+			total += infantry.getCount();
+		
+		if (musketman != null && musketman.getCount() != null)
+			total += musketman.getCount();
+		
+		if (catapult != null && catapult.getCount() != null)
+			total += catapult.getCount();
+		
+		if (frigate != null && frigate.getCount() != null)
+			total += frigate.getCount();
+		
+		if (destroyer != null && destroyer.getCount() != null)
+			total += destroyer.getCount();
+		
+		return total;
+	}
+	
+	private long getLevel(long total) {
+		if (total < 300)
+			return 0;
+		else if (total < 700)
+			return 10;
+		else if (total < 1500)
+			return 20;
+		else if (total < 3200)
+			return 30;
+		else 
+			return 50;
+	}
+	
+	private IslandVillage getIsland(Town town, Config config, ConfigTown configTown, long level) {
+		String host = m_Config.getHost();
+		String clientv = m_Config.getClientv();
+		String cookie = m_Config.getCookie();
+		long attackLevelMin = configTown.getAttackLevelMin();
+		long attackLevelMax = configTown.getAttackLevelMax();
+		Long islandNumber = town.getIslandNumber();
+		Long islandX = town.getIslandX();
+		Long islandY = town.getIslandY();					
+				
+		if (islandNumber == null)
+			return null;
+		
+		if (islandX == null || islandY == null)
+			return null;
+		
+		Long ownerId = town.getOwnerId();
+		if (ownerId == null)
+			return null;
+		
+		List<IslandBuilding> islandBuildings = m_RequestIsland.request(host, clientv, cookie, islandNumber, ownerId);
+		if (islandBuildings == null)
+			return null;
+		
+		List<IslandVillage> list = new Vector<IslandVillage>();
+		for (IslandBuilding islandBuilding : islandBuildings) {
+			if (islandBuilding.equals("Village")) {
+				IslandVillage islandVillage = (IslandVillage)islandBuilding;				
+				if (islandVillage.getId() == null || islandVillage.getLevel() == null || islandVillage.getCityStatus() == null)
+					continue;
+				
+				if (!islandVillage.getCityStatus().equals("normal"))					
+					continue;
+				
+				if ((attackLevelMin > 0 && attackLevelMax > 0 && (islandVillage.getLevel() < attackLevelMin || attackLevelMax < islandVillage.getLevel())) || (islandVillage.getLevel() > level))
+					continue;
+				
+				list.add(islandVillage);
+			}
+		}
+		
+		if (list.size() == 0) {
+			List<WorldMap> worldMaps = m_RequestWorldMaps.request(host, clientv, cookie, islandNumber);
+			if (worldMaps == null)
+				return null;
+			
+			TreeMap<Double, List<WorldMap>> sorts = new TreeMap<Double, List<WorldMap>>();
+												
+			for (WorldMap worldMap : worldMaps) {
+				if (worldMap.getIslandNumber() == null)
+					continue;
+				
+				if (worldMap.getIslandNumber().equals(islandNumber))
+					continue;
+				
+				Long x = worldMap.getX();
+				Long y = worldMap.getY();
+				
+				if (x == null || y == null)
+					continue;
+								
+				double distance = Math.sqrt((Math.pow(Math.abs(islandX - x), 2) + Math.pow(Math.abs(islandY - y), 2)));
+				if (sorts.containsKey(distance)) {
+					List<WorldMap> sort = sorts.get(distance);
+					sort.add(worldMap);
+				} else {
+					List<WorldMap> sort = new Vector<WorldMap>();
+					sort.add(worldMap);
+					sorts.put(distance, sort);
+				}
+			}
+			
+			if (sorts.size() == 0)
+				return null;
+			
+			for (Entry<Double, List<WorldMap>> entry : sorts.entrySet()) {
+				List<WorldMap> sort = entry.getValue();
+				for (WorldMap worldMap : sort) {										
+					islandBuildings = m_RequestIsland.request(host, clientv, cookie, worldMap.getIslandNumber(), ownerId);
+					if (islandBuildings == null)
+						continue;
+					
+					for (IslandBuilding islandBuilding : islandBuildings) {
+						if (islandBuilding.equals("Village")) {
+							IslandVillage islandVillage = (IslandVillage)islandBuilding;				
+							if (islandVillage.getId() == null || islandVillage.getLevel() == null || islandVillage.getCityStatus() == null)
+								continue;
+							
+							if (!islandVillage.getCityStatus().equals("normal"))					
+								continue;
+							
+							if ((attackLevelMin > 0 && attackLevelMax > 0 && (islandVillage.getLevel() < attackLevelMin || attackLevelMax < islandVillage.getLevel())) || (islandVillage.getLevel() > level))
+								continue;
+							
+							list.add(islandVillage);
+						}
+					}
+					
+					if (list.size() > 0)
+						break;
+				}
+			}
+						
+			if (list.size() == 0)
+				return null;				
+		}
+		
+		Long max = 0L;
+		IslandVillage village = null;
+		
+		for (IslandVillage islandVillage : list) {
+			if (village == null) {
+				village = islandVillage;
+				max = islandVillage.getLevel();
+				continue;
+			}
+			
+			if (islandVillage.getLevel() > max) {
+				village = islandVillage;
+				max = islandVillage.getLevel();
+			}				
+		}
+		
+		return village;
+	}
+	
+	private boolean sells(Town town, Config config, HashMap<String, Double> marketRate, Resources resources, Long leftCapacity) {
+		String host = m_Config.getHost();
+		String clientv = m_Config.getClientv();
+		String cookie = m_Config.getCookie();		
+		Long id = town.getId();		
+		String name = resources.getResourceName();
+		Long count = resources.getResourceCount();
+		Long maxVolume = resources.getMaxVolume();
+		
+		if (name == null || count == null || maxVolume == null)
+			return false;
+		
+		if (!marketRate.containsKey(name))
+			return false;
+		
+		double rate = marketRate.get(name);
+		if (rate <= 0D)
+			return false;
+		
+		if ((double)count / (double)maxVolume >= rate) {			
+			List<Deal> deals = m_RequestDeals.request(host, clientv, cookie, name, 0L);
+			if (deals != null && deals.size() > 0) {
+				Deal deal = deals.get(0);
+				Double sellerPrice = deal.getSellerPrice();
+				if (sellerPrice != null) {
+					Long sellerCount = leftCapacity;
+					if (leftCapacity > count)
+						sellerCount = count;
+										
+					return m_RequestDeals.request(host, clientv, cookie, id, name, sellerPrice, sellerCount);
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	private void sells(Town town, Config config, ConfigTown configTown) {
+		if (configTown.getMarketRate() == null)
+			return;
+		
+		BuildingMarket buildingMarket = town.getBuildingMarket();
+		if (buildingMarket == null)
+			return;
+		
+		Long leftCapacity = buildingMarket.getLeftCapacity();
+		if (leftCapacity == null || leftCapacity <= 0)
+			return;
+				
+		Resources resourcesWood = town.getResourcesWood();
+		if (resourcesWood != null && sells(town, config, configTown.getMarketRate(), resourcesWood, leftCapacity))
+			return;
+		
+		Resources resourcesFood = town.getResourcesFood();
+		if (resourcesFood != null && sells(town, config, configTown.getMarketRate(), resourcesFood, leftCapacity))
+			return;
 	}
 }

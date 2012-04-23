@@ -14,7 +14,7 @@ public class RequestTowns extends RequestParent {
 		m_URL.append(host);
 		m_URL.append(url);
 		
-		String response = super.request(m_URL.toString(), clientv, cookie, null);
+		String response = requestUrl(m_URL.toString(), clientv, cookie, null);
 		if (response == null)
 			return null;
 		else {
@@ -23,6 +23,7 @@ public class RequestTowns extends RequestParent {
 				return null;
 			else {
 				TownInfo townInfo = new TownInfo();
+				townInfo.setId(id);
 				townInfo.setTown(town);
 				townInfo.setPacket(response);
 				townInfo.setUpdateTime(DateTime.getNow());
@@ -37,7 +38,7 @@ public class RequestTowns extends RequestParent {
 		m_URL.append(host);
 		m_URL.append(url);
 		
-		String response = super.request(m_URL.toString(), clientv, cookie, username, null);
+		String response = requestUrl(m_URL.toString(), clientv, cookie, username, null);
 		if (response == null)
 			return null;
 		else {
@@ -46,6 +47,7 @@ public class RequestTowns extends RequestParent {
 				return null;
 			else {
 				TownInfo townInfo = new TownInfo();
+				townInfo.setId(id);
 				townInfo.setTown(town);
 				townInfo.setPacket(response);
 				townInfo.setUpdateTime(DateTime.getNow());

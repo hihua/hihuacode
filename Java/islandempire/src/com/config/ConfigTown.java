@@ -1,5 +1,6 @@
 package com.config;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class ConfigTown {
@@ -12,7 +13,7 @@ public class ConfigTown {
 	private Long attackLevelMin = 0L;
 	private Long attackLevelMax = 0L;
 	private Boolean autoRecruit = false;
-	private Double marketRate = 0D;
+	private HashMap<String, Double> marketRate = null;
 
 	public Long getId() {
 		return id;
@@ -50,7 +51,7 @@ public class ConfigTown {
 		return autoRecruit;
 	}
 
-	public Double getMarketRate() {
+	public HashMap<String, Double> getMarketRate() {
 		return marketRate;
 	}
 
@@ -90,7 +91,7 @@ public class ConfigTown {
 		this.autoRecruit = autoRecruit;
 	}
 
-	public void setMarketRate(Double marketRate) {
+	public void setMarketRate(HashMap<String, Double> marketRate) {
 		this.marketRate = marketRate;
 	}
 }

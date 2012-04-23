@@ -525,15 +525,15 @@ public class Town {
 		Town towns = new Town();
 		JSONObject town = (JSONObject) json.get("town");
 		towns.setCityArmyStatus((town.get("city_army_status") != null) ? town.getString("city_army_status") : null);
-		JSONArray buildings = town.getJSONArray("buildings");
-		if (buildings != null) {
-			for (int i = 0; i < buildings.size(); i++) {
-				JSONObject building = (JSONObject) buildings.get(i);
-				Long level = (building.get("level") != null) ? building.getLong("level") : null;
-				Long id = (building.get("id") != null) ? building.getLong("id")	: null;
-				Long buildingType = (building.get("building_type") != null) ? building.getLong("building_type") : null;
-				String status = (building.get("status") != null) ? building.getString("status") : null;
-				Long anchorIndex = (building.get("anchor_index") != null) ? building.getLong("anchor_index") : null;
+		JSONArray arrays = town.getJSONArray("buildings");
+		if (arrays != null) {
+			for (int i = 0; i < arrays.size(); i++) {
+				JSONObject array = (JSONObject) arrays.get(i);
+				Long level = (array.get("level") != null) ? array.getLong("level") : null;
+				Long id = (array.get("id") != null) ? array.getLong("id")	: null;
+				Long buildingType = (array.get("building_type") != null) ? array.getLong("building_type") : null;
+				String status = (array.get("status") != null) ? array.getString("status") : null;
+				Long anchorIndex = (array.get("anchor_index") != null) ? array.getLong("anchor_index") : null;
 
 				if (buildingType == null)
 					continue;
@@ -545,8 +545,8 @@ public class Town {
 					buildingBarrack.setBuildingType(buildingType);
 					buildingBarrack.setStatus(status);
 					buildingBarrack.setAnchorIndex(anchorIndex);					
-					if (building.get("property") != null) {
-						JSONObject property = (JSONObject) building.get("property");
+					if (array.get("property") != null) {
+						JSONObject property = (JSONObject) array.get("property");
 						buildingBarrack.setReduceTimeRate((property.get("reduce_time_rate") != null) ? property.getLong("reduce_time_rate") : null);
 					}
 										
@@ -554,7 +554,7 @@ public class Town {
 				}
 								
 				if (buildingType.equals(2L) || buildingType.equals(5L) || buildingType.equals(6L) || buildingType.equals(7L) || buildingType.equals(8L)) {
-					JSONArray lines = building.getJSONArray("lines");
+					JSONArray lines = array.getJSONArray("lines");
 					List<BuildingLine> buildingLines = new Vector<BuildingLine>();
 					if (lines != null) {						
 						for (int j = 0; j < lines.size(); j++) {
@@ -609,8 +609,8 @@ public class Town {
 					buildingStore.setBuildingType(buildingType);
 					buildingStore.setStatus(status);
 					buildingStore.setAnchorIndex(anchorIndex);					
-					if (building.get("property") != null) {
-						JSONObject property = (JSONObject) building.get("property");
+					if (array.get("property") != null) {
+						JSONObject property = (JSONObject) array.get("property");
 						buildingStore.setCapacity((property.get("capacity") != null) ? property.getLong("capacity") : null);
 					}					
 										
@@ -624,8 +624,8 @@ public class Town {
 					buildingPort.setBuildingType(buildingType);
 					buildingPort.setStatus(status);
 					buildingPort.setAnchorIndex(anchorIndex);					
-					if (building.get("property") != null) {
-						JSONObject property = (JSONObject) building.get("property");
+					if (array.get("property") != null) {
+						JSONObject property = (JSONObject) array.get("property");
 						buildingPort.setAvailableFleet((property.get("available_fleet") != null) ? property.getLong("available_fleet") : null);
 						buildingPort.setFleetQuota((property.get("fleet_quota") != null) ? property.getLong("fleet_quota") : null);
 					}					
@@ -640,8 +640,8 @@ public class Town {
 					buildingMarket.setBuildingType(buildingType);
 					buildingMarket.setStatus(status);
 					buildingMarket.setAnchorIndex(anchorIndex);
-					if (building.get("property") != null) {
-						JSONObject property = (JSONObject) building.get("property");
+					if (array.get("property") != null) {
+						JSONObject property = (JSONObject) array.get("property");
 						buildingMarket.setLeftCapacity((property.get("left_capacity") != null) ? property.getLong("left_capacity") : null);
 						buildingMarket.setCapacity((property.get("capacity") != null) ? property.getLong("capacity") : null);
 					}
@@ -666,13 +666,13 @@ public class Town {
 					buildingWall.setBuildingType(buildingType);
 					buildingWall.setStatus(status);
 					buildingWall.setAnchorIndex(anchorIndex);
-					if (building.get("property") != null) {
-						JSONObject property = (JSONObject) building.get("property");
+					if (array.get("property") != null) {
+						JSONObject property = (JSONObject) array.get("property");
 						buildingWall.setDefense((property.get("defense") != null) ? property.getLong("defense") : null);						
 					}
 					
-					if (building.get("towers") != null) {
-						JSONArray towers = building.getJSONArray("towers");
+					if (array.get("towers") != null) {
+						JSONArray towers = array.getJSONArray("towers");
 						List<BuildingTower> buildingTowers = new Vector<BuildingTower>();						
 						for (int j = 0; j < towers.size(); j++) {
 							JSONObject tower = (JSONObject) towers.get(j);
@@ -699,8 +699,8 @@ public class Town {
 					buildingYard.setBuildingType(buildingType);
 					buildingYard.setStatus(status);
 					buildingYard.setAnchorIndex(anchorIndex);					
-					if (building.get("property") != null) {
-						JSONObject property = (JSONObject) building.get("property");
+					if (array.get("property") != null) {
+						JSONObject property = (JSONObject) array.get("property");
 						buildingYard.setReduceTimeRate((property.get("reduce_time_rate") != null) ? property.getLong("reduce_time_rate") : null);
 					}
 										
@@ -714,8 +714,8 @@ public class Town {
 					buildingCellar.setBuildingType(buildingType);
 					buildingCellar.setStatus(status);
 					buildingCellar.setAnchorIndex(anchorIndex);					
-					if (building.get("property") != null) {
-						JSONObject property = (JSONObject) building.get("property");
+					if (array.get("property") != null) {
+						JSONObject property = (JSONObject) array.get("property");
 						buildingCellar.setSafeCapacity((property.get("safe_capacity") != null) ? property.getLong("reduce_time_rate") : null);
 					}
 										
@@ -737,54 +737,54 @@ public class Town {
 		
 		towns.setResourceType((town.get("resource_type") != null) ? town.getLong("resource_type") : null);		
 		if (town.get("battle_queue") != null) {
-			JSONArray battleQueues = town.getJSONArray("battle_queue");
+			arrays = town.getJSONArray("battle_queue");
 			List<BattleQueue> list = new Vector<BattleQueue>();
-			for (int i = 0; i < battleQueues.size(); i++) {
-				JSONObject battleQueue = (JSONObject) battleQueues.get(i);
-				BattleQueue queue = new BattleQueue();
-				queue.setToX((battleQueue.get("to_x") != null) ? battleQueue.getLong("to_x") : null);
-				queue.setToLevel((battleQueue.get("to_level") != null) ? battleQueue.getLong("to_level") : null);
+			for (int i = 0; i < arrays.size(); i++) {
+				JSONObject array = (JSONObject) arrays.get(i);
+				BattleQueue battleQueue = new BattleQueue();
+				battleQueue.setToX((array.get("to_x") != null) ? array.getLong("to_x") : null);
+				battleQueue.setToLevel((array.get("to_level") != null) ? array.getLong("to_level") : null);
 				
-				if (battleQueue.get("army") != null) {
-					JSONObject army = (JSONObject) battleQueue.get("army");
-					queue.setFrigate((army.get("frigate") != null) ? army.getLong("frigate") : null);
-					queue.setMusketman((army.get("musketman") != null) ? army.getLong("musketman") : null);
-					queue.setCatapult((army.get("catapult") != null) ? army.getLong("catapult") : null);
-					queue.setInfantry((army.get("infantry") != null) ? army.getLong("infantry") : null);
-					queue.setDestroyer((army.get("destroyer") != null) ? army.getLong("destroyer") : null);
-					queue.setScout((army.get("scout") != null) ? army.getLong("scout") : null);					
+				if (array.get("army") != null) {
+					JSONObject army = (JSONObject) array.get("army");
+					battleQueue.setFrigate((army.get("frigate") != null) ? army.getLong("frigate") : null);
+					battleQueue.setMusketman((army.get("musketman") != null) ? army.getLong("musketman") : null);
+					battleQueue.setCatapult((army.get("catapult") != null) ? army.getLong("catapult") : null);
+					battleQueue.setInfantry((army.get("infantry") != null) ? army.getLong("infantry") : null);
+					battleQueue.setDestroyer((army.get("destroyer") != null) ? army.getLong("destroyer") : null);
+					battleQueue.setScout((army.get("scout") != null) ? army.getLong("scout") : null);					
 				}
 				
-				queue.setArriveTime((battleQueue.get("arrive_time") != null) ? DateTime.getTime(battleQueue.getLong("arrive_time")) : null);
-				queue.setTotalTime((battleQueue.get("total_time") != null) ? battleQueue.getLong("total_time") : null);
-				queue.setActionOwnerTownId((battleQueue.get("action_owner_town_id") != null) ? battleQueue.getLong("action_owner_town_id") : null);
-				queue.setToY((battleQueue.get("to_y") != null) ? battleQueue.getLong("to_y") : null);
-				queue.setHeroId((battleQueue.get("hero_id") != null) ? battleQueue.getLong("hero_id") : null);
-				queue.setFromLevel((battleQueue.get("from_level") != null) ? battleQueue.getLong("from_level") : null);
-				queue.setId((battleQueue.get("id") != null) ? battleQueue.getLong("id") : null);
+				battleQueue.setArriveTime((array.get("arrive_time") != null) ? DateTime.getTime(array.getLong("arrive_time")) : null);
+				battleQueue.setTotalTime((array.get("total_time") != null) ? array.getLong("total_time") : null);
+				battleQueue.setActionOwnerTownId((array.get("action_owner_town_id") != null) ? array.getLong("action_owner_town_id") : null);
+				battleQueue.setToY((array.get("to_y") != null) ? array.getLong("to_y") : null);
+				battleQueue.setHeroId((array.get("hero_id") != null) ? array.getLong("hero_id") : null);
+				battleQueue.setFromLevel((array.get("from_level") != null) ? array.getLong("from_level") : null);
+				battleQueue.setId((array.get("id") != null) ? array.getLong("id") : null);
 				
-				if (battleQueue.get("resources") != null) {
-					JSONObject resources = (JSONObject) battleQueue.get("resources");
-					queue.setGold((resources.get("gold") != null) ? resources.getLong("gold") : null);
-					queue.setWood((resources.get("wood") != null) ? resources.getLong("wood") : null);
-					queue.setMarble((resources.get("marble") != null) ? resources.getLong("marble") : null);
-					queue.setFood((resources.get("food") != null) ? resources.getLong("food") : null);
-					queue.setIron((resources.get("iron") != null) ? resources.getLong("iron") : null);										
+				if (array.get("resources") != null) {
+					JSONObject resources = (JSONObject) array.get("resources");
+					battleQueue.setGold((resources.get("gold") != null) ? resources.getLong("gold") : null);
+					battleQueue.setWood((resources.get("wood") != null) ? resources.getLong("wood") : null);
+					battleQueue.setMarble((resources.get("marble") != null) ? resources.getLong("marble") : null);
+					battleQueue.setFood((resources.get("food") != null) ? resources.getLong("food") : null);
+					battleQueue.setIron((resources.get("iron") != null) ? resources.getLong("iron") : null);										
 				}
 				
-				queue.setFromX((battleQueue.get("from_x") != null) ? battleQueue.getLong("from_x") : null);
-				queue.setMission((battleQueue.get("mission") != null) ? battleQueue.getLong("mission") : null);
-				queue.setFromTownName((battleQueue.get("from_town_name") != null) ? battleQueue.getString("from_town_name") : null);
-				queue.setFromY((battleQueue.get("from_y") != null) ? battleQueue.getLong("from_y") : null);
-				queue.setType((battleQueue.get("type") != null) ? battleQueue.getString("type") : null);
-				queue.setReceive((battleQueue.get("receive") != null && !battleQueue.getString("receive").equals("null")) ? battleQueue.getString("receive") : null);
-				queue.setBattleInfoLevel((battleQueue.get("battle_info_level") != null) ? battleQueue.getLong("battle_info_level") : null);
-				queue.setToTownId((battleQueue.get("to_town_id") != null) ? battleQueue.getLong("to_town_id") : null);
-				queue.setGems((battleQueue.get("gems") != null) ? battleQueue.getLong("gems") : null);
-				queue.setFinished((battleQueue.get("finished") != null) ? battleQueue.getBoolean("finished") : null);
-				queue.setToTownName((battleQueue.get("to_town_name") != null) ? battleQueue.getString("to_town_name") : null);
-				queue.setFromTownId((battleQueue.get("from_town_id") != null) ? battleQueue.getLong("from_town_id") : null);				
-				list.add(queue);
+				battleQueue.setFromX((array.get("from_x") != null) ? array.getLong("from_x") : null);
+				battleQueue.setMission((array.get("mission") != null) ? array.getLong("mission") : null);
+				battleQueue.setFromTownName((array.get("from_town_name") != null) ? array.getString("from_town_name") : null);
+				battleQueue.setFromY((array.get("from_y") != null) ? array.getLong("from_y") : null);
+				battleQueue.setType((array.get("type") != null) ? array.getString("type") : null);
+				battleQueue.setReceive((array.get("receive") != null && !array.getString("receive").equals("null")) ? array.getString("receive") : null);
+				battleQueue.setBattleInfoLevel((array.get("battle_info_level") != null) ? array.getLong("battle_info_level") : null);
+				battleQueue.setToTownId((array.get("to_town_id") != null) ? array.getLong("to_town_id") : null);
+				battleQueue.setGems((array.get("gems") != null) ? array.getLong("gems") : null);
+				battleQueue.setFinished((array.get("finished") != null) ? array.getBoolean("finished") : null);
+				battleQueue.setToTownName((array.get("to_town_name") != null) ? array.getString("to_town_name") : null);
+				battleQueue.setFromTownId((array.get("from_town_id") != null) ? array.getLong("from_town_id") : null);				
+				list.add(battleQueue);
 			}	
 			
 			towns.setBattleQueues(list);
@@ -798,40 +798,40 @@ public class Town {
 		towns.setCurrentServerTime((town.get("current_server_time") != null) ? DateTime.getTime(town.getLong("current_server_time")) : null);
 		
 		if (town.get("resources") != null) {
-			JSONArray resources = town.getJSONArray("resources");
-			for (int i = 0; i < resources.size(); i++) {
-				JSONObject resource = (JSONObject) resources.get(i);				
-				Resources res = new Resources();
-				res.setMaxVolume((resource.get("max_volume") != null) ? resource.getLong("max_volume") : null);
-				res.setIncreasePerHour((resource.get("increase_per_hour") != null) ? resource.getLong("increase_per_hour") : null);
-				res.setResourceName((resource.get("resource_name") != null) ? resource.getString("resource_name") : null);
-				res.setResourceCount((resource.get("resource_count") != null) ? resource.getLong("resource_count") : null);
+			arrays = town.getJSONArray("resources");
+			for (int i = 0; i < arrays.size(); i++) {
+				JSONObject array = (JSONObject) arrays.get(i);				
+				Resources resources = new Resources();
+				resources.setMaxVolume((array.get("max_volume") != null) ? array.getLong("max_volume") : null);
+				resources.setIncreasePerHour((array.get("increase_per_hour") != null) ? array.getLong("increase_per_hour") : null);
+				resources.setResourceName((array.get("resource_name") != null) ? array.getString("resource_name") : null);
+				resources.setResourceCount((array.get("resource_count") != null) ? array.getLong("resource_count") : null);
 				
-				if (res.getResourceName() == null)
+				if (resources.getResourceName() == null)
 					continue;
 				
-				if (res.getResourceName().equals("wood")) {
-					towns.setResourcesWood(res);
-					continue;
-				}
-				
-				if (res.getResourceName().equals("food")) {
-					towns.setResourcesFood(res);
+				if (resources.getResourceName().equals("wood")) {
+					towns.setResourcesWood(resources);
 					continue;
 				}
 				
-				if (res.getResourceName().equals("iron")) {
-					towns.setResourcesIron(res);
+				if (resources.getResourceName().equals("food")) {
+					towns.setResourcesFood(resources);
 					continue;
 				}
 				
-				if (res.getResourceName().equals("gold")) {
-					towns.setResourcesGold(res);
+				if (resources.getResourceName().equals("iron")) {
+					towns.setResourcesIron(resources);
 					continue;
 				}
 				
-				if (res.getResourceName().equals("marble")) {
-					towns.setResourcesMarble(res);
+				if (resources.getResourceName().equals("gold")) {
+					towns.setResourcesGold(resources);
+					continue;
+				}
+				
+				if (resources.getResourceName().equals("marble")) {
+					towns.setResourcesMarble(resources);
 					continue;
 				}
 			}			
@@ -847,48 +847,48 @@ public class Town {
 		towns.setIslandZ((town.get("island_z") != null) ? town.getLong("island_z") : null);
 		
 		if (town.get("transport_queue") != null) {
-			JSONArray transportQueues = town.getJSONArray("transport_queue");
+			arrays = town.getJSONArray("transport_queue");
 			List<TransportQueue> list = new Vector<TransportQueue>();
-			for (int i = 0; i < transportQueues.size(); i++) {
-				JSONObject transportQueue = (JSONObject) transportQueues.get(i);
-				TransportQueue queue = new TransportQueue();				
-				if (transportQueue.get("army") != null) {
-					JSONObject army = (JSONObject) transportQueue.get("army");
-					queue.setFrigate((army.get("frigate") != null) ? army.getLong("frigate") : null);
-					queue.setMusketman((army.get("musketman") != null) ? army.getLong("musketman") : null);
-					queue.setCatapult((army.get("catapult") != null) ? army.getLong("catapult") : null);
-					queue.setInfantry((army.get("infantry") != null) ? army.getLong("infantry") : null);
-					queue.setDestroyer((army.get("destroyer") != null) ? army.getLong("destroyer") : null);
-					queue.setScout((army.get("scout") != null) ? army.getLong("scout") : null);					
+			for (int i = 0; i < arrays.size(); i++) {
+				JSONObject array = (JSONObject) arrays.get(i);
+				TransportQueue transportQueue = new TransportQueue();				
+				if (array.get("army") != null) {
+					JSONObject army = (JSONObject) array.get("army");
+					transportQueue.setFrigate((army.get("frigate") != null) ? army.getLong("frigate") : null);
+					transportQueue.setMusketman((army.get("musketman") != null) ? army.getLong("musketman") : null);
+					transportQueue.setCatapult((army.get("catapult") != null) ? army.getLong("catapult") : null);
+					transportQueue.setInfantry((army.get("infantry") != null) ? army.getLong("infantry") : null);
+					transportQueue.setDestroyer((army.get("destroyer") != null) ? army.getLong("destroyer") : null);
+					transportQueue.setScout((army.get("scout") != null) ? army.getLong("scout") : null);					
 				}
 				
-				queue.setTotalTime((transportQueue.get("total_time") != null) ? transportQueue.getLong("total_time") : null);
-				queue.setActionOwnerTownId((transportQueue.get("action_owner_town_id") != null) ? transportQueue.getLong("action_owner_town_id") : null);
-				queue.setFleetTownId((transportQueue.get("fleet_town_id") != null) ? transportQueue.getLong("fleet_town_id") : null);				
-				queue.setHeroId((transportQueue.get("hero_id") != null && !transportQueue.getString("hero_id").equals("null")) ? transportQueue.getLong("hero_id") : null);
-				queue.setFleetIndex((transportQueue.get("fleet_index") != null) ? transportQueue.getLong("fleet_index") : null);
+				transportQueue.setTotalTime((array.get("total_time") != null) ? array.getLong("total_time") : null);
+				transportQueue.setActionOwnerTownId((array.get("action_owner_town_id") != null) ? array.getLong("action_owner_town_id") : null);
+				transportQueue.setFleetTownId((array.get("fleet_town_id") != null) ? array.getLong("fleet_town_id") : null);				
+				transportQueue.setHeroId((array.get("hero_id") != null && !array.getString("hero_id").equals("null")) ? array.getLong("hero_id") : null);
+				transportQueue.setFleetIndex((array.get("fleet_index") != null) ? array.getLong("fleet_index") : null);
 				
-				if (transportQueue.get("resources") != null) {
-					JSONObject resources = (JSONObject) transportQueue.get("resources");
-					queue.setGold((resources.get("gold") != null) ? resources.getLong("gold") : null);
-					queue.setWood((resources.get("wood") != null) ? resources.getLong("wood") : null);
-					queue.setMarble((resources.get("marble") != null) ? resources.getLong("marble") : null);
-					queue.setFood((resources.get("food") != null) ? resources.getLong("food") : null);
-					queue.setIron((resources.get("iron") != null) ? resources.getLong("iron") : null);										
+				if (array.get("resources") != null) {
+					JSONObject resources = (JSONObject) array.get("resources");
+					transportQueue.setGold((resources.get("gold") != null) ? resources.getLong("gold") : null);
+					transportQueue.setWood((resources.get("wood") != null) ? resources.getLong("wood") : null);
+					transportQueue.setMarble((resources.get("marble") != null) ? resources.getLong("marble") : null);
+					transportQueue.setFood((resources.get("food") != null) ? resources.getLong("food") : null);
+					transportQueue.setIron((resources.get("iron") != null) ? resources.getLong("iron") : null);										
 				}
 				
-				queue.setMission((transportQueue.get("mission") != null) ? transportQueue.getLong("mission") : null);
-				queue.setType((transportQueue.get("type") != null) ? transportQueue.getString("type") : null);
-				queue.setReceive((transportQueue.get("receive") != null && !transportQueue.getString("receive").equals("null")) ? transportQueue.getString("receive") : null);
-				queue.setFinishTime((transportQueue.get("finish_time") != null) ? DateTime.getTime(transportQueue.getLong("finish_time")) : null);
-				queue.setBattleInfoLevel((transportQueue.get("battle_info_level") != null) ? transportQueue.getLong("battle_info_level") : null);
-				queue.setToTownId((transportQueue.get("to_town_id") != null) ? transportQueue.getLong("to_town_id") : null);
-				queue.setGems((transportQueue.get("gems") != null) ? transportQueue.getLong("gems") : null);
-				queue.setFinished((transportQueue.get("finished") != null) ? transportQueue.getBoolean("finished") : null);
-				queue.setToTownName((transportQueue.get("to_town_name") != null) ? transportQueue.getString("to_town_name") : null);
-				queue.setQueueId((transportQueue.get("queue_id") != null) ? transportQueue.getLong("queue_id") : null);
-				queue.setFromTownId((transportQueue.get("from_town_id") != null) ? transportQueue.getLong("from_town_id") : null);				
-				list.add(queue);
+				transportQueue.setMission((array.get("mission") != null) ? array.getLong("mission") : null);
+				transportQueue.setType((array.get("type") != null) ? array.getString("type") : null);
+				transportQueue.setReceive((array.get("receive") != null && !array.getString("receive").equals("null")) ? array.getString("receive") : null);
+				transportQueue.setFinishTime((array.get("finish_time") != null) ? DateTime.getTime(array.getLong("finish_time")) : null);
+				transportQueue.setBattleInfoLevel((array.get("battle_info_level") != null) ? array.getLong("battle_info_level") : null);
+				transportQueue.setToTownId((array.get("to_town_id") != null) ? array.getLong("to_town_id") : null);
+				transportQueue.setGems((array.get("gems") != null) ? array.getLong("gems") : null);
+				transportQueue.setFinished((array.get("finished") != null) ? array.getBoolean("finished") : null);
+				transportQueue.setToTownName((array.get("to_town_name") != null) ? array.getString("to_town_name") : null);
+				transportQueue.setQueueId((array.get("queue_id") != null) ? array.getLong("queue_id") : null);
+				transportQueue.setFromTownId((array.get("from_town_id") != null) ? array.getLong("from_town_id") : null);				
+				list.add(transportQueue);
 			}	
 			
 			towns.setTransportQueues(list);
@@ -897,59 +897,59 @@ public class Town {
 		towns.setGems((town.get("gems") != null) ? town.getLong("gems") : null);
 		
 		if (town.get("soldiers") != null) {
-			JSONArray soldiers = town.getJSONArray("soldiers");
-			for (int i = 0; i < soldiers.size(); i++) {
-				JSONObject soldier = (JSONObject) soldiers.get(i);								
-				Soldier sold = new Soldier();
-				sold.setName((soldier.get("name") != null) ? soldier.getString("name") : null);
-				sold.setCount((soldier.get("count") != null) ? soldier.getLong("count") : null);
+			arrays = town.getJSONArray("soldiers");
+			for (int i = 0; i < arrays.size(); i++) {
+				JSONObject array = (JSONObject) arrays.get(i);								
+				Soldier soldier = new Soldier();
+				soldier.setName((array.get("name") != null) ? array.getString("name") : null);
+				soldier.setCount((array.get("count") != null) ? array.getLong("count") : null);
 				
-				if (sold.getName() == null)
+				if (soldier.getName() == null)
 					continue;
 				
-				if (sold.getName().equals("infantry")) {
-					towns.setSoldierInfantry(sold);
-					continue;
-				}
-				
-				if (sold.getName().equals("musketman")) {
-					towns.setSoldierMusketman(sold);
+				if (soldier.getName().equals("infantry")) {
+					towns.setSoldierInfantry(soldier);
 					continue;
 				}
 				
-				if (sold.getName().equals("catapult")) {
-					towns.setSoldierCatapult(sold);
+				if (soldier.getName().equals("musketman")) {
+					towns.setSoldierMusketman(soldier);
 					continue;
 				}
 				
-				if (sold.getName().equals("scout")) {
-					towns.setSoldierScout(sold);
+				if (soldier.getName().equals("catapult")) {
+					towns.setSoldierCatapult(soldier);
 					continue;
 				}
 				
-				if (sold.getName().equals("frigate")) {
-					towns.setSoldierFrigate(sold);
+				if (soldier.getName().equals("scout")) {
+					towns.setSoldierScout(soldier);
 					continue;
 				}
 				
-				if (sold.getName().equals("destroyer")) {
-					towns.setSoldierDestroyer(sold);
+				if (soldier.getName().equals("frigate")) {
+					towns.setSoldierFrigate(soldier);
+					continue;
+				}
+				
+				if (soldier.getName().equals("destroyer")) {
+					towns.setSoldierDestroyer(soldier);
 					continue;
 				}
 			}
 		}
 		
 		if (town.get("building_queue") != null) {
-			JSONArray buildingQueues = town.getJSONArray("building_queue");
+			arrays = town.getJSONArray("building_queue");
 			List<BuildingQueue> list = new Vector<BuildingQueue>();
-			for (int i = 0; i < buildingQueues.size(); i++) {
-				JSONObject buildingQueue = (JSONObject) buildingQueues.get(i);
-				BuildingQueue queue = new BuildingQueue();
-				queue.setTotalTime((buildingQueue.get("total_time") != null) ? buildingQueue.getLong("total_time") : null);
-				queue.setFinishTime((buildingQueue.get("finish_time") != null) ? DateTime.getTime(buildingQueue.getLong("finish_time")) : null);
-				queue.setBuildingId((buildingQueue.get("building_id") != null) ? buildingQueue.getLong("building_id") : null);
-				queue.setQueueId((buildingQueue.get("queue_id") != null) ? buildingQueue.getLong("queue_id") : null);
-				list.add(queue);
+			for (int i = 0; i < arrays.size(); i++) {
+				JSONObject array = (JSONObject) arrays.get(i);
+				BuildingQueue buildingQueue = new BuildingQueue();
+				buildingQueue.setTotalTime((array.get("total_time") != null) ? array.getLong("total_time") : null);
+				buildingQueue.setFinishTime((array.get("finish_time") != null) ? DateTime.getTime(array.getLong("finish_time")) : null);
+				buildingQueue.setBuildingId((array.get("building_id") != null) ? array.getLong("building_id") : null);
+				buildingQueue.setQueueId((array.get("queue_id") != null) ? array.getLong("queue_id") : null);
+				list.add(buildingQueue);
 			}
 			
 			towns.setBuildingQueues(list);
@@ -958,15 +958,15 @@ public class Town {
 		towns.setHaveNewMessage((town.get("have_new_message") != null) ? town.getBoolean("have_new_message") : null);
 		
 		if (town.get("other_towns") != null) {
-			JSONArray otherTowns = town.getJSONArray("other_towns");
+			arrays = town.getJSONArray("other_towns");
 			List<OtherTown> list = new Vector<OtherTown>();
-			for (int i = 0; i < otherTowns.size(); i++) {
-				JSONObject otherTown = (JSONObject) otherTowns.get(i);
+			for (int i = 0; i < arrays.size(); i++) {
+				JSONObject array = (JSONObject) arrays.get(i);
 				OtherTown other = new OtherTown();
-				other.setName((otherTown.get("name") != null) ? otherTown.getString("name") : null);
-				other.setResourceType((otherTown.get("resource_type") != null) ? otherTown.getLong("resource_type") : null);				
-				if (otherTown.get("battle_queue") != null) {
-					JSONArray battleQueues = otherTown.getJSONArray("battle_queue");
+				other.setName((array.get("name") != null) ? array.getString("name") : null);
+				other.setResourceType((array.get("resource_type") != null) ? array.getLong("resource_type") : null);				
+				if (array.get("battle_queue") != null) {
+					JSONArray battleQueues = array.getJSONArray("battle_queue");
 					List<BattleQueue> queues = new Vector<BattleQueue>();
 					for (int j = 0; j < battleQueues.size(); j++) {
 						JSONObject battleQueue = (JSONObject) battleQueues.get(j);
@@ -1019,13 +1019,13 @@ public class Town {
 					other.setBattleQueues(queues);
 				}
 				
-				other.setLevel((otherTown.get("level") != null) ? otherTown.getLong("level") : null);
-				other.setId((otherTown.get("id") != null) ? otherTown.getLong("id") : null);
-				other.setIslandX((otherTown.get("island_x") != null) ? otherTown.getLong("island_x") : null);
-				other.setIslandY((otherTown.get("island_y") != null) ? otherTown.getLong("island_y") : null);
-				other.setIslandZ((otherTown.get("island_z") != null) ? otherTown.getLong("island_z") : null);
-				other.setIslandNumber((otherTown.get("island_number") != null) ? otherTown.getLong("island_number") : null);
-				other.setIsCapital((otherTown.get("is_capital") != null) ? otherTown.getBoolean("is_capital") : null);
+				other.setLevel((array.get("level") != null) ? array.getLong("level") : null);
+				other.setId((array.get("id") != null) ? array.getLong("id") : null);
+				other.setIslandX((array.get("island_x") != null) ? array.getLong("island_x") : null);
+				other.setIslandY((array.get("island_y") != null) ? array.getLong("island_y") : null);
+				other.setIslandZ((array.get("island_z") != null) ? array.getLong("island_z") : null);
+				other.setIslandNumber((array.get("island_number") != null) ? array.getLong("island_number") : null);
+				other.setIsCapital((array.get("is_capital") != null) ? array.getBoolean("is_capital") : null);
 				list.add(other);
 			}
 			

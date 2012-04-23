@@ -38,7 +38,7 @@ public class RequestTransport extends RequestParent {
 			m_URL.append(gold);
 		}
 		
-		String response = super.request(m_URL.toString(), clientv, cookie, null);
+		String response = requestUrl(m_URL.toString(), clientv, cookie, null);
 		if (response == null)
 			return false;
 		else

@@ -19,7 +19,7 @@ public class RequestDeals extends RequestParent {
 		m_URL.append("&page=");
 		m_URL.append(page);
 		
-		String response = super.request(m_URL.toString(), clientv, cookie, null);
+		String response = requestUrl(m_URL.toString(), clientv, cookie, null);
 		if (response == null)
 			return null;
 		else
@@ -41,7 +41,7 @@ public class RequestDeals extends RequestParent {
 		m_Body.append("&count=");
 		m_Body.append(count);
 		
-		String response = super.request(m_URL.toString(), clientv, cookie, m_Body.toString());
+		String response = requestUrl(m_URL.toString(), clientv, cookie, m_Body.toString());
 		if (response == null)
 			return false;
 		else

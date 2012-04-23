@@ -11,7 +11,7 @@ public class RequestSessions extends RequestParent {
 		m_URL.append(host);
 		m_URL.append(URL);
 		
-		String cookie = super.sessions(m_URL.toString(), clientv);
+		String cookie = requestSessions(m_URL.toString(), clientv);
 		if (cookie == null)
 			return false;
 		else {
@@ -25,7 +25,7 @@ public class RequestSessions extends RequestParent {
 		m_URL.append(host);
 		m_URL.append("/deals.json?do=public&goods_name=wood&page=0");
 		
-		String response = super.request(m_URL.toString(), clientv, cookie, null);
+		String response = requestUrl(m_URL.toString(), clientv, cookie, null);
 		if (response == null)
 			return false;
 		else
