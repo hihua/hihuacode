@@ -8,12 +8,24 @@
   <servlet>
     <description>This is the description of my J2EE component</description>
     <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>Main</servlet-name>
+    <servlet-class>com.main.Main</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
     <servlet-name>WebMyTowns</servlet-name>
     <servlet-class>com.web.WebMyTowns</servlet-class>
   </servlet>
-
+  
+  
+  <servlet-mapping>
+    <servlet-name>Main</servlet-name>
+    <url-pattern>/servlet/Main</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>WebMyTowns</servlet-name>
     <url-pattern>/servlet/WebMyTowns</url-pattern>
-  </servlet-mapping> 
+  </servlet-mapping>   
 </web-app>

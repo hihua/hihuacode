@@ -63,7 +63,11 @@ public class Deal {
 	}
 	
 	public static List<Deal> parse(String response) {
-		JSONArray arrays = JSONArray.fromObject("deals");
+		JSONObject json = JSONObject.fromObject(response);
+		if (json == null)
+			return null;
+		
+		JSONArray arrays = json.getJSONArray("deals");
 		if (arrays != null) {
 			List<Deal> deals = new Vector<Deal>();
 			for (int i = 0; i < arrays.size(); i++) {

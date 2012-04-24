@@ -63,7 +63,11 @@ public class WorldMap {
 	}
 	
 	public static List<WorldMap> parse(String response) {
-		JSONArray arrays = JSONArray.fromObject("islands");
+		JSONObject json = JSONObject.fromObject(response);
+		if (json == null)
+			return null;
+		
+		JSONArray arrays = json.getJSONArray("islands");
 		if (arrays != null) {
 			List<WorldMap> list = new Vector<WorldMap>();
 			for (int i = 0; i < arrays.size(); i++) {

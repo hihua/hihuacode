@@ -26,6 +26,7 @@ import com.island.IslandBuilding;
 import com.island.IslandVillage;
 import com.island.WorldMap;
 import com.queue.BuildingQueue;
+import com.queue.LinesEvent;
 import com.request.RequestBuildings;
 import com.request.RequestDeals;
 import com.request.RequestIsland;
@@ -107,6 +108,7 @@ public class TaskMy extends TaskBase {
 			}
 			
 			sells(town, m_Config, configTown);
+			townInfos.add(townInfo);
 		}
 		
 		towns.setTownInfos(townInfos);
@@ -118,6 +120,7 @@ public class TaskMy extends TaskBase {
 			}
 		}
 		
+		m_CallBack.onTowns(towns);		
 		setConfig(null);	
 		setDelay(Numeric.rndNumber(autoTowns + 10, autoTowns - 10) * 1000);
 	}
@@ -286,6 +289,13 @@ public class TaskMy extends TaskBase {
 		
 		if (total > 1)
 			return false;
+		
+		if (total == 1) {
+			BuildingQueue buildingQueue = buildingQueues.get(0);
+			List<LinesEvent> linesEvents = buildingQueue.getLinesEvent();
+			if (linesEvents != null && linesEvents.size() > 1)
+				return false;							
+		}
 		
 		List<Long> prioritys = configTown.getUpgradePriority();
 		if (prioritys == null)
@@ -472,11 +482,11 @@ public class TaskMy extends TaskBase {
 		return false;
 	}
 	
-	private boolean recruit(Town town, Config config, ConfigTown configTown) {
-		String host = m_Config.getHost();
-		String clientv = m_Config.getClientv();
-		String cookie = m_Config.getCookie();				
-	}
+//	private boolean recruit(Town town, Config config, ConfigTown configTown) {
+//		String host = m_Config.getHost();
+//		String clientv = m_Config.getClientv();
+//		String cookie = m_Config.getCookie();				
+//	}
 	
 	private long canAttack(Town town) { 
 		Soldier infantry = town.getSoldierInfantry();

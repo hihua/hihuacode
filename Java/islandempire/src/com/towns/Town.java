@@ -20,6 +20,7 @@ import com.buildings.BuildingWall;
 import com.hero.Hero;
 import com.queue.BattleQueue;
 import com.queue.BuildingQueue;
+import com.queue.LinesEvent;
 import com.queue.TransportQueue;
 import com.util.DateTime;
 
@@ -519,7 +520,7 @@ public class Town {
 
 	public static Town parse(String response) {
 		JSONObject json = JSONObject.fromObject(response);
-		if (json.get("town") == null)
+		if (json == null || json.get("town") == null)
 			return null;
 
 		Town towns = new Town();
@@ -716,7 +717,7 @@ public class Town {
 					buildingCellar.setAnchorIndex(anchorIndex);					
 					if (array.get("property") != null) {
 						JSONObject property = (JSONObject) array.get("property");
-						buildingCellar.setSafeCapacity((property.get("safe_capacity") != null) ? property.getLong("reduce_time_rate") : null);
+						buildingCellar.setSafeCapacity((property.get("reduce_time_rate") != null) ? property.getLong("reduce_time_rate") : null);
 					}
 										
 					towns.setBuildingCellar(buildingCellar);
@@ -946,9 +947,27 @@ public class Town {
 				JSONObject array = (JSONObject) arrays.get(i);
 				BuildingQueue buildingQueue = new BuildingQueue();
 				buildingQueue.setTotalTime((array.get("total_time") != null) ? array.getLong("total_time") : null);
+				buildingQueue.setNextLevel((array.get("next_level") != null) ? array.getLong("next_level") : null);
 				buildingQueue.setFinishTime((array.get("finish_time") != null) ? DateTime.getTime(array.getLong("finish_time")) : null);
 				buildingQueue.setBuildingId((array.get("building_id") != null) ? array.getLong("building_id") : null);
 				buildingQueue.setQueueId((array.get("queue_id") != null) ? array.getLong("queue_id") : null);
+				
+				if (array.get("lines_events") != null) {
+					JSONArray linesEvents = array.getJSONArray("lines_events");
+					List<LinesEvent> lines = new Vector<LinesEvent>();
+					for (int j = 0; j < linesEvents.size(); j++) {
+						JSONObject linesEvent = (JSONObject) linesEvents.get(j);
+						LinesEvent event = new LinesEvent();
+						event.setTotalTime((linesEvent.get("total_time") != null) ? linesEvent.getLong("total_time") : null);
+						event.setFinishTime((linesEvent.get("finish_time") != null) ? DateTime.getTime(linesEvent.getLong("finish_time")) : null);
+						event.setBuildingId((linesEvent.get("building_id") != null) ? linesEvent.getLong("building_id") : null);
+						event.setQueueId((linesEvent.get("queue_id") != null) ? linesEvent.getLong("queue_id") : null);
+						lines.add(event);
+					}
+					
+					buildingQueue.setLinesEvent(lines);
+				}
+					
 				list.add(buildingQueue);
 			}
 			

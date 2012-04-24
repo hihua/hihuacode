@@ -42,6 +42,11 @@
 		</table>	
 		<script type="text/javascript">
 			var MyTowns = [57971, 68274, 71071, 71989, 108094];
+			//57971		hihua
+			//68274 	hhh
+			//71071		hhihua
+			//71989		haha
+			//108094	hhhhhh
 			
 			function getMyTowns() {
 				for (var i = 0;i < MyTowns.length;i++)
@@ -50,11 +55,39 @@
 				setTimeout("getMyTowns()", 30000);			
 			}
 			
+			function getFinishTime(buildingQueues, buildingId, lines) {
+				if (buildingQueues == null)
+					return "";
+				
+				var finishTime = "";
+				$.each(buildingQueues, function(idx, buildingQueue) {
+					if (lines) {
+						var linesEvents = buildingQueue.lines_events;
+						if (linesEvents != null) {
+							$.each(linesEvents, function(idx, linesEvent) {
+								if (buildingQueue.building_id == buildingId) {
+									var date = new Date(buildingQueue.finish_time * 1000);
+									finishTime = date.pattern("yyyy-MM-dd HH:mm:ss");
+								}
+							});						
+						}					
+					} else {
+						if (buildingQueue.building_id == buildingId) {
+							var date = new Date(buildingQueue.finish_time * 1000);
+							finishTime = date.pattern("yyyy-MM-dd HH:mm:ss");
+						}
+					}					
+				});
+				
+				return finishTime;
+			}
+			
 			function setMyTown(json, id) {
 				var town = json.town;
 				if (town == null)
 					return;				
 				
+				var div = "towns";
 				var buildings = town.buildings;
 				var alliance = town.alliance;
 				var resources = town.resources;
@@ -144,17 +177,166 @@
 				
 				if (resources != null) {
 					$.each(resources, function(idx, resource) {
-						if (resource.name == "wood") {
+						if (resource.name == "wood") {							
 							html += "<table width=\"98%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
 							html += "<tr>";
 							html += "<td align=\"left\" width=\"25%\" height=\"25\" rowspan=\"2\" valign=\"top\" style=\"padding-left:9px;padding-top:8px\">木头</td>";
 							html += "<td align=\"left\" width=\"45%\" height=\"25\">" + resource.resource_count + "/" + resource.max_volume + "</td>";
 							html += "<td align=\"left\" width=\"30%\">" + resource.increase_per_hour + "/h</td>";
-							html += "</tr>";							
+							html += "</tr>";
+							html += "<tr>";
+							
+							var tmp = "";
+							
+							$.each(buildings, function(idx, building) {
+								if (building.building_type == 2) {
+									var lines = building.lines;
+									$.each(lines, function(idx, line) {
+										if (line.status == "upgrading")											
+											tmp += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, line.id, true) + "\">" + line.level + "</span>&nbsp;&nbsp;";											
+										 else
+											tmp += "<a href=\"#\" onclick=\"upgradeBuilding(" + line.id + ");return false;\" class=\"AdminToolsLink1\">" + line.level + "</a>&nbsp;&nbsp;";
+									});						
+								}								
+							});
+							
+							html += "<td align=\"left\" width=\"45%\" height=\"25\">" + tmp + "</td>";
+							html += "<td align=\"left\" width=\"30%\">&nbsp;</td>";
+							html += "</tr>";
+							html += "</table>";
+						}
+						
+						if (resource.name == "food") {							
+							html += "<table width=\"98%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+							html += "<tr>";
+							html += "<td align=\"left\" width=\"25%\" height=\"25\" rowspan=\"2\" valign=\"top\" style=\"padding-left:9px;padding-top:8px\">食物</td>";
+							html += "<td align=\"left\" width=\"45%\" height=\"25\">" + resource.resource_count + "/" + resource.max_volume + "</td>";
+							html += "<td align=\"left\" width=\"30%\">" + resource.increase_per_hour + "/h</td>";
+							html += "</tr>";
+							html += "<tr>";
+							
+							var tmp = "";
+							
+							$.each(buildings, function(idx, building) {
+								if (building.building_type == 5) {
+									var lines = building.lines;
+									$.each(lines, function(idx, line) {
+										if (line.status == "upgrading")											
+											tmp += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, line.id, true) + "\">" + line.level + "</span>&nbsp;&nbsp;";											
+										 else
+											tmp += "<a href=\"#\" onclick=\"upgradeBuilding(" + line.id + ");return false;\" class=\"AdminToolsLink1\">" + line.level + "</a>&nbsp;&nbsp;";
+									});						
+								}								
+							});
+							
+							html += "<td align=\"left\" width=\"45%\" height=\"25\">" + tmp + "</td>";
+							html += "<td align=\"left\" width=\"30%\">&nbsp;</td>";
+							html += "</tr>";
+							html += "</table>";
+						}
+						
+						if (resource.name == "marble") {							
+							html += "<table width=\"98%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+							html += "<tr>";
+							html += "<td align=\"left\" width=\"25%\" height=\"25\" rowspan=\"2\" valign=\"top\" style=\"padding-left:9px;padding-top:8px\">大理石</td>";
+							html += "<td align=\"left\" width=\"45%\" height=\"25\">" + resource.resource_count + "/" + resource.max_volume + "</td>";
+							html += "<td align=\"left\" width=\"30%\">" + resource.increase_per_hour + "/h</td>";
+							html += "</tr>";
+							html += "<tr>";
+							
+							var tmp = "";
+							
+							$.each(buildings, function(idx, building) {
+								if (building.building_type == 6) {
+									var lines = building.lines;
+									$.each(lines, function(idx, line) {
+										if (line.status == "upgrading")											
+											tmp += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, line.id, true) + "\">" + line.level + "</span>&nbsp;&nbsp;";											
+										 else
+											tmp += "<a href=\"#\" onclick=\"upgradeBuilding(" + line.id + ");return false;\" class=\"AdminToolsLink1\">" + line.level + "</a>&nbsp;&nbsp;";
+									});						
+								}								
+							});
+							
+							html += "<td align=\"left\" width=\"45%\" height=\"25\">" + tmp + "</td>";
+							html += "<td align=\"left\" width=\"30%\">&nbsp;</td>";
+							html += "</tr>";
+							html += "</table>";
+						}
+						
+						if (resource.name == "iron") {							
+							html += "<table width=\"98%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+							html += "<tr>";
+							html += "<td align=\"left\" width=\"25%\" height=\"25\" rowspan=\"2\" valign=\"top\" style=\"padding-left:9px;padding-top:8px\">黑铁石</td>";
+							html += "<td align=\"left\" width=\"45%\" height=\"25\">" + resource.resource_count + "/" + resource.max_volume + "</td>";
+							html += "<td align=\"left\" width=\"30%\">" + resource.increase_per_hour + "/h</td>";
+							html += "</tr>";
+							html += "<tr>";
+							
+							var tmp = "";
+							
+							$.each(buildings, function(idx, building) {
+								if (building.building_type == 7) {
+									var lines = building.lines;
+									$.each(lines, function(idx, line) {
+										if (line.status == "upgrading")											
+											tmp += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, line.id, true) + "\">" + line.level + "</span>&nbsp;&nbsp;";											
+										 else
+											tmp += "<a href=\"#\" onclick=\"upgradeBuilding(" + line.id + ");return false;\" class=\"AdminToolsLink1\">" + line.level + "</a>&nbsp;&nbsp;";
+									});						
+								}								
+							});
+							
+							html += "<td align=\"left\" width=\"45%\" height=\"25\">" + tmp + "</td>";
+							html += "<td align=\"left\" width=\"30%\">&nbsp;</td>";
+							html += "</tr>";
+							html += "</table>";
+						}
+						
+						if (resource.name == "gold") {							
+							html += "<table width=\"98%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+							html += "<tr>";
+							html += "<td align=\"left\" width=\"25%\" height=\"25\" rowspan=\"2\" valign=\"top\" style=\"padding-left:9px;padding-top:8px\">黄金</td>";
+							html += "<td align=\"left\" width=\"45%\" height=\"25\">" + resource.resource_count + "/" + resource.max_volume + "</td>";
+							html += "<td align=\"left\" width=\"30%\">" + resource.increase_per_hour + "/h</td>";
+							html += "</tr>";
+							html += "<tr>";
+							
+							var tmp = "";
+							
+							$.each(buildings, function(idx, building) {
+								if (building.building_type == 8) {
+									var lines = building.lines;
+									$.each(lines, function(idx, line) {
+										if (line.status == "upgrading")											
+											tmp += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, line.id, true) + "\">" + line.level + "</span>&nbsp;&nbsp;";											
+										 else
+											tmp += "<a href=\"#\" onclick=\"upgradeBuilding(" + line.id + ");return false;\" class=\"AdminToolsLink1\">" + line.level + "</a>&nbsp;&nbsp;";
+									});						
+								}								
+							});
+							
+							html += "<td align=\"left\" width=\"45%\" height=\"25\">" + tmp + "</td>";
+							html += "<td align=\"left\" width=\"30%\">&nbsp;</td>";
+							html += "</tr>";
 							html += "</table>";
 						}
 					});					
-				}																										
+				}
+				
+				html += "</td>";
+				html += "</tr>";
+				
+				
+				
+				html += "</table><br/>";
+				
+				var divTown = "town_" + id;
+				if ($("#" + div).find("#" + divTown).length == 0) {
+					html = "<div id=\"" + divTown + "\">" + html + "</div>";
+					$("#" + div).append(html);				
+				} else
+					$("#" + divCity).html(html);								
 			}
 			
 			getMyTowns();

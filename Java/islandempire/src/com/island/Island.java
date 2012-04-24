@@ -66,7 +66,7 @@ public class Island {
 	
 	public static List<IslandBuilding> parse(String response) {
 		JSONObject json = JSONObject.fromObject(response);
-		if (json.get("island") == null)
+		if (json == null || json.get("island") == null)
 			return null;
 		
 		JSONArray arrays = json.getJSONArray("towns");

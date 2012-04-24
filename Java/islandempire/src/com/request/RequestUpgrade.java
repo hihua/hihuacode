@@ -23,7 +23,11 @@ public class RequestUpgrade extends RequestParent {
 	}
 	
 	private static HashMap<String, Long> parse(String response) {
-		JSONArray arrays = JSONArray.fromObject("resources");
+		JSONObject json = JSONObject.fromObject(response);
+		if (json == null)
+			return null;
+		
+		JSONArray arrays = json.getJSONArray("resources");
 		if (arrays != null) {
 			HashMap<String, Long> resources = new HashMap<String, Long>();
 			for (int i = 0; i < arrays.size(); i++) {

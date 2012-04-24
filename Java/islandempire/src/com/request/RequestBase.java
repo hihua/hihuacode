@@ -214,6 +214,7 @@ public class RequestBase {
     			
     			connection.disconnect();
     			Log.writeLogs(sb.toString());
+    			Log.writeLogs("ResponseCode: " + responseCode);
     			
 				return null;			
 			} else {

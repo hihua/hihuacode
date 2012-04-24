@@ -1,4 +1,4 @@
-var WebMyTowns = "/servlet/WebMyTowns";
+var WebMyTowns = "servlet/WebMyTowns";
 
 function requestMyTowns(id, callback) {
 	var url = WebMyTowns + "?command=0&id=" + id; 
