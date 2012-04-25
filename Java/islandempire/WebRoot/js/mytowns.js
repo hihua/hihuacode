@@ -1,10 +1,10 @@
 var WebMyTowns = "servlet/WebMyTowns";
 
-function requestMyTowns(id, callback) {
-	var url = WebMyTowns + "?command=0&id=" + id; 
+function requestMyTowns(townId, callback) {
+	var url = WebMyTowns + "?command=0&town_id=" + townId; 
 	Ajax_CallBack(url, "", "json", "", true, function(json) {
 		if (json != null)
-			callback(json, id);		
+			callback(json, townId);		
 	}, function(response, error, status) {
         return null;
     });

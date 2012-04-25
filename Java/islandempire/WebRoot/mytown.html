@@ -42,6 +42,7 @@
 		</table>	
 		<script type="text/javascript">
 			var MyTowns = [57971, 68274, 71071, 71989, 108094];
+			var MyMessages = new Array();
 			//57971		hihua
 			//68274 	hhh
 			//71071		hhihua
@@ -53,6 +54,11 @@
 					requestMyTowns(MyTowns[i], setMyTown);
 					
 				setTimeout("getMyTowns()", 30000);			
+			}
+			
+			function getMyMessage() {
+				requestMyMessages(setMyMessages);					
+				setTimeout("getMyMessage()", 30000);			
 			}
 			
 			function getFinishTime(buildingQueues, buildingId, lines) {
@@ -82,7 +88,7 @@
 				return finishTime;
 			}
 						
-			function setMyTown(json, id) {
+			function setMyTown(json, townId) {
 				var town = json.town;
 				if (town == null)
 					return;				
@@ -602,7 +608,7 @@
 			    		html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">等级: </td><td>" + building.level + "/40" + "</td></tr>";
 			    		
 			    		var property = building.property;			    					    		
-			    		html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">提速: </td><td>" + property.reduce_time_rate + "%</td></tr>";
+			    		html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">训练速度: </td><td>" + property.reduce_time_rate + "%</td></tr>";
 			    		
 			    		$.each(soldiers, function(idx, soldier) {
 			    			var name = soldier.name;
@@ -667,7 +673,7 @@
 			    		html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">等级: </td><td>" + building.level + "/40" + "</td></tr>";
 			    		
 			    		var property = building.property;			    					    		
-			    		html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">提速: </td><td>" + property.reduce_time_rate + "%</td></tr>";
+			    		html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">训练速度: </td><td>" + property.reduce_time_rate + "%</td></tr>";
 			    		
 			    		$.each(soldiers, function(idx, soldier) {
 			    			var name = soldier.name;
@@ -698,7 +704,7 @@
 				});
 				
 				$.each(buildings, function(idx, building) {
-					if (building.building_type == 11) {
+					if (building.building_type == 12) {
 						if (tr)
 							html += "<tr>";
 						
@@ -719,15 +725,41 @@
 			    		html += "</td>";	    		
 			    		html += "<td width=\"40%\">";
 			    		html += "<table width=\"94%\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
-			    		html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">等级: </td><td>" + building.level + "/40" + "</td></tr>";
+			    		html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">等级: </td><td colspan=\"4\">" + building.level + "/40" + "</td></tr>";
 			    		
-			    		var property = building.property;			    					    		
-			    		html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">防御: </td><td>" + property.defense + "</td></tr>";
+			    		var property = building.property;			    				    					    		
+			    		html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">防御: </td><td colspan=\"4\">" + property.defense + "</td></tr>";
 			    		
 			    		var towers = building.towers;
 			    		if (towers != null) {
+			    			var arrays = [ 1, 1 ];
 			    			$.each(towers, function(idx, tower) {
+			    				var defense = tower.defense;
+			    				var level = tower.level;
+			    				var id = tower.id;
+			    				var type = tower.type;
+			    				var status = tower.status;
+			    				var attack = tower.attack;
+			    				var name = "";
+			    				var tmp = "";
+			    					
+				    			if (tower.type == 16) {
+				    				name = "箭塔" + arrays[0];
+				    				arrays[0]++;				    				
+				    			}
 				    			
+				    			if (tower.type == 17) {
+				    				name = "炮塔" + arrays[1];
+				    				arrays[1]++;				    				   			
+				    			}
+				    			
+				    			if (status == "upgrading")
+				    				tmp = "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, id, true) + "\">" + name + "</span>";			    			
+				    			else
+				    				tmp = "<a href=\"#\" onclick=\"upgradeBuilding(" + id + ");return false;\" class=\"AdminToolsLink1\">" + name + "</a>";
+				    			
+				    			html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">" + tmp + "</td><td width=\"15%\">攻击 </td><td>" + attack + "</td><td width=\"15%\">防御 </td><td>" + defense + "</td></tr>";				    			
+				    			html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">" + type + "</td><td width=\"15%\">等级</td><td colspan=\"3\">" + level + "</td></tr>";				    			
 				    		});
 			    		}			    					    		
 			    					    					    					    			    			    			
@@ -744,9 +776,48 @@
 			    	}					
 				});
 				
+				$.each(buildings, function(idx, building) {
+					if (building.building_type == 14) {
+						if (tr)
+							html += "<tr>";
+						
+						html += "<td width=\"10%\" align=\"center\">";
+						html += "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+						html += "<tr>";
+						html += "<td height=\"20\" align=\"center\">";				
+			    					    		
+			    		if (building.status == "upgrading")
+			    			html += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, building.id, false) + "\">地窖</span>";											
+						else
+							html += "<a href=\"#\" onclick=\"upgradeBuilding(" + building.id + ");return false;\" class=\"AdminToolsLink1\">地窖</a>";
+			    		 					    		
+			    		html += "</td>";
+			    		html += "</tr>";
+			    		html += "<tr><td height=\"20\">" + building.building_type + "</td></tr>";
+			    		html += "</table>";
+			    		html += "</td>";	    		
+			    		html += "<td width=\"40%\">";
+			    		html += "<table width=\"94%\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+			    		html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">等级: </td><td>" + building.level + "/40" + "</td></tr>";
+			    		
+			    		var property = building.property;			    					    		
+			    		html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">存量: </td><td>" + property.safe_capacity + "</td></tr>";			    					    			    			    			
+			    		html += "</table>";
+			    		html += "</td>";
+			    		
+			    		if (!tr) {
+							html += "</tr>";
+							tr = true;
+						} else
+							tr = false;
+							
+						return;					
+			    	}					
+				});
+				
 				html += "</table><br/>";
 				
-				var divTown = "town_" + id;
+				var divTown = "town_" + townId;
 				if ($("#" + div).find("#" + divTown).length == 0) {
 					html = "<div id=\"" + divTown + "\">" + html + "</div>";
 					$("#" + div).append(html);				
@@ -754,7 +825,91 @@
 					$("#" + divTown).html(html);								
 			}
 			
+			function setMyMessages(json) {
+				var username = "";
+				var tmp = "";					
+				
+				var messages = json.messages;
+				if (messages != null) {
+					$.each(messages, function(idx, message) {						
+						var created_at = "";
+						if (message.message_type != 5) {
+							username = message.to;
+							var date = new Date(message.created_at * 1000);
+							created_at = date.pattern("yyyy-MM-dd HH:mm:ss");
+						}
+						
+						tmp += "<table width=\"500\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"1\" class=\"Table1\">";
+						tmp += "<tr>";
+						tmp += "<td width=\"60%\" height=\"30px\" style=\"padding-left:5px;padding-right:5px\"><a href=\"#\" onclick=\"bodyShow(" + message.id + ");return false;\" class=\"AdminToolsLink1\">" + message.subject + "</a></td>";
+						tmp += "<td rowspan=\"2\" align=\"center\">";
+						tmp += "<table width=\"180\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+						tmp += "<tr>";
+						tmp += "<td align=\"center\" height=\"25px\">" + message.from + " -> " + message.to + "</td>";
+						tmp += "</tr>";
+				        tmp += "<tr>";
+				        tmp += "<td align=\"center\" height=\"25px\">" + created_at + "</td>";
+				        tmp += "</tr>";
+				        tmp += "</table>";
+				        tmp += "</td>";
+				        tmp += "</tr>";
+				        tmp += "<tr>";		            
+				        tmp += "<td height=\"25px\" style=\"padding-left:5px;padding-right:5px;\">" + message.to + "</td>";
+				        tmp += "</tr>";
+				        
+				        var found = false;
+				        for (var i = 0;i < MyMessages.length;i++) {
+				        	if (message.id == MyMessages[i]) {
+				        		found = true;
+				        		break;		          
+				        	}  
+				        }
+				        
+				        if (!found)
+				        	tmp += "<tr id=\"body_" + message.id + "\" style=\"display:none\">";
+				        else
+				        	tmp += "<tr id=\"body_" + message.id + "\">";
+				        	
+				        tmp += "<td height=\"25px\" style=\"padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;\" colspan=\"2\">" + message.body + "</td>";
+				        tmp += "</tr>";
+				        tmp += "</table>";
+				        tmp += "<br />";	
+					});
+				}
+				
+				var html = "";
+				html += "<table width=\"500\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+				html += "<tr>";
+				html += "<td align=\"right\" style=\"padding-right:5px\"><a href=\"messages.html?username=" + username + "&to=" + username + "&page=1\" target=\"_blank\" class=\"AdminToolsLink2\">[更多]</a></td>";
+				html += "</tr>";
+				html += "</table>";
+				html += tmp;
+				
+				var div = "messages";				
+			    $("#" + div).html(html);				
+			}
+			
+			function bodyShow(id) {				
+				if ($("#body_" + id).css("display") == "none") {												
+					$("#body_" + id).show();					
+					MyMessages.push(id);					
+				} else {
+					$("#body_" + id).hide();
+					var index = -1;
+			        for (var i = 0;i < MyMessages.length;i++) {
+			        	if (id == MyMessages[i]) {
+			        		index = i;
+			        		break;		          
+			        	}  
+			        }
+			        
+			        if (index != -1)
+			        	MyMessages.splice(index, 1);            			            
+				}				
+			}
+						
 			getMyTowns();
+			getMyMessage();
 		</script>
 	</body>
 </html>

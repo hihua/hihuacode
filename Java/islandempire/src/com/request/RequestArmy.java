@@ -2,7 +2,7 @@ package com.request;
 
 import java.util.List;
 
-import com.towns.Soldier;
+import com.soldier.Soldier;
 
 public class RequestArmy extends RequestParent {
 	private final String URL = "/army_events.json";

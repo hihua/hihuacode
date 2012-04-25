@@ -34,8 +34,8 @@ import com.request.RequestMessage;
 import com.request.RequestTowns;
 import com.request.RequestUpgrade;
 import com.request.RequestWorldMaps;
+import com.soldier.Soldier;
 import com.towns.Resources;
-import com.towns.Soldier;
 import com.towns.Town;
 import com.util.Numeric;
 
@@ -102,12 +102,13 @@ public class TaskMy extends TaskBase {
 			if (autoUpgrade && upgrade(town, m_Config, configTown)) {
 				try {						
 					sleep(1000);
-				} catch (InterruptedException e) {				
+				} catch (InterruptedException e) {
 					
 				}
 			}
 			
 			sells(town, m_Config, configTown);
+			buys(town, m_Config, configTown);
 			townInfos.add(townInfo);
 		}
 		
@@ -229,6 +230,40 @@ public class TaskMy extends TaskBase {
 		return true;
 	}
 	
+	private void setResources(Town town, List<Resources> resources) {
+		for (Resources resource : resources) {
+			if (resource.getResourceName() == null || resource.getResourceCount() == null)
+				continue;
+			
+			String resourceName = resource.getResourceName();
+			
+			if (resourceName.equals("wood")) {
+				town.setResourcesWood(resource);
+				continue;
+			}
+			
+			if (resourceName.equals("food")) {
+				town.setResourcesFood(resource);
+				continue;
+			}
+			
+			if (resourceName.equals("iron")) {
+				town.setResourcesIron(resource);
+				continue;
+			}
+			
+			if (resourceName.equals("marble")) {
+				town.setResourcesMarble(resource);
+				continue;
+			}
+			
+			if (resourceName.equals("gold")) {
+				town.setResourcesGold(resource);
+				continue;
+			}
+		}
+	}
+	
 	private void decreaseResources(Town town, HashMap<String, Long> resources) {
 		Resources resourcesWood = town.getResourcesWood();
 		Resources resourcesFood = town.getResourcesFood();
@@ -278,9 +313,9 @@ public class TaskMy extends TaskBase {
 	}
 	
 	private boolean upgrade(Town town, Config config, ConfigTown configTown) {
-		String host = m_Config.getHost();
-		String clientv = m_Config.getClientv();
-		String cookie = m_Config.getCookie();
+		String host = config.getHost();
+		String clientv = config.getClientv();
+		String cookie = config.getCookie();
 		
 		int total = 0;
 		List<BuildingQueue> buildingQueues = town.getBuildingQueues();
@@ -528,9 +563,9 @@ public class TaskMy extends TaskBase {
 	}
 	
 	private IslandVillage getIsland(Town town, Config config, ConfigTown configTown, long level) {
-		String host = m_Config.getHost();
-		String clientv = m_Config.getClientv();
-		String cookie = m_Config.getCookie();
+		String host = config.getHost();
+		String clientv = config.getClientv();
+		String cookie = config.getCookie();
 		long attackLevelMin = configTown.getAttackLevelMin();
 		long attackLevelMax = configTown.getAttackLevelMax();
 		Long islandNumber = town.getIslandNumber();
@@ -654,9 +689,9 @@ public class TaskMy extends TaskBase {
 	}
 	
 	private boolean sells(Town town, Config config, HashMap<String, Double> marketRate, Resources resources, Long leftCapacity) {
-		String host = m_Config.getHost();
-		String clientv = m_Config.getClientv();
-		String cookie = m_Config.getCookie();		
+		String host = config.getHost();
+		String clientv = config.getClientv();
+		String cookie = config.getCookie();		
 		Long id = town.getId();		
 		String name = resources.getResourceName();
 		Long count = resources.getResourceCount();
@@ -691,7 +726,7 @@ public class TaskMy extends TaskBase {
 	}
 	
 	private void sells(Town town, Config config, ConfigTown configTown) {
-		if (configTown.getMarketRate() == null)
+		if (configTown.getSells() == null)
 			return;
 		
 		BuildingMarket buildingMarket = town.getBuildingMarket();
@@ -703,11 +738,109 @@ public class TaskMy extends TaskBase {
 			return;
 				
 		Resources resourcesWood = town.getResourcesWood();
-		if (resourcesWood != null && sells(town, config, configTown.getMarketRate(), resourcesWood, leftCapacity))
+		if (resourcesWood != null && sells(town, config, configTown.getSells(), resourcesWood, leftCapacity))
 			return;
 		
 		Resources resourcesFood = town.getResourcesFood();
-		if (resourcesFood != null && sells(town, config, configTown.getMarketRate(), resourcesFood, leftCapacity))
+		if (resourcesFood != null && sells(town, config, configTown.getSells(), resourcesFood, leftCapacity))
 			return;
+	}
+	
+	private boolean buys(Town town, Config config, Resources resources) {
+		Long townId = town.getId();
+		String host = config.getHost();
+		String clientv = config.getClientv();
+		String cookie = config.getCookie();
+		
+		List<Deal> deals = m_RequestDeals.request(host, clientv, cookie, resources.getResourceName(), 0L);
+		if (deals == null || deals.size() == 0)
+			return false;
+		
+		Deal deal = deals.get(0);
+		Long dealId = deal.getId();
+		if (dealId == null)
+			return false;
+		
+		List<Resources> list = m_RequestDeals.request(host, clientv, cookie, dealId, townId);
+		if (list == null)
+			return false;
+		
+		setResources(town, list);
+		return true;
+	}
+	
+	private void buys(Town town, Config config, ConfigTown configTown) {
+		Long id = town.getId();
+		if (id == null)
+			return;
+		
+		Resources resourcesGold = town.getResourcesGold();
+		if (resourcesGold == null || resourcesGold.getResourceCount() == null || resourcesGold.getMaxVolume() == null)
+			return;
+		
+		Long goldCount = resourcesGold.getResourceCount();		
+		Long goldMaxVolume = resourcesGold.getMaxVolume();
+		
+		HashMap<String, Double> sells = configTown.getSells();
+		if (sells == null)
+			return;
+		
+		if (!sells.containsKey("gold"))
+			return;
+		
+		double goldRate = sells.get("gold");
+		if (goldRate <= 0D)
+			return;
+		
+		HashMap<String, Double> buys = configTown.getBuys();
+		if (buys == null)
+			return;					
+		
+		Resources minResources = null;
+						
+		while ((double)goldCount / (double)goldMaxVolume >= goldRate) {			
+			minResources = getMinResources(town.getResourcesWood(), minResources, buys);			
+			minResources = getMinResources(town.getResourcesFood(), minResources, buys);
+			minResources = getMinResources(town.getResourcesMarble(), minResources, buys);
+			minResources = getMinResources(town.getResourcesIron(), minResources, buys);
+			
+			if (minResources != null) {
+				if (buys(town, config, minResources)) {					
+					resourcesGold = town.getResourcesGold();
+					if (resourcesGold == null)
+						break;
+					
+					goldCount = resourcesGold.getResourceCount();		
+					goldMaxVolume = resourcesGold.getMaxVolume();
+				} else
+					break;
+			} else
+				break;
+		}		
+	}
+	
+	private Resources getMinResources(Resources resources, Resources minResources, HashMap<String, Double> buys) {		
+		if (resources != null && resources.getResourceName() != null && resources.getResourceCount() != null && resources.getMaxVolume() != null) {
+			String resourceName = resources.getResourceName();			
+			if (buys.containsKey(resourceName)) {				
+				double buysRate = buys.get(resourceName);
+				if (buysRate <= 0D)
+					return minResources;
+				
+				long resourcesCount = resources.getResourceCount();
+				long resourcesMaxVolume = resources.getMaxVolume();
+				if ((double)resourcesCount / (double)resourcesMaxVolume < buysRate) {
+					if (minResources == null)
+						return resources;
+					else {
+						long minCount = minResources.getResourceCount();
+						if (resourcesCount < minCount)
+							return resources;						
+					}
+				}
+			}
+		}
+		
+		return minResources;
 	}
 }

@@ -22,6 +22,7 @@ import com.queue.BattleQueue;
 import com.queue.BuildingQueue;
 import com.queue.LinesEvent;
 import com.queue.TransportQueue;
+import com.soldier.Soldier;
 import com.util.DateTime;
 
 /*	1	兵营
@@ -34,7 +35,7 @@ import com.util.DateTime;
  * 	8	黄金
  * 	9	市场
  * 10	大厅
- * 11	城墙
+ * 12	城墙
  * 13	造船厂
  * 14	地窖
  */
@@ -660,7 +661,7 @@ public class Town {
 					towns.setBuildingHall(buildingHall);
 				}
 				
-				if (buildingType.equals(11L)) {
+				if (buildingType.equals(12L)) {
 					BuildingWall buildingWall = new BuildingWall();
 					buildingWall.setLevel(level);						
 					buildingWall.setId(id);

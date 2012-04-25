@@ -3,9 +3,10 @@ package com.request;
 import java.util.List;
 
 import com.deals.Deal;
+import com.towns.Resources;
 
 public class RequestDeals extends RequestParent {
-	private final String URL = "/deals.json";
+	private final String URL = "/deals";
 	private final StringBuilder m_URL = new StringBuilder();
 	private final StringBuilder m_Body = new StringBuilder();
 	
@@ -13,6 +14,7 @@ public class RequestDeals extends RequestParent {
 		m_URL.setLength(0);
 		m_URL.append(host);
 		m_URL.append(URL);
+		m_URL.append(".json");
 		m_URL.append("?do=public");
 		m_URL.append("&goods_name=");
 		m_URL.append(goodsName);
@@ -30,6 +32,7 @@ public class RequestDeals extends RequestParent {
 		m_URL.setLength(0);
 		m_URL.append(host);
 		m_URL.append(URL);
+		m_URL.append(".json");
 		
 		m_Body.setLength(0);
 		m_Body.append("seller_town_id=");
@@ -46,5 +49,25 @@ public class RequestDeals extends RequestParent {
 			return false;
 		else
 			return true;
+	}
+	
+	public List<Resources> request(String host, String clientv, String cookie, Long dealId, Long townId) {
+		m_URL.setLength(0);
+		m_URL.append(host);
+		m_URL.append(URL);
+		m_URL.append("/");
+		m_URL.append(dealId);
+		m_URL.append(".json");
+		
+		m_Body.setLength(0);
+		m_Body.append("buyer_town_id=");
+		m_Body.append(townId);
+		m_Body.append("&_method=delete&do=buy");
+		
+		String response = requestUrl(m_URL.toString(), clientv, cookie, m_Body.toString());
+		if (response == null)
+			return null;
+		else
+			return Resources.parse(response);
 	}
 }

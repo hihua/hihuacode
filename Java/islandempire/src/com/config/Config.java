@@ -234,13 +234,13 @@ public class Config {
 					} else
 						configTown.setAutoRecruit(false);
 					
-					element = elementParent.element("marketrate");
+					element = elementParent.element("sells");
 					if (element != null && element.getText() != null) {
 						tmp = element.getText();
 						if (tmp.equals("true")) {
 							Iterator<Attribute> attributes = element.attributeIterator();
 							if (attributes != null) {
-								HashMap<String, Double> marketRate = new HashMap<String, Double>();
+								HashMap<String, Double> sells = new HashMap<String, Double>();
 								while (attributes.hasNext()) {
 									attribute = attributes.next();
 									String name = attribute.getName();
@@ -249,19 +249,48 @@ public class Config {
 										continue;
 									
 									Double rate = Double.parseDouble(value) / 100D;
-									marketRate.put(name, rate);
+									sells.put(name, rate);
 								}
 								
-								if (marketRate.size() > 0)
-									configTown.setMarketRate(marketRate);
+								if (sells.size() > 0)
+									configTown.setSells(sells);
 								else
-									configTown.setMarketRate(null);
+									configTown.setSells(null);
 							} else
-								configTown.setMarketRate(null);
+								configTown.setSells(null);
 						} else 
-							configTown.setMarketRate(null);
+							configTown.setSells(null);
 					} else 
-						configTown.setMarketRate(null);
+						configTown.setSells(null);
+					
+					element = elementParent.element("buys");
+					if (element != null && element.getText() != null) {
+						tmp = element.getText();
+						if (tmp.equals("true")) {
+							Iterator<Attribute> attributes = element.attributeIterator();
+							if (attributes != null) {
+								HashMap<String, Double> buys = new HashMap<String, Double>();
+								while (attributes.hasNext()) {
+									attribute = attributes.next();
+									String name = attribute.getName();
+									String value = attribute.getText();
+									if (!Numeric.isNumber(value))
+										continue;
+									
+									Double rate = Double.parseDouble(value) / 100D;
+									buys.put(name, rate);
+								}
+								
+								if (buys.size() > 0)
+									configTown.setBuys(buys);
+								else
+									configTown.setBuys(null);
+							} else
+								configTown.setBuys(null);
+						} else 
+							configTown.setBuys(null);
+					} else 
+						configTown.setBuys(null);
 						
 					configTowns.add(configTown);
 				} catch (NumberFormatException e) {

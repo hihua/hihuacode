@@ -45,7 +45,7 @@ public class AutoTask extends Thread implements CallBackTask {
 		
 	}
 	
-	public String getMyTown(Long id) {
+	public String getMyTown(Long townId) {
 		if (m_MyTowns == null)
 			return null;
 		
@@ -54,17 +54,17 @@ public class AutoTask extends Thread implements CallBackTask {
 			return null;
 		
 		for (TownInfo townInfo : towns) {
-			if (townInfo.getId() == null)
+			if (townInfo.getTownId() == null)
 				continue;
 			
-			if (townInfo.getId().equals(id))
+			if (townInfo.getTownId().equals(townId))
 				return townInfo.getPacket();
 		}
 		
 		return null;
 	}
 	
-	public List<Long> getOtherTowns(String username, Long id) {
+	public List<Long> getOtherTowns(String username, Long townId) {
 		if (m_Config == null)
 			return null;
 		
@@ -72,12 +72,12 @@ public class AutoTask extends Thread implements CallBackTask {
 		String clientv = m_Config.getClientv();
 		String cookie = m_Config.getCookie();
 		
-		TownInfo townInfo = m_RequestTowns.request(host, clientv, cookie, username, id);
+		TownInfo townInfo = m_RequestTowns.request(host, clientv, cookie, username, townId);
 		if (townInfo == null)
 			return null;
 		
 		List<Long> list = new Vector<Long>();
-		list.add(id);
+		list.add(townId);
 		
 		Town town = townInfo.getTown();
 		List<OtherTown> otherTowns = town.getOtherTowns();
@@ -91,7 +91,7 @@ public class AutoTask extends Thread implements CallBackTask {
 		return list;
 	}
 	
-	public String getOtherTown(String username, Long id) {
+	public String getOtherTown(String username, Long townId) {
 		if (m_Config == null)
 			return null;
 		
@@ -99,7 +99,7 @@ public class AutoTask extends Thread implements CallBackTask {
 		String clientv = m_Config.getClientv();
 		String cookie = m_Config.getCookie();
 		
-		TownInfo townInfo = m_RequestTowns.request(host, clientv, cookie, username, id);
+		TownInfo townInfo = m_RequestTowns.request(host, clientv, cookie, username, townId);
 		if (townInfo == null)
 			return null;
 		else

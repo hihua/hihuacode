@@ -3,13 +3,13 @@ package com.entity;
 import com.towns.Town;
 
 public class TownInfo {
-	private Long id;
+	private Long townId;
 	private Town town;
 	private String packet;
 	private String updateTime;
 
-	public Long getId() {
-		return id;
+	public Long getTownId() {
+		return townId;
 	}
 	
 	public Town getTown() {
@@ -24,8 +24,8 @@ public class TownInfo {
 		return updateTime;
 	}
 	
-	public void setId(Long id) {
-		this.id = id;
+	public void setTownId(Long townId) {
+		this.townId = townId;
 	}	
 
 	public void setTown(Town town) {

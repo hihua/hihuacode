@@ -9,8 +9,8 @@ public class RequestUpgrade extends RequestParent {
 	private final String URL = "/buildings/%d.json?do=upgrade_info";
 	private final StringBuilder m_URL = new StringBuilder();
 	
-	public HashMap<String, Long> request(String host, String clientv, String cookie, Long id) {
-		String url = String.format(URL, id);
+	public HashMap<String, Long> request(String host, String clientv, String cookie, Long buildingId) {
+		String url = String.format(URL, buildingId);
 		m_URL.setLength(0);
 		m_URL.append(host);
 		m_URL.append(url);

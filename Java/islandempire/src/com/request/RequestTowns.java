@@ -8,8 +8,8 @@ public class RequestTowns extends RequestParent {
 	private final String URL = "/towns/%d.json";
 	private final StringBuilder m_URL = new StringBuilder();
 	
-	public TownInfo request(String host, String clientv, String cookie, Long id) {
-		String url = String.format(URL, id);
+	public TownInfo request(String host, String clientv, String cookie, Long townId) {
+		String url = String.format(URL, townId);
 		m_URL.setLength(0);
 		m_URL.append(host);
 		m_URL.append(url);
@@ -23,7 +23,7 @@ public class RequestTowns extends RequestParent {
 				return null;
 			else {
 				TownInfo townInfo = new TownInfo();
-				townInfo.setId(id);
+				townInfo.setTownId(townId);
 				townInfo.setTown(town);
 				townInfo.setPacket(response);
 				townInfo.setUpdateTime(DateTime.getNow());
@@ -32,8 +32,8 @@ public class RequestTowns extends RequestParent {
 		}
 	}
 	
-	public TownInfo request(String host, String clientv, String cookie, String username, Long id) {
-		String url = String.format(URL, id);
+	public TownInfo request(String host, String clientv, String cookie, String username, Long townId) {
+		String url = String.format(URL, townId);
 		m_URL.setLength(0);
 		m_URL.append(host);
 		m_URL.append(url);
@@ -47,7 +47,7 @@ public class RequestTowns extends RequestParent {
 				return null;
 			else {
 				TownInfo townInfo = new TownInfo();
-				townInfo.setId(id);
+				townInfo.setTownId(townId);
 				townInfo.setTown(town);
 				townInfo.setPacket(response);
 				townInfo.setUpdateTime(DateTime.getNow());
