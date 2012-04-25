@@ -65,7 +65,7 @@
 						var linesEvents = buildingQueue.lines_events;
 						if (linesEvents != null) {
 							$.each(linesEvents, function(idx, linesEvent) {
-								if (buildingQueue.building_id == buildingId) {
+								if (linesEvent.building_id == buildingId) {
 									var date = new Date(buildingQueue.finish_time * 1000);
 									finishTime = date.pattern("yyyy-MM-dd HH:mm:ss");
 								}
@@ -81,7 +81,7 @@
 				
 				return finishTime;
 			}
-			
+						
 			function setMyTown(json, id) {
 				var town = json.town;
 				if (town == null)
@@ -96,6 +96,7 @@
 				var buildingQueues = town.building_queue;
 				var transportQueues = town.transport_queue;
 								
+				html = "";
 				html += "<table width=\"640\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"1\" class=\"Table1\">";
 				html += "<tr>";
 				html += "<td width=\"10%\" align=\"center\" valign=\"middle\">基本信息</td>";
@@ -174,160 +175,574 @@
 				
 				html += "<td width=\"10%\" align=\"center\" valign=\"middle\">资源</td>";
 				html += "<td width=\"40%\" align=\"left\">";
-				
-				if (resources != null) {
-					$.each(resources, function(idx, resource) {
-						if (resource.name == "wood") {							
-							html += "<table width=\"98%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
-							html += "<tr>";
-							html += "<td align=\"left\" width=\"25%\" height=\"25\" rowspan=\"2\" valign=\"top\" style=\"padding-left:9px;padding-top:8px\">木头</td>";
-							html += "<td align=\"left\" width=\"45%\" height=\"25\">" + resource.resource_count + "/" + resource.max_volume + "</td>";
-							html += "<td align=\"left\" width=\"30%\">" + resource.increase_per_hour + "/h</td>";
-							html += "</tr>";
-							html += "<tr>";
-							
-							var tmp = "";
-							
-							$.each(buildings, function(idx, building) {
-								if (building.building_type == 2) {
-									var lines = building.lines;
-									$.each(lines, function(idx, line) {
-										if (line.status == "upgrading")											
-											tmp += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, line.id, true) + "\">" + line.level + "</span>&nbsp;&nbsp;";											
-										 else
-											tmp += "<a href=\"#\" onclick=\"upgradeBuilding(" + line.id + ");return false;\" class=\"AdminToolsLink1\">" + line.level + "</a>&nbsp;&nbsp;";
-									});						
-								}								
-							});
-							
-							html += "<td align=\"left\" width=\"45%\" height=\"25\">" + tmp + "</td>";
-							html += "<td align=\"left\" width=\"30%\">&nbsp;</td>";
-							html += "</tr>";
-							html += "</table>";
-						}
+								
+				$.each(resources, function(idx, resource) {
+					if (resource.resource_name == "wood") {							
+						html += "<table width=\"98%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+						html += "<tr>";
+						html += "<td valign=\"top\" align=\"center\">";							
+						html += "<table width=\"95%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+						html += "<tr>";
+						html += "<td align=\"left\" valign=\"top\" width=\"25%\" height=\"20\">木头</td>";
+						html += "<td align=\"left\" valign=\"top\" width=\"45%\">" + resource.resource_count + "/" + resource.max_volume + "</td>";
+						html += "<td align=\"left\" valign=\"top\" width=\"30%\">" + resource.increase_per_hour + "/h</td>";
+						html += "</tr>";
+						html += "<tr>";
+												
+						var tmp = "";							
+						$.each(buildings, function(idx, building) {
+							if (building.building_type == 2) {
+								var lines = building.lines;
+								$.each(lines, function(idx, line) {
+									if (line.status == "upgrading")											
+										tmp += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, line.id, true) + "\">" + line.level + "</span>&nbsp;&nbsp;";											
+									else
+										tmp += "<a href=\"#\" onclick=\"upgradeBuilding(" + line.id + ");return false;\" class=\"AdminToolsLink1\">" + line.level + "</a>&nbsp;&nbsp;";
+								});						
+							}								
+						});
 						
-						if (resource.name == "food") {							
-							html += "<table width=\"98%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
-							html += "<tr>";
-							html += "<td align=\"left\" width=\"25%\" height=\"25\" rowspan=\"2\" valign=\"top\" style=\"padding-left:9px;padding-top:8px\">食物</td>";
-							html += "<td align=\"left\" width=\"45%\" height=\"25\">" + resource.resource_count + "/" + resource.max_volume + "</td>";
-							html += "<td align=\"left\" width=\"30%\">" + resource.increase_per_hour + "/h</td>";
-							html += "</tr>";
-							html += "<tr>";
-							
-							var tmp = "";
-							
-							$.each(buildings, function(idx, building) {
-								if (building.building_type == 5) {
-									var lines = building.lines;
-									$.each(lines, function(idx, line) {
-										if (line.status == "upgrading")											
-											tmp += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, line.id, true) + "\">" + line.level + "</span>&nbsp;&nbsp;";											
-										 else
-											tmp += "<a href=\"#\" onclick=\"upgradeBuilding(" + line.id + ");return false;\" class=\"AdminToolsLink1\">" + line.level + "</a>&nbsp;&nbsp;";
-									});						
-								}								
-							});
-							
-							html += "<td align=\"left\" width=\"45%\" height=\"25\">" + tmp + "</td>";
-							html += "<td align=\"left\" width=\"30%\">&nbsp;</td>";
-							html += "</tr>";
-							html += "</table>";
-						}
+						html += "<td align=\"left\" valign=\"top\" width=\"25%\" height=\"20\">&nbsp;</td>";
+						html += "<td align=\"left\" valign=\"top\" width=\"45%\">" + tmp + "</td>";
+						html += "<td align=\"left\" valign=\"top\" width=\"30%\">&nbsp;</td>";							
+						html += "</tr>";							
+						html += "</table>";
+						html += "</td>";
+						html += "</tr>";
+						html += "</table><br/>";
+						return;						
+					}
+					
+					if (resource.resource_name == "food") {							
+						html += "<table width=\"98%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+						html += "<tr>";
+						html += "<td valign=\"top\" align=\"center\">";							
+						html += "<table width=\"95%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+						html += "<tr>";
+						html += "<td align=\"left\" valign=\"top\" width=\"25%\" height=\"20\">食物</td>";
+						html += "<td align=\"left\" valign=\"top\" width=\"45%\">" + resource.resource_count + "/" + resource.max_volume + "</td>";
+						html += "<td align=\"left\" valign=\"top\" width=\"30%\">" + resource.increase_per_hour + "/h</td>";
+						html += "</tr>";
+						html += "<tr>";
+												
+						var tmp = "";							
+						$.each(buildings, function(idx, building) {
+							if (building.building_type == 5) {
+								var lines = building.lines;
+								$.each(lines, function(idx, line) {
+									if (line.status == "upgrading")											
+										tmp += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, line.id, true) + "\">" + line.level + "</span>&nbsp;&nbsp;";											
+									else
+										tmp += "<a href=\"#\" onclick=\"upgradeBuilding(" + line.id + ");return false;\" class=\"AdminToolsLink1\">" + line.level + "</a>&nbsp;&nbsp;";
+								});						
+							}								
+						});
 						
-						if (resource.name == "marble") {							
+						html += "<td align=\"left\" valign=\"top\" width=\"25%\" height=\"20\">&nbsp;</td>";
+						html += "<td align=\"left\" valign=\"top\" width=\"45%\">" + tmp + "</td>";
+						html += "<td align=\"left\" valign=\"top\" width=\"30%\">&nbsp;</td>";							
+						html += "</tr>";							
+						html += "</table>";
+						html += "</td>";
+						html += "</tr>";
+						html += "</table><br/>";
+						return;					
+					}													
+							
+					if (town.resource_type == 1) {
+						if (resource.resource_name == "gold") {
 							html += "<table width=\"98%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
 							html += "<tr>";
-							html += "<td align=\"left\" width=\"25%\" height=\"25\" rowspan=\"2\" valign=\"top\" style=\"padding-left:9px;padding-top:8px\">大理石</td>";
-							html += "<td align=\"left\" width=\"45%\" height=\"25\">" + resource.resource_count + "/" + resource.max_volume + "</td>";
-							html += "<td align=\"left\" width=\"30%\">" + resource.increase_per_hour + "/h</td>";
-							html += "</tr>";
+							html += "<td valign=\"top\" align=\"center\">";							
+							html += "<table width=\"95%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
 							html += "<tr>";
-							
-							var tmp = "";
-							
-							$.each(buildings, function(idx, building) {
-								if (building.building_type == 6) {
-									var lines = building.lines;
-									$.each(lines, function(idx, line) {
-										if (line.status == "upgrading")											
-											tmp += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, line.id, true) + "\">" + line.level + "</span>&nbsp;&nbsp;";											
-										 else
-											tmp += "<a href=\"#\" onclick=\"upgradeBuilding(" + line.id + ");return false;\" class=\"AdminToolsLink1\">" + line.level + "</a>&nbsp;&nbsp;";
-									});						
-								}								
-							});
-							
-							html += "<td align=\"left\" width=\"45%\" height=\"25\">" + tmp + "</td>";
-							html += "<td align=\"left\" width=\"30%\">&nbsp;</td>";
+							html += "<td align=\"left\" valign=\"top\" width=\"25%\" height=\"20\">黄金</td>";
+							html += "<td align=\"left\" valign=\"top\" width=\"45%\">" + resource.resource_count + "/" + resource.max_volume + "</td>";
+							html += "<td align=\"left\" valign=\"top\" width=\"30%\">" + resource.increase_per_hour + "/h</td>";
 							html += "</tr>";
-							html += "</table>";
-						}
-						
-						if (resource.name == "iron") {							
-							html += "<table width=\"98%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
-							html += "<tr>";
-							html += "<td align=\"left\" width=\"25%\" height=\"25\" rowspan=\"2\" valign=\"top\" style=\"padding-left:9px;padding-top:8px\">黑铁石</td>";
-							html += "<td align=\"left\" width=\"45%\" height=\"25\">" + resource.resource_count + "/" + resource.max_volume + "</td>";
-							html += "<td align=\"left\" width=\"30%\">" + resource.increase_per_hour + "/h</td>";
-							html += "</tr>";
-							html += "<tr>";
 							
-							var tmp = "";
-							
-							$.each(buildings, function(idx, building) {
-								if (building.building_type == 7) {
-									var lines = building.lines;
-									$.each(lines, function(idx, line) {
-										if (line.status == "upgrading")											
-											tmp += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, line.id, true) + "\">" + line.level + "</span>&nbsp;&nbsp;";											
-										 else
-											tmp += "<a href=\"#\" onclick=\"upgradeBuilding(" + line.id + ");return false;\" class=\"AdminToolsLink1\">" + line.level + "</a>&nbsp;&nbsp;";
-									});						
-								}								
-							});
-							
-							html += "<td align=\"left\" width=\"45%\" height=\"25\">" + tmp + "</td>";
-							html += "<td align=\"left\" width=\"30%\">&nbsp;</td>";
-							html += "</tr>";
-							html += "</table>";
-						}
-						
-						if (resource.name == "gold") {							
-							html += "<table width=\"98%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
-							html += "<tr>";
-							html += "<td align=\"left\" width=\"25%\" height=\"25\" rowspan=\"2\" valign=\"top\" style=\"padding-left:9px;padding-top:8px\">黄金</td>";
-							html += "<td align=\"left\" width=\"45%\" height=\"25\">" + resource.resource_count + "/" + resource.max_volume + "</td>";
-							html += "<td align=\"left\" width=\"30%\">" + resource.increase_per_hour + "/h</td>";
-							html += "</tr>";
-							html += "<tr>";
-							
-							var tmp = "";
-							
+							var tmp = "";							
 							$.each(buildings, function(idx, building) {
 								if (building.building_type == 8) {
 									var lines = building.lines;
 									$.each(lines, function(idx, line) {
 										if (line.status == "upgrading")											
 											tmp += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, line.id, true) + "\">" + line.level + "</span>&nbsp;&nbsp;";											
-										 else
+										else
 											tmp += "<a href=\"#\" onclick=\"upgradeBuilding(" + line.id + ");return false;\" class=\"AdminToolsLink1\">" + line.level + "</a>&nbsp;&nbsp;";
 									});						
 								}								
 							});
-							
-							html += "<td align=\"left\" width=\"45%\" height=\"25\">" + tmp + "</td>";
-							html += "<td align=\"left\" width=\"30%\">&nbsp;</td>";
-							html += "</tr>";
+																				
+							html += "<tr>";
+							html += "<td align=\"left\" valign=\"top\" width=\"25%\" height=\"20\">&nbsp;</td>";
+							html += "<td align=\"left\" valign=\"top\" width=\"45%\">" + tmp + "</td>";
+							html += "<td align=\"left\" valign=\"top\" width=\"30%\">&nbsp;</td>";							
+							html += "</tr>";													
 							html += "</table>";
-						}
-					});					
-				}
+							html += "</td>";
+							html += "</tr>";
+							html += "</table><br/>";							
+							return;
+						}							
+					}
+					
+					if (town.resource_type == 2) {
+						if (resource.resource_name == "marble") {
+							html += "<table width=\"98%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+							html += "<tr>";
+							html += "<td valign=\"top\" align=\"center\">";							
+							html += "<table width=\"95%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+							html += "<tr>";
+							html += "<td align=\"left\" valign=\"top\" width=\"25%\" height=\"20\">大理石</td>";
+							html += "<td align=\"left\" valign=\"top\" width=\"45%\">" + resource.resource_count + "/" + resource.max_volume + "</td>";
+							html += "<td align=\"left\" valign=\"top\" width=\"30%\">" + resource.increase_per_hour + "/h</td>";
+							html += "</tr>";	
+							
+							var tmp = "";							
+							$.each(buildings, function(idx, building) {
+								if (building.building_type == 6) {
+									var lines = building.lines;
+									$.each(lines, function(idx, line) {
+										if (line.status == "upgrading")											
+											tmp += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, line.id, true) + "\">" + line.level + "</span>&nbsp;&nbsp;";											
+										else
+											tmp += "<a href=\"#\" onclick=\"upgradeBuilding(" + line.id + ");return false;\" class=\"AdminToolsLink1\">" + line.level + "</a>&nbsp;&nbsp;";
+									});						
+								}								
+							});
+									
+							html += "<tr>";	
+							html += "<td align=\"left\" valign=\"top\" width=\"25%\" height=\"20\">&nbsp;</td>";
+							html += "<td align=\"left\" valign=\"top\" width=\"45%\">" + tmp + "</td>";
+							html += "<td align=\"left\" valign=\"top\" width=\"30%\">&nbsp;</td>";							
+							html += "</tr>";			
+							html += "</table>";
+							html += "</td>";
+							html += "</tr>";
+							html += "</table><br/>";
+							return;
+						}						
+					}
+					
+					if (town.resource_type == 3) {
+						if (resource.resource_name == "iron") {
+							html += "<table width=\"98%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+							html += "<tr>";
+							html += "<td valign=\"top\" align=\"center\">";							
+							html += "<table width=\"95%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+							html += "<tr>";
+							html += "<td align=\"left\" valign=\"top\" width=\"25%\" height=\"20\">黑铁石</td>";
+							html += "<td align=\"left\" valign=\"top\" width=\"45%\">" + resource.resource_count + "/" + resource.max_volume + "</td>";
+							html += "<td align=\"left\" valign=\"top\" width=\"30%\">" + resource.increase_per_hour + "/h</td>";
+							html += "</tr>";
+							
+							var tmp = "";							
+							$.each(buildings, function(idx, building) {
+								if (building.building_type == 7) {
+									var lines = building.lines;
+									$.each(lines, function(idx, line) {
+										if (line.status == "upgrading")											
+											tmp += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, line.id, true) + "\">" + line.level + "</span>&nbsp;&nbsp;";											
+										else
+											tmp += "<a href=\"#\" onclick=\"upgradeBuilding(" + line.id + ");return false;\" class=\"AdminToolsLink1\">" + line.level + "</a>&nbsp;&nbsp;";
+									});						
+								}								
+							});
+																			
+							html += "<tr>";	
+							html += "<td align=\"left\" valign=\"top\" width=\"25%\" height=\"20\">&nbsp;</td>";
+							html += "<td align=\"left\" valign=\"top\" width=\"45%\">" + tmp + "</td>";
+							html += "<td align=\"left\" valign=\"top\" width=\"30%\">&nbsp;</td>";							
+							html += "</tr>";														
+							html += "</table>";
+							html += "</td>";
+							html += "</tr>";
+							html += "</table><br/>";
+							return;							
+						}							
+					}
+				});					
+			
 				
+				
+				$.each(resources, function(idx, resource) {
+					if (town.resource_type != 1 && resource.resource_name == "gold") {			
+						html += "<table width=\"98%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+						html += "<tr>";
+						html += "<td valign=\"top\" align=\"center\">";							
+						html += "<table width=\"95%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+						html += "<tr>";
+						html += "<td align=\"left\" valign=\"top\" width=\"25%\" height=\"20\">黄金</td>";
+						html += "<td align=\"left\" valign=\"top\" width=\"45%\">" + resource.resource_count + "/" + resource.max_volume + "</td>";
+						html += "<td align=\"left\" valign=\"top\" width=\"30%\">" + resource.increase_per_hour + "/h</td>";
+						html += "</tr>";																			
+						html += "</table>";
+						html += "</td>";
+						html += "</tr>";
+						html += "</table><br/>";							
+						return;
+					}
+				
+					if (town.resource_type != 2 && resource.resource_name == "marble") {
+						html += "<table width=\"98%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+						html += "<tr>";
+						html += "<td valign=\"top\" align=\"center\">";							
+						html += "<table width=\"95%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+						html += "<tr>";
+						html += "<td align=\"left\" valign=\"top\" width=\"25%\" height=\"20\">大理石</td>";
+						html += "<td align=\"left\" valign=\"top\" width=\"45%\">" + resource.resource_count + "/" + resource.max_volume + "</td>";
+						html += "<td align=\"left\" valign=\"top\" width=\"30%\">" + resource.increase_per_hour + "/h</td>";
+						html += "</tr>";											
+						html += "</table>";
+						html += "</td>";
+						html += "</tr>";
+						html += "</table><br/>";
+						return;
+					}
+					
+					if (town.resource_type != 3 && resource.resource_name == "iron") {
+						html += "<table width=\"98%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+						html += "<tr>";
+						html += "<td valign=\"top\" align=\"center\">";							
+						html += "<table width=\"95%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+						html += "<tr>";
+						html += "<td align=\"left\" valign=\"top\" width=\"25%\" height=\"20\">黑铁石</td>";
+						html += "<td align=\"left\" valign=\"top\" width=\"45%\">" + resource.resource_count + "/" + resource.max_volume + "</td>";
+						html += "<td align=\"left\" valign=\"top\" width=\"30%\">" + resource.increase_per_hour + "/h</td>";
+						html += "</tr>";																					
+						html += "</table>";
+						html += "</td>";
+						html += "</tr>";
+						html += "</table><br/>";
+						return;							
+					}				
+				});			
+								
 				html += "</td>";
 				html += "</tr>";
+								
+				var tr = true;				
+				$.each(buildings, function(idx, building) {
+					if (building.building_type == 10) {
+						if (tr)
+							html += "<tr>";
+						
+						html += "<td width=\"10%\">";
+						html += "<table align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+						html += "<tr>";
+						html += "<td height=\"20\">";				
+			    					    		
+			    		if (building.status == "upgrading")
+			    			html += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, building.id, false) + "\">市政厅</span>";											
+						else
+							html += "<a href=\"#\" onclick=\"upgradeBuilding(" + building.id + ");return false;\" class=\"AdminToolsLink1\">市政厅</a>";
+			    		 					    		
+			    		html += "</td>";
+			    		html += "</tr>";
+			    		html += "<tr><td height=\"20\" align=\"center\">" + building.building_type + "</td></tr>";
+			    		html += "</table>";
+			    		html += "</td>";	    		
+			    		html += "<td width=\"40%\">";
+			    		html += "<table width=\"92%\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+			    		html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">等级: </td><td>" + building.level + "/40" + "</td></tr>";			    					    			    			    			
+			    		html += "</table>";
+			    		html += "</td>";
+			    		
+			    		if (!tr) {
+							html += "</tr>";
+							tr = true;
+						} else
+							tr = false;
+							
+						return;						
+			    	}					
+				});
+					
+				$.each(buildings, function(idx, building) {
+					if (building.building_type == 9) {
+						if (tr)
+							html += "<tr>";
+						
+						html += "<td width=\"10%\" align=\"center\">";
+						html += "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+						html += "<tr>";
+						html += "<td height=\"20\" align=\"center\">";				
+			    					    		
+			    		if (building.status == "upgrading")
+			    			html += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, building.id, false) + "\">市场</span>";											
+						else
+							html += "<a href=\"#\" onclick=\"upgradeBuilding(" + building.id + ");return false;\" class=\"AdminToolsLink1\">市场</a>";
+			    		 					    		
+			    		html += "</td>";
+			    		html += "</tr>";
+			    		html += "<tr><td height=\"20\">" + building.building_type + "</td></tr>";
+			    		html += "</table>";
+			    		html += "</td>";	    		
+			    		html += "<td width=\"40%\">";
+			    		html += "<table width=\"94%\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+			    		html += "<tr><td align=\"left\" height=\"25\" width=\"25%\">等级: </td><td>" + building.level + "/40" + "</td></tr>";
+			    		
+			    		var property = building.property;			    					    		
+			    		html += "<tr><td align=\"left\" height=\"25\" width=\"25%\">售量: </td><td>" + property.left_capacity + "/" + property.capacity + "</td></tr>";			    					    			    			    			
+			    		html += "</table>";
+			    		html += "</td>";
+			    		
+			    		if (!tr) {
+							html += "</tr>";
+							tr = true;
+						} else
+							tr = false;
+							
+						return;						
+			    	}					
+				});
 				
+				$.each(buildings, function(idx, building) {
+					if (building.building_type == 3) {
+						if (tr)
+							html += "<tr>";
+						
+						html += "<td width=\"10%\" align=\"center\">";
+						html += "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+						html += "<tr>";
+						html += "<td height=\"20\" align=\"center\">";				
+			    					    		
+			    		if (building.status == "upgrading")
+			    			html += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, building.id, false) + "\">仓库</span>";											
+						else
+							html += "<a href=\"#\" onclick=\"upgradeBuilding(" + building.id + ");return false;\" class=\"AdminToolsLink1\">仓库</a>";
+			    		 					    		
+			    		html += "</td>";
+			    		html += "</tr>";
+			    		html += "<tr><td height=\"20\">" + building.building_type + "</td></tr>";
+			    		html += "</table>";
+			    		html += "</td>";	    		
+			    		html += "<td width=\"40%\">";
+			    		html += "<table width=\"94%\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+			    		html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">等级: </td><td>" + building.level + "/40" + "</td></tr>";
+			    		
+			    		var property = building.property;			    					    		
+			    		html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">存量: </td><td>" + property.capacity + "</td></tr>";			    					    			    			    			
+			    		html += "</table>";
+			    		html += "</td>";
+			    		
+			    		if (!tr) {
+							html += "</tr>";
+							tr = true;
+						} else
+							tr = false;
+							
+						return;					
+			    	}					
+				});
 				
+				$.each(buildings, function(idx, building) {
+					if (building.building_type == 4) {
+						if (tr)
+							html += "<tr>";
+						
+						html += "<td width=\"10%\" align=\"center\">";
+						html += "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+						html += "<tr>";
+						html += "<td height=\"20\" align=\"center\">";				
+			    					    		
+			    		if (building.status == "upgrading")
+			    			html += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, building.id, false) + "\">港口</span>";											
+						else
+							html += "<a href=\"#\" onclick=\"upgradeBuilding(" + building.id + ");return false;\" class=\"AdminToolsLink1\">港口</a>";
+			    		 					    		
+			    		html += "</td>";
+			    		html += "</tr>";
+			    		html += "<tr><td height=\"20\">" + building.building_type + "</td></tr>";
+			    		html += "</table>";
+			    		html += "</td>";	    		
+			    		html += "<td width=\"40%\">";
+			    		html += "<table width=\"94%\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+			    		html += "<tr><td align=\"left\" height=\"25\" width=\"25%\">等级: </td><td>" + building.level + "/40" + "</td></tr>";
+			    		
+			    		var property = building.property;			    					    		
+			    		html += "<tr><td align=\"left\" height=\"25\" width=\"25%\">运量: </td><td>" + property.fleet_quota + "/次</td></tr>";
+			    		html += "<tr><td align=\"left\" height=\"25\" width=\"25%\">有效: </td><td>" + property.available_fleet + "次</td></tr>";			    					    			    			    			
+			    		html += "</table>";
+			    		html += "</td>";
+			    		
+			    		if (!tr) {
+							html += "</tr>";
+							tr = true;
+						} else
+							tr = false;
+							
+						return;					
+			    	}					
+				});
+				
+				$.each(buildings, function(idx, building) {
+					if (building.building_type == 1) {
+						if (tr)
+							html += "<tr>";
+						
+						html += "<td width=\"10%\" align=\"center\">";
+						html += "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+						html += "<tr>";
+						html += "<td height=\"20\" align=\"center\">";				
+			    					    		
+			    		if (building.status == "upgrading")
+			    			html += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, building.id, false) + "\">兵营</span>";											
+						else
+							html += "<a href=\"#\" onclick=\"upgradeBuilding(" + building.id + ");return false;\" class=\"AdminToolsLink1\">兵营</a>";
+			    		 					    		
+			    		html += "</td>";
+			    		html += "</tr>";
+			    		html += "<tr><td height=\"20\">" + building.building_type + "</td></tr>";
+			    		html += "</table>";
+			    		html += "</td>";	    		
+			    		html += "<td width=\"40%\">";
+			    		html += "<table width=\"94%\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+			    		html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">等级: </td><td>" + building.level + "/40" + "</td></tr>";
+			    		
+			    		var property = building.property;			    					    		
+			    		html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">提速: </td><td>" + property.reduce_time_rate + "%</td></tr>";
+			    		
+			    		$.each(soldiers, function(idx, soldier) {
+			    			var name = soldier.name;
+			    			var count = soldier.count;
+			    			
+			    			if (name == "infantry") {
+			    				html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">铁剑士: </td><td>" + count + "</td></tr>";
+			    				return;			    			
+			    			}
+			    			
+			    			if (name == "scout") {
+			    				html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">侦察兵: </td><td>" + count + "</td></tr>";
+			    				return;			    			
+			    			}
+			    			
+			    			if (name == "musketman") {
+			    				html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">火枪手: </td><td>" + count + "</td></tr>";
+			    				return;
+			    			}
+			    			
+			    			if (name == "catapult") {
+			    				html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">投石车: </td><td>" + count + "</td></tr>";
+			    				return;
+			    			}
+			    		});
+			    					    					    					    			    			    			
+			    		html += "</table>";
+			    		html += "</td>";
+			    		
+			    		if (!tr) {
+							html += "</tr>";
+							tr = true;
+						} else
+							tr = false;
+							
+						return;					
+			    	}					
+				});
+				
+				$.each(buildings, function(idx, building) {
+					if (building.building_type == 13) {
+						if (tr)
+							html += "<tr>";
+						
+						html += "<td width=\"10%\" align=\"center\">";
+						html += "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+						html += "<tr>";
+						html += "<td height=\"20\" align=\"center\">";				
+			    					    		
+			    		if (building.status == "upgrading")
+			    			html += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, building.id, false) + "\">造船厂</span>";											
+						else
+							html += "<a href=\"#\" onclick=\"upgradeBuilding(" + building.id + ");return false;\" class=\"AdminToolsLink1\">造船厂</a>";
+			    		 					    		
+			    		html += "</td>";
+			    		html += "</tr>";
+			    		html += "<tr><td height=\"20\">" + building.building_type + "</td></tr>";
+			    		html += "</table>";
+			    		html += "</td>";	    		
+			    		html += "<td width=\"40%\">";
+			    		html += "<table width=\"94%\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+			    		html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">等级: </td><td>" + building.level + "/40" + "</td></tr>";
+			    		
+			    		var property = building.property;			    					    		
+			    		html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">提速: </td><td>" + property.reduce_time_rate + "%</td></tr>";
+			    		
+			    		$.each(soldiers, function(idx, soldier) {
+			    			var name = soldier.name;
+			    			var count = soldier.count;
+			    			
+			    			if (name == "frigate") {
+			    				html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">强弩舰: </td><td>" + count + "</td></tr>";
+			    				return;			    			
+			    			}
+			    			
+			    			if (name == "destroyer") {
+			    				html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">火炮舰: </td><td>" + count + "</td></tr>";
+			    				return;			    			
+			    			}			    			
+			    		});
+			    					    					    					    			    			    			
+			    		html += "</table>";
+			    		html += "</td>";
+			    		
+			    		if (!tr) {
+							html += "</tr>";
+							tr = true;
+						} else
+							tr = false;
+							
+						return;					
+			    	}					
+				});
+				
+				$.each(buildings, function(idx, building) {
+					if (building.building_type == 11) {
+						if (tr)
+							html += "<tr>";
+						
+						html += "<td width=\"10%\" align=\"center\">";
+						html += "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+						html += "<tr>";
+						html += "<td height=\"20\" align=\"center\">";				
+			    					    		
+			    		if (building.status == "upgrading")
+			    			html += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, building.id, false) + "\">城墙</span>";											
+						else
+							html += "<a href=\"#\" onclick=\"upgradeBuilding(" + building.id + ");return false;\" class=\"AdminToolsLink1\">城墙</a>";
+			    		 					    		
+			    		html += "</td>";
+			    		html += "</tr>";
+			    		html += "<tr><td height=\"20\">" + building.building_type + "</td></tr>";
+			    		html += "</table>";
+			    		html += "</td>";	    		
+			    		html += "<td width=\"40%\">";
+			    		html += "<table width=\"94%\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+			    		html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">等级: </td><td>" + building.level + "/40" + "</td></tr>";
+			    		
+			    		var property = building.property;			    					    		
+			    		html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">防御: </td><td>" + property.defense + "</td></tr>";
+			    		
+			    		var towers = building.towers;
+			    		if (towers != null) {
+			    			$.each(towers, function(idx, tower) {
+				    			
+				    		});
+			    		}			    					    		
+			    					    					    					    			    			    			
+			    		html += "</table>";
+			    		html += "</td>";
+			    		
+			    		if (!tr) {
+							html += "</tr>";
+							tr = true;
+						} else
+							tr = false;
+							
+						return;					
+			    	}					
+				});
 				
 				html += "</table><br/>";
 				
@@ -336,7 +751,7 @@
 					html = "<div id=\"" + divTown + "\">" + html + "</div>";
 					$("#" + div).append(html);				
 				} else
-					$("#" + divCity).html(html);								
+					$("#" + divTown).html(html);								
 			}
 			
 			getMyTowns();
