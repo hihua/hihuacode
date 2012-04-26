@@ -73,6 +73,7 @@ public class TaskMy extends TaskBase {
 			if (m_ConfigNew != null) {
 				m_Config.setHost(m_ConfigNew.getHost());
 				m_Config.setPassword(m_ConfigNew.getPassword());
+				m_Config.setCookie(m_ConfigNew.getCookie());
 				m_Config.setAuthorization(m_ConfigNew.getAuthorization());
 				m_Config.setCities(m_ConfigNew.getCities());
 				m_Config.setAutoCity(m_ConfigNew.getAutoCity());
@@ -102,6 +103,7 @@ public class TaskMy extends TaskBase {
 	protected void onEntry() {		
 		String host = m_Config.getHost();
 		String userName = m_Config.getUserName();
+		String cookie = m_Config.getCookie();
 		String authorization = m_Config.getAuthorization();			
 		long cityDelay = m_Config.getCityDelay();
 		boolean autoUpgrade = m_Config.getAutoUpgrade();
@@ -114,18 +116,17 @@ public class TaskMy extends TaskBase {
 		
 		List<CityInfo> cityInfos = new Vector<CityInfo>();				
 		for (Long cityId : cities) {
-			CityInfo cityInfo = m_RequestCities.request(host, authorization, cityId);
-			if (cityInfo != null)
-				cityInfos.add(cityInfo);
-											
 			try {					
 				sleep(1000);
 			} catch (InterruptedException e) {				
 				
 			}
-			
+						
+			CityInfo cityInfo = m_RequestCities.request(host, cookie, authorization, cityId);			
 			if (cityInfo == null)
 				continue;
+			
+			cityInfos.add(cityInfo);
 											
 			City myCity = cityInfo.getCity();
 			if (autoUpgrade && upgrade(myCity, m_Config)) {
@@ -157,7 +158,7 @@ public class TaskMy extends TaskBase {
 							for (WorldMap npc : npcs) {
 								Hashtable<String, Long> soldiers = setSoldiers(myCity, npc.getLevel());						
 								if (soldiers != null) {
-									City city = m_RequestArmy.request(host, authorization, myCity.getId(), soldiers, npc.getX(), npc.getY());
+									City city = m_RequestArmy.request(host, cookie, authorization, myCity.getId(), soldiers, npc.getX(), npc.getY());
 									if (city != null) {									
 										decreaseSoldiers(myCity, soldiers);
 										EventArmy eventArmy = getEventArmy(city);
@@ -192,11 +193,11 @@ public class TaskMy extends TaskBase {
 				sells(myCity, m_Config);
 			
 			if (myCity.getLeftWishingCount() != null && myCity.getLeftWishingCount() > 0)
-				m_RequestRewards.request(host, authorization, 0L, cityId);			
+				m_RequestRewards.request(host, cookie, authorization, 0L, cityId);			
 		}
 		
-		ItemInfo itemInfo = m_RequestItems.request(host, authorization);
-		String message = m_RequestMessages.request(host, authorization, userName, 1L);
+		ItemInfo itemInfo = m_RequestItems.request(host, cookie, authorization);
+		String message = m_RequestMessages.request(host, cookie, authorization, userName, 1L);
 					
 		m_Cities.setCityInfos(cityInfos);
 		m_Cities.setItemInfo(itemInfo);
@@ -214,6 +215,11 @@ public class TaskMy extends TaskBase {
 	
 	public boolean checkStatus(Config config) {
 		if (config == null) {
+			setCancel(true);
+			return false;
+		}
+		
+		if (config.getCookie() == null) {
 			setCancel(true);
 			return false;
 		}
@@ -370,6 +376,7 @@ public class TaskMy extends TaskBase {
 	private boolean upgradeBuildings(City city, Config config) {
 		String host = config.getHost();
 		String authorization = config.getAuthorization();
+		String cookie = config.getCookie();
 		
 		int total = 0;
 		List<EventBuilding> eventBuildings = city.getEventBuilding();
@@ -454,7 +461,7 @@ public class TaskMy extends TaskBase {
 		for (Long priority : prioritys) {
 			if (buildings.containsKey(priority)) {
 				BuildingBase building = buildings.get(priority);
-				if (m_RequestBuildings.request(host, authorization, building.getId())) {
+				if (m_RequestBuildings.request(host, cookie, authorization, building.getId())) {
 					building.decreaseResources(city);
 					if (++total > 1)
 						return true;
@@ -468,6 +475,7 @@ public class TaskMy extends TaskBase {
 	private boolean upgradeSkills(City city, Config config) {
 		String host = config.getHost();
 		String authorization = config.getAuthorization();
+		String cookie = config.getCookie();
 		
 		int total = 0;		
 		List<EventSkill> eventSkills = city.getEventSkill();
@@ -510,7 +518,7 @@ public class TaskMy extends TaskBase {
 			SkillBase cavalryDefense = skillSoldiers.getCavalryDefense();
 						
 			if (cavalryAttack != null && cavalryAttack.checkUpgrade(gold.getCount())) {
-				if (m_RequestSkills.request(host, authorization, cavalryAttack.getId())) {
+				if (m_RequestSkills.request(host, cookie, authorization, cavalryAttack.getId())) {
 					cavalryAttack.decreaseResources(gold);
 					if (++total > 1)
 						return true;
@@ -520,7 +528,7 @@ public class TaskMy extends TaskBase {
 			}
 			
 			if (infantryAttack != null && infantryAttack.checkUpgrade(gold.getCount())) {
-				if (m_RequestSkills.request(host, authorization, infantryAttack.getId())) {
+				if (m_RequestSkills.request(host, cookie, authorization, infantryAttack.getId())) {
 					infantryAttack.decreaseResources(gold);
 					if (++total > 1)
 						return true;
@@ -530,7 +538,7 @@ public class TaskMy extends TaskBase {
 			}
 			
 			if (cavalryDefense != null && cavalryDefense.checkUpgrade(gold.getCount())) {
-				if (m_RequestSkills.request(host, authorization, cavalryDefense.getId())) {
+				if (m_RequestSkills.request(host, cookie, authorization, cavalryDefense.getId())) {
 					cavalryDefense.decreaseResources(gold);
 					if (++total > 1)
 						return true;
@@ -540,7 +548,7 @@ public class TaskMy extends TaskBase {
 			}
 			
 			if (infantryDefense != null && infantryDefense.checkUpgrade(gold.getCount())) {
-				if (m_RequestSkills.request(host, authorization, infantryDefense.getId())) {
+				if (m_RequestSkills.request(host, cookie, authorization, infantryDefense.getId())) {
 					infantryDefense.decreaseResources(gold);
 					if (++total > 1)
 						return true;
@@ -597,7 +605,7 @@ public class TaskMy extends TaskBase {
 				if (skillBase == null)
 					break;
 				
-				if (m_RequestSkills.request(host, authorization, skillBase.getId())) {
+				if (m_RequestSkills.request(host, cookie, authorization, skillBase.getId())) {
 					skillBase.decreaseResources(gold);
 					if (!success)
 						success = true;								
@@ -623,7 +631,8 @@ public class TaskMy extends TaskBase {
 	private boolean recruit(City city, Config config, SoldierBase soldier, Long total) {
 		Long cityId = city.getId();
 		String host = config.getHost();
-		String authorization = config.getAuthorization();		
+		String authorization = config.getAuthorization();
+		String cookie = config.getCookie();
 		SoldierConsume consume = soldier.getConsume();
 		String soldierName = soldier.getName();
 		
@@ -642,7 +651,7 @@ public class TaskMy extends TaskBase {
 		
 		if (soldier.getCount() + amount < total) {			
 			Long count = total - (soldier.getCount() + amount);			
-			if (checkRecruit(city, consume, count) && m_RequestRecruit.request(host, authorization, cityId, soldierName, count)) {
+			if (checkRecruit(city, consume, count) && m_RequestRecruit.request(host, cookie, authorization, cityId, soldierName, count)) {
 				decreaseResources(city, consume, count);
 				return true;
 			}
@@ -898,7 +907,7 @@ public class TaskMy extends TaskBase {
 		}
 	}
 			
-	private List<WorldMap> getWorldMap(City city, Config config, long level) {
+	private List<WorldMap> getWorldMap(City city, Config config, long level) {		
 		long attackLevelMin = config.getAttackLevelMin();
 		long attackLevelMax = config.getAttackLevelMax();
 		Long x = city.getX();
@@ -908,8 +917,10 @@ public class TaskMy extends TaskBase {
 			return null;
 		
 		String host = config.getHost();
-		String authorization = config.getAuthorization();		
-		List<WorldMap> npcs = m_RequestWorldMaps.request(host, authorization, x, y, 14L, 15L);
+		String authorization = config.getAuthorization();
+		String cookie = config.getCookie();
+		
+		List<WorldMap> npcs = m_RequestWorldMaps.request(host, cookie, authorization, x, y, 14L, 15L);
 		if (npcs == null)
 			return null;
 				
@@ -1020,6 +1031,7 @@ public class TaskMy extends TaskBase {
 	private void useSkills(City city, Config config) {
 		String host = config.getHost();
 		String authorization = config.getAuthorization();
+		String cookie = config.getCookie();
 		
 		BuildingCastle buildingCastle = city.getBuildingCastle();
 		if (buildingCastle == null || buildingCastle.getLevel() == null || buildingCastle.getLevel() < 20)
@@ -1053,7 +1065,7 @@ public class TaskMy extends TaskBase {
 				}
 			}
 			
-			if (!found && m_RequestSkills.request(host, authorization, churchGift.getId()))
+			if (!found && m_RequestSkills.request(host, cookie, authorization, churchGift.getId()))
 				resourcesLeader.setCount(resourcesLeader.getCount() - churchGift.getLeaderShip());					
 		}
 		
@@ -1073,7 +1085,7 @@ public class TaskMy extends TaskBase {
 				}
 			}
 			
-			if (!found && m_RequestSkills.request(host, authorization, churchLucky.getId()))
+			if (!found && m_RequestSkills.request(host, cookie, authorization, churchLucky.getId()))
 				resourcesLeader.setCount(resourcesLeader.getCount() - churchLucky.getLeaderShip());						
 		}
 	}
@@ -1081,6 +1093,7 @@ public class TaskMy extends TaskBase {
 	private boolean sells(City city, ResourcesBase resources, Config config) {
 		String host = config.getHost();
 		String authorization = config.getAuthorization();
+		String cookie = config.getCookie();
 		
 		if (resources.getCount() != null && resources.getCapacity() != null && resources.getName() != null) {
 			long count = resources.getCount();
@@ -1088,12 +1101,12 @@ public class TaskMy extends TaskBase {
 			String name = resources.getName();
 			
 			if ((double)count / (double)capacity >= config.getMarketRate()) {
-				List<Deal> deals = m_RequestDeals.request(host, authorization, name, 1L);
+				List<Deal> deals = m_RequestDeals.request(host, cookie, authorization, name, 1L);
 				if (deals != null && deals.size() > 0) {
 					Deal deal = deals.get(0);
 					String unitPrice = deal.getUnitPrice();
 					if (unitPrice != null)
-						return m_RequestDeals.request(host, authorization, city.getId(), name, unitPrice, city.getMarketLeftCapacity());
+						return m_RequestDeals.request(host, cookie, authorization, city.getId(), name, unitPrice, city.getMarketLeftCapacity());
 				}
 			}				
 		}

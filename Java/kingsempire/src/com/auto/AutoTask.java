@@ -131,6 +131,7 @@ public class AutoTask extends Thread implements CallBackTask {
 				continue;
 			
 			String host = config.getHost();
+			String cookie = config.getCookie();
 			String s = owner + ":12345678";
 			
 			try {
@@ -140,7 +141,7 @@ public class AutoTask extends Thread implements CallBackTask {
 			}
 			
 			String authorization = "Basic " + s;
-			CityInfo cityInfo = m_RequestCities.request(host, authorization, cityId);
+			CityInfo cityInfo = m_RequestCities.request(host, cookie, authorization, cityId);
 			if (cityInfo == null)
 				return null;
 			else
@@ -163,8 +164,9 @@ public class AutoTask extends Thread implements CallBackTask {
 			
 			String host = config.getHost();						
 			String authorization = config.getAuthorization();
+			String cookie = config.getCookie();
 			
-			return m_RequestCities.request(host, authorization, cityId, type, number);
+			return m_RequestCities.request(host, cookie, authorization, cityId, type, number);
 		}
 		
 		return false;
@@ -190,6 +192,7 @@ public class AutoTask extends Thread implements CallBackTask {
 				continue;
 			
 			String host = config.getHost();
+			String cookie = config.getCookie();
 			String s = to + ":12345678";
 			
 			try {
@@ -199,7 +202,7 @@ public class AutoTask extends Thread implements CallBackTask {
 			}
 			
 			String authorization = "Basic " + s;						
-			return m_RequestMessages.request(host, authorization, to, page);
+			return m_RequestMessages.request(host, cookie, authorization, to, page);
 		}
 				
 		return null;
@@ -237,8 +240,9 @@ public class AutoTask extends Thread implements CallBackTask {
 				return null;				
 			}
 			
+			String cookie = config.getCookie();
 			String authorization = "Basic " + s;
-			ItemInfo itemInfo = m_RequestItems.request(host, authorization);
+			ItemInfo itemInfo = m_RequestItems.request(host, cookie, authorization);
 			if (itemInfo == null)
 				return null;
 			else
@@ -257,8 +261,9 @@ public class AutoTask extends Thread implements CallBackTask {
 				continue;
 			
 			String host = config.getHost();
+			String cookie = config.getCookie();
 			String authorization = config.getAuthorization();
-			return m_RequestItems.request(host, authorization, cityId, itemType, number);
+			return m_RequestItems.request(host, cookie, authorization, cityId, itemType, number);
 		}
 		
 		return false;
@@ -278,9 +283,10 @@ public class AutoTask extends Thread implements CallBackTask {
 				continue;
 			
 			String host = config.getHost();
+			String cookie = config.getCookie();
 			String authorization = config.getAuthorization();
-			
-			return m_RequestWorldMaps.request(host, authorization, x, y, width);
+						
+			return m_RequestWorldMaps.request(host, cookie, authorization, x, y, width);
 		}
 		
 		return null;
@@ -295,9 +301,10 @@ public class AutoTask extends Thread implements CallBackTask {
 				continue;
 			
 			String host = config.getHost();
+			String cookie = config.getCookie();
 			String authorization = config.getAuthorization();
 			
-			return m_RequestBuildings.request(host, authorization, buildingId);
+			return m_RequestBuildings.request(host, cookie, authorization, buildingId);
 		}
 		
 		return false;
@@ -312,9 +319,10 @@ public class AutoTask extends Thread implements CallBackTask {
 				continue;
 			
 			String host = config.getHost();
+			String cookie = config.getCookie();
 			String authorization = config.getAuthorization();
 			
-			return m_RequestSkills.request(host, authorization, skillId);
+			return m_RequestSkills.request(host, cookie, authorization, skillId);
 		}
 		
 		return false;
@@ -329,9 +337,10 @@ public class AutoTask extends Thread implements CallBackTask {
 				continue;
 			
 			String host = config.getHost();
+			String cookie = config.getCookie();
 			String authorization = config.getAuthorization();
 			
-			return m_RequestRecruit.request(host, authorization, cityId, soldierName, count);
+			return m_RequestRecruit.request(host, cookie, authorization, cityId, soldierName, count);
 		}
 		
 		return false;
@@ -346,6 +355,7 @@ public class AutoTask extends Thread implements CallBackTask {
 				continue;
 			
 			String host = config.getHost();
+			String cookie = config.getCookie();
 			String authorization = config.getAuthorization();
 			
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -368,7 +378,7 @@ public class AutoTask extends Thread implements CallBackTask {
 			try {
 				String body = outputStream.toString("UTF-8");
 				closeOutputStream(outputStream);
-				return m_RequestOthers.request(host, authorization, url, body);
+				return m_RequestOthers.request(host, cookie, authorization, url, body);
 			} catch (UnsupportedEncodingException e) {
 				closeOutputStream(outputStream);
 				return false;

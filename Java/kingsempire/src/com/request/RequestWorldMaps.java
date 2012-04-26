@@ -8,7 +8,7 @@ public class RequestWorldMaps extends RequestBase {
 	private final String URL = "/world_maps?";
 	private final StringBuilder m_URL = new StringBuilder();
 	
-	public List<WorldMap> request(String host, String authorization, Long x, Long y, Long width, Long height) {
+	public List<WorldMap> request(String host, String cookie, String authorization, Long x, Long y, Long width, Long height) {
 		m_URL.setLength(0);
 		m_URL.append(host);
 		m_URL.append(URL);
@@ -21,7 +21,7 @@ public class RequestWorldMaps extends RequestBase {
 		m_URL.append("&height=");
 		m_URL.append(height);
 		
-		String response = super.request(m_URL.toString(), null, authorization);
+		String response = super.request(m_URL.toString(), null, cookie, authorization);
 		if (response == null)
 			return null;
 		
@@ -29,7 +29,7 @@ public class RequestWorldMaps extends RequestBase {
 		return worldMaps;
 	}
 	
-	public String request(String host, String authorization, Long x, Long y, Long width) {
+	public String request(String host, String cookie, String authorization, Long x, Long y, Long width) {
 		m_URL.setLength(0);
 		m_URL.append(host);
 		m_URL.append(URL);
@@ -42,7 +42,7 @@ public class RequestWorldMaps extends RequestBase {
 		m_URL.append("&height=");
 		m_URL.append(width);
 		
-		String response = super.request(m_URL.toString(), null, authorization);
+		String response = super.request(m_URL.toString(), null, cookie, authorization);
 		if (response == null)
 			return null;
 		else

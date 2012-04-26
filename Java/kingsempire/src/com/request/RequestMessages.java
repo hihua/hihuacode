@@ -4,7 +4,7 @@ public class RequestMessages extends RequestBase {
 	private final String URL = "/messages?";
 	private final StringBuilder m_URL = new StringBuilder();
 	
-	public String request(String host, String authorization, String to, Long page) {
+	public String request(String host, String cookie, String authorization, String to, Long page) {
 		m_URL.setLength(0);
 		m_URL.append(host);
 		m_URL.append(URL);
@@ -14,7 +14,7 @@ public class RequestMessages extends RequestBase {
 		m_URL.append("&page=");
 		m_URL.append(page);
 				
-		String response = super.request(m_URL.toString(), null, authorization);
+		String response = super.request(m_URL.toString(), null, cookie, authorization);
 		return response;		
 	}
 }

@@ -9,13 +9,13 @@ public class RequestCities extends RequestBase {
 	private final StringBuilder m_URL = new StringBuilder();
 	private final StringBuilder m_Body = new StringBuilder();
 	
-	public CityInfo request(String host, String authorization, Long cityId) {
+	public CityInfo request(String host, String cookie, String authorization, Long cityId) {
 		m_URL.setLength(0);
 		m_URL.append(host);
 		m_URL.append(URL);
 		m_URL.append(cityId);
 		
-		String response = super.request(m_URL.toString(), null, authorization);
+		String response = super.request(m_URL.toString(), null, cookie, authorization);
 		if (response == null)
 			return null;
 				
@@ -30,7 +30,7 @@ public class RequestCities extends RequestBase {
 		return cityInfo;
 	}
 	
-	public boolean request(String host, String authorization, Long cityId, String type, Long number) {
+	public boolean request(String host, String cookie, String authorization, Long cityId, String type, Long number) {
 		m_URL.setLength(0);
 		m_URL.append(host);
 		m_URL.append(URL);
@@ -45,7 +45,7 @@ public class RequestCities extends RequestBase {
 		m_Body.append("&number=");
 		m_Body.append(number);
 		
-		String response = super.request(m_URL.toString(), m_Body.toString(), authorization);
+		String response = super.request(m_URL.toString(), m_Body.toString(), cookie, authorization);
 		if (response == null)
 			return false;
 		else

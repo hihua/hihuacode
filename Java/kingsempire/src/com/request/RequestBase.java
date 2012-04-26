@@ -28,6 +28,7 @@ public class RequestBase {
 	private final String Key = "3da541559918a808c2402bba5012f6c60b27661c";
 	private final String Sig = "Sig";
 	private final String Authorization = "Authorization";
+	private final String Cookie = "Cookie";
 	    
 	private String m_MD5Charset = "UTF-8";
 	private String m_ReqCharset = "UTF-8";
@@ -140,7 +141,7 @@ public class RequestBase {
 		}
     }
 	
-	private void SetHeader(HttpURLConnection connection, String authorization, String md5) {
+	private void SetHeader(HttpURLConnection connection, String cookie, String authorization, String md5) {
 		if (authorization != null)
 			connection.setRequestProperty(Authorization, authorization);
 		
@@ -152,9 +153,10 @@ public class RequestBase {
 		connection.setRequestProperty(Appid[0], Appid[1]);
 		connection.setRequestProperty(Locale[0], Locale[1]);		
 		connection.setRequestProperty(Sig, md5);
+		connection.setRequestProperty(Cookie, cookie);
 	}
     
-    protected String request(String webUrl, String body, String authorization) {
+    protected String request(String webUrl, String body, String cookie, String authorization) {
     	int times = m_Times;
     	while (times > 0) {
     		URL url = null;
@@ -188,7 +190,7 @@ public class RequestBase {
     		if (md5 == null) 
     			return null;
     		
-    		SetHeader(connection, authorization, md5);
+    		SetHeader(connection, cookie, authorization, md5);
     		
     		if (body == null)  {
     			try {

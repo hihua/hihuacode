@@ -5,7 +5,7 @@ public class RequestRecruit extends RequestBase {
 	private final StringBuilder m_URL = new StringBuilder();
 	private final StringBuilder m_Body = new StringBuilder();
 	
-	public boolean request(String host, String authorization, Long cityId, String soldierName, Long count) {
+	public boolean request(String host, String cookie, String authorization, Long cityId, String soldierName, Long count) {
 		m_URL.setLength(0);
 		m_URL.append(host);
 		m_URL.append(URL);
@@ -18,7 +18,7 @@ public class RequestRecruit extends RequestBase {
 		m_Body.append("&count=");
 		m_Body.append(count);
 				
-		String response = super.request(m_URL.toString(), m_Body.toString(), authorization);
+		String response = super.request(m_URL.toString(), m_Body.toString(), cookie, authorization);
 		if (response == null)
 			return false;
 		else

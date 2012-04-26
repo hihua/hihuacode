@@ -21,6 +21,7 @@ public class Config {
 	private String host;
 	private String userName;
 	private String password;
+	private String cookie;
 	private String authorization;
 	private List<Long> cities;	
 	private Boolean autoCity = false;
@@ -57,6 +58,10 @@ public class Config {
 
 	public String getAuthorization() {
 		return authorization;
+	}
+	
+	public String getCookie() {
+		return cookie;
 	}
 
 	public List<Long> getCities() {
@@ -149,6 +154,10 @@ public class Config {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public void setCookie(String cookie) {
+		this.cookie = cookie;
 	}
 
 	public void setAuthorization(String authorization) {
@@ -263,6 +272,7 @@ public class Config {
 					Element host = element.element("host");
 					Element userName = element.element("username");
 					Element password = element.element("password");
+					Element cookie = element.element("cookie");
 					Element cities = element.element("cities");
 					Element autoCities = element.element("autocities");
 					Element autoUpgrade = element.element("autoupgrade");
@@ -297,7 +307,17 @@ public class Config {
 							String authorization = "Basic " + s;
 							config.setAuthorization(authorization);
 						}
-					}							
+					}
+					
+					if (cookie == null)
+						continue;
+					else {
+						String s = cookie.getText();
+						if (s == null || s.length() == 0)
+							continue;
+						
+						config.setCookie(s);
+					}						
 										
 					if (cities == null || cities.getText() == null)
 						continue;

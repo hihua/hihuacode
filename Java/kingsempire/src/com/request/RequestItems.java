@@ -11,12 +11,12 @@ public class RequestItems extends RequestBase {
 	private final StringBuilder m_URL = new StringBuilder();
 	private final StringBuilder m_Body = new StringBuilder();
 	
-	public ItemInfo request(String host, String authorization) {
+	public ItemInfo request(String host, String cookie, String authorization) {
 		m_URL.setLength(0);
 		m_URL.append(host);
 		m_URL.append(URL);
 		
-		String response = super.request(m_URL.toString(), null, authorization);
+		String response = super.request(m_URL.toString(), null, cookie, authorization);
 		if (response == null)
 			return null;
 		
@@ -31,7 +31,7 @@ public class RequestItems extends RequestBase {
 		return itemInfo;
 	}
 	
-	public boolean request(String host, String authorization, Long cityId, Long itemType, Long number) {
+	public boolean request(String host, String cookie, String authorization, Long cityId, Long itemType, Long number) {
 		m_URL.setLength(0);
 		m_URL.append(host);
 		m_URL.append(URL);
@@ -47,7 +47,7 @@ public class RequestItems extends RequestBase {
 		m_Body.append("&number=");
 		m_Body.append(number);
 		
-		String response = super.request(m_URL.toString(), m_Body.toString(), authorization);
+		String response = super.request(m_URL.toString(), m_Body.toString(), cookie, authorization);
 		if (response == null)
 			return false;
 		else

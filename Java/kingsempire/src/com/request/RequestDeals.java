@@ -9,7 +9,7 @@ public class RequestDeals extends RequestBase {
 	private final StringBuilder m_URL = new StringBuilder();
 	private final StringBuilder m_Body = new StringBuilder();
 	
-	public List<Deal> request(String host, String authorization, String goodsName, Long page) {
+	public List<Deal> request(String host, String cookie, String authorization, String goodsName, Long page) {
 		m_URL.setLength(0);
 		m_URL.append(host);
 		m_URL.append(URL);
@@ -19,14 +19,14 @@ public class RequestDeals extends RequestBase {
 		m_URL.append("&page=");
 		m_URL.append(page);
 		
-		String response = super.request(m_URL.toString(), null, authorization);
+		String response = super.request(m_URL.toString(), null, cookie, authorization);
 		if (response == null)
 			return null;
 		else
 			return Deal.parse(response);
 	}
 	
-	public boolean request(String host, String authorization, Long sellerCityId, String goodsName, String unitPrice, Long amount) {
+	public boolean request(String host, String cookie, String authorization, Long sellerCityId, String goodsName, String unitPrice, Long amount) {
 		m_URL.setLength(0);
 		m_URL.append(host);
 		m_URL.append(URL);
@@ -41,7 +41,7 @@ public class RequestDeals extends RequestBase {
 		m_Body.append("&amount=");
 		m_Body.append(amount);
 		
-		String response = super.request(m_URL.toString(), m_Body.toString(), authorization);
+		String response = super.request(m_URL.toString(), m_Body.toString(), cookie, authorization);
 		if (response == null)
 			return false;
 		else

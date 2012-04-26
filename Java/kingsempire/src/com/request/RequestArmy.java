@@ -10,7 +10,7 @@ public class RequestArmy extends RequestBase {
 	private final StringBuilder m_URL = new StringBuilder();
 	private final StringBuilder m_Body = new StringBuilder();
 	
-	public City request(String host, String authorization, Long fromCityId, Hashtable<String, Long> soldiers, Long x, Long y) {
+	public City request(String host, String cookie, String authorization, Long fromCityId, Hashtable<String, Long> soldiers, Long x, Long y) {
 		m_URL.setLength(0);
 		m_URL.append(host);
 		m_URL.append(URL);
@@ -35,14 +35,14 @@ public class RequestArmy extends RequestBase {
 		m_Body.append("&npc_y=");
 		m_Body.append(y);
 						
-		String response = super.request(m_URL.toString(), m_Body.toString(), authorization);
+		String response = super.request(m_URL.toString(), m_Body.toString(), cookie, authorization);
 		if (response == null)
 			return null;
 		else
 			return City.parse(response);			
 	}
 	
-	public boolean request(String host, String authorization, Long fromCityId, Hashtable<String, Long> soldiers, Long toCityId) {
+	public boolean request(String host, String cookie, String authorization, Long fromCityId, Hashtable<String, Long> soldiers, Long toCityId) {
 		m_URL.setLength(0);
 		m_URL.append(host);
 		m_URL.append(URL);
@@ -65,7 +65,7 @@ public class RequestArmy extends RequestBase {
 		m_Body.append("&to_city_id=");
 		m_Body.append(toCityId);
 		
-		String response = super.request(m_URL.toString(), m_Body.toString(), authorization);
+		String response = super.request(m_URL.toString(), m_Body.toString(), cookie, authorization);
 		if (response == null)
 			return false;
 		else

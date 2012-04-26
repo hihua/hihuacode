@@ -5,7 +5,7 @@ public class RequestRewards extends RequestBase {
 	private final StringBuilder m_URL = new StringBuilder();
 	private final StringBuilder m_Body = new StringBuilder();
 	
-	public boolean request(String host, String authorization, Long gems, Long cityId) {
+	public boolean request(String host, String cookie, String authorization, Long gems, Long cityId) {
 		m_URL.setLength(0);
 		m_URL.append(host);
 		m_URL.append(URL);
@@ -16,7 +16,7 @@ public class RequestRewards extends RequestBase {
 		m_Body.append("&city_id=");		
 		m_Body.append(cityId);
 		
-		String response = super.request(m_URL.toString(), m_Body.toString(), authorization);
+		String response = super.request(m_URL.toString(), m_Body.toString(), cookie, authorization);
 		if (response == null)
 			return false;
 		else
