@@ -1,5 +1,6 @@
 package com.task;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
@@ -31,9 +32,11 @@ import com.request.RequestBuildings;
 import com.request.RequestDeals;
 import com.request.RequestIsland;
 import com.request.RequestMessage;
+import com.request.RequestRecruit;
 import com.request.RequestTowns;
 import com.request.RequestUpgrade;
 import com.request.RequestWorldMaps;
+import com.soldier.Recruit;
 import com.soldier.Soldier;
 import com.towns.Resources;
 import com.towns.Town;
@@ -48,6 +51,7 @@ public class TaskMy extends TaskBase {
 	private final RequestIsland m_RequestIsland = new RequestIsland();
 	private final RequestWorldMaps m_RequestWorldMaps = new RequestWorldMaps();
 	private final RequestDeals m_RequestDeals = new RequestDeals();
+	private final RequestRecruit m_RequestRecruit = new RequestRecruit();
 	private Config m_ConfigNew = null;
 
 	public TaskMy(String taskName, Config config, CallBackTask callBack) {
@@ -352,12 +356,18 @@ public class TaskMy extends TaskBase {
 			if (buildingResource.getBuildingType() != null && buildingResource.getId() != null) {
 				List<BuildingLine> buildingLines = buildingResource.getBuildingLine();
 				if (buildingLines != null) {
+					TreeMap<Long, Long> sorts = new TreeMap<Long, Long>();
 					List<Long> buildingIds = new Vector<Long>();
 					for (BuildingLine buildingLine : buildingLines) {
 						if (buildingLine.getId() != null && buildingLine.getLevel() != null && buildingLine.getLevel() < 40 && buildingLine.getStatus() != null && buildingLine.getStatus().equals("idle"))
-							buildingIds.add(buildingLine.getId());
+							sorts.put(buildingLine.getLevel(), buildingLine.getId());						
 					}
 					
+					for (Entry<Double, List<WorldMap>> entry : sorts.entrySet()) {
+						
+					}
+					
+					Collections.sort(buildingIds);
 					buildings.put(buildingResource.getBuildingType(), buildingIds);
 				}
 			}
@@ -374,6 +384,7 @@ public class TaskMy extends TaskBase {
 							buildingIds.add(buildingLine.getId());
 					}
 					
+					Collections.sort(buildingIds);
 					buildings.put(buildingResource.getBuildingType(), buildingIds);
 				}
 			}
@@ -390,6 +401,7 @@ public class TaskMy extends TaskBase {
 							buildingIds.add(buildingLine.getId());
 					}
 					
+					Collections.sort(buildingIds);
 					buildings.put(buildingResource.getBuildingType(), buildingIds);
 				}
 			}
@@ -406,6 +418,7 @@ public class TaskMy extends TaskBase {
 							buildingIds.add(buildingLine.getId());
 					}
 					
+					Collections.sort(buildingIds);
 					buildings.put(buildingResource.getBuildingType(), buildingIds);
 				}
 			}
@@ -422,6 +435,7 @@ public class TaskMy extends TaskBase {
 							buildingIds.add(buildingLine.getId());
 					}
 					
+					Collections.sort(buildingIds);
 					buildings.put(buildingResource.getBuildingType(), buildingIds);
 				}
 			}
@@ -517,11 +531,45 @@ public class TaskMy extends TaskBase {
 		return false;
 	}
 	
-//	private boolean recruit(Town town, Config config, ConfigTown configTown) {
-//		String host = m_Config.getHost();
-//		String clientv = m_Config.getClientv();
-//		String cookie = m_Config.getCookie();				
-//	}
+	private Soldier getMinSoldier(Town town, Config config, Soldier soldier, Soldier minSoldier) {
+		String host = m_Config.getHost();
+		String clientv = m_Config.getClientv();
+		String cookie = m_Config.getCookie();
+		Long townId = town.getId();
+		
+		if (soldier != null && soldier.getName() != null && soldier.getCount() != null) {			
+			String soldierName = soldier.getName();
+			long soldierCount = soldier.getCount();
+			
+			Recruit recruit = m_RequestRecruit.request(host, clientv, cookie, townId, soldierName);
+			if (recruit != null) {
+				HashMap<String, Long> cost = recruit.getCost();
+				if (cost != null && checkResources(town, cost)) {
+					if (minSoldier == null)
+						return soldier;
+					else {						
+						long minSoldierCount = minSoldier.getCount();						
+						if (soldierCount < minSoldierCount)
+							return soldier;
+					}
+				}
+			}
+		}
+		
+		return minSoldier;
+	}
+	
+	private void recruit(Town town, Config config, ConfigTown configTown) {
+				
+		Soldier minSoldier = null;		
+		minSoldier = getMinSoldier(town, config, town.getSoldierMusketman(), minSoldier);
+		minSoldier = getMinSoldier(town, config, town.getSoldierCatapult(), minSoldier);
+		minSoldier = getMinSoldier(town, config, town.getSoldierFrigate(), minSoldier);
+		minSoldier = getMinSoldier(town, config, town.getSoldierDestroyer(), minSoldier);		
+		if (minSoldier == null)
+			return;
+		
+	}
 	
 	private long canAttack(Town town) { 
 		Soldier infantry = town.getSoldierInfantry();
@@ -833,8 +881,8 @@ public class TaskMy extends TaskBase {
 					if (minResources == null)
 						return resources;
 					else {
-						long minCount = minResources.getResourceCount();
-						if (resourcesCount < minCount)
+						long minResourceCount = minResources.getResourceCount();
+						if (resourcesCount < minResourceCount)
 							return resources;						
 					}
 				}
