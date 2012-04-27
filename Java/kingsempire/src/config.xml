@@ -19,7 +19,7 @@
 		<password>12345678</password>
 		<cookie>remember_token=BAhbB2kCKiIiRTcyYmE2OWZhZGYxM2E4ZGIzOTQ0ZWFmMzc4ZWRiOTc2NjRhZTBiMDNlMzQ1NTE4MGRhMDEwMGFiMzhmZjU4YWQ%3D--ff2544161c4754afb7156b41063e7cce7e6d101e; _game001_server_session=BAh7BiIPc2Vzc2lvbl9pZCIlNmNlYzdiZGIwZTA2NmRjMTJmZjc1YTMwMmZhZjUwOTU%3D--0e8b9ca6468f8992652620a210f90cdedd4b53cb</cookie>
 		<cities>1171</cities>
-		<autocities>0</autocities>
+		<autocities>30</autocities>
 		<autoupgrade priority="0,5,12,11,9,6,7,8,2,4,1">true</autoupgrade>
 		<autoattack level="1-7">3</autoattack>
 		<autorecruit infantryswords="5000" infantryscout="0" infantrycrossbow="4500" infantrysquire="5500" cavalrytemplar="5500" cavalryarcher="6500" cavalrypaladin="9500" cavalryroyal="3500">true</autorecruit>

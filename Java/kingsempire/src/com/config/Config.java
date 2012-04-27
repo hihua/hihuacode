@@ -15,6 +15,7 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import com.util.FileManager;
 import com.util.Numeric;
 
 public class Config {
@@ -575,5 +576,108 @@ public class Config {
 			
 			return xml;
 		}	
-	}		
+	}
+	
+	public static String setConfig(List<Config> configs) {
+		StringBuilder xml = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n\r\n<config>\r\n");
+		
+		for (Config config : configs) {
+			xml.append("\t<configs>\r\n");
+			xml.append("\t\t<host>");
+			xml.append(config.getHost() != null ? config.getHost() : "");
+			xml.append("</host>\r\n");
+			xml.append("\t\t<username>");
+			xml.append(config.getUserName() != null ? config.getUserName() : "");
+			xml.append("</username>\r\n");			
+			xml.append("\t\t<password>");
+			xml.append(config.getPassword() != null ? config.getPassword() : "");
+			xml.append("</password>\r\n");
+			xml.append("\t\t<cookie>");
+			xml.append(config.getCookie() != null ? config.getCookie() : "");
+			xml.append("</cookie>\r\n");
+			
+			StringBuilder cities = new StringBuilder();
+			if (config.getCities() != null) {
+				for (Long city : config.getCities()) {
+					cities.append(",");
+					cities.append(city);
+				}
+			}
+			
+			if (cities.length() > 0)
+				cities.deleteCharAt(0);
+			
+			xml.append("\t\t<cities>");
+			xml.append(cities);
+			xml.append("</cities>\r\n");
+			xml.append("\t\t<autocities>");
+			xml.append(config.getCityDelay() != null ? config.getCityDelay() : "");
+			xml.append("</autocities>\r\n");
+			
+			StringBuilder upgradePriority = new StringBuilder();
+			if (config.getUpgradePriority() != null) {
+				for (Long priority : config.getUpgradePriority()) {
+					upgradePriority.append(",");
+					upgradePriority.append(priority);
+				}
+			}
+			
+			if (upgradePriority.length() > 0)
+				upgradePriority.deleteCharAt(0);
+			
+			xml.append("\t\t<autoupgrade priority=\"");
+			xml.append(upgradePriority);
+			xml.append("\">");
+			xml.append(upgradePriority.length() > 0 ? "true" : "false");
+			xml.append("</autoupgrade>\r\n");
+			
+			StringBuilder attackLevel = new StringBuilder();
+			if (config.getAttackLevelMin() != null && config.getAttackLevelMax() != null) {
+				attackLevel.append(config.getAttackLevelMin());
+				attackLevel.append("-");
+				attackLevel.append(config.getAttackLevelMax());
+			}
+									
+			xml.append("\t\t<autoattack level=\"");
+			xml.append(attackLevel);
+			xml.append("\">");
+			xml.append(config.getAutoAttack() ? "true" : "false");
+			xml.append("</autoattack>\r\n");
+			
+			xml.append("\t\t<autorecruit infantryswords=\"");
+			xml.append(config.getInfantrySwords() != null ? config.getInfantrySwords() : "");
+			xml.append("\" infantryscout=\"");
+			xml.append(config.getInfantryScout() != null ? config.getInfantryScout() : "");
+			xml.append("\" infantrycrossbow=\"");
+			xml.append(config.getInfantryCrossbow() != null ? config.getInfantryCrossbow() : "");
+			xml.append("\" infantrysquire=\"");
+			xml.append(config.getInfantrySquire() != null ? config.getInfantrySquire() : "");
+			xml.append("\" cavalrytemplar=\"");
+			xml.append(config.getCavalryTemplar() != null ? config.getCavalryTemplar() : "");
+			xml.append("\" cavalryarcher=\"");
+			xml.append(config.getCavalryArcher() != null ? config.getCavalryArcher() : "");
+			xml.append("\" cavalrypaladin=\"");
+			xml.append(config.getCavalryPaladin() != null ? config.getCavalryPaladin() : "");
+			xml.append("\" cavalryroyal=\"");
+			xml.append(config.getCavalryRoyal() != null ? config.getCavalryRoyal() : "");
+			xml.append("\">");
+			xml.append(config.getAutoRecruit() ? "true" : "false");
+			xml.append("</autorecruit>\r\n");
+			
+			String marketRate = "";
+			if (config.getMarketRate() != null) {
+				marketRate = String.valueOf(config.getMarketRate() * 100);
+				if (marketRate.length() > 2)
+					marketRate = marketRate.substring(0, 2);				
+			}
+			
+			xml.append("\t\t<marketrate>");
+			xml.append(marketRate);
+			xml.append("</marketrate>\r\n");
+			xml.append("\t</configs>\r\n");
+		}
+		
+		xml.append("</config>");
+		return xml.toString();
+	}
 }

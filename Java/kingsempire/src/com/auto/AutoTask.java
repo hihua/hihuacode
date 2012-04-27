@@ -21,6 +21,7 @@ import com.request.RequestItems;
 import com.request.RequestMessages;
 import com.request.RequestOthers;
 import com.request.RequestRecruit;
+import com.request.RequestSessions;
 import com.request.RequestSkills;
 import com.request.RequestWorldMaps;
 import com.task.TaskMy;
@@ -43,6 +44,7 @@ public class AutoTask extends Thread implements CallBackTask {
 	private final RequestBuildings m_RequestBuildings = new RequestBuildings();
 	private final RequestSkills m_RequestSkills = new RequestSkills();
 	private final RequestRecruit m_RequestRecruit = new RequestRecruit();
+	private final RequestSessions m_RequestSessions = new RequestSessions();
 	private List<Config> m_Config = null;
 		
 	public synchronized static AutoTask getInstance() {				
@@ -54,6 +56,30 @@ public class AutoTask extends Thread implements CallBackTask {
 	
 	private AutoTask() {
 		
+	}
+	
+	public synchronized String resetCookie(String userName, String passWord) {
+		if (m_Config == null)
+			return null;
+		
+		String path = m_Class.getPath() + m_File;
+		
+		for (Config config : m_Config) {
+			if (config.getUserName().equals(userName)) {
+				String host = config.getHost();
+				if (m_RequestSessions.request(host, config, passWord)) {
+					String xml = Config.setConfig(m_Config);
+					boolean success = FileManager.writeFile(path, false, "UTF-8", xml);
+					if (success)
+						return config.getCookie();
+					else
+						return null;
+				} else
+					return null;
+			}
+		}
+		
+		return null;
 	}
 		
 	public Hashtable<Long, String> getCities(String userName) {
@@ -483,6 +509,8 @@ public class AutoTask extends Thread implements CallBackTask {
 			closeOutputStream(outputStream);
 			return false;
 		}
+		
+		m_Config = configs;
 		
 		for (Config config : configs) {
 			String userName = config.getUserName();
