@@ -21,6 +21,7 @@ import com.hero.Hero;
 import com.queue.BattleQueue;
 import com.queue.BuildingQueue;
 import com.queue.LinesEvent;
+import com.queue.TrainingQueue;
 import com.queue.TransportQueue;
 import com.soldier.Soldier;
 import com.util.DateTime;
@@ -908,6 +909,16 @@ public class Town {
 				
 				if (soldier.getName() == null)
 					continue;
+				
+				if (array.get("training_queue") != null) {
+					JSONObject training = (JSONObject) array.get("training_queue");
+					TrainingQueue trainingQueue = new TrainingQueue();
+					trainingQueue.setTotalTime((training.get("total_time") != null) ? training.getLong("total_time") : null);
+					trainingQueue.setCount((training.get("count") != null) ? training.getLong("count") : null);
+					trainingQueue.setFinishTime((training.get("finish_time") != null) ? DateTime.getTime(training.getLong("finish_time")) : null);
+					trainingQueue.setQueueId((training.get("queue_id") != null) ? training.getLong("queue_id") : null);
+					soldier.setTrainingQueue(trainingQueue);
+				}				
 				
 				if (soldier.getName().equals("infantry")) {
 					towns.setSoldierInfantry(soldier);

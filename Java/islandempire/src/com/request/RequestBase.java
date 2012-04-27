@@ -98,6 +98,7 @@ public class RequestBase {
 	}
 	
 	protected String request(String webUrl, HashMap<String, String> header, String body) {
+		m_Headers = null;
     	int times = m_Times;
     	while (times > 0) {
     		URL url = null;
