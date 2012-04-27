@@ -19,6 +19,8 @@ function getMyCount() {
 		table += "<a href=\"myitem.html?username=" + html + "\" target=\"_blank\" class=\"AdminToolsLink2\">[我的道具]</a>";
 		table += "&nbsp;";
 		table += "<a href=\"config.html\" target=\"_blank\" class=\"AdminToolsLink2\">[我的设置]</a>";
+		table += "&nbsp;";
+		table += "<a href=\"cookie.html\" target=\"_blank\" class=\"AdminToolsLink2\">[重设Cookie]</a>";
 		table += "</td>";					
 		table += "</tr>";
 		table += "</table>";					
