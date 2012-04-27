@@ -59,6 +59,7 @@
 						var host = configs.find("host");
 						var userName = configs.find("username");
 						var password = configs.find("password");
+						var cookie = configs.find("cookie");
 						var cities = configs.find("cities");
 						var autoCities = configs.find("autocities");
 						var autoUpgrade = configs.find("autoupgrade");
@@ -91,6 +92,10 @@
 						html += "<tr>";
 						html += "<td align=\"right\" height=\"30\">密码：</td>";
 						html += "<td colspan=\"3\"><input type=\"text\" id=\"password\" size=\"40\" value=\"" + ((password != null) ? password.text() : "") + "\" /></td>";
+						html += "</tr>";
+						html += "<tr>";
+						html += "<td align=\"right\" height=\"30\">Cookie：</td>";
+						html += "<td colspan=\"3\"><input type=\"text\" id=\"cookie\" size=\"102\" value=\"" + ((cookie != null) ? cookie.text() : "") + "\" /></td>";
 						html += "</tr>";
 						html += "<tr>";
 						html += "<td align=\"right\" height=\"30\">IP地址：</td>";
@@ -169,6 +174,7 @@
 					var userName = (($(this).find("#username") != null) ? $(this).find("#username").text() : "");
 					var password = (($(this).find("#password") != null) ? $(this).find("#password").val() : "");
 					var cities = (($(this).find("#cities") != null) ? $(this).find("#cities").val() : "");
+					var cookie = (($(this).find("#cookie") != null) ? $(this).find("#cookie").val() : "");
 					var autoCities = (($(this).find("#autocities") != null) ? $(this).find("#autocities").val() : "");
 					var autoUpgrade = (($(this).find("#autoupgrade") != null && $(this).find("#autoupgrade").attr("checked") == "checked") ? "true" : "false");
 					var upgradePriority = (($(this).find("#upgradepriority") != null) ? $(this).find("#upgradepriority").val() : "");
@@ -190,6 +196,7 @@
 					xml += "\t\t<username>" + userName + "</username>\r\n";
 					xml += "\t\t<password>" + password + "</password>\r\n";
 					xml += "\t\t<cities>" + cities + "</cities>\r\n";
+					xml += "\t\t<cookie>" + cookie + "</cookie>\r\n";
 					xml += "\t\t<autocities>" + autoCities + "</autocities>\r\n";
 					xml += "\t\t<autoupgrade priority=\"" + upgradePriority + "\">" + autoUpgrade + "</autoupgrade>\r\n";
 					xml += "\t\t<autoattack level=\"" + attackLevel + "\">" + autoAttack + "</autoattack>\r\n";

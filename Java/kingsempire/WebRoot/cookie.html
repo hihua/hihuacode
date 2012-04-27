@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Cookie</title>
+		<link rel="stylesheet" type="text/css" href="css.css" />
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/ajax.js"></script>
+	</head>
+	<body>
+		<table cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td>
+					用户名：<input type="text" id="username1" size="7" value="hihua" />
+					用户名：<input type="text" id="username2" size="7" value="hhihua" />
+					用户名：<input type="text" id="username3" size="7" value="hihua8" />
+					密码：<input type="text" id="password" size="12" />		
+					<input type="button" name="button" id="button" value=" 提交 " onclick="resetCookie()" />
+				</td>
+			</tr>
+		</table>		
+		<br/><br/>
+		<div id="cookie"></div>
+		
+		<script type="text/javascript">
+			var WebCookie = "servlet/WebCookie";
+			
+			function resetCookie() {
+				var passWord = $("#password").val();
+				if (passWord.length == 0)
+					return;
+				
+				for (var i = 1; i < 4;i++) {
+					var userName = $("#username" + i).val();
+					if (userName.length > 0) {					
+						var url = WebCookie + "?username=" + encodeURIComponent(userName) + "&password=" + encodeURIComponent(passWord); 
+						Ajax_CallBack(url, "", "html", "", true, function(html) {
+							if (html == null)
+								alert("重置Cookie失败");
+							else {
+								var content = $("#cookie").html();
+								content += html;
+								content += "<br/><br/>";
+								$("#cookie").html(content);							
+							}																	
+						}, function(response, error, status) {
+					        alert("重置Cookie失败");
+					    });
+					}
+				}										
+			}
+		</script>		
+	</body>
+</html>
