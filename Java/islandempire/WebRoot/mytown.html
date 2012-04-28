@@ -87,6 +87,52 @@
 				
 				return finishTime;
 			}
+			
+			function getBuildingName(buildingId) {
+				switch (buildingId) {
+					case 1:
+						return "兵营";
+						
+					case 2:
+						return "木头";
+						
+					case 3:
+						return "仓库";
+						
+					case 4:
+						return "港口";
+						
+					case 5:
+						return "食物";
+						
+					case 6:
+						return "大理石";
+						
+					case 7:
+						return "黑铁";
+						
+					case 8:
+						return "黄金";
+						
+					case 9:
+						return "市场";
+						
+					case 10:
+						return "市政厅";
+						
+					case 12:
+						return "城墙";
+						
+					case 13:
+						return "造船厂";
+						
+					case 14:
+						return "地窖";
+						
+					default:
+						return "";										
+				}
+			}
 						
 			function setMyTown(json, townId) {
 				var town = json.town;
@@ -440,9 +486,9 @@
 						html += "<td height=\"20\">";				
 			    					    		
 			    		if (building.status == "upgrading")
-			    			html += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, building.id, false) + "\">市政厅</span>";											
+			    			html += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, building.id, false) + "\">" + getBuildingName(building.building_type) + "</span>";											
 						else
-							html += "<a href=\"#\" onclick=\"upgradeBuilding(" + building.id + ");return false;\" class=\"AdminToolsLink1\">市政厅</a>";
+							html += "<a href=\"#\" onclick=\"upgradeBuilding(" + building.id + ");return false;\" class=\"AdminToolsLink1\">" + getBuildingName(building.building_type) + "</a>";
 			    		 					    		
 			    		html += "</td>";
 			    		html += "</tr>";
@@ -476,9 +522,9 @@
 						html += "<td height=\"20\" align=\"center\">";				
 			    					    		
 			    		if (building.status == "upgrading")
-			    			html += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, building.id, false) + "\">市场</span>";											
+			    			html += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, building.id, false) + "\">" + getBuildingName(building.building_type) + "</span>";											
 						else
-							html += "<a href=\"#\" onclick=\"upgradeBuilding(" + building.id + ");return false;\" class=\"AdminToolsLink1\">市场</a>";
+							html += "<a href=\"#\" onclick=\"upgradeBuilding(" + building.id + ");return false;\" class=\"AdminToolsLink1\">" + getBuildingName(building.building_type) + "</a>";
 			    		 					    		
 			    		html += "</td>";
 			    		html += "</tr>";
@@ -515,9 +561,9 @@
 						html += "<td height=\"20\" align=\"center\">";				
 			    					    		
 			    		if (building.status == "upgrading")
-			    			html += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, building.id, false) + "\">仓库</span>";											
+			    			html += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, building.id, false) + "\">" + getBuildingName(building.building_type) + "</span>";											
 						else
-							html += "<a href=\"#\" onclick=\"upgradeBuilding(" + building.id + ");return false;\" class=\"AdminToolsLink1\">仓库</a>";
+							html += "<a href=\"#\" onclick=\"upgradeBuilding(" + building.id + ");return false;\" class=\"AdminToolsLink1\">" + getBuildingName(building.building_type) + "</a>";
 			    		 					    		
 			    		html += "</td>";
 			    		html += "</tr>";
@@ -554,9 +600,9 @@
 						html += "<td height=\"20\" align=\"center\">";				
 			    					    		
 			    		if (building.status == "upgrading")
-			    			html += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, building.id, false) + "\">港口</span>";											
+			    			html += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, building.id, false) + "\">" + getBuildingName(building.building_type) + "</span>";											
 						else
-							html += "<a href=\"#\" onclick=\"upgradeBuilding(" + building.id + ");return false;\" class=\"AdminToolsLink1\">港口</a>";
+							html += "<a href=\"#\" onclick=\"upgradeBuilding(" + building.id + ");return false;\" class=\"AdminToolsLink1\">" + getBuildingName(building.building_type) + "</a>";
 			    		 					    		
 			    		html += "</td>";
 			    		html += "</tr>";
@@ -594,9 +640,9 @@
 						html += "<td height=\"20\" align=\"center\">";				
 			    					    		
 			    		if (building.status == "upgrading")
-			    			html += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, building.id, false) + "\">兵营</span>";											
+			    			html += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, building.id, false) + "\">" + getBuildingName(building.building_type) + "</span>";											
 						else
-							html += "<a href=\"#\" onclick=\"upgradeBuilding(" + building.id + ");return false;\" class=\"AdminToolsLink1\">兵营</a>";
+							html += "<a href=\"#\" onclick=\"upgradeBuilding(" + building.id + ");return false;\" class=\"AdminToolsLink1\">" + getBuildingName(building.building_type) + "</a>";
 			    		 					    		
 			    		html += "</td>";
 			    		html += "</tr>";
@@ -659,9 +705,9 @@
 						html += "<td height=\"20\" align=\"center\">";				
 			    					    		
 			    		if (building.status == "upgrading")
-			    			html += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, building.id, false) + "\">造船厂</span>";											
+			    			html += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, building.id, false) + "\">" + getBuildingName(building.building_type) + "</span>";											
 						else
-							html += "<a href=\"#\" onclick=\"upgradeBuilding(" + building.id + ");return false;\" class=\"AdminToolsLink1\">造船厂</a>";
+							html += "<a href=\"#\" onclick=\"upgradeBuilding(" + building.id + ");return false;\" class=\"AdminToolsLink1\">" + getBuildingName(building.building_type) + "</a>";
 			    		 					    		
 			    		html += "</td>";
 			    		html += "</tr>";
@@ -714,9 +760,9 @@
 						html += "<td height=\"20\" align=\"center\">";				
 			    					    		
 			    		if (building.status == "upgrading")
-			    			html += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, building.id, false) + "\">城墙</span>";											
+			    			html += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, building.id, false) + "\">" + getBuildingName(building.building_type) + "</span>";											
 						else
-							html += "<a href=\"#\" onclick=\"upgradeBuilding(" + building.id + ");return false;\" class=\"AdminToolsLink1\">城墙</a>";
+							html += "<a href=\"#\" onclick=\"upgradeBuilding(" + building.id + ");return false;\" class=\"AdminToolsLink1\">" + getBuildingName(building.building_type) + "</a>";
 			    		 					    		
 			    		html += "</td>";
 			    		html += "</tr>";
@@ -787,9 +833,9 @@
 						html += "<td height=\"20\" align=\"center\">";				
 			    					    		
 			    		if (building.status == "upgrading")
-			    			html += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, building.id, false) + "\">地窖</span>";											
+			    			html += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, building.id, false) + "\">" + getBuildingName(building.building_type) + "</span>";											
 						else
-							html += "<a href=\"#\" onclick=\"upgradeBuilding(" + building.id + ");return false;\" class=\"AdminToolsLink1\">地窖</a>";
+							html += "<a href=\"#\" onclick=\"upgradeBuilding(" + building.id + ");return false;\" class=\"AdminToolsLink1\">" + getBuildingName(building.building_type) + "</a>";
 			    		 					    		
 			    		html += "</td>";
 			    		html += "</tr>";
@@ -813,6 +859,13 @@
 							
 						return;					
 			    	}					
+				});
+				
+				if (!tr)
+					html += "<td width=\"10%\">&nbsp;</td><td width=\"40%\">&nbsp;</td></tr>";
+					
+				$.each(buildingQueues, function(idx, buildingQueue) {
+									
 				});
 				
 				html += "</table><br/>";
