@@ -1,5 +1,6 @@
 package com.task;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
@@ -28,6 +29,8 @@ import com.island.WorldMap;
 import com.queue.BattleQueue;
 import com.queue.BuildingQueue;
 import com.queue.LinesEvent;
+import com.queue.TransportQueue;
+import com.request.RequestArmy;
 import com.request.RequestBuildings;
 import com.request.RequestDeals;
 import com.request.RequestIsland;
@@ -38,6 +41,7 @@ import com.request.RequestUpgrade;
 import com.request.RequestWorldMaps;
 import com.soldier.Recruit;
 import com.soldier.Soldier;
+import com.towns.OtherTown;
 import com.towns.Resources;
 import com.towns.Town;
 import com.util.Numeric;
@@ -52,6 +56,7 @@ public class TaskMy extends TaskBase {
 	private final RequestWorldMaps m_RequestWorldMaps = new RequestWorldMaps();
 	private final RequestDeals m_RequestDeals = new RequestDeals();
 	private final RequestRecruit m_RequestRecruit = new RequestRecruit();
+	private final RequestArmy m_RequestArmy = new RequestArmy();
 	private Config m_ConfigNew = null;
 
 	public TaskMy(String taskName, Config config, CallBackTask callBack) {
@@ -114,6 +119,7 @@ public class TaskMy extends TaskBase {
 			sells(town, m_Config, configTown);
 			buys(town, m_Config, configTown);
 			recruit(town, m_Config, configTown);
+			attack(town, m_Config, configTown);
 			townInfos.add(townInfo);
 		}
 		
@@ -733,6 +739,7 @@ public class TaskMy extends TaskBase {
 		if (total > 1)
 			return;
 		
+		long infantryCount = 0;
 		long musketmanCount = 0;
 		long catapultCount = 0;
 		long frigateCount = 0;
@@ -741,6 +748,9 @@ public class TaskMy extends TaskBase {
 		List<BattleQueue> battleQueues = town.getBattleQueues();
 		if (battleQueues != null) {
 			for (BattleQueue battleQueue : battleQueues) {
+				if (battleQueue.getInfantry() != null)
+					infantryCount += battleQueue.getInfantry();
+				
 				if (battleQueue.getMusketman() != null)
 					musketmanCount += battleQueue.getMusketman();
 				
@@ -757,6 +767,10 @@ public class TaskMy extends TaskBase {
 				
 		Soldier minSoldier = null;
 		List<Recruit> recruits = new Vector<Recruit>(1);
+		
+		soldier = town.getSoldierInfantry();
+		if (soldier != null && soldier.getTrainingQueue() == null)
+			minSoldier = getMinSoldier(town, config, infantryCount, soldier, minSoldier, recruits);
 		
 		soldier = town.getSoldierMusketman();
 		if (soldier != null && soldier.getTrainingQueue() == null)
@@ -819,7 +833,7 @@ public class TaskMy extends TaskBase {
 		return total;
 	}
 	
-	private long getLevel(long total) {
+	private long getAttackLevel(long total) {
 		if (total < 300)
 			return 0;
 		else if (total < 700)
@@ -830,6 +844,65 @@ public class TaskMy extends TaskBase {
 			return 30;
 		else 
 			return 50;
+	}
+	
+	private long getAttackCount(long level) {
+		if (level < 10)
+			return 300;
+		else if (level < 20)
+			return 700;
+		else if (level < 30)
+			return 1500;
+		else if (level < 40)
+			return 3200;
+		else 
+			return 5000;
+	}
+	
+	private HashMap<String, Long> getAttackSoldier(Town town, long count) {		
+		long left = count;
+		List<Soldier> maxSoldiers = new Vector<Soldier>(1);
+		HashMap<String, Long> soldiers = new HashMap<String, Long>();
+				
+		left -= getAttackSoldier(count, town.getSoldierDestroyer(), maxSoldiers, soldiers);
+		left -= getAttackSoldier(count, town.getSoldierCatapult(), maxSoldiers, soldiers);
+		left -= getAttackSoldier(count, town.getSoldierFrigate(), maxSoldiers, soldiers);
+		left -= getAttackSoldier(count, town.getSoldierMusketman(), maxSoldiers, soldiers);
+		left -= getAttackSoldier(count, town.getSoldierInfantry(), maxSoldiers, soldiers);
+		
+		if (left > 0 && maxSoldiers.size() > 0) {
+			Soldier maxSoldier = maxSoldiers.get(0);
+			Long amount = soldiers.get(maxSoldier.getName());
+			amount += left;
+			soldiers.put(maxSoldier.getName(), amount);
+		}
+		
+		if (soldiers.size() > 0)
+			return soldiers;
+		else
+			return null;
+	}
+	
+	private long getAttackSoldier(long count, Soldier soldier, List<Soldier> maxSoldiers, HashMap<String, Long> soldiers) {
+		if (soldier != null && soldier.getName() != null && soldier.getCount() != null && soldier.getCount() > 0) {
+			long total = count / 5;
+			if (total > soldier.getCount())
+				total = soldier.getCount();							
+								
+			if (maxSoldiers.size() == 0)
+				maxSoldiers.add(soldier);
+			else {
+				Soldier maxSoldier = maxSoldiers.get(0);
+				if (maxSoldier.getCount() < soldier.getCount()) {
+					maxSoldiers.clear();
+					maxSoldiers.add(soldier);
+				}					
+			}
+			
+			soldiers.put(soldier.getName(), total);
+			return total;
+		} else
+			return 0;
 	}
 	
 	private IslandVillage getIsland(Town town, Config config, ConfigTown configTown, long level) {
@@ -959,20 +1032,32 @@ public class TaskMy extends TaskBase {
 	}
 	
 	private void attack(Town town, Config config, ConfigTown configTown) {
-		long level = getLevel(canAttack(town));
+		String host = config.getHost();
+		String clientv = config.getClientv();
+		String cookie = config.getCookie();
+		Long townId = town.getId();
+		
+		long level = getAttackLevel(canAttack(town));
 		if (level == 0)
 			return;
-		
+						
 		IslandVillage islandVillage = getIsland(town, config, configTown, level);
 		if (islandVillage == null)
 			return;
+		
+		long count = getAttackCount(islandVillage.getLevel());
+		HashMap<String, Long> soldiers = getAttackSoldier(town, count);
+		if (soldiers == null)
+			return;
+		
+		m_RequestArmy.request(host, clientv, cookie, townId, islandVillage.getId(), townId, soldiers);
 	}
 	
-	private boolean sells(Town town, Config config, HashMap<String, Double> marketRate, Resources resources, Long leftCapacity) {
+	private boolean sells(Town town, Config config, HashMap<String, Double> sells, Resources resources, Long leftCapacity) {
 		String host = config.getHost();
 		String clientv = config.getClientv();
 		String cookie = config.getCookie();		
-		Long id = town.getId();		
+		Long townId = town.getId();		
 		String name = resources.getResourceName();
 		Long count = resources.getResourceCount();
 		Long maxVolume = resources.getMaxVolume();
@@ -980,10 +1065,10 @@ public class TaskMy extends TaskBase {
 		if (name == null || count == null || maxVolume == null)
 			return false;
 		
-		if (!marketRate.containsKey(name))
+		if (!sells.containsKey(name))
 			return false;
 		
-		double rate = marketRate.get(name);
+		double rate = sells.get(name);
 		if (rate <= 0D)
 			return false;
 		
@@ -997,7 +1082,7 @@ public class TaskMy extends TaskBase {
 					if (leftCapacity > count)
 						sellerCount = count;
 										
-					return m_RequestDeals.request(host, clientv, cookie, id, name, sellerPrice, sellerCount);
+					return m_RequestDeals.request(host, clientv, cookie, townId, name, sellerPrice, sellerCount);
 				}
 			}
 		}
@@ -1050,8 +1135,7 @@ public class TaskMy extends TaskBase {
 	}
 	
 	private void buys(Town town, Config config, ConfigTown configTown) {
-		Long id = town.getId();
-		if (id == null)
+		if (town.getId() == null)
 			return;
 		
 		Resources resourcesGold = town.getResourcesGold();
@@ -1122,5 +1206,150 @@ public class TaskMy extends TaskBase {
 		}
 		
 		return minResources;
+	}
+			
+	private List<Resources> getMaxResources(Town town, HashMap<String, Double> sells) {
+		if (sells == null)
+			return null;
+		
+		Resources resourcesWood = town.getResourcesWood();
+		Resources resourcesFood = town.getResourcesFood();
+		Resources resourcesGold = town.getResourcesGold();
+		Resources resourcesMarble = town.getResourcesMarble();
+		Resources resourcesIron = town.getResourcesIron();		
+		Long resourceType = town.getResourceType();
+				
+		TreeMap<Double, List<Resources>> sorts = new TreeMap<Double, List<Resources>>();
+		if (resourcesWood != null && resourcesWood.getResourceName() != null && resourcesWood.getResourceCount() != null && resourcesWood.getMaxVolume() != null) {
+			String resourceName = resourcesWood.getResourceName();
+			Long resourceCount = resourcesWood.getResourceCount();		
+			Long resourceMaxVolume = resourcesWood.getMaxVolume();
+					
+			if (sells.containsKey(resourceName)) {
+				double rate = sells.get(resourceName);
+				double percent = (double)resourceCount / (double)resourceMaxVolume;
+				if (percent >= rate)
+					addMaxResources(resourcesWood, sorts, percent);				
+			}
+		}
+		
+		if (resourcesFood != null && resourcesFood.getResourceName() != null && resourcesFood.getResourceCount() != null && resourcesFood.getMaxVolume() != null) {
+			String resourceName = resourcesFood.getResourceName();
+			Long resourceCount = resourcesFood.getResourceCount();		
+			Long resourceMaxVolume = resourcesFood.getMaxVolume();
+					
+			if (sells.containsKey(resourceName)) {
+				double rate = sells.get(resourceName);
+				double percent = (double)resourceCount / (double)resourceMaxVolume;
+				if (percent >= rate)
+					addMaxResources(resourcesFood, sorts, percent);				
+			}
+		}
+		
+		if (resourceType == 1L) {
+			if (resourcesGold != null && resourcesGold.getResourceName() != null && resourcesGold.getResourceCount() != null && resourcesGold.getMaxVolume() != null) {
+				String resourceName = resourcesGold.getResourceName();
+				Long resourceCount = resourcesGold.getResourceCount();		
+				Long resourceMaxVolume = resourcesGold.getMaxVolume();
+						
+				if (sells.containsKey(resourceName)) {
+					double rate = sells.get(resourceName);
+					double percent = (double)resourceCount / (double)resourceMaxVolume;
+					if (percent >= rate)
+						addMaxResources(resourcesGold, sorts, percent);				
+				}
+			}			
+		}
+		
+		if (resourceType == 2L) {
+			if (resourcesMarble != null && resourcesMarble.getResourceName() != null && resourcesMarble.getResourceCount() != null && resourcesMarble.getMaxVolume() != null) {
+				String resourceName = resourcesMarble.getResourceName();
+				Long resourceCount = resourcesMarble.getResourceCount();		
+				Long resourceMaxVolume = resourcesMarble.getMaxVolume();
+						
+				if (sells.containsKey(resourceName)) {
+					double rate = sells.get(resourceName);
+					double percent = (double)resourceCount / (double)resourceMaxVolume;
+					if (percent >= rate)
+						addMaxResources(resourcesMarble, sorts, percent);				
+				}
+			}			
+		}
+		
+		if (resourceType == 3L) {
+			if (resourcesIron != null && resourcesIron.getResourceName() != null && resourcesIron.getResourceCount() != null && resourcesIron.getMaxVolume() != null) {
+				String resourceName = resourcesIron.getResourceName();
+				Long resourceCount = resourcesIron.getResourceCount();		
+				Long resourceMaxVolume = resourcesIron.getMaxVolume();
+						
+				if (sells.containsKey(resourceName)) {
+					double rate = sells.get(resourceName);
+					double percent = (double)resourceCount / (double)resourceMaxVolume;
+					if (percent >= rate)
+						addMaxResources(resourcesIron, sorts, percent);				
+				}
+			}			
+		}
+		
+		if (sorts.size() == 0)
+			return null;
+		
+		List<Resources> list = new Vector<Resources>();
+		
+		for (Entry<Double, List<Resources>> entry : sorts.entrySet()) {
+			List<Resources> resources = entry.getValue();
+			list.addAll(resources);
+		}
+		
+		Collections.reverse(list);
+		return list;
+	}
+	
+	private void addMaxResources(Resources resources, TreeMap<Double, List<Resources>> sorts, double percent) {		
+		if (sorts.containsKey(percent)) {
+			List<Resources> sort = sorts.get(percent);
+			sort.add(resources);
+		} else {
+			List<Resources> sort = new Vector<Resources>();
+			sort.add(resources);
+			sorts.put(percent, sort);
+		}
+	}
+	
+	private OtherTown getMinOtherTown(List<OtherTown> otherTowns, Resources maxResources, Long resourceType) {
+		if (otherTowns == null)
+			return null;
+		
+		long minCount = -1;
+		OtherTown minOtherTown = null;
+		
+		for (OtherTown otherTown : otherTowns) {
+			Long otherResourceType = otherTown.getResourceType();
+			if (otherResourceType == null)
+				continue;
+			
+			if (maxResources.getResourceName().equals("wood")) {
+				
+			}
+		}
+	}
+	
+	private void transport(Town town, Config config, ConfigTown configTown) {
+		Long resourceType = town.getResourceType();
+		if (resourceType == null)
+			return;
+		
+		int total = 0;
+		List<TransportQueue> transportQueues = town.getTransportQueues();
+		if (transportQueues != null)
+			total = transportQueues.size();
+		
+		if (total > 1)
+			return;
+		
+		List<Resources> maxResources = getMaxResources(town, configTown.getSells());
+		if (maxResources == null)
+			return;
+				
 	}
 }

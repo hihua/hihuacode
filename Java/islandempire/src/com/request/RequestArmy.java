@@ -1,15 +1,14 @@
 package com.request;
 
-import java.util.List;
-
-import com.soldier.Soldier;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 public class RequestArmy extends RequestParent {
 	private final String URL = "/army_events.json";
 	private final StringBuilder m_URL = new StringBuilder();
 	private final StringBuilder m_Body = new StringBuilder();
 	
-	public boolean request(String host, String clientv, String cookie, Long fromTownId, Long toTownId, Long armyOwnerTownId, List<Soldier> soldiers) {
+	public boolean request(String host, String clientv, String cookie, Long fromTownId, Long toTownId, Long armyOwnerTownId, HashMap<String, Long> soldiers) {
 		m_URL.setLength(0);
 		m_URL.append(host);
 		m_URL.append(URL);
@@ -23,11 +22,11 @@ public class RequestArmy extends RequestParent {
 		m_Body.append("&army_owner_town_id=");
 		m_Body.append(armyOwnerTownId);
 						
-		for (Soldier soldier : soldiers) {						
+		for (Entry<String, Long> entry : soldiers.entrySet()) {			
 			m_Body.append("&");
-			m_Body.append(soldier.getName());
+			m_Body.append(entry.getKey());
 			m_Body.append("=");
-			m_Body.append(soldier.getCount());
+			m_Body.append(entry.getValue());
 		}
 		
 		String response = requestUrl(m_URL.toString(), clientv, cookie, m_Body.toString());

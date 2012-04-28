@@ -1,10 +1,13 @@
 package com.request;
 
+import java.util.HashMap;
+import java.util.Map.Entry;
+
 public class RequestTransport extends RequestParent {
 	private final String URL = "/transport_events.json";
 	private final StringBuilder m_URL = new StringBuilder();
 	
-	public boolean request(String host, String clientv, String cookie, Long from, Long to, Long wood, Long food, Long marble, Long iron, Long gold) {
+	public boolean request(String host, String clientv, String cookie, Long from, Long to, HashMap<String, Long> resources) {
 		m_URL.setLength(0);
 		m_URL.append(host);
 		m_URL.append(URL);
@@ -13,31 +16,13 @@ public class RequestTransport extends RequestParent {
 		m_URL.append("&to_town_id=");
 		m_URL.append(to);
 		
-		if (wood != null && wood > 0) {
-			m_URL.append("&wood=");
-			m_URL.append(wood);
+		for (Entry<String, Long> entry : resources.entrySet()) {	
+			m_URL.append("&");
+			m_URL.append(entry.getKey());
+			m_URL.append("=");
+			m_URL.append(entry.getValue());
 		}
-		
-		if (food != null && food > 0) {
-			m_URL.append("&food=");
-			m_URL.append(food);
-		}
-		
-		if (marble != null && marble > 0) {
-			m_URL.append("&marble=");
-			m_URL.append(marble);
-		}
-		
-		if (iron != null && iron > 0) {
-			m_URL.append("&iron=");
-			m_URL.append(iron);
-		}
-		
-		if (gold != null && gold > 0) {
-			m_URL.append("&gold=");
-			m_URL.append(gold);
-		}
-		
+				
 		String response = requestUrl(m_URL.toString(), clientv, cookie, null);
 		if (response == null)
 			return false;
