@@ -3,15 +3,21 @@ package com.games.tk5.util;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Bitmap.Config;
 
 public class ImageUtil {
 	
 	public static Bitmap getImage(Context context, int res, int[] filterColor, Rect rect) throws Exception {
 		Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), res);
 		bitmap = Bitmap.createBitmap(bitmap, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top);
-		return filterColor(bitmap, filterColor);		
+		if (filterColor == null)
+			return bitmap;
+		else
+			return filterColor(bitmap, filterColor);		
 	}
 	
 	public static Bitmap getImage(Context context, int res, int[] filterColor, int left, int top) throws Exception {
@@ -33,14 +39,20 @@ public class ImageUtil {
 		}
 				
 		bitmap = Bitmap.createBitmap(bitmap, x, y, bitmap.getWidth() - x, bitmap.getHeight() - y);
-		return filterColor(bitmap, filterColor);		
+		if (filterColor == null)
+			return bitmap;
+		else
+			return filterColor(bitmap, filterColor);		
 	}
 	
 	public static Bitmap getImage(Context context, int res, int[] filterColor) throws Exception {
 		Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), res);
 		Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());		
 		bitmap = Bitmap.createBitmap(bitmap, 0, rect.top, rect.right - rect.left, rect.bottom - rect.top);
-		return filterColor(bitmap, filterColor);		
+		if (filterColor == null)
+			return bitmap;
+		else
+			return filterColor(bitmap, filterColor);		
 	}
 	
 	public static Bitmap getImage(Context context, int res) throws Exception {
@@ -52,6 +64,17 @@ public class ImageUtil {
 	public static Bitmap getImage(Context context, int res, Rect rect) throws Exception {
 		Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), res);						
 		return Bitmap.createBitmap(bitmap, 0, rect.top, rect.right - rect.left, rect.bottom - rect.top);
+	}
+	
+	public static Bitmap setAlpha(Bitmap bitmap, int alpha) {
+		Paint paint = new Paint();
+		paint.setAntiAlias(true);			
+		paint.setAlpha(alpha);
+		
+		Bitmap panel = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Config.ARGB_8888);
+		Canvas canvas = new Canvas(panel);
+		canvas.drawBitmap(bitmap, 0f, 0f, paint);
+		return panel;
 	}
 	
 	public static Bitmap filterColor(Bitmap bitmap, int[] filterColors) throws Exception {

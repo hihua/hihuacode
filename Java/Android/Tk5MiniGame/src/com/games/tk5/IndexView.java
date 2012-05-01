@@ -65,7 +65,7 @@ public class IndexView extends ViewBase {
 	private boolean initImages() {
 		try {
 			m_Image_Background = ImageUtil.getImage(getContext(), R.drawable.index_background);
-			m_Image_Banner = ImageUtil.getImage(getContext(), R.drawable.index_banner, new int[] { Color.WHITE }, 90, 0);			
+			m_Image_Banner = ImageUtil.getImage(getContext(), R.drawable.index_banner, null, 90, 0);			
 			m_Image_Banner = m_Image_Banner.copy(Config.ARGB_8888, true);
 			setBanner(m_Image_Banner);
 			if (!initImageDesc())
@@ -140,7 +140,7 @@ public class IndexView extends ViewBase {
 			Bitmap descRight = ImageUtil.getImage(getContext(), R.drawable.index_desc_right);							
 			m_Image_Desc = Bitmap.createBitmap(570 + descRight.getWidth(), descLeft.getHeight(), Config.ARGB_8888);
 			
-			int alpha = 120;			
+			int alpha = 200;			
 			Paint paint = new Paint();
 			paint.setAntiAlias(true);			
 			paint.setAlpha(alpha);
@@ -177,7 +177,7 @@ public class IndexView extends ViewBase {
 			return false;
 		}		
 	}
-	
+		
 	private void setBanner(Bitmap imageBanner) {
 		Canvas canvas = new Canvas(imageBanner);
 		canvas.drawText(getResources().getString(R.string.mini_game), 28f, 34f, m_Index_Banner);

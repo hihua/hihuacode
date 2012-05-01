@@ -24,6 +24,7 @@ public abstract class ViewBase extends SurfaceView implements SurfaceHolder.Call
 	private final Rect m_Sreen_Rect = new Rect();
 	private int m_Screen_Width = 0;
 	private int m_Screen_Height = 0;
+	private int m_FPS = 30;	
 				
 	protected ViewBase(Context context, ViewCallBack callback) {
 		super(context);
@@ -36,15 +37,23 @@ public abstract class ViewBase extends SurfaceView implements SurfaceHolder.Call
 		m_Sreen_Rect.set(0, 0, m_Screen_Width, m_Screen_Height);
 	}
 	
-	protected int getScreenWidth() {
+	public int getFPS() {
+		return m_FPS;
+	}
+	
+	public void setFPS(int fps) {
+		m_FPS = fps;
+	}
+	
+	public int getScreenWidth() {
 		return m_Screen_Width;		
 	}
 	
-	protected int getScreenHeight() {
+	public int getScreenHeight() {
 		return m_Screen_Height;		
 	}
 	
-	protected Rect getSreenRect() {
+	public Rect getSreenRect() {
 		return m_Sreen_Rect;
 	}	
 	
@@ -264,7 +273,7 @@ public abstract class ViewBase extends SurfaceView implements SurfaceHolder.Call
         	
         	while (true) {
         		try {
-    				sleep(35);
+    				sleep(1000 / getFPS());
     			} catch (InterruptedException e) {				
     				
     			}
