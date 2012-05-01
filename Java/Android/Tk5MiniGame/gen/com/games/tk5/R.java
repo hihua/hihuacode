@@ -45,12 +45,14 @@ public final class R {
         public static final int square_yellow_2=0x7f02001f;
         public static final int square_yellow_3=0x7f020020;
         public static final int square_yellow_4=0x7f020021;
-        public static final int welcome_flower_1=0x7f020022;
-        public static final int welcome_flower_2=0x7f020023;
-        public static final int welcome_flower_3=0x7f020024;
-        public static final int welcome_flower_4=0x7f020025;
-        public static final int welcome_in=0x7f020026;
-        public static final int welcome_out=0x7f020027;
+        public static final int welcome_cloud_1=0x7f020022;
+        public static final int welcome_cloud_2=0x7f020023;
+        public static final int welcome_flower_1=0x7f020024;
+        public static final int welcome_flower_2=0x7f020025;
+        public static final int welcome_flower_3=0x7f020026;
+        public static final int welcome_flower_4=0x7f020027;
+        public static final int welcome_in=0x7f020028;
+        public static final int welcome_out=0x7f020029;
     }
     public static final class layout {
         public static final int main=0x7f030000;
