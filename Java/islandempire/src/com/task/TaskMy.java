@@ -56,6 +56,7 @@ public class TaskMy extends TaskBase {
 	private final RequestDeals m_RequestDeals = new RequestDeals();
 	private final RequestRecruit m_RequestRecruit = new RequestRecruit();
 	private final RequestArmy m_RequestArmy = new RequestArmy();
+	private final List<Long> m_Village = new Vector<Long>();
 	private Config m_ConfigNew = null;
 
 	public TaskMy(String taskName, Config config, CallBackTask callBack) {
@@ -991,7 +992,11 @@ public class TaskMy extends TaskBase {
 						continue;
 					
 					for (IslandBuilding islandBuilding : islandBuildings) {
-						if (islandBuilding.equals("Village")) {
+						String type = islandBuilding.getType();
+						if (type == null)
+							continue;
+						
+						if (type.equals("Village")) {
 							IslandVillage islandVillage = (IslandVillage)islandBuilding;				
 							if (islandVillage.getId() == null || islandVillage.getLevel() == null || islandVillage.getCityStatus() == null)
 								continue;

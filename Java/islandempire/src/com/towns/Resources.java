@@ -49,7 +49,11 @@ public class Resources {
 		if (json == null || json.get("town") == null)
 			return null;
 		
-		JSONArray arrays = json.getJSONArray("resources");
+		JSONObject town = (JSONObject) json.get("town");
+		if (town.get("resources") == null)
+			return null;
+		
+		JSONArray arrays = town.getJSONArray("resources");
 		if (arrays != null) {
 			List<Resources> resources = new Vector<Resources>();
 			for (int i = 0;i < arrays.size();i++) {

@@ -103,7 +103,7 @@
 								if (status == "upgrading") {
 									var finishTime = getFinishTime(buildingQueues, line.id, true);
 									html += "<tr>";
-									html += "<td width=\"40%\" height=\"25\">";
+									html += "<td width=\"50%\" height=\"25\">";
 									html += getBuildingName(building.building_type);
 									html += i;
 									html += "&nbsp;正在升级&nbsp;";										
@@ -121,7 +121,7 @@
 						if (status == "upgrading") {
 							var finishTime = getFinishTime(buildingQueues, building.id, false);
 							html += "<tr>";
-							html += "<td width=\"40%\" height=\"25\">";
+							html += "<td width=\"50%\" height=\"25\">";
 							html += getBuildingName(building.building_type);
 							html += i;
 							html += "&nbsp;正在升级&nbsp;";										
@@ -144,7 +144,7 @@
 						var date = new Date(training.finish_time * 1000);
 						var finishTime = date.pattern("yyyy-MM-dd HH:mm:ss");						
 						html += "<tr>";
-						html += "<td width=\"40%\" height=\"25\">";
+						html += "<td width=\"50%\" height=\"25\">";
 						html += getSoldiersName(soldier.name);					
 						html += "&nbsp;正在训练&nbsp;";										
 						html += training.count;
@@ -164,7 +164,7 @@
 						var date = new Date(battle.arrive_time * 1000);
 						var finishTime = date.pattern("yyyy-MM-dd HH:mm:ss");					
 						html += "<tr>";
-						html += "<td width=\"40%\" height=\"25\">";
+						html += "<td width=\"50%\" height=\"25\">";
 						html += "攻击&nbsp;";
 						html += battle.to_town_id + "&nbsp;" + battle.to_town_name;
 						html += "(" + battle.to_x + "," + battle.to_y + ")" + "&nbsp;";
@@ -213,7 +213,7 @@
 						var date = new Date(transport.finish_time * 1000);
 						var finishTime = date.pattern("yyyy-MM-dd HH:mm:ss");					
 						html += "<tr>";
-						html += "<td width=\"40%\" height=\"25\">";
+						html += "<td width=\"50%\" height=\"25\">";
 						html += "运送&nbsp;";
 						html += transport.to_town_id + "&nbsp;" + transport.to_town_name;						
 						html += "(" + transport.to_x + "," + transport.to_y + ")&nbsp;";
@@ -1126,7 +1126,13 @@
 				        else
 				        	tmp += "<tr id=\"body_" + message.id + "\">";
 				        	
-				        tmp += "<td height=\"25px\" style=\"padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;\" colspan=\"2\">" + message.body + "</td>";
+				        var body = "";
+				        if (message.body != null) {
+				        	body = message.body;
+				        	body = body.replace(/\n/g, "<br/>");				        	
+				        }
+				        	
+				        tmp += "<td height=\"25px\" style=\"padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;\" colspan=\"2\">" + body + "</td>";
 				        tmp += "</tr>";
 				        tmp += "</table>";
 				        tmp += "<br />";	
