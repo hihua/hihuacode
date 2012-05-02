@@ -5,11 +5,11 @@
 		<host>http://42.120.49.122</host>
 		<username>hihua</username>
 		<password>12345678</password>
-		<cookie>remember_token=BAhbB2kCKiIiRTcyYmE2OWZhZGYxM2E4ZGIzOTQ0ZWFmMzc4ZWRiOTc2NjRhZTBiMDNlMzQ1NTE4MGRhMDEwMGFiMzhmZjU4YWQ%3D--ff2544161c4754afb7156b41063e7cce7e6d101e; _game001_server_session=BAh7BiIPc2Vzc2lvbl9pZCIlNmNlYzdiZGIwZTA2NmRjMTJmZjc1YTMwMmZhZjUwOTU%3D--0e8b9ca6468f8992652620a210f90cdedd4b53cb</cookie>
+		<cookie>remember_token=BAhbB2kCKiIiRTllZmE2OTcyNzliNTcyYzNmMjUyZDE2NmIwMmJhYmEwNDJmMjQ2NTg2OWFmYThmZjM3ZGE4ZWIxYjAwNzYyMjI%3D--967cdf500bf185141fca691b9f1571e8e9d402b8; _game001_server_session=BAh7BiIPc2Vzc2lvbl9pZCIlMDk1NmY2MDJkYmY3MWM3MjZmMjVlM2JiZjRjZTgxZjM%3D--6f58209342a06cdb2eaed701ec0859a3a7efd637</cookie>
 		<cities>10310</cities>
 		<autocities>30</autocities>
 		<autoupgrade priority="0,5,12,11,9,7,4,6,8,1,2">true</autoupgrade>
-		<autoattack level="1-7">3</autoattack>
+		<autoattack level="0-0">false</autoattack>
 		<autorecruit infantryswords="4500" infantryscout="0" infantrycrossbow="4500" infantrysquire="5500" cavalrytemplar="4800" cavalryarcher="5500" cavalrypaladin="13000" cavalryroyal="6500">true</autorecruit>
 		<marketrate>95</marketrate>
 	</configs>
@@ -17,11 +17,11 @@
 		<host>http://42.120.51.62</host>
 		<username>hihua8</username>
 		<password>12345678</password>
-		<cookie>remember_token=BAhbB2kCKiIiRTcyYmE2OWZhZGYxM2E4ZGIzOTQ0ZWFmMzc4ZWRiOTc2NjRhZTBiMDNlMzQ1NTE4MGRhMDEwMGFiMzhmZjU4YWQ%3D--ff2544161c4754afb7156b41063e7cce7e6d101e; _game001_server_session=BAh7BiIPc2Vzc2lvbl9pZCIlNmNlYzdiZGIwZTA2NmRjMTJmZjc1YTMwMmZhZjUwOTU%3D--0e8b9ca6468f8992652620a210f90cdedd4b53cb</cookie>
+		<cookie>remember_token=BAhbB2kCkQQiRTMyOWJjY2EzOTQxN2VhOGM1MWVhNjUzNzNlMWVlNzM5YmJjMjYwZGM5NzA3OTJiMjkzODgxNDY2NzAxZDkyNGU%3D--5647514654d44f0600d4e3d5c6ff1d3873970de3; _game001_server_session=BAh7BiIPc2Vzc2lvbl9pZCIlODZiZmMzYjFlYmFhMTIzOWIyN2UzMmZiZmQ2MzUwNjg%3D--eb44b6881faf68f663ac8ab1105bc71fb461e3e7</cookie>
 		<cities>1171</cities>
 		<autocities>30</autocities>
 		<autoupgrade priority="0,5,12,11,9,6,7,8,2,4,1">true</autoupgrade>
-		<autoattack level="1-7">3</autoattack>
+		<autoattack level="0-0">false</autoattack>
 		<autorecruit infantryswords="5000" infantryscout="0" infantrycrossbow="4500" infantrysquire="5500" cavalrytemplar="5500" cavalryarcher="6500" cavalrypaladin="9500" cavalryroyal="3500">true</autorecruit>
 		<marketrate>95</marketrate>
 	</configs>
@@ -29,11 +29,11 @@
 		<host>http://42.120.51.6</host>
 		<username>hhihua</username>
 		<password>12345678</password>
-		<cookie>remember_token=BAhbB2kCXAwiRWEyYmY0ODIxYmY3MjU4YmFiMDlhMjRiMjQyNjMzMTdiNGI2MGI4MjkyNjkxZmZlOWM0MWE2ZGNhYTFjMjQwMmY%3D--89cd1c73923640cd21fc57808403b1450b1fc8d4; _game001_server_session=BAh7BiIPc2Vzc2lvbl9pZCIlMTZiMWQzNDYxOTkwN2RiYmZlNGZlMDM0ODA0MjYyODQ%3D--b6d26f25d6f4dbaee94abe1585fa5d0c73c87924</cookie>
+		<cookie>remember_token=BAhbB2kCXAwiRWM1NTU2MzU4ZjE5NGUxMjU0MjZjYTExYTA2NmUzNTY5NTlhZjNiMjVjYzY4MjFmMWJlYjIwNTk3NWFmMmFlZTM%3D--cc5121c8eb8c584b2c3640c4443ec19b4bf91858; _game001_server_session=BAh7BiIPc2Vzc2lvbl9pZCIlYjg0OWQyOTNiMGI1MWExM2FjMGQwMDUzNTJlNDlkYTA%3D--06b8c391b13d919a94732b0995a891436b54dd64</cookie>
 		<cities>3295</cities>
 		<autocities>30</autocities>
 		<autoupgrade priority="0,5,12,11,9,7,4,1,6,8,2">true</autoupgrade>
-		<autoattack level="1-7">3</autoattack>
+		<autoattack level="0-0">false</autoattack>
 		<autorecruit infantryswords="5500" infantryscout="0" infantrycrossbow="7000" infantrysquire="5500" cavalrytemplar="6000" cavalryarcher="6000" cavalrypaladin="10500" cavalryroyal="3500">true</autorecruit>
 		<marketrate>95</marketrate>
 	</configs>

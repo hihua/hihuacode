@@ -3,16 +3,16 @@ package com.entity;
 import java.util.Hashtable;
 
 import com.events.EventArmy;
-import com.world.WorldMap;
+import com.worldmap.Tile;
 
 public class AttackInfo {
-	private WorldMap npc;
+	private Tile npc;
 	private Long x;
 	private Long y;
 	private EventArmy eventArmy;
 	private Hashtable<String, Long> soldiers;
 	
-	public WorldMap getNpc() {
+	public Tile getNpc() {
 		return npc;
 	}
 	
@@ -32,7 +32,7 @@ public class AttackInfo {
 		return soldiers;
 	}
 	
-	public void setNpc(WorldMap npc) {
+	public void setNpc(Tile npc) {
 		this.npc = npc;
 	}
 	

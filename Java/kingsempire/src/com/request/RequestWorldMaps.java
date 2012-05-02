@@ -1,14 +1,12 @@
 package com.request;
 
-import java.util.List;
-
-import com.world.WorldMap;
+import com.worldmap.WorldMap;
 
 public class RequestWorldMaps extends RequestBase {	
 	private final String URL = "/world_maps?";
 	private final StringBuilder m_URL = new StringBuilder();
 	
-	public List<WorldMap> request(String host, String cookie, String authorization, Long x, Long y, Long width, Long height) {
+	public WorldMap request(String host, String cookie, String authorization, Long x, Long y, Long width, Long height) {
 		m_URL.setLength(0);
 		m_URL.append(host);
 		m_URL.append(URL);
@@ -24,9 +22,8 @@ public class RequestWorldMaps extends RequestBase {
 		String response = super.request(m_URL.toString(), null, cookie, authorization);
 		if (response == null)
 			return null;
-		
-		List<WorldMap> worldMaps = WorldMap.parse(response);
-		return worldMaps;
+		else
+			return WorldMap.parse(response);
 	}
 	
 	public String request(String host, String cookie, String authorization, Long x, Long y, Long width) {

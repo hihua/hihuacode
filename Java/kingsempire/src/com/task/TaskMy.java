@@ -43,7 +43,8 @@ import com.soldiers.SoldierConsume;
 import com.util.Numeric;
 import com.world.City;
 import com.world.Deal;
-import com.world.WorldMap;
+import com.worldmap.Tile;
+import com.worldmap.WorldMap;
 
 public class TaskMy extends TaskBase {
 	private Config m_Config;	
@@ -152,10 +153,10 @@ public class TaskMy extends TaskBase {
 				if (level > 0) {
 					attackCount++;
 					if (attackCount >= attackTotal) {
-						List<WorldMap> npcs = getWorldMap(myCity, m_Config, level);
+						List<Tile> npcs = getWorldMap(myCity, m_Config, level);
 						if (npcs != null) {
 							int i = 0;
-							for (WorldMap npc : npcs) {
+							for (Tile npc : npcs) {
 								Hashtable<String, Long> soldiers = setSoldiers(myCity, npc.getLevel());						
 								if (soldiers != null) {
 									City city = m_RequestArmy.request(host, cookie, authorization, myCity.getId(), soldiers, npc.getX(), npc.getY());
@@ -907,7 +908,7 @@ public class TaskMy extends TaskBase {
 		}
 	}
 			
-	private List<WorldMap> getWorldMap(City city, Config config, long level) {		
+	private List<Tile> getWorldMap(City city, Config config, long level) {		
 		long attackLevelMin = config.getAttackLevelMin();
 		long attackLevelMax = config.getAttackLevelMax();
 		Long x = city.getX();
@@ -920,21 +921,22 @@ public class TaskMy extends TaskBase {
 		String authorization = config.getAuthorization();
 		String cookie = config.getCookie();
 		
-		List<WorldMap> npcs = m_RequestWorldMaps.request(host, cookie, authorization, x, y, 14L, 15L);
-		if (npcs == null)
+		WorldMap npcs = m_RequestWorldMaps.request(host, cookie, authorization, x, y, 14L, 15L);
+		if (npcs == null || npcs.getTile() == null)
 			return null;
-				
-		List<WorldMap> list = new Vector<WorldMap>();
+								
+		List<Tile> list = new Vector<Tile>();
+		List<Tile> tiles = npcs.getTile();
 		
-		for (WorldMap npc : npcs) {
-			Long mapType = npc.getMapType();			
-			if (npc.getX() == null || npc.getY() == null || mapType == null || npc.getLevel() == null)
+		for (Tile tile : tiles) {
+			Long mapType = tile.getMapType();			
+			if (tile.getX() == null || tile.getY() == null || mapType == null || tile.getLevel() == null)
 				continue;
 			
-			if (npc.getRecoveryTime() != null)
+			if (tile.getRecoveryTime() != null)
 				continue;						
 			
-			if ((attackLevelMin > 0 && attackLevelMax > 0 && (npc.getLevel() < attackLevelMin || attackLevelMax < npc.getLevel())) || (npc.getLevel() > level))
+			if ((attackLevelMin > 0 && attackLevelMax > 0 && (tile.getLevel() < attackLevelMin || attackLevelMax < tile.getLevel())) || (tile.getLevel() > level))
 				continue;
 			
 			if (m_AttackInfo.size() > 0) {
@@ -942,8 +944,8 @@ public class TaskMy extends TaskBase {
 				Enumeration<AttackInfo> enu = m_AttackInfo.elements();
 				while (enu.hasMoreElements()) {
 					AttackInfo attackInfo = enu.nextElement();
-					WorldMap worldMap = attackInfo.getNpc();
-					if (worldMap.getX().equals(npc.getX()) && worldMap.getY().equals(npc.getY())) {
+					Tile npc = attackInfo.getNpc();
+					if (npc.getX().equals(tile.getX()) && npc.getY().equals(tile.getY())) {
 						found = true;
 						break;
 					}
@@ -954,7 +956,7 @@ public class TaskMy extends TaskBase {
 			}			
 			
 			if (mapType.equals(3L) || mapType.equals(5L) || mapType.equals(6L)) {
-				list.add(npc);
+				list.add(tile);
 				continue;
 			}
 		}
@@ -966,22 +968,22 @@ public class TaskMy extends TaskBase {
 		if (city.getEventArmy() != null)
 			max -= city.getEventArmy().size();
 			
-		Hashtable<WorldMap, Double> min = new Hashtable<WorldMap, Double>(max);
+		Hashtable<Tile, Double> min = new Hashtable<Tile, Double>(max);
 				
-		for (WorldMap worldMap : list) {
-			double distance = Math.sqrt((Math.pow(Math.abs(worldMap.getX() - x), 2) + Math.pow(Math.abs(worldMap.getY() - y), 2)));
+		for (Tile tile : list) {
+			double distance = Math.sqrt((Math.pow(Math.abs(tile.getX() - x), 2) + Math.pow(Math.abs(tile.getY() - y), 2)));
 			if (min.size() < max) {
-				min.put(worldMap, distance);
+				min.put(tile, distance);
 				continue;
 			} else {
-				Enumeration<WorldMap> enu = min.keys();
+				Enumeration<Tile> enu = min.keys();
 				while (enu.hasMoreElements()) {
-					WorldMap npc = enu.nextElement();
+					Tile npc = enu.nextElement();
 					double p = min.get(npc);
 					
 					if (distance < p) {
 						min.remove(npc);
-						min.put(worldMap, distance);
+						min.put(tile, distance);
 						break;
 					}
 				}
@@ -989,9 +991,9 @@ public class TaskMy extends TaskBase {
 		}
 		
 		list.clear();		
-		Enumeration<WorldMap> enu = min.keys();
+		Enumeration<Tile> enu = min.keys();
 		while (enu.hasMoreElements()) {
-			WorldMap npc = enu.nextElement();
+			Tile npc = enu.nextElement();
 			list.add(npc);
 		}
 		
