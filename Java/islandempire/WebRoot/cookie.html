@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Cookie</title>
+		<link rel="stylesheet" type="text/css" href="css.css" />
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/ajax.js"></script>
+	</head>
+	<body>
+		<table cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td>
+					用户名：<input type="text" id="username" size="7" value="hihua" />					
+					密码：<input type="text" id="password" size="12" />		
+					<input type="button" name="button" id="button" value=" 提交 " onclick="resetCookie()" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Cookie：<input type="text" id="cookie" size="102" />
+					<input type="button" name="button" id="button" value=" 提交 " onclick="setCookie()" />
+				</td>
+			</tr>
+		</table>		
+		<br/><br/>
+		<div id="result"></div>
+		
+		<script type="text/javascript">
+			var WebCookie = "servlet/WebCookie";
+			
+			function resetCookie() {
+				var password = $("#password").val();
+				if (password.length == 0)
+					return;				
+				
+				var username = $("#username").val();
+				if (username.length > 0) {					
+					var url = WebCookie + "?command=0&username=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password); 
+					Ajax_CallBack(url, "", "html", "", true, function(html) {
+						if (html == null)
+							alert("重置Cookie失败");
+						else							
+							$("#result").html(html);																					
+					}, function(response, error, status) {
+				        alert("重置Cookie失败");
+				    });
+				}													
+			}
+			
+			function setCookie() {
+				var cookie = $("#cookie").val();
+				if (cookie.length == 0)
+					return;				
+											
+				var url = WebCookie + "?command=1&cookie=" + encodeURIComponent(cookie); 
+				Ajax_CallBack(url, "", "html", "", true, function(html) {
+					if (html == null)
+						alert("设置Cookie失败");
+					else
+						$("#result").html(html);																
+				}, function(response, error, status) {
+			        alert("设置Cookie失败");
+			    });															
+			}
+		</script>
+	</body>
+</html>

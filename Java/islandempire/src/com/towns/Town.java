@@ -25,6 +25,7 @@ import com.queue.TrainingQueue;
 import com.queue.TransportQueue;
 import com.soldier.Soldier;
 import com.util.DateTime;
+import com.util.Numeric;
 
 /*	1	兵营
  * 	2	木头
@@ -762,7 +763,7 @@ public class Town {
 				battleQueue.setTotalTime((array.get("total_time") != null) ? array.getLong("total_time") : null);
 				battleQueue.setActionOwnerTownId((array.get("action_owner_town_id") != null) ? array.getLong("action_owner_town_id") : null);
 				battleQueue.setToY((array.get("to_y") != null) ? array.getLong("to_y") : null);
-				battleQueue.setHeroId((array.get("hero_id") != null) ? array.getLong("hero_id") : null);
+				battleQueue.setHeroId((array.get("hero_id") != null && Numeric.isNumber(array.getString("hero_id"))) ? array.getLong("hero_id") : null);
 				battleQueue.setFromLevel((array.get("from_level") != null) ? array.getLong("from_level") : null);
 				battleQueue.setId((array.get("id") != null) ? array.getLong("id") : null);
 				
@@ -1019,7 +1020,7 @@ public class Town {
 						queue.setTotalTime((battleQueue.get("total_time") != null) ? battleQueue.getLong("total_time") : null);
 						queue.setActionOwnerTownId((battleQueue.get("action_owner_town_id") != null) ? battleQueue.getLong("action_owner_town_id") : null);
 						queue.setToY((battleQueue.get("to_y") != null) ? battleQueue.getLong("to_y") : null);
-						queue.setHeroId((battleQueue.get("hero_id") != null) ? battleQueue.getLong("hero_id") : null);
+						queue.setHeroId((battleQueue.get("hero_id") != null && Numeric.isNumber(battleQueue.getString("hero_id"))) ? battleQueue.getLong("hero_id") : null);
 						queue.setFromLevel((battleQueue.get("from_level") != null) ? battleQueue.getLong("from_level") : null);
 						queue.setId((battleQueue.get("id") != null) ? battleQueue.getLong("id") : null);
 						

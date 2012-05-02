@@ -14,7 +14,10 @@
 				<td width="50%" valign="top">
 					<table width="100%" align="center" cellpadding="0" cellspacing="0" border="0">
 						<tr>
-							<td id="config"></td>							
+							<td id="config">
+								<a href="config.html" target="_blank" class="AdminToolsLink2">[我的设置]</a>								
+								<a href="cookie.html" target="_blank" class="AdminToolsLink2">[重设Cookie]</a>
+							</td>							
 						</tr>
 						<tr>
 							<td id="towns"></td>
@@ -88,8 +91,214 @@
 				return finishTime;
 			}
 			
-			function getBuildingName(buildingId) {
-				switch (buildingId) {
+			function getBuildingDesc(buildings, buildingQueues) {
+				var html = ""; 
+				$.each(buildings, function(idx, building) {										
+					if (building.building_type == 2 || building.building_type == 5 || building.building_type == 6 || building.building_type == 7 || building.building_type == 8) {
+						var lines = building.lines;
+						var i = 1;
+						if (lines != null) {
+							$.each(lines, function(idx, line) {	
+								var status = line.status;
+								if (status == "upgrading") {
+									var finishTime = getFinishTime(buildingQueues, line.id, true);
+									html += "<tr>";
+									html += "<td width=\"40%\" height=\"25\">";
+									html += getBuildingName(building.building_type);
+									html += i;
+									html += "&nbsp;正在升级&nbsp;";										
+									html += "Lv" + line.level + " -> " + "Lv" + (line.level + 1);
+									html += "</td>";
+									html += "<td>" + finishTime + "</td>";
+									html += "</tr>";
+								}
+								
+								i++;
+							});
+						}						
+					} else {
+						var status = building.status;
+						if (status == "upgrading") {
+							var finishTime = getFinishTime(buildingQueues, building.id, false);
+							html += "<tr>";
+							html += "<td width=\"40%\" height=\"25\">";
+							html += getBuildingName(building.building_type);
+							html += i;
+							html += "&nbsp;正在升级&nbsp;";										
+							html += "Lv" + building.level + " -> " + "Lv" + (building.level + 1);
+							html += "</td>";
+							html += "<td>" + finishTime + "</td>";
+							html += "</tr>";
+						}					
+					}
+				});
+				
+				return html;
+			}
+			
+			function getTrainingDesc(soldiers) {
+				var html = ""; 
+				$.each(soldiers, function(idx, soldier) {
+					var training = soldier.training_queue;
+					if (training != null) {
+						var date = new Date(training.finish_time * 1000);
+						var finishTime = date.pattern("yyyy-MM-dd HH:mm:ss");						
+						html += "<tr>";
+						html += "<td width=\"40%\" height=\"25\">";
+						html += getSoldiersName(soldier.name);					
+						html += "&nbsp;正在训练&nbsp;";										
+						html += training.count;
+						html += "</td>";
+						html += "<td>" + finishTime + "</td>";
+						html += "</tr>";					
+					}									
+				});
+				
+				return html;
+			}
+			
+			function getBattleDesc(battleQueues) {
+				var html = "";
+				if (battleQueues != null) {
+					$.each(battleQueues, function(idx, battle) {
+						var date = new Date(battle.arrive_time * 1000);
+						var finishTime = date.pattern("yyyy-MM-dd HH:mm:ss");					
+						html += "<tr>";
+						html += "<td width=\"40%\" height=\"25\">";
+						html += "攻击&nbsp;";
+						html += battle.to_town_id + "&nbsp;" + battle.to_town_name;
+						html += "(" + battle.to_x + "," + battle.to_y + ")" + "&nbsp;";
+						html += "Lv: " + battle.to_level + "&nbsp;";
+						if (battle.mission == 1) 
+							html += "途中";
+						else
+							html += "返回";
+							
+						html += "</td>";
+						html += "<td>" + finishTime + "</td>";
+						html += "</tr>";
+						html += "<tr>";
+						html += "<td colspan=\"2\">";
+						var army = battle.army;						
+						if (army != null && army.infantry != null)
+							getSoldiersName("infantry") + ":&nbsp;" + army.infantry + "&nbsp;&nbsp;";						
+						
+						if (army != null && army.scout != null)
+							getSoldiersName("scout") + ":&nbsp;" + army.scout + "&nbsp;&nbsp;";
+							
+						if (army != null && army.musketman != null)
+							getSoldiersName("musketman") + ":&nbsp;" + army.musketman + "&nbsp;&nbsp;";
+							
+						if (army != null && army.catapult != null)
+							getSoldiersName("catapult") + ":&nbsp;" + army.catapult + "&nbsp;&nbsp;";
+							
+						if (army != null && army.frigate != null)
+							getSoldiersName("frigate") + ":&nbsp;" + army.frigate + "&nbsp;&nbsp;";
+							
+						if (army != null && army.destroyer != null)
+							getSoldiersName("destroyer") + ":&nbsp;" + army.destroyer + "&nbsp;&nbsp;";
+						
+						html += "</td>";
+						html += "</tr>";						 				
+					});
+				}				
+				
+				return html;			
+			}
+			
+			function getTransportDesc(transportQueues) {
+				var html = "";
+				if (transportQueues != null) {
+					$.each(transportQueues, function(idx, transport) {
+						var date = new Date(transport.finish_time * 1000);
+						var finishTime = date.pattern("yyyy-MM-dd HH:mm:ss");					
+						html += "<tr>";
+						html += "<td width=\"40%\" height=\"25\">";
+						html += "运送&nbsp;";
+						html += transport.to_town_id + "&nbsp;" + transport.to_town_name;						
+						html += "(" + transport.to_x + "," + transport.to_y + ")&nbsp;";
+						html += "Lv: " + transport.to_level + "&nbsp;";
+						if (battle.mission == 1) 
+							html += "途中";
+						else
+							html += "返回";
+							
+						html += "</td>";
+						html += "<td>" + finishTime + "</td>";
+						html += "</tr>";
+						html += "<tr>";
+						html += "<td colspan=\"2\">";
+						var army = transport.army;						
+						if (army != null && army.infantry != null)
+							getSoldiersName("infantry") + ":&nbsp;" + army.infantry + "&nbsp;&nbsp;";						
+						
+						if (army != null && army.scout != null)
+							getSoldiersName("scout") + ":&nbsp;" + army.scout + "&nbsp;&nbsp;";
+							
+						if (army != null && army.musketman != null)
+							getSoldiersName("musketman") + ":&nbsp;" + army.musketman + "&nbsp;&nbsp;";
+							
+						if (army != null && army.catapult != null)
+							getSoldiersName("catapult") + ":&nbsp;" + army.catapult + "&nbsp;&nbsp;";
+							
+						if (army != null && army.frigate != null)
+							getSoldiersName("frigate") + ":&nbsp;" + army.frigate + "&nbsp;&nbsp;";
+							
+						if (army != null && army.destroyer != null)
+							getSoldiersName("destroyer") + ":&nbsp;" + army.destroyer + "&nbsp;&nbsp;";
+						
+						html += "</td>";
+						html += "</tr>";						
+						html += "<tr>";
+						html += "<td colspan=\"2\">";
+						var resources = transport.resources;						
+						if (resources != null && resources.wood != null)
+							"木头" + ":&nbsp;" + resources.wood + "&nbsp;&nbsp;";						
+						
+						if (resources != null && resources.food != null)
+							"食物" + ":&nbsp;" + resources.food + "&nbsp;&nbsp;";
+							
+						if (resources != null && resources.iron != null)
+							"黑铁石" + ":&nbsp;" + resources.iron + "&nbsp;&nbsp;";
+							
+						if (resources != null && resources.marble != null)
+							"大理石" + ":&nbsp;" + resources.marble + "&nbsp;&nbsp;";
+							
+						if (resources != null && resources.gold != null)
+							"黄金" + ":&nbsp;" + resources.gold + "&nbsp;&nbsp;";
+						
+						html += "</td>";
+						html += "</tr>";
+					});	
+				}
+				
+				return html;
+			}			
+			
+			function getSoldiersName(soldierName) {
+				if (soldierName == "infantry")
+					return "铁剑士";
+					
+				if (soldierName == "scout")
+					return "侦察兵";
+										
+				if (soldierName == "musketman")
+					return "火枪手";
+					
+				if (soldierName == "catapult")
+					return "投石车";
+					
+				if (soldierName == "frigate")
+					return "强弩舰";
+					
+				if (soldierName == "destroyer")
+					return "火炮舰";
+					
+				return "";
+			}
+			
+			function getBuildingName(buildingType) {
+				switch (buildingType) {
 					case 1:
 						return "兵营";
 						
@@ -145,6 +354,7 @@
 				var resources = town.resources;
 				var soldiers = town.soldiers;
 				var heroInfo = town.hero_info;
+				var battleQueues = town.battle_queue;
 				var buildingQueues = town.building_queue;
 				var transportQueues = town.transport_queue;
 								
@@ -659,26 +869,11 @@
 			    		$.each(soldiers, function(idx, soldier) {
 			    			var name = soldier.name;
 			    			var count = soldier.count;
-			    			
-			    			if (name == "infantry") {
-			    				html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">铁剑士: </td><td>" + count + "</td></tr>";
+			    						    			
+			    			if (name == "infantry" || name == "scout" || name == "musketman" || name == "catapult") {
+			    				html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">" + getSoldiersName(name) + ": </td><td>" + count + "</td></tr>";
 			    				return;			    			
-			    			}
-			    			
-			    			if (name == "scout") {
-			    				html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">侦察兵: </td><td>" + count + "</td></tr>";
-			    				return;			    			
-			    			}
-			    			
-			    			if (name == "musketman") {
-			    				html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">火枪手: </td><td>" + count + "</td></tr>";
-			    				return;
-			    			}
-			    			
-			    			if (name == "catapult") {
-			    				html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">投石车: </td><td>" + count + "</td></tr>";
-			    				return;
-			    			}
+			    			}			    			
 			    		});
 			    					    					    					    			    			    			
 			    		html += "</table>";
@@ -725,15 +920,10 @@
 			    			var name = soldier.name;
 			    			var count = soldier.count;
 			    			
-			    			if (name == "frigate") {
-			    				html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">强弩舰: </td><td>" + count + "</td></tr>";
+			    			if (name == "frigate" || name == "destroyer") {
+			    				html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">" + getSoldiersName(name) + ": </td><td>" + count + "</td></tr>";
 			    				return;			    			
-			    			}
-			    			
-			    			if (name == "destroyer") {
-			    				html += "<tr><td align=\"left\" height=\"25\" width=\"34%\">火炮舰: </td><td>" + count + "</td></tr>";
-			    				return;			    			
-			    			}			    			
+			    			}			    					    			
 			    		});
 			    					    					    					    			    			    			
 			    		html += "</table>";
@@ -864,10 +1054,23 @@
 				if (!tr)
 					html += "<td width=\"10%\">&nbsp;</td><td width=\"40%\">&nbsp;</td></tr>";
 					
-				$.each(buildingQueues, function(idx, buildingQueue) {
-									
-				});
+				html += "<tr><td align=\"center\" height=\"25\">事件</td>";
+				html += "<td colspan=\"3\" align=\"left\">";
+				html += "<table width=\"97%\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+												
+				var desc = "";
+				desc += getBuildingDesc(buildings, buildingQueues);
+				desc += getTrainingDesc(soldiers);
+				desc += getBattleDesc(battleQueues);
+				desc += getTransportDesc(transportQueues);
 				
+				if (desc.length == 0)
+					html += "<tr><td>&nbsp;</td></tr>";
+				else
+					html += desc;
+								
+				html += "</table>";
+				html += "</td>";				
 				html += "</table><br/>";
 				
 				var divTown = "town_" + townId;

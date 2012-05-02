@@ -353,4 +353,228 @@ public class Config {
 			return xml;
 		}	
 	}
+	
+	public static String setConfig(Config config) {
+		StringBuilder xml = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n\r\n");
+		xml.append("<config>\r\n");
+		
+		xml.append("\t<host>");
+		xml.append(config.getHost() != null ? config.getHost() : "");
+		xml.append("</host>\r\n");
+		
+		xml.append("\t<clientv>");
+		xml.append(config.getClientv() != null ? config.getClientv() : "");
+		xml.append("</clientv>\r\n");
+		
+		xml.append("\t<cookie>");
+		xml.append(config.getCookie() != null ? config.getCookie() : "");
+		xml.append("</cookie>\r\n");
+		
+		xml.append("\t<autotowns>");
+		xml.append(config.getAutoTowns() != null ? config.getAutoTowns() : "");
+		xml.append("</autotowns>\r\n");
+		
+		List<ConfigTown> configTowns = config.getConfigTowns();
+		if (configTowns != null) {
+			for (ConfigTown configTown : configTowns) {
+				xml.append("\t<towns id=\"");
+				xml.append(configTown.getId() != null ? configTown.getId() : "");
+				xml.append("\">\r\n");
+				
+				StringBuilder upgradePriority = new StringBuilder();
+				if (configTown.getUpgradePriority() != null) {
+					for (Long priority : configTown.getUpgradePriority()) {
+						upgradePriority.append(",");
+						upgradePriority.append(priority);
+					}
+				}
+				
+				if (upgradePriority.length() > 0)
+					upgradePriority.deleteCharAt(0);
+				
+				xml.append("\t\t<autoupgrade priority=\"");
+				xml.append(upgradePriority);
+				xml.append("\">");
+				xml.append(upgradePriority.length() > 0 ? "true" : "false");
+				xml.append("</autoupgrade>\r\n");
+				
+				StringBuilder attackLevel = new StringBuilder();
+				if (configTown.getAttackLevelMin() != null && configTown.getAttackLevelMax() != null) {
+					attackLevel.append(configTown.getAttackLevelMin());
+					attackLevel.append("-");
+					attackLevel.append(configTown.getAttackLevelMax());
+				}						
+								
+				xml.append("\t\t<autoattack level=\"");
+				xml.append(attackLevel);
+				xml.append("\">");
+				xml.append(configTown.getAutoAttack() ? "true" : "false");
+				xml.append("</autoattack>\r\n");
+				
+				xml.append("\t\t<autorecruit>");
+				xml.append(configTown.getAutoRecruit() ? "true" : "false");
+				xml.append("</autorecruit>\r\n");
+				
+				xml.append("\t\t<sells");
+				HashMap<String, Double> sells = configTown.getSells();
+				if (sells != null && sells.containsKey("wood")) {
+					String rate = "";
+					double value = sells.get("wood");
+					if (value == 0D)
+						rate = "0";
+					else {
+						rate = String.valueOf(value * 100);
+						if (rate.length() > 2)
+							rate = rate.substring(0, 2);					
+					}
+					
+					xml.append(" wood=\"");
+					xml.append(rate);
+					xml.append("\"");
+				}
+				
+				if (sells != null && sells.containsKey("food")) {
+					String rate = "";
+					double value = sells.get("food");
+					if (value == 0D)
+						rate = "0";
+					else {
+						rate = String.valueOf(value * 100);
+						if (rate.length() > 2)
+							rate = rate.substring(0, 2);					
+					}
+					
+					xml.append(" food=\"");
+					xml.append(rate);
+					xml.append("\"");
+				}
+				
+				if (sells != null && sells.containsKey("iron")) {
+					String rate = "";
+					double value = sells.get("iron");
+					if (value == 0D)
+						rate = "0";
+					else {
+						rate = String.valueOf(value * 100);
+						if (rate.length() > 2)
+							rate = rate.substring(0, 2);					
+					}
+					
+					xml.append(" iron=\"");
+					xml.append(rate);
+					xml.append("\"");
+				}
+				
+				if (sells != null && sells.containsKey("marble")) {
+					String rate = "";
+					double value = sells.get("marble");
+					if (value == 0D)
+						rate = "0";
+					else {
+						rate = String.valueOf(value * 100);
+						if (rate.length() > 2)
+							rate = rate.substring(0, 2);					
+					}
+					
+					xml.append(" marble=\"");
+					xml.append(rate);
+					xml.append("\"");
+				}
+				
+				if (sells != null && sells.containsKey("gold")) {
+					String rate = "";
+					double value = sells.get("gold");
+					if (value == 0D)
+						rate = "0";
+					else {
+						rate = String.valueOf(value * 100);
+						if (rate.length() > 2)
+							rate = rate.substring(0, 2);					
+					}
+					
+					xml.append(" gold=\"");
+					xml.append(rate);
+					xml.append("\"");
+				}
+				
+				xml.append(">");
+				xml.append(sells != null ? "true" : "false");
+				xml.append("</sells>\r\n");
+				
+				xml.append("\t\t<buys");
+				HashMap<String, Double> buys = configTown.getBuys();
+				if (buys != null && buys.containsKey("wood")) {
+					String rate = "";
+					double value = buys.get("wood");
+					if (value == 0D)
+						rate = "0";
+					else {
+						rate = String.valueOf(value * 100);
+						if (rate.length() > 2)
+							rate = rate.substring(0, 2);					
+					}
+					
+					xml.append(" wood=\"");
+					xml.append(rate);
+					xml.append("\"");
+				}
+				
+				if (buys != null && buys.containsKey("food")) {
+					String rate = "";
+					double value = buys.get("food");
+					if (value == 0D)
+						rate = "0";
+					else {
+						rate = String.valueOf(value * 100);
+						if (rate.length() > 2)
+							rate = rate.substring(0, 2);					
+					}
+					
+					xml.append(" food=\"");
+					xml.append(rate);
+					xml.append("\"");
+				}
+				
+				if (buys != null && buys.containsKey("iron")) {
+					String rate = "";
+					double value = buys.get("iron");
+					if (value == 0D)
+						rate = "0";
+					else {
+						rate = String.valueOf(value * 100);
+						if (rate.length() > 2)
+							rate = rate.substring(0, 2);					
+					}
+					
+					xml.append(" iron=\"");
+					xml.append(rate);
+					xml.append("\"");
+				}
+				
+				if (buys != null && buys.containsKey("marble")) {
+					String rate = "";
+					double value = buys.get("marble");
+					if (value == 0D)
+						rate = "0";
+					else {
+						rate = String.valueOf(value * 100);
+						if (rate.length() > 2)
+							rate = rate.substring(0, 2);					
+					}
+					
+					xml.append(" marble=\"");
+					xml.append(rate);
+					xml.append("\"");
+				}
+				
+				xml.append(">");
+				xml.append(buys != null ? "true" : "false");
+				xml.append("</buys>\r\n");				
+				xml.append("\t</towns>\r\n");
+			}
+		}
+		
+		xml.append("</config>\r\n");		
+		return xml.toString();
+	}
 }

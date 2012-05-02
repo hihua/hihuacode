@@ -15,6 +15,7 @@ import com.config.Config;
 import com.entity.TownInfo;
 import com.entity.Towns;
 import com.request.RequestMessage;
+import com.request.RequestSessions;
 import com.request.RequestTowns;
 import com.task.TaskBase;
 import com.task.TaskMy;
@@ -31,6 +32,7 @@ public class AutoTask extends Thread implements CallBackTask {
 	private Config m_Config = null;
 	private Towns m_MyTowns = null;	
 	private TaskMy m_MyTask = null;
+	private final RequestSessions m_RequestSessions = new RequestSessions();
 	private final RequestTowns m_RequestTowns = new RequestTowns();
 	private final RequestMessage m_RequestMessage = new RequestMessage();
 	
@@ -43,6 +45,40 @@ public class AutoTask extends Thread implements CallBackTask {
 	
 	private AutoTask() {
 		
+	}
+	
+	public synchronized String resetCookie(String username, String password) {
+		if (m_Config == null)
+			return null;
+		
+		String host = m_Config.getHost();
+		String clientv = m_Config.getClientv();
+		
+		String path = m_Class.getPath() + m_File;
+		if (m_RequestSessions.request(host, clientv, m_Config, username, password)) {
+			String xml = Config.setConfig(m_Config);
+			boolean success = FileManager.writeFile(path, false, "UTF-8", xml);
+			if (success)
+				return m_Config.getCookie();
+			else
+				return null;
+		} else
+			return null;
+	}
+	
+	public synchronized boolean setCookie(String cookie) {
+		if (m_Config == null)
+			return false;
+		
+		String host = m_Config.getHost();
+		String clientv = m_Config.getClientv();
+		
+		String path = m_Class.getPath() + m_File;
+		if (m_RequestSessions.request(host, clientv, cookie, m_Config)) {
+			String xml = Config.setConfig(m_Config);
+			return FileManager.writeFile(path, false, "UTF-8", xml);			
+		} else
+			return false;
 	}
 	
 	public String getMyTown(Long townId) {

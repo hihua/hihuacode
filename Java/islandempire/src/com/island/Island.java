@@ -69,7 +69,11 @@ public class Island {
 		if (json == null || json.get("island") == null)
 			return null;
 		
-		JSONArray arrays = json.getJSONArray("towns");
+		JSONObject island = (JSONObject)json.get("island");
+		if (island.get("towns") == null)
+			return null;
+		
+		JSONArray arrays = island.getJSONArray("towns");
 		if (arrays != null) {
 			List<IslandBuilding> list = new Vector<IslandBuilding>();
 			for (int i = 0; i < arrays.size(); i++) {
@@ -77,10 +81,10 @@ public class Island {
 				String name = (array.get("name") != null) ? array.getString("name") : null;
 				Long level = (array.get("level") != null) ? array.getLong("level") : null;
 				Long id = (array.get("id") != null) ? array.getLong("id") : null;
-				Long islandId = (array.get("islandId") != null) ? array.getLong("islandId") : null;
+				Long islandId = (array.get("island_id") != null) ? array.getLong("island_id") : null;
 				String type = (array.get("type") != null) ? array.getString("type") : null;
-				String cityStatus = (array.get("cityStatus") != null) ? array.getString("cityStatus") : null;
-				Long islandZ = (array.get("islandZ") != null) ? array.getLong("islandZ") : null;
+				String cityStatus = (array.get("city_status") != null) ? array.getString("city_status") : null;
+				Long islandZ = (array.get("island_z") != null) ? array.getLong("island_z") : null;
 				
 				if (type == null)
 					continue;

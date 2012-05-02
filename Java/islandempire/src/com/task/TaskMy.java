@@ -41,7 +41,6 @@ import com.request.RequestUpgrade;
 import com.request.RequestWorldMaps;
 import com.soldier.Recruit;
 import com.soldier.Soldier;
-import com.towns.OtherTown;
 import com.towns.Resources;
 import com.towns.Town;
 import com.util.Numeric;
@@ -118,7 +117,7 @@ public class TaskMy extends TaskBase {
 			
 			sells(town, m_Config, configTown);
 			buys(town, m_Config, configTown);
-			recruit(town, m_Config, configTown);
+			//recruit(town, m_Config, configTown);
 			attack(town, m_Config, configTown);
 			townInfos.add(townInfo);
 		}
@@ -931,7 +930,11 @@ public class TaskMy extends TaskBase {
 		
 		List<IslandVillage> list = new Vector<IslandVillage>();
 		for (IslandBuilding islandBuilding : islandBuildings) {
-			if (islandBuilding.equals("Village")) {
+			String type = islandBuilding.getType();
+			if (type == null)
+				continue;
+			
+			if (type.equals("Village")) {
 				IslandVillage islandVillage = (IslandVillage)islandBuilding;				
 				if (islandVillage.getId() == null || islandVillage.getLevel() == null || islandVillage.getCityStatus() == null)
 					continue;
@@ -1316,23 +1319,23 @@ public class TaskMy extends TaskBase {
 		}
 	}
 	
-	private OtherTown getMinOtherTown(List<OtherTown> otherTowns, Resources maxResources, Long resourceType) {
-		if (otherTowns == null)
-			return null;
-		
-		long minCount = -1;
-		OtherTown minOtherTown = null;
-		
-		for (OtherTown otherTown : otherTowns) {
-			Long otherResourceType = otherTown.getResourceType();
-			if (otherResourceType == null)
-				continue;
-			
-			if (maxResources.getResourceName().equals("wood")) {
-				
-			}
-		}
-	}
+//	private OtherTown getMinOtherTown(List<OtherTown> otherTowns, Resources maxResources, Long resourceType) {
+//		if (otherTowns == null)
+//			return null;
+//		
+//		long minCount = -1;
+//		OtherTown minOtherTown = null;
+//		
+//		for (OtherTown otherTown : otherTowns) {
+//			Long otherResourceType = otherTown.getResourceType();
+//			if (otherResourceType == null)
+//				continue;
+//			
+//			if (maxResources.getResourceName().equals("wood")) {
+//				
+//			}
+//		}
+//	}
 	
 	private void transport(Town town, Config config, ConfigTown configTown) {
 		Long resourceType = town.getResourceType();

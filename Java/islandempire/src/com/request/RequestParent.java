@@ -4,8 +4,6 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class RequestParent extends RequestBase {	
 	private final String[] UserAgent = { "User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_5; en-us) AppleWebKit/526.11 (KHTML, like Gecko)" };
@@ -22,9 +20,7 @@ public class RequestParent extends RequestBase {
 	private final String Authorization = "Authorization";
 	private final String Cookie = "Cookie";	
 	private final String UserName = "hihua";
-	private final String Password = "hihua1012";
-	private final String Secret = "12345678";	
-	private final String Body = "device_version=iPad2,1&username=%s&password=%s&ios_version=5.0.1";
+	private final String Password = "12345678";
 	private final HashMap<String, String> m_Header = new HashMap<String, String>();
 	private final StringBuilder m_Authorization = new StringBuilder();
 	private String m_Charset = "UTF-8";
@@ -119,7 +115,7 @@ public class RequestParent extends RequestBase {
 		
 		m_Authorization.append(":");
 		if (password == null)
-			m_Authorization.append(Secret);
+			m_Authorization.append(Password);
 		else
 			m_Authorization.append(password);
 		
@@ -137,41 +133,5 @@ public class RequestParent extends RequestBase {
 	
 	protected String requestUrl(String webUrl, String clientv, String cookie, String username, String body) {
 		return requestUrl(webUrl, clientv, cookie, username, null, body);
-	}
-	
-	protected String requestSessions(String webUrl, String clientv) {
-		String body = String.format(Body, UserName, Password);				
-		String response = requestUrl(webUrl, clientv, null, UserName, Password, body);
-		if (response == null)
-			return null;
-		else {
-			Map<String, List<String>> map = getHeader();
-			if (map == null)
-				return null;
-			else {
-				if (map.containsKey("Set-Cookie")) {
-					List<String> cookies = map.get("Set-Cookie");
-					StringBuilder sb = new StringBuilder();
-					for (String cookie : cookies) {
-						if (cookie.indexOf("user_id=") > -1)
-							continue;
-						
-						int p = cookie.indexOf("; ");
-						if (p > 0) {
-							sb.append("; ");
-							sb.append(cookie.substring(0, p));
-						}					
-					}
-					
-					if (sb.length() == 0)
-						return null;
-					else {
-						sb = sb.delete(0, 2);
-						return sb.toString();
-					}					
-				} else
-					return null;
-			}
-		}
-	}
+	}	
 }
