@@ -641,7 +641,7 @@ public class Config {
 			xml.append("\t\t<autoattack level=\"");
 			xml.append(attackLevel);
 			xml.append("\">");
-			xml.append(config.getAutoAttack() ? "true" : "false");
+			xml.append(config.getAttackTotal() != null ? config.getAttackTotal() : "");
 			xml.append("</autoattack>\r\n");
 			
 			xml.append("\t\t<autorecruit infantryswords=\"");
