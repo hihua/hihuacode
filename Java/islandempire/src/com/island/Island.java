@@ -78,13 +78,13 @@ public class Island {
 			List<IslandBuilding> list = new Vector<IslandBuilding>();
 			for (int i = 0; i < arrays.size(); i++) {
 				JSONObject array = (JSONObject) arrays.get(i);
-				String name = (array.get("name") != null) ? array.getString("name") : null;
-				Long level = (array.get("level") != null) ? array.getLong("level") : null;
-				Long id = (array.get("id") != null) ? array.getLong("id") : null;
-				Long islandId = (array.get("island_id") != null) ? array.getLong("island_id") : null;
-				String type = (array.get("type") != null) ? array.getString("type") : null;
-				String cityStatus = (array.get("city_status") != null) ? array.getString("city_status") : null;
-				Long islandZ = (array.get("island_z") != null) ? array.getLong("island_z") : null;
+				String name = array.get("name") != null ? array.getString("name") : null;
+				Long level = array.get("level") != null ? array.getLong("level") : null;
+				Long id = array.get("id") != null ? array.getLong("id") : null;
+				Long islandId = array.get("island_id") != null ? array.getLong("island_id") : null;
+				String type = array.get("type") != null ? array.getString("type") : null;
+				String cityStatus = array.get("city_status") != null ? array.getString("city_status") : null;
+				Long islandZ = array.get("island_z") != null ? array.getLong("island_z") : null;
 				
 				if (type == null)
 					continue;
@@ -98,8 +98,8 @@ public class Island {
 					islandVillage.setType(type);
 					islandVillage.setCityStatus(cityStatus);
 					islandVillage.setIslandZ(islandZ);					
-					islandVillage.setTotalTime((array.get("total_time") != null) ? array.getLong("total_time") : null);
-					islandVillage.setFinishTime((array.get("finish_time") != null) ? DateTime.getTime(array.getLong("finish_time")) : null);
+					islandVillage.setTotalTime(array.get("total_time") != null ? array.getLong("total_time") : null);
+					islandVillage.setFinishTime(array.get("finish_time") != null ? DateTime.getTime(array.getLong("finish_time")) : null);
 					list.add(islandVillage);
 				}
 				
@@ -112,9 +112,9 @@ public class Island {
 					islandTown.setType(type);
 					islandTown.setCityStatus(cityStatus);
 					islandTown.setIslandZ(islandZ);
-					islandTown.setCityAttackLevel((array.get("city_attack_level") != null) ? array.getLong("city_attack_level") : null);
-					islandTown.setOwnerName((array.get("owner_name") != null) ? array.getString("owner_name") : null);
-					islandTown.setOwnerId((array.get("owner_id") != null) ? array.getLong("owner_id") : null);
+					islandTown.setCityAttackLevel(array.get("city_attack_level") != null ? array.getLong("city_attack_level") : null);
+					islandTown.setOwnerName(array.get("owner_name") != null ? array.getString("owner_name") : null);
+					islandTown.setOwnerId(array.get("owner_id") != null ? array.getLong("owner_id") : null);
 					list.add(islandTown);
 				}
 			}

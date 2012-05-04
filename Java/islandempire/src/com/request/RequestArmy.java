@@ -34,5 +34,5 @@ public class RequestArmy extends RequestParent {
 			return false;
 		else
 			return true;
-	}
+	}	
 }

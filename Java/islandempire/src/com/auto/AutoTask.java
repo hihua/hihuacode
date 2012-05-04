@@ -14,6 +14,7 @@ import com.callback.CallBackTask;
 import com.config.Config;
 import com.entity.TownInfo;
 import com.entity.Towns;
+import com.request.RequestIsland;
 import com.request.RequestMessage;
 import com.request.RequestSessions;
 import com.request.RequestTowns;
@@ -23,6 +24,7 @@ import com.towns.OtherTown;
 import com.towns.Town;
 import com.util.FileManager;
 import com.util.Logs;
+import com.util.Numeric;
 
 public class AutoTask extends Thread implements CallBackTask {
 	private static AutoTask Task;
@@ -35,6 +37,7 @@ public class AutoTask extends Thread implements CallBackTask {
 	private final RequestSessions m_RequestSessions = new RequestSessions();
 	private final RequestTowns m_RequestTowns = new RequestTowns();
 	private final RequestMessage m_RequestMessage = new RequestMessage();
+	private final RequestIsland m_RequestIsland = new RequestIsland();
 	
 	public synchronized static AutoTask getInstance() {				
 		if (Task == null)
@@ -158,6 +161,20 @@ public class AutoTask extends Thread implements CallBackTask {
 		String cookie = m_Config.getCookie();
 		
 		return m_RequestMessage.request(host, clientv, cookie, username, username, page);
+	}
+	
+	public String getIsland(String x, String y) {
+		if (m_Config == null)
+			return null;
+		
+		if (!Numeric.isNumber(x) || !Numeric.isNumber(y))
+			return null;
+		
+		String host = m_Config.getHost();
+		String clientv = m_Config.getClientv();
+		String cookie = m_Config.getCookie();
+		
+		return m_RequestIsland.request(host, clientv, cookie, x, y, m_Config.getUserId());
 	}
 	
 	public String getConfig() {

@@ -8,8 +8,6 @@ public class ConfigTown {
 	private Boolean autoUpgrade = false;
 	private List<Long> upgradePriority = null;
 	private Boolean autoAttack = false;
-	private Long attackTotal = 0L;
-	private Long attackCount = 0L;
 	private Long attackLevelMin = 0L;
 	private Long attackLevelMax = 0L;
 	private Boolean autoRecruit = false;
@@ -30,14 +28,6 @@ public class ConfigTown {
 
 	public Boolean getAutoAttack() {
 		return autoAttack;
-	}
-
-	public Long getAttackTotal() {
-		return attackTotal;
-	}
-
-	public Long getAttackCount() {
-		return attackCount;
 	}
 
 	public Long getAttackLevelMin() {
@@ -74,14 +64,6 @@ public class ConfigTown {
 
 	public void setAutoAttack(Boolean autoAttack) {
 		this.autoAttack = autoAttack;
-	}
-
-	public void setAttackTotal(Long attackTotal) {
-		this.attackTotal = attackTotal;
-	}
-
-	public void setAttackCount(Long attackCount) {
-		this.attackCount = attackCount;
 	}
 
 	public void setAttackLevelMin(Long attackLevelMin) {

@@ -1,6 +1,13 @@
 package com.queue;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Vector;
+
+import com.util.DateTime;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 public class BattleQueue extends Queue {
 	private Long toX;
@@ -83,5 +90,40 @@ public class BattleQueue extends Queue {
 
 	public void setFromY(Long fromY) {
 		this.fromY = fromY;
+	}
+	
+	public static List<BattleQueue> parse(String response) {
+		JSONObject json = JSONObject.fromObject(response);
+		if (json == null || json.get("battle_queue") == null)
+			return null;
+		
+		JSONArray arrays = json.getJSONArray("battle_queue");
+		if (arrays != null) {
+			List<BattleQueue> battleQueues = new Vector<BattleQueue>(); 
+			for (int i = 0; i < arrays.size(); i++) {
+				JSONObject array = (JSONObject) arrays.get(i);
+				BattleQueue battleQueue = new BattleQueue();
+				battleQueue.setToLevel(array.get("to_level") != null ? array.getLong("to_level") : null);
+				battleQueue.setToX(array.get("to_x") != null ? array.getLong("to_x") : null);
+				battleQueue.setActionOwnerTownId(array.get("action_owner_town_id") != null ? array.getLong("action_owner_town_id") : null);
+				battleQueue.setTotalTime(array.get("total_time") != null ? array.getLong("total_time") : null);
+				battleQueue.setArriveTime(array.get("arrive_time") != null ? DateTime.getTime(array.getLong("arrive_time")) : null);
+				battleQueue.setToY(array.get("to_y") != null ? array.getLong("to_y") : null);
+				battleQueue.setFromLevel(array.get("from_level") != null ? array.getLong("from_level") : null);
+				battleQueue.setFromX(array.get("from_x") != null ? array.getLong("from_x") : null);
+				battleQueue.setFromTownName(array.get("from_town_name") != null ? array.getString("from_town_name") : null);
+				battleQueue.setFromY(array.get("from_y") != null ? array.getLong("from_y") : null);
+				battleQueue.setMission(array.get("mission_type") != null ? array.getLong("mission_type") : null);
+				battleQueue.setToTownId(array.get("to_town_id") != null ? array.getLong("to_town_id") : null);
+				battleQueue.setBattleInfoLevel(array.get("battleInfoLevel") != null ? array.getLong("battleInfoLevel") : null);
+				battleQueue.setToTownName(array.get("to_town_name") != null ? array.getString("to_town_name") : null);
+				battleQueue.setId(array.get("queue_id") != null ? array.getLong("queue_id") : null);
+				battleQueue.setFromTownId(array.get("from_town_id") != null ? array.getLong("from_town_id") : null);
+				battleQueues.add(battleQueue);
+			}
+			
+			return battleQueues;
+		} else
+			return null;
 	}
 }

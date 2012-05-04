@@ -33,16 +33,20 @@ import com.queue.TransportQueue;
 import com.request.RequestArmy;
 import com.request.RequestBuildings;
 import com.request.RequestDeals;
+import com.request.RequestEvent;
 import com.request.RequestIsland;
 import com.request.RequestMessage;
 import com.request.RequestRecruit;
 import com.request.RequestTowns;
+import com.request.RequestTransport;
 import com.request.RequestUpgrade;
 import com.request.RequestWorldMaps;
 import com.soldier.Recruit;
 import com.soldier.Soldier;
+import com.towns.OtherTown;
 import com.towns.Resources;
 import com.towns.Town;
+import com.towns.TransportTown;
 import com.util.Numeric;
 
 public class TaskMy extends TaskBase {
@@ -56,6 +60,8 @@ public class TaskMy extends TaskBase {
 	private final RequestDeals m_RequestDeals = new RequestDeals();
 	private final RequestRecruit m_RequestRecruit = new RequestRecruit();
 	private final RequestArmy m_RequestArmy = new RequestArmy();
+	private final RequestTransport m_RequestTransport = new RequestTransport();
+	private final RequestEvent m_RequestEvent = new RequestEvent();
 	private final List<Long> m_Village = new Vector<Long>();
 	private Config m_ConfigNew = null;
 
@@ -90,6 +96,8 @@ public class TaskMy extends TaskBase {
 		List<TownInfo> townInfos = new Vector<TownInfo>();
 		String username = "";
 		
+		setBattles(m_Config);
+						
 		for (ConfigTown configTown : configTowns) {
 			Boolean autoUpgrade = configTown.getAutoUpgrade();
 			Long id = configTown.getId();
@@ -118,8 +126,9 @@ public class TaskMy extends TaskBase {
 			
 			sells(town, m_Config, configTown);
 			buys(town, m_Config, configTown);
-			//recruit(town, m_Config, configTown);
+			recruit(town, m_Config, configTown);
 			attack(town, m_Config, configTown);
+			transport(town, m_Config, configTown);
 			townInfos.add(townInfo);
 		}
 		
@@ -153,6 +162,11 @@ public class TaskMy extends TaskBase {
 			return false;
 		}
 		
+		if (config.getUserId() == null) {
+			setCancel(true);
+			return false;
+		}
+		
 		if (config.getClientv() == null) {
 			setCancel(true);
 			return false;
@@ -174,6 +188,47 @@ public class TaskMy extends TaskBase {
 		}
 		
 		return true;
+	}
+	
+	private void setBattles(Config config) {
+		String host = config.getHost();
+		Long userId = config.getUserId();
+		String clientv = config.getClientv();
+		String cookie = config.getCookie();
+		
+		List<BattleQueue> battleQueues = m_RequestEvent.request(host, clientv, cookie, userId);
+		if (battleQueues == null)
+			return;
+		
+		List<Long> list = new Vector<Long>();
+				
+		for (BattleQueue battleQueue : battleQueues) {
+			if (battleQueue.getMission() == null || battleQueue.getToTownId() == null) 
+				continue;
+			
+			Long mission = battleQueue.getMission();
+			if (mission != 1)
+				continue;
+			
+			Long toTownId = battleQueue.getToTownId();			
+			if (m_Village.indexOf(toTownId) == -1)
+				m_Village.add(toTownId);
+			
+			list.add(toTownId);
+		}
+		
+		if (list.size() == 0)
+			m_Village.clear();
+		else {
+			List<Long> tmp = new Vector<Long>();
+			for (Long toTownId : m_Village) {
+				if (list.indexOf(toTownId) == -1)
+					tmp.add(toTownId);
+			}
+			
+			for (Long toTownId : tmp)
+				m_Village.remove(toTownId);			
+		}
 	}
 	
 	private boolean checkResources(Town town, HashMap<String, Long> resources) {
@@ -287,37 +342,93 @@ public class TaskMy extends TaskBase {
 			Long count = entry.getValue();
 			
 			if (name.equals("wood")) {
-				if (resourcesWood != null && resourcesWood.getResourceName() != null && resourcesWood.getResourceCount() != null)					
+				if (resourcesWood != null && resourcesWood.getResourceCount() != null)					
 					resourcesWood.setResourceCount(resourcesWood.getResourceCount() - count);
 				
 				continue;
 			}
 			
 			if (name.equals("food")) {
-				if (resourcesFood != null && resourcesFood.getResourceName() != null && resourcesFood.getResourceCount() != null)				
+				if (resourcesFood != null && resourcesFood.getResourceCount() != null)				
 					resourcesFood.setResourceCount(resourcesFood.getResourceCount() - count);
 				
 				continue;
 			}
 			
 			if (name.equals("iron")) {
-				if (resourcesIron != null && resourcesIron.getResourceName() != null && resourcesIron.getResourceCount() != null)
+				if (resourcesIron != null && resourcesIron.getResourceCount() != null)
 					resourcesIron.setResourceCount(resourcesIron.getResourceCount() - count);		
 				
 				continue;
 			}
 			
 			if (name.equals("marble")) {
-				if (resourcesMarble != null && resourcesMarble.getResourceName() != null && resourcesMarble.getResourceCount() != null)
+				if (resourcesMarble != null && resourcesMarble.getResourceCount() != null)
 					resourcesMarble.setResourceCount(resourcesMarble.getResourceCount() - count);
 									
 				continue;
 			}
 			
 			if (name.equals("gold")) {
-				if (resourcesGold != null && resourcesGold.getResourceName() != null && resourcesGold.getResourceCount() != null)
+				if (resourcesGold != null && resourcesGold.getResourceCount() != null)
 					resourcesGold.setResourceCount(resourcesGold.getResourceCount() - count);
 					
+				continue;
+			}
+		}
+	}
+	
+	private void decreaseSoldiers(Town town, HashMap<String, Long> soldiers) {
+		Soldier soldierInfantry = town.getSoldierInfantry();
+		Soldier soldierScout = town.getSoldierScout();
+		Soldier soldierMusketman = town.getSoldierMusketman();
+		Soldier soldierCatapult = town.getSoldierCatapult();
+		Soldier soldierFrigate = town.getSoldierFrigate();
+		Soldier soldierDestroyer = town.getSoldierDestroyer();
+		
+		for (Entry<String, Long> entry : soldiers.entrySet()) {
+			String name = entry.getKey();
+			Long count = entry.getValue();
+			
+			if (name.equals("infantry")) {
+				if (soldierInfantry != null && soldierInfantry.getCount() != null)
+					soldierInfantry.setCount(soldierInfantry.getCount() - count);
+				
+				continue;
+			}
+			
+			if (name.equals("scout")) {
+				if (soldierScout != null && soldierScout.getCount() != null)
+					soldierScout.setCount(soldierScout.getCount() - count);
+				
+				continue;
+			}
+			
+			if (name.equals("musketman")) {
+				if (soldierMusketman != null && soldierMusketman.getCount() != null)
+					soldierMusketman.setCount(soldierMusketman.getCount() - count);
+				
+				continue;
+			}
+			
+			if (name.equals("catapult")) {
+				if (soldierCatapult != null && soldierCatapult.getCount() != null)
+					soldierCatapult.setCount(soldierCatapult.getCount() - count);
+				
+				continue;
+			}
+			
+			if (name.equals("frigate")) {
+				if (soldierFrigate != null && soldierFrigate.getCount() != null)
+					soldierFrigate.setCount(soldierFrigate.getCount() - count);
+				
+				continue;
+			}
+			
+			if (name.equals("destroyer")) {
+				if (soldierDestroyer != null && soldierDestroyer.getCount() != null)
+					soldierDestroyer.setCount(soldierDestroyer.getCount() - count);
+				
 				continue;
 			}
 		}
@@ -834,71 +945,72 @@ public class TaskMy extends TaskBase {
 	}
 	
 	private long getAttackLevel(long total) {
-		if (total < 300)
+		if (total < 400)
 			return 0;
-		else if (total < 700)
+		else if (total < 900)
 			return 10;
-		else if (total < 1500)
+		else if (total < 2000)
 			return 20;
-		else if (total < 3200)
+		else if (total < 4500)
 			return 30;
 		else 
 			return 50;
 	}
 	
 	private long getAttackCount(long level) {
-		if (level < 10)
-			return 300;
-		else if (level < 20)
-			return 700;
-		else if (level < 30)
-			return 1500;
-		else if (level < 40)
-			return 3200;
+		if (level <= 10)
+			return 400;
+		else if (level <= 20)
+			return 900;
+		else if (level <= 30)
+			return 2000;
+		else if (level <= 40)
+			return 4500;
 		else 
-			return 5000;
+			return 7000;
 	}
 	
 	private HashMap<String, Long> getAttackSoldier(Town town, long count) {		
 		long left = count;
-		List<Soldier> maxSoldiers = new Vector<Soldier>(1);
 		HashMap<String, Long> soldiers = new HashMap<String, Long>();
+		HashMap<String, Long> more = new HashMap<String, Long>();
+						
+		left -= getAttackSoldier(count, town.getSoldierDestroyer(), soldiers, more);
+		left -= getAttackSoldier(count, town.getSoldierCatapult(), soldiers, more);
+		left -= getAttackSoldier(count, town.getSoldierFrigate(), soldiers, more);
+		left -= getAttackSoldier(count, town.getSoldierMusketman(), soldiers, more);
+		left -= getAttackSoldier(count, town.getSoldierInfantry(), soldiers, more);
+		
+		if (left > 0 && more.size() > 0) {
+			for (Entry<String, Long> entry : more.entrySet()) {
+				String key = entry.getKey();
+				Long value = entry.getValue();
+				if (value > left)
+					value = left;
 				
-		left -= getAttackSoldier(count, town.getSoldierDestroyer(), maxSoldiers, soldiers);
-		left -= getAttackSoldier(count, town.getSoldierCatapult(), maxSoldiers, soldiers);
-		left -= getAttackSoldier(count, town.getSoldierFrigate(), maxSoldiers, soldiers);
-		left -= getAttackSoldier(count, town.getSoldierMusketman(), maxSoldiers, soldiers);
-		left -= getAttackSoldier(count, town.getSoldierInfantry(), maxSoldiers, soldiers);
-		
-		if (left > 0 && maxSoldiers.size() > 0) {
-			Soldier maxSoldier = maxSoldiers.get(0);
-			Long amount = soldiers.get(maxSoldier.getName());
-			amount += left;
-			soldiers.put(maxSoldier.getName(), amount);
+				Long amount = soldiers.get(key);
+				amount += value;
+				soldiers.put(key, amount);
+				left -= value;				
+				if (left <= 0)
+					break;
+			}			
 		}
-		
-		if (soldiers.size() > 0)
+				
+		if (left <= 0 && soldiers.size() > 0)
 			return soldiers;
 		else
 			return null;
 	}
 	
-	private long getAttackSoldier(long count, Soldier soldier, List<Soldier> maxSoldiers, HashMap<String, Long> soldiers) {
+	private long getAttackSoldier(long count, Soldier soldier, HashMap<String, Long> soldiers, HashMap<String, Long> more) {
 		if (soldier != null && soldier.getName() != null && soldier.getCount() != null && soldier.getCount() > 0) {
 			long total = count / 5;
-			if (total > soldier.getCount())
-				total = soldier.getCount();							
-								
-			if (maxSoldiers.size() == 0)
-				maxSoldiers.add(soldier);
-			else {
-				Soldier maxSoldier = maxSoldiers.get(0);
-				if (maxSoldier.getCount() < soldier.getCount()) {
-					maxSoldiers.clear();
-					maxSoldiers.add(soldier);
-				}					
-			}
-			
+			if (total < soldier.getCount())
+				more.put(soldier.getName(), soldier.getCount() - total);
+			else
+				total = soldier.getCount();
+																	
 			soldiers.put(soldier.getName(), total);
 			return total;
 		} else
@@ -944,6 +1056,9 @@ public class TaskMy extends TaskBase {
 					continue;
 				
 				if ((attackLevelMin > 0 && attackLevelMax > 0 && (islandVillage.getLevel() < attackLevelMin || attackLevelMax < islandVillage.getLevel())) || (islandVillage.getLevel() > level))
+					continue;
+				
+				if (m_Village.indexOf(islandVillage.getId()) > -1)
 					continue;
 				
 				list.add(islandVillage);
@@ -1007,6 +1122,9 @@ public class TaskMy extends TaskBase {
 							if ((attackLevelMin > 0 && attackLevelMax > 0 && (islandVillage.getLevel() < attackLevelMin || attackLevelMax < islandVillage.getLevel())) || (islandVillage.getLevel() > level))
 								continue;
 							
+							if (m_Village.indexOf(islandVillage.getId()) > -1)
+								continue;
+							
 							list.add(islandVillage);
 						}
 					}
@@ -1044,21 +1162,109 @@ public class TaskMy extends TaskBase {
 		String clientv = config.getClientv();
 		String cookie = config.getCookie();
 		Long townId = town.getId();
+		Boolean autoAttack = configTown.getAutoAttack();
+		HashMap<String, Double> sells = configTown.getSells();
 		
-		long level = getAttackLevel(canAttack(town));
-		if (level == 0)
+		if (!autoAttack)
 			return;
+		
+		int total = 0;
+		Resources resourcesWood = town.getResourcesWood();
+		Resources resourcesFood = town.getResourcesFood();
+		Resources resourcesIron = town.getResourcesIron();
+		Resources resourcesMarble = town.getResourcesMarble();
+		Resources resourcesGold = town.getResourcesGold();
+				
+		if (resourcesWood != null && resourcesWood.getResourceName() != null && resourcesWood.getResourceCount() != null && resourcesWood.getMaxVolume() != null) {
+			String resourceName = resourcesWood.getResourceName();
+			Long resourceCount = resourcesWood.getResourceCount();
+			Long resourceMaxVolume = resourcesWood.getMaxVolume();
+			
+			if (sells.containsKey(resourceName)) {
+				Double rate = sells.get(resourceName);
+				if ((double)resourceCount / (double)resourceMaxVolume >= rate)
+					total++;				
+			}			
+		}	
+		
+		if (resourcesFood != null && resourcesFood.getResourceName() != null && resourcesFood.getResourceCount() != null && resourcesFood.getMaxVolume() != null) {
+			String resourceName = resourcesFood.getResourceName();
+			Long resourceCount = resourcesFood.getResourceCount();
+			Long resourceMaxVolume = resourcesFood.getMaxVolume();
+			
+			if (sells.containsKey(resourceName)) {
+				Double rate = sells.get(resourceName);
+				if ((double)resourceCount / (double)resourceMaxVolume >= rate)
+					total++;				
+			}			
+		}
+		
+		if (resourcesIron != null && resourcesIron.getResourceName() != null && resourcesIron.getResourceCount() != null && resourcesIron.getMaxVolume() != null) {
+			String resourceName = resourcesIron.getResourceName();
+			Long resourceCount = resourcesIron.getResourceCount();
+			Long resourceMaxVolume = resourcesIron.getMaxVolume();
+			
+			if (sells.containsKey(resourceName)) {
+				Double rate = sells.get(resourceName);
+				if ((double)resourceCount / (double)resourceMaxVolume >= rate)
+					total++;				
+			}			
+		}
+		
+		if (resourcesMarble != null && resourcesMarble.getResourceName() != null && resourcesMarble.getResourceCount() != null && resourcesMarble.getMaxVolume() != null) {
+			String resourceName = resourcesMarble.getResourceName();
+			Long resourceCount = resourcesMarble.getResourceCount();
+			Long resourceMaxVolume = resourcesMarble.getMaxVolume();
+			
+			if (sells.containsKey(resourceName)) {
+				Double rate = sells.get(resourceName);
+				if ((double)resourceCount / (double)resourceMaxVolume >= rate)
+					total++;				
+			}			
+		}
+		
+		if (resourcesGold != null && resourcesGold.getResourceName() != null && resourcesGold.getResourceCount() != null && resourcesGold.getMaxVolume() != null) {
+			String resourceName = resourcesGold.getResourceName();
+			Long resourceCount = resourcesGold.getResourceCount();
+			Long resourceMaxVolume = resourcesGold.getMaxVolume();
+			
+			if (sells.containsKey(resourceName)) {
+				Double rate = sells.get(resourceName);
+				if ((double)resourceCount / (double)resourceMaxVolume >= rate)
+					total++;				
+			}			
+		}
+		
+		if (total == 5)
+			return;
+		
+		total = 0;
+		List<BattleQueue> battleQueues = town.getBattleQueues();
+		if (battleQueues != null)
+			total = battleQueues.size();
+								
+		int error = 0;
+		while (total < 2 && error < 5) {
+			long level = getAttackLevel(canAttack(town));
+			if (level == 0)
+				return;
+							
+			IslandVillage islandVillage = getIsland(town, config, configTown, level);
+			if (islandVillage == null)
+				return;
+			
+			long count = getAttackCount(islandVillage.getLevel());
+			HashMap<String, Long> soldiers = getAttackSoldier(town, count);
+			if (soldiers == null)
+				return;
 						
-		IslandVillage islandVillage = getIsland(town, config, configTown, level);
-		if (islandVillage == null)
-			return;
-		
-		long count = getAttackCount(islandVillage.getLevel());
-		HashMap<String, Long> soldiers = getAttackSoldier(town, count);
-		if (soldiers == null)
-			return;
-		
-		m_RequestArmy.request(host, clientv, cookie, townId, islandVillage.getId(), townId, soldiers);
+			if (m_RequestArmy.request(host, clientv, cookie, townId, islandVillage.getId(), townId, soldiers)) {
+				m_Village.add(islandVillage.getId());
+				decreaseSoldiers(town, soldiers);
+				total++;				
+			} else
+				error++;						
+		}		
 	}
 	
 	private boolean sells(Town town, Config config, HashMap<String, Double> sells, Resources resources, Long leftCapacity) {
@@ -1324,29 +1530,183 @@ public class TaskMy extends TaskBase {
 		}
 	}
 	
-//	private OtherTown getMinOtherTown(List<OtherTown> otherTowns, Resources maxResources, Long resourceType) {
-//		if (otherTowns == null)
-//			return null;
-//		
-//		long minCount = -1;
-//		OtherTown minOtherTown = null;
-//		
-//		for (OtherTown otherTown : otherTowns) {
-//			Long otherResourceType = otherTown.getResourceType();
-//			if (otherResourceType == null)
-//				continue;
-//			
-//			if (maxResources.getResourceName().equals("wood")) {
-//				
-//			}
-//		}
-//	}
+	private List<Town> getOtherTown(Config config, List<OtherTown> otherTowns) {		
+		String host = config.getHost();
+		String clientv = config.getClientv();
+		String cookie = config.getCookie();
+		
+		if (otherTowns == null)
+			return null;
+		
+		List<Town> towns = new Vector<Town>();		
+		for (OtherTown otherTown : otherTowns) {
+			if (otherTown.getId() == null)
+				continue;
+			
+			TownInfo townInfo = m_RequestTowns.request(host, clientv, cookie, otherTown.getId());
+			if (townInfo == null)
+				continue;
+			
+			Town town = townInfo.getTown();
+			if (town.getId() == null)
+				continue;
+			
+			towns.add(townInfo.getTown());
+		}
+		
+		if (towns.size() == 0)
+			return null;
+		else
+			return towns;
+	}
+	
+	private ConfigTown getConfigTown(Long townId, Config config) {
+		List<ConfigTown> configTowns = config.getConfigTowns();
+		if (configTowns != null) {
+			for (ConfigTown configTown : configTowns) {
+				if (configTown.getId() != null && configTown.getId().equals(townId))
+					return configTown;
+			}
+		}
+		
+		return null;
+	}
+	
+	private Town getMinTown(Config config, List<Town> towns, Resources maxResources) {		
+		Town minTown = null;
+		double max = 0D;
+		for (Town town : towns) {
+			Long townId = town.getId();			
+			ConfigTown configTown = getConfigTown(townId, config);
+			if (configTown == null)
+				continue;
+			
+			HashMap<String, Double> sells = configTown.getSells();
+			if (sells == null)
+				continue;
+			
+			String resourceName = maxResources.getResourceName();
+			if (!sells.containsKey(resourceName))
+				continue;
+			
+			Double rate = sells.get(resourceName);
+			if (rate == 0D)
+				continue;
+			
+			if (resourceName.equals("wood")) {
+				Resources resourcesWood = town.getResourcesWood();
+				if (resourcesWood == null || resourcesWood.getResourceCount() == null || resourcesWood.getMaxVolume() == null)
+					continue;
+				
+				Long resourceCount = resourcesWood.getResourceCount();
+				Long resourceMaxVolume = resourcesWood.getMaxVolume();
+				
+				double percent = (double)resourceCount / (double)resourceMaxVolume;
+				if (percent < rate) {
+					percent = rate - percent;
+					if (minTown == null || percent > max) {
+						minTown = town;
+						max = percent;						
+					}
+				}
+				
+				continue;
+			}
+			
+			if (resourceName.equals("food")) {
+				Resources resourcesFood = town.getResourcesFood();
+				if (resourcesFood == null || resourcesFood.getResourceCount() == null || resourcesFood.getMaxVolume() == null)
+					continue;
+				
+				Long resourceCount = resourcesFood.getResourceCount();
+				Long resourceMaxVolume = resourcesFood.getMaxVolume();
+				
+				double percent = (double)resourceCount / (double)resourceMaxVolume;
+				if (percent < rate) {
+					percent = rate - percent;
+					if (minTown == null || percent > max) {
+						minTown = town;
+						max = percent;						
+					}
+				}
+				
+				continue;
+			}
+			
+			if (resourceName.equals("gold")) {
+				Resources resourcesGold = town.getResourcesGold();
+				if (resourcesGold == null || resourcesGold.getResourceCount() == null || resourcesGold.getMaxVolume() == null)
+					continue;
+				
+				Long resourceCount = resourcesGold.getResourceCount();
+				Long resourceMaxVolume = resourcesGold.getMaxVolume();
+				
+				double percent = (double)resourceCount / (double)resourceMaxVolume;
+				if (percent < rate) {
+					percent = rate - percent;
+					if (minTown == null || percent > max) {
+						minTown = town;
+						max = percent;						
+					}
+				}
+				
+				continue;
+			}
+			
+			if (resourceName.equals("iron")) {
+				Resources resourcesIron = town.getResourcesIron();
+				if (resourcesIron == null || resourcesIron.getResourceCount() == null || resourcesIron.getMaxVolume() == null)
+					continue;
+				
+				Long resourceCount = resourcesIron.getResourceCount();
+				Long resourceMaxVolume = resourcesIron.getMaxVolume();
+				
+				double percent = (double)resourceCount / (double)resourceMaxVolume;
+				if (percent < rate) {
+					percent = rate - percent;
+					if (minTown == null || percent > max) {
+						minTown = town;
+						max = percent;						
+					}
+				}
+				
+				continue;
+			}
+			
+			if (resourceName.equals("marble")) {
+				Resources resourcesMarble = town.getResourcesMarble();
+				if (resourcesMarble == null || resourcesMarble.getResourceCount() == null || resourcesMarble.getMaxVolume() == null)
+					continue;
+				
+				Long resourceCount = resourcesMarble.getResourceCount();
+				Long resourceMaxVolume = resourcesMarble.getMaxVolume();
+				
+				double percent = (double)resourceCount / (double)resourceMaxVolume;
+				if (percent < rate) {
+					percent = rate - percent;
+					if (minTown == null || percent > max) {
+						minTown = town;
+						max = percent;						
+					}
+				}
+				
+				continue;
+			}
+		}
+		
+		return minTown;
+	}
 	
 	private void transport(Town town, Config config, ConfigTown configTown) {
-		Long resourceType = town.getResourceType();
-		if (resourceType == null)
+		Long townId = town.getId();
+		String host = config.getHost();
+		String clientv = config.getClientv();
+		String cookie = config.getCookie();
+		BuildingPort buildingPort = town.getBuildingPort();
+		if (buildingPort == null || buildingPort.getFleetQuota() == null)
 			return;
-		
+				
+		Long fleetQuota = buildingPort.getFleetQuota();				
 		int total = 0;
 		List<TransportQueue> transportQueues = town.getTransportQueues();
 		if (transportQueues != null)
@@ -1355,9 +1715,56 @@ public class TaskMy extends TaskBase {
 		if (total > 1)
 			return;
 		
-		List<Resources> maxResources = getMaxResources(town, configTown.getSells());
-		if (maxResources == null)
+		List<Town> towns = getOtherTown(config, town.getOtherTowns());
+		if (towns == null)
 			return;
 				
+		int error = 0;
+		while (total < 2 && error < 3) {
+			List<Resources> maxResources = getMaxResources(town, configTown.getSells());
+			if (maxResources == null)
+				break;
+			
+			for (Resources maxResource : maxResources) {
+				Town minTown = getMinTown(config, towns, maxResource);
+				if (minTown == null)
+					continue;
+				
+				Long count = fleetQuota;
+				if (fleetQuota > maxResource.getResourceCount())
+					count = maxResource.getResourceCount();
+				
+				HashMap<String, Long> resources = new HashMap<String, Long>();
+				resources.put(maxResource.getResourceName(), count);
+				
+				TransportTown transportTown = m_RequestTransport.request(host, clientv, cookie, townId, minTown.getId(), resources);
+				if (transportTown == null) {
+					error++;
+					continue;				
+				}
+				
+				total++;
+				Resources resourcesWood = town.getResourcesWood();
+				Resources resourcesFood = town.getResourcesFood();
+				Resources resourcesGold = town.getResourcesGold();				
+				Resources resourcesIron = town.getResourcesIron();
+				Resources resourcesMarble = town.getResourcesMarble();
+				
+				if (resourcesWood != null)
+					town.setResourcesWood(resourcesWood);
+				
+				if (resourcesFood != null)
+					town.setResourcesFood(resourcesFood);
+				
+				if (resourcesGold != null)
+					town.setResourcesGold(resourcesGold);
+				
+				if (resourcesIron != null)
+					town.setResourcesIron(resourcesIron);
+				
+				if (resourcesMarble != null)
+					town.setResourcesMarble(resourcesMarble);								
+			}
+		}		
 	}
 }

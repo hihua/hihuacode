@@ -21,4 +21,18 @@ public class RequestIsland extends RequestParent {
 		else
 			return Island.parse(response);
 	}
+	
+	public String request(String host, String clientv, String cookie, String x, String y, Long userId) {
+		Long islandNumber = Long.parseLong(x + y);
+		String url = String.format(URL, islandNumber, userId);
+		m_URL.setLength(0);
+		m_URL.append(host);
+		m_URL.append(url);
+		
+		String response = requestUrl(m_URL.toString(), clientv, cookie, null);
+		if (response == null)
+			return null;
+		else
+			return response;
+	}
 }

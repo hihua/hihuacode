@@ -20,6 +20,7 @@ import com.util.Numeric;
 public class Config {
 	private String host;
 	private String clientv;
+	private Long userId;
 	private String cookie;
 	private Long autoTowns;
 	private List<ConfigTown> configTowns;
@@ -30,6 +31,10 @@ public class Config {
 
 	public String getClientv() {
 		return clientv;
+	}
+	
+	public Long getUserId() {
+		return userId;
 	}
 
 	public String getCookie() {
@@ -50,6 +55,10 @@ public class Config {
 
 	public void setClientv(String clientv) {
 		this.clientv = clientv;
+	}
+	
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 	public void setCookie(String cookie) {
@@ -104,6 +113,20 @@ public class Config {
 			return null;
 		
 		config.setClientv(tmp);
+		
+		elementParent = elementRoot.element("userid");
+		if (elementParent == null)
+			return null;
+		
+		tmp = elementParent.getText();
+		if (!Numeric.isNumber(tmp))
+			return null;
+		
+		try {
+			config.setUserId(Long.parseLong(tmp));
+		} catch (Exception e) {
+			return null;
+		}
 		
 		elementParent = elementRoot.element("cookie");
 		if (elementParent == null)
@@ -189,39 +212,24 @@ public class Config {
 					element = elementParent.element("autoattack");
 					if (element != null && element.getText() != null) {
 						tmp = element.getText();
-						if (Numeric.isNumber(tmp)) {
-							long attackTotal = Long.parseLong(tmp);
-							if (attackTotal > 0) {																							
-								Attribute level = element.attribute("level");
-								if (level != null && level.getText() != null) {
-									tmp = level.getText();
-									if (tmp.indexOf("-") > -1) {
-										String[] array = tmp.split("-");
-										if (array != null && array.length == 2 && Numeric.isNumber(array[0]) && Numeric.isNumber(array[1])) {
-											configTown.setAutoAttack(true);
-											configTown.setAttackTotal(attackTotal);
-											configTown.setAttackLevelMin(Long.parseLong(array[0]));
-											configTown.setAttackLevelMax(Long.parseLong(array[1]));
-										} else {
-											configTown.setAutoAttack(false);
-											configTown.setAttackTotal(0L);
-										}
-									} else {
-										configTown.setAutoAttack(false);
-										configTown.setAttackTotal(0L);
-									}
-								} else {
-									configTown.setAutoAttack(false);
-									configTown.setAttackTotal(0L);
-								}
-							} else {
+						if (tmp != null && tmp.equals("true")) {																									
+							Attribute level = element.attribute("level");
+							if (level != null && level.getText() != null) {
+								tmp = level.getText();
+								if (tmp.indexOf("-") > -1) {
+									String[] array = tmp.split("-");
+									if (array != null && array.length == 2 && Numeric.isNumber(array[0]) && Numeric.isNumber(array[1])) {
+										configTown.setAutoAttack(true);											
+										configTown.setAttackLevelMin(Long.parseLong(array[0]));
+										configTown.setAttackLevelMax(Long.parseLong(array[1]));
+									} else
+										configTown.setAutoAttack(false);									
+								} else
+									configTown.setAutoAttack(false);																			
+							} else
 								configTown.setAutoAttack(false);
-								configTown.setAttackTotal(0L);
-							}
-						} else {
-							configTown.setAutoAttack(false);
-							configTown.setAttackTotal(0L);
-						}
+						} else
+							configTown.setAutoAttack(false);							
 					}
 					
 					element = elementParent.element("autorecruit");
@@ -365,6 +373,10 @@ public class Config {
 		xml.append("\t<clientv>");
 		xml.append(config.getClientv() != null ? config.getClientv() : "");
 		xml.append("</clientv>\r\n");
+		
+		xml.append("\t<userid>");
+		xml.append(config.getUserId() != null ? config.getUserId() : "");
+		xml.append("</userid>\r\n");
 		
 		xml.append("\t<cookie>");
 		xml.append(config.getCookie() != null ? config.getCookie() : "");
