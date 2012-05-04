@@ -33,7 +33,7 @@
 							<td align="center" height="35">
 								X&nbsp;<input type="text" id="x" size="7" />
 								Y&nbsp;<input type="text" id="y" size="7" />							
-								<input type="button" id="query" value=" 查询 " onclick="" />
+								<input type="button" id="query" value=" 查询 " onclick="getIsland()" />
 							</td>
 						</tr>
 						<tr>
@@ -165,41 +165,46 @@
 						var finishTime = date.pattern("yyyy-MM-dd HH:mm:ss");					
 						html += "<tr>";
 						html += "<td width=\"50%\" height=\"25\">";
-						html += "攻击&nbsp;";
-						html += battle.to_town_id + "&nbsp;" + battle.to_town_name;
-						html += "(" + battle.to_x + "," + battle.to_y + ")" + "&nbsp;";
-						html += "Lv: " + battle.to_level + "&nbsp;";
-						if (battle.mission == 1) 
+						html += "攻击&nbsp;";						
+						if (battle.mission == 1) {							
+							html += battle.to_town_id + "&nbsp;" + battle.to_town_name;
+							html += "(" + battle.to_x + "," + battle.to_y + ")" + "&nbsp;";
+							html += "Lv: " + battle.to_level + "&nbsp;";
 							html += "途中";
-						else
+						} else
 							html += "返回";
 							
 						html += "</td>";
 						html += "<td>" + finishTime + "</td>";
-						html += "</tr>";
-						html += "<tr>";
-						html += "<td colspan=\"2\">";
+						html += "</tr>";												
+						
+						var tmp = "";
 						var army = battle.army;						
 						if (army != null && army.infantry != null)
-							getSoldiersName("infantry") + ":&nbsp;" + army.infantry + "&nbsp;&nbsp;";						
+							tmp += getSoldiersName("infantry") + ":&nbsp;" + army.infantry + "&nbsp;&nbsp;";						
 						
 						if (army != null && army.scout != null)
-							getSoldiersName("scout") + ":&nbsp;" + army.scout + "&nbsp;&nbsp;";
+							tmp += getSoldiersName("scout") + ":&nbsp;" + army.scout + "&nbsp;&nbsp;";
 							
 						if (army != null && army.musketman != null)
-							getSoldiersName("musketman") + ":&nbsp;" + army.musketman + "&nbsp;&nbsp;";
+							tmp += getSoldiersName("musketman") + ":&nbsp;" + army.musketman + "&nbsp;&nbsp;";
 							
 						if (army != null && army.catapult != null)
-							getSoldiersName("catapult") + ":&nbsp;" + army.catapult + "&nbsp;&nbsp;";
+							tmp += getSoldiersName("catapult") + ":&nbsp;" + army.catapult + "&nbsp;&nbsp;";
 							
 						if (army != null && army.frigate != null)
-							getSoldiersName("frigate") + ":&nbsp;" + army.frigate + "&nbsp;&nbsp;";
+							tmp += getSoldiersName("frigate") + ":&nbsp;" + army.frigate + "&nbsp;&nbsp;";
 							
 						if (army != null && army.destroyer != null)
-							getSoldiersName("destroyer") + ":&nbsp;" + army.destroyer + "&nbsp;&nbsp;";
+							tmp += getSoldiersName("destroyer") + ":&nbsp;" + army.destroyer + "&nbsp;&nbsp;";
 						
-						html += "</td>";
-						html += "</tr>";						 				
+						if (tmp.length > 0) {
+							html += "<tr>";
+							html += "<td colspan=\"2\">";
+							html += tmp;
+							html += "</td>";
+							html += "</tr>";
+						}												 				
 					});
 				}				
 				
@@ -214,61 +219,73 @@
 						var finishTime = date.pattern("yyyy-MM-dd HH:mm:ss");					
 						html += "<tr>";
 						html += "<td width=\"50%\" height=\"25\">";
-						html += "运送&nbsp;";
-						html += transport.to_town_id + "&nbsp;" + transport.to_town_name;						
-						html += "(" + transport.to_x + "," + transport.to_y + ")&nbsp;";
-						html += "Lv: " + transport.to_level + "&nbsp;";
-						if (battle.mission == 1) 
+						html += "运送&nbsp;";						
+						if (transport.mission == 1) {
+							html += transport.to_town_id + "&nbsp;" + transport.to_town_name;						
+							html += "(" + transport.to_x + "," + transport.to_y + ")&nbsp;";
+							html += "Lv: " + transport.to_level + "&nbsp;";						
 							html += "途中";
-						else
+						} else
 							html += "返回";
 							
 						html += "</td>";
 						html += "<td>" + finishTime + "</td>";
 						html += "</tr>";
-						html += "<tr>";
-						html += "<td colspan=\"2\">";
-						var army = transport.army;						
-						if (army != null && army.infantry != null)
-							getSoldiersName("infantry") + ":&nbsp;" + army.infantry + "&nbsp;&nbsp;";						
 						
-						if (army != null && army.scout != null)
-							getSoldiersName("scout") + ":&nbsp;" + army.scout + "&nbsp;&nbsp;";
+						if (transport.mission == 1) {
+							var tmp = "";
+							var army = transport.army;						
+							if (army != null && army.infantry != null)
+								tmp += getSoldiersName("infantry") + ":&nbsp;" + army.infantry + "&nbsp;&nbsp;";						
 							
-						if (army != null && army.musketman != null)
-							getSoldiersName("musketman") + ":&nbsp;" + army.musketman + "&nbsp;&nbsp;";
+							if (army != null && army.scout != null)
+								tmp += getSoldiersName("scout") + ":&nbsp;" + army.scout + "&nbsp;&nbsp;";
+								
+							if (army != null && army.musketman != null)
+								tmp += getSoldiersName("musketman") + ":&nbsp;" + army.musketman + "&nbsp;&nbsp;";
+								
+							if (army != null && army.catapult != null)
+								tmp += getSoldiersName("catapult") + ":&nbsp;" + army.catapult + "&nbsp;&nbsp;";
+								
+							if (army != null && army.frigate != null)
+								tmp += getSoldiersName("frigate") + ":&nbsp;" + army.frigate + "&nbsp;&nbsp;";
+								
+							if (army != null && army.destroyer != null)
+								tmp += getSoldiersName("destroyer") + ":&nbsp;" + army.destroyer + "&nbsp;&nbsp;";
 							
-						if (army != null && army.catapult != null)
-							getSoldiersName("catapult") + ":&nbsp;" + army.catapult + "&nbsp;&nbsp;";
+							if (tmp.length > 0) {
+								html += "<tr>";
+								html += "<td colspan=\"2\">";
+								html += tmp;
+								html += "</td>";
+								html += "</tr>";
+							}
+										
+							tmp = "";							
+							var resources = transport.resources;						
+							if (resources != null && resources.wood != null)
+								tmp += "木头" + ":&nbsp;" + resources.wood + "&nbsp;&nbsp;";						
 							
-						if (army != null && army.frigate != null)
-							getSoldiersName("frigate") + ":&nbsp;" + army.frigate + "&nbsp;&nbsp;";
+							if (resources != null && resources.food != null)
+								tmp += "食物" + ":&nbsp;" + resources.food + "&nbsp;&nbsp;";
+								
+							if (resources != null && resources.iron != null)
+								tmp += "黑铁石" + ":&nbsp;" + resources.iron + "&nbsp;&nbsp;";
+								
+							if (resources != null && resources.marble != null)
+								tmp += "大理石" + ":&nbsp;" + resources.marble + "&nbsp;&nbsp;";
+								
+							if (resources != null && resources.gold != null)
+								tmp += "黄金" + ":&nbsp;" + resources.gold + "&nbsp;&nbsp;";
 							
-						if (army != null && army.destroyer != null)
-							getSoldiersName("destroyer") + ":&nbsp;" + army.destroyer + "&nbsp;&nbsp;";
-						
-						html += "</td>";
-						html += "</tr>";						
-						html += "<tr>";
-						html += "<td colspan=\"2\">";
-						var resources = transport.resources;						
-						if (resources != null && resources.wood != null)
-							"木头" + ":&nbsp;" + resources.wood + "&nbsp;&nbsp;";						
-						
-						if (resources != null && resources.food != null)
-							"食物" + ":&nbsp;" + resources.food + "&nbsp;&nbsp;";
-							
-						if (resources != null && resources.iron != null)
-							"黑铁石" + ":&nbsp;" + resources.iron + "&nbsp;&nbsp;";
-							
-						if (resources != null && resources.marble != null)
-							"大理石" + ":&nbsp;" + resources.marble + "&nbsp;&nbsp;";
-							
-						if (resources != null && resources.gold != null)
-							"黄金" + ":&nbsp;" + resources.gold + "&nbsp;&nbsp;";
-						
-						html += "</td>";
-						html += "</tr>";
+							if (tmp.length > 0) {
+								html += "<tr>";
+								html += "<td colspan=\"2\">";
+								html += tmp;
+								html += "</td>";
+								html += "</tr>";							
+							}							
+						}						
 					});	
 				}
 				
@@ -363,11 +380,14 @@
 				html += "<tr>";
 				html += "<td width=\"10%\" align=\"center\" valign=\"middle\">基本信息</td>";
 				html += "<td width=\"40%\">";				
-				html += "<table width=\"94%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" style=\"margin-left:5px\">";
-				html += "<tr>";
-				html += "<td align=\"left\" width=\"34%\" height=\"25\">用户名: </td>";
-				html += "<td>" + town.owner + "</td>";        
-				html += "</tr>";
+				html += "<table width=\"94%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" style=\"margin-left:5px\">";				
+				if (town.is_capital == true) {
+					html += "<tr>";
+					html += "<td align=\"left\" width=\"34%\" height=\"25\">用户名: </td>";
+					html += "<td>" + town.owner + "</td>";        
+					html += "</tr>";
+				}
+				
 				html += "<tr>";								
 				html += "<td align=\"left\" width=\"34%\" height=\"25\">城市名称: </td>";
 				if (town.is_capital == true)			        
@@ -1084,6 +1104,7 @@
 			function setMyMessages(json) {
 				var username = "";
 				var tmp = "";					
+				var type = -1;
 				
 				var messages = json.messages;
 				if (messages != null) {
@@ -1093,6 +1114,17 @@
 							username = message.to;
 							var date = new Date(message.created_at * 1000);
 							created_at = date.pattern("yyyy-MM-dd HH:mm:ss");
+						}
+						
+						if (message.message_type != type) {
+							tmp += "<table width=\"500\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+							tmp += "<tr>";
+							tmp += "<td align=\"left\">";
+							tmp += getMessageType(message.message_type);
+							tmp += "</td>";
+							tmp += "</tr>";
+							tmp += "</table>";
+							type = message.message_type;
 						}
 						
 						tmp += "<table width=\"500\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"1\" class=\"Table1\">";
@@ -1169,7 +1201,111 @@
 			        	MyMessages.splice(index, 1);            			            
 				}				
 			}
+			
+			function getMessageType(type) {
+				switch (type) {
+					case 0:
+						return "联盟";
 						
+					case 1:
+						return "运输";
+						
+					case 3:
+						return "战斗";
+						
+					case 5:
+						return "系统";
+						
+					default:
+						return "";		
+				}			
+			}
+			
+			function getIsland() {
+				var x = $("#x").val();
+				var y = $("#y").val();
+				
+				if (x.length == 0 || y.length == 0)
+					return;
+					
+				if (y.length == 1)
+					y = "00" + y;
+					
+				if (y.length == 2)
+					y = "0" + y;
+					
+				requestIsland(x, y, setIsland);
+			}
+			
+			function setIsland(json) {
+				var island = json.island;
+				if (island == null)
+					return;				
+				
+				var towns = island.towns;
+				if (towns == null)
+					return;				
+								
+				var total = 0;
+				var html = "";
+				html += "<table width=\"500\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"1\" class=\"Table1\">";
+												
+				var list = "";
+				$.each(towns, function(idx, town) {					
+					total++;
+					var id = town.id;
+					var name = town.name;					
+					var level = town.level;
+					var cityStatus = town.city_status;
+					
+					html += "<tr>";
+					html += "<td>";
+					html += "<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" class=\"Table1\">";	
+											
+					if (town.type == "Town") {			
+						var cityAttackLevel = town.city_attack_level;
+						var ownerName = town.owner_name;
+						var ownerId = town.owner_id;						
+						
+						var href = "<a href=\"city.html?userid=" + ownerId + "&username=" + ownerName + "&townid=" + id + "\" target=\"_blank\" class=\"AdminToolsLink2\">" + ownerName + "</a>";
+						
+						html += "<tr>";
+						html += "<td width=\"60\" height=\"30\" align=\"center\">" + id + "</td>";
+						html += "<td width=\"120\" height=\"30\" align=\"center\">" + name + "</td>";
+						html += "<td width=\"30\" height=\"30\" align=\"center\">Lv: " + level + "</td>";	
+						html += "<td width=\"80\" height=\"30\" align=\"center\">" + href + "</td>";
+						html += "<td width=\"60\" height=\"30\" align=\"center\">" + ownerId + "</td>";
+						html += "<td width=\"130\" height=\"30\" align=\"center\">" + cityAttackLevel + "</td>";
+						html += "<td width=\"20\" height=\"30\" align=\"center\">" + cityStatus + "</td>";
+						html += "</tr>";		
+					} else {
+						var color = "#FF0000";
+						var finishTime = town.finish_time;
+						var date = new Date(finishTime * 1000);
+						dateTime = date.pattern("yyyy-MM-dd HH:mm:ss");
+						
+						html += "<tr>";
+						html += "<td width=\"60\" height=\"30\" align=\"center\"><span style=\"color:" + color + "\">" + id + "</span></td>";
+						html += "<td width=\"120\" height=\"30\" align=\"center\"><span style=\"color:" + color + "\">" + name + "</span></td>";
+						html += "<td width=\"30\" height=\"30\" align=\"center\"><span style=\"color:" + color + "\">" + level + "</span></td>";	
+						html += "<td width=\"80\" height=\"30\" align=\"center\">&nbsp;</td>";
+						html += "<td width=\"60\" height=\"30\" align=\"center\">&nbsp;</td>";
+						html += "<td width=\"130\" height=\"30\" align=\"center\"><span style=\"color:" + color + "\">" + dateTime + "</span></td>";
+						html += "<td width=\"20\" height=\"30\" align=\"center\"><span style=\"color:" + color + "\">" + cityStatus + "</span></td>";
+						html += "</tr>";
+					}
+										
+					html += "</table>";
+					html += "</td>";
+					html += "</tr>";
+				});
+				
+				html += "</table>";
+				
+				if (total > 0)
+					$("#island").html(html);
+			}
+							
 			getMyTowns();
 			getMyMessage();
 		</script>
