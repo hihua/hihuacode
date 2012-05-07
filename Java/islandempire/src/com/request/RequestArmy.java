@@ -3,12 +3,14 @@ package com.request;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import com.hero.Hero;
+
 public class RequestArmy extends RequestParent {
 	private final String URL = "/army_events.json";
 	private final StringBuilder m_URL = new StringBuilder();
 	private final StringBuilder m_Body = new StringBuilder();
 	
-	public boolean request(String host, String clientv, String cookie, Long fromTownId, Long toTownId, Long armyOwnerTownId, HashMap<String, Long> soldiers) {
+	public boolean request(String host, String clientv, String cookie, Long fromTownId, Long toTownId, Long armyOwnerTownId, HashMap<String, Long> soldiers, Hero hero) {
 		m_URL.setLength(0);
 		m_URL.append(host);
 		m_URL.append(URL);
@@ -27,6 +29,11 @@ public class RequestArmy extends RequestParent {
 			m_Body.append(entry.getKey());
 			m_Body.append("=");
 			m_Body.append(entry.getValue());
+		}
+		
+		if (hero != null) {
+			m_Body.append("&hero_id=");
+			m_Body.append(hero.getId());
 		}
 		
 		String response = requestUrl(m_URL.toString(), clientv, cookie, m_Body.toString());

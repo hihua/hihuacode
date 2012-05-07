@@ -17,7 +17,11 @@ import com.buildings.BuildingSoldier;
 import com.buildings.BuildingStore;
 import com.buildings.BuildingTower;
 import com.buildings.BuildingWall;
+import com.hero.Enhance;
+import com.hero.Equipment;
 import com.hero.Hero;
+import com.hero.NeedResources;
+import com.hero.Skill;
 import com.queue.BattleQueue;
 import com.queue.BuildingQueue;
 import com.queue.LinesEvent;
@@ -1067,7 +1071,110 @@ public class Town {
 		towns.setOwner((town.get("owner") != null) ? town.getString("owner") : null);
 		towns.setIsCapital((town.get("is_capital") != null) ? town.getBoolean("is_capital") : null);
 		towns.setIslandNumber((town.get("island_number") != null) ? town.getLong("island_number") : null);
-		towns.setTotalFoodCost((town.get("total_food_cost") != null) ? town.getLong("total_food_cost") : null);		
+		towns.setTotalFoodCost((town.get("total_food_cost") != null) ? town.getLong("total_food_cost") : null);	
+		
+		if (town.get("hero_info") != null) {
+			JSONObject heroInfo = (JSONObject) town.get("hero_info");
+			Hero hero = new Hero();
+			hero.setRecoveryAt(heroInfo.get("recovery_at") != null ? DateTime.getTime(heroInfo.getLong("recovery_at")) : null);
+			hero.setName(heroInfo.get("name") != null ? heroInfo.getString("name") : null);
+			hero.setDefense(heroInfo.get("defense") != null ? heroInfo.getLong("defense") : null);
+			hero.setHeroCityEffect(heroInfo.get("hero_city_effect") != null ? heroInfo.getString("hero_city_effect") : null);
+			hero.setTotalAttack(heroInfo.get("total_attack") != null ? heroInfo.getLong("total_attack") : null);
+			hero.setNextLevelExp(heroInfo.get("next_level_exp") != null ? heroInfo.getLong("next_level_exp") : null);
+			hero.setIconUrl(heroInfo.get("icon_url") != null ? heroInfo.getString("icon_url") : null);
+			hero.setInitAttack(heroInfo.get("init_attack") != null ? heroInfo.getLong("init_attack") : null);
+			hero.setEnergy(heroInfo.get("energy") != null ? heroInfo.getLong("energy") : null);
+			hero.setTotalIntelligence(heroInfo.get("total_intelligence") != null ? heroInfo.getLong("total_intelligence") : null);
+		
+			if (heroInfo.get("skills") != null) {
+				arrays = heroInfo.getJSONArray("skills");
+				List<Skill> skills = new Vector<Skill>();
+				for (int i = 0; i < arrays.size(); i++) {
+					JSONObject array = (JSONObject) arrays.get(i);
+					Skill skill = new Skill();
+					skill.setName(array.get("name") != null ? array.getString("name") : null);
+					skill.setIconUrl(array.get("icon_url") != null ? array.getString("icon_url") : null);
+					skill.setLevel(array.get("level") != null ? array.getLong("level") : null);
+					skill.setType(array.get("type") != null ? array.getLong("type") : null);
+					skill.setDesc(array.get("desc") != null ? array.getString("desc") : null);
+					skill.setIconName(array.get("icon_name") != null ? array.getString("icon_name") : null);
+					skills.add(skill);
+				}
+				
+				hero.setSkills(skills);
+			}		
+									
+			hero.setLevel(heroInfo.get("level") != null ? heroInfo.getLong("level") : null);
+			hero.setRestoreEnergyAt(heroInfo.get("restore_energy_at") != null ? DateTime.getTime(heroInfo.getLong("restore_energy_at")) : null);
+			hero.setId(heroInfo.get("id") != null ? heroInfo.getLong("id") : null);
+			hero.setGenius(heroInfo.get("genius") != null ? heroInfo.getLong("genius") : null);
+			hero.setUserId(heroInfo.get("user_id") != null ? heroInfo.getLong("user_id") : null);
+			hero.setTotalDefense(heroInfo.get("total_defense") != null ? heroInfo.getLong("total_defense") : null);
+			hero.setMaxEnergy(heroInfo.get("max_energy") != null ? heroInfo.getLong("max_energy") : null);
+			hero.setMaxEnergy(heroInfo.get("max_energy") != null ? heroInfo.getLong("max_energy") : null);
+			
+			if (heroInfo.get("equipments") != null) {
+				arrays = heroInfo.getJSONArray("equipments");
+				List<Equipment> equipments = new Vector<Equipment>();
+				for (int i = 0; i < arrays.size(); i++) {
+					JSONObject array = (JSONObject) arrays.get(i);
+					Equipment equipment = new Equipment();
+					equipment.setDefense(array.get("defense") != null ? array.getLong("defense") : null);
+					equipment.setIconUrl(array.get("icon_url") != null ? array.getString("icon_url") : null);
+					equipment.setNpcPrice(array.get("npc_price") != null ? array.getLong("npc_price") : null);
+					equipment.setSubType(array.get("sub_type") != null ? array.getLong("sub_type") : null);
+					equipment.setLevel(array.get("level") != null ? array.getLong("level") : null);
+					equipment.setGainTime(array.get("gain_time") != null ? DateTime.getTime(array.getLong("gain_time")) : null);
+					equipment.setEquipmentId(array.get("equipment_id") != null ? array.getLong("equipment_id") : null);
+					
+					if (array.get("enhance") != null) {
+						JSONObject enhance = array.getJSONObject("enhance");
+						Enhance enhances = new Enhance();
+						enhances.setDefense(enhance.get("defense") != null ? enhance.getLong("defense") : null);
+						enhances.setNpcPrice(enhance.get("npc_price") != null ? enhance.getLong("npc_price") : null);
+						enhances.setRate(enhance.get("rate") != null ? enhance.getDouble("rate") : null);
+						
+						if (enhance.get("need_resources") != null) {
+							JSONObject needResource = enhance.getJSONObject("need_resources");
+							NeedResources needResources = new NeedResources();
+							needResources.setMarble(needResource.get("marble") != null ? needResource.getLong("marble") : null);
+							needResources.setIron(needResource.get("iron") != null ? needResource.getLong("iron") : null);
+							enhances.setNeedResources(needResources);
+						}
+						
+						enhances.setIntelligence(enhance.get("intelligence") != null ? enhance.getLong("intelligence") : null);
+						enhances.setAttack(enhance.get("attack") != null ? enhance.getLong("attack") : null);
+						equipment.setEnhance(enhances);
+					}
+					
+					equipment.setEquipmentDesc(array.get("equipment_desc") != null ? array.getString("equipment_desc") : null);
+					equipment.setType(array.get("type") != null ? array.getLong("type") : null);
+					equipment.setIndex(array.get("index") != null ? array.getLong("index") : null);
+					equipment.setNeedHeroLevel(array.get("need_hero_level") != null ? array.getLong("need_hero_level") : null);
+					equipment.setIconName(array.get("icon_name") != null ? array.getString("icon_name") : null);
+					equipment.setStatus(array.get("status") != null ? array.getLong("status") : null);
+					equipment.setIntelligence(array.get("intelligence") != null ? array.getLong("intelligence") : null);
+					equipment.setAttack(array.get("attack") != null ? array.getLong("attack") : null);
+					equipment.setEquipmentName(array.get("equipment_name") != null ? array.getString("equipment_name") : null);
+					equipments.add(equipment);
+				}
+				
+				hero.setEquipments(equipments);
+			}
+			
+			hero.setAbilityPoint(heroInfo.get("ability_point") != null ? heroInfo.getLong("ability_point") : null);
+			hero.setInitDefense(heroInfo.get("init_defense") != null ? heroInfo.getLong("init_defense") : null);
+			hero.setIconName(heroInfo.get("icon_name") != null ? heroInfo.getString("icon_name") : null);
+			hero.setStatus(heroInfo.get("status") != null ? heroInfo.getLong("status") : null);
+			hero.setIntelligence(heroInfo.get("intelligence") != null ? heroInfo.getLong("intelligence") : null);
+			hero.setInitIntelligence(heroInfo.get("init_intelligence") != null ? heroInfo.getLong("init_intelligence") : null);
+			hero.setTownId(heroInfo.get("town_id") != null ? heroInfo.getLong("town_id") : null);
+			hero.setExperience(heroInfo.get("experience") != null ? heroInfo.getLong("experience") : null);
+			hero.setAttack(heroInfo.get("attack") != null ? heroInfo.getLong("attack") : null);
+			towns.setHero(hero);
+		}
+		
 		return towns;
 	}
 }
