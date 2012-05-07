@@ -5,8 +5,9 @@
 		<title>MyTown</title>
 		<link rel="stylesheet" type="text/css" href="css.css" />
 		<script type="text/javascript" src="js/jquery.js"></script>
-		<script type="text/javascript" src="js/ajax.js"></script>
+		<script type="text/javascript" src="js/ajax.js"></script>		
 		<script type="text/javascript" src="js/mytowns.js"></script>
+		<script type="text/javascript" src="js/island.js"></script>
 	</head>
 	<body>
 		<table width="100%" align="center" cellpadding="0" cellspacing="0" border="0">
@@ -374,7 +375,8 @@
 				var battleQueues = town.battle_queue;
 				var buildingQueues = town.building_queue;
 				var transportQueues = town.transport_queue;
-								
+				var hero = town.hero_info;
+												
 				html = "";
 				html += "<table width=\"640\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"1\" class=\"Table1\">";
 				html += "<tr>";
@@ -1071,6 +1073,54 @@
 			    	}					
 				});
 				
+				if (hero != null) {
+					if (tr)
+						html += "<tr>";
+						
+					var date = new Date(hero.restore_energy_at * 1000);
+					var restoreEnergyAt = date.pattern("yyyy-MM-dd HH:mm:ss");
+					
+					date = new Date(hero.recovery_at * 1000);
+					var recoveryAt = date.pattern("yyyy-MM-dd HH:mm:ss");
+						
+					html += "<td width=\"10%\" align=\"center\">";
+					html += "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+					html += "<tr>";
+					html += "<td height=\"20\" align=\"center\">英雄</td>";
+		    		html += "</tr>";		    		
+		    		html += "</table>";
+		    		html += "</td>";	    		
+		    		html += "<td width=\"40%\" style=\"padding-left:3\">";
+		    		html += "<table width=\"100%\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+		    		html += "<tr><td align=\"left\" height=\"25\" width=\"25%\">名称: </td><td>" + hero.name + "</td><td align=\"left\">" + hero.id + "</td></tr>";		    					    					    		
+		    		html += "<tr><td align=\"left\" height=\"25\" width=\"25%\">经验: </td><td>" + hero.experience + "/" + hero.next_level_exp + "</td><td align=\"left\">Lv: " + hero.level + "</td></tr>";
+		    		html += "<tr><td align=\"left\" height=\"25\" width=\"25%\">能量: </td><td colspan=\"2\">" + hero.energy + "/" + hero.max_energy + "</td></tr>";
+		    		html += "<tr><td align=\"left\" height=\"25\" width=\"25%\">攻击: </td><td>" + hero.attack + "/" + hero.total_attack + "</td><td align=\"left\">" + hero.init_attack + "</td></tr>";
+		    		html += "<tr><td align=\"left\" height=\"25\" width=\"25%\">防御: </td><td>" + hero.defense + "/" + hero.total_defense + "</td><td align=\"left\">" + hero.init_defense + "</td></tr>";
+		    		html += "<tr><td align=\"left\" height=\"25\" width=\"25%\">敏捷: </td><td>" + hero.intelligence + "/" + hero.total_intelligence + "</td><td align=\"left\">" + hero.init_intelligence + "</td></tr>";
+		    		html += "<tr><td align=\"left\" height=\"25\" width=\"25%\">智力: </td><td>" + hero.genius + "</td><td>&nbsp;</td></tr>";
+		    		html += "<tr><td align=\"left\" height=\"25\" width=\"25%\">能力点: </td><td>" + hero.ability_point + "</td><td>&nbsp;</td></tr>";
+		    		html += "<tr><td align=\"left\" height=\"25\" width=\"25%\">状态: </td>";
+		    		html += "<td colspan=\"2\">";
+		    		html += "<table width=\"100%\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+		    		html += "<tr>";
+		    		html += "<td>" + hero.status + "</td>";
+		    		html += "<td align=\"right\">" + hero.hero_city_effect + "</td>";
+		    		html += "</tr>";
+		    		html += "</table>";
+		    		html += "</td>";	
+		    		html += "<tr><td align=\"left\" height=\"25\" width=\"25%\">创建时间: </td><td colspan=\"2\">" + recoveryAt + "</td></tr>";
+		    		html += "<tr><td align=\"left\" height=\"25\" width=\"25%\">恢复时间: </td><td colspan=\"2\">" + restoreEnergyAt + "</td></tr>";			    					    			    			    			
+		    		html += "</table>";
+		    		html += "</td>";
+						
+					if (!tr) {
+						html += "</tr>";
+						tr = true;
+					} else
+						tr = false;
+				}
+				
 				if (!tr)
 					html += "<td width=\"10%\">&nbsp;</td><td width=\"40%\">&nbsp;</td></tr>";
 					
@@ -1205,7 +1255,7 @@
 			function getMessageType(type) {
 				switch (type) {
 					case 0:
-						return "联盟";
+						return "玩家";
 						
 					case 1:
 						return "运输";
@@ -1257,25 +1307,21 @@
 					var name = town.name;					
 					var level = town.level;
 					var cityStatus = town.city_status;
-					
-					html += "<tr>";
-					html += "<td>";
-					html += "<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" class=\"Table1\">";	
-											
+																
 					if (town.type == "Town") {			
 						var cityAttackLevel = town.city_attack_level;
 						var ownerName = town.owner_name;
 						var ownerId = town.owner_id;						
 						
-						var href = "<a href=\"city.html?userid=" + ownerId + "&username=" + ownerName + "&townid=" + id + "\" target=\"_blank\" class=\"AdminToolsLink2\">" + ownerName + "</a>";
+						var href = "<a href=\"others.html?userid=" + ownerId + "&username=" + ownerName + "&townid=" + id + "\" target=\"_blank\" class=\"AdminToolsLink2\">" + ownerName + "</a>";
 						
 						html += "<tr>";
-						html += "<td width=\"60\" height=\"30\" align=\"center\">" + id + "</td>";
+						html += "<td width=\"50\" height=\"30\" align=\"center\">" + id + "</td>";
 						html += "<td width=\"120\" height=\"30\" align=\"center\">" + name + "</td>";
-						html += "<td width=\"30\" height=\"30\" align=\"center\">Lv: " + level + "</td>";	
+						html += "<td width=\"30\" height=\"30\" align=\"center\">" + level + "</td>";	
 						html += "<td width=\"80\" height=\"30\" align=\"center\">" + href + "</td>";
 						html += "<td width=\"60\" height=\"30\" align=\"center\">" + ownerId + "</td>";
-						html += "<td width=\"130\" height=\"30\" align=\"center\">" + cityAttackLevel + "</td>";
+						html += "<td width=\"140\" height=\"30\" align=\"center\">" + cityAttackLevel + "</td>";
 						html += "<td width=\"20\" height=\"30\" align=\"center\">" + cityStatus + "</td>";
 						html += "</tr>";		
 					} else {
@@ -1285,19 +1331,15 @@
 						dateTime = date.pattern("yyyy-MM-dd HH:mm:ss");
 						
 						html += "<tr>";
-						html += "<td width=\"60\" height=\"30\" align=\"center\"><span style=\"color:" + color + "\">" + id + "</span></td>";
+						html += "<td width=\"50\" height=\"30\" align=\"center\"><span style=\"color:" + color + "\">" + id + "</span></td>";
 						html += "<td width=\"120\" height=\"30\" align=\"center\"><span style=\"color:" + color + "\">" + name + "</span></td>";
 						html += "<td width=\"30\" height=\"30\" align=\"center\"><span style=\"color:" + color + "\">" + level + "</span></td>";	
 						html += "<td width=\"80\" height=\"30\" align=\"center\">&nbsp;</td>";
 						html += "<td width=\"60\" height=\"30\" align=\"center\">&nbsp;</td>";
-						html += "<td width=\"130\" height=\"30\" align=\"center\"><span style=\"color:" + color + "\">" + dateTime + "</span></td>";
+						html += "<td width=\"140\" height=\"30\" align=\"center\"><span style=\"color:" + color + "\">" + dateTime + "</span></td>";
 						html += "<td width=\"20\" height=\"30\" align=\"center\"><span style=\"color:" + color + "\">" + cityStatus + "</span></td>";
 						html += "</tr>";
-					}
-										
-					html += "</table>";
-					html += "</td>";
-					html += "</tr>";
+					}					
 				});
 				
 				html += "</table>";
