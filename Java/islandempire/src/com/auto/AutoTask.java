@@ -34,10 +34,6 @@ public class AutoTask extends Thread implements CallBackTask {
 	private Config m_Config = null;
 	private Towns m_MyTowns = null;	
 	private TaskMy m_MyTask = null;
-	private final RequestSessions m_RequestSessions = new RequestSessions();
-	private final RequestTowns m_RequestTowns = new RequestTowns();
-	private final RequestMessage m_RequestMessage = new RequestMessage();
-	private final RequestIsland m_RequestIsland = new RequestIsland();
 	
 	public synchronized static AutoTask getInstance() {				
 		if (Task == null)
@@ -55,10 +51,11 @@ public class AutoTask extends Thread implements CallBackTask {
 			return null;
 		
 		String host = m_Config.getHost();
-		String clientv = m_Config.getClientv();
-		
+		String clientv = m_Config.getClientv();		
 		String path = m_Class.getPath() + m_File;
-		if (m_RequestSessions.request(host, clientv, m_Config, username, password)) {
+		
+		RequestSessions requestSessions = new RequestSessions();
+		if (requestSessions.request(host, clientv, m_Config, username, password)) {
 			String xml = Config.setConfig(m_Config);
 			boolean success = FileManager.writeFile(path, false, "UTF-8", xml);
 			if (success)
@@ -74,10 +71,11 @@ public class AutoTask extends Thread implements CallBackTask {
 			return false;
 		
 		String host = m_Config.getHost();
-		String clientv = m_Config.getClientv();
-		
+		String clientv = m_Config.getClientv();		
 		String path = m_Class.getPath() + m_File;
-		if (m_RequestSessions.request(host, clientv, cookie, m_Config)) {
+		
+		RequestSessions requestSessions = new RequestSessions();
+		if (requestSessions.request(host, clientv, cookie, m_Config)) {
 			String xml = Config.setConfig(m_Config);
 			return FileManager.writeFile(path, false, "UTF-8", xml);			
 		} else
@@ -111,7 +109,8 @@ public class AutoTask extends Thread implements CallBackTask {
 		String clientv = m_Config.getClientv();
 		String cookie = m_Config.getCookie();
 		
-		TownInfo townInfo = m_RequestTowns.request(host, clientv, cookie, username, townId);
+		RequestTowns requestTowns = new RequestTowns();
+		TownInfo townInfo = requestTowns.request(host, clientv, cookie, username, townId);
 		if (townInfo == null)
 			return null;
 		
@@ -138,7 +137,8 @@ public class AutoTask extends Thread implements CallBackTask {
 		String clientv = m_Config.getClientv();
 		String cookie = m_Config.getCookie();
 		
-		TownInfo townInfo = m_RequestTowns.request(host, clientv, cookie, username, townId);
+		RequestTowns requestTowns = new RequestTowns();
+		TownInfo townInfo = requestTowns.request(host, clientv, cookie, username, townId);
 		if (townInfo == null)
 			return null;
 		else
@@ -160,7 +160,8 @@ public class AutoTask extends Thread implements CallBackTask {
 		String clientv = m_Config.getClientv();
 		String cookie = m_Config.getCookie();
 		
-		return m_RequestMessage.request(host, clientv, cookie, username, username, page);
+		RequestMessage requestMessage = new RequestMessage();
+		return requestMessage.request(host, clientv, cookie, username, username, page);
 	}
 	
 	public String getIsland(String x, String y) {
@@ -174,7 +175,8 @@ public class AutoTask extends Thread implements CallBackTask {
 		String clientv = m_Config.getClientv();
 		String cookie = m_Config.getCookie();
 		
-		return m_RequestIsland.request(host, clientv, cookie, x, y, m_Config.getUserId());
+		RequestIsland requestIsland = new RequestIsland();
+		return requestIsland.request(host, clientv, cookie, x, y, m_Config.getUserId());
 	}
 	
 	public String getConfig() {

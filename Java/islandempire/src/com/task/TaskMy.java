@@ -117,18 +117,13 @@ public class TaskMy extends TaskBase {
 			if (town.getOwner() != null)
 				username = town.getOwner();
 			
-			if (autoUpgrade && upgrade(town, m_Config, configTown)) {
-				try {						
-					sleep(1000);
-				} catch (InterruptedException e) {
-					
-				}
-			}
-			
+			if (autoUpgrade)
+				upgrade(town, m_Config, configTown);				
+						
 			sells(town, m_Config, configTown);
 			buys(town, m_Config, configTown);
 			//recruit(town, m_Config, configTown);
-			//attack(town, m_Config, configTown);
+			attack(town, m_Config, configTown);
 			transport(town, m_Config, configTown);
 			townInfos.add(townInfo);
 		}
@@ -435,10 +430,14 @@ public class TaskMy extends TaskBase {
 		}
 	}
 		
-	private boolean upgrade(Town town, Config config, ConfigTown configTown) {
+	private void upgrade(Town town, Config config, ConfigTown configTown) {
 		String host = config.getHost();
 		String clientv = config.getClientv();
 		String cookie = config.getCookie();
+		Long level = town.getLevel();
+		
+		if (level == null)
+			return;
 		
 		int total = 0;
 		List<BuildingQueue> buildingQueues = town.getBuildingQueues();
@@ -446,24 +445,24 @@ public class TaskMy extends TaskBase {
 			total = buildingQueues.size();
 		
 		if (total > 1)
-			return false;
+			return;
 		
 		if (total == 1) {
 			BuildingQueue buildingQueue = buildingQueues.get(0);
 			List<LinesEvent> linesEvents = buildingQueue.getLinesEvent();
 			if (linesEvents != null && linesEvents.size() > 1)
-				return false;							
+				return;							
 		}
 		
 		List<Long> prioritys = configTown.getUpgradePriority();
 		if (prioritys == null)
-			return false;
+			return;
 									
 		HashMap<Long, List<Long>> buildings = new HashMap<Long, List<Long>>();
 		
 		if (town.getBuildingBarrack() != null) {
 			BuildingSoldier buildingBarrack = town.getBuildingBarrack();
-			if (buildingBarrack.getBuildingType() != null && buildingBarrack.getId() != null && buildingBarrack.getLevel() != null && buildingBarrack.getLevel() < 40 && buildingBarrack.getStatus() != null && buildingBarrack.getStatus().equals("idle")) {
+			if (buildingBarrack.getBuildingType() != null && buildingBarrack.getId() != null && buildingBarrack.getLevel() != null && buildingBarrack.getLevel() < 40 && buildingBarrack.getLevel() < level && buildingBarrack.getStatus() != null && buildingBarrack.getStatus().equals("idle")) {				
 				List<Long> buildingIds = new Vector<Long>();
 				buildingIds.add(buildingBarrack.getId());
 				buildings.put(buildingBarrack.getBuildingType(), buildingIds);			
@@ -477,15 +476,14 @@ public class TaskMy extends TaskBase {
 				if (buildingLines != null) {
 					TreeMap<Long, List<Long>> sorts = new TreeMap<Long, List<Long>>();					
 					for (BuildingLine buildingLine : buildingLines) {
-						if (buildingLine.getId() != null && buildingLine.getLevel() != null && buildingLine.getLevel() < 40 && buildingLine.getStatus() != null && buildingLine.getStatus().equals("idle")) {
-							Long level = buildingLine.getLevel();
-							if (sorts.containsKey(level)) {
-								List<Long> buildingIds = sorts.get(level);
+						if (buildingLine.getId() != null && buildingLine.getLevel() != null && buildingLine.getLevel() < 40 && buildingLine.getLevel() < level && buildingLine.getStatus() != null && buildingLine.getStatus().equals("idle")) {
+							if (sorts.containsKey(buildingLine.getLevel())) {
+								List<Long> buildingIds = sorts.get(buildingLine.getLevel());
 								buildingIds.add(buildingLine.getId());
 							} else {
 								List<Long> buildingIds = new Vector<Long>();
 								buildingIds.add(buildingLine.getId());
-								sorts.put(level, buildingIds);
+								sorts.put(buildingLine.getLevel(), buildingIds);
 							}											
 						}
 					}
@@ -505,15 +503,14 @@ public class TaskMy extends TaskBase {
 				if (buildingLines != null) {
 					TreeMap<Long, List<Long>> sorts = new TreeMap<Long, List<Long>>();
 					for (BuildingLine buildingLine : buildingLines) {
-						if (buildingLine.getId() != null && buildingLine.getLevel() != null && buildingLine.getLevel() < 40 && buildingLine.getStatus() != null && buildingLine.getStatus().equals("idle")) {
-							Long level = buildingLine.getLevel();
-							if (sorts.containsKey(level)) {
-								List<Long> buildingIds = sorts.get(level);
+						if (buildingLine.getId() != null && buildingLine.getLevel() != null && buildingLine.getLevel() < 40 && buildingLine.getLevel() < level && buildingLine.getStatus() != null && buildingLine.getStatus().equals("idle")) {
+							if (sorts.containsKey(buildingLine.getLevel())) {
+								List<Long> buildingIds = sorts.get(buildingLine.getLevel());
 								buildingIds.add(buildingLine.getId());
 							} else {
 								List<Long> buildingIds = new Vector<Long>();
 								buildingIds.add(buildingLine.getId());
-								sorts.put(level, buildingIds);
+								sorts.put(buildingLine.getLevel(), buildingIds);
 							}
 						}							
 					}
@@ -533,15 +530,14 @@ public class TaskMy extends TaskBase {
 				if (buildingLines != null) {
 					TreeMap<Long, List<Long>> sorts = new TreeMap<Long, List<Long>>();
 					for (BuildingLine buildingLine : buildingLines) {
-						if (buildingLine.getId() != null && buildingLine.getLevel() != null && buildingLine.getLevel() < 40 && buildingLine.getStatus() != null && buildingLine.getStatus().equals("idle")) {
-							Long level = buildingLine.getLevel();
-							if (sorts.containsKey(level)) {
-								List<Long> buildingIds = sorts.get(level);
+						if (buildingLine.getId() != null && buildingLine.getLevel() != null && buildingLine.getLevel() < 40 && buildingLine.getLevel() < level && buildingLine.getStatus() != null && buildingLine.getStatus().equals("idle")) {
+							if (sorts.containsKey(buildingLine.getLevel())) {
+								List<Long> buildingIds = sorts.get(buildingLine.getLevel());
 								buildingIds.add(buildingLine.getId());
 							} else {
 								List<Long> buildingIds = new Vector<Long>();
 								buildingIds.add(buildingLine.getId());
-								sorts.put(level, buildingIds);
+								sorts.put(buildingLine.getLevel(), buildingIds);
 							}
 						}							
 					}
@@ -561,15 +557,14 @@ public class TaskMy extends TaskBase {
 				if (buildingLines != null) {
 					TreeMap<Long, List<Long>> sorts = new TreeMap<Long, List<Long>>();
 					for (BuildingLine buildingLine : buildingLines) {
-						if (buildingLine.getId() != null && buildingLine.getLevel() != null && buildingLine.getLevel() < 40 && buildingLine.getStatus() != null && buildingLine.getStatus().equals("idle")) {
-							Long level = buildingLine.getLevel();
-							if (sorts.containsKey(level)) {
-								List<Long> buildingIds = sorts.get(level);
+						if (buildingLine.getId() != null && buildingLine.getLevel() != null && buildingLine.getLevel() < 40 && buildingLine.getLevel() < level && buildingLine.getStatus() != null && buildingLine.getStatus().equals("idle")) {
+							if (sorts.containsKey(buildingLine.getLevel())) {
+								List<Long> buildingIds = sorts.get(buildingLine.getLevel());
 								buildingIds.add(buildingLine.getId());
 							} else {
 								List<Long> buildingIds = new Vector<Long>();
 								buildingIds.add(buildingLine.getId());
-								sorts.put(level, buildingIds);
+								sorts.put(buildingLine.getLevel(), buildingIds);
 							}
 						}
 					}
@@ -589,15 +584,14 @@ public class TaskMy extends TaskBase {
 				if (buildingLines != null) {
 					TreeMap<Long, List<Long>> sorts = new TreeMap<Long, List<Long>>();
 					for (BuildingLine buildingLine : buildingLines) {
-						if (buildingLine.getId() != null && buildingLine.getLevel() != null && buildingLine.getLevel() < 40 && buildingLine.getStatus() != null && buildingLine.getStatus().equals("idle")) {
-							Long level = buildingLine.getLevel();
-							if (sorts.containsKey(level)) {
-								List<Long> buildingIds = sorts.get(level);
+						if (buildingLine.getId() != null && buildingLine.getLevel() != null && buildingLine.getLevel() < 40 && buildingLine.getLevel() < level && buildingLine.getStatus() != null && buildingLine.getStatus().equals("idle")) {
+							if (sorts.containsKey(buildingLine.getLevel())) {
+								List<Long> buildingIds = sorts.get(buildingLine.getLevel());
 								buildingIds.add(buildingLine.getId());
 							} else {
 								List<Long> buildingIds = new Vector<Long>();
 								buildingIds.add(buildingLine.getId());
-								sorts.put(level, buildingIds);
+								sorts.put(buildingLine.getLevel(), buildingIds);
 							}
 						}							
 					}
@@ -612,7 +606,7 @@ public class TaskMy extends TaskBase {
 		
 		if (town.getBuildingStore() != null) {
 			BuildingStore buildingStore = town.getBuildingStore();
-			if (buildingStore.getBuildingType() != null && buildingStore.getId() != null && buildingStore.getLevel() != null && buildingStore.getLevel() < 40 && buildingStore.getStatus() != null && buildingStore.getStatus().equals("idle")) {
+			if (buildingStore.getBuildingType() != null && buildingStore.getId() != null && buildingStore.getLevel() != null && buildingStore.getLevel() < 40 && buildingStore.getLevel() < level && buildingStore.getStatus() != null && buildingStore.getStatus().equals("idle")) {
 				List<Long> buildingIds = new Vector<Long>();
 				buildingIds.add(buildingStore.getId());
 				buildings.put(buildingStore.getBuildingType(), buildingIds);			
@@ -621,7 +615,7 @@ public class TaskMy extends TaskBase {
 		
 		if (town.getBuildingPort() != null) {
 			BuildingPort buildingPort = town.getBuildingPort();
-			if (buildingPort.getBuildingType() != null && buildingPort.getId() != null && buildingPort.getLevel() != null && buildingPort.getLevel() < 40 && buildingPort.getStatus() != null && buildingPort.getStatus().equals("idle")) {
+			if (buildingPort.getBuildingType() != null && buildingPort.getId() != null && buildingPort.getLevel() != null && buildingPort.getLevel() < 40 && buildingPort.getLevel() < level && buildingPort.getStatus() != null && buildingPort.getStatus().equals("idle")) {
 				List<Long> buildingIds = new Vector<Long>();
 				buildingIds.add(buildingPort.getId());
 				buildings.put(buildingPort.getBuildingType(), buildingIds);			
@@ -630,7 +624,7 @@ public class TaskMy extends TaskBase {
 		
 		if (town.getBuildingMarket() != null) {
 			BuildingMarket buildingMarket = town.getBuildingMarket();
-			if (buildingMarket.getBuildingType() != null && buildingMarket.getId() != null && buildingMarket.getLevel() != null && buildingMarket.getLevel() < 40 && buildingMarket.getStatus() != null && buildingMarket.getStatus().equals("idle")) {
+			if (buildingMarket.getBuildingType() != null && buildingMarket.getId() != null && buildingMarket.getLevel() != null && buildingMarket.getLevel() < 40 && buildingMarket.getLevel() < level && buildingMarket.getStatus() != null && buildingMarket.getStatus().equals("idle")) {
 				List<Long> buildingIds = new Vector<Long>();
 				buildingIds.add(buildingMarket.getId());
 				buildings.put(buildingMarket.getBuildingType(), buildingIds);			
@@ -649,7 +643,7 @@ public class TaskMy extends TaskBase {
 		if (town.getBuildingWall() != null) {
 			BuildingWall buildingWall = town.getBuildingWall();
 			if (buildingWall.getBuildingType() != null) {
-				if (buildingWall.getId() != null && buildingWall.getLevel() != null && buildingWall.getLevel() < 40 && buildingWall.getStatus() != null && buildingWall.getStatus().equals("idle")) {
+				if (buildingWall.getId() != null && buildingWall.getLevel() != null && buildingWall.getLevel() < 40 && buildingWall.getLevel() < level && buildingWall.getStatus() != null && buildingWall.getStatus().equals("idle")) {
 					List<Long> buildingIds = new Vector<Long>();
 					buildingIds.add(buildingWall.getId());
 					buildings.put(buildingWall.getBuildingType(), buildingIds);	
@@ -659,15 +653,14 @@ public class TaskMy extends TaskBase {
 				if (buildingTowers != null) {
 					TreeMap<Long, List<Long>> sorts = new TreeMap<Long, List<Long>>();
 					for (BuildingTower buildingTower : buildingTowers) {
-						if (buildingTower.getId() != null && buildingTower.getLevel() != null && buildingTower.getLevel() < 40 && buildingTower.getStatus() != null && buildingTower.getStatus().equals("idle")) {
-							Long level = buildingTower.getLevel();
-							if (sorts.containsKey(level)) {
-								List<Long> buildingIds = sorts.get(level);
+						if (buildingTower.getId() != null && buildingTower.getLevel() != null && buildingTower.getLevel() < 40 && buildingTower.getLevel() < level && buildingTower.getStatus() != null && buildingTower.getStatus().equals("idle")) {
+							if (sorts.containsKey(buildingTower.getLevel())) {
+								List<Long> buildingIds = sorts.get(buildingTower.getLevel());
 								buildingIds.add(buildingTower.getId());
 							} else {
 								List<Long> buildingIds = new Vector<Long>();
 								buildingIds.add(buildingTower.getId());
-								sorts.put(level, buildingIds);
+								sorts.put(buildingTower.getLevel(), buildingIds);
 							}
 						}						
 					}
@@ -688,7 +681,7 @@ public class TaskMy extends TaskBase {
 		
 		if (town.getBuildingYard() != null) {
 			BuildingSoldier buildingYard = town.getBuildingYard();
-			if (buildingYard.getBuildingType() != null && buildingYard.getId() != null && buildingYard.getLevel() != null && buildingYard.getLevel() < 40 && buildingYard.getStatus() != null && buildingYard.getStatus().equals("idle")) {
+			if (buildingYard.getBuildingType() != null && buildingYard.getId() != null && buildingYard.getLevel() != null && buildingYard.getLevel() < 40 && buildingYard.getLevel() < level && buildingYard.getStatus() != null && buildingYard.getStatus().equals("idle")) {
 				List<Long> buildingIds = new Vector<Long>();
 				buildingIds.add(buildingYard.getId());
 				buildings.put(buildingYard.getBuildingType(), buildingIds);			
@@ -697,7 +690,7 @@ public class TaskMy extends TaskBase {
 		
 		if (town.getBuildingCellar() != null) {
 			BuildingCellar buildingCellar = town.getBuildingCellar();
-			if (buildingCellar.getBuildingType() != null && buildingCellar.getId() != null && buildingCellar.getLevel() != null && buildingCellar.getLevel() < 40 && buildingCellar.getStatus() != null && buildingCellar.getStatus().equals("idle")) {
+			if (buildingCellar.getBuildingType() != null && buildingCellar.getId() != null && buildingCellar.getLevel() != null && buildingCellar.getLevel() < 40 && buildingCellar.getLevel() < level && buildingCellar.getStatus() != null && buildingCellar.getStatus().equals("idle")) {
 				List<Long> buildingIds = new Vector<Long>();
 				buildingIds.add(buildingCellar.getId());
 				buildings.put(buildingCellar.getBuildingType(), buildingIds);			
@@ -715,13 +708,11 @@ public class TaskMy extends TaskBase {
 					if (resources != null && checkResources(town, resources) && m_RequestBuildings.request(host, clientv, cookie, buildingId)) {
 						decreaseResources(town, resources);
 						if (++total > 1)
-							return true;
+							return;
 					}
 				}
 			}
-		}		
-				
-		return false;
+		}
 	}
 	
 	private Soldier getMinSoldier(Town town, Config config, long battleCount, Soldier soldier, Soldier minSoldier, List<Recruit> recruits) {

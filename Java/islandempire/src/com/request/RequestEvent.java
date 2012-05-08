@@ -10,6 +10,7 @@ public class RequestEvent extends RequestParent {
 	
 	public List<BattleQueue> request(String host, String clientv, String cookie, Long userId) {
 		String url = String.format(URL, userId);
+		m_URL.setLength(0);
 		m_URL.append(host);
 		m_URL.append(url);
 		
@@ -22,6 +23,7 @@ public class RequestEvent extends RequestParent {
 	
 	public List<BattleQueue> request(String host, String clientv, String cookie, String username, Long userId) {
 		String url = String.format(URL, userId);
+		m_URL.setLength(0);
 		m_URL.append(host);
 		m_URL.append(url);
 		
