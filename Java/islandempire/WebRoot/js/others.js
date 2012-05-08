@@ -1,7 +1,7 @@
 var WebOthers = "servlet/WebOthers";
 
 function requestOthers(username, townId, callback) {
-	var url = WebMyTowns + "?command=0&username=" + username + "&town_id=" + townId; 
+	var url = WebOthers + "?command=0&username=" + username + "&town_id=" + townId; 
 	Ajax_CallBack(url, "", "json", "", true, function(json) {
 		if (json != null)
 			callback(json);		
@@ -11,7 +11,7 @@ function requestOthers(username, townId, callback) {
 }
 
 function requestOtherTowns(username, townId, callback) {
-	var url = WebMyTowns + "?command=1&username=" + username + "&town_id=" + townId; 
+	var url = WebOthers + "?command=1&username=" + username + "&town_id=" + townId; 
 	Ajax_CallBack(url, "", "json", "", true, function(json) {
 		if (json != null)
 			callback(json, townId);		
@@ -21,10 +21,10 @@ function requestOtherTowns(username, townId, callback) {
 }
 
 function requestOtherMessages(username, page, callback) {
-	var url = WebMyTowns + "?command=2&username=" + username + "&town_id=" + townId;  
+	var url = WebOthers + "?command=2&username=" + username + "&page=" + page;
 	Ajax_CallBack(url, "", "json", "", true, function(json) {
 		if (json != null)
-			callback(json);		
+			callback(json, username, page);		
 	}, function(response, error, status) {
         return null;
     });

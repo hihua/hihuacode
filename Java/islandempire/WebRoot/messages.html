@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>MyTown</title>
+		<link rel="stylesheet" type="text/css" href="css.css" />
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/ajax.js"></script>		
+		<script type="text/javascript" src="js/others.js"></script>		
+	</head>
+	<body>
+		<table cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td id="messages" align="left" valign="top"></td>
+			</tr>
+		</table>
+		
+		<script type="text/javascript">						 			
+			function start() {
+				var username = request.QueryString("username");
+				var page = request.QueryString("page");			
+				getMessages(username, page);
+			}
+			
+			function getMessages(username, page) {
+				requestOtherMessages(username, page, setMessages);	
+			}
+			
+			function setMessages(json, username, page) {
+				var username = "";
+				var tmp = "";					
+				var type = -1;
+				var sys = 0;
+				var more = true;
+				
+				var messages = json.messages;
+				if (messages != null) {
+					$.each(messages, function(idx, message) {					
+						var created_at = "";
+						if (message.message_type != 5) {
+							username = message.to;
+							var date = new Date(message.created_at * 1000);
+							created_at = date.pattern("yyyy-MM-dd HH:mm:ss");
+						} else
+							sys++;
+						
+						if (message.message_type != type) {
+							tmp += "<table width=\"500\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+							tmp += "<tr>";
+							tmp += "<td align=\"left\">";
+							tmp += getMessageType(message.message_type);
+							tmp += "</td>";							
+							tmp += "</tr>";
+							tmp += "</table>";
+							type = message.message_type;
+						}
+						
+						tmp += "<table width=\"500\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"1\" class=\"Table1\">";
+						tmp += "<tr>";
+						
+						if (message.message_type != 5)
+							tmp += "<td width=\"60%\" height=\"30\" style=\"padding-left:5;padding-right:5\"><a href=\"#\" onclick=\"bodyShow('" + message.id + "');return false;\" class=\"AdminToolsLink1\">" + message.subject + "</a></td>";
+						else
+							tmp += "<td width=\"60%\" height=\"30\" style=\"padding-left:5;padding-right:5\"><a href=\"#\" onclick=\"bodyShow('s" + sys + "');return false;\" class=\"AdminToolsLink1\">" + message.subject + "</a></td>";
+						
+						tmp += "<td rowspan=\"2\" align=\"center\">";
+						tmp += "<table width=\"180\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+						tmp += "<tr>";
+						tmp += "<td align=\"center\" height=\"25\">" + message.from + " -> " + message.to + "</td>";
+						tmp += "</tr>";
+				        tmp += "<tr>";
+				        tmp += "<td align=\"center\" height=\"25\">" + created_at + "</td>";
+				        tmp += "</tr>";
+				        tmp += "</table>";
+				        tmp += "</td>";
+				        tmp += "</tr>";
+				        tmp += "<tr>";		            
+				        tmp += "<td height=\"25\" style=\"padding-left:5;padding-right:5;\">" + message.to + "</td>";
+				        tmp += "</tr>";
+				        				        
+				        var bodyId = "body_" + message.id;
+				        if (message.message_type == 5)
+				        	bodyId = "body_s" +  sys;
+				        
+				       	tmp += "<tr id=\"" + bodyId + "\" style=\"display:none\">";
+				        
+				        var body = "";
+				        if (message.body != null) {
+				        	body = message.body;
+				        	body = body.replace(/\n/g, "<br/>");				        	
+				        }
+				        	
+				        tmp += "<td height=\"25\" style=\"padding-left:5;padding-right:5;padding-top:5;padding-bottom:5;\" colspan=\"2\">" + body + "</td>";
+				        tmp += "</tr>";
+				        tmp += "</table>";
+				        tmp += "<br />";	
+					});
+				}
+				
+				tmp += "<table width=\"500\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+				tmp += "<tr>";
+				tmp += "<td align=\"right\" height=\"25\">";
+				if (page > 1)
+					tmp += "<a href=\"messages.html?username=" + username + "&page=" + (Number(page) - 1) + "\" class=\"AdminToolsLink2\">[上一页]</a>";
+				else
+					tmp += "<a href=\"#\" class=\"AdminToolsLink2\">[上一页]</a>";
+				
+				tmp += "&nbsp;";	
+				tmp += "<a href=\"messages.html?username=" + username + "&page=" + (Number(page) + 1) + "\" class=\"AdminToolsLink2\">[下一页]</a>";
+				tmp += "</td>";
+				tmp += "</tr>";
+				tmp += "</table>";
+				
+				var html = "";				
+				html += tmp;
+								
+				var div = "messages";				
+			    $("#" + div).html(html);
+			}
+			
+			function bodyShow(id) {	
+				var body = "#body_" + id;			
+				if ($(body).css("display") == "none")												
+					$(body).show();									
+				else
+					$(body).hide();
+			}
+			
+			function getMessageType(type) {
+				switch (type) {
+					case 0:
+						return "玩家";
+						
+					case 1:
+						return "运输";
+						
+					case 3:
+						return "战斗";
+						
+					case 5:
+						return "系统";
+						
+					default:
+						return "";		
+				}			
+			}
+			
+			start();
+		</script>
+	</body>
+</html>
