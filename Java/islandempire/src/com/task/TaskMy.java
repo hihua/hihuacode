@@ -122,7 +122,7 @@ public class TaskMy extends TaskBase {
 						
 			sells(town, m_Config, configTown);
 			buys(town, m_Config, configTown);
-			//recruit(town, m_Config, configTown);
+			recruit(town, m_Config, configTown);
 			attack(town, m_Config, configTown);
 			transport(town, m_Config, configTown);
 			townInfos.add(townInfo);
@@ -1258,9 +1258,7 @@ public class TaskMy extends TaskBase {
 			if (m_RequestArmy.request(host, clientv, cookie, townId, islandVillage.getId(), townId, soldiers, hero)) {
 				m_Village.add(islandVillage.getId());
 				decreaseSoldiers(town, soldiers);
-				total++;				
-				if (hero != null)
-					hero = null;				
+				total++;					
 			} else
 				error++;						
 		}		

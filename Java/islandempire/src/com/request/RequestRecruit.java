@@ -42,7 +42,7 @@ public class RequestRecruit extends RequestParent {
 		m_Body.append("&count=");
 		m_Body.append(count);
 		
-		String response = requestUrl(m_URL.toString(), clientv, cookie, null);
+		String response = requestUrl(m_URL.toString(), clientv, cookie, m_Body.toString());
 		if (response == null)
 			return null;
 		else

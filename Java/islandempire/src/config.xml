@@ -4,7 +4,7 @@
 	<host>http://107.20.224.201</host>
 	<clientv>1.3.5</clientv>
 	<userid>23568</userid>
-	<cookie>_game001_server_session=BAh7BiIPc2Vzc2lvbl9pZCIlNDkwMTM2MjkyNDMyYWU3OTM0MDk2MTc0YzA1YmYyMzA%3D--5f1213c7c6d1a554aa41b7b6378cdfc1eb669578; cookie_id=BAgiSzhmM2MzYjFkNzgxMzJhNDk1YTg2NDFjZGJmNTFiZjUwYjkzMWY0NThUdWUgTWF5IDA4IDAzOjE4OjQwICswMDAwIDIwMTI%3D--4a2df2ff02b61f408bc719c99a7309a775d28b56; cookie_salt=BAhbB2kCEFwiRTQzNTNiNDAzMzFjMWE1YmE0Mzg3ZjAzMmM1NDMzOWFhMjE5ZjkwMjU1YTk3YWU1NTgyOTU0Mjc2NjdkYWRkOGE%3D--169a99fea894af360126db43c28bc0d076403b87</cookie>
+	<cookie>_game001_server_session=BAh7BiIPc2Vzc2lvbl9pZCIlYWNlN2EyYjY1MWExYjYwYWQzZGMzZGRiYjhkNDllODA%3D--ba0ce2a6bc71f1ebd9d75889b75b921f5ff30b14; cookie_id=BAgiSzhmM2MzYjFkNzgxMzJhNDk1YTg2NDFjZGJmNTFiZjUwYjkzMWY0NThXZWQgTWF5IDA5IDAzOjIxOjA2ICswMDAwIDIwMTI%3D--ed879e41e192e630ee93529c9230b41473e014b1; cookie_salt=BAhbB2kCEFwiRWNkZTcxZmI0MmQ5NDg5MmRlYzAyZjlkODYwZWM4OGJkMGJhNjI1NjkwOWViNWViOGEwNzA3YmUwZjkxNWY0YTA%3D--d274e340fb3ff2f27c785fd84cf1efb76dd8a4a6</cookie>
 	<autotowns>30</autotowns>
 	<towns id="57971">
 		<autoupgrade priority="2,1,13,11">true</autoupgrade>

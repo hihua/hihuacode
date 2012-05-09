@@ -14,6 +14,7 @@ import com.callback.CallBackTask;
 import com.config.Config;
 import com.entity.TownInfo;
 import com.entity.Towns;
+import com.request.RequestBuildings;
 import com.request.RequestIsland;
 import com.request.RequestMessage;
 import com.request.RequestSessions;
@@ -177,6 +178,18 @@ public class AutoTask extends Thread implements CallBackTask {
 		
 		RequestIsland requestIsland = new RequestIsland();
 		return requestIsland.request(host, clientv, cookie, x, y, m_Config.getUserId());
+	}
+	
+	public boolean requestBuilding(Long buildingId) {
+		if (m_Config == null)
+			return false;
+		
+		String host = m_Config.getHost();
+		String clientv = m_Config.getClientv();
+		String cookie = m_Config.getCookie();
+		
+		RequestBuildings requestBuildings = new RequestBuildings();
+		return requestBuildings.request(host, clientv, cookie, buildingId);		
 	}
 	
 	public String getConfig() {

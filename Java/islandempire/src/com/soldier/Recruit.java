@@ -75,13 +75,14 @@ public class Recruit {
 		if (json == null || json.get("soldier_def") == null)
 			return null;
 		
+		JSONObject soldier = (JSONObject) json.get("soldier_def");		
 		Recruit recruit = new Recruit();
 		recruit.setDefense((json.get("defense") != null) ? json.getLong("defense") : null);
 		recruit.setName((json.get("name") != null) ? json.getString("name") : null);
 		recruit.setConsumeFood((json.get("consume_food") != null) ? json.getLong("consume_food") : null);
 		
 		HashMap<String, Long> cost = new HashMap<String, Long>();
-		JSONArray arrays = json.getJSONArray("cost");
+		JSONArray arrays = soldier.getJSONArray("cost");
 				
 		for (int i = 0;i < arrays.size();i++) {
 			JSONObject array = (JSONObject) arrays.get(i);
