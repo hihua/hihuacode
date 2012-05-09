@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Config</title>
+		<link rel="stylesheet" type="text/css" href="css.css" />
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/ajax.js"></script>
+		<script type="text/javascript" src="js/config.js"></script>
+	</head>
+	<body>
+		<div id="config"></div>
+		<input type="button" name="button" id="button" value=" 提交 " onclick="postConfig()" />
+		<script type="text/javascript">
+			function setConfig(xml) {
+				var config = $(xml);
+				var html = "";				
+				var host = config.find("host");
+				var clientv = config.find("clientv");
+				var userid = config.find("userid");
+				var cookie = config.find("cookie");
+				var autotowns = config.find("autotowns");
+				
+				html = "";
+				html += "<table width=\"760\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+				html += "<tr>";
+				html += "<td width=\"75\" align=\"right\" height=\"30\">IP地址：</td>";				
+				html += "<td align=\"left\"><input type=\"text\" id=\"host\" size=\"40\" value=\"" + (host != null ? host.text() : "") + "\" /></td>";
+				html += "</tr>";
+				html += "<tr>";
+				html += "<td align=\"right\" height=\"30\">版本：</td>";
+				html += "<td align=\"left\"><input type=\"text\" id=\"clientv\" size=\"40\" value=\"" + (clientv != null ? clientv.text() : "") + "\" /></td>";
+				html += "</tr>";
+				html += "<tr>";
+				html += "<td align=\"right\" height=\"30\">用户ID：</td>";
+				html += "<td align=\"left\"><input type=\"text\" id=\"userid\" size=\"40\" value=\"" + (userid != null ? userid.text() : "") + "\" /></td>";
+				html += "</tr>";
+				html += "<tr>";
+				html += "<td align=\"right\" height=\"30\">Cookie：</td>";
+				html += "<td align=\"left\"><input type=\"text\" id=\"cookie\" size=\"102\" value=\"" + (cookie != null ? cookie.text() : "") + "\" /></td>";
+				html += "</tr>";
+				html += "<tr>";
+				html += "<td align=\"right\" height=\"30\">请求延迟：</td>";
+				html += "<td align=\"left\"><input type=\"text\" id=\"autotowns\" size=\"40\" value=\"" + (autotowns != null ? autotowns.text() : "") + "\" /></td>";
+				html += "</tr>";
+				html += "</table>";
+								
+				config.find("towns").each(function() {
+					var towns = $(this);
+					var id = towns.attr("id");
+					var autoUpgrade = towns.find("autoupgrade");
+					var upgradePriority = autoUpgrade.attr("priority");
+					var autoAttack = towns.find("autoattack");
+					var attackLevel = autoAttack.attr("level");
+					var autoRecruit = towns.find("autorecruit");
+					var sells = towns.find("sells");
+					var sellsWood = sells.attr("wood");
+					var sellsFood = sells.attr("food");
+					var sellsIron = sells.attr("iron");
+					var sellsMarble = sells.attr("marble");
+					var sellsGold = sells.attr("gold");
+					var buys = towns.find("buys");
+					var buysWood = buys.attr("wood");
+					var buysFood = buys.attr("food");
+					var buysIron = buys.attr("iron");
+					var buysMarble = buys.attr("marble");
+					
+					if (id == null)
+						return;
+					
+					html += "<form id=\"" + id + "\" style=\"margin:0px\">";
+					html += "<table width=\"760\" cellpadding=\"0\" cellspacing=\"0\" border=\"1\" class=\"Table1\">";
+					html += "<tr>";
+					html += "<td style=\"padding-top:5px;padding-bottom:5px;\">";
+					html += "<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"1\">";
+					html += "<tr>";
+					html += "<td width=\"75\" height=\"30\" align=\"right\">城市ID：</td>";
+					html += "<td align=\"left\" colspan=\"2\"><input type=\"text\" id=\"id\" size=\"40\" value=\"" + (id != null ? id : "") + "\" /></td>";
+					html += "</tr>";
+					html += "<tr>";
+					html += "<td height=\"30\" align=\"right\">自动升级：</td>";
+					html += "<td align=\"left\" width=\"500\"><input type=\"text\" id=\"upgradepriority\" size=\"40\" value=\"" + (upgradePriority != null ? upgradePriority : "") + "\" /></td>";
+					html += "<td align=\"left\" width=\"185\"><input type=\"checkbox\" id=\"autoupgrade\"" + (autoUpgrade != null && autoUpgrade.text() == "true" ? "checked=\"checked\"" : "") + "  />&nbsp;开启</td>";
+					html += "</tr>";
+					html += "<tr>";
+					html += "<td height=\"30\" align=\"right\">自动攻击：</td>";
+					html += "<td align=\"left\"><input type=\"text\" id=\"attacklevel\" size=\"40\" value=\"" + (attackLevel != null ? attackLevel : "") + "\" /></td>";
+					html += "<td align=\"left\"><input type=\"checkbox\" id=\"autoattack\"" + (autoAttack != null && autoAttack.text() == "true" ? "checked=\"checked\"" : "") + "  />&nbsp;开启</td>";
+					html += "</tr>";
+					html += "<tr>";
+					html += "<td height=\"30\" align=\"right\">自动招募：</td>";
+					html += "<td align=\"left\" colspan=\"2\"><input type=\"checkbox\" id=\"autorecruit\"" + (autoRecruit != null && autoRecruit.text() == "true" ? "checked=\"checked\"" : "") + "  />&nbsp;开启</td>";					
+					html += "</tr>";
+					html += "<tr>";
+					html += "<td height=\"30\" align=\"right\">自动销售：</td>";
+					html += "<td align=\"left\">";
+					html += "<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+					html += "<tr>";
+					html += "<td align=\"right\" width=\"8%\">木头：</td>";
+					html += "<td width=\"10%\"><input type=\"text\" id=\"sellswood\" size=\"1\" value=\"" + (sellsWood != null ? sellsWood : "") + "\" /></td>";
+					html += "<td align=\"right\" width=\"8%\">食物：</td>";
+					html += "<td width=\"10%\"><input type=\"text\" id=\"sellsfood\" size=\"1\" value=\"" + (sellsFood != null ? sellsFood : "") + "\" /></td>";
+					html += "<td align=\"right\" width=\"12%\">黑铁石：</td>";
+					html += "<td width=\"10%\"><input type=\"text\" id=\"sellsiron\" size=\"1\" value=\"" + (sellsIron != null ? sellsIron : "") + "\" /></td>";
+					html += "<td align=\"right\" width=\"12%\">大理石：</td>";
+					html += "<td width=\"10%\"><input type=\"text\" id=\"sellsmarble\" size=\"1\" value=\"" + (sellsMarble != null ? sellsMarble : "") + "\" /></td>";
+					html += "<td align=\"right\" width=\"10%\">黄金：</td>";
+					html += "<td width=\"10%\"><input type=\"text\" id=\"sellsgold\" size=\"1\" value=\"" + (sellsGold != null ? sellsGold : "") + "\" /></td>";					
+					html += "</tr>";
+					html += "</table>";										
+					html += "</td>";
+					html += "<td align=\"left\"><input type=\"checkbox\" id=\"sells\"" + (sells != null && sells.text() == "true" ? "checked=\"checked\"" : "") + "  />&nbsp;开启</td>";			
+					html += "</tr>";
+					html += "<tr>";
+					html += "<td height=\"30\" align=\"right\">自动购买：</td>";
+					html += "<td align=\"left\">";
+					html += "<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+					html += "<tr>";
+					html += "<td align=\"right\" width=\"8%\">木头：</td>";
+					html += "<td width=\"10%\"><input type=\"text\" id=\"buyswood\" size=\"1\" value=\"" + (buysWood != null ? buysWood : "") + "\" /></td>";
+					html += "<td align=\"right\" width=\"8%\">食物：</td>";
+					html += "<td width=\"10%\"><input type=\"text\" id=\"buysfood\" size=\"1\" value=\"" + (buysFood != null ? buysFood : "") + "\" /></td>";
+					html += "<td align=\"right\" width=\"12%\">黑铁石：</td>";
+					html += "<td width=\"10%\"><input type=\"text\" id=\"buysiron\" size=\"1\" value=\"" + (buysIron != null ? buysIron : "") + "\" /></td>";
+					html += "<td align=\"right\" width=\"12%\">大理石：</td>";
+					html += "<td width=\"10%\"><input type=\"text\" id=\"buysmarble\" size=\"1\" value=\"" + (buysMarble != null ? buysMarble : "") + "\" /></td>";
+					html += "<td align=\"right\" width=\"10%\">&nbsp;</td>";
+					html += "<td width=\"10%\">&nbsp;</td>";					
+					html += "</tr>";
+					html += "</table>";										
+					html += "</td>";
+					html += "<td align=\"left\"><input type=\"checkbox\" id=\"buys\"" + (buys != null && buys.text() == "true" ? "checked=\"checked\"" : "") + "  />&nbsp;开启</td>";			
+					html += "</tr>";
+					html += "</table>";
+					html += "</td>";
+					html += "</tr>";
+					html += "</table>";
+					html += "</form>";
+					html += "<br/>";
+				});
+								
+				$("#config").html("");
+				$("#config").html(html);
+			}
+			
+			function postConfig() {				
+				requestConfig(createConfig(), function(xml) {
+					var ret = $(xml).find("ret");
+					if (ret != null && ret.text() == "0") {
+						requestConfig("", setConfig);
+						alert("提交设置成功");
+					} else
+						alert("提交设置失败");				
+				});
+			}
+			
+			function createConfig() {
+				var host = $("#host").val();
+				var clientv = $("#clientv").val();
+				var userid = $("#userid").val();
+				var cookie = $("#cookie").val();
+				var autotowns = $("#autotowns").val();
+				
+				var xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n\r\n";
+				xml += "<config>\r\n";
+				xml += "\t<host>" + host + "</host>\r\n";
+				xml += "\t<clientv>" + clientv + "</clientv>\r\n";
+				xml += "\t<userid>" + userid + "</userid>\r\n";
+				xml += "\t<cookie>" + cookie + "</cookie>\r\n";
+				xml += "\t<autotowns>" + autotowns + "</autotowns>\r\n";
+								
+				$("form").each(function() {
+					var id = (($(this).find("#id") != null) ? $(this).find("#id").val() : "");
+					var autoUpgrade = (($(this).find("#autoupgrade") != null && $(this).find("#autoupgrade").attr("checked") == "checked") ? "true" : "false");
+					var upgradePriority = (($(this).find("#upgradepriority") != null) ? $(this).find("#upgradepriority").val() : "");
+					var autoAttack = (($(this).find("#autoattack") != null && $(this).find("#autoattack").attr("checked") == "checked") ? "true" : "false");
+					var attackLevel = (($(this).find("#attacklevel") != null) ? $(this).find("#attacklevel").val() : "");
+					var autoRecruit = (($(this).find("#autorecruit") != null && $(this).find("#autorecruit").attr("checked") == "checked") ? "true" : "false");
+					var sells = (($(this).find("#sells") != null && $(this).find("#sells").attr("checked") == "checked") ? "true" : "false");
+					var sellsWood = (($(this).find("#sellswood") != null) ? $(this).find("#sellswood").val() : "");
+					var sellsFood = (($(this).find("#sellsfood") != null) ? $(this).find("#sellsfood").val() : "");
+					var sellsIron = (($(this).find("#sellsiron") != null) ? $(this).find("#sellsiron").val() : "");
+					var sellsMarble = (($(this).find("#sellsmarble") != null) ? $(this).find("#sellsmarble").val() : "");
+					var sellsGold = (($(this).find("#sellsgold") != null) ? $(this).find("#sellsgold").val() : "");
+					var buys = (($(this).find("#buys") != null && $(this).find("#buys").attr("checked") == "checked") ? "true" : "false");
+					var buysWood = (($(this).find("#buyswood") != null) ? $(this).find("#buyswood").val() : "");
+					var buysFood = (($(this).find("#buysfood") != null) ? $(this).find("#buysfood").val() : "");
+					var buysIron = (($(this).find("#buysiron") != null) ? $(this).find("#buysiron").val() : "");
+					var buysMarble = (($(this).find("#buysmarble") != null) ? $(this).find("#buysmarble").val() : "");
+					
+					xml += "\t<towns id=\"" + id + "\">\r\n";
+					xml += "\t\t<autoupgrade priority=\"" + upgradePriority + "\">" + autoUpgrade + "</autoupgrade>\r\n";
+					xml += "\t\t<autoattack level=\"" + attackLevel + "\">" + autoAttack + "</autoattack>\r\n";
+					xml += "\t\t<autorecruit>" + autoRecruit + "</autorecruit>\r\n";
+					xml += "\t\t<sells wood=\"" + sellsWood + "\" food=\"" + sellsFood + "\" iron=\"" + sellsIron + "\" marble=\"" + sellsMarble + "\" gold=\"" + sellsGold + "\">" + sells + "</sells>\r\n";
+					xml += "\t\t<buys wood=\"" + buysWood + "\" food=\"" + buysFood + "\" iron=\"" + buysIron + "\" marble=\"" + buysMarble + "\">" + buys + "</buys>\r\n";
+					xml += "\t</towns>\r\n";
+				});
+				
+				xml += "</config>";
+				return xml;												
+			}
+			
+			requestConfig("", setConfig);
+		</script>
+	</body>
+</html>

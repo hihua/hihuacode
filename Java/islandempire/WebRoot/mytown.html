@@ -33,7 +33,11 @@
 						<tr>
 							<td align="center" height="35">
 								X&nbsp;<input type="text" id="x" size="7" />
-								Y&nbsp;<input type="text" id="y" size="7" />							
+								Y&nbsp;<input type="text" id="y" size="7" />
+								<select id="message">
+									<option value="0" selected="selected">不带消息</option>
+									<option value="1">带消息</option>
+								</select>						
 								<input type="button" id="query" value=" 查询 " onclick="getIsland()" />
 							</td>
 						</tr>
@@ -1307,13 +1311,13 @@
 						return "玩家";
 						
 					case 1:
-						return "运输";
+						return "系统";
 						
 					case 3:
 						return "战斗";
 						
 					case 5:
-						return "系统";
+						return "新闻";
 						
 					default:
 						return "";		
@@ -1361,8 +1365,9 @@
 						var cityAttackLevel = town.city_attack_level;
 						var ownerName = town.owner_name;
 						var ownerId = town.owner_id;						
+						var message = $("#message").val();
 						
-						var href = "<a href=\"others.html?userid=" + ownerId + "&username=" + ownerName + "&townid=" + id + "\" target=\"_blank\" class=\"AdminToolsLink2\">" + ownerName + "</a>";
+						var href = "<a href=\"others.html?username=" + ownerName + "&townid=" + id + "&message=" + message + "\" target=\"_blank\" class=\"AdminToolsLink2\">" + ownerName + "</a>";
 						
 						html += "<tr>";
 						html += "<td width=\"50\" height=\"30\" align=\"center\">" + id + "</td>";

@@ -35,8 +35,11 @@
 			function start() {
 				Username = request.QueryString("username");
 				var townId = request.QueryString("townid");
+				var message = request.QueryString("message");
 				getOthers(townId);
-				getOtherMessages(Username);
+				
+				if (message == "1")
+					getOtherMessages(Username);
 			}			
 			
 			function getOthers(townId) {
@@ -1304,13 +1307,13 @@
 						return "玩家";
 						
 					case 1:
-						return "运输";
+						return "系统";
 						
 					case 3:
 						return "战斗";
 						
 					case 5:
-						return "系统";
+						return "新闻";
 						
 					default:
 						return "";		
