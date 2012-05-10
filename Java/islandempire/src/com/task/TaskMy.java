@@ -1428,8 +1428,7 @@ public class TaskMy extends TaskBase {
 		Resources resourcesGold = town.getResourcesGold();
 		Resources resourcesMarble = town.getResourcesMarble();
 		Resources resourcesIron = town.getResourcesIron();		
-		Long resourceType = town.getResourceType();
-				
+						
 		TreeMap<Double, List<Resources>> sorts = new TreeMap<Double, List<Resources>>();
 		if (resourcesWood != null && resourcesWood.getResourceName() != null && resourcesWood.getResourceCount() != null && resourcesWood.getMaxVolume() != null) {
 			String resourceName = resourcesWood.getResourceName();
@@ -1455,52 +1454,47 @@ public class TaskMy extends TaskBase {
 				if (percent >= rate)
 					addMaxResources(resourcesFood, sorts, percent);				
 			}
-		}
+		}		
 		
-		if (resourceType == 1L) {
-			if (resourcesGold != null && resourcesGold.getResourceName() != null && resourcesGold.getResourceCount() != null && resourcesGold.getMaxVolume() != null) {
-				String resourceName = resourcesGold.getResourceName();
-				Long resourceCount = resourcesGold.getResourceCount();		
-				Long resourceMaxVolume = resourcesGold.getMaxVolume();
-						
-				if (sells.containsKey(resourceName)) {
-					double rate = sells.get(resourceName);
-					double percent = (double)resourceCount / (double)resourceMaxVolume;
-					if (percent >= rate)
-						addMaxResources(resourcesGold, sorts, percent);				
-				}
-			}			
-		}
-		
-		if (resourceType == 2L) {
-			if (resourcesMarble != null && resourcesMarble.getResourceName() != null && resourcesMarble.getResourceCount() != null && resourcesMarble.getMaxVolume() != null) {
-				String resourceName = resourcesMarble.getResourceName();
-				Long resourceCount = resourcesMarble.getResourceCount();		
-				Long resourceMaxVolume = resourcesMarble.getMaxVolume();
-						
-				if (sells.containsKey(resourceName)) {
-					double rate = sells.get(resourceName);
-					double percent = (double)resourceCount / (double)resourceMaxVolume;
-					if (percent >= rate)
-						addMaxResources(resourcesMarble, sorts, percent);				
-				}
-			}			
-		}
-		
-		if (resourceType == 3L) {
-			if (resourcesIron != null && resourcesIron.getResourceName() != null && resourcesIron.getResourceCount() != null && resourcesIron.getMaxVolume() != null) {
-				String resourceName = resourcesIron.getResourceName();
-				Long resourceCount = resourcesIron.getResourceCount();		
-				Long resourceMaxVolume = resourcesIron.getMaxVolume();
-						
-				if (sells.containsKey(resourceName)) {
-					double rate = sells.get(resourceName);
-					double percent = (double)resourceCount / (double)resourceMaxVolume;
-					if (percent >= rate)
-						addMaxResources(resourcesIron, sorts, percent);				
-				}
-			}			
-		}
+		if (resourcesGold != null && resourcesGold.getResourceName() != null && resourcesGold.getResourceCount() != null && resourcesGold.getMaxVolume() != null) {
+			String resourceName = resourcesGold.getResourceName();
+			Long resourceCount = resourcesGold.getResourceCount();		
+			Long resourceMaxVolume = resourcesGold.getMaxVolume();
+					
+			if (sells.containsKey(resourceName)) {
+				double rate = sells.get(resourceName);
+				double percent = (double)resourceCount / (double)resourceMaxVolume;
+				if (percent >= rate)
+					addMaxResources(resourcesGold, sorts, percent);				
+			}
+		}			
+			
+	
+		if (resourcesMarble != null && resourcesMarble.getResourceName() != null && resourcesMarble.getResourceCount() != null && resourcesMarble.getMaxVolume() != null) {
+			String resourceName = resourcesMarble.getResourceName();
+			Long resourceCount = resourcesMarble.getResourceCount();		
+			Long resourceMaxVolume = resourcesMarble.getMaxVolume();
+					
+			if (sells.containsKey(resourceName)) {
+				double rate = sells.get(resourceName);
+				double percent = (double)resourceCount / (double)resourceMaxVolume;
+				if (percent >= rate)
+					addMaxResources(resourcesMarble, sorts, percent);				
+			}
+		}		
+	
+		if (resourcesIron != null && resourcesIron.getResourceName() != null && resourcesIron.getResourceCount() != null && resourcesIron.getMaxVolume() != null) {
+			String resourceName = resourcesIron.getResourceName();
+			Long resourceCount = resourcesIron.getResourceCount();		
+			Long resourceMaxVolume = resourcesIron.getMaxVolume();
+					
+			if (sells.containsKey(resourceName)) {
+				double rate = sells.get(resourceName);
+				double percent = (double)resourceCount / (double)resourceMaxVolume;
+				if (percent >= rate)
+					addMaxResources(resourcesIron, sorts, percent);				
+			}
+		}		
 		
 		if (sorts.size() == 0)
 			return null;

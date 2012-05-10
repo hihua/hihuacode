@@ -180,7 +180,7 @@ public class AutoTask extends Thread implements CallBackTask {
 		return requestIsland.request(host, clientv, cookie, x, y, m_Config.getUserId());
 	}
 	
-	public boolean requestBuilding(Long buildingId) {
+	public boolean requestBuildings(Long buildingId) {
 		if (m_Config == null)
 			return false;
 		

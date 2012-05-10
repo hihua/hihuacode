@@ -82,7 +82,7 @@
 						if (linesEvents != null) {
 							$.each(linesEvents, function(idx, linesEvent) {
 								if (linesEvent.building_id == buildingId) {
-									var date = new Date(buildingQueue.finish_time * 1000);
+									var date = new Date(linesEvent.finish_time * 1000);
 									finishTime = date.pattern("yyyy-MM-dd HH:mm:ss");
 								}
 							});						
@@ -254,10 +254,8 @@
 						html += "<tr>";
 						html += "<td width=\"55%\" height=\"25\">";
 						html += "运送&nbsp;";						
-						if (transport.mission == 1) {
-							html += transport.to_town_id + "&nbsp;" + transport.to_town_name;						
-							html += "(" + transport.to_x + "," + transport.to_y + ")&nbsp;";
-							html += "Lv: " + transport.to_level + "&nbsp;";						
+						if (transport.mission == 3) {
+							html += transport.to_town_id + "&nbsp;" + transport.to_town_name + "&nbsp;";												
 							html += "途中";
 						} else
 							html += "返回";
@@ -266,7 +264,7 @@
 						html += "<td>" + finishTime + "</td>";
 						html += "</tr>";
 						
-						if (transport.mission == 1) {
+						if (transport.mission == 3) {
 							var tmp = "";
 							var army = transport.army;						
 							if (army != null && army.infantry != null)
@@ -1125,7 +1123,7 @@
 					var recoveryAt = date.pattern("yyyy-MM-dd HH:mm:ss");
 						
 					html += "<td width=\"10%\">";
-					html += "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+					html += "<table align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
 					html += "<tr>";
 					html += "<td height=\"20\" align=\"center\">英雄</td>";
 		    		html += "</tr>";		    		
