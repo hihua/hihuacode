@@ -531,10 +531,10 @@ public class Town {
 			return null;
 
 		Town towns = new Town();
-		JSONObject town = (JSONObject) json.get("town");
-		towns.setCityArmyStatus((town.get("city_army_status") != null) ? town.getString("city_army_status") : null);
-		JSONArray arrays = town.getJSONArray("buildings");
-		if (arrays != null) {
+		JSONObject town = (JSONObject) json.get("town");		
+		towns.setCityArmyStatus((town.get("city_army_status") != null) ? town.getString("city_army_status") : null);		
+		if (town.get("buildings") != null) {
+			JSONArray arrays = town.getJSONArray("buildings");
 			for (int i = 0; i < arrays.size(); i++) {
 				JSONObject array = (JSONObject) arrays.get(i);
 				Long level = (array.get("level") != null) ? array.getLong("level") : null;
@@ -730,7 +730,7 @@ public class Town {
 					towns.setBuildingCellar(buildingCellar);
 				}
 			}
-		}
+		}		
 		
 		towns.setName((town.get("name") != null) ? town.getString("name") : null);
 		if (town.get("alliance") != null) {
@@ -745,7 +745,7 @@ public class Town {
 		
 		towns.setResourceType((town.get("resource_type") != null) ? town.getLong("resource_type") : null);		
 		if (town.get("battle_queue") != null) {
-			arrays = town.getJSONArray("battle_queue");
+			JSONArray arrays = town.getJSONArray("battle_queue");
 			List<BattleQueue> list = new Vector<BattleQueue>();
 			for (int i = 0; i < arrays.size(); i++) {
 				JSONObject array = (JSONObject) arrays.get(i);
@@ -806,7 +806,7 @@ public class Town {
 		towns.setCurrentServerTime((town.get("current_server_time") != null) ? DateTime.getTime(town.getLong("current_server_time")) : null);
 		
 		if (town.get("resources") != null) {
-			arrays = town.getJSONArray("resources");
+			JSONArray arrays = town.getJSONArray("resources");
 			for (int i = 0; i < arrays.size(); i++) {
 				JSONObject array = (JSONObject) arrays.get(i);				
 				Resources resources = new Resources();
@@ -855,7 +855,7 @@ public class Town {
 		towns.setIslandZ((town.get("island_z") != null) ? town.getLong("island_z") : null);
 		
 		if (town.get("transport_queue") != null) {
-			arrays = town.getJSONArray("transport_queue");
+			JSONArray arrays = town.getJSONArray("transport_queue");
 			List<TransportQueue> list = new Vector<TransportQueue>();
 			for (int i = 0; i < arrays.size(); i++) {
 				JSONObject array = (JSONObject) arrays.get(i);
@@ -905,7 +905,7 @@ public class Town {
 		towns.setGems((town.get("gems") != null) ? town.getLong("gems") : null);
 		
 		if (town.get("soldiers") != null) {
-			arrays = town.getJSONArray("soldiers");
+			JSONArray arrays = town.getJSONArray("soldiers");
 			for (int i = 0; i < arrays.size(); i++) {
 				JSONObject array = (JSONObject) arrays.get(i);								
 				Soldier soldier = new Soldier();
@@ -958,7 +958,7 @@ public class Town {
 		}
 		
 		if (town.get("building_queue") != null) {
-			arrays = town.getJSONArray("building_queue");
+			JSONArray arrays = town.getJSONArray("building_queue");
 			List<BuildingQueue> list = new Vector<BuildingQueue>();
 			for (int i = 0; i < arrays.size(); i++) {
 				JSONObject array = (JSONObject) arrays.get(i);
@@ -994,7 +994,7 @@ public class Town {
 		towns.setHaveNewMessage((town.get("have_new_message") != null) ? town.getBoolean("have_new_message") : null);
 		
 		if (town.get("other_towns") != null) {
-			arrays = town.getJSONArray("other_towns");
+			JSONArray arrays = town.getJSONArray("other_towns");
 			List<OtherTown> list = new Vector<OtherTown>();
 			for (int i = 0; i < arrays.size(); i++) {
 				JSONObject array = (JSONObject) arrays.get(i);
@@ -1088,7 +1088,7 @@ public class Town {
 			hero.setTotalIntelligence(heroInfo.get("total_intelligence") != null ? heroInfo.getLong("total_intelligence") : null);
 		
 			if (heroInfo.get("skills") != null) {
-				arrays = heroInfo.getJSONArray("skills");
+				JSONArray arrays = heroInfo.getJSONArray("skills");
 				List<Skill> skills = new Vector<Skill>();
 				for (int i = 0; i < arrays.size(); i++) {
 					JSONObject array = (JSONObject) arrays.get(i);
@@ -1115,7 +1115,7 @@ public class Town {
 			hero.setMaxEnergy(heroInfo.get("max_energy") != null ? heroInfo.getLong("max_energy") : null);
 			
 			if (heroInfo.get("equipments") != null) {
-				arrays = heroInfo.getJSONArray("equipments");
+				JSONArray arrays = heroInfo.getJSONArray("equipments");
 				List<Equipment> equipments = new Vector<Equipment>();
 				for (int i = 0; i < arrays.size(); i++) {
 					JSONObject array = (JSONObject) arrays.get(i);

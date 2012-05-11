@@ -23,6 +23,7 @@ import com.config.ConfigTown;
 import com.deals.Deal;
 import com.entity.TownInfo;
 import com.entity.Towns;
+import com.hero.Equipment;
 import com.hero.Hero;
 import com.island.IslandBuilding;
 import com.island.IslandVillage;
@@ -34,6 +35,7 @@ import com.queue.TransportQueue;
 import com.request.RequestArmy;
 import com.request.RequestBuildings;
 import com.request.RequestDeals;
+import com.request.RequestEquipment;
 import com.request.RequestEvent;
 import com.request.RequestIsland;
 import com.request.RequestMessage;
@@ -63,6 +65,7 @@ public class TaskMy extends TaskBase {
 	private final RequestArmy m_RequestArmy = new RequestArmy();
 	private final RequestTransport m_RequestTransport = new RequestTransport();
 	private final RequestEvent m_RequestEvent = new RequestEvent();
+	private final RequestEquipment m_RequestEquipment = new RequestEquipment();
 	private final List<Long> m_Village = new Vector<Long>();
 	private Config m_ConfigNew = null;
 
@@ -1149,6 +1152,30 @@ public class TaskMy extends TaskBase {
 		return village;
 	}
 	
+	private boolean useEquipment(Town town, Config config) {
+		String host = config.getHost();
+		String clientv = config.getClientv();
+		String cookie = config.getCookie();
+		Long townId = town.getId();
+		
+		List<Equipment> equipments = m_RequestEquipment.request(host, clientv, cookie, townId);
+		if (equipments == null)
+			return false;
+		
+		for (Equipment equipment : equipments) {
+			if (equipment.getEquipmentId() == null || equipment.getType() == null)
+				continue;
+			
+			if (equipment.getType() == 9) {
+				Long equipmentId = equipment.getEquipmentId();						
+				if (m_RequestEquipment.request(host, clientv, cookie, equipmentId, townId))
+					return true;
+			}			
+		}
+		
+		return false;
+	}
+		
 	private void attack(Town town, Config config, ConfigTown configTown) {
 		String host = config.getHost();
 		String clientv = config.getClientv();
@@ -1237,8 +1264,14 @@ public class TaskMy extends TaskBase {
 				
 		Hero hero = null;
 		hero = town.getHero();
-		if (hero != null && (hero.getId() == null || hero.getEnergy() == null || hero.getEnergy() == 0))
-			hero = null;
+		if (hero != null) {
+			if (hero.getId() == null || hero.getEnergy() == null)
+				hero = null;
+			else {
+				if (hero.getEnergy() == 0 && !useEquipment(town, config))
+					hero = null;
+			}				
+		}
 		
 		int error = 0;
 		while (total < 2 && error < 5) {
