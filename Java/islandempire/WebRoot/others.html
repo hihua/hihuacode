@@ -144,7 +144,7 @@
 								$.each(towers, function(idx, tower) {
 									status = tower.status;
 									if (status == "upgrading") {
-										var finishTime = getFinishTime(buildingQueues, tower.id, false);
+										var finishTime = getFinishTime(buildingQueues, tower.id, true);
 										html += "<tr>";
 										html += "<td width=\"55%\" height=\"25\">";
 										html += getBuildingName(tower.type);
@@ -683,9 +683,7 @@
 							return;							
 						}							
 					}
-				});					
-			
-				
+				});							
 				
 				$.each(resources, function(idx, resource) {
 					if (town.resource_type != 1 && resource.resource_name == "gold") {			

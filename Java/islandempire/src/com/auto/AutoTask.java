@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 
@@ -19,6 +20,7 @@ import com.request.RequestIsland;
 import com.request.RequestMessage;
 import com.request.RequestSessions;
 import com.request.RequestTowns;
+import com.request.RequestTransport;
 import com.task.TaskBase;
 import com.task.TaskMy;
 import com.towns.OtherTown;
@@ -190,6 +192,21 @@ public class AutoTask extends Thread implements CallBackTask {
 		
 		RequestBuildings requestBuildings = new RequestBuildings();
 		return requestBuildings.request(host, clientv, cookie, buildingId);		
+	}
+	
+	public boolean requestTransport(Long fromTownId, Long toTownId, HashMap<String, Long> resources) {
+		if (m_Config == null)
+			return false;
+		
+		String host = m_Config.getHost();
+		String clientv = m_Config.getClientv();
+		String cookie = m_Config.getCookie();
+		
+		RequestTransport transportTown = new RequestTransport();
+		if (transportTown.request(host, clientv, cookie, fromTownId, toTownId, resources) == null)
+			return false;
+		else
+			return true;
 	}
 	
 	public String getConfig() {

@@ -9,6 +9,7 @@
 		<script type="text/javascript" src="js/mytowns.js"></script>
 		<script type="text/javascript" src="js/island.js"></script>
 		<script type="text/javascript" src="js/buildings.js"></script>
+		<script type="text/javascript" src="js/transport.js"></script>
 	</head>
 	<body>
 		<table width="100%" align="center" cellpadding="0" cellspacing="0" border="0">
@@ -17,8 +18,21 @@
 					<table width="100%" align="center" cellpadding="0" cellspacing="0" border="0">
 						<tr>
 							<td id="config">
-								<a href="config.html" target="_blank" class="AdminToolsLink2">[我的设置]</a>								
-								<a href="cookie.html" target="_blank" class="AdminToolsLink2">[重设Cookie]</a>
+								<table width="640" align="center" cellpadding="0" cellspacing="0" border="0">
+									<tr>
+										<td>
+											<a href="config.html" target="_blank" class="AdminToolsLink2">[我的设置]</a>
+											<a href="cookie.html" target="_blank" class="AdminToolsLink2">[重设Cookie]</a>											
+										</td>
+										<td>
+											<input type="text" id="resources" />
+											<input type="text" id="from_town_id" size="7" />
+											<span>-&gt;</span>
+											<input type="text" id="to_town_id" size="7" />
+											<input type="button" id="transport" value=" 运送 " onclick="transport();" />																						
+										</td>										
+									</tr>
+								</table>
 							</td>							
 						</tr>
 						<tr>
@@ -143,7 +157,7 @@
 								$.each(towers, function(idx, tower) {
 									status = tower.status;
 									if (status == "upgrading") {
-										var finishTime = getFinishTime(buildingQueues, tower.id, false);
+										var finishTime = getFinishTime(buildingQueues, tower.id, true);
 										html += "<tr>";
 										html += "<td width=\"55%\" height=\"25\">";
 										html += getBuildingName(tower.type);
@@ -417,7 +431,18 @@
 				var battleQueues = town.battle_queue;
 				var buildingQueues = town.building_queue;
 				var transportQueues = town.transport_queue;
-				var hero = town.hero_info;
+				var hero = town.hero_info;				
+				var fleetQuota = -1;
+				
+				$.each(buildings, function(idx, building) {
+					if (building.building_type == 4) {
+						var property = building.property;
+						if (property != null)
+							fleetQuota = property.fleet_quota;
+						
+						return;											
+					}								
+				});
 												
 				html = "";
 				html += "<table width=\"640\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"1\" class=\"Table1\">";
@@ -435,9 +460,9 @@
 				html += "<tr>";								
 				html += "<td align=\"left\" width=\"34%\" height=\"25\">城市名称: </td>";
 				if (town.is_capital == true)			        
-					html += "<td style=\"color:#FF0000\">" + town.name + "</td>";
+					html += "<td style=\"color:#FF0000\"><a href=\"#\" onclick=\"setTransportTo(" + townId + ");return false;\" class=\"AdminToolsLink1\">" + town.name + "</a></td>";
 				else
-					html += "<td>" + town.name + "</td>";
+					html += "<td><a href=\"#\" onclick=\"setTransportTo(" + townId + ");return false;\" class=\"AdminToolsLink1\">" + town.name + "</a></td>";
 				 				        
 				html += "</tr>";        
 				html += "<tr>";
@@ -510,7 +535,7 @@
 						html += "<table width=\"95%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
 						html += "<tr>";
 						html += "<td align=\"left\" valign=\"top\" width=\"25%\" height=\"20\">木头</td>";
-						html += "<td align=\"left\" valign=\"top\" width=\"45%\">" + resource.resource_count + "/" + resource.max_volume + "</td>";
+						html += "<td align=\"left\" valign=\"top\" width=\"45%\"><a href=\"#\" onclick=\"setTransport(" + townId + ", 'wood', " + resource.resource_count + ", " + fleetQuota + ");return false;\" class=\"AdminToolsLink1\">" + resource.resource_count + "</a>/" + resource.max_volume + "</td>";
 						html += "<td align=\"left\" valign=\"top\" width=\"30%\">" + resource.increase_per_hour + "/h</td>";
 						html += "</tr>";
 						html += "<tr>";
@@ -546,7 +571,7 @@
 						html += "<table width=\"95%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
 						html += "<tr>";
 						html += "<td align=\"left\" valign=\"top\" width=\"25%\" height=\"20\">食物</td>";
-						html += "<td align=\"left\" valign=\"top\" width=\"45%\">" + resource.resource_count + "/" + resource.max_volume + "</td>";
+						html += "<td align=\"left\" valign=\"top\" width=\"45%\"><a href=\"#\" onclick=\"setTransport(" + townId + ", 'food', " + resource.resource_count + ", " + fleetQuota + ");return false;\" class=\"AdminToolsLink1\">" + resource.resource_count + "</a>/" + resource.max_volume + "</td>";
 						html += "<td align=\"left\" valign=\"top\" width=\"30%\">" + resource.increase_per_hour + "/h</td>";
 						html += "</tr>";
 						html += "<tr>";
@@ -583,7 +608,7 @@
 							html += "<table width=\"95%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
 							html += "<tr>";
 							html += "<td align=\"left\" valign=\"top\" width=\"25%\" height=\"20\">黄金</td>";
-							html += "<td align=\"left\" valign=\"top\" width=\"45%\">" + resource.resource_count + "/" + resource.max_volume + "</td>";
+							html += "<td align=\"left\" valign=\"top\" width=\"45%\"><a href=\"#\" onclick=\"setTransport(" + townId + ", 'gold', " + resource.resource_count + ", " + fleetQuota + ");return false;\" class=\"AdminToolsLink1\">" + resource.resource_count + "</a>/" + resource.max_volume + "</td>";
 							html += "<td align=\"left\" valign=\"top\" width=\"30%\">" + resource.increase_per_hour + "/h</td>";
 							html += "</tr>";
 							
@@ -621,7 +646,7 @@
 							html += "<table width=\"95%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
 							html += "<tr>";
 							html += "<td align=\"left\" valign=\"top\" width=\"25%\" height=\"20\">大理石</td>";
-							html += "<td align=\"left\" valign=\"top\" width=\"45%\">" + resource.resource_count + "/" + resource.max_volume + "</td>";
+							html += "<td align=\"left\" valign=\"top\" width=\"45%\"><a href=\"#\" onclick=\"setTransport(" + townId + ", 'marble', " + resource.resource_count + ", " + fleetQuota + ");return false;\" class=\"AdminToolsLink1\">" + resource.resource_count + "</a>/" + resource.max_volume + "</td>";
 							html += "<td align=\"left\" valign=\"top\" width=\"30%\">" + resource.increase_per_hour + "/h</td>";
 							html += "</tr>";	
 							
@@ -659,7 +684,7 @@
 							html += "<table width=\"95%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
 							html += "<tr>";
 							html += "<td align=\"left\" valign=\"top\" width=\"25%\" height=\"20\">黑铁石</td>";
-							html += "<td align=\"left\" valign=\"top\" width=\"45%\">" + resource.resource_count + "/" + resource.max_volume + "</td>";
+							html += "<td align=\"left\" valign=\"top\" width=\"45%\"><a href=\"#\" onclick=\"setTransport(" + townId + ", 'iron', " + resource.resource_count + ", " + fleetQuota + ");return false;\" class=\"AdminToolsLink1\">" + resource.resource_count + "</a>/" + resource.max_volume + "</td>";
 							html += "<td align=\"left\" valign=\"top\" width=\"30%\">" + resource.increase_per_hour + "/h</td>";
 							html += "</tr>";
 							
@@ -688,10 +713,8 @@
 							return;							
 						}							
 					}
-				});					
-			
-				
-				
+				});		
+								
 				$.each(resources, function(idx, resource) {
 					if (town.resource_type != 1 && resource.resource_name == "gold") {			
 						html += "<table width=\"98%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
@@ -700,7 +723,7 @@
 						html += "<table width=\"95%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
 						html += "<tr>";
 						html += "<td align=\"left\" valign=\"top\" width=\"25%\" height=\"20\">黄金</td>";
-						html += "<td align=\"left\" valign=\"top\" width=\"45%\">" + resource.resource_count + "/" + resource.max_volume + "</td>";
+						html += "<td align=\"left\" valign=\"top\" width=\"45%\"><a href=\"#\" onclick=\"setTransport(" + townId + ", 'gold', " + resource.resource_count + ", " + fleetQuota + ");return false;\" class=\"AdminToolsLink1\">" + resource.resource_count + "</a>/" + resource.max_volume + "</td>";
 						html += "<td align=\"left\" valign=\"top\" width=\"30%\">" + resource.increase_per_hour + "/h</td>";
 						html += "</tr>";																			
 						html += "</table>";
@@ -717,7 +740,7 @@
 						html += "<table width=\"95%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
 						html += "<tr>";
 						html += "<td align=\"left\" valign=\"top\" width=\"25%\" height=\"20\">大理石</td>";
-						html += "<td align=\"left\" valign=\"top\" width=\"45%\">" + resource.resource_count + "/" + resource.max_volume + "</td>";
+						html += "<td align=\"left\" valign=\"top\" width=\"45%\"><a href=\"#\" onclick=\"setTransport(" + townId + ", 'marble', " + resource.resource_count + ", " + fleetQuota + ");return false;\" class=\"AdminToolsLink1\">" + resource.resource_count + "</a>/" + resource.max_volume + "</td>";
 						html += "<td align=\"left\" valign=\"top\" width=\"30%\">" + resource.increase_per_hour + "/h</td>";
 						html += "</tr>";											
 						html += "</table>";
@@ -734,7 +757,7 @@
 						html += "<table width=\"95%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
 						html += "<tr>";
 						html += "<td align=\"left\" valign=\"top\" width=\"25%\" height=\"20\">黑铁石</td>";
-						html += "<td align=\"left\" valign=\"top\" width=\"45%\">" + resource.resource_count + "/" + resource.max_volume + "</td>";
+						html += "<td align=\"left\" valign=\"top\" width=\"45%\"><a href=\"#\" onclick=\"setTransport(" + townId + ", 'iron', " + resource.resource_count + ", " + fleetQuota + ");return false;\" class=\"AdminToolsLink1\">" + resource.resource_count + "</a>/" + resource.max_volume + "</td>";
 						html += "<td align=\"left\" valign=\"top\" width=\"30%\">" + resource.increase_per_hour + "/h</td>";
 						html += "</tr>";																					
 						html += "</table>";
@@ -1405,6 +1428,39 @@
 				if (window.confirm("是否升级"))
 					requestBuildings(buildingId);
 			}
+			
+			function setTransport(townId, resourcesName, resourcesCount, fleetQuota) {
+				var total = resourcesCount;
+				if (total > fleetQuota && fleetQuota != -1)
+					total = fleetQuota;
+					
+				var resources = $("#resources").val();
+				if (resources.length > 0)
+					resources += "&";
+					
+				resources += resourcesName + "=" + total;
+				$("#resources").val(resources);
+				$("#from_town_id").val(townId);				
+			}
+			
+			function setTransportTo(townId) {
+				$("#to_town_id").val(townId);
+			}
+			
+			function setTransportSuccess() {
+				$("#resources").val("");
+				alert("运送成功");		
+			}
+			
+			function transport() {
+				var fromTownId = $("#from_town_id").val();
+				var toTownId = $("#to_town_id").val();
+				var resources = $("#resources").val();
+				if (fromTownId.length == 0 || toTownId.length == 0 || resources.length == 0)
+					return;
+				
+				requestTransport(fromTownId, toTownId, resources, setTransportSuccess);			
+			}									
 							
 			getMyTowns();
 			getMyMessage();

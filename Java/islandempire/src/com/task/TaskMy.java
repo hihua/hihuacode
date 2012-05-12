@@ -491,10 +491,13 @@ public class TaskMy extends TaskBase {
 						}
 					}
 					
-					for (Entry<Long, List<Long>> entry : sorts.entrySet()) {
-						List<Long> buildingIds = entry.getValue();
-						buildings.put(buildingResource.getBuildingType(), buildingIds);
-					}				
+					if (sorts.size() > 0) {
+						List<Long> buildingIds = new Vector<Long>();
+						for (Entry<Long, List<Long>> entry : sorts.entrySet())
+							buildingIds.addAll(entry.getValue());
+						
+						buildings.put(buildingResource.getBuildingType(), buildingIds);						
+					}									
 				}
 			}
 		}
@@ -518,9 +521,12 @@ public class TaskMy extends TaskBase {
 						}							
 					}
 					
-					for (Entry<Long, List<Long>> entry : sorts.entrySet()) {
-						List<Long> buildingIds = entry.getValue();
-						buildings.put(buildingResource.getBuildingType(), buildingIds);
+					if (sorts.size() > 0) {
+						List<Long> buildingIds = new Vector<Long>();
+						for (Entry<Long, List<Long>> entry : sorts.entrySet())
+							buildingIds.addAll(entry.getValue());
+						
+						buildings.put(buildingResource.getBuildingType(), buildingIds);						
 					}
 				}
 			}
@@ -545,9 +551,12 @@ public class TaskMy extends TaskBase {
 						}							
 					}
 					
-					for (Entry<Long, List<Long>> entry : sorts.entrySet()) {
-						List<Long> buildingIds = entry.getValue();
-						buildings.put(buildingResource.getBuildingType(), buildingIds);
+					if (sorts.size() > 0) {
+						List<Long> buildingIds = new Vector<Long>();
+						for (Entry<Long, List<Long>> entry : sorts.entrySet())
+							buildingIds.addAll(entry.getValue());
+						
+						buildings.put(buildingResource.getBuildingType(), buildingIds);						
 					}
 				}
 			}
@@ -572,9 +581,12 @@ public class TaskMy extends TaskBase {
 						}
 					}
 					
-					for (Entry<Long, List<Long>> entry : sorts.entrySet()) {
-						List<Long> buildingIds = entry.getValue();
-						buildings.put(buildingResource.getBuildingType(), buildingIds);
+					if (sorts.size() > 0) {
+						List<Long> buildingIds = new Vector<Long>();
+						for (Entry<Long, List<Long>> entry : sorts.entrySet())
+							buildingIds.addAll(entry.getValue());
+						
+						buildings.put(buildingResource.getBuildingType(), buildingIds);						
 					}
 				}
 			}
@@ -599,9 +611,12 @@ public class TaskMy extends TaskBase {
 						}							
 					}
 					
-					for (Entry<Long, List<Long>> entry : sorts.entrySet()) {
-						List<Long> buildingIds = entry.getValue();
-						buildings.put(buildingResource.getBuildingType(), buildingIds);
+					if (sorts.size() > 0) {
+						List<Long> buildingIds = new Vector<Long>();
+						for (Entry<Long, List<Long>> entry : sorts.entrySet())
+							buildingIds.addAll(entry.getValue());
+						
+						buildings.put(buildingResource.getBuildingType(), buildingIds);						
 					}
 				}
 			}
@@ -644,17 +659,17 @@ public class TaskMy extends TaskBase {
 		}
 		
 		if (town.getBuildingWall() != null) {
-			BuildingWall buildingWall = town.getBuildingWall();
+			BuildingWall buildingWall = town.getBuildingWall();			
 			if (buildingWall.getBuildingType() != null) {
+				TreeMap<Long, List<Long>> sorts = new TreeMap<Long, List<Long>>();
 				if (buildingWall.getId() != null && buildingWall.getLevel() != null && buildingWall.getLevel() < 40 && buildingWall.getLevel() < level && buildingWall.getStatus() != null && buildingWall.getStatus().equals("idle")) {
 					List<Long> buildingIds = new Vector<Long>();
 					buildingIds.add(buildingWall.getId());
-					buildings.put(buildingWall.getBuildingType(), buildingIds);	
+					sorts.put(buildingWall.getLevel(), buildingIds);
 				}
 			
 				List<BuildingTower> buildingTowers = buildingWall.getBuildingTower();
-				if (buildingTowers != null) {
-					TreeMap<Long, List<Long>> sorts = new TreeMap<Long, List<Long>>();
+				if (buildingTowers != null) {					
 					for (BuildingTower buildingTower : buildingTowers) {
 						if (buildingTower.getId() != null && buildingTower.getLevel() != null && buildingTower.getLevel() < 40 && buildingTower.getLevel() < level && buildingTower.getStatus() != null && buildingTower.getStatus().equals("idle")) {
 							if (sorts.containsKey(buildingTower.getLevel())) {
@@ -666,19 +681,16 @@ public class TaskMy extends TaskBase {
 								sorts.put(buildingTower.getLevel(), buildingIds);
 							}
 						}						
-					}
+					}										
+				}
+				
+				if (sorts.size() > 0) {
+					List<Long> buildingIds = new Vector<Long>();
+					for (Entry<Long, List<Long>> entry : sorts.entrySet())
+						buildingIds.addAll(entry.getValue());
 					
-					for (Entry<Long, List<Long>> entry : sorts.entrySet()) {						
-						if (buildings.containsKey(buildingWall.getBuildingType())) {
-							List<Long> buildingIds = buildings.get(buildingWall.getBuildingType());
-							buildingIds.addAll(entry.getValue());
-						} else {
-							List<Long> buildingIds = new Vector<Long>();
-							buildingIds.addAll(entry.getValue());
-							buildings.put(buildingWall.getBuildingType(), buildingIds);
-						}					
-					}
-				}			
+					buildings.put(buildingWall.getBuildingType(), buildingIds);						
+				}				
 			}		
 		}
 		
