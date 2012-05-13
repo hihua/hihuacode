@@ -59,11 +59,11 @@
 									<option value="0" selected="selected">不带消息</option>
 									<option value="1">带消息</option>
 								</select>						
-								<input type="button" id="query" value=" 查询 " onclick="getIsland()" />
+								<input type="button" id="query" value=" 查询 " onclick="getIsland();" />
 							</td>
 						</tr>
 						<tr>
-							<td id="island" align="center"></td>							
+							<td id="island"></td>							
 						</tr>
 					</table>
 				</td>
@@ -1410,54 +1410,41 @@
 					return;				
 								
 				var total = 0;
-				var html = "";
-				html += "<table width=\"550\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"1\" class=\"Table1\">";
+				var html = "<table width=\"580\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"1\" class=\"Table1\">";										
+													
+				$.each(towns, function(idx, town) {
+					total++;							
+					if (town.type == "Town") {											
+						var message = $("#message").val();						
+						var href = "<a href=\"others.html?username=" + town.owner_name + "&town_id=" + town.id + "&user_id=" + town.owner_id + "&message=" + message + "\" target=\"_blank\" class=\"AdminToolsLink2\">" + town.owner_name + "</a>";
 												
-				var list = "";
-				$.each(towns, function(idx, town) {					
-					total++;
-					var id = town.id;
-					var name = town.name;					
-					var level = town.level;
-					var cityStatus = town.city_status;
-																
-					if (town.type == "Town") {			
-						var cityAttackLevel = town.city_attack_level;
-						var ownerName = town.owner_name;
-						var ownerId = town.owner_id;						
-						var message = $("#message").val();
-						
-						var href = "<a href=\"others.html?username=" + ownerName + "&town_id=" + id + "&user_id=" + ownerId + "&message=" + message + "\" target=\"_blank\" class=\"AdminToolsLink2\">" + ownerName + "</a>";
-						
 						html += "<tr>";
-						html += "<td width=\"50\" height=\"30\" align=\"center\">" + id + "</td>";
-						html += "<td width=\"120\" height=\"30\" align=\"center\">" + name + "</td>";
-						html += "<td width=\"30\" height=\"30\" align=\"center\">" + level + "</td>";	
-						html += "<td width=\"80\" height=\"30\" align=\"center\">" + href + "</td>";
-						html += "<td width=\"60\" height=\"30\" align=\"center\">" + ownerId + "</td>";
-						html += "<td width=\"150\" height=\"30\" align=\"center\">" + cityAttackLevel + "</td>";
-						html += "<td width=\"40\" height=\"30\" align=\"center\">" + cityStatus + "</td>";
+						html += "<td width=\"50\" height=\"30\" align=\"center\">" + town.id + "</td>";
+						html += "<td width=\"120\" height=\"30\" align=\"center\">" + town.name + "</td>";
+						html += "<td width=\"30\" height=\"30\" align=\"center\">" + town.level + "</td>";	
+						html += "<td width=\"90\" height=\"30\" align=\"center\">" + href + "</td>";
+						html += "<td width=\"60\" height=\"30\" align=\"center\">" + town.owner_id + "</td>";
+						html += "<td width=\"140\" height=\"30\" align=\"center\">" + town.city_attack_level + "</td>";
+						html += "<td width=\"40\" height=\"30\" align=\"center\">" + town.city_status + "</td>";
 						html += "</tr>";		
 					} else {
-						var color = "#FF0000";
-						var finishTime = town.finish_time;
-						var date = new Date(finishTime * 1000);
-						dateTime = date.pattern("yyyy-MM-dd HH:mm:ss");
+						var color = "#FF0000";						
+						var date = new Date(town.finish_time * 1000);
+						var dateTime = date.pattern("yyyy-MM-dd HH:mm:ss");
 						
 						html += "<tr>";
-						html += "<td width=\"50\" height=\"30\" align=\"center\"><span style=\"color:" + color + "\">" + id + "</span></td>";
-						html += "<td width=\"120\" height=\"30\" align=\"center\"><span style=\"color:" + color + "\">" + name + "</span></td>";
-						html += "<td width=\"30\" height=\"30\" align=\"center\"><span style=\"color:" + color + "\">" + level + "</span></td>";	
-						html += "<td width=\"80\" height=\"30\" align=\"center\">&nbsp;</td>";
+						html += "<td width=\"50\" height=\"30\" align=\"center\"><span style=\"color:" + color + "\">" + town.id + "</span></td>";
+						html += "<td width=\"120\" height=\"30\" align=\"center\"><span style=\"color:" + color + "\">" + town.name + "</span></td>";
+						html += "<td width=\"30\" height=\"30\" align=\"center\"><span style=\"color:" + color + "\">" + town.level + "</span></td>";	
+						html += "<td width=\"90\" height=\"30\" align=\"center\">&nbsp;</td>";
 						html += "<td width=\"60\" height=\"30\" align=\"center\">&nbsp;</td>";
-						html += "<td width=\"150\" height=\"30\" align=\"center\"><span style=\"color:" + color + "\">" + dateTime + "</span></td>";
-						html += "<td width=\"40\" height=\"30\" align=\"center\"><span style=\"color:" + color + "\">" + cityStatus + "</span></td>";
+						html += "<td width=\"140\" height=\"30\" align=\"center\"><span style=\"color:" + color + "\">" + dateTime + "</span></td>";
+						html += "<td width=\"40\" height=\"30\" align=\"center\"><span style=\"color:" + color + "\">" + town.city_status + "</span></td>";
 						html += "</tr>";
-					}					
+					}				
 				});
 				
-				html += "</table>";
-				
+				html += "</table>";			
 				if (total > 0)
 					$("#island").html(html);
 			}
