@@ -79,6 +79,24 @@ public class WebMyTowns extends WebBase {
 			}
 			break;
 			
+			case 2: {
+				String ranks = task.getMyRanks();
+				if (ranks == null)  {
+					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);					
+					return;
+				}
+				
+				try {
+					JSONObject json = JSONObject.fromObject(ranks);
+					String s = json.toString();
+					out.print(s);					
+				} catch (Exception e) {
+					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);					
+					return;
+				}
+			}			
+			break;
+			
 			default: {
 				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);				
 			}

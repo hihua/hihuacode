@@ -46,6 +46,12 @@
 							<td id="messages"></td>							
 						</tr>
 						<tr>
+							<td>&nbsp;</td>							
+						</tr>
+						<tr>
+							<td id="ranks"></td>
+						</tr>
+						<tr>
 							<td align="center" height="35">
 								X&nbsp;<input type="text" id="x" size="7" />
 								Y&nbsp;<input type="text" id="y" size="7" />
@@ -82,6 +88,11 @@
 			function getMyMessage() {
 				requestMyMessages(setMyMessages);					
 				setTimeout("getMyMessage()", 30000);			
+			}
+			
+			function getMyRanks() {
+				requestMyRanks(setMyRanks);
+				setTimeout("getMyRanks()", 60000);
 			}
 			
 			function getFinishTime(buildingQueues, buildingId, lines) {
@@ -1346,6 +1357,33 @@
 				}			
 			}
 			
+			function setMyRanks(json) {
+				var myrank = json.my_rank;
+				var ranks = json.rank;
+				if (ranks != null) {
+					var html = "<table width=\"500\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+					html += "<tr><td align=\"left\">排行榜</td></tr>";					
+					html += "</table>";
+					html += "<table width=\"500\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"1\" class=\"Table1\">";					
+					$.each(ranks, function(idx, rank) {						
+						var color = "#000000";						
+						if (myrank == rank.rank)
+							color = "#FF0000";
+												
+						html += "<tr>";
+						html += "<td height=\"30\" width=\"40\" align=\"center\"><span style=\"color:" + color + "\">" + rank.rank + "</span></td>";
+						html += "<td height=\"30\" width=\"60\" align=\"center\"><span style=\"color:" + color + "\">" + rank.id + "</span></td>";
+						html += "<td height=\"30\" width=\"130\" align=\"center\"><span style=\"color:" + color + "\">" + rank.username + "</td>";						
+						html += "<td height=\"30\" width=\"85\" align=\"center\"><span style=\"color:" + color + "\">" + rank.score + "</td>";	
+						html += "<td height=\"30\" align=\"center\"><span style=\"color:" + color + "\">" + rank.alliance_name + "</td>";
+						html += "</tr>";																										
+					});
+					
+					html += "</table>";					
+					$("#ranks").html(html);					
+				}			
+			}
+			
 			function getIsland() {
 				var x = $("#x").val();
 				var y = $("#y").val();
@@ -1389,7 +1427,7 @@
 						var ownerId = town.owner_id;						
 						var message = $("#message").val();
 						
-						var href = "<a href=\"others.html?username=" + ownerName + "&townid=" + id + "&message=" + message + "\" target=\"_blank\" class=\"AdminToolsLink2\">" + ownerName + "</a>";
+						var href = "<a href=\"others.html?username=" + ownerName + "&town_id=" + id + "&user_id=" + ownerId + "&message=" + message + "\" target=\"_blank\" class=\"AdminToolsLink2\">" + ownerName + "</a>";
 						
 						html += "<tr>";
 						html += "<td width=\"50\" height=\"30\" align=\"center\">" + id + "</td>";
@@ -1464,6 +1502,7 @@
 							
 			getMyTowns();
 			getMyMessage();
+			getMyRanks();
 		</script>
 	</body>
 </html>

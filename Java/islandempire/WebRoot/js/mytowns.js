@@ -19,3 +19,13 @@ function requestMyMessages(callback) {
         return null;
     });
 }
+
+function requestMyRanks(callback) {
+	var url = WebMyTowns + "?command=2"; 
+	Ajax_CallBack(url, "", "json", "", true, function(json) {
+		if (json != null)
+			callback(json);		
+	}, function(response, error, status) {
+        return null;
+    });
+}

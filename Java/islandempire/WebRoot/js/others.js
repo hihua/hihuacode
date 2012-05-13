@@ -29,3 +29,13 @@ function requestOtherMessages(username, page, callback) {
         return null;
     });
 }
+
+function requestOtherRanks(username, userId, callback) {
+	var url = WebOthers + "?command=3&username=" + username + "&user_id=" + userId;
+	Ajax_CallBack(url, "", "json", "", true, function(json) {
+		if (json != null)
+			callback(json);		
+	}, function(response, error, status) {
+        return null;
+    });
+}

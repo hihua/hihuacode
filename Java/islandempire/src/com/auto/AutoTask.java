@@ -18,6 +18,7 @@ import com.entity.Towns;
 import com.request.RequestBuildings;
 import com.request.RequestIsland;
 import com.request.RequestMessage;
+import com.request.RequestRanks;
 import com.request.RequestSessions;
 import com.request.RequestTowns;
 import com.request.RequestTransport;
@@ -165,6 +166,25 @@ public class AutoTask extends Thread implements CallBackTask {
 		
 		RequestMessage requestMessage = new RequestMessage();
 		return requestMessage.request(host, clientv, cookie, username, username, page);
+	}
+	
+	public String getMyRanks() {
+		if (m_MyTowns == null)
+			return null;
+		
+		return m_MyTowns.getRanks();	
+	}
+	
+	public String getOtherRanks(String username, Long userId) {
+		if (m_Config == null)
+			return null;
+		
+		String host = m_Config.getHost();
+		String clientv = m_Config.getClientv();
+		String cookie = m_Config.getCookie();
+		
+		RequestRanks requestRanks = new RequestRanks();
+		return requestRanks.request(host, clientv, cookie, "my_rank", username, userId);
 	}
 	
 	public String getIsland(String x, String y) {

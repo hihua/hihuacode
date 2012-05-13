@@ -39,6 +39,7 @@ import com.request.RequestEquipment;
 import com.request.RequestEvent;
 import com.request.RequestIsland;
 import com.request.RequestMessage;
+import com.request.RequestRanks;
 import com.request.RequestRecruit;
 import com.request.RequestTowns;
 import com.request.RequestTransport;
@@ -66,6 +67,7 @@ public class TaskMy extends TaskBase {
 	private final RequestTransport m_RequestTransport = new RequestTransport();
 	private final RequestEvent m_RequestEvent = new RequestEvent();
 	private final RequestEquipment m_RequestEquipment = new RequestEquipment();
+	private final RequestRanks m_RequestRanks = new RequestRanks();
 	private final List<Long> m_Village = new Vector<Long>();
 	private Config m_ConfigNew = null;
 
@@ -101,6 +103,7 @@ public class TaskMy extends TaskBase {
 		String username = "";
 		
 		setBattles(m_Config);
+		String ranks = getRanks(m_Config);
 						
 		for (ConfigTown configTown : configTowns) {
 			Boolean autoUpgrade = configTown.getAutoUpgrade();
@@ -132,6 +135,7 @@ public class TaskMy extends TaskBase {
 		}
 		
 		towns.setTownInfos(townInfos);
+		towns.setRanks(ranks);
 		
 		if (username.length() > 0) {
 			String message = m_RequestMessage.request(host, clientv, cookie, username, 0L);
@@ -187,6 +191,15 @@ public class TaskMy extends TaskBase {
 		}
 		
 		return true;
+	}
+	
+	private String getRanks(Config config) {
+		String host = config.getHost();
+		Long userId = config.getUserId();
+		String clientv = config.getClientv();
+		String cookie = config.getCookie();
+		
+		return m_RequestRanks.request(host, clientv, cookie, "my_rank", userId);
 	}
 	
 	private void setBattles(Config config) {
