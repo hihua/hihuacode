@@ -5,7 +5,7 @@
 		<host>http://42.120.49.122</host>
 		<username>hihua</username>
 		<password>12345678</password>
-		<cookie>remember_token=BAhbB2kCKiIiRTllZmE2OTcyNzliNTcyYzNmMjUyZDE2NmIwMmJhYmEwNDJmMjQ2NTg2OWFmYThmZjM3ZGE4ZWIxYjAwNzYyMjI%3D--967cdf500bf185141fca691b9f1571e8e9d402b8; _game001_server_session=BAh7BiIPc2Vzc2lvbl9pZCIlMDk1NmY2MDJkYmY3MWM3MjZmMjVlM2JiZjRjZTgxZjM%3D--6f58209342a06cdb2eaed701ec0859a3a7efd637</cookie>
+		<cookie>_game001_server_session=BAh7BiIPc2Vzc2lvbl9pZCIlOTRiMjlkMDg5ZTBjYTNlNTg0Zjk4ZWRhMzVlYTE3Mzc%3D--58e02d629171e0804ae0d74201003c7b1168d446; remember_token=BAhbB2kCKiIiRTc2MGVhOWE1YzQ5MzAxZGNkOGRjOGJlOTgwZDAyYmFhOWI2ZDE5OGI1ZTA0Yzk0MjlhZTcwY2FjODgxNTllODQ%3D--ba76b6d6502a380e2d9426e4f04af7418ecd91ed</cookie>
 		<cities>10310</cities>
 		<autocities>30</autocities>
 		<autoupgrade priority="0,5,12,11,9,7,4,6,8,1,2">true</autoupgrade>
