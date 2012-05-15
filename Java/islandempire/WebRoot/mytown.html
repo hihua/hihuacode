@@ -471,7 +471,7 @@
 				html += "<tr>";								
 				html += "<td align=\"left\" width=\"34%\" height=\"25\">城市名称: </td>";
 				if (town.is_capital == true)			        
-					html += "<td style=\"color:#FF0000\"><a href=\"#\" onclick=\"setTransportTo(" + townId + ");return false;\" class=\"AdminToolsLink1\">" + town.name + "</a></td>";
+					html += "<td><a href=\"#\" onclick=\"setTransportTo(" + townId + ");return false;\" class=\"AdminToolsLink1\"><span style=\"color:#FF0000\">" + town.name + "</span></a></td>";
 				else
 					html += "<td><a href=\"#\" onclick=\"setTransportTo(" + townId + ");return false;\" class=\"AdminToolsLink1\">" + town.name + "</a></td>";
 				 				        
