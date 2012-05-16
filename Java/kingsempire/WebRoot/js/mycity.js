@@ -1349,7 +1349,7 @@ function setMyMessages(json, userName) {
 		var date = new Date(message.created_at * 1000);
 		
 		var body = message.body;
-		if (message.msg_type == 4 || message.msg_type == 5) {
+		if (message.msg_type == 3 || message.msg_type == 4) {
 			var start = body.indexOf("<body>");					
 			if (start == -1)
 				return;

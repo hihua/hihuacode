@@ -9,8 +9,8 @@
 		<cities>10310</cities>
 		<autocities>30</autocities>
 		<autoupgrade priority="0,5,12,11,9,7,4,6,8,1,2">true</autoupgrade>
-		<autoattack level="0-0">false</autoattack>
-		<autorecruit infantryswords="4500" infantryscout="0" infantrycrossbow="4500" infantrysquire="5500" cavalrytemplar="4800" cavalryarcher="5500" cavalrypaladin="13000" cavalryroyal="6500">true</autorecruit>
+		<autoattack level="1-7">3</autoattack>
+		<autorecruit infantryswords="4500" infantryscout="0" infantrycrossbow="7500" infantrysquire="10500" cavalrytemplar="4800" cavalryarcher="18000" cavalrypaladin="19500" cavalryroyal="17500">true</autorecruit>
 		<marketrate>95</marketrate>
 	</configs>
 	<configs>
@@ -21,8 +21,8 @@
 		<cities>1171</cities>
 		<autocities>30</autocities>
 		<autoupgrade priority="0,5,12,11,9,6,7,8,2,4,1">true</autoupgrade>
-		<autoattack level="0-0">false</autoattack>
-		<autorecruit infantryswords="5000" infantryscout="0" infantrycrossbow="4500" infantrysquire="5500" cavalrytemplar="5500" cavalryarcher="6500" cavalrypaladin="9500" cavalryroyal="3500">true</autorecruit>
+		<autoattack level="1-7">3</autoattack>
+		<autorecruit infantryswords="5000" infantryscout="0" infantrycrossbow="7500" infantrysquire="10500" cavalrytemplar="5500" cavalryarcher="18000" cavalrypaladin="19500" cavalryroyal="17500">true</autorecruit>
 		<marketrate>95</marketrate>
 	</configs>
 	<configs>
@@ -33,8 +33,8 @@
 		<cities>3295</cities>
 		<autocities>30</autocities>
 		<autoupgrade priority="0,5,12,11,9,7,4,1,6,8,2">true</autoupgrade>
-		<autoattack level="0-0">false</autoattack>
-		<autorecruit infantryswords="5500" infantryscout="0" infantrycrossbow="7000" infantrysquire="5500" cavalrytemplar="6000" cavalryarcher="6000" cavalrypaladin="10500" cavalryroyal="3500">true</autorecruit>
+		<autoattack level="1-7">3</autoattack>
+		<autorecruit infantryswords="5500" infantryscout="0" infantrycrossbow="7000" infantrysquire="10500" cavalrytemplar="6000" cavalryarcher="18000" cavalrypaladin="19500" cavalryroyal="17500">true</autorecruit>
 		<marketrate>95</marketrate>
 	</configs>
 </config>
