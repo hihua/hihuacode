@@ -724,7 +724,7 @@ public class Town {
 					buildingCellar.setAnchorIndex(anchorIndex);					
 					if (array.get("property") != null) {
 						JSONObject property = (JSONObject) array.get("property");
-						buildingCellar.setSafeCapacity((property.get("reduce_time_rate") != null) ? property.getLong("reduce_time_rate") : null);
+						buildingCellar.setSafeCapacity((property.get("safe_capacity") != null) ? property.getLong("safe_capacity") : null);
 					}
 										
 					towns.setBuildingCellar(buildingCellar);
