@@ -13,6 +13,13 @@
 		<sells wood="90" food="90" iron="90" marble="90" gold="90">true</sells>
 		<buys wood="0" food="0" iron="90" marble="90">true</buys>
 	</towns>
+	<towns id="68274">
+		<autoupgrade priority="1,13,2">true</autoupgrade>
+		<autoattack level="1-40">true</autoattack>
+		<autorecruit>true</autorecruit>
+		<sells wood="90" food="90" iron="90" marble="90" gold="90">true</sells>
+		<buys wood="0" food="0" iron="90" marble="90">true</buys>
+	</towns>
 	<towns id="71071">
 		<autoupgrade priority="1,13,2,11">true</autoupgrade>
 		<autoattack level="1-40">true</autoattack>
@@ -33,13 +40,5 @@
 		<autorecruit>true</autorecruit>
 		<sells wood="90" food="90" iron="90" marble="90" gold="90">true</sells>
 		<buys wood="0" food="0" iron="90" marble="90">true</buys>
-	</towns>
-	<towns id="68274">
-		<autoupgrade priority="1,13,2">true</autoupgrade>
-		<autoattack level="1-40">true</autoattack>
-		<autorecruit>true</autorecruit>
-		<sells wood="90" food="90" iron="90" marble="90" gold="90">true</sells>
-		<buys wood="0" food="0" iron="90" marble="90">true</buys>
-	</towns>
-	
+	</towns>	
 </config>
