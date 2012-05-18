@@ -4,38 +4,38 @@
 	<host>http://107.20.224.201</host>
 	<clientv>1.3.5</clientv>
 	<userid>23568</userid>
-	<cookie>_game001_server_session=BAh7BiIPc2Vzc2lvbl9pZCIlZjllNTg2MDUyZTk4YjhkY2E1MTk0Y2Y3MmViNmNhNGQ%3D--170d9d2e549f6cf52dd5092443be95cd060cb92d; cookie_id=BAgiSzhmM2MzYjFkNzgxMzJhNDk1YTg2NDFjZGJmNTFiZjUwYjkzMWY0NThTdW4gTWF5IDEzIDEzOjA4OjUyICswMDAwIDIwMTI%3D--61eac0c07cb2c278a424aadb98409bcd21129382; cookie_salt=BAhbB2kCEFwiRWYxMzU1OGU2NWYzMTY3OTQwNzY3MTQzOGY4NDg0MTMyYjFmZWU3YTEwNDgzN2U4ZmNmODFkOTFjZmY0MGI1Njc%3D--8b15bfce1ccac83d6fdef4da8a1300f91b5b4fb4</cookie>
+	<cookie>cookie_salt=BAhbB2kCEFwiRTkyNDdiMDgxYjFkYmZjYmJlODk3NDUxNWIxZjIwNGQ3MTAyZmM1ZDU5NDMyNzU5ZWJmN2U1YjljODFhYzBiYzM%3D--35140adcaf51103beabd37f4b27c22ec783c7401; _game001_server_session=BAh7BiIPc2Vzc2lvbl9pZCIlN2YyZDY4MTkxNDMwMjJjMjRjMTNiOWJhMDczYTViNWE%3D--307440249f9e8ac9a655688abeb785fe37f085e7; cookie_id=BAgiSzhmM2MzYjFkNzgxMzJhNDk1YTg2NDFjZGJmNTFiZjUwYjkzMWY0NThUaHUgTWF5IDE3IDIzOjQ0OjQwICswMDAwIDIwMTI%3D--82aabb931db03d9e289fa0c5a70036c241cdcb14</cookie>
 	<autotowns>30</autotowns>
 	<towns id="57971">
-		<autoupgrade priority="2,1,13,11">true</autoupgrade>
+		<autoupgrade priority="1,13,2,11">true</autoupgrade>
 		<autoattack level="1-40">true</autoattack>
 		<autorecruit>true</autorecruit>
 		<sells wood="90" food="90" iron="90" marble="90" gold="90">true</sells>
 		<buys wood="0" food="0" iron="90" marble="90">true</buys>
 	</towns>
 	<towns id="68274">
-		<autoupgrade priority="2,1,13">true</autoupgrade>
+		<autoupgrade priority="1,13,2">true</autoupgrade>
 		<autoattack level="1-40">true</autoattack>
 		<autorecruit>true</autorecruit>
 		<sells wood="90" food="90" iron="90" marble="90" gold="90">true</sells>
 		<buys wood="0" food="0" iron="90" marble="90">true</buys>
 	</towns>
 	<towns id="71071">
-		<autoupgrade priority="5,2,1,13,11">true</autoupgrade>
+		<autoupgrade priority="1,13,2,11">true</autoupgrade>
 		<autoattack level="1-40">true</autoattack>
 		<autorecruit>true</autorecruit>
 		<sells wood="90" food="90" iron="90" marble="90" gold="90">true</sells>
 		<buys wood="0" food="0" iron="90" marble="0">true</buys>
 	</towns>
 	<towns id="71989">
-		<autoupgrade priority="5,2,1,13">true</autoupgrade>
+		<autoupgrade priority="1,13,2">true</autoupgrade>
 		<autoattack level="1-40">true</autoattack>
 		<autorecruit>true</autorecruit>
 		<sells wood="90" food="90" iron="90" marble="90" gold="90">true</sells>
 		<buys wood="0" food="0" iron="0" marble="90">true</buys>
 	</towns>
 	<towns id="108094">
-		<autoupgrade priority="5,8,2,1,13,14">true</autoupgrade>
+		<autoupgrade priority="1,13,8,2,14">true</autoupgrade>
 		<autoattack level="1-40">true</autoattack>
 		<autorecruit>true</autorecruit>
 		<sells wood="90" food="90" iron="90" marble="90" gold="90">true</sells>
