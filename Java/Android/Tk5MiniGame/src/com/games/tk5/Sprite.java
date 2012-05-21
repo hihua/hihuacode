@@ -62,7 +62,7 @@ public abstract class Sprite {
 		return m_Alpha;
 	}
 	
-	public void setAlpha(int alpha) {
+	public void setAlpha(int alpha) {		
 		m_Alpha = alpha;
 	}
 	

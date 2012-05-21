@@ -24,7 +24,7 @@ public abstract class ViewBase extends SurfaceView implements SurfaceHolder.Call
 	private final Rect m_Sreen_Rect = new Rect();
 	private int m_Screen_Width = 0;
 	private int m_Screen_Height = 0;
-	private int m_FPS = 30;	
+	private int m_FPS = 25;	
 				
 	protected ViewBase(Context context, ViewCallBack callback) {
 		super(context);
@@ -272,20 +272,17 @@ public abstract class ViewBase extends SurfaceView implements SurfaceHolder.Call
         	onPrepare();
         	
         	while (true) {
-        		try {
-    				sleep(1000 / getFPS());
-    			} catch (InterruptedException e) {				
-    				
-    			}
-        		
+        		long startTime = System.currentTimeMillis();
         		GameStatus gameStatus = getGameStatus();
         		if (gameStatus == GameStatus.Pause) {
         			pause();
+        			delay(startTime);
         			continue;        			
         		}
         		
         		if (gameStatus == GameStatus.Destroy) {
         			onDestroy();
+        			delay(startTime);
         			break;
         		}
         		        		        		
@@ -295,7 +292,8 @@ public abstract class ViewBase extends SurfaceView implements SurfaceHolder.Call
         			entryView(frame);
         			if (frame > -1)
         				frame++;
-        			        			
+        			
+        			delay(startTime);
         			continue;        			
         		}
         		        		
@@ -304,7 +302,8 @@ public abstract class ViewBase extends SurfaceView implements SurfaceHolder.Call
         			selectView(frame);
         			if (frame > -1)
         				frame++;
-        			        			
+        			
+        			delay(startTime);        			        			
         			continue;
         		}
         		
@@ -313,12 +312,15 @@ public abstract class ViewBase extends SurfaceView implements SurfaceHolder.Call
         			startingView(frame);
         			if (frame > -1)
         				frame++;
-        			        			
+        			
+        			delay(startTime);
         			continue;
         		}
         		
-        		if (viewStatus == ViewStatus.Started)
+        		if (viewStatus == ViewStatus.Started) {
         			drawView();
+        			delay(startTime);
+        		}
         		        		
         		if (viewStatus == ViewStatus.Ending) {        			
         			int frame = getFrame();
@@ -326,6 +328,7 @@ public abstract class ViewBase extends SurfaceView implements SurfaceHolder.Call
         			if (frame > -1)
         				frame++;
         			        			
+        			delay(startTime);
         			continue;
         		}
         		
@@ -337,15 +340,28 @@ public abstract class ViewBase extends SurfaceView implements SurfaceHolder.Call
         				if (frame > -1)
             				frame++;
         				
+        				delay(startTime);
         				continue;
         			}        			
         		}        		
         	}
         	
         	exit();
-        }       
+        }
+        
+        private void delay(long startTime) {
+    		long endTime = System.currentTimeMillis();			
+    		long delay = 1000 / getFPS() - (endTime - startTime);
+    		if (delay > 0) {
+    			try {
+    				sleep(delay);
+    			} catch (InterruptedException e) {				
+    				
+    			}
+    		}			
+    	}
     }
-	
+			
 	private void pause() {		
 		onPause();
 	}

@@ -1,11 +1,15 @@
 package com.games.tk5.welcome;
 
+import java.util.List;
+import java.util.Vector;
+
 import com.games.tk5.R;
 import com.games.tk5.ViewBase;
 import com.games.tk5.ViewCallBack;
 import com.games.tk5.util.AudioPlayer;
 import com.games.tk5.util.ImageUtil;
 import com.games.tk5.util.Logs;
+import com.games.tk5.util.Numeric;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -25,6 +29,7 @@ public class WelcomeView extends ViewBase {
 	private final Paint m_Entry_Paint = new Paint();
 	private final PointF m_Point_Up = new PointF();
 	private final PointF m_Point_Down = new PointF();
+	private final List<WelcomeFlower> m_Flowers = new Vector<WelcomeFlower>();
 		
 	public WelcomeView(Context context, ViewCallBack callback) {
 		super(context, callback);
@@ -51,6 +56,7 @@ public class WelcomeView extends ViewBase {
 			m_Image_Cloud[0].init(getContext(), R.drawable.welcome_cloud_1);
 			m_Image_Cloud[1] = new WelcomeCloud(this);
 			m_Image_Cloud[1].init(getContext(), R.drawable.welcome_cloud_2);
+			addFlower(Numeric.rndNumber(5, 7));
 			return true;
 		} catch (Exception e) {
 			Logs.LogsError(e);
@@ -136,6 +142,7 @@ public class WelcomeView extends ViewBase {
 	protected void onDrawView(Canvas canvas) {
 		drawWelcome(canvas);
 		drawCloud(canvas);
+		drawFlowers(canvas);
 	}
 	
 	@Override
@@ -164,5 +171,82 @@ public class WelcomeView extends ViewBase {
 	
 	private void drawCloud(Canvas canvas) {
 		m_Image_Cloud[1].draw(canvas);
+	}
+	
+	private void drawFlowers(Canvas canvas) {
+		List<WelcomeFlower> disappears = new Vector<WelcomeFlower>();		
+		for (WelcomeFlower flower : m_Flowers) {
+			flower.draw(canvas);
+			if (flower.disappear())
+				disappears.add(flower);
+		}
+		
+		while (disappears.size() > 0) {
+			WelcomeFlower flower = disappears.remove(0);
+			m_Flowers.remove(flower);
+			addFlower();
+		}
+	}
+	
+	private void addFlower() {				
+		int n = Numeric.rndNumber(1, 4);
+		int res = 0;
+		switch (n) {
+			case 1:
+				res = R.drawable.welcome_flower_1;
+				break;
+				
+			case 2:
+				res = R.drawable.welcome_flower_2;
+				break;
+				
+			case 3:
+				res = R.drawable.welcome_flower_3;
+				break;
+				
+			case 4:
+				res = R.drawable.welcome_flower_4;
+				break;
+				
+			default:
+				res = R.drawable.welcome_flower_1;
+				break;
+		}
+		
+		WelcomeFlower flower = new WelcomeFlower(this);
+		flower.init(getContext(), res);			
+		m_Flowers.add(flower);		
+	}
+	
+	private void addFlower(int count) {
+		for (int i = 0;i < count;i++) {
+			int n = Numeric.rndNumber(1, 4);
+			int res = 0;
+			switch (n) {
+				case 1:
+					res = R.drawable.welcome_flower_1;
+					break;
+					
+				case 2:
+					res = R.drawable.welcome_flower_2;
+					break;
+					
+				case 3:
+					res = R.drawable.welcome_flower_3;
+					break;
+					
+				case 4:
+					res = R.drawable.welcome_flower_4;
+					break;
+					
+				default:
+					res = R.drawable.welcome_flower_1;
+					break;
+			}
+			
+			WelcomeFlower flower = new WelcomeFlower(this);
+			flower.init(getContext(), res);			
+			m_Flowers.add(flower);
+		}		
 	}
 }

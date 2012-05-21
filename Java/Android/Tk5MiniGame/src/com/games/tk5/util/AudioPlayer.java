@@ -6,6 +6,7 @@ import android.media.MediaPlayer.OnErrorListener;
 
 public class AudioPlayer {
 	private static MediaPlayer MusicPlayer = null;
+	private static MediaPlayer SoundPlayer = null;
 				
 	public static void musicStart(Context context, int res) {
 		try {
@@ -19,14 +20,36 @@ public class AudioPlayer {
 		}		
 	}
 	
+	public static void soundStart(Context context, int res) {
+		try {
+			SoundPlayer = MediaPlayer.create(context, res);			
+			SoundPlayer.setVolume(10f, 10f);
+			SoundPlayer.setLooping(true);
+			SoundPlayer.start();
+			SoundPlayer.setOnErrorListener(new CallBack());
+		} catch (Exception e) {
+			Logs.LogsError(e);
+		}
+	}
+	
 	public static void musicPause() {
 		if (MusicPlayer != null)
 			MusicPlayer.pause();
 	}
 	
+	public static void soundPause() {
+		if (SoundPlayer != null)
+			SoundPlayer.pause();
+	}
+	
 	public static void musicRestart() {
 		if (MusicPlayer != null)
 			MusicPlayer.start();
+	}
+	
+	public static void soundRestart() {
+		if (SoundPlayer != null)
+			SoundPlayer.start();
 	}
 	
 	public static void musicStop() {
@@ -35,7 +58,15 @@ public class AudioPlayer {
 			MusicPlayer.release();
 			MusicPlayer = null;
 		}		
-	}		
+	}
+	
+	public static void soundStop() {
+		if (SoundPlayer != null) {
+			SoundPlayer.stop();
+			SoundPlayer.release();
+			SoundPlayer = null;
+		}
+	}
 }
 
 class CallBack implements OnErrorListener {
