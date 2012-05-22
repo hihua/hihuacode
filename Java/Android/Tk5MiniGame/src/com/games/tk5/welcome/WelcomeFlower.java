@@ -36,8 +36,7 @@ public class WelcomeFlower extends Sprite {
 	}
 		
 	private void initMove() {
-		float n = Numeric.rndNumber(0.5f, 2.0f);
-		Logs.LogsInfo(n);
+		float n = Numeric.rndNumber(0.5f, 2.0f);		
 		m_Move.x = n;
 		m_Move.y = n;
 	}
