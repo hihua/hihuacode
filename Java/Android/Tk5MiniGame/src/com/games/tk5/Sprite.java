@@ -64,6 +64,7 @@ public abstract class Sprite {
 	
 	public void setAlpha(int alpha) {		
 		m_Alpha = alpha;
+		m_Paint.setAlpha(alpha);
 	}
 	
 	public Bitmap getBitmap() {

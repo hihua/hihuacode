@@ -2,7 +2,6 @@ package com.games.tk5.welcome;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
 
@@ -24,8 +23,7 @@ public class WelcomeFlower extends Sprite {
 	public boolean init(Context context, int res) {
 		try {
 			setAlpha(Numeric.rndNumber(50, 255));
-			m_Bitmap = ImageUtil.getImage(context, res);
-			//m_Bitmap = ImageUtil.setAlpha(m_Bitmap, getAlpha());
+			m_Bitmap = ImageUtil.getImage(context, res);			
 			setWidth(m_Bitmap.getWidth());
 			setHeight(m_Bitmap.getHeight());
 			setLeftTop(Numeric.rndNumber(m_Clip.left, 680f), m_Clip.top);
@@ -77,9 +75,6 @@ public class WelcomeFlower extends Sprite {
 			setDelay(delay);
 			return;
 		}
-		
-		Paint paint = getPaint();
-		paint.setAlpha(getAlpha());
 		
 		canvas.save();
 		canvas.clipRect(m_Clip);
