@@ -33,9 +33,9 @@ public class SquareView extends GamesBase {
 			m_Image_Background = ImageUtil.getImage(getContext(), R.drawable.square_background);
 			m_Image_Left = ImageUtil.getImage(getContext(), R.drawable.square_left);
 			m_Image_Top = ImageUtil.getImage(getContext(), R.drawable.square_top);
-			m_Image_Time = ImageUtil.getImage(getContext(), R.drawable.square_time);
-			m_Image_TimeIn = ImageUtil.getImage(getContext(), R.drawable.square_time_in);
-			m_Image_TimeOut = ImageUtil.getImage(getContext(), R.drawable.square_time_out);
+			m_Image_Time = ImageUtil.getImage(getContext(), R.drawable.time);
+			m_Image_TimeIn = ImageUtil.getImage(getContext(), R.drawable.time_in);
+			m_Image_TimeOut = ImageUtil.getImage(getContext(), R.drawable.time_out);
 			return true;
 		} catch (Exception e) {
 			Logs.LogsError(e);
