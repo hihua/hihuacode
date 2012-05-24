@@ -22,6 +22,7 @@ import com.request.RequestRanks;
 import com.request.RequestSessions;
 import com.request.RequestTowns;
 import com.request.RequestTransport;
+import com.request.RequestWorldMaps;
 import com.task.TaskBase;
 import com.task.TaskMy;
 import com.towns.OtherTown;
@@ -200,6 +201,21 @@ public class AutoTask extends Thread implements CallBackTask {
 		
 		RequestIsland requestIsland = new RequestIsland();
 		return requestIsland.request(host, clientv, cookie, x, y, m_Config.getUserId());
+	}
+	
+	public String getWorldMaps(String x, String y) {
+		if (m_Config == null)
+			return null;
+		
+		if (!Numeric.isNumber(x) || !Numeric.isNumber(y))
+			return null;
+		
+		String host = m_Config.getHost();
+		String clientv = m_Config.getClientv();
+		String cookie = m_Config.getCookie();
+		
+		RequestWorldMaps requestWorldMaps = new RequestWorldMaps();
+		return requestWorldMaps.request(host, clientv, cookie, x, y);
 	}
 	
 	public boolean requestBuildings(Long buildingId) {

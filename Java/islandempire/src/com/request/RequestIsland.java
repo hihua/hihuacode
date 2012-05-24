@@ -29,10 +29,6 @@ public class RequestIsland extends RequestParent {
 		m_URL.append(host);
 		m_URL.append(url);
 		
-		String response = requestUrl(m_URL.toString(), clientv, cookie, null);
-		if (response == null)
-			return null;
-		else
-			return response;
+		return requestUrl(m_URL.toString(), clientv, cookie, null);		
 	}
 }

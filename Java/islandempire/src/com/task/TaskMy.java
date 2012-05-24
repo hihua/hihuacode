@@ -1378,6 +1378,14 @@ public class TaskMy extends TaskBase {
 		Resources resourcesFood = town.getResourcesFood();
 		if (resourcesFood != null && sells(town, config, configTown.getSells(), resourcesFood, leftCapacity))
 			return;
+		
+		Resources resourcesIron = town.getResourcesIron();
+		if (resourcesIron != null && sells(town, config, configTown.getSells(), resourcesIron, leftCapacity))
+			return;
+		
+		Resources resourcesMarble = town.getResourcesMarble();
+		if (resourcesMarble != null && sells(town, config, configTown.getSells(), resourcesMarble, leftCapacity))
+			return;
 	}
 	
 	private boolean buys(Town town, Config config, Resources resources) {

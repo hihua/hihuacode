@@ -10,6 +10,7 @@
 		<script type="text/javascript" src="js/island.js"></script>
 		<script type="text/javascript" src="js/buildings.js"></script>
 		<script type="text/javascript" src="js/transport.js"></script>
+		<script type="text/javascript" src="js/worldmaps.js"></script>
 	</head>
 	<body>
 		<table width="100%" align="center" cellpadding="0" cellspacing="0" border="0">
@@ -59,11 +60,18 @@
 									<option value="0" selected="selected">不带消息</option>
 									<option value="1">带消息</option>
 								</select>						
-								<input type="button" id="query" value=" 查询 " onclick="getIsland();" />
+								<input type="button" id="queryisland" value="查询坐标" onclick="getIsland();" />
+								<input type="button" id="queryworldmaps" value="查询范围" onclick="getWorldMaps();" />
 							</td>
 						</tr>
 						<tr>
 							<td id="island"></td>							
+						</tr>
+						<tr>
+							<td>&nbsp;</td>							
+						</tr>
+						<tr>
+							<td id="worldmaps"></td>							
 						</tr>
 					</table>
 				</td>
@@ -1448,6 +1456,66 @@
 				if (total > 0)
 					$("#island").html(html);
 			}
+			
+			function getWorldMaps() {
+				var x = $("#x").val();
+				var y = $("#y").val();
+				
+				if (x.length == 0 || y.length == 0)
+					return;
+					
+				if (y.length == 1)
+					y = "00" + y;
+					
+				if (y.length == 2)
+					y = "0" + y;
+					
+				requestWorldMaps(x, y, setWorldMaps);														
+			}
+			
+			function setWorldMaps(json) {
+				var islands = json.islands;
+				if (islands == null)
+					return;
+					
+				var total = 0;
+				var html = "<table width=\"500\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"1\" class=\"Table1\">";										
+													
+				$.each(islands, function(idx, island) {
+					total++;
+					var x = island.x.toString();
+					var y = island.y.toString();
+					var p = y;
+															
+					if (p.length == 1)
+						p = "00" + p;
+					
+					if (p.length == 2)
+						p = "0" + p;					
+									
+					var href = "<a href=\"#\" onclick=\"$('#x').val(" + x + ");$('#y').val(" + y + ");requestIsland('" + x + "', '" + p + "', setIsland);return false;\" class=\"AdminToolsLink2\">" + island.x + "," + island.y + "</a>";						
+					var type = "";
+					if (island.resource_type == 1)
+						type = "黄金";
+					
+					if (island.resource_type == 2)
+						type = "大理石";
+						
+					if (island.resource_type == 3)
+						type = "黑铁石";
+											
+					html += "<tr>";
+					html += "<td width=\"120\" height=\"30\" align=\"center\">" + href + "</td>";
+					html += "<td width=\"120\" height=\"30\" align=\"center\">" + island.id + "</td>";
+					html += "<td width=\"150\" height=\"30\" align=\"center\">" + type + "</td>";	
+					html += "<td width=\"110\" height=\"30\" align=\"center\">" + island.town_count + "</td>";					
+					html += "</tr>";								
+				});
+				
+				html += "</table>";			
+				if (total > 0)
+					$("#worldmaps").html(html);
+			}						
 			
 			function upgradeBuilding(buildingId) {
 				if (window.confirm("是否升级"))
