@@ -48,7 +48,7 @@ public class ImageUtil {
 	public static Bitmap getImage(Context context, int res, int[] filterColor) throws Exception {
 		Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), res);
 		Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());		
-		bitmap = Bitmap.createBitmap(bitmap, 0, rect.top, rect.right - rect.left, rect.bottom - rect.top);
+		bitmap = Bitmap.createBitmap(bitmap, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top);
 		if (filterColor == null)
 			return bitmap;
 		else
@@ -58,12 +58,12 @@ public class ImageUtil {
 	public static Bitmap getImage(Context context, int res) throws Exception {
 		Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), res);
 		Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());				
-		return Bitmap.createBitmap(bitmap, 0, rect.top, rect.right - rect.left, rect.bottom - rect.top);
+		return Bitmap.createBitmap(bitmap, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top);
 	}
 	
 	public static Bitmap getImage(Context context, int res, Rect rect) throws Exception {
 		Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), res);						
-		return Bitmap.createBitmap(bitmap, 0, rect.top, rect.right - rect.left, rect.bottom - rect.top);
+		return Bitmap.createBitmap(bitmap, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top);
 	}
 	
 	public static Bitmap setAlpha(Bitmap bitmap, int alpha) {

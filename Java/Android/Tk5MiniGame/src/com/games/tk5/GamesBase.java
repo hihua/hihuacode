@@ -1,5 +1,8 @@
 package com.games.tk5;
 
+import com.games.tk5.ViewBase.ViewStatus;
+import com.games.tk5.timer.CallBackTimer;
+import com.games.tk5.timer.GamesTimer;
 import com.games.tk5.util.AudioPlayer;
 import com.games.tk5.util.ImageUtil;
 import com.games.tk5.util.Logs;
@@ -15,8 +18,9 @@ import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.view.MotionEvent;
 
-public abstract class GamesBase extends ViewBase {
+public abstract class GamesBase extends ViewBase implements CallBackTimer {
 	private Bitmap m_Index_Image;
 	private String m_Index_Name;
 	private String[] m_Index_Desc;
@@ -32,7 +36,8 @@ public abstract class GamesBase extends ViewBase {
 	private final RectF m_Rect = new RectF();
 	private final PointF m_Point_Left = new PointF();
 	private final PointF m_Point_Right = new PointF();
-			
+	private final GamesTimer m_GamesTimer = new GamesTimer(this);
+				
 	protected GamesBase(Context context, ViewCallBack callback) {
 		super(context, callback);		
 		m_Index_Paint.setAntiAlias(true);
@@ -188,7 +193,30 @@ public abstract class GamesBase extends ViewBase {
 		else
 			return false;		
 	}
-
+	
+	protected void setTimerPosition(float left, float top) {
+		m_GamesTimer.position(left, top);
+	}
+	
+	protected void setTimerStart(long millisecond) {
+		m_GamesTimer.start(millisecond);
+	}
+	
+	protected void setTimerRestart(long millisecond) {
+		m_GamesTimer.restart(millisecond);
+	}
+	
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		int action = event.getAction();
+		if (action == MotionEvent.ACTION_DOWN) {
+			if (getViewStatus() == ViewStatus.Started)
+				onTouch(event.getX(), event.getY());
+		}
+		
+		return super.onTouchEvent(event);
+	}
+	
 	@Override
 	protected boolean onInit() {		
 		return onInitGames();
@@ -281,9 +309,17 @@ public abstract class GamesBase extends ViewBase {
 			return false;
 		}		
 	}
+	
+	@Override
+	public void onTimeOut() {
+		setViewStatus(ViewStatus.Ending);
+	}
 
 	protected abstract boolean onInitIndex();
 	protected abstract boolean onInitGames();
-	protected abstract void onEntryGames(Canvas canvas);
+	protected abstract void onTouch(float x, float y);
+	protected abstract void onSelectGames(Canvas canvas);
+	protected abstract void onEntryGames(Canvas canvas);	
 	protected abstract void onDrawGames(Canvas canvas);
+	protected abstract void onEndingGames(Canvas canvas);
 }

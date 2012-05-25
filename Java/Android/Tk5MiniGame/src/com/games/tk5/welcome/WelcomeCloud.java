@@ -17,14 +17,13 @@ public class WelcomeCloud extends Sprite {
 	
 	public WelcomeCloud(ViewBase viewBase) {
 		super(viewBase);
-		setTop(25f);
-		setAlpha(180);
+		setTop(25f);		
 	}
 	
-	public boolean init(Context context, int res) {
+	public boolean init(Context context, int res, int alpha) {
 		try {
 			m_Bitmap = ImageUtil.getImage(context, res);
-			m_Bitmap = ImageUtil.setAlpha(m_Bitmap, getAlpha());
+			m_Bitmap = ImageUtil.setAlpha(m_Bitmap, alpha);
 			setWidth(m_Bitmap.getWidth());
 			setHeight(m_Bitmap.getHeight());			
 			return true;

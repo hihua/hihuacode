@@ -42,9 +42,9 @@ public final class R {
         public static final int square_yellow_2=0x7f02001c;
         public static final int square_yellow_3=0x7f02001d;
         public static final int square_yellow_4=0x7f02001e;
-        public static final int time=0x7f02001f;
-        public static final int time_in=0x7f020020;
-        public static final int time_out=0x7f020021;
+        public static final int timer=0x7f02001f;
+        public static final int timer_in=0x7f020020;
+        public static final int timer_out=0x7f020021;
         public static final int welcome_cloud_1=0x7f020022;
         public static final int welcome_cloud_2=0x7f020023;
         public static final int welcome_flower_1=0x7f020024;
@@ -68,5 +68,12 @@ public final class R {
         public static final int index_square=0x7f050002;
         public static final int mini_game=0x7f050001;
         public static final int square_desc=0x7f050004;
+        public static final int square_left_blue=0x7f050006;
+        public static final int square_left_green=0x7f050008;
+        public static final int square_left_red=0x7f050007;
+        public static final int square_left_yellow=0x7f050005;
+        public static final int square_score_ben=0x7f05000a;
+        public static final int square_score_left=0x7f050009;
+        public static final int timer_name=0x7f05000b;
     }
 }

@@ -16,10 +16,7 @@ public class SquareView extends GamesBase {
 	private Bitmap m_Image_Color;
 	private Bitmap m_Image_Background;	
 	private Bitmap m_Image_Left;
-	private Bitmap m_Image_Top;
-	private Bitmap m_Image_Time;
-	private Bitmap m_Image_TimeIn;
-	private Bitmap m_Image_TimeOut;
+	private Bitmap m_Image_Top;	
 	private final Paint m_Paint = new Paint();
 	
 	public SquareView(Context context, ViewCallBack callback) {
@@ -32,10 +29,7 @@ public class SquareView extends GamesBase {
 			m_Image_Color = ImageUtil.getImage(getContext(), R.drawable.square_color);
 			m_Image_Background = ImageUtil.getImage(getContext(), R.drawable.square_background);
 			m_Image_Left = ImageUtil.getImage(getContext(), R.drawable.square_left);
-			m_Image_Top = ImageUtil.getImage(getContext(), R.drawable.square_top);
-			m_Image_Time = ImageUtil.getImage(getContext(), R.drawable.time);
-			m_Image_TimeIn = ImageUtil.getImage(getContext(), R.drawable.time_in);
-			m_Image_TimeOut = ImageUtil.getImage(getContext(), R.drawable.time_out);
+			m_Image_Top = ImageUtil.getImage(getContext(), R.drawable.square_top);			
 			return true;
 		} catch (Exception e) {
 			Logs.LogsError(e);
@@ -85,10 +79,25 @@ public class SquareView extends GamesBase {
 	}
 	
 	@Override
+	protected void onSelectGames(Canvas canvas) {
+		
+	}
+	
+	@Override
 	protected void onDrawGames(Canvas canvas) {
 		drawColor(canvas);
 		drawLeft(canvas);
 		drawTop(canvas);
 		drawBackground(canvas);
-	}	
+	}
+
+	@Override
+	protected void onTouch(float x, float y) {
+		
+	}
+
+	@Override
+	protected void onEndingGames(Canvas canvas) {
+		
+	}		
 }

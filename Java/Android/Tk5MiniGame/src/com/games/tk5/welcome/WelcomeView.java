@@ -53,9 +53,9 @@ public class WelcomeView extends ViewBase {
 			m_Image_Flower[3] = ImageUtil.getImage(getContext(), R.drawable.welcome_flower_4, filterColor);
 			m_Image_Flower[3] = ImageUtil.setAlpha(m_Image_Flower[3], 20);
 			m_Image_Cloud[0] = new WelcomeCloud(this);
-			m_Image_Cloud[0].init(getContext(), R.drawable.welcome_cloud_1);
+			m_Image_Cloud[0].init(getContext(), R.drawable.welcome_cloud_1, 180);
 			m_Image_Cloud[1] = new WelcomeCloud(this);
-			m_Image_Cloud[1].init(getContext(), R.drawable.welcome_cloud_2);
+			m_Image_Cloud[1].init(getContext(), R.drawable.welcome_cloud_2, 180);
 			addFlower(Numeric.rndNumber(5, 7));
 			return true;
 		} catch (Exception e) {
