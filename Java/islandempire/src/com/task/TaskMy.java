@@ -1290,7 +1290,7 @@ public class TaskMy extends TaskBase {
 		Hero hero = null;
 		hero = town.getHero();
 		if (hero != null) {
-			if (hero.getId() == null || hero.getEnergy() == null)
+			if (hero.getId() == null || hero.getEnergy() == null || hero.getLevel() == null)
 				hero = null;
 			else {
 				if (hero.getEnergy() == 0 && !useEquipment(town, config))
@@ -1312,8 +1312,12 @@ public class TaskMy extends TaskBase {
 			HashMap<String, Long> soldiers = getAttackSoldier(town, count);
 			if (soldiers == null)
 				return;
+			
+			Hero h = null;
+			if (hero != null && islandVillage.getLevel() >= hero.getLevel() - 3)
+				h = hero;
 									
-			if (m_RequestArmy.request(host, clientv, cookie, townId, islandVillage.getId(), townId, soldiers, hero)) {
+			if (m_RequestArmy.request(host, clientv, cookie, townId, islandVillage.getId(), townId, soldiers, h)) {
 				m_Village.add(islandVillage.getId());
 				decreaseSoldiers(town, soldiers);
 				total++;					
