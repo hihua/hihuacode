@@ -7,7 +7,7 @@ import com.config.Config;
 
 public class RequestSessions extends RequestParent {
 	private final String URL = "/sessions.json";
-	private final String Body = "device_version=iPad2,1&username=%s&password=%s&ios_version=5.0.1";
+	private final String Body = "device_version=iPad2,1&username=%s&password=%s&ios_version=5.1.1";
 	private final StringBuilder m_URL = new StringBuilder();
 	
 	public boolean request(String host, String clientv, Config config, String username, String password) {
