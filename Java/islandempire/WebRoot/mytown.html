@@ -1369,15 +1369,18 @@
 				var myrank = json.my_rank;
 				var ranks = json.rank;
 				if (ranks != null) {
+					var flag = false;				
 					var html = "<table width=\"500\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
 					html += "<tr><td align=\"left\">排行榜</td></tr>";					
 					html += "</table>";
-					html += "<table width=\"500\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"1\" class=\"Table1\">";					
+					html += "<table width=\"500\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"1\" class=\"Table1\">";										
 					$.each(ranks, function(idx, rank) {						
 						var color = "#000000";						
-						if (myrank == rank.rank)
+						if (myrank == rank.rank) {
 							color = "#FF0000";
-												
+							flag = true;
+						}
+								
 						html += "<tr>";
 						html += "<td height=\"30\" width=\"40\" align=\"center\"><span style=\"color:" + color + "\">" + rank.rank + "</span></td>";
 						html += "<td height=\"30\" width=\"60\" align=\"center\"><span style=\"color:" + color + "\">" + rank.id + "</span></td>";
@@ -1387,6 +1390,16 @@
 						html += "</tr>";																										
 					});
 					
+					if (!flag) {
+						html += "<tr>";
+						html += "<td height=\"30\" width=\"40\" align=\"center\"><span style=\"color:FF0000\">" + json.my_rank + "</span></td>";
+						html += "<td height=\"30\" width=\"60\" align=\"center\">&nbsp;</td>";
+						html += "<td height=\"30\" width=\"130\" align=\"center\">&nbsp;</td>";
+						html += "<td height=\"30\" width=\"85\" align=\"center\"><span style=\"color:FF0000\">" + json.my_score + "</span></td>";
+						html += "<td height=\"30\" align=\"center\">&nbsp;</td>";
+						html += "</tr>";					
+					}
+															
 					html += "</table>";					
 					$("#ranks").html(html);					
 				}			

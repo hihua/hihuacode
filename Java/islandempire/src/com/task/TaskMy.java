@@ -199,7 +199,7 @@ public class TaskMy extends TaskBase {
 		String clientv = config.getClientv();
 		String cookie = config.getCookie();
 		
-		return m_RequestRanks.request(host, clientv, cookie, "my_rank", userId);
+		return m_RequestRanks.request(host, clientv, cookie, "top_users", userId);
 	}
 	
 	private void setBattles(Config config) {
