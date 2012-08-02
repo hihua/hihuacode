@@ -11,6 +11,7 @@
 		<script type="text/javascript" src="js/buildings.js"></script>
 		<script type="text/javascript" src="js/transport.js"></script>
 		<script type="text/javascript" src="js/worldmaps.js"></script>
+		<script type="text/javascript" src="js/equipment.js"></script>
 	</head>
 	<body>
 		<table width="100%" align="center" cellpadding="0" cellspacing="0" border="0">
@@ -51,6 +52,12 @@
 						</tr>
 						<tr>
 							<td id="ranks"></td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>							
+						</tr>
+						<tr>
+							<td id="equipment"></td>
 						</tr>
 						<tr>
 							<td align="center" height="35">
@@ -102,6 +109,11 @@
 			function getMyRanks() {
 				requestMyRanks(setMyRanks);
 				setTimeout("getMyRanks()", 60000);
+			}
+			
+			function getMyEquipment() {
+				requestMyEquipment(setMyEquipment);
+				setTimeout("getMyEquipment()", 45000);
 			}
 			
 			function getFinishTime(buildingQueues, buildingId, lines) {
@@ -1406,6 +1418,11 @@
 				}			
 			}
 			
+			function setMyEquipment(json) {
+				var html = setEquipment(json);
+				$("#equipment").html(html);
+			}
+			
 			function getIsland() {
 				var x = $("#x").val();
 				var y = $("#y").val();
@@ -1572,6 +1589,7 @@
 			getMyTowns();
 			getMyMessage();
 			getMyRanks();
+			getMyEquipment();
 		</script>
 	</body>
 </html>

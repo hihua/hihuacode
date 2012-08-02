@@ -20,6 +20,13 @@
 				var userid = config.find("userid");
 				var cookie = config.find("cookie");
 				var autotowns = config.find("autotowns");
+				var equipment = config.find("equipment");
+				var equipmentMax = "";
+				var equipmentTowns = "";
+				if (equipment != null) {
+					equipmentMax = equipment.find("max");
+					equipmentTowns = equipment.find("towns");
+				}
 				
 				html = "";
 				html += "<table width=\"760\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
@@ -42,6 +49,19 @@
 				html += "<tr>";
 				html += "<td align=\"right\" height=\"30\">请求延迟：</td>";
 				html += "<td align=\"left\"><input type=\"text\" id=\"autotowns\" size=\"40\" value=\"" + (autotowns != null ? autotowns.text() : "") + "\" /></td>";
+				html += "</tr>";
+				html += "<tr>";
+				html += "<td align=\"right\" height=\"30\">装备：</td>";				
+				html += "<td align=\"left\">";
+				html += "<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+				html += "<tr>";
+				html += "<td>最大级别：</td>";
+				html += "<td><input type=\"text\" id=\"equipmentmax\" size=\"1\" value=\"" + (equipmentMax != null ? equipmentMax.text() : "") + "\" /></td>";
+				html += "<td>所需城市ID：</td>";
+				html += "<td><input type=\"text\" id=\"equipmenttowns\" size=\"71\" value=\"" + (equipmentTowns != null ? equipmentTowns.text() : "") + "\" /></td>";
+				html += "</tr>";
+				html += "</table>";
+				html += "<td>";
 				html += "</tr>";
 				html += "</table>";
 								
@@ -160,6 +180,8 @@
 				var userid = $("#userid").val();
 				var cookie = $("#cookie").val();
 				var autotowns = $("#autotowns").val();
+				var equipmentmax = $("#equipmentmax").val();
+				var equipmenttowns = $("#equipmenttowns").val();
 				
 				var xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n\r\n";
 				xml += "<config>\r\n";
@@ -168,6 +190,10 @@
 				xml += "\t<userid>" + userid + "</userid>\r\n";
 				xml += "\t<cookie>" + cookie + "</cookie>\r\n";
 				xml += "\t<autotowns>" + autotowns + "</autotowns>\r\n";
+				xml += "\t<equipment>\r\n";
+				xml += "\t\t<max>" + equipmentmax + "</max>\r\n";
+				xml += "\t\t<towns>" + equipmenttowns + "</towns>\r\n";
+				xml += "\t</equipment>\r\n";
 								
 				$("form").each(function() {
 					var id = (($(this).find("#id") != null) ? $(this).find("#id").val() : "");

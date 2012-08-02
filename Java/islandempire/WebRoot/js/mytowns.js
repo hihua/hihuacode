@@ -29,3 +29,13 @@ function requestMyRanks(callback) {
         return null;
     });
 }
+
+function requestMyEquipment(callback) {
+	var url = WebMyTowns + "?command=3"; 
+	Ajax_CallBack(url, "", "json", "", true, function(json) {
+		if (json != null)
+			callback(json);		
+	}, function(response, error, status) {
+        return null;
+    });
+}
