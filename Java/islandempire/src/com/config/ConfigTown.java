@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ConfigTown {
-	private Long id;
+	private Long townId;
 	private Boolean autoUpgrade = false;
 	private List<Long> upgradePriority = null;
 	private Boolean autoAttack = false;
@@ -14,8 +14,8 @@ public class ConfigTown {
 	private HashMap<String, Double> sells = null;
 	private HashMap<String, Double> buys = null;
 
-	public Long getId() {
-		return id;
+	public Long getTownId() {
+		return townId;
 	}
 
 	public Boolean getAutoUpgrade() {
@@ -50,8 +50,8 @@ public class ConfigTown {
 		return buys;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setTownId(Long townId) {
+		this.townId = townId;
 	}
 
 	public void setAutoUpgrade(Boolean autoUpgrade) {

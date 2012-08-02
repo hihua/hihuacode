@@ -9,6 +9,18 @@ import com.util.DateTime;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+//type
+//0			主武器
+//1			副武器
+//2			头盔
+//3			护甲
+//4			靴子
+//5			护腿
+//6			戒指
+//7			项链
+//8			技能书
+//9			回复药
+
 public class Equipment {
 	private Long defense;
 	private String iconUrl;

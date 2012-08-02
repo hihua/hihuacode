@@ -23,8 +23,10 @@ public class Config {
 	private Long userId;
 	private String cookie;
 	private Long autoTowns;
+	private Long equipmentMax;
+	private List<Long> equipmentTowns;
 	private List<ConfigTown> configTowns;
-
+	
 	public String getHost() {
 		return host;
 	}
@@ -32,7 +34,7 @@ public class Config {
 	public String getClientv() {
 		return clientv;
 	}
-	
+
 	public Long getUserId() {
 		return userId;
 	}
@@ -43,6 +45,14 @@ public class Config {
 
 	public Long getAutoTowns() {
 		return autoTowns;
+	}
+
+	public Long getEquipmentMax() {
+		return equipmentMax;
+	}
+
+	public List<Long> getEquipmentTowns() {
+		return equipmentTowns;
 	}
 
 	public List<ConfigTown> getConfigTowns() {
@@ -56,7 +66,7 @@ public class Config {
 	public void setClientv(String clientv) {
 		this.clientv = clientv;
 	}
-	
+
 	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
@@ -69,10 +79,18 @@ public class Config {
 		this.autoTowns = autoTowns;
 	}
 
+	public void setEquipmentMax(Long equipmentMax) {
+		this.equipmentMax = equipmentMax;
+	}
+
+	public void setEquipmentTowns(List<Long> equipmentTowns) {
+		this.equipmentTowns = equipmentTowns;
+	}
+
 	public void setConfigTowns(List<ConfigTown> configTowns) {
 		this.configTowns = configTowns;
 	}
-	
+
 	private static Document loadXML(InputStream in) {
 		Document document = null;
 		
@@ -151,6 +169,41 @@ public class Config {
 		} catch (NumberFormatException e) {
 			return null;
 		}
+		
+		elementParent = elementRoot.element("equipment");
+		if (elementParent != null) {
+			Element equipmentMax = elementParent.element("max");
+			Element equipmentTowns = elementParent.element("towns");
+			if (equipmentMax != null && equipmentTowns != null) {
+				tmp = equipmentMax.getText();
+				if (Numeric.isNumber(tmp)) {
+					try {
+						Long max = Long.parseLong(tmp);
+						tmp = equipmentTowns.getText();
+						if (max > 0 && tmp != null) {
+							List<Long> towns = new Vector<Long>();
+							if (tmp.indexOf(",") > -1) {
+								String[] arrays = tmp.split(",");
+								for (String array : arrays) {
+									if (Numeric.isNumber(array))
+										towns.add(Long.parseLong(array));
+								}
+							} else {
+								if (Numeric.isNumber(tmp))
+									towns.add(Long.parseLong(tmp));
+							}
+							
+							if (towns.size() > 0) {
+								config.setEquipmentMax(max);
+								config.setEquipmentTowns(towns);
+							}
+						}												
+					}  catch (NumberFormatException e) {
+						
+					}
+				}					
+			}
+		}
 						
 		Iterator<Element> elements = elementRoot.elementIterator("towns");
 		if (elements != null) {
@@ -168,7 +221,7 @@ public class Config {
 					if (!Numeric.isNumber(tmp))
 						continue;
 					
-					configTown.setId(Long.parseLong(tmp));
+					configTown.setTownId(Long.parseLong(tmp));
 					
 					Element element = elementParent.element("autoupgrade");
 					if (element != null && element.getText() != null) {
@@ -386,11 +439,33 @@ public class Config {
 		xml.append(config.getAutoTowns() != null ? config.getAutoTowns() : "");
 		xml.append("</autotowns>\r\n");
 		
+		xml.append("\t<equipment>");
+		xml.append("\t\t<max>");
+		xml.append(config.getEquipmentMax() != null ? config.getEquipmentMax() : "");
+		xml.append("</max>");
+		xml.append("\t\t<towns>");
+		if (config.getEquipmentTowns() != null) {
+			StringBuilder sb = new StringBuilder();
+			List<Long> towns = config.getEquipmentTowns();
+			for (Long town : towns) {
+				sb.append(",");
+				sb.append(town);
+			}
+			
+			if (sb.length() > 0)
+				sb.deleteCharAt(0);
+			
+			xml.append(sb.toString());
+		}
+		
+		xml.append("</towns>");
+		xml.append("\t</equipment>\r\n");
+		
 		List<ConfigTown> configTowns = config.getConfigTowns();
 		if (configTowns != null) {
 			for (ConfigTown configTown : configTowns) {
 				xml.append("\t<towns id=\"");
-				xml.append(configTown.getId() != null ? configTown.getId() : "");
+				xml.append(configTown.getTownId() != null ? configTown.getTownId() : "");
 				xml.append("\">\r\n");
 				
 				StringBuilder upgradePriority = new StringBuilder();

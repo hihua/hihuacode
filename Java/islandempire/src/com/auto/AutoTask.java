@@ -16,6 +16,7 @@ import com.config.Config;
 import com.entity.TownInfo;
 import com.entity.Towns;
 import com.request.RequestBuildings;
+import com.request.RequestEquipment;
 import com.request.RequestIsland;
 import com.request.RequestMessage;
 import com.request.RequestRanks;
@@ -216,6 +217,22 @@ public class AutoTask extends Thread implements CallBackTask {
 		
 		RequestWorldMaps requestWorldMaps = new RequestWorldMaps();
 		return requestWorldMaps.request(host, clientv, cookie, x, y);
+	}
+	
+	public String getMyEquipment() {
+		if (m_MyTowns == null)
+			return null;
+		
+		return m_MyTowns.getEquipment();
+	}
+	
+	public String getEquipment(Long townId) {
+		String host = m_Config.getHost();
+		String clientv = m_Config.getClientv();
+		String cookie = m_Config.getCookie();
+		
+		RequestEquipment requestEquipment = new RequestEquipment();
+		return requestEquipment.request(host, clientv, cookie, townId);
 	}
 	
 	public boolean requestBuildings(Long buildingId) {

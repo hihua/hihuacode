@@ -1,6 +1,7 @@
 package com.task;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
@@ -23,8 +24,10 @@ import com.config.ConfigTown;
 import com.deals.Deal;
 import com.entity.TownInfo;
 import com.entity.Towns;
+import com.hero.Enhance;
 import com.hero.Equipment;
 import com.hero.Hero;
+import com.hero.NeedResources;
 import com.island.IslandBuilding;
 import com.island.IslandVillage;
 import com.island.WorldMap;
@@ -41,6 +44,7 @@ import com.request.RequestIsland;
 import com.request.RequestMessage;
 import com.request.RequestRanks;
 import com.request.RequestRecruit;
+import com.request.RequestRewards;
 import com.request.RequestTowns;
 import com.request.RequestTransport;
 import com.request.RequestUpgrade;
@@ -68,8 +72,10 @@ public class TaskMy extends TaskBase {
 	private final RequestEvent m_RequestEvent = new RequestEvent();
 	private final RequestEquipment m_RequestEquipment = new RequestEquipment();
 	private final RequestRanks m_RequestRanks = new RequestRanks();
+	private final RequestRewards m_RequestRewards = new RequestRewards();
 	private final List<Long> m_Village = new Vector<Long>();
 	private Config m_ConfigNew = null;
+	private Date m_Rewards = null;
 
 	public TaskMy(String taskName, Config config, CallBackTask callBack) {
 		super(taskName, config.getAutoTowns(), callBack);
@@ -85,6 +91,8 @@ public class TaskMy extends TaskBase {
 				m_Config.setClientv(m_ConfigNew.getClientv());
 				m_Config.setCookie(m_ConfigNew.getCookie());
 				m_Config.setAutoTowns(m_ConfigNew.getAutoTowns());
+				m_Config.setEquipmentMax(m_ConfigNew.getEquipmentMax());
+				m_Config.setEquipmentTowns(m_ConfigNew.getEquipmentTowns());
 				m_Config.setConfigTowns(m_ConfigNew.getConfigTowns());
 			}
 		}
@@ -100,15 +108,18 @@ public class TaskMy extends TaskBase {
 		
 		Towns towns = new Towns();
 		List<TownInfo> townInfos = new Vector<TownInfo>();
+		List<Long> townIds = new Vector<Long>();
 		String username = "";
 		
+		setRewards(m_Config);
 		setBattles(m_Config);
 		String ranks = getRanks(m_Config);
 						
 		for (ConfigTown configTown : configTowns) {
 			Boolean autoUpgrade = configTown.getAutoUpgrade();
-			Long id = configTown.getId();
-			TownInfo townInfo = m_RequestTowns.request(host, clientv, cookie, id);
+			Long townId = configTown.getTownId();
+			townIds.add(townId);
+			TownInfo townInfo = m_RequestTowns.request(host, clientv, cookie, townId);
 						
 			try {					
 				sleep(1000);
@@ -142,6 +153,12 @@ public class TaskMy extends TaskBase {
 			if (message != null) {
 				towns.setMessage(message);
 			}
+		}
+		
+		if (townIds.size() > 0) {
+			Collections.shuffle(townIds);
+			Long townId = townIds.get(0);
+			setEquipment(towns, m_Config, townId);
 		}
 		
 		m_CallBack.onTowns(towns);		
@@ -191,6 +208,22 @@ public class TaskMy extends TaskBase {
 		}
 		
 		return true;
+	}
+	
+	private void setRewards(Config config) {		
+		if (m_Rewards != null) {
+			Date now = new Date();
+			if (now.getTime() - m_Rewards.getTime() < 24 * 3600 * 1000)
+				return;			
+		}
+		
+		String host = config.getHost();
+		Long userId = config.getUserId();
+		String clientv = config.getClientv();
+		String cookie = config.getCookie();
+				
+		m_RequestRewards.request(host, clientv, cookie, userId);
+		m_Rewards = new Date();
 	}
 	
 	private String getRanks(Config config) {
@@ -474,6 +507,7 @@ public class TaskMy extends TaskBase {
 		if (prioritys == null)
 			return;
 									
+		boolean citywall = false;
 		HashMap<Long, List<Long>> buildings = new HashMap<Long, List<Long>>();
 		
 		if (town.getBuildingBarrack() != null) {
@@ -673,37 +707,51 @@ public class TaskMy extends TaskBase {
 		
 		if (town.getBuildingWall() != null) {
 			BuildingWall buildingWall = town.getBuildingWall();			
-			if (buildingWall.getBuildingType() != null) {
-				TreeMap<Long, List<Long>> sorts = new TreeMap<Long, List<Long>>();
-				if (buildingWall.getId() != null && buildingWall.getLevel() != null && buildingWall.getLevel() < 40 && buildingWall.getLevel() < level && buildingWall.getStatus() != null && !buildingWall.getStatus().equals("upgrading")) {
-					List<Long> buildingIds = new Vector<Long>();
-					buildingIds.add(buildingWall.getId());
-					sorts.put(buildingWall.getLevel(), buildingIds);
+			if (buildingWall.getBuildingType() != null) {				
+				if (buildingWall.getId() != null && buildingWall.getLevel() != null && buildingWall.getLevel() < 40 && buildingWall.getLevel() < level && buildingWall.getStatus() != null) {
+					if (!buildingWall.getStatus().equals("upgrading")) {
+						List<Long> buildingIds = new Vector<Long>();
+						buildingIds.add(buildingWall.getId());					
+						buildings.put(buildingWall.getBuildingType(), buildingIds);
+					} else
+						citywall = true;					
 				}
 			
 				List<BuildingTower> buildingTowers = buildingWall.getBuildingTower();
-				if (buildingTowers != null) {					
+				if (buildingTowers != null) {
+					TreeMap<Long, HashMap<Long, Long>> sorts = new TreeMap<Long, HashMap<Long, Long>>();
 					for (BuildingTower buildingTower : buildingTowers) {
-						if (buildingTower.getId() != null && buildingTower.getLevel() != null && buildingTower.getLevel() < 40 && buildingTower.getLevel() < level && buildingTower.getStatus() != null && !buildingTower.getStatus().equals("upgrading")) {
+						if (buildingTower.getId() != null && buildingTower.getLevel() != null && buildingTower.getType() != null && buildingTower.getLevel() < 40 && buildingTower.getLevel() < level && buildingTower.getStatus() != null && !buildingTower.getStatus().equals("upgrading")) {
 							if (sorts.containsKey(buildingTower.getLevel())) {
-								List<Long> buildingIds = sorts.get(buildingTower.getLevel());
-								buildingIds.add(buildingTower.getId());
+								HashMap<Long, Long> buildingIds = sorts.get(buildingTower.getLevel());
+								buildingIds.put(buildingTower.getId(), buildingTower.getType());
 							} else {
-								List<Long> buildingIds = new Vector<Long>();
-								buildingIds.add(buildingTower.getId());
+								HashMap<Long, Long> buildingIds = new HashMap<Long, Long>();
+								buildingIds.put(buildingTower.getId(), buildingTower.getType());
 								sorts.put(buildingTower.getLevel(), buildingIds);
 							}
 						}						
-					}										
-				}
-				
-				if (sorts.size() > 0) {
-					List<Long> buildingIds = new Vector<Long>();
-					for (Entry<Long, List<Long>> entry : sorts.entrySet())
-						buildingIds.addAll(entry.getValue());
+					}
 					
-					buildings.put(buildingWall.getBuildingType(), buildingIds);						
-				}				
+					if (sorts.size() > 0) {						
+						for (Entry<Long, HashMap<Long, Long>> entry : sorts.entrySet()) {
+							HashMap<Long, Long> map = entry.getValue();
+							for (Entry<Long, Long> values : map.entrySet()) {
+								Long key = values.getKey();
+								Long value = values.getValue();
+								
+								if (buildings.containsKey(value)) {
+									List<Long> list = buildings.get(value);
+									list.add(key);
+								} else {
+									List<Long> list = new Vector<Long>();
+									list.add(key);
+									buildings.put(value, list);
+								}
+							}							
+						}											
+					}
+				}								
 			}		
 		}
 		
@@ -725,18 +773,24 @@ public class TaskMy extends TaskBase {
 			}
 		}
 		
-		if (buildings.size() > 0) {
+		if (buildings.size() > 0) {			
 			for (Long priority : prioritys) {
 				if (!buildings.containsKey(priority))
 					continue;
 				
+				if (citywall && (priority == 16 || priority == 17))
+					continue;
+				
 				List<Long> buildingIds = buildings.get(priority);				
-				for (Long buildingId : buildingIds) {
+				for (Long buildingId : buildingIds) {					
 					HashMap<String, Long> resources = m_RequestUpgrade.request(host, clientv, cookie, buildingId);
 					if (resources != null && checkResources(town, resources) && m_RequestBuildings.request(host, clientv, cookie, buildingId)) {
 						decreaseResources(town, resources);
 						if (++total > 1)
 							return;
+						
+						if (priority == 12)
+							citywall = true;
 					}
 				}
 			}
@@ -1183,7 +1237,11 @@ public class TaskMy extends TaskBase {
 		String cookie = config.getCookie();
 		Long townId = town.getId();
 		
-		List<Equipment> equipments = m_RequestEquipment.request(host, clientv, cookie, townId);
+		String response = m_RequestEquipment.request(host, clientv, cookie, townId);
+		if (response == null)
+			return false;
+		
+		List<Equipment> equipments = Equipment.parse(response);
 		if (equipments == null)
 			return false;
 		
@@ -1193,7 +1251,7 @@ public class TaskMy extends TaskBase {
 			
 			if (equipment.getType() == 9) {
 				Long equipmentId = equipment.getEquipmentId();						
-				if (m_RequestEquipment.request(host, clientv, cookie, equipmentId, townId))
+				if (m_RequestEquipment.request(host, clientv, cookie, equipmentId, townId, "delete", "use") != null)
 					return true;
 			}			
 		}
@@ -1625,7 +1683,7 @@ public class TaskMy extends TaskBase {
 		List<ConfigTown> configTowns = config.getConfigTowns();
 		if (configTowns != null) {
 			for (ConfigTown configTown : configTowns) {
-				if (configTown.getId() != null && configTown.getId().equals(townId))
+				if (configTown.getTownId() != null && configTown.getTownId().equals(townId))
 					return configTown;
 			}
 		}
@@ -1827,5 +1885,115 @@ public class TaskMy extends TaskBase {
 					town.setResourcesMarble(resourcesMarble);								
 			}
 		}		
+	}
+		
+	private void setEquipment(Towns towns, Config config, Long townId) {
+		String host = config.getHost();
+		String clientv = config.getClientv();
+		String cookie = config.getCookie();
+						
+		String response = m_RequestEquipment.request(host, clientv, cookie, townId);
+		if (response == null)
+			return;
+		
+		towns.setEquipment(response);
+		List<Equipment> equipments = Equipment.parse(response);
+		if (equipments == null)
+			return;
+		
+		if (config.getEquipmentMax() == null)
+			return;
+		
+		List<Long> equipmentTowns = config.getEquipmentTowns();
+		if (equipmentTowns == null || equipmentTowns.size() == 0)
+			return;
+				
+		Long equipmentMax = config.getEquipmentMax();
+		if (equipmentMax <= 0)
+			return;
+		
+		Equipment eq = null;
+		Long marble = 0L;
+		Long iron = 0L;
+				
+		for (Equipment equipment : equipments) {
+			if (equipment.getEquipmentId() == null || equipment.getType() == null || equipment.getLevel() == null)
+				continue;
+			
+			Enhance enhance = equipment.getEnhance();
+			if (enhance == null)
+				continue;
+			
+			NeedResources needResources = enhance.getNeedResources();
+			if (needResources == null)
+				continue;
+			
+			if (needResources.getMarble() == null || needResources.getIron() == null)
+				continue;
+			
+			Long level = equipment.getLevel();
+			if (level >= equipmentMax || level >= 40)
+				continue;
+			
+			Long type = equipment.getType();
+			if (type > -1 && type < 8) {				
+				if (eq == null || level < eq.getLevel()) {
+					eq = equipment;
+					marble = needResources.getMarble();
+					iron = needResources.getIron();
+				}
+			}					
+		}
+		
+		if (eq == null)
+			return;
+		
+		List<TownInfo> townInfos = towns.getTownInfos();
+		if (townInfos == null)
+			return;
+		
+		TownInfo tinfo = null;
+		Long max = 0L;
+		
+		for (TownInfo townInfo : townInfos) {
+			Long id = townInfo.getTownId();
+			if (id == null)
+				continue;
+			
+			if (equipmentTowns.indexOf(id) == -1)
+				continue;
+			
+			Town town = townInfo.getTown();
+			if (town == null)
+				continue;
+			
+			Resources resourcesMarble = town.getResourcesMarble();
+			Resources resourcesIron = town.getResourcesIron();
+			if (resourcesMarble == null || resourcesIron == null)
+				continue;
+			
+			Long countMarble = resourcesMarble.getResourceCount();
+			Long countIron = resourcesIron.getResourceCount();
+			
+			if (countMarble == null || countIron == null)
+				continue;
+			
+			if (countMarble < marble || countIron < iron)
+				continue;
+			
+			Long count = countMarble + countIron;
+			if (tinfo == null || max < count) {
+				tinfo = townInfo;
+				max = count;
+			}
+		}
+		
+		if (tinfo != null) {
+			List<Resources> resources = m_RequestEquipment.request(host, clientv, cookie, eq.getEquipmentId(), tinfo.getTownId(), "put", "enhance");
+			if (resources != null) {
+				Town town = tinfo.getTown();
+				setResources(town, resources);
+			}				
+		}
 	}
 }
