@@ -707,20 +707,19 @@ public class TaskMy extends TaskBase {
 		
 		if (town.getBuildingWall() != null) {
 			BuildingWall buildingWall = town.getBuildingWall();			
-			if (buildingWall.getBuildingType() != null) {
-				TreeMap<Long, HashMap<Long, Long>> sorts = new TreeMap<Long, HashMap<Long, Long>>();
+			if (buildingWall.getBuildingType() != null) {				
 				if (buildingWall.getId() != null && buildingWall.getLevel() != null && buildingWall.getLevel() < 40 && buildingWall.getLevel() < level && buildingWall.getStatus() != null) {
-					if (buildingWall.getStatus().equals("upgrading"))
-						citywall = true;
-					else {						
-						HashMap<Long, Long> buildingIds = new HashMap<Long, Long>();
-						buildingIds.put(buildingWall.getId(), buildingWall.getBuildingType());
-						sorts.put(buildingWall.getLevel(), buildingIds);
-					}						
+					if (!buildingWall.getStatus().equals("upgrading")) {
+						List<Long> buildingIds = new Vector<Long>();
+						buildingIds.add(buildingWall.getId());					
+						buildings.put(buildingWall.getBuildingType(), buildingIds);
+					} else
+						citywall = true;					
 				}
 			
 				List<BuildingTower> buildingTowers = buildingWall.getBuildingTower();
-				if (buildingTowers != null) {					
+				if (buildingTowers != null) {
+					TreeMap<Long, HashMap<Long, Long>> sorts = new TreeMap<Long, HashMap<Long, Long>>();
 					for (BuildingTower buildingTower : buildingTowers) {
 						if (buildingTower.getId() != null && buildingTower.getLevel() != null && buildingTower.getType() != null && buildingTower.getLevel() < 40 && buildingTower.getLevel() < level && buildingTower.getStatus() != null && !buildingTower.getStatus().equals("upgrading")) {
 							if (sorts.containsKey(buildingTower.getLevel())) {
