@@ -29,6 +29,7 @@ import com.hero.Equipment;
 import com.hero.Hero;
 import com.hero.NeedResources;
 import com.island.IslandBuilding;
+import com.island.IslandTown;
 import com.island.IslandVillage;
 import com.island.WorldMap;
 import com.queue.BattleQueue;
@@ -37,6 +38,7 @@ import com.queue.LinesEvent;
 import com.queue.TransportQueue;
 import com.request.RequestArmy;
 import com.request.RequestBuildings;
+import com.request.RequestCallBack;
 import com.request.RequestDeals;
 import com.request.RequestEquipment;
 import com.request.RequestEvent;
@@ -73,6 +75,7 @@ public class TaskMy extends TaskBase {
 	private final RequestEquipment m_RequestEquipment = new RequestEquipment();
 	private final RequestRanks m_RequestRanks = new RequestRanks();
 	private final RequestRewards m_RequestRewards = new RequestRewards();
+	private final RequestCallBack m_RequestCallBack = new RequestCallBack();
 	private final List<Long> m_Village = new Vector<Long>();
 	private Config m_ConfigNew = null;
 	private Date m_Rewards = null;
@@ -112,7 +115,7 @@ public class TaskMy extends TaskBase {
 		String username = "";
 		
 		setRewards(m_Config);
-		setBattles(m_Config);
+		setBattles(m_Config, configTowns);
 		String ranks = getRanks(m_Config);
 						
 		for (ConfigTown configTown : configTowns) {
@@ -235,7 +238,45 @@ public class TaskMy extends TaskBase {
 		return m_RequestRanks.request(host, clientv, cookie, "top_users", userId);
 	}
 	
-	private void setBattles(Config config) {
+	private String getBattles(Config config, Long x, Long y, Long fromTownId) {
+		String host = config.getHost();
+		Long userId = config.getUserId();
+		String clientv = config.getClientv();
+		String cookie = config.getCookie();
+		
+		String yy = String.valueOf(y);
+		if (yy.length() == 1)
+			yy = "00" + yy;
+		
+		if (yy.length() == 2)
+			yy = "0" + yy;
+			
+		String xy = String.valueOf(x) + yy;
+		
+		try {
+			Long postion = Long.parseLong(xy);
+			List<IslandBuilding> buildings = m_RequestIsland.request(host, clientv, cookie, postion, userId);
+			if (buildings != null) {
+				for (IslandBuilding building : buildings) {
+					if (building.getId() != null && building.getType() != null) {
+						Long townId = building.getId();
+						String type = building.getType();
+						if (type.equals("Town")) {
+							IslandTown town = (IslandTown)building;
+							if (townId.equals(fromTownId))
+								return town.getOwnerName();							
+						}
+					}						
+				}
+			}
+			
+			return null;
+		} catch (Exception e) {
+			return null;
+		}		
+	}
+	
+	private void setBattles(Config config, List<ConfigTown> configTowns) {
 		String host = config.getHost();
 		Long userId = config.getUserId();
 		String clientv = config.getClientv();
@@ -259,6 +300,23 @@ public class TaskMy extends TaskBase {
 			if (m_Village.indexOf(toTownId) == -1)
 				m_Village.add(toTownId);
 			
+			if (battleQueue.getId() != null && battleQueue.getFromTownId() != null && battleQueue.getFromX() != null && battleQueue.getFromY() != null) {
+				Long queueId = battleQueue.getId();
+				Long fromTownId = battleQueue.getFromTownId();
+				Long x = battleQueue.getFromX();
+				Long y = battleQueue.getFromY();
+				for (ConfigTown configTown : configTowns) {
+					Long townId = configTown.getTownId();
+					if (toTownId.equals(townId)) {
+						String username = getBattles(config, x, y, fromTownId);
+						if (username != null)
+							m_RequestCallBack.request(host, clientv, cookie, username, queueId);
+						
+						break;
+					}
+				}
+			}
+						
 			list.add(toTownId);
 		}
 		
