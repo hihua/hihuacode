@@ -57,6 +57,7 @@ import com.towns.OtherTown;
 import com.towns.Resources;
 import com.towns.Town;
 import com.towns.TransportTown;
+import com.util.Logs;
 import com.util.Numeric;
 
 public class TaskMy extends TaskBase {
@@ -309,8 +310,28 @@ public class TaskMy extends TaskBase {
 					Long townId = configTown.getTownId();
 					if (toTownId.equals(townId)) {
 						String username = getBattles(config, x, y, fromTownId);
-						if (username != null)
-							m_RequestCallBack.request(host, clientv, cookie, username, queueId);
+						if (username != null) {
+							Logs logs = Logs.getInstance();
+							StringBuilder sb = new StringBuilder();
+							sb.append("callback: ");
+							sb.append("x=");
+							sb.append(x);
+							sb.append(" ");
+							sb.append("y=");
+							sb.append(y);
+							sb.append(" ");
+							sb.append(queueId);
+							sb.append(" ");
+							sb.append(fromTownId);
+							sb.append(" ");
+							sb.append(username);
+							if (m_RequestCallBack.request(host, clientv, cookie, username, queueId))
+								sb.append(" success");
+							else
+								sb.append(" failed");
+							
+							logs.writeLogs(sb.toString());
+						}
 						
 						break;
 					}
