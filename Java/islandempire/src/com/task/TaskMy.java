@@ -325,6 +325,8 @@ public class TaskMy extends TaskBase {
 							sb.append(fromTownId);
 							sb.append(" ");
 							sb.append(username);
+							sb.append(" ");
+							sb.append(toTownId);
 							if (m_RequestCallBack.request(host, clientv, cookie, username, queueId))
 								sb.append(" success");
 							else
