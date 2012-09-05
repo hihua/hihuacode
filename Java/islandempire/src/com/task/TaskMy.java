@@ -1494,7 +1494,13 @@ public class TaskMy extends TaskBase {
 					if (leftCapacity > count)
 						sellerCount = count;
 										
-					return m_RequestDeals.request(host, clientv, cookie, townId, name, sellerPrice, sellerCount);
+					List<Resources> list = m_RequestDeals.request(host, clientv, cookie, townId, name, sellerPrice, sellerCount);
+					if (list == null)
+						return false;
+					else {
+						setResources(town, list);
+						return true;
+					}
 				}
 			}
 		}

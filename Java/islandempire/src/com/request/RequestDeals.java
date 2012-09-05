@@ -28,7 +28,7 @@ public class RequestDeals extends RequestParent {
 			return Deal.parse(response);
 	}
 	
-	public boolean request(String host, String clientv, String cookie, Long sellerTownId, String goodsName, Double price, Long count) {
+	public List<Resources> request(String host, String clientv, String cookie, Long sellerTownId, String goodsName, Double price, Long count) {
 		m_URL.setLength(0);
 		m_URL.append(host);
 		m_URL.append(URL);
@@ -46,9 +46,9 @@ public class RequestDeals extends RequestParent {
 		
 		String response = requestUrl(m_URL.toString(), clientv, cookie, m_Body.toString());
 		if (response == null)
-			return false;
+			return null;
 		else
-			return true;
+			return Resources.parse(response);
 	}
 	
 	public List<Resources> request(String host, String clientv, String cookie, Long dealId, Long townId) {
