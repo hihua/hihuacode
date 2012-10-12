@@ -158,6 +158,28 @@ public class AutoTask extends Thread implements CallBackTask {
 		return m_MyTowns.getMessage();
 	}
 	
+	public boolean postMyMessages(String to, String from, String subject, String body) {
+		if (m_Config == null)
+			return false;
+		
+		if (to == null || from == null || subject == null || body == null)
+			return false;
+		
+		if (to.length() == 0 || from.length() == 0 || subject.length() == 0 || body.length() == 0)
+			return false;
+		
+		String host = m_Config.getHost();
+		String clientv = m_Config.getClientv();
+		String cookie = m_Config.getCookie();
+		
+		RequestMessage requestMessage = new RequestMessage();
+		String response = requestMessage.request(host, clientv, cookie, to, from, subject, body);
+		if (response == null)
+			return false;
+		else
+			return true;
+	}
+	
 	public String getOtherMessages(String username, Long page) {
 		if (m_Config == null)
 			return null;

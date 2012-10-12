@@ -5,12 +5,13 @@ function requestTransport(fromTownId, toTownId, resources, callback) {
 	Ajax_CallBack(url, "", "json", "", true, function(json) {
 		if (json == null)
 			alert("运送失败");
-		
-		var ret = json.ret;
-		if (ret != null && ret == 0)
-			callback();			
-		else
-			alert("运送失败");
+		else {
+			var ret = json.ret;
+			if (ret != null && ret == 0)
+				callback();			
+			else
+				alert("运送失败");
+		}		
 	}, function(response, error, status) {
 		alert("运送失败");
     });

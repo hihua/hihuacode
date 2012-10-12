@@ -39,3 +39,21 @@ function requestMyEquipment(callback) {
         return null;
     });
 }
+
+function requestPostMyMessage(to, from, subject, body) {
+	var url = WebMyTowns + "?command=4";
+	var content = "to=" + to + "&from=" + from + "&subject=" + subject + "&body=" + body;
+	Ajax_CallBack(url, content, "json", "", true, function(json) {
+		if (json == null)
+			alert("发送失败");
+		else {
+			var ret = json.ret;
+			if (ret != null && ret == 0)
+				alert("发送成功");	
+			else
+				alert("发送失败");
+		}		
+	}, function(response, error, status) {
+		alert("发送失败");
+    });
+}

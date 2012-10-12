@@ -48,6 +48,26 @@
 							<td id="messages"></td>							
 						</tr>
 						<tr>
+           		            <td>
+           		            	<table width="500" align="center" cellpadding="0" cellspacing="0" border="0">
+           		            		<tr>
+           		            			<td>
+           		            				From：<input id="message_text_from" type="text" size="18" />                    		            
+			           		                To：<input id="message_text_to" type="text" size="18" />                    		            
+			           		                <input id="message_button_submit" type="button" value=" 提交 " onclick="postMessage();" />
+			           		                <input id="message_button_clear" type="button" value=" 清空 " onclick="clearMessage();" />
+           		            			</td>
+           		            		</tr>
+           		            		<tr>
+			           	                <td>Subject：<input id="message_text_subject" type="text" size="66" /></td>
+			           	            </tr>
+			           	            <tr>
+			           	                <td><textarea id="message_text_body" cols="58" rows="9"></textarea></td>
+			           	            </tr>
+           		            	</table>           		                
+           		            </td>
+           	            </tr>       	                       	            
+           	            <tr>
 							<td>&nbsp;</td>							
 						</tr>
 						<tr>
@@ -1279,6 +1299,18 @@
 							type = message.message_type;
 						}
 						
+						var found = false;
+				        for (var i = 0;i < MyMessages.length;i++) {
+				        	if (message.id == MyMessages[i]) {
+				        		found = true;
+				        		break;		          
+				        	}  
+				        }				        
+				        
+				        var bodyId = "body_" + message.id;
+				        if (message.message_type == 5)
+				        	bodyId = "body_s" +  sys;        	 
+						        												
 						tmp += "<table width=\"500\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"1\" class=\"Table1\">";
 						tmp += "<tr>";
 						
@@ -1287,10 +1319,20 @@
 						else
 							tmp += "<td width=\"60%\" height=\"30\" style=\"padding-left:5;padding-right:5\"><a href=\"#\" onclick=\"bodyShow('s" + sys + "');return false;\" class=\"AdminToolsLink1\">" + message.subject + "</a></td>";						
 							
+						var body = "";
+				        var content = "";
+				        if (message.body != null) {
+				        	if (message.message_type != 5)      
+				        		body = encodeURI(message.body);
+				        		
+				        	content = message.body;
+				        	content = content.replace(/\n/g, "<br/>");			        	
+				        }
+							
 						tmp += "<td rowspan=\"2\" align=\"center\">";
 						tmp += "<table width=\"180\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
 						tmp += "<tr>";
-						tmp += "<td align=\"center\" height=\"25\">" + message.from + " -> " + message.to + "</td>";
+						tmp += "<td align=\"center\" height=\"25\"><a href=\"#\" onclick=\"setMessage('" + message.from + "','" + message.to + "','" + message.subject + "','" + body + "');return false;\" class=\"AdminToolsLink1\">" + message.from + "</a> -> " + message.to + "</td>";
 						tmp += "</tr>";
 				        tmp += "<tr>";
 				        tmp += "<td align=\"center\" height=\"25\">" + created_at + "</td>";
@@ -1301,31 +1343,13 @@
 				        tmp += "<tr>";		            
 				        tmp += "<td height=\"25\" style=\"padding-left:5;padding-right:5;\">" + message.to + "</td>";
 				        tmp += "</tr>";
-				        
-				        var found = false;
-				        for (var i = 0;i < MyMessages.length;i++) {
-				        	if (message.id == MyMessages[i]) {
-				        		found = true;
-				        		break;		          
-				        	}  
-				        }
-				        
-				        var bodyId = "body_" + message.id;
-				        if (message.message_type == 5)
-				        	bodyId = "body_s" +  sys;				            				        	 
-				        
+				        				        
 				        if (!found)
 				        	tmp += "<tr id=\"" + bodyId + "\" style=\"display:none\">";
 				        else
 				        	tmp += "<tr id=\"" + bodyId + "\">";
-				        	
-				        var body = "";
-				        if (message.body != null) {
-				        	body = message.body;
-				        	body = body.replace(/\n/g, "<br/>");				        	
-				        }
-				        	
-				        tmp += "<td height=\"25\" style=\"padding-left:5;padding-right:5;padding-top:5;padding-bottom:5;\" colspan=\"2\">" + body + "</td>";
+				        					        				        	
+				        tmp += "<td height=\"25\" style=\"padding-left:5;padding-right:5;padding-top:5;padding-bottom:5;\" colspan=\"2\">" + content + "</td>";
 				        tmp += "</tr>";
 				        tmp += "</table>";
 				        tmp += "<br />";	
@@ -1584,7 +1608,47 @@
 					return;
 				
 				requestTransport(fromTownId, toTownId, resources, setTransportSuccess);			
-			}									
+			}					
+			
+			function setMessage(to, from, subject, body) {
+				if (subject.length < 50)
+			        subject = "Re:" + subject;
+			
+			    body = decodeURI(body);
+			    if (body.length > 200)
+			        body = body.substr(0, 200);
+			   			    
+			    $("#message_text_to").val(to);
+			    $("#message_text_from").val(from);
+			    $("#message_text_subject").val(subject);
+			    $("#message_text_body").val(body);			
+			}				
+			
+			function postMessage() {				
+			    var to = $("#message_text_to").val();
+			    var from = $("#message_text_from").val();
+			    var subject = $("#message_text_subject").val();
+			    var body = $("#message_text_body").val();
+			
+			    if (to == "" || from == "" || subject == "" || body == "") {
+			        alert("发送Message失败");
+			        return;
+			    }
+			
+				to = encodeURIComponent(to);
+			    from = encodeURIComponent(from);			    
+			    subject = encodeURIComponent(subject);
+			    body = encodeURIComponent(body);
+			    
+			    requestPostMyMessage(to, from, subject, body);
+			}
+			
+			function clearMessage() {
+				$("#message_text_to").val("");
+			    $("#message_text_from").val("");
+			    $("#message_text_subject").val("");
+			    $("#message_text_body").val("");
+			}
 							
 			getMyTowns();
 			getMyMessage();
