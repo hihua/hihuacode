@@ -76,7 +76,7 @@ public class Town {
 	private Resources resourcesGold;
 	private Resources resourcesIron;
 	private Resources resourcesMarble;
-	private Boolean newReward;
+	private Long newReward;
 	private Long ownerId;
 	private Long islandX;
 	private Long id;
@@ -217,7 +217,7 @@ public class Town {
 		return resourcesMarble;
 	}
 
-	public Boolean getNewReward() {
+	public Long getNewReward() {
 		return newReward;
 	}
 
@@ -429,7 +429,7 @@ public class Town {
 		this.resourcesMarble = resourcesMarble;
 	}
 
-	public void setNewReward(Boolean newReward) {
+	public void setNewReward(Long newReward) {
 		this.newReward = newReward;
 	}
 
@@ -848,7 +848,7 @@ public class Town {
 		towns.setOwnerId((town.get("owner_id") != null) ? town.getLong("owner_id") : null);
 		towns.setIslandX((town.get("island_x") != null) ? town.getLong("island_x") : null);
 		towns.setId((town.get("id") != null) ? town.getLong("id") : null);
-		towns.setNewReward((town.get("new_reward") != null) ? town.getBoolean("new_reward") : null);
+		towns.setNewReward((town.get("new_reward") != null) ? town.getLong("new_reward") : null);
 		towns.setPresenceScout((town.get("presence_scout") != null) ? town.getLong("presence_scout") : null);
 		towns.setCityStatus((town.get("city_status") != null) ? town.getString("city_status") : null);
 		towns.setIslandY((town.get("island_y") != null) ? town.getLong("island_y") : null);
