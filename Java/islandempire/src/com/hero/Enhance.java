@@ -1,58 +1,69 @@
 package com.hero;
 
+import java.util.List;
+
 public class Enhance {
-	private Long defense;
-	private Long npcPrice;
+	private List<Long> luckGems;
 	private Double rate;
-	private Long intelligence;
-	private Long attack;
+	private Long safeGems;
+	private List<Long> luckValue;
+	private Long profit;
 	private NeedResources needResources;
+	private FreeSafeResources freeSafeResources;
 
-	public Long getDefense() {
-		return defense;
-	}
-
-	public Long getNpcPrice() {
-		return npcPrice;
+	public List<Long> getLuckGems() {
+		return luckGems;
 	}
 
 	public Double getRate() {
 		return rate;
 	}
 
-	public Long getIntelligence() {
-		return intelligence;
+	public Long getSafeGems() {
+		return safeGems;
 	}
 
-	public Long getAttack() {
-		return attack;
+	public List<Long> getLuckValue() {
+		return luckValue;
+	}
+
+	public Long getProfit() {
+		return profit;
 	}
 
 	public NeedResources getNeedResources() {
 		return needResources;
 	}
 
-	public void setDefense(Long defense) {
-		this.defense = defense;
+	public FreeSafeResources getFreeSafeResources() {
+		return freeSafeResources;
 	}
 
-	public void setNpcPrice(Long npcPrice) {
-		this.npcPrice = npcPrice;
+	public void setLuckGems(List<Long> luckGems) {
+		this.luckGems = luckGems;
 	}
 
 	public void setRate(Double rate) {
 		this.rate = rate;
 	}
 
-	public void setIntelligence(Long intelligence) {
-		this.intelligence = intelligence;
+	public void setSafeGems(Long safeGems) {
+		this.safeGems = safeGems;
 	}
 
-	public void setAttack(Long attack) {
-		this.attack = attack;
+	public void setLuckValue(List<Long> luckValue) {
+		this.luckValue = luckValue;
+	}
+
+	public void setProfit(Long profit) {
+		this.profit = profit;
 	}
 
 	public void setNeedResources(NeedResources needResources) {
 		this.needResources = needResources;
+	}
+
+	public void setFreeSafeResources(FreeSafeResources freeSafeResources) {
+		this.freeSafeResources = freeSafeResources;
 	}
 }

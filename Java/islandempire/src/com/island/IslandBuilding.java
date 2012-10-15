@@ -2,15 +2,21 @@ package com.island;
 
 public class IslandBuilding {
 	private String name;
+	private Long subType;
 	private Long level;
 	private Long id;
 	private Long islandId;
 	private String type;
 	private String cityStatus;
 	private Long islandZ;
+	private String moveDestroyStatus;
 
 	public String getName() {
 		return name;
+	}
+
+	public Long getSubType() {
+		return subType;
 	}
 
 	public Long getLevel() {
@@ -37,8 +43,16 @@ public class IslandBuilding {
 		return islandZ;
 	}
 
+	public String getMoveDestroyStatus() {
+		return moveDestroyStatus;
+	}
+
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public void setSubType(Long subType) {
+		this.subType = subType;
 	}
 
 	public void setLevel(Long level) {
@@ -63,5 +77,9 @@ public class IslandBuilding {
 
 	public void setIslandZ(Long islandZ) {
 		this.islandZ = islandZ;
+	}
+
+	public void setMoveDestroyStatus(String moveDestroyStatus) {
+		this.moveDestroyStatus = moveDestroyStatus;
 	}
 }

@@ -4,41 +4,82 @@ import java.util.Date;
 import java.util.List;
 
 public class Hero {
-	private Date recoveryAt;
 	private String name;
+	private Date recoveryAt;
+	private String specialty;
+	private String iconUrl;
+	private Long nextLevelExp;
+	private Long energy;
+	private Long level;
+	private Long id;
+	private Date restoreEnergyAt;
+	private Long maxEnergy;
+	private String iconName;
+	private Long status;
 	private Long defense;
 	private String heroCityEffect;
 	private Long totalAttack;
-	private Long nextLevelExp;
-	private String iconUrl;
 	private Long initAttack;
-	private Long energy;
 	private Long totalIntelligence;
 	private List<Skill> skills;
-	private Long level;
-	private Date restoreEnergyAt;
-	private Long id;
 	private Long genius;
 	private Long userId;
 	private Long totalDefense;
-	private Long maxEnergy;
 	private List<Equipment> equipments;
 	private Long abilityPoint;
 	private Long initDefense;
-	private String iconName;
-	private Long status;
 	private Long intelligence;
 	private Long initIntelligence;
 	private Long townId;
 	private Long experience;
 	private Long attack;
 
+	public String getName() {
+		return name;
+	}
+
 	public Date getRecoveryAt() {
 		return recoveryAt;
 	}
 
-	public String getName() {
-		return name;
+	public String getSpecialty() {
+		return specialty;
+	}
+
+	public String getIconUrl() {
+		return iconUrl;
+	}
+
+	public Long getNextLevelExp() {
+		return nextLevelExp;
+	}
+
+	public Long getEnergy() {
+		return energy;
+	}
+
+	public Long getLevel() {
+		return level;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public Date getRestoreEnergyAt() {
+		return restoreEnergyAt;
+	}
+
+	public Long getMaxEnergy() {
+		return maxEnergy;
+	}
+
+	public String getIconName() {
+		return iconName;
+	}
+
+	public Long getStatus() {
+		return status;
 	}
 
 	public Long getDefense() {
@@ -53,20 +94,8 @@ public class Hero {
 		return totalAttack;
 	}
 
-	public Long getNextLevelExp() {
-		return nextLevelExp;
-	}
-
-	public String getIconUrl() {
-		return iconUrl;
-	}
-
 	public Long getInitAttack() {
 		return initAttack;
-	}
-
-	public Long getEnergy() {
-		return energy;
 	}
 
 	public Long getTotalIntelligence() {
@@ -75,18 +104,6 @@ public class Hero {
 
 	public List<Skill> getSkills() {
 		return skills;
-	}
-
-	public Long getLevel() {
-		return level;
-	}
-
-	public Date getRestoreEnergyAt() {
-		return restoreEnergyAt;
-	}
-
-	public Long getId() {
-		return id;
 	}
 
 	public Long getGenius() {
@@ -101,10 +118,6 @@ public class Hero {
 		return totalDefense;
 	}
 
-	public Long getMaxEnergy() {
-		return maxEnergy;
-	}
-
 	public List<Equipment> getEquipments() {
 		return equipments;
 	}
@@ -115,14 +128,6 @@ public class Hero {
 
 	public Long getInitDefense() {
 		return initDefense;
-	}
-
-	public String getIconName() {
-		return iconName;
-	}
-
-	public Long getStatus() {
-		return status;
 	}
 
 	public Long getIntelligence() {
@@ -145,12 +150,52 @@ public class Hero {
 		return attack;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public void setRecoveryAt(Date recoveryAt) {
 		this.recoveryAt = recoveryAt;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setSpecialty(String specialty) {
+		this.specialty = specialty;
+	}
+
+	public void setIconUrl(String iconUrl) {
+		this.iconUrl = iconUrl;
+	}
+
+	public void setNextLevelExp(Long nextLevelExp) {
+		this.nextLevelExp = nextLevelExp;
+	}
+
+	public void setEnergy(Long energy) {
+		this.energy = energy;
+	}
+
+	public void setLevel(Long level) {
+		this.level = level;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setRestoreEnergyAt(Date restoreEnergyAt) {
+		this.restoreEnergyAt = restoreEnergyAt;
+	}
+
+	public void setMaxEnergy(Long maxEnergy) {
+		this.maxEnergy = maxEnergy;
+	}
+
+	public void setIconName(String iconName) {
+		this.iconName = iconName;
+	}
+
+	public void setStatus(Long status) {
+		this.status = status;
 	}
 
 	public void setDefense(Long defense) {
@@ -165,20 +210,8 @@ public class Hero {
 		this.totalAttack = totalAttack;
 	}
 
-	public void setNextLevelExp(Long nextLevelExp) {
-		this.nextLevelExp = nextLevelExp;
-	}
-
-	public void setIconUrl(String iconUrl) {
-		this.iconUrl = iconUrl;
-	}
-
 	public void setInitAttack(Long initAttack) {
 		this.initAttack = initAttack;
-	}
-
-	public void setEnergy(Long energy) {
-		this.energy = energy;
 	}
 
 	public void setTotalIntelligence(Long totalIntelligence) {
@@ -187,18 +220,6 @@ public class Hero {
 
 	public void setSkills(List<Skill> skills) {
 		this.skills = skills;
-	}
-
-	public void setLevel(Long level) {
-		this.level = level;
-	}
-
-	public void setRestoreEnergyAt(Date restoreEnergyAt) {
-		this.restoreEnergyAt = restoreEnergyAt;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public void setGenius(Long genius) {
@@ -213,10 +234,6 @@ public class Hero {
 		this.totalDefense = totalDefense;
 	}
 
-	public void setMaxEnergy(Long maxEnergy) {
-		this.maxEnergy = maxEnergy;
-	}
-
 	public void setEquipments(List<Equipment> equipments) {
 		this.equipments = equipments;
 	}
@@ -227,14 +244,6 @@ public class Hero {
 
 	public void setInitDefense(Long initDefense) {
 		this.initDefense = initDefense;
-	}
-
-	public void setIconName(String iconName) {
-		this.iconName = iconName;
-	}
-
-	public void setStatus(Long status) {
-		this.status = status;
 	}
 
 	public void setIntelligence(Long intelligence) {

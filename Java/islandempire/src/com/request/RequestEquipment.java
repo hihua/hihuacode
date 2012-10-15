@@ -19,20 +19,26 @@ public class RequestEquipment extends RequestParent {
 		return requestUrl(m_URL.toString(), clientv, cookie, null);		 
 	}
 	
-	public List<Resources> request(String host, String clientv, String cookie, Long equipmentId, Long townId, String method, String use) {
+	public List<Resources> request(String host, String clientv, String cookie, Long equipmentId, Long safe, String d, Long luck, Long userId, String method, Long townId) {
 		String url = String.format(Use, equipmentId);		
 		m_URL.setLength(0);
 		m_URL.append(host);
 		m_URL.append(url);
 		
 		m_Body.setLength(0);
-		m_Body.append("_method=");
+		m_Body.append("safe=");
+		m_Body.append(safe);
+		m_Body.append("&do=");
+		m_Body.append(d);
+		m_Body.append("&luck=");
+		m_Body.append(luck);
+		m_Body.append("&user_id=");
+		m_Body.append(userId);
+		m_Body.append("&_method=");
 		m_Body.append(method);
 		m_Body.append("&town_id=");
 		m_Body.append(townId);
-		m_Body.append("&do=");
-		m_Body.append(use);
-		
+				
 		String response = requestUrl(m_URL.toString(), clientv, cookie, m_Body.toString());
 		if (response == null)
 			return null;

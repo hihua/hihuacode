@@ -73,7 +73,7 @@ public class Deal {
 			for (int i = 0; i < arrays.size(); i++) {
 				JSONObject array = (JSONObject) arrays.get(i);
 				Deal deal = new Deal();
-				deal.setGoodsName((array.get("deals") != null) ? array.getString("deals") : null);
+				deal.setGoodsName((array.get("goods_name") != null) ? array.getString("goods_name") : null);
 				deal.setSellerTownId((array.get("seller_town_id") != null) ? array.getLong("seller_town_id") : null);
 				deal.setSellerPrice((array.get("seller_price") != null) ? array.getDouble("seller_price") : null);
 				deal.setId((array.get("id") != null) ? array.getLong("id") : null);

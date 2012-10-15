@@ -1,6 +1,6 @@
 package com.hero;
 
-public class NeedResources {
+public class FreeSafeResources {
 	private Long all;
 
 	public Long getAll() {

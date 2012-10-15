@@ -7,6 +7,9 @@ public class Queue {
 	private Long catapult;
 	private Long infantry;
 	private Long destroyer;
+	private Long ironclad;
+	private Long pegasus;
+	private Long berserker;
 	private Long scout;
 	private Long actionOwnerTownId;
 	private Long heroId;
@@ -21,9 +24,10 @@ public class Queue {
 	private Long wood;
 	private Long marble;
 	private Long food;
-	private Long iron;	
+	private Long iron;
 	private String toTownName;
 	private Long fromTownId;
+	private Long targetIslandId;
 
 	public Long getTotalTime() {
 		return totalTime;
@@ -47,6 +51,18 @@ public class Queue {
 
 	public Long getDestroyer() {
 		return destroyer;
+	}
+
+	public Long getIronclad() {
+		return ironclad;
+	}
+
+	public Long getPegasus() {
+		return pegasus;
+	}
+
+	public Long getBerserker() {
+		return berserker;
 	}
 
 	public Long getScout() {
@@ -117,6 +133,10 @@ public class Queue {
 		return fromTownId;
 	}
 
+	public Long getTargetIslandId() {
+		return targetIslandId;
+	}
+
 	public void setTotalTime(Long totalTime) {
 		this.totalTime = totalTime;
 	}
@@ -139,6 +159,18 @@ public class Queue {
 
 	public void setDestroyer(Long destroyer) {
 		this.destroyer = destroyer;
+	}
+
+	public void setIronclad(Long ironclad) {
+		this.ironclad = ironclad;
+	}
+
+	public void setPegasus(Long pegasus) {
+		this.pegasus = pegasus;
+	}
+
+	public void setBerserker(Long berserker) {
+		this.berserker = berserker;
 	}
 
 	public void setScout(Long scout) {
@@ -200,12 +232,16 @@ public class Queue {
 	public void setIron(Long iron) {
 		this.iron = iron;
 	}
-	
+
 	public void setToTownName(String toTownName) {
 		this.toTownName = toTownName;
 	}
 
 	public void setFromTownId(Long fromTownId) {
 		this.fromTownId = fromTownId;
+	}
+
+	public void setTargetIslandId(Long targetIslandId) {
+		this.targetIslandId = targetIslandId;
 	}
 }

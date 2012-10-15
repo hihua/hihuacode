@@ -9,6 +9,7 @@ import net.sf.json.JSONObject;
 
 import com.buildings.Building;
 import com.buildings.BuildingCellar;
+import com.buildings.BuildingCommand;
 import com.buildings.BuildingLine;
 import com.buildings.BuildingMarket;
 import com.buildings.BuildingPort;
@@ -17,11 +18,7 @@ import com.buildings.BuildingSoldier;
 import com.buildings.BuildingStore;
 import com.buildings.BuildingTower;
 import com.buildings.BuildingWall;
-import com.hero.Enhance;
-import com.hero.Equipment;
 import com.hero.Hero;
-import com.hero.NeedResources;
-import com.hero.Skill;
 import com.queue.BattleQueue;
 import com.queue.BuildingQueue;
 import com.queue.LinesEvent;
@@ -47,7 +44,6 @@ import com.util.Numeric;
  */
 
 public class Town {
-	private String cityArmyStatus;
 	private Building buildingHall;
 	private BuildingResource buildingWood;
 	private BuildingResource buildingFood;
@@ -61,12 +57,17 @@ public class Town {
 	private BuildingWall buildingWall;
 	private BuildingMarket buildingMarket;
 	private BuildingCellar buildingCellar;
+	private BuildingCommand buildingCommand;
 	private String name;
 	private Alliance alliance;
 	private Boolean showWelcome;
 	private Long resourceType;
 	private List<BattleQueue> battleQueues;
-	private Double cityArmyPower;
+	private boolean haveNewMedal;
+	private Long medal;
+	private Long population;
+	private Long populationMax;
+	private Long sands;
 	private Long level;
 	private Long presenceDefenders;
 	private Date currentServerTime;
@@ -84,6 +85,8 @@ public class Town {
 	private String cityStatus;
 	private Long islandY;
 	private Long islandZ;
+	private String mdStatus;
+	private String moveDestroyStatus;
 	private List<TransportQueue> transportQueues;
 	private Long gems;
 	private Soldier soldierInfantry;
@@ -92,18 +95,17 @@ public class Town {
 	private Soldier soldierCatapult;
 	private Soldier soldierFrigate;
 	private Soldier soldierDestroyer;
+	private Soldier soldierPegasus;
+	private Soldier soldierBerserker;
+	private Soldier soldierIronclad;
 	private List<BuildingQueue> buildingQueues;
 	private Boolean haveNewMessage;
 	private List<OtherTown> otherTowns;
+	private Long score;
 	private Hero hero;
 	private String owner;
 	private Boolean isCapital;
 	private Long islandNumber;
-	private Long totalFoodCost;
-
-	public String getCityArmyStatus() {
-		return cityArmyStatus;
-	}
 
 	public Building getBuildingHall() {
 		return buildingHall;
@@ -157,6 +159,10 @@ public class Town {
 		return buildingCellar;
 	}
 
+	public BuildingCommand getBuildingCommand() {
+		return buildingCommand;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -177,8 +183,24 @@ public class Town {
 		return battleQueues;
 	}
 
-	public Double getCityArmyPower() {
-		return cityArmyPower;
+	public boolean isHaveNewMedal() {
+		return haveNewMedal;
+	}
+
+	public Long getMedal() {
+		return medal;
+	}
+
+	public Long getPopulation() {
+		return population;
+	}
+
+	public Long getPopulationMax() {
+		return populationMax;
+	}
+
+	public Long getSands() {
+		return sands;
 	}
 
 	public Long getLevel() {
@@ -249,6 +271,14 @@ public class Town {
 		return islandZ;
 	}
 
+	public String getMdStatus() {
+		return mdStatus;
+	}
+
+	public String getMoveDestroyStatus() {
+		return moveDestroyStatus;
+	}
+
 	public List<TransportQueue> getTransportQueues() {
 		return transportQueues;
 	}
@@ -281,6 +311,18 @@ public class Town {
 		return soldierDestroyer;
 	}
 
+	public Soldier getSoldierPegasus() {
+		return soldierPegasus;
+	}
+
+	public Soldier getSoldierBerserker() {
+		return soldierBerserker;
+	}
+
+	public Soldier getSoldierIronclad() {
+		return soldierIronclad;
+	}
+
 	public List<BuildingQueue> getBuildingQueues() {
 		return buildingQueues;
 	}
@@ -291,6 +333,10 @@ public class Town {
 
 	public List<OtherTown> getOtherTowns() {
 		return otherTowns;
+	}
+
+	public Long getScore() {
+		return score;
 	}
 
 	public Hero getHero() {
@@ -307,14 +353,6 @@ public class Town {
 
 	public Long getIslandNumber() {
 		return islandNumber;
-	}
-
-	public Long getTotalFoodCost() {
-		return totalFoodCost;
-	}
-
-	public void setCityArmyStatus(String cityArmyStatus) {
-		this.cityArmyStatus = cityArmyStatus;
 	}
 
 	public void setBuildingHall(Building buildingHall) {
@@ -369,6 +407,10 @@ public class Town {
 		this.buildingCellar = buildingCellar;
 	}
 
+	public void setBuildingCommand(BuildingCommand buildingCommand) {
+		this.buildingCommand = buildingCommand;
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -389,8 +431,24 @@ public class Town {
 		this.battleQueues = battleQueues;
 	}
 
-	public void setCityArmyPower(Double cityArmyPower) {
-		this.cityArmyPower = cityArmyPower;
+	public void setHaveNewMedal(boolean haveNewMedal) {
+		this.haveNewMedal = haveNewMedal;
+	}
+
+	public void setMedal(Long medal) {
+		this.medal = medal;
+	}
+
+	public void setPopulation(Long population) {
+		this.population = population;
+	}
+
+	public void setPopulationMax(Long populationMax) {
+		this.populationMax = populationMax;
+	}
+
+	public void setSands(Long sands) {
+		this.sands = sands;
 	}
 
 	public void setLevel(Long level) {
@@ -461,6 +519,14 @@ public class Town {
 		this.islandZ = islandZ;
 	}
 
+	public void setMdStatus(String mdStatus) {
+		this.mdStatus = mdStatus;
+	}
+
+	public void setMoveDestroyStatus(String moveDestroyStatus) {
+		this.moveDestroyStatus = moveDestroyStatus;
+	}
+
 	public void setTransportQueues(List<TransportQueue> transportQueues) {
 		this.transportQueues = transportQueues;
 	}
@@ -493,6 +559,18 @@ public class Town {
 		this.soldierDestroyer = soldierDestroyer;
 	}
 
+	public void setSoldierPegasus(Soldier soldierPegasus) {
+		this.soldierPegasus = soldierPegasus;
+	}
+
+	public void setSoldierBerserker(Soldier soldierBerserker) {
+		this.soldierBerserker = soldierBerserker;
+	}
+
+	public void setSoldierIronclad(Soldier soldierIronclad) {
+		this.soldierIronclad = soldierIronclad;
+	}
+
 	public void setBuildingQueues(List<BuildingQueue> buildingQueues) {
 		this.buildingQueues = buildingQueues;
 	}
@@ -503,6 +581,10 @@ public class Town {
 
 	public void setOtherTowns(List<OtherTown> otherTowns) {
 		this.otherTowns = otherTowns;
+	}
+
+	public void setScore(Long score) {
+		this.score = score;
 	}
 
 	public void setHero(Hero hero) {
@@ -521,10 +603,6 @@ public class Town {
 		this.islandNumber = islandNumber;
 	}
 
-	public void setTotalFoodCost(Long totalFoodCost) {
-		this.totalFoodCost = totalFoodCost;
-	}
-
 	public static Town parse(String response) {
 		JSONObject json = JSONObject.fromObject(response);
 		if (json == null || json.get("town") == null)
@@ -532,22 +610,25 @@ public class Town {
 
 		Town towns = new Town();
 		JSONObject town = (JSONObject) json.get("town");		
-		towns.setCityArmyStatus((town.get("city_army_status") != null) ? town.getString("city_army_status") : null);		
 		if (town.get("buildings") != null) {
 			JSONArray arrays = town.getJSONArray("buildings");
 			for (int i = 0; i < arrays.size(); i++) {
 				JSONObject array = (JSONObject) arrays.get(i);
-				Long level = (array.get("level") != null) ? array.getLong("level") : null;
-				Long id = (array.get("id") != null) ? array.getLong("id")	: null;
-				Long buildingType = (array.get("building_type") != null) ? array.getLong("building_type") : null;
-				String status = (array.get("status") != null) ? array.getString("status") : null;
-				Long anchorIndex = (array.get("anchor_index") != null) ? array.getLong("anchor_index") : null;
+				Long maxLevel = array.get("max_level") != null ? array.getLong("max_level") : null;
+				Long durability = array.get("durability") != null ? array.getLong("durability") : null;
+				Long level = array.get("level") != null ? array.getLong("level") : null;
+				Long id = array.get("id") != null ? array.getLong("id")	: null;
+				Long buildingType = array.get("building_type") != null ? array.getLong("building_type") : null;
+				String status = array.get("status") != null ? array.getString("status") : null;
+				Long anchorIndex = array.get("anchor_index") != null ? array.getLong("anchor_index") : null;
 
 				if (buildingType == null)
 					continue;
 				
 				if (buildingType.equals(1L)) {
 					BuildingSoldier buildingBarrack = new BuildingSoldier();
+					buildingBarrack.setMaxLevel(maxLevel);
+					buildingBarrack.setDurability(durability);
 					buildingBarrack.setLevel(level);						
 					buildingBarrack.setId(id);
 					buildingBarrack.setBuildingType(buildingType);
@@ -567,7 +648,7 @@ public class Town {
 					if (lines != null) {						
 						for (int j = 0; j < lines.size(); j++) {
 							JSONObject line = (JSONObject) lines.get(j);		
-							BuildingLine buildingLine = new BuildingLine();
+							BuildingLine buildingLine = new BuildingLine();							
 							buildingLine.setLevel((line.get("level") != null) ? line.getLong("level") : null);
 							buildingLine.setId((line.get("id") != null) ? line.getLong("id") : null);
 							buildingLine.setCurrentOutput((line.get("current_output") != null) ? line.getLong("current_output") : null);
@@ -577,6 +658,8 @@ public class Town {
 					}
 					
 					BuildingResource buildingResource = new BuildingResource();
+					buildingResource.setMaxLevel(maxLevel);
+					buildingResource.setDurability(durability);
 					buildingResource.setLevel(level);						
 					buildingResource.setId(id);
 					buildingResource.setBuildingType(buildingType);
@@ -612,6 +695,8 @@ public class Town {
 				
 				if (buildingType.equals(3L)) {
 					BuildingStore buildingStore = new BuildingStore();
+					buildingStore.setMaxLevel(maxLevel);
+					buildingStore.setDurability(durability);
 					buildingStore.setLevel(level);						
 					buildingStore.setId(id);
 					buildingStore.setBuildingType(buildingType);
@@ -627,6 +712,8 @@ public class Town {
 				
 				if (buildingType.equals(4L)) {
 					BuildingPort buildingPort = new BuildingPort();
+					buildingPort.setMaxLevel(maxLevel);
+					buildingPort.setDurability(durability);
 					buildingPort.setLevel(level);						
 					buildingPort.setId(id);
 					buildingPort.setBuildingType(buildingType);
@@ -643,6 +730,8 @@ public class Town {
 				
 				if (buildingType.equals(9L)) {
 					BuildingMarket buildingMarket = new BuildingMarket();
+					buildingMarket.setMaxLevel(maxLevel);
+					buildingMarket.setDurability(durability);
 					buildingMarket.setLevel(level);						
 					buildingMarket.setId(id);
 					buildingMarket.setBuildingType(buildingType);
@@ -659,6 +748,8 @@ public class Town {
 				
 				if (buildingType.equals(10L)) {
 					Building buildingHall = new Building();
+					buildingHall.setMaxLevel(maxLevel);
+					buildingHall.setDurability(durability);
 					buildingHall.setLevel(level);						
 					buildingHall.setId(id);
 					buildingHall.setBuildingType(buildingType);
@@ -669,6 +760,8 @@ public class Town {
 				
 				if (buildingType.equals(12L)) {
 					BuildingWall buildingWall = new BuildingWall();
+					buildingWall.setMaxLevel(maxLevel);
+					buildingWall.setDurability(durability);
 					buildingWall.setLevel(level);						
 					buildingWall.setId(id);
 					buildingWall.setBuildingType(buildingType);
@@ -685,12 +778,12 @@ public class Town {
 						for (int j = 0; j < towers.size(); j++) {
 							JSONObject tower = (JSONObject) towers.get(j);
 							BuildingTower buildingTower = new BuildingTower();
-							buildingTower.setDefense((tower.get("defense") != null) ? tower.getLong("defense") : null);
-							buildingTower.setLevel((tower.get("level") != null) ? tower.getLong("level") : null);
-							buildingTower.setId((tower.get("id") != null) ? tower.getLong("id") : null);
-							buildingTower.setType((tower.get("type") != null) ? tower.getLong("type") : null);
-							buildingTower.setStatus((tower.get("status") != null) ? tower.getString("status") : null);
-							buildingTower.setAttack((tower.get("attack") != null) ? tower.getLong("attack") : null);
+							buildingTower.setDefense(tower.get("defense") != null ? tower.getLong("defense") : null);
+							buildingTower.setLevel(tower.get("level") != null ? tower.getLong("level") : null);
+							buildingTower.setId(tower.get("id") != null ? tower.getLong("id") : null);
+							buildingTower.setType(tower.get("type") != null ? tower.getLong("type") : null);
+							buildingTower.setStatus(tower.get("status") != null ? tower.getString("status") : null);
+							buildingTower.setAttack(tower.get("attack") != null ? tower.getLong("attack") : null);
 							buildingTowers.add(buildingTower);
 						}
 						
@@ -702,6 +795,8 @@ public class Town {
 				
 				if (buildingType.equals(13L)) {
 					BuildingSoldier buildingYard = new BuildingSoldier();
+					buildingYard.setMaxLevel(maxLevel);
+					buildingYard.setDurability(durability);
 					buildingYard.setLevel(level);						
 					buildingYard.setId(id);
 					buildingYard.setBuildingType(buildingType);
@@ -709,7 +804,7 @@ public class Town {
 					buildingYard.setAnchorIndex(anchorIndex);					
 					if (array.get("property") != null) {
 						JSONObject property = (JSONObject) array.get("property");
-						buildingYard.setReduceTimeRate((property.get("reduce_time_rate") != null) ? property.getLong("reduce_time_rate") : null);
+						buildingYard.setReduceTimeRate(property.get("reduce_time_rate") != null ? property.getLong("reduce_time_rate") : null);
 					}
 										
 					towns.setBuildingYard(buildingYard);
@@ -717,6 +812,8 @@ public class Town {
 				
 				if (buildingType.equals(14L)) {
 					BuildingCellar buildingCellar = new BuildingCellar();
+					buildingCellar.setMaxLevel(maxLevel);
+					buildingCellar.setDurability(durability);
 					buildingCellar.setLevel(level);						
 					buildingCellar.setId(id);
 					buildingCellar.setBuildingType(buildingType);
@@ -724,15 +821,33 @@ public class Town {
 					buildingCellar.setAnchorIndex(anchorIndex);					
 					if (array.get("property") != null) {
 						JSONObject property = (JSONObject) array.get("property");
-						buildingCellar.setSafeCapacity((property.get("safe_capacity") != null) ? property.getLong("safe_capacity") : null);
+						buildingCellar.setSafeCapacity(property.get("safe_capacity") != null ? property.getLong("safe_capacity") : null);
 					}
 										
 					towns.setBuildingCellar(buildingCellar);
 				}
+				
+				if (buildingType.equals(18L)) {
+					BuildingCommand buildingCommand = new BuildingCommand();
+					buildingCommand.setMaxLevel(maxLevel);
+					buildingCommand.setDurability(durability);
+					buildingCommand.setLevel(level);						
+					buildingCommand.setId(id);
+					buildingCommand.setBuildingType(buildingType);
+					buildingCommand.setStatus(status);
+					buildingCommand.setAnchorIndex(anchorIndex);					
+					if (array.get("property") != null) {
+						JSONObject property = (JSONObject) array.get("property");
+						buildingCommand.setAccelerateRate(property.get("accelerate_rate") != null ? property.getLong("accelerate_rate") : null);
+						buildingCommand.setSpyLine(property.get("spy_line") != null ? property.getLong("spy_line") : null);
+						buildingCommand.setAvailableLine(property.get("available_line") != null ? property.getLong("available_line") : null);
+					}
+										
+					towns.setBuildingCommand(buildingCommand);
+				}
 			}
 		}		
-		
-		towns.setName((town.get("name") != null) ? town.getString("name") : null);
+				
 		if (town.get("alliance") != null) {
 			JSONObject obj = (JSONObject) town.get("alliance");
 			Alliance alliance = new Alliance();
@@ -743,7 +858,6 @@ public class Town {
 			towns.setAlliance(alliance);
 		}
 		
-		towns.setResourceType((town.get("resource_type") != null) ? town.getLong("resource_type") : null);		
 		if (town.get("battle_queue") != null) {
 			JSONArray arrays = town.getJSONArray("battle_queue");
 			List<BattleQueue> list = new Vector<BattleQueue>();
@@ -755,12 +869,15 @@ public class Town {
 				
 				if (array.get("army") != null) {
 					JSONObject army = (JSONObject) array.get("army");
-					battleQueue.setFrigate((army.get("frigate") != null) ? army.getLong("frigate") : null);
-					battleQueue.setMusketman((army.get("musketman") != null) ? army.getLong("musketman") : null);
-					battleQueue.setCatapult((army.get("catapult") != null) ? army.getLong("catapult") : null);
-					battleQueue.setInfantry((army.get("infantry") != null) ? army.getLong("infantry") : null);
-					battleQueue.setDestroyer((army.get("destroyer") != null) ? army.getLong("destroyer") : null);
-					battleQueue.setScout((army.get("scout") != null) ? army.getLong("scout") : null);					
+					battleQueue.setFrigate(army.get("frigate") != null ? army.getLong("frigate") : null);
+					battleQueue.setMusketman(army.get("musketman") != null ? army.getLong("musketman") : null);
+					battleQueue.setCatapult(army.get("catapult") != null ? army.getLong("catapult") : null);
+					battleQueue.setInfantry(army.get("infantry") != null ? army.getLong("infantry") : null);
+					battleQueue.setDestroyer(army.get("destroyer") != null ? army.getLong("destroyer") : null);
+					battleQueue.setScout(army.get("scout") != null ? army.getLong("scout") : null);			
+					battleQueue.setIronclad(army.get("ironclad") != null ? army.getLong("ironclad") : null);
+					battleQueue.setPegasus(army.get("pegasus") != null ? army.getLong("pegasus") : null);
+					battleQueue.setBerserker(army.get("berserker") != null ? army.getLong("berserker") : null);
 				}
 				
 				battleQueue.setArriveTime((array.get("arrive_time") != null) ? DateTime.getTime(array.getLong("arrive_time")) : null);
@@ -768,6 +885,7 @@ public class Town {
 				battleQueue.setActionOwnerTownId((array.get("action_owner_town_id") != null) ? array.getLong("action_owner_town_id") : null);
 				battleQueue.setToY((array.get("to_y") != null) ? array.getLong("to_y") : null);
 				battleQueue.setHeroId((array.get("hero_id") != null && Numeric.isNumber(array.getString("hero_id"))) ? array.getLong("hero_id") : null);
+				battleQueue.setTargetIslandId(array.get("target_island_id") != null ? array.getLong("target_island_id") : null);
 				battleQueue.setFromLevel((array.get("from_level") != null) ? array.getLong("from_level") : null);
 				battleQueue.setId((array.get("id") != null) ? array.getLong("id") : null);
 				
@@ -797,13 +915,6 @@ public class Town {
 			
 			towns.setBattleQueues(list);
 		}
-		
-		towns.setShowWelcome((town.get("show_welcome") != null) ? town.getBoolean("show_welcome") : null);
-		towns.setCityArmyPower((town.get("city_army_power") != null) ? town.getDouble("city_army_power") : null);
-		towns.setLevel((town.get("level") != null) ? town.getLong("level") : null);
-		towns.setPresenceDefenders((town.get("presence_defenders") != null) ? town.getLong("presence_defenders") : null);
-		towns.setAccountType((town.get("account_type") != null) ? town.getLong("account_type") : null);
-		towns.setCurrentServerTime((town.get("current_server_time") != null) ? DateTime.getTime(town.getLong("current_server_time")) : null);
 		
 		if (town.get("resources") != null) {
 			JSONArray arrays = town.getJSONArray("resources");
@@ -845,15 +956,6 @@ public class Town {
 			}			
 		}
 		
-		towns.setOwnerId((town.get("owner_id") != null) ? town.getLong("owner_id") : null);
-		towns.setIslandX((town.get("island_x") != null) ? town.getLong("island_x") : null);
-		towns.setId((town.get("id") != null) ? town.getLong("id") : null);
-		towns.setNewReward((town.get("new_reward") != null) ? town.getLong("new_reward") : null);
-		towns.setPresenceScout((town.get("presence_scout") != null) ? town.getLong("presence_scout") : null);
-		towns.setCityStatus((town.get("city_status") != null) ? town.getString("city_status") : null);
-		towns.setIslandY((town.get("island_y") != null) ? town.getLong("island_y") : null);
-		towns.setIslandZ((town.get("island_z") != null) ? town.getLong("island_z") : null);
-		
 		if (town.get("transport_queue") != null) {
 			JSONArray arrays = town.getJSONArray("transport_queue");
 			List<TransportQueue> list = new Vector<TransportQueue>();
@@ -862,12 +964,15 @@ public class Town {
 				TransportQueue transportQueue = new TransportQueue();				
 				if (array.get("army") != null) {
 					JSONObject army = (JSONObject) array.get("army");
-					transportQueue.setFrigate((army.get("frigate") != null) ? army.getLong("frigate") : null);
-					transportQueue.setMusketman((army.get("musketman") != null) ? army.getLong("musketman") : null);
-					transportQueue.setCatapult((army.get("catapult") != null) ? army.getLong("catapult") : null);
-					transportQueue.setInfantry((army.get("infantry") != null) ? army.getLong("infantry") : null);
-					transportQueue.setDestroyer((army.get("destroyer") != null) ? army.getLong("destroyer") : null);
-					transportQueue.setScout((army.get("scout") != null) ? army.getLong("scout") : null);					
+					transportQueue.setFrigate(army.get("frigate") != null ? army.getLong("frigate") : null);
+					transportQueue.setMusketman(army.get("musketman") != null ? army.getLong("musketman") : null);
+					transportQueue.setCatapult(army.get("catapult") != null ? army.getLong("catapult") : null);
+					transportQueue.setInfantry(army.get("infantry") != null ? army.getLong("infantry") : null);
+					transportQueue.setDestroyer(army.get("destroyer") != null ? army.getLong("destroyer") : null);
+					transportQueue.setScout(army.get("scout") != null ? army.getLong("scout") : null);
+					transportQueue.setIronclad(army.get("ironclad") != null ? army.getLong("ironclad") : null);
+					transportQueue.setPegasus(army.get("pegasus") != null ? army.getLong("pegasus") : null);
+					transportQueue.setBerserker(army.get("berserker") != null ? army.getLong("berserker") : null);
 				}
 				
 				transportQueue.setTotalTime((array.get("total_time") != null) ? array.getLong("total_time") : null);
@@ -900,9 +1005,7 @@ public class Town {
 			}	
 			
 			towns.setTransportQueues(list);
-		}		
-		
-		towns.setGems((town.get("gems") != null) ? town.getLong("gems") : null);
+		}
 		
 		if (town.get("soldiers") != null) {
 			JSONArray arrays = town.getJSONArray("soldiers");
@@ -954,6 +1057,21 @@ public class Town {
 					towns.setSoldierDestroyer(soldier);
 					continue;
 				}
+				
+				if (soldier.getName().equals("ironclad")) {
+					towns.setSoldierIronclad(soldier);
+					continue;
+				}
+				
+				if (soldier.getName().equals("pegasus")) {
+					towns.setSoldierPegasus(soldier);
+					continue;
+				}
+				
+				if (soldier.getName().equals("berserker")) {
+					towns.setSoldierBerserker(soldier);
+					continue;
+				}
 			}
 		}
 		
@@ -991,8 +1109,6 @@ public class Town {
 			towns.setBuildingQueues(list);
 		}
 		
-		towns.setHaveNewMessage((town.get("have_new_message") != null) ? town.getBoolean("have_new_message") : null);
-		
 		if (town.get("other_towns") != null) {
 			JSONArray arrays = town.getJSONArray("other_towns");
 			List<OtherTown> list = new Vector<OtherTown>();
@@ -1012,12 +1128,15 @@ public class Town {
 						
 						if (battleQueue.get("army") != null) {
 							JSONObject army = (JSONObject) battleQueue.get("army");
-							queue.setFrigate((army.get("frigate") != null) ? army.getLong("frigate") : null);
-							queue.setMusketman((army.get("musketman") != null) ? army.getLong("musketman") : null);
-							queue.setCatapult((army.get("catapult") != null) ? army.getLong("catapult") : null);
-							queue.setInfantry((army.get("infantry") != null) ? army.getLong("infantry") : null);
-							queue.setDestroyer((army.get("destroyer") != null) ? army.getLong("destroyer") : null);
-							queue.setScout((army.get("scout") != null) ? army.getLong("scout") : null);					
+							queue.setFrigate(army.get("frigate") != null ? army.getLong("frigate") : null);
+							queue.setMusketman(army.get("musketman") != null ? army.getLong("musketman") : null);
+							queue.setCatapult(army.get("catapult") != null ? army.getLong("catapult") : null);
+							queue.setInfantry(army.get("infantry") != null ? army.getLong("infantry") : null);
+							queue.setDestroyer(army.get("destroyer") != null ? army.getLong("destroyer") : null);
+							queue.setScout(army.get("scout") != null ? army.getLong("scout") : null);
+							queue.setIronclad(army.get("ironclad") != null ? army.getLong("ironclad") : null);	
+							queue.setPegasus(army.get("pegasus") != null ? army.getLong("pegasus") : null);	
+							queue.setBerserker(army.get("berserker") != null ? army.getLong("berserker") : null);	
 						}
 						
 						queue.setArriveTime((battleQueue.get("arrive_time") != null) ? DateTime.getTime(battleQueue.getLong("arrive_time")) : null);
@@ -1025,6 +1144,7 @@ public class Town {
 						queue.setActionOwnerTownId((battleQueue.get("action_owner_town_id") != null) ? battleQueue.getLong("action_owner_town_id") : null);
 						queue.setToY((battleQueue.get("to_y") != null) ? battleQueue.getLong("to_y") : null);
 						queue.setHeroId((battleQueue.get("hero_id") != null && Numeric.isNumber(battleQueue.getString("hero_id"))) ? battleQueue.getLong("hero_id") : null);
+						queue.setTargetIslandId(battleQueue.get("target_island_id") != null ? battleQueue.getLong("target_island_id") : null);
 						queue.setFromLevel((battleQueue.get("from_level") != null) ? battleQueue.getLong("from_level") : null);
 						queue.setId((battleQueue.get("id") != null) ? battleQueue.getLong("id") : null);
 						
@@ -1066,115 +1186,54 @@ public class Town {
 			}
 			
 			towns.setOtherTowns(list);
-		}
-		
-		towns.setOwner((town.get("owner") != null) ? town.getString("owner") : null);
-		towns.setIsCapital((town.get("is_capital") != null) ? town.getBoolean("is_capital") : null);
-		towns.setIslandNumber((town.get("island_number") != null) ? town.getLong("island_number") : null);
-		towns.setTotalFoodCost((town.get("total_food_cost") != null) ? town.getLong("total_food_cost") : null);	
-		
+		}		
+
 		if (town.get("hero_info") != null) {
 			JSONObject heroInfo = (JSONObject) town.get("hero_info");
 			Hero hero = new Hero();
-			hero.setRecoveryAt(heroInfo.get("recovery_at") != null ? DateTime.getTime(heroInfo.getLong("recovery_at")) : null);
 			hero.setName(heroInfo.get("name") != null ? heroInfo.getString("name") : null);
-			hero.setDefense(heroInfo.get("defense") != null ? heroInfo.getLong("defense") : null);
-			hero.setHeroCityEffect(heroInfo.get("hero_city_effect") != null ? heroInfo.getString("hero_city_effect") : null);
-			hero.setTotalAttack(heroInfo.get("total_attack") != null ? heroInfo.getLong("total_attack") : null);
-			hero.setNextLevelExp(heroInfo.get("next_level_exp") != null ? heroInfo.getLong("next_level_exp") : null);
+			hero.setRecoveryAt(heroInfo.get("recovery_at") != null ? DateTime.getTime(heroInfo.getLong("recovery_at")) : null);
+			hero.setSpecialty(heroInfo.get("specialty") != null ? heroInfo.getString("specialty") : null);
 			hero.setIconUrl(heroInfo.get("icon_url") != null ? heroInfo.getString("icon_url") : null);
-			hero.setInitAttack(heroInfo.get("init_attack") != null ? heroInfo.getLong("init_attack") : null);
+			hero.setNextLevelExp(heroInfo.get("next_level_exp") != null ? heroInfo.getLong("next_level_exp") : null);
 			hero.setEnergy(heroInfo.get("energy") != null ? heroInfo.getLong("energy") : null);
-			hero.setTotalIntelligence(heroInfo.get("total_intelligence") != null ? heroInfo.getLong("total_intelligence") : null);
-		
-			if (heroInfo.get("skills") != null) {
-				JSONArray arrays = heroInfo.getJSONArray("skills");
-				List<Skill> skills = new Vector<Skill>();
-				for (int i = 0; i < arrays.size(); i++) {
-					JSONObject array = (JSONObject) arrays.get(i);
-					Skill skill = new Skill();
-					skill.setName(array.get("name") != null ? array.getString("name") : null);
-					skill.setIconUrl(array.get("icon_url") != null ? array.getString("icon_url") : null);
-					skill.setLevel(array.get("level") != null ? array.getLong("level") : null);
-					skill.setType(array.get("type") != null ? array.getLong("type") : null);
-					skill.setDesc(array.get("desc") != null ? array.getString("desc") : null);
-					skill.setIconName(array.get("icon_name") != null ? array.getString("icon_name") : null);
-					skills.add(skill);
-				}
-				
-				hero.setSkills(skills);
-			}		
-									
 			hero.setLevel(heroInfo.get("level") != null ? heroInfo.getLong("level") : null);
-			hero.setRestoreEnergyAt(heroInfo.get("restore_energy_at") != null ? DateTime.getTime(heroInfo.getLong("restore_energy_at")) : null);
 			hero.setId(heroInfo.get("id") != null ? heroInfo.getLong("id") : null);
-			hero.setGenius(heroInfo.get("genius") != null ? heroInfo.getLong("genius") : null);
-			hero.setUserId(heroInfo.get("user_id") != null ? heroInfo.getLong("user_id") : null);
-			hero.setTotalDefense(heroInfo.get("total_defense") != null ? heroInfo.getLong("total_defense") : null);
+			hero.setRestoreEnergyAt(heroInfo.get("restore_energy_at") != null ? DateTime.getTime(heroInfo.getLong("restore_energy_at")) : null);
 			hero.setMaxEnergy(heroInfo.get("max_energy") != null ? heroInfo.getLong("max_energy") : null);
-			hero.setMaxEnergy(heroInfo.get("max_energy") != null ? heroInfo.getLong("max_energy") : null);
-			
-			if (heroInfo.get("equipments") != null) {
-				JSONArray arrays = heroInfo.getJSONArray("equipments");
-				List<Equipment> equipments = new Vector<Equipment>();
-				for (int i = 0; i < arrays.size(); i++) {
-					JSONObject array = (JSONObject) arrays.get(i);
-					Equipment equipment = new Equipment();
-					equipment.setDefense(array.get("defense") != null ? array.getLong("defense") : null);
-					equipment.setIconUrl(array.get("icon_url") != null ? array.getString("icon_url") : null);
-					equipment.setNpcPrice(array.get("npc_price") != null ? array.getLong("npc_price") : null);
-					equipment.setSubType(array.get("sub_type") != null ? array.getLong("sub_type") : null);
-					equipment.setLevel(array.get("level") != null ? array.getLong("level") : null);
-					equipment.setGainTime(array.get("gain_time") != null ? DateTime.getTime(array.getLong("gain_time")) : null);
-					equipment.setEquipmentId(array.get("equipment_id") != null ? array.getLong("equipment_id") : null);
-					
-					if (array.get("enhance") != null) {
-						JSONObject enhance = array.getJSONObject("enhance");
-						Enhance enhances = new Enhance();
-						enhances.setDefense(enhance.get("defense") != null ? enhance.getLong("defense") : null);
-						enhances.setNpcPrice(enhance.get("npc_price") != null ? enhance.getLong("npc_price") : null);
-						enhances.setRate(enhance.get("rate") != null ? enhance.getDouble("rate") : null);
-						
-						if (enhance.get("need_resources") != null) {
-							JSONObject needResource = enhance.getJSONObject("need_resources");
-							NeedResources needResources = new NeedResources();
-							needResources.setMarble(needResource.get("marble") != null ? needResource.getLong("marble") : null);
-							needResources.setIron(needResource.get("iron") != null ? needResource.getLong("iron") : null);
-							enhances.setNeedResources(needResources);
-						}
-						
-						enhances.setIntelligence(enhance.get("intelligence") != null ? enhance.getLong("intelligence") : null);
-						enhances.setAttack(enhance.get("attack") != null ? enhance.getLong("attack") : null);
-						equipment.setEnhance(enhances);
-					}
-					
-					equipment.setEquipmentDesc(array.get("equipment_desc") != null ? array.getString("equipment_desc") : null);
-					equipment.setType(array.get("type") != null ? array.getLong("type") : null);
-					equipment.setIndex(array.get("index") != null ? array.getLong("index") : null);
-					equipment.setNeedHeroLevel(array.get("need_hero_level") != null ? array.getLong("need_hero_level") : null);
-					equipment.setIconName(array.get("icon_name") != null ? array.getString("icon_name") : null);
-					equipment.setStatus(array.get("status") != null ? array.getLong("status") : null);
-					equipment.setIntelligence(array.get("intelligence") != null ? array.getLong("intelligence") : null);
-					equipment.setAttack(array.get("attack") != null ? array.getLong("attack") : null);
-					equipment.setEquipmentName(array.get("equipment_name") != null ? array.getString("equipment_name") : null);
-					equipments.add(equipment);
-				}
-				
-				hero.setEquipments(equipments);
-			}
-			
-			hero.setAbilityPoint(heroInfo.get("ability_point") != null ? heroInfo.getLong("ability_point") : null);
-			hero.setInitDefense(heroInfo.get("init_defense") != null ? heroInfo.getLong("init_defense") : null);
 			hero.setIconName(heroInfo.get("icon_name") != null ? heroInfo.getString("icon_name") : null);
-			hero.setStatus(heroInfo.get("status") != null ? heroInfo.getLong("status") : null);
-			hero.setIntelligence(heroInfo.get("intelligence") != null ? heroInfo.getLong("intelligence") : null);
-			hero.setInitIntelligence(heroInfo.get("init_intelligence") != null ? heroInfo.getLong("init_intelligence") : null);
-			hero.setTownId(heroInfo.get("town_id") != null ? heroInfo.getLong("town_id") : null);
-			hero.setExperience(heroInfo.get("experience") != null ? heroInfo.getLong("experience") : null);
-			hero.setAttack(heroInfo.get("attack") != null ? heroInfo.getLong("attack") : null);
+			hero.setStatus(heroInfo.get("status") != null ? heroInfo.getLong("status") : null);			
 			towns.setHero(hero);
 		}
 		
+		towns.setName(town.get("name") != null ? town.getString("name") : null);
+		towns.setShowWelcome(town.get("show_welcome") != null ? town.getBoolean("show_welcome") : null);
+		towns.setResourceType(town.get("resource_type") != null ? town.getLong("resource_type") : null);
+		towns.setHaveNewMedal(town.get("have_new_medal") != null ? town.getBoolean("have_new_medal") : null);
+		towns.setMedal(town.get("medal") != null ? town.getLong("medal") : null);
+		towns.setPopulation(town.get("population") != null ? town.getLong("population") : null);		
+		towns.setLevel(town.get("level") != null ? town.getLong("level") : null);
+		towns.setPresenceDefenders(town.get("presence_defenders") != null ? town.getLong("presence_defenders") : null);
+		towns.setIslandX(town.get("island_x") != null ? town.getLong("island_x") : null);
+		towns.setNewReward(town.get("new_reward") != null ? town.getLong("new_reward") : null);
+		towns.setOwnerId(town.get("owner_id") != null ? town.getLong("owner_id") : null);		
+		towns.setAccountType((town.get("account_type") != null) ? town.getLong("account_type") : null);		
+		towns.setCurrentServerTime(town.get("current_server_time") != null ? DateTime.getTime(town.getLong("current_server_time")) : null);
+		towns.setId(town.get("id") != null ? town.getLong("id") : null);
+		towns.setCityStatus(town.get("city_status") != null ? town.getString("city_status") : null);
+		towns.setSands(town.get("sands") != null ? town.getLong("sands") : null);		
+		towns.setIslandY(town.get("island_y") != null ? town.getLong("island_y") : null);
+		towns.setMdStatus(town.get("md_status") != null ? town.getString("md_status") : null);						
+		towns.setPresenceScout((town.get("presence_scout") != null) ? town.getLong("presence_scout") : null);
+		towns.setMoveDestroyStatus(town.get("move_destroy_status") != null ? town.getString("move_destroy_status") : null);
+		towns.setPopulationMax(town.get("population_max") != null ? town.getLong("population_max") : null);				
+		towns.setIslandZ(town.get("island_z") != null ? town.getLong("island_z") : null);				
+		towns.setGems(town.get("gems") != null ? town.getLong("gems") : null);
+		towns.setHaveNewMessage(town.get("have_new_message") != null ? town.getBoolean("have_new_message") : null);
+		towns.setScore(town.get("score") != null ? town.getLong("score") : null);				
+		towns.setOwner(town.get("owner") != null ? town.getString("owner") : null);
+		towns.setIslandNumber(town.get("island_number") != null ? town.getLong("island_number") : null);
+		towns.setIsCapital(town.get("is_capital") != null ? town.getBoolean("is_capital") : null);				
 		return towns;
 	}
 }
