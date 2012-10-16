@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 
 import com.buildings.Building;
 import com.buildings.BuildingCellar;
+import com.buildings.BuildingCommand;
 import com.buildings.BuildingLine;
 import com.buildings.BuildingMarket;
 import com.buildings.BuildingPort;
@@ -26,6 +27,7 @@ import com.entity.TownInfo;
 import com.entity.Towns;
 import com.hero.Enhance;
 import com.hero.Equipment;
+import com.hero.FreeSafeResources;
 import com.hero.Hero;
 import com.hero.NeedResources;
 import com.island.IslandBuilding;
@@ -141,13 +143,14 @@ public class TaskMy extends TaskBase {
 				username = town.getOwner();
 			
 			if (autoUpgrade)
-				upgrade(town, m_Config, configTown);				
-						
+				upgrade(town, m_Config, configTown);
+									
 			sells(town, m_Config, configTown);
 			buys(town, m_Config, configTown);
 			recruit(town, m_Config, configTown);
 			attack(town, m_Config, configTown);
 			transport(town, m_Config, configTown);
+			equipment(townInfo, m_Config, townId);
 			townInfos.add(townInfo);
 		}
 		
@@ -419,6 +422,8 @@ public class TaskMy extends TaskBase {
 				
 				continue;
 			}
+			
+			return false;
 		}
 		
 		return true;
@@ -881,6 +886,15 @@ public class TaskMy extends TaskBase {
 			}
 		}
 		
+		if (town.getBuildingCommand() != null) {
+			BuildingCommand buildingCommand = town.getBuildingCommand();
+			if (buildingCommand.getBuildingType() != null && buildingCommand.getId() != null && buildingCommand.getLevel() != null && buildingCommand.getMaxLevel() != null && buildingCommand.getLevel() < buildingCommand.getMaxLevel() && buildingCommand.getLevel() < level && buildingCommand.getStatus() != null && !buildingCommand.getStatus().equals("upgrading")) {
+				List<Long> buildingIds = new Vector<Long>();
+				buildingIds.add(buildingCommand.getId());
+				buildings.put(buildingCommand.getBuildingType(), buildingIds);			
+			}
+		}
+		
 		if (buildings.size() > 0) {			
 			for (Long priority : prioritys) {
 				if (!buildings.containsKey(priority))
@@ -1001,6 +1015,7 @@ public class TaskMy extends TaskBase {
 	
 	private void recruit(Town town, Config config, ConfigTown configTown) {
 		Boolean autoRecruit = configTown.getAutoRecruit();
+		Long userId = config.getUserId();
 		if (autoRecruit == null || !autoRecruit)
 			return;
 		
@@ -1128,7 +1143,7 @@ public class TaskMy extends TaskBase {
 			String clientv = config.getClientv();
 			String cookie = config.getCookie();
 			Long townId = town.getId();
-			List<Resources> resources = m_RequestRecruit.request(host, clientv, cookie, townId, soldierName, count);
+			List<Resources> resources = m_RequestRecruit.request(host, clientv, cookie, userId, townId, soldierName, count);
 			if (resources == null)
 				return;
 			
@@ -1178,11 +1193,11 @@ public class TaskMy extends TaskBase {
 	private long getAttackLevel(long total) {
 		if (total < 400)
 			return 0;
-		else if (total < 900)
+		else if (total < 1500)
 			return 10;
-		else if (total < 2000)
+		else if (total < 4000)
 			return 20;
-		else if (total < 4500)
+		else if (total < 7000)
 			return 30;
 		else 
 			return 50;
@@ -1192,13 +1207,13 @@ public class TaskMy extends TaskBase {
 		if (level <= 10)
 			return 400;
 		else if (level <= 20)
-			return 900;
+			return 1500;
 		else if (level <= 30)
-			return 2000;
+			return 4000;
 		else if (level <= 40)
-			return 4500;
-		else 
 			return 7000;
+		else 
+			return 9000;
 	}
 	
 	private HashMap<String, Long> getAttackSoldier(Town town, long count) {		
@@ -2029,53 +2044,63 @@ public class TaskMy extends TaskBase {
 		if (towns == null)
 			return;
 				
-		int error = 0;
-		while (total < 2 && error < 3) {
-			List<Resources> maxResources = getMaxResources(town, configTown.getSells());
-			if (maxResources == null)
-				break;
+		List<Resources> maxResources = getMaxResources(town, configTown.getSells());
+		if (maxResources == null)
+			return;
+		
+		for (Resources maxResource : maxResources) {
+			Town minTown = getMinTown(config, towns, maxResource);
+			if (minTown == null)
+				continue;
 			
-			for (Resources maxResource : maxResources) {
-				Town minTown = getMinTown(config, towns, maxResource);
-				if (minTown == null)
-					continue;
+			Long count = fleetQuota;
+			if (fleetQuota > maxResource.getResourceCount())
+				count = maxResource.getResourceCount();
+			
+			HashMap<String, Long> resources = new HashMap<String, Long>();
+			resources.put(maxResource.getResourceName(), count);
+			
+			TransportTown transportTown = m_RequestTransport.request(host, clientv, cookie, townId, minTown.getId(), resources);
+			if (transportTown == null)				
+				continue;				
+			
+			Resources resourcesWood = town.getResourcesWood();
+			Resources resourcesFood = town.getResourcesFood();
+			Resources resourcesGold = town.getResourcesGold();				
+			Resources resourcesIron = town.getResourcesIron();
+			Resources resourcesMarble = town.getResourcesMarble();
+			
+			if (resourcesWood != null)
+				town.setResourcesWood(resourcesWood);
+			
+			if (resourcesFood != null)
+				town.setResourcesFood(resourcesFood);
+			
+			if (resourcesGold != null)
+				town.setResourcesGold(resourcesGold);
+			
+			if (resourcesIron != null)
+				town.setResourcesIron(resourcesIron);
+			
+			if (resourcesMarble != null)
+				town.setResourcesMarble(resourcesMarble);
+			
+			total++;
+			if (total > 1)
+				break;
+		}	
+	}
+	
+	private void equipment(TownInfo townInfo, Config config, Long townId) {
+		String host = config.getHost();
+		String clientv = config.getClientv();
+		String cookie = config.getCookie();
 				
-				Long count = fleetQuota;
-				if (fleetQuota > maxResource.getResourceCount())
-					count = maxResource.getResourceCount();
-				
-				HashMap<String, Long> resources = new HashMap<String, Long>();
-				resources.put(maxResource.getResourceName(), count);
-				
-				TransportTown transportTown = m_RequestTransport.request(host, clientv, cookie, townId, minTown.getId(), resources);
-				if (transportTown == null) {
-					error++;
-					continue;				
-				}
-				
-				total++;
-				Resources resourcesWood = town.getResourcesWood();
-				Resources resourcesFood = town.getResourcesFood();
-				Resources resourcesGold = town.getResourcesGold();				
-				Resources resourcesIron = town.getResourcesIron();
-				Resources resourcesMarble = town.getResourcesMarble();
-				
-				if (resourcesWood != null)
-					town.setResourcesWood(resourcesWood);
-				
-				if (resourcesFood != null)
-					town.setResourcesFood(resourcesFood);
-				
-				if (resourcesGold != null)
-					town.setResourcesGold(resourcesGold);
-				
-				if (resourcesIron != null)
-					town.setResourcesIron(resourcesIron);
-				
-				if (resourcesMarble != null)
-					town.setResourcesMarble(resourcesMarble);								
-			}
-		}		
+		String response = m_RequestEquipment.request(host, clientv, cookie, townId);
+		if (response == null)
+			return;
+		else
+			townInfo.setHeroEquipment(response);
 	}
 		
 	private void setEquipment(Towns towns, Config config, Long townId) {
@@ -2087,8 +2112,7 @@ public class TaskMy extends TaskBase {
 		String response = m_RequestEquipment.request(host, clientv, cookie, townId);
 		if (response == null)
 			return;
-		
-		towns.setEquipment(response);
+				
 		List<Equipment> equipments = Equipment.parse(response);
 		if (equipments == null)
 			return;
@@ -2104,36 +2128,59 @@ public class TaskMy extends TaskBase {
 		if (equipmentMax <= 0)
 			return;
 		
+		List<Equipment> eqs = new Vector<Equipment>();
 		Equipment eq = null;
-		Long all = 0L;
-				
+						
 		for (Equipment equipment : equipments) {
-			if (equipment.getEquipmentId() == null || equipment.getType() == null || equipment.getLevel() == null)
+			if (equipment.getEquipmentId() == null || equipment.getType() == null || equipment.getLevel() == null || equipment.getEnhanceLevel() == null)
 				continue;
 			
 			Enhance enhance = equipment.getEnhance();
 			if (enhance == null)
 				continue;
 			
-			NeedResources needResources = enhance.getNeedResources();
+			NeedResources needResources = enhance.getNeedResources();			
 			if (needResources == null || needResources.getAll() == null)
 				continue;
 			
-			Long level = equipment.getLevel();
-			if (level >= equipmentMax || level >= 40)
+			FreeSafeResources freeSafeResources = enhance.getFreeSafeResources();
+			if (freeSafeResources == null || freeSafeResources.getAll() == null)
 				continue;
 			
+			Long level = equipment.getLevel();
+			if (level < equipmentMax)
+				continue;
+			
+			Long enhanceLevel = equipment.getEnhanceLevel();
+			if (enhanceLevel >= 15)
+				continue;
+						
 			Long type = equipment.getType();
-			if (type > -1 && type < 8) {				
-				if (eq == null || level < eq.getLevel()) {
-					eq = equipment;
-					all = needResources.getAll();
-				}
-			}					
+			if (type > -1 && type < 8)
+				eqs.add(equipment);		
+		}
+		
+		for (Equipment equipment : eqs) {
+			Long enhanceLevel = equipment.getEnhanceLevel();
+			if (eq == null || enhanceLevel < eq.getEnhanceLevel())
+				eq = equipment;
 		}
 		
 		if (eq == null)
 			return;
+		
+		Long all = 0L;
+		Long safe = 0L;
+		Enhance enhance = eq.getEnhance();
+		
+		if (eq.getEnhanceLevel() > 5) {						
+			FreeSafeResources freeSafeResources = enhance.getFreeSafeResources();
+			all = freeSafeResources.getAll();
+			safe = 2L;
+		} else {
+			NeedResources needResources = enhance.getNeedResources();
+			all = needResources.getAll();
+		}
 		
 		List<TownInfo> townInfos = towns.getTownInfos();
 		if (townInfos == null)
@@ -2182,7 +2229,7 @@ public class TaskMy extends TaskBase {
 		}
 		
 		if (tinfo != null) {
-			List<Resources> resources = m_RequestEquipment.request(host, clientv, cookie, eq.getEquipmentId(), 0L, "enhance", 0L, userId, "put", townId);
+			List<Resources> resources = m_RequestEquipment.request(host, clientv, cookie, eq.getEquipmentId(), safe, "enhance", 0L, userId, "put", tinfo.getTownId());
 			if (resources != null) {
 				Town town = tinfo.getTown();
 				setResources(town, resources);

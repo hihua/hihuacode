@@ -28,14 +28,16 @@ public class RequestRecruit extends RequestParent {
 			return Recruit.parse(response);
 	}
 	
-	public List<Resources> request(String host, String clientv, String cookie, Long townId, String soldierName, Long count) {
+	public List<Resources> request(String host, String clientv, String cookie, Long userId, Long townId, String soldierName, Long count) {
 		m_URL.setLength(0);
 		m_URL.append(host);
 		m_URL.append(URL);
 		m_URL.append(".json");
 		
 		m_Body.setLength(0);
-		m_Body.append("town_id=");
+		m_Body.append("user_id=");
+		m_Body.append(userId);
+		m_Body.append("&town_id=");
 		m_Body.append(townId);
 		m_Body.append("&soldier_name=");
 		m_Body.append(soldierName);

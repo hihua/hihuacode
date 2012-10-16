@@ -241,11 +241,20 @@ public class AutoTask extends Thread implements CallBackTask {
 		return requestWorldMaps.request(host, clientv, cookie, x, y);
 	}
 	
-	public String getMyEquipment() {
+	public String getMyEquipment(Long townId) {
 		if (m_MyTowns == null)
 			return null;
 		
-		return m_MyTowns.getEquipment();
+		List<TownInfo> townInfos = m_MyTowns.getTownInfos();
+		if (townInfos != null) {
+			for (TownInfo townInfo : townInfos) {
+				Long id = townInfo.getTownId();
+				if (id.equals(townId))
+					return townInfo.getHeroEquipment();
+			}
+		}
+		
+		return null;
 	}
 	
 	public String getEquipment(Long townId) {

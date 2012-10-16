@@ -99,7 +99,13 @@ public class WebMyTowns extends WebBase {
 			break;
 			
 			case 3: {
-				String packet = task.getMyEquipment();
+				String townId = request.getParameter("town_id");
+				if (!Numeric.isNumber(townId)) {
+					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);					
+					return;
+				}
+				
+				String packet = task.getMyEquipment(Long.parseLong(townId));
 				if (packet == null)  {
 					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);					
 					return;

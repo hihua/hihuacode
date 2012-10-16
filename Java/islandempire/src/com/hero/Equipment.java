@@ -259,22 +259,22 @@ public class Equipment {
 				enhances.setSafeGems(enhance.get("safe_gems") != null ? enhance.getLong("safe_gems") : null);
 				enhances.setProfit(enhance.get("profit") != null ? enhance.getLong("profit") : null);
 								
-				JSONArray luckGems = town.getJSONArray("luck_gems");
+				JSONArray luckGems = enhance.getJSONArray("luck_gems");
 				if (luckGems != null) {
 					List<Long> list = new Vector<Long>();
 					for (int j = 0; j < luckGems.size(); j++) {
-						Long luckGem = (Long) luckGems.get(j);
+						Long luckGem = luckGems.getLong(j);
 						list.add(luckGem);
 					}
 					
 					enhances.setLuckGems(list);
 				}
 				
-				JSONArray luckValues = town.getJSONArray("luck_value");
+				JSONArray luckValues = enhance.getJSONArray("luck_value");
 				if (luckValues != null) {
 					List<Long> list = new Vector<Long>();
 					for (int j = 0; j < luckValues.size(); j++) {
-						Long luckValue = (Long) luckValues.get(j);
+						Long luckValue = luckValues.getLong(j);
 						list.add(luckValue);
 					}
 					

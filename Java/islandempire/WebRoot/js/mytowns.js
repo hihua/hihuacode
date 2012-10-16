@@ -30,8 +30,8 @@ function requestMyRanks(callback) {
     });
 }
 
-function requestMyEquipment(callback) {
-	var url = WebMyTowns + "?command=3"; 
+function requestMyEquipment(townId, callback) {
+	var url = WebMyTowns + "?command=3&town_id=" + townId; 
 	Ajax_CallBack(url, "", "json", "", true, function(json) {
 		if (json != null)
 			callback(json);		

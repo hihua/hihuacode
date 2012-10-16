@@ -7,11 +7,12 @@ public class TownInfo {
 	private Town town;
 	private String packet;
 	private String updateTime;
+	private String heroEquipment;
 
 	public Long getTownId() {
 		return townId;
 	}
-	
+
 	public Town getTown() {
 		return town;
 	}
@@ -23,10 +24,14 @@ public class TownInfo {
 	public String getUpdateTime() {
 		return updateTime;
 	}
-	
+
+	public String getHeroEquipment() {
+		return heroEquipment;
+	}
+
 	public void setTownId(Long townId) {
 		this.townId = townId;
-	}	
+	}
 
 	public void setTown(Town town) {
 		this.town = town;
@@ -38,5 +43,9 @@ public class TownInfo {
 
 	public void setUpdateTime(String updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public void setHeroEquipment(String heroEquipment) {
+		this.heroEquipment = heroEquipment;
 	}
 }

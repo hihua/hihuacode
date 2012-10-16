@@ -6,8 +6,7 @@ public class Towns {
 	private List<TownInfo> townInfos;
 	private String message;
 	private String ranks;
-	private String equipment;
-
+	
 	public List<TownInfo> getTownInfos() {
 		return townInfos;
 	}
@@ -20,10 +19,6 @@ public class Towns {
 		return ranks;
 	}
 
-	public String getEquipment() {
-		return equipment;
-	}
-
 	public void setTownInfos(List<TownInfo> townInfos) {
 		this.townInfos = townInfos;
 	}
@@ -34,9 +29,5 @@ public class Towns {
 
 	public void setRanks(String ranks) {
 		this.ranks = ranks;
-	}
-
-	public void setEquipment(String equipment) {
-		this.equipment = equipment;
 	}
 }
