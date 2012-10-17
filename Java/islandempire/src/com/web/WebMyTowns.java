@@ -155,6 +155,30 @@ public class WebMyTowns extends WebBase {
 			}
 			break;
 			
+			case 5: {
+				String mailId = request.getParameter("mail_id");				
+				if (mailId == null) {
+					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+					return;
+				}
+				
+				String packet = task.requestBattle(mailId);
+				if (packet == null)  {
+					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);					
+					return;
+				}
+				
+				try {
+					JSONObject json = JSONObject.fromObject(packet);
+					String s = json.toString();
+					out.print(s);					
+				} catch (Exception e) {
+					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);					
+					return;
+				}
+			}
+			break;
+			
 			default: {
 				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);				
 			}

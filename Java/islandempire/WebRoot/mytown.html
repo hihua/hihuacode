@@ -106,7 +106,7 @@
 			</tr>	
 		</table>	
 		<script type="text/javascript">
-			var MyTowns = [57971, 68274, 71071, 71989, 108094, 178718];
+			var MyTowns = [57971, 68274, 71071, 71989, 108094, 178718];			
 			var MyMessages = new Array();
 			//57971		hihua
 			//68274 	hhh
@@ -284,32 +284,49 @@
 						html += "<td>" + finishTime + "</td>";
 						html += "</tr>";												
 						
-						var tmp = "";
+						var tmp = "<table align=\"left\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+						tmp += "<tr height=\"25\">";
 						var army = battle.army;						
 						if (army != null && army.infantry != null)
-							tmp += getSoldiersName("infantry") + ":&nbsp;" + army.infantry + "&nbsp;&nbsp;";						
+							tmp += "<td width=\"100\">" + getSoldiersName("infantry") + ":&nbsp;" + army.infantry + "</td>";						
 						
 						if (army != null && army.scout != null)
-							tmp += getSoldiersName("scout") + ":&nbsp;" + army.scout + "&nbsp;&nbsp;";
+							tmp += "<td width=\"100\">" + getSoldiersName("scout") + ":&nbsp;" + army.scout + "</td>";
 							
 						if (army != null && army.musketman != null)
-							tmp += getSoldiersName("musketman") + ":&nbsp;" + army.musketman + "&nbsp;&nbsp;";
+							tmp += "<td width=\"100\">" + getSoldiersName("musketman") + ":&nbsp;" + army.musketman + "</td>";
 							
 						if (army != null && army.catapult != null)
-							tmp += getSoldiersName("catapult") + ":&nbsp;" + army.catapult + "&nbsp;&nbsp;";
+							tmp += "<td width=\"100\">" + getSoldiersName("catapult") + ":&nbsp;" + army.catapult + "</td>";
 							
+						if (army != null && army.berserker != null)
+							tmp += "<td width=\"100\">" + getSoldiersName("berserker") + ":&nbsp;" + army.berserker + "</td>";
+							
+						tmp += "</tr>";
+						tmp += "<tr height=\"25\">";
 						if (army != null && army.frigate != null)
-							tmp += getSoldiersName("frigate") + ":&nbsp;" + army.frigate + "&nbsp;&nbsp;";
+							tmp += "<td width=\"100\">" + getSoldiersName("frigate") + ":&nbsp;" + army.frigate + "</td>";
 							
 						if (army != null && army.destroyer != null)
-							tmp += getSoldiersName("destroyer") + ":&nbsp;" + army.destroyer + "&nbsp;&nbsp;";
+							tmp += "<td width=\"100\">" + getSoldiersName("destroyer") + ":&nbsp;" + army.destroyer + "</td>";
+							
+						if (army != null && army.pegasus != null)
+							tmp += "<td width=\"100\">" + getSoldiersName("pegasus") + ":&nbsp;" + army.pegasus + "</td>";
+							
+						if (army != null && army.ironclad != null)
+							tmp += "<td width=\"100\">" + getSoldiersName("ironclad") + ":&nbsp;" + army.ironclad + "</td>";
 						
 						if (battle.hero_id != null) {
 							var hero = battle.hero_id;
 							if (hero > 0)
-								tmp += "英雄: " + hero + "&nbsp;&nbsp;";	
-						}
+								tmp += "<td width=\"100\">" + "英雄: " + hero + "</td>";
+							else
+								tmp += "<td width=\"100\">&nbsp;</td>";	
+						} else
+							tmp += "<td width=\"100\">&nbsp;</td>";						
 						
+						tmp += "</tr>";
+						tmp += "</table>";
 						if (tmp.length > 0) {
 							html += "<tr>";
 							html += "<td colspan=\"2\">";
@@ -424,7 +441,7 @@
 					return "火炮舰";
 					
 				if (soldierName == "pegasus")
-					return "飞马战士";
+					return "投石舰";
 					
 				if (soldierName == "berserker")
 					return "狂战士";
@@ -1340,16 +1357,21 @@
 				        }				        
 				        
 				        var bodyId = "body_" + message.id;
+				        var contentId = "content_" + message.id;
 				        if (message.message_type == 5)
 				        	bodyId = "body_s" +  sys;        	 
 						        												
 						tmp += "<table width=\"500\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"1\" class=\"Table1\">";
 						tmp += "<tr>";
 						
-						if (message.message_type != 5)
-							tmp += "<td width=\"70%\" height=\"30\" style=\"padding-left:5;padding-right:5\"><a href=\"#\" onclick=\"bodyShow('" + message.id + "');return false;\" class=\"AdminToolsLink1\">" + message.subject + "</a></td>";
-						else
-							tmp += "<td width=\"70%\" height=\"30\" style=\"padding-left:5;padding-right:5\"><a href=\"#\" onclick=\"bodyShow('s" + sys + "');return false;\" class=\"AdminToolsLink1\">" + message.subject + "</a></td>";						
+						if (message.message_type != 5) {
+							var mailId = 0;
+							if (message.from == "Battle System")
+								mailId = message.body;
+								
+							tmp += "<td width=\"70%\" height=\"30\" style=\"padding-left:5;padding-right:5\"><a href=\"#\" onclick=\"bodyShow('" + message.id + "', " + mailId + ");return false;\" class=\"AdminToolsLink1\">" + message.subject + "</a></td>";
+						} else
+							tmp += "<td width=\"70%\" height=\"30\" style=\"padding-left:5;padding-right:5\"><a href=\"#\" onclick=\"bodyShow('s" + sys + "', 0);return false;\" class=\"AdminToolsLink1\">" + message.subject + "</a></td>";						
 							
 						var body = "";
 				        var content = "";
@@ -1379,9 +1401,9 @@
 				        if (!found)
 				        	tmp += "<tr id=\"" + bodyId + "\" style=\"display:none\">";
 				        else
-				        	tmp += "<tr id=\"" + bodyId + "\">";
-				        					        				        	
-				        tmp += "<td height=\"25\" style=\"padding-left:5;padding-right:5;padding-top:5;padding-bottom:5;\" colspan=\"2\">" + content + "</td>";
+				        	tmp += "<tr id=\"" + bodyId + "\">";				        				        		
+				        		        	
+				        tmp += "<td id=\"" + contentId + "\" height=\"25\" style=\"padding-left:5;padding-right:5;padding-top:5;padding-bottom:5;\" colspan=\"2\">" + content + "</td>";
 				        tmp += "</tr>";
 				        tmp += "</table>";
 				        tmp += "<br />";	
@@ -1395,11 +1417,23 @@
 			    $("#" + div).html(html);				
 			}
 			
-			function bodyShow(id) {
-				var body = "#body_" + id;				
+			function bodyShow(id, mailId) {
+				var body = "#body_" + id;
+				var content = "#content_" + id;				
+				if (mailId > 0) {
+					var divBattle = "battle_" + mailId;
+					if ($("body").find("#" + divBattle).length == 0) {
+						requestMyBattle(id, mailId, setBattle);						
+					}
+					else {												
+						var html = $(divBattle).html();
+						$(content).html(html);
+					}
+				}				
+						
 				if ($(body).css("display") == "none") {												
-					$(body).show();					
-					MyMessages.push(id);					
+					$(body).show();
+					MyMessages.push(id);																											
 				} else {
 					$(body).hide();
 					var index = -1;
@@ -1413,6 +1447,60 @@
 			        if (index != -1)
 			        	MyMessages.splice(index, 1);            			            
 				}				
+			}
+			
+			function setBattle(id, mailId, json) {							
+				var html = "";
+				var battleInfo = json.battle_info;
+				if (battleInfo != null) {
+					var result = battleInfo.result;
+					if (result != null) {
+						html += "<table width=\"80%\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+						html += "<tr><td width=\"33%\">" + result.naval + "</td><td width=\"33%\">" + result.land + "</td><td width=\"33%\">" + result.total + "</td></tr>";
+						html += "</table><br/>";
+					}
+					
+					var gotOrLose = json.got_or_lose;
+					if (gotOrLose != null) {
+						var resources = gotOrLose.resource;
+						html += "<table width=\"80%\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+						html += "<tr><td width=\"50%\" valign=\"top\">";
+						if (resources != null) {
+							html += "<table width=\"90%\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+							$.each(resources, function(idx, resource) {
+								html += "<tr><td>" + resource.name + "</td><td>" + resource.num + "</td></tr>";
+							});
+							
+							html += "</table>";
+						} else 
+							html += "&nbsp;";
+							
+						html += "</td>";
+						html += "<td width=\"50%\" valign=\"top\">";
+						var heros = gotOrLose.hero;
+						if (heros != null) {
+							html += "<table width=\"90%\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+							$.each(heros, function(idx, hero) {
+								html += "<tr><td>" + hero.name + "</td><td>" + hero.num + "</td></tr>";
+							});
+							
+							html += "</table>";
+						} else 
+							html += "&nbsp;";
+							
+						html += "</td></tr>";
+						html += "</table>";
+					}					
+				}
+				
+				var divBattle = "battle_" + mailId;
+				if ($("body").find("#" + divBattle).length == 0)
+					$("body").append("<div id=\"" + divBattle + "\" style=\"display:none\">" + html + "</div>");			
+				else
+					$("#" + divBattle).html(html);
+				
+				var content = "#content_" + id;
+				$(content).html(html);															
 			}
 			
 			function getMessageType(type) {
@@ -1474,10 +1562,12 @@
 				}			
 			}
 			
-			function setMyEquipment(json) {
-				setHero(json);
-				var html = setEquipment(json);
-				$("#equipment").html(html);
+			function setMyEquipment(townId, json) {
+				setHero(json);				
+				if (townId == 108094) {					
+					var html = setEquipment(json);
+					$("#equipment").html(html);
+				}				
 			}
 			
 			function getIsland() {

@@ -34,7 +34,7 @@ function requestMyEquipment(townId, callback) {
 	var url = WebMyTowns + "?command=3&town_id=" + townId; 
 	Ajax_CallBack(url, "", "json", "", true, function(json) {
 		if (json != null)
-			callback(json);		
+			callback(townId, json);		
 	}, function(response, error, status) {
         return null;
     });
@@ -55,5 +55,15 @@ function requestPostMyMessage(to, from, subject, body) {
 		}		
 	}, function(response, error, status) {
 		alert("发送失败");
+    });
+}
+
+function requestMyBattle(id, mailId, callback) {
+	var url = WebMyTowns + "?command=5&mail_id=" + mailId; 
+	Ajax_CallBack(url, "", "json", "", true, function(json) {
+		if (json != null)
+			callback(id, mailId, json);		
+	}, function(response, error, status) {
+        return null;
     });
 }

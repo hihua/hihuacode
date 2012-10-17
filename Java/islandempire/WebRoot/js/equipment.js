@@ -1,12 +1,19 @@
 var WebEquipment = "servlet/WebEquipment";
 
-function requestEquipment(townId, callback) {
-	var url = WebEquipment + "?town_id=" + townId; 
+function requestSetEquipment(equipmentId, fromIndex, toIndex, townId) {
+	var url = WebEquipment + "?equipment_id=" + equipmentId + "&from_index=" + fromIndex + "&to_index=" + toIndex + "&town_id=" + townId; 
 	Ajax_CallBack(url, "", "json", "", true, function(json) {
-		if (json != null)
-			callback(json);		
+		if (json == null)
+			alert("装备失败");
+		else {
+			var ret = json.ret;
+			if (ret != null && ret == 0)
+				alert("装备成功");
+			else
+				alert("装备失败");
+		}		
 	}, function(response, error, status) {
-        return null;
+		alert("装备失败");
     });
 }
 
@@ -26,10 +33,10 @@ function setEquipment(json) {
 								
 				html += "<tr>";
 				html += "<td height=\"30\" width=\"13%\" align=\"center\">" + equipment.equipment_id + "</td>";
-				html += "<td height=\"30\" width=\"37%\" align=\"center\">" + equipment.equipment_name + "</td>";
+				html += "<td height=\"30\" width=\"35%\" align=\"center\">" + equipment.equipment_name + "</td>";
 				html += "<td height=\"30\" width=\"15%\" align=\"center\">" + equipment.level + "," + equipment.need_hero_level + "," + equipment.enhance_level + "</td>";
 				html += "<td height=\"30\" width=\"17%\" align=\"center\">" + equipment.attack + "," + equipment.defense + "," + equipment.intelligence + "</td>";
-				html += "<td height=\"30\" width=\"18%\" align=\"center\">&nbsp;</td>";					
+				html += "<td height=\"30\" width=\"20%\" align=\"center\"><input id=\"equipment_" + equipment.equipment_id + "\" type=\"text\" size=\"2\" />&nbsp;<a href=\"#\" onclick=\"putEquipment(" + equipment.equipment_id + "," + equipment.index + "," + equipment.type + ");return false;\" class=\"AdminToolsLink1\">装备</a></td>";					
 				html += "</tr>";
 			});
 			
@@ -38,4 +45,12 @@ function setEquipment(json) {
 	}
 		
 	return html;
+}
+
+function putEquipment(equipmentId, fromIndex, toIndex) {
+	var townId = $("#equipment_" + equipmentId).val();
+	if (townId == "")
+		return;
+	
+	requestSetEquipment(equipmentId, fromIndex, toIndex, townId);
 }

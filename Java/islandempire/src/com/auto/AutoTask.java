@@ -15,6 +15,7 @@ import com.callback.CallBackTask;
 import com.config.Config;
 import com.entity.TownInfo;
 import com.entity.Towns;
+import com.request.RequestBattle;
 import com.request.RequestBuildings;
 import com.request.RequestEquipment;
 import com.request.RequestIsland;
@@ -257,13 +258,13 @@ public class AutoTask extends Thread implements CallBackTask {
 		return null;
 	}
 	
-	public String getEquipment(Long townId) {
+	public boolean setEquipment(Long equipmentId, Long fromIndex, Long toIndex, Long townId) {
 		String host = m_Config.getHost();
 		String clientv = m_Config.getClientv();
 		String cookie = m_Config.getCookie();
 		
 		RequestEquipment requestEquipment = new RequestEquipment();
-		return requestEquipment.request(host, clientv, cookie, townId);
+		return requestEquipment.request(host, clientv, cookie, equipmentId, fromIndex, toIndex, townId);
 	}
 	
 	public boolean requestBuildings(Long buildingId) {
@@ -276,6 +277,19 @@ public class AutoTask extends Thread implements CallBackTask {
 		
 		RequestBuildings requestBuildings = new RequestBuildings();
 		return requestBuildings.request(host, clientv, cookie, buildingId);		
+	}
+	
+	public String requestBattle(String mailId) {
+		if (m_Config == null)
+			return null;
+		
+		String host = m_Config.getHost();
+		String clientv = m_Config.getClientv();
+		String cookie = m_Config.getCookie();
+		Long userId = m_Config.getUserId();
+		
+		RequestBattle requestBattle = new RequestBattle();
+		return requestBattle.request(host, clientv, cookie, userId, mailId);		
 	}
 	
 	public boolean requestTransport(Long fromTownId, Long toTownId, HashMap<String, Long> resources) {

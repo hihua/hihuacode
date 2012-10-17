@@ -1406,33 +1406,33 @@ public class TaskMy extends TaskBase {
 		return village;
 	}
 	
-//	private boolean useEquipment(Town town, Config config) {
-//		String host = config.getHost();
-//		String clientv = config.getClientv();
-//		String cookie = config.getCookie();
-//		Long townId = town.getId();
-//		
-//		String response = m_RequestEquipment.request(host, clientv, cookie, townId);
-//		if (response == null)
-//			return false;
-//		
-//		List<Equipment> equipments = Equipment.parse(response);
-//		if (equipments == null)
-//			return false;
-//		
-//		for (Equipment equipment : equipments) {
-//			if (equipment.getEquipmentId() == null || equipment.getType() == null)
-//				continue;
-//			
-//			if (equipment.getType() == 9) {
-//				Long equipmentId = equipment.getEquipmentId();						
-//				if (m_RequestEquipment.request(host, clientv, cookie, equipmentId, townId, "delete", "use") != null)
-//					return true;
-//			}			
-//		}
-//		
-//		return false;
-//	}
+	private boolean useEquipment(Town town, Config config) {
+		String host = config.getHost();
+		String clientv = config.getClientv();
+		String cookie = config.getCookie();
+		Long townId = town.getId();
+		
+		String response = m_RequestEquipment.request(host, clientv, cookie, townId);
+		if (response == null)
+			return false;
+		
+		List<Equipment> equipments = Equipment.parse(response);
+		if (equipments == null)
+			return false;
+		
+		for (Equipment equipment : equipments) {
+			if (equipment.getEquipmentId() == null || equipment.getType() == null)
+				continue;
+			
+			if (equipment.getType() == 9) {
+				Long equipmentId = equipment.getEquipmentId();						
+				if (m_RequestEquipment.request(host, clientv, cookie, equipmentId, "use", "delete", townId))
+					return true;
+			}			
+		}
+		
+		return false;
+	}
 		
 	private void attack(Town town, Config config, ConfigTown configTown) {
 		String host = config.getHost();
@@ -1531,7 +1531,7 @@ public class TaskMy extends TaskBase {
 			if (hero.getId() == null || hero.getEnergy() == null || hero.getLevel() == null)
 				hero = null;
 			else {
-				if (hero.getEnergy() == 0/*&& !useEquipment(town, config)*/)
+				if (hero.getEnergy() == 0 && !useEquipment(town, config))
 					hero = null;
 			}				
 		}
@@ -2129,11 +2129,31 @@ public class TaskMy extends TaskBase {
 			return;
 		
 		List<Equipment> eqs = new Vector<Equipment>();
+		List<Equipment> mins = new Vector<Equipment>();
 		Equipment eq = null;
+		Long total = 0L, lv = -1L;
 						
 		for (Equipment equipment : equipments) {
 			if (equipment.getEquipmentId() == null || equipment.getType() == null || equipment.getLevel() == null || equipment.getEnhanceLevel() == null)
 				continue;
+									
+			total++;
+			Long type = equipment.getType();
+			if (type > -1 && type < 8) {
+				if (lv < 0) {
+					mins.add(equipment);
+					lv = equipment.getLevel();
+				} else {
+					if (lv > equipment.getLevel()) {
+						mins.clear();
+						mins.add(equipment);
+						lv = equipment.getLevel();
+					} else {
+						if (lv.equals(equipment.getLevel()))
+							mins.add(equipment);
+					}
+				}
+			}
 			
 			Enhance enhance = equipment.getEnhance();
 			if (enhance == null)
@@ -2154,12 +2174,11 @@ public class TaskMy extends TaskBase {
 			Long enhanceLevel = equipment.getEnhanceLevel();
 			if (enhanceLevel >= 15)
 				continue;
-						
-			Long type = equipment.getType();
+									
 			if (type > -1 && type < 8)
 				eqs.add(equipment);		
 		}
-		
+						
 		for (Equipment equipment : eqs) {
 			Long enhanceLevel = equipment.getEnhanceLevel();
 			if (eq == null || enhanceLevel < eq.getEnhanceLevel())
@@ -2186,15 +2205,12 @@ public class TaskMy extends TaskBase {
 		if (townInfos == null)
 			return;
 		
-		TownInfo tinfo = null;
+		TownInfo tinfo = null, minfo = null;
 		Long max = 0L;
 		
 		for (TownInfo townInfo : townInfos) {
 			Long id = townInfo.getTownId();
 			if (id == null)
-				continue;
-			
-			if (equipmentTowns.indexOf(id) == -1)
 				continue;
 			
 			Town town = townInfo.getTown();
@@ -2206,6 +2222,14 @@ public class TaskMy extends TaskBase {
 			Resources resourcesIron = town.getResourcesIron();
 			Resources resourcesMarble = town.getResourcesMarble();
 			Resources resourcesGold = town.getResourcesGold();
+			if (resourcesGold != null && resourcesGold.getResourceCount() != null) {
+				if (minfo == null || minfo.getTown().getResourcesGold().getResourceCount() > resourcesGold.getResourceCount())
+					minfo = townInfo;
+			}
+			
+			if (equipmentTowns.indexOf(id) == -1)
+				continue;			
+			
 			if (resourcesWood == null || resourcesFood == null || resourcesMarble == null || resourcesIron == null || resourcesGold == null)
 				continue;
 			
@@ -2234,6 +2258,17 @@ public class TaskMy extends TaskBase {
 				Town town = tinfo.getTown();
 				setResources(town, resources);
 			}				
+		}
+		
+		if (total > 50 && minfo != null) {
+			Equipment min = null;			
+			for (Equipment equipment : mins) {				
+				if (min == null || min.getEnhanceLevel() > equipment.getEnhanceLevel())
+					min = equipment;
+			}
+			
+			if (min != null)
+				m_RequestEquipment.request(host, clientv, cookie, min.getEquipmentId(), "sold_to_npc", "delete", minfo.getTownId());
 		}
 	}
 }
