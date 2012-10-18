@@ -258,13 +258,31 @@ public class AutoTask extends Thread implements CallBackTask {
 		return null;
 	}
 	
-	public boolean setEquipment(Long equipmentId, Long fromIndex, Long toIndex, Long townId) {
+	public boolean putEquipment(Long equipmentId, Long fromIndex, Long toIndex, Long townId) {
 		String host = m_Config.getHost();
 		String clientv = m_Config.getClientv();
 		String cookie = m_Config.getCookie();
 		
 		RequestEquipment requestEquipment = new RequestEquipment();
 		return requestEquipment.request(host, clientv, cookie, equipmentId, fromIndex, toIndex, townId);
+	}
+	
+	public boolean sellEquipment(Long equipmentId, Long townId) {
+		String host = m_Config.getHost();
+		String clientv = m_Config.getClientv();
+		String cookie = m_Config.getCookie();
+		
+		RequestEquipment requestEquipment = new RequestEquipment();
+		return requestEquipment.request(host, clientv, cookie, equipmentId, "sold_to_npc", "delete", townId);
+	}
+	
+	public boolean actionsEquipment(Long equipmentId, Long iniPrice, Long totalTimeInhours, Long townId) {
+		String host = m_Config.getHost();
+		String clientv = m_Config.getClientv();
+		String cookie = m_Config.getCookie();
+		
+		RequestEquipment requestEquipment = new RequestEquipment();
+		return requestEquipment.request(host, clientv, cookie, equipmentId, iniPrice, totalTimeInhours, "post", townId);
 	}
 	
 	public boolean requestBuildings(Long buildingId) {

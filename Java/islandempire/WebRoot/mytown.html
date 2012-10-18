@@ -1321,7 +1321,7 @@
 				
 				var messages = json.messages;
 				if (messages != null) {
-					$.each(messages, function(idx, message) {						
+					$.each(messages, function(idx, message) {											
 						var created_at = "";
 						if (message.message_type != 5) {
 							username = message.to;
@@ -1369,7 +1369,7 @@
 							if (message.from == "Battle System")
 								mailId = message.body;
 								
-							tmp += "<td width=\"70%\" height=\"30\" style=\"padding-left:5;padding-right:5\"><a href=\"#\" onclick=\"bodyShow('" + message.id + "', " + mailId + ");return false;\" class=\"AdminToolsLink1\">" + message.subject + "</a></td>";
+							tmp += "<td width=\"70%\" height=\"30\" style=\"padding-left:5;padding-right:5\"><a href=\"#\" onclick=\"bodyShow('" + message.id + "', " + mailId + ");return false;\" class=\"AdminToolsLink1\">" + message.subject + "</a></td>";							
 						} else
 							tmp += "<td width=\"70%\" height=\"30\" style=\"padding-left:5;padding-right:5\"><a href=\"#\" onclick=\"bodyShow('s" + sys + "', 0);return false;\" class=\"AdminToolsLink1\">" + message.subject + "</a></td>";						
 							
@@ -1382,11 +1382,12 @@
 				        	content = message.body;
 				        	content = content.replace(/\n/g, "<br/>");			        	
 				        }
-							
+				        	
 						tmp += "<td rowspan=\"2\" align=\"center\">";
 						tmp += "<table width=\"180\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
 						tmp += "<tr>";
-						tmp += "<td align=\"center\" height=\"25\"><a href=\"#\" onclick=\"setMessage('" + message.from + "','" + message.to + "','" + message.subject + "','" + body + "');return false;\" class=\"AdminToolsLink1\">" + message.from + "</a> -> " + message.to + "</td>";
+												
+						tmp += "<td align=\"center\" height=\"25\"><a href=\"#\" onclick=\"setMessage('" + message.from + "','" + message.to + "',&quot;" + message.subject + "&quot;,&quot;" + body + "&quot;);return false;\" class=\"AdminToolsLink1\">" + message.from + "</a> -> " + message.to + "</td>";
 						tmp += "</tr>";
 				        tmp += "<tr>";
 				        tmp += "<td align=\"center\" height=\"25\">" + created_at + "</td>";
@@ -1402,31 +1403,37 @@
 				        	tmp += "<tr id=\"" + bodyId + "\" style=\"display:none\">";
 				        else
 				        	tmp += "<tr id=\"" + bodyId + "\">";				        				        		
-				        		        	
-				        tmp += "<td id=\"" + contentId + "\" height=\"25\" style=\"padding-left:5;padding-right:5;padding-top:5;padding-bottom:5;\" colspan=\"2\">" + content + "</td>";
+				        
+				        if (message.message_type != 5 && message.from == "Battle System") {
+				        	var divBattle = "battle_" + message.id;
+				        	if ($("body").find("#" + divBattle).length == 0)
+								tmp += "<td id=\"" + contentId + "\" height=\"25\" style=\"padding-left:5;padding-right:5;padding-top:5;padding-bottom:5;\" colspan=\"2\">" + content + "</td>";		
+							else {																	
+								content = $("#" + divBattle).html();											
+								tmp += "<td id=\"" + contentId + "\" height=\"25\" style=\"padding-left:5;padding-right:5;padding-top:5;padding-bottom:5;\" colspan=\"2\">" + content + "</td>";
+							}				        					        
+				        } else
+				        	tmp += "<td id=\"" + contentId + "\" height=\"25\" style=\"padding-left:5;padding-right:5;padding-top:5;padding-bottom:5;\" colspan=\"2\">" + content + "</td>";
+				        
 				        tmp += "</tr>";
 				        tmp += "</table>";
 				        tmp += "<br />";	
 					});
 				}
 				
-				var html = "";				
-				html += tmp;
-				
-				var div = "messages";				
-			    $("#" + div).html(html);				
+				var html = tmp;									
+			    $("#messages").html(html);				
 			}
 			
 			function bodyShow(id, mailId) {
 				var body = "#body_" + id;
 				var content = "#content_" + id;				
 				if (mailId > 0) {
-					var divBattle = "battle_" + mailId;
+					var divBattle = "battle_" + id;
 					if ($("body").find("#" + divBattle).length == 0) {
-						requestMyBattle(id, mailId, setBattle);						
-					}
-					else {												
-						var html = $(divBattle).html();
+						requestMyBattle(id, setBattle);				
+					} else {												
+						var html = $("#" + divBattle).html();
 						$(content).html(html);
 					}
 				}				
@@ -1449,26 +1456,39 @@
 				}				
 			}
 			
-			function setBattle(id, mailId, json) {							
+			function setBattle(id, json) {							
 				var html = "";
 				var battleInfo = json.battle_info;
-				if (battleInfo != null) {
-					var result = battleInfo.result;
-					if (result != null) {
-						html += "<table width=\"80%\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
-						html += "<tr><td width=\"33%\">" + result.naval + "</td><td width=\"33%\">" + result.land + "</td><td width=\"33%\">" + result.total + "</td></tr>";
-						html += "</table><br/>";
+				if (battleInfo != null) {		
+					var name = "&nbsp;";
+					var attacker = battleInfo.attacker;
+					if (attacker != null) {
+						var town = attacker.town;
+						if (town != null)
+							name = town.name;					
 					}
 					
-					var gotOrLose = json.got_or_lose;
+					var result = battleInfo.result;
+					html += "<table width=\"60%\" align=\"left\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+					html += "<tr><td align=\"left\" valign=\"top\">";
+					if (result != null) {
+						html += "<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+						html += "<tr height=\"25\"><td width=\"25%\">" + name + "</td><td width=\"25%\">" + result.naval + "</td><td width=\"25%\">" + result.land + "</td><td width=\"25%\">" + result.total + "</td></tr>";
+						html += "</table>";
+					}
+					
+					html += "</td></tr>";
+					html += "<tr><td align=\"left\">";
+					
+					var gotOrLose = battleInfo.got_or_lose;
 					if (gotOrLose != null) {
 						var resources = gotOrLose.resource;
-						html += "<table width=\"80%\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
-						html += "<tr><td width=\"50%\" valign=\"top\">";
+						html += "<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+						html += "<tr><td width=\"50%\" align=\"left\" valign=\"top\">";
 						if (resources != null) {
-							html += "<table width=\"90%\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+							html += "<table width=\"90%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
 							$.each(resources, function(idx, resource) {
-								html += "<tr><td>" + resource.name + "</td><td>" + resource.num + "</td></tr>";
+								html += "<tr height=\"25\"><td>" + resource.name + "</td><td>" + resource.num + "</td></tr>";
 							});
 							
 							html += "</table>";
@@ -1476,12 +1496,12 @@
 							html += "&nbsp;";
 							
 						html += "</td>";
-						html += "<td width=\"50%\" valign=\"top\">";
+						html += "<td width=\"50%\" align=\"left\" valign=\"top\">";
 						var heros = gotOrLose.hero;
 						if (heros != null) {
-							html += "<table width=\"90%\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+							html += "<table width=\"90%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
 							$.each(heros, function(idx, hero) {
-								html += "<tr><td>" + hero.name + "</td><td>" + hero.num + "</td></tr>";
+								html += "<tr height=\"25\"><td>" + hero.name + "</td><td>" + hero.num + "</td></tr>";
 							});
 							
 							html += "</table>";
@@ -1490,10 +1510,13 @@
 							
 						html += "</td></tr>";
 						html += "</table>";
-					}					
+					}
+					
+					html += "</td></tr>";
+					html += "</table>";					
 				}
 				
-				var divBattle = "battle_" + mailId;
+				var divBattle = "battle_" + id;
 				if ($("body").find("#" + divBattle).length == 0)
 					$("body").append("<div id=\"" + divBattle + "\" style=\"display:none\">" + html + "</div>");			
 				else
@@ -1563,8 +1586,16 @@
 			}
 			
 			function setMyEquipment(townId, json) {
-				setHero(json);				
-				if (townId == 108094) {					
+				setHero(json);
+				var index = 0;				
+				for (var i = 0;i < MyTowns.length;i++) {
+					if (MyTowns[i] == townId) {
+						index = i;
+						break;
+					}				
+				}
+												
+				if (index == MyTowns.length - 1) {					
 					var html = setEquipment(json);
 					$("#equipment").html(html);
 				}				

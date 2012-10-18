@@ -7,6 +7,7 @@ import com.towns.Resources;
 public class RequestEquipment extends RequestParent {
 	private final String Info = "/towns/%d.json?do=hero_and_equipment_info";
 	private final String Equipments = "/equipments/%d.json";
+	private final String Actions = "/auctions.json";
 	private final StringBuilder m_URL = new StringBuilder();
 	private final StringBuilder m_Body = new StringBuilder();
 	
@@ -86,6 +87,30 @@ public class RequestEquipment extends RequestParent {
 		m_Body.append("&town_id=");
 		m_Body.append(townId);
 		
+		String response = requestUrl(m_URL.toString(), clientv, cookie, m_Body.toString());
+		if (response == null)
+			return false;
+		else
+			return true;
+	}
+	
+	public boolean request(String host, String clientv, String cookie, Long equipmentId, Long iniPrice, Long totalTimeInhours, String method, Long townId) {
+		m_URL.setLength(0);
+		m_URL.append(host);
+		m_URL.append(Actions);
+		
+		m_Body.setLength(0);
+		m_Body.append("equipment_id=");
+		m_Body.append(equipmentId);
+		m_Body.append("&ini_price=");
+		m_Body.append(iniPrice);
+		m_Body.append("&total_time_inhours=");
+		m_Body.append(totalTimeInhours);
+		m_Body.append("&_method=");
+		m_Body.append(method);
+		m_Body.append("&town_id=");
+		m_Body.append(townId);
+
 		String response = requestUrl(m_URL.toString(), clientv, cookie, m_Body.toString());
 		if (response == null)
 			return false;

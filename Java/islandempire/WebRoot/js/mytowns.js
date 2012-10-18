@@ -58,11 +58,11 @@ function requestPostMyMessage(to, from, subject, body) {
     });
 }
 
-function requestMyBattle(id, mailId, callback) {
-	var url = WebMyTowns + "?command=5&mail_id=" + mailId; 
+function requestMyBattle(id, callback) {
+	var url = WebMyTowns + "?command=5&mail_id=" + id; 
 	Ajax_CallBack(url, "", "json", "", true, function(json) {
 		if (json != null)
-			callback(id, mailId, json);		
+			callback(id, json);		
 	}, function(response, error, status) {
         return null;
     });
