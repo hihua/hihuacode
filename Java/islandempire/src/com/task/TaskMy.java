@@ -1441,8 +1441,7 @@ public class TaskMy extends TaskBase {
 		Long userId = config.getUserId();
 		Long townId = town.getId();
 		Boolean autoAttack = configTown.getAutoAttack();
-		HashMap<String, Double> sells = configTown.getSells();
-		
+				
 		if (!autoAttack)
 			return;
 		
@@ -1451,76 +1450,7 @@ public class TaskMy extends TaskBase {
 		
 		Long islandNumber = town.getIslandNumber();
 		int total = 0;
-		Resources resourcesWood = town.getResourcesWood();
-		Resources resourcesFood = town.getResourcesFood();
-		Resources resourcesIron = town.getResourcesIron();
-		Resources resourcesMarble = town.getResourcesMarble();
-		Resources resourcesGold = town.getResourcesGold();
-				
-		if (resourcesWood != null && resourcesWood.getResourceName() != null && resourcesWood.getResourceCount() != null && resourcesWood.getMaxVolume() != null) {
-			String resourceName = resourcesWood.getResourceName();
-			Long resourceCount = resourcesWood.getResourceCount();
-			Long resourceMaxVolume = resourcesWood.getMaxVolume();
-			
-			if (sells.containsKey(resourceName)) {
-				Double rate = sells.get(resourceName);
-				if ((double)resourceCount / (double)resourceMaxVolume >= rate)
-					total++;				
-			}			
-		}	
-		
-		if (resourcesFood != null && resourcesFood.getResourceName() != null && resourcesFood.getResourceCount() != null && resourcesFood.getMaxVolume() != null) {
-			String resourceName = resourcesFood.getResourceName();
-			Long resourceCount = resourcesFood.getResourceCount();
-			Long resourceMaxVolume = resourcesFood.getMaxVolume();
-			
-			if (sells.containsKey(resourceName)) {
-				Double rate = sells.get(resourceName);
-				if ((double)resourceCount / (double)resourceMaxVolume >= rate)
-					total++;				
-			}			
-		}
-		
-		if (resourcesIron != null && resourcesIron.getResourceName() != null && resourcesIron.getResourceCount() != null && resourcesIron.getMaxVolume() != null) {
-			String resourceName = resourcesIron.getResourceName();
-			Long resourceCount = resourcesIron.getResourceCount();
-			Long resourceMaxVolume = resourcesIron.getMaxVolume();
-			
-			if (sells.containsKey(resourceName)) {
-				Double rate = sells.get(resourceName);
-				if ((double)resourceCount / (double)resourceMaxVolume >= rate)
-					total++;				
-			}			
-		}
-		
-		if (resourcesMarble != null && resourcesMarble.getResourceName() != null && resourcesMarble.getResourceCount() != null && resourcesMarble.getMaxVolume() != null) {
-			String resourceName = resourcesMarble.getResourceName();
-			Long resourceCount = resourcesMarble.getResourceCount();
-			Long resourceMaxVolume = resourcesMarble.getMaxVolume();
-			
-			if (sells.containsKey(resourceName)) {
-				Double rate = sells.get(resourceName);
-				if ((double)resourceCount / (double)resourceMaxVolume >= rate)
-					total++;				
-			}			
-		}
-		
-		if (resourcesGold != null && resourcesGold.getResourceName() != null && resourcesGold.getResourceCount() != null && resourcesGold.getMaxVolume() != null) {
-			String resourceName = resourcesGold.getResourceName();
-			Long resourceCount = resourcesGold.getResourceCount();
-			Long resourceMaxVolume = resourcesGold.getMaxVolume();
-			
-			if (sells.containsKey(resourceName)) {
-				Double rate = sells.get(resourceName);
-				if ((double)resourceCount / (double)resourceMaxVolume >= rate)
-					total++;				
-			}			
-		}
-		
-		if (total == 5)
-			return;
-		
-		total = 0;
+						
 		List<BattleQueue> battleQueues = town.getBattleQueues();
 		if (battleQueues != null)
 			total = battleQueues.size();
@@ -1628,7 +1558,7 @@ public class TaskMy extends TaskBase {
 	}
 	
 	private void sells(Town town, Config config, ConfigTown configTown) {
-		if (configTown.getSells() == null)
+		if (!configTown.getSell() || configTown.getSells() == null)
 			return;
 		
 		BuildingMarket buildingMarket = town.getBuildingMarket();
@@ -1683,6 +1613,10 @@ public class TaskMy extends TaskBase {
 		if (town.getId() == null)
 			return;
 		
+		HashMap<String, Double> buys = configTown.getBuys();
+		if (!configTown.getBuy() || buys == null)
+			return;	
+		
 		Resources resourcesGold = town.getResourcesGold();
 		if (resourcesGold == null || resourcesGold.getResourceCount() == null || resourcesGold.getMaxVolume() == null)
 			return;
@@ -1691,7 +1625,7 @@ public class TaskMy extends TaskBase {
 		Long goldMaxVolume = resourcesGold.getMaxVolume();
 		
 		HashMap<String, Double> sells = configTown.getSells();
-		if (sells == null)
+		if (!configTown.getSell() || sells == null)
 			return;
 		
 		if (!sells.containsKey("gold"))
@@ -1699,11 +1633,7 @@ public class TaskMy extends TaskBase {
 		
 		double goldRate = sells.get("gold");
 		if (goldRate <= 0D)
-			return;
-		
-		HashMap<String, Double> buys = configTown.getBuys();
-		if (buys == null)
-			return;					
+			return;							
 		
 		Resources minResources = null;
 						
@@ -1907,7 +1837,7 @@ public class TaskMy extends TaskBase {
 				continue;
 			
 			HashMap<String, Double> sells = configTown.getSells();
-			if (sells == null)
+			if (!configTown.getSell() || sells == null)
 				continue;
 			
 			String resourceName = maxResources.getResourceName();
@@ -2044,6 +1974,9 @@ public class TaskMy extends TaskBase {
 		if (towns == null)
 			return;
 				
+		if (!configTown.getSell())
+			return;
+		
 		List<Resources> maxResources = getMaxResources(town, configTown.getSells());
 		if (maxResources == null)
 			return;
@@ -2108,7 +2041,10 @@ public class TaskMy extends TaskBase {
 		String clientv = config.getClientv();
 		String cookie = config.getCookie();
 		Long userId = config.getUserId();
-						
+		
+		if (config.getEquipmentMax() == null)
+			return;
+								
 		String response = m_RequestEquipment.request(host, clientv, cookie, townId);
 		if (response == null)
 			return;
@@ -2116,10 +2052,7 @@ public class TaskMy extends TaskBase {
 		List<Equipment> equipments = Equipment.parse(response);
 		if (equipments == null)
 			return;
-		
-		if (config.getEquipmentMax() == null)
-			return;
-		
+				
 		List<Long> equipmentTowns = config.getEquipmentTowns();
 		if (equipmentTowns == null || equipmentTowns.size() == 0)
 			return;
@@ -2173,6 +2106,9 @@ public class TaskMy extends TaskBase {
 			
 			Long enhanceLevel = equipment.getEnhanceLevel();
 			if (enhanceLevel >= 15)
+				continue;
+			
+			if (level > 36 && enhanceLevel > 4)
 				continue;
 									
 			if (type > -1 && type < 8)

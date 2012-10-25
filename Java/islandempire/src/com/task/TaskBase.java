@@ -19,8 +19,12 @@ public abstract class TaskBase extends Thread {
 	public void run() {
 		while (!getCancel()) {
 			if (onCheck()) {
-				onEntry();
-			
+				try {
+					onEntry();
+				} catch (Exception e) {
+					Log.writeLogs(e.toString());
+				}
+							
 				try {
 					sleep(m_Delay);
 				} catch (InterruptedException e) {

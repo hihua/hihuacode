@@ -11,7 +11,9 @@ public class ConfigTown {
 	private Long attackLevelMin = 0L;
 	private Long attackLevelMax = 0L;
 	private Boolean autoRecruit = false;
+	private boolean sell = false;
 	private HashMap<String, Double> sells = null;
+	private boolean buy = false;
 	private HashMap<String, Double> buys = null;
 
 	public Long getTownId() {
@@ -42,8 +44,16 @@ public class ConfigTown {
 		return autoRecruit;
 	}
 
+	public boolean getSell() {
+		return sell;
+	}
+
 	public HashMap<String, Double> getSells() {
 		return sells;
+	}
+
+	public boolean getBuy() {
+		return buy;
 	}
 
 	public HashMap<String, Double> getBuys() {
@@ -78,8 +88,16 @@ public class ConfigTown {
 		this.autoRecruit = autoRecruit;
 	}
 
+	public void setSell(boolean sell) {
+		this.sell = sell;
+	}
+
 	public void setSells(HashMap<String, Double> sells) {
 		this.sells = sells;
+	}
+
+	public void setBuy(boolean buy) {
+		this.buy = buy;
 	}
 
 	public void setBuys(HashMap<String, Double> buys) {

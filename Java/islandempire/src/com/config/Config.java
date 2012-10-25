@@ -298,61 +298,53 @@ public class Config {
 					element = elementParent.element("sells");
 					if (element != null && element.getText() != null) {
 						tmp = element.getText();
-						if (tmp.equals("true")) {
-							Iterator<Attribute> attributes = element.attributeIterator();
-							if (attributes != null) {
-								HashMap<String, Double> sells = new HashMap<String, Double>();
-								while (attributes.hasNext()) {
-									attribute = attributes.next();
-									String name = attribute.getName();
-									String value = attribute.getText();
-									if (!Numeric.isNumber(value))
-										continue;
-									
-									Double rate = Double.parseDouble(value) / 100D;
-									sells.put(name, rate);
-								}
+						Iterator<Attribute> attributes = element.attributeIterator();
+						if (attributes != null) {
+							HashMap<String, Double> sells = new HashMap<String, Double>();
+							while (attributes.hasNext()) {
+								attribute = attributes.next();
+								String name = attribute.getName();
+								String value = attribute.getText();
+								if (!Numeric.isNumber(value))
+									continue;
 								
-								if (sells.size() > 0)
-									configTown.setSells(sells);
-								else
-									configTown.setSells(null);
-							} else
-								configTown.setSells(null);
-						} else 
-							configTown.setSells(null);
-					} else 
-						configTown.setSells(null);
+								Double rate = Double.parseDouble(value) / 100D;
+								sells.put(name, rate);
+							}
+							
+							if (sells.size() > 0)								
+								configTown.setSells(sells);
+							
+							if (tmp.equals("true"))
+								configTown.setSell(true);														
+						}
+					}
 					
 					element = elementParent.element("buys");
 					if (element != null && element.getText() != null) {
 						tmp = element.getText();
-						if (tmp.equals("true")) {
-							Iterator<Attribute> attributes = element.attributeIterator();
-							if (attributes != null) {
-								HashMap<String, Double> buys = new HashMap<String, Double>();
-								while (attributes.hasNext()) {
-									attribute = attributes.next();
-									String name = attribute.getName();
-									String value = attribute.getText();
-									if (!Numeric.isNumber(value))
-										continue;
-									
-									Double rate = Double.parseDouble(value) / 100D;
-									buys.put(name, rate);
-								}
+						Iterator<Attribute> attributes = element.attributeIterator();
+						if (attributes != null) {
+							HashMap<String, Double> buys = new HashMap<String, Double>();
+							while (attributes.hasNext()) {
+								attribute = attributes.next();
+								String name = attribute.getName();
+								String value = attribute.getText();
+								if (!Numeric.isNumber(value))
+									continue;
 								
-								if (buys.size() > 0)
-									configTown.setBuys(buys);
-								else
-									configTown.setBuys(null);
-							} else
-								configTown.setBuys(null);
-						} else 
-							configTown.setBuys(null);
-					} else 
-						configTown.setBuys(null);
-						
+								Double rate = Double.parseDouble(value) / 100D;
+								buys.put(name, rate);
+							}
+							
+							if (buys.size() > 0)
+								configTown.setBuys(buys);
+
+							if (tmp.equals("true"))
+								configTown.setBuy(true);								
+						}						
+					}
+					
 					configTowns.add(configTown);
 				} catch (NumberFormatException e) {
 					
@@ -439,10 +431,10 @@ public class Config {
 		xml.append(config.getAutoTowns() != null ? config.getAutoTowns() : "");
 		xml.append("</autotowns>\r\n");
 		
-		xml.append("\t<equipment>");
+		xml.append("\t<equipment>\r\n");
 		xml.append("\t\t<max>");
 		xml.append(config.getEquipmentMax() != null ? config.getEquipmentMax() : "");
-		xml.append("</max>");
+		xml.append("</max>\r\n");
 		xml.append("\t\t<towns>");
 		if (config.getEquipmentTowns() != null) {
 			StringBuilder sb = new StringBuilder();
@@ -458,7 +450,7 @@ public class Config {
 			xml.append(sb.toString());
 		}
 		
-		xml.append("</towns>");
+		xml.append("</towns>\r\n");
 		xml.append("\t</equipment>\r\n");
 		
 		List<ConfigTown> configTowns = config.getConfigTowns();
@@ -584,8 +576,8 @@ public class Config {
 					xml.append("\"");
 				}
 				
-				xml.append(">");
-				xml.append(sells != null ? "true" : "false");
+				xml.append(">");				
+				xml.append(configTown.getSell() ? "true" : "false");
 				xml.append("</sells>\r\n");
 				
 				xml.append("\t\t<buys");
@@ -655,7 +647,7 @@ public class Config {
 				}
 				
 				xml.append(">");
-				xml.append(buys != null ? "true" : "false");
+				xml.append(configTown.getBuy() ? "true" : "false");
 				xml.append("</buys>\r\n");				
 				xml.append("\t</towns>\r\n");
 			}
