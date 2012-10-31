@@ -107,6 +107,37 @@ public class WebEquipment extends WebBase {
 			break;
 			
 			case 2: {
+				String townId = request.getParameter("town_id");
+				if (!Numeric.isNumber(townId)) {
+					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);					
+					return;
+				}
+				
+				String safe = request.getParameter("safe");
+				if (!Numeric.isNumber(safe)) {
+					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);					
+					return;
+				}
+				
+				Hashtable<String, Long> table = new Hashtable<String, Long>();
+				
+				if (task.upgradeEquipment(Long.parseLong(equipmentId), Long.parseLong(townId), Long.parseLong(safe)))
+					table.put("ret", 0L);
+				else
+					table.put("ret", 1L);
+				
+				try {
+					JSONObject json = JSONObject.fromObject(table);
+					String s = json.toString();
+					out.print(s);					
+				} catch (Exception e) {
+					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);					
+					return;
+				}
+			}
+			break;
+			
+			case 3: {
 				String iniPrice = request.getParameter("ini_price");
 				if (!Numeric.isNumber(iniPrice)) {
 					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);					

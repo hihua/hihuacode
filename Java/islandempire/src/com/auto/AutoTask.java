@@ -28,6 +28,7 @@ import com.request.RequestWorldMaps;
 import com.task.TaskBase;
 import com.task.TaskMy;
 import com.towns.OtherTown;
+import com.towns.Resources;
 import com.towns.Town;
 import com.util.FileManager;
 import com.util.Logs;
@@ -274,6 +275,20 @@ public class AutoTask extends Thread implements CallBackTask {
 		
 		RequestEquipment requestEquipment = new RequestEquipment();
 		return requestEquipment.request(host, clientv, cookie, equipmentId, "sold_to_npc", "delete", townId);
+	}
+	
+	public boolean upgradeEquipment(Long equipmentId, Long townId, Long safe) {
+		String host = m_Config.getHost();
+		String clientv = m_Config.getClientv();
+		String cookie = m_Config.getCookie();
+		Long userId = m_Config.getUserId();
+		
+		RequestEquipment requestEquipment = new RequestEquipment();
+		List<Resources> resources = requestEquipment.request(host, clientv, cookie, equipmentId, safe, "enhance", 0L, userId, "put", townId);
+		if (resources != null)
+			return true;
+		else
+			return false;
 	}
 	
 	public boolean actionsEquipment(Long equipmentId, Long iniPrice, Long totalTimeInhours, Long townId) {

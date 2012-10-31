@@ -34,6 +34,23 @@ function requestSellEquipment(equipmentId, townId) {
     });
 }
 
+function requestUpgradeEquipment(equipmentId, townId, safe) {
+	var url = WebEquipment + "?command=2&equipment_id=" + equipmentId + "&town_id=" + townId + "&safe=" + safe; 
+	Ajax_CallBack(url, "", "json", "", true, function(json) {
+		if (json == null)
+			alert("升级失败");
+		else {
+			var ret = json.ret;
+			if (ret != null && ret == 0)
+				alert("升级成功");
+			else
+				alert("升级失败");
+		}		
+	}, function(response, error, status) {
+		alert("升级失败");
+    });
+}
+
 function sortEquipment(key1, key2) {
 	return function (a, b) {
 		var v1 = a[key1];
@@ -79,13 +96,32 @@ function setEquipment(json) {
 			
 			arrays.sort(sortEquipment("type", "enhance_level"));		
 		
-			$.each(arrays, function(idx, equipment) {								
+			$.each(arrays, function(idx, equipment) {
+				var rate = "";
+				var needResources = "Need Resources: ";
+				var safeResources = "Safe Resources: ";
+				if (equipment.enhance != null && equipment.enhance.rate != null)
+					rate = equipment.enhance.rate + "%";
+				
+				if (equipment.enhance != null && equipment.enhance.need_resources != null && equipment.enhance.need_resources.all != null)
+					needResources += equipment.enhance.need_resources.all;
+				
+				if (equipment.enhance != null && equipment.enhance.free_safe_resources != null && equipment.enhance.free_safe_resources.all != null)
+					safeResources += equipment.enhance.free_safe_resources.all;
+				
+				var title = rate + "\r\n" + needResources + "\r\n" + safeResources;
+				
 				html += "<tr>";
-				html += "<td height=\"30\" width=\"13%\" align=\"center\">" + equipment.equipment_id + "</td>";
-				html += "<td height=\"30\" width=\"30%\" align=\"center\" title=\"" + equipment.npc_price + "\">" + equipment.equipment_name + "</td>";
-				html += "<td height=\"30\" width=\"15%\" align=\"center\">" + equipment.level + "," + equipment.need_hero_level + "," + equipment.enhance_level + "</td>";
+				html += "<td height=\"30\" width=\"11%\" align=\"center\">" + equipment.equipment_id + "</td>";
+				html += "<td height=\"30\" width=\"29%\" align=\"center\" title=\"" + equipment.npc_price + "\">" + equipment.equipment_name + "</td>";
+				html += "<td height=\"30\" width=\"14%\" align=\"center\">" + equipment.level + "," + equipment.need_hero_level + "," + equipment.enhance_level + "</td>";
 				html += "<td height=\"30\" width=\"17%\" align=\"center\">" + equipment.attack + "," + equipment.defense + "," + equipment.intelligence + "</td>";
-				html += "<td height=\"30\" width=\"25%\" align=\"center\"><input id=\"equipment_" + equipment.equipment_id + "\" type=\"text\" size=\"2\" />&nbsp;<a href=\"#\" onclick=\"putEquipment(" + equipment.equipment_id + "," + equipment.index + "," + equipment.type + ");return false;\" class=\"AdminToolsLink1\">装备</a>&nbsp;<a href=\"#\" onclick=\"sellEquipment(" + equipment.equipment_id + ");return false;\" class=\"AdminToolsLink1\">卖掉</a></td>";					
+				html += "<td height=\"30\" width=\"29%\" align=\"center\">";
+				html += "<input id=\"equipment_" + equipment.equipment_id + "\" type=\"text\" size=\"2\" />&nbsp;";
+				html += "<a href=\"#\" onclick=\"putEquipment(" + equipment.equipment_id + "," + equipment.index + "," + equipment.type + ");return false;\" class=\"AdminToolsLink1\">装备</a>&nbsp;";
+				html += "<a href=\"#\" onclick=\"sellEquipment(" + equipment.equipment_id + ");return false;\" class=\"AdminToolsLink1\">卖掉</a>&nbsp;";
+				html += "<a href=\"#\" onclick=\"upgradeEquipment(" + equipment.equipment_id + "," + equipment.enhance_level + ");return false;\" class=\"AdminToolsLink1\" title=\"" + title + "\">升级</a>";
+				html += "</td>";					
 				html += "</tr>";
 			});		
 			
@@ -110,4 +146,16 @@ function sellEquipment(equipmentId) {
 		return;
 	
 	requestSellEquipment(equipmentId, townId);
+}
+
+function upgradeEquipment(equipmentId, enhanceLevel) {
+	var townId = $("#equipment_" + equipmentId).val();
+	if (townId == "")
+		return;
+	
+	var safe = 0;
+	if (enhanceLevel > 4)
+		safe = 2;
+	
+	requestUpgradeEquipment(equipmentId, townId, safe);
 }

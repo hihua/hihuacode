@@ -2106,10 +2106,7 @@ public class TaskMy extends TaskBase {
 			
 			Long enhanceLevel = equipment.getEnhanceLevel();
 			if (enhanceLevel >= 15)
-				continue;
-			
-			if (level > 36 && enhanceLevel > 4)
-				continue;
+				continue;						
 									
 			if (type > -1 && type < 8)
 				eqs.add(equipment);		
@@ -2128,7 +2125,7 @@ public class TaskMy extends TaskBase {
 		Long safe = 0L;
 		Enhance enhance = eq.getEnhance();
 		
-		if (eq.getEnhanceLevel() > 5) {						
+		if (eq.getEnhanceLevel() > 4) {						
 			FreeSafeResources freeSafeResources = enhance.getFreeSafeResources();
 			all = freeSafeResources.getAll();
 			safe = 2L;
