@@ -109,11 +109,12 @@ function setEquipment(json) {
 				if (equipment.enhance != null && equipment.enhance.free_safe_resources != null && equipment.enhance.free_safe_resources.all != null)
 					safeResources += equipment.enhance.free_safe_resources.all;
 				
+				var tis = + equipment.type + "\r\n" + equipment.npc_price;
 				var title = rate + "\r\n" + needResources + "\r\n" + safeResources;
-				
+								
 				html += "<tr>";
 				html += "<td height=\"30\" width=\"11%\" align=\"center\">" + equipment.equipment_id + "</td>";
-				html += "<td height=\"30\" width=\"29%\" align=\"center\" title=\"" + equipment.npc_price + "\">" + equipment.equipment_name + "</td>";
+				html += "<td height=\"30\" width=\"29%\" align=\"center\" title=\"" + tis + "\">" + equipment.equipment_name + "</td>";
 				html += "<td height=\"30\" width=\"14%\" align=\"center\">" + equipment.level + "," + equipment.need_hero_level + "," + equipment.enhance_level + "</td>";
 				html += "<td height=\"30\" width=\"17%\" align=\"center\">" + equipment.attack + "," + equipment.defense + "," + equipment.intelligence + "</td>";
 				html += "<td height=\"30\" width=\"29%\" align=\"center\">";
