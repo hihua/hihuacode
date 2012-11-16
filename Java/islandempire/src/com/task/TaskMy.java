@@ -121,7 +121,8 @@ public class TaskMy extends TaskBase {
 		
 		setRewards(m_Config);
 		setBattles(m_Config, configTowns);
-		String ranks = getRanks(m_Config);
+		String ranks = getRanks("top_users", m_Config);
+		String heroes = getRanks("top_heroes", m_Config);
 						
 		for (ConfigTown configTown : configTowns) {
 			Boolean autoUpgrade = configTown.getAutoUpgrade();
@@ -156,6 +157,7 @@ public class TaskMy extends TaskBase {
 		
 		towns.setTownInfos(townInfos);
 		towns.setRanks(ranks);
+		towns.setHeroes(heroes);
 		
 		if (username.length() > 0) {
 			String message = m_RequestMessage.request(host, clientv, cookie, username, 0L);
@@ -235,13 +237,13 @@ public class TaskMy extends TaskBase {
 		m_Rewards = new Date();
 	}
 	
-	private String getRanks(Config config) {
+	private String getRanks(String d, Config config) {
 		String host = config.getHost();
 		Long userId = config.getUserId();
 		String clientv = config.getClientv();
 		String cookie = config.getCookie();
 		
-		return m_RequestRanks.request(host, clientv, cookie, "top_users", userId);
+		return m_RequestRanks.request(host, clientv, cookie, d, userId);
 	}
 	
 	private String getBattles(Config config, Long x, Long y, Long fromTownId) {

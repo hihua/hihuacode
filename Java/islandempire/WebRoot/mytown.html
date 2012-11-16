@@ -78,6 +78,12 @@
 							<td>&nbsp;</td>							
 						</tr>
 						<tr>
+							<td id="heroes"></td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>							
+						</tr>
+						<tr>
 							<td id="equipment"></td>
 						</tr>
 						<tr>
@@ -128,8 +134,13 @@
 			}
 			
 			function getMyRanks() {
-				requestMyRanks(setMyRanks);
+				requestMyRanks(setMyRanks, "top_users");
 				setTimeout("getMyRanks()", 60000);
+			}
+			
+			function getMyHeroes() {
+				requestMyRanks(setMyHeroes, "top_heroes");
+				setTimeout("getMyHeroes()", 60000);
 			}
 			
 			function getMyEquipment() {
@@ -1551,7 +1562,7 @@
 				if (ranks != null) {
 					var flag = false;				
 					var html = "<table width=\"500\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
-					html += "<tr><td align=\"left\">排行榜</td></tr>";					
+					html += "<tr><td align=\"left\">玩家排行榜</td></tr>";					
 					html += "</table>";
 					html += "<table width=\"500\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"1\" class=\"Table1\">";										
 					$.each(ranks, function(idx, rank) {						
@@ -1582,6 +1593,45 @@
 															
 					html += "</table>";					
 					$("#ranks").html(html);					
+				}			
+			}
+			
+			function setMyHeroes(json) {
+				var ranks = json.rank;
+				if (ranks != null) {
+					var flag = false;				
+					var html = "<table width=\"500\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+					html += "<tr><td align=\"left\">英雄排行榜</td></tr>";					
+					html += "</table>";
+					html += "<table width=\"500\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"1\" class=\"Table1\">";										
+					$.each(ranks, function(idx, rank) {						
+						var color = "#000000";						
+						if (rank.username == "hihua") {
+							color = "#FF0000";
+							flag = true;
+						}
+								
+						html += "<tr>";
+						html += "<td height=\"30\" width=\"40\" align=\"center\"><span style=\"color:" + color + "\">" + rank.rank + "</span></td>";
+						html += "<td height=\"30\" width=\"75\" align=\"center\"><span style=\"color:" + color + "\">" + rank.id + "</span></td>";
+						html += "<td height=\"30\" width=\"130\" align=\"center\"><span style=\"color:" + color + "\">" + rank.username + "</td>";						
+						html += "<td height=\"30\" width=\"170\" align=\"center\"><span style=\"color:" + color + "\">" + rank.city_name + "</td>";	
+						html += "<td height=\"30\" width=\"85\" align=\"center\"><span style=\"color:" + color + "\">" + rank.point + "</td>";
+						html += "</tr>";																										
+					});
+					
+					if (!flag) {
+						html += "<tr>";
+						html += "<td height=\"30\" width=\"40\" align=\"center\"><span style=\"color:#FF0000\">" + json.my_rank + "</span></td>";
+						html += "<td height=\"30\" width=\"75\" align=\"center\">&nbsp;</td>";
+						html += "<td height=\"30\" width=\"130\" align=\"center\">&nbsp;</td>";
+						html += "<td height=\"30\" width=\"170\" align=\"center\">&nbsp;</td>";
+						html += "<td height=\"30\" width=\"85\" align=\"center\"><span style=\"color:#FF0000\">" + json.hero_score + "</span></td>";
+						html += "</tr>";					
+					}
+															
+					html += "</table>";					
+					$("#heroes").html(html);					
 				}			
 			}
 			
@@ -1807,6 +1857,7 @@
 			getMyTowns();
 			getMyMessage();
 			getMyRanks();
+			getMyHeroes();
 			//getMyEquipment();
 		</script>
 	</body>

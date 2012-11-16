@@ -111,12 +111,13 @@ function setEquipment(json) {
 				
 				var tis = + equipment.type + "\r\n" + equipment.npc_price;
 				var title = rate + "\r\n" + needResources + "\r\n" + safeResources;
+				var value = equipment.attack + equipment.defense + equipment.intelligence;
 								
 				html += "<tr>";
 				html += "<td height=\"30\" width=\"11%\" align=\"center\">" + equipment.equipment_id + "</td>";
 				html += "<td height=\"30\" width=\"29%\" align=\"center\" title=\"" + tis + "\">" + equipment.equipment_name + "</td>";
 				html += "<td height=\"30\" width=\"14%\" align=\"center\">" + equipment.level + "," + equipment.need_hero_level + "," + equipment.enhance_level + "</td>";
-				html += "<td height=\"30\" width=\"17%\" align=\"center\">" + equipment.attack + "," + equipment.defense + "," + equipment.intelligence + "</td>";
+				html += "<td height=\"30\" width=\"17%\" align=\"center\" title=\"" + value + "\">" + equipment.attack + "," + equipment.defense + "," + equipment.intelligence + "</td>";
 				html += "<td height=\"30\" width=\"29%\" align=\"center\">";
 				html += "<input id=\"equipment_" + equipment.equipment_id + "\" type=\"text\" size=\"2\" />&nbsp;";
 				html += "<a href=\"#\" onclick=\"putEquipment(" + equipment.equipment_id + "," + equipment.index + "," + equipment.type + ");return false;\" class=\"AdminToolsLink1\">装备</a>&nbsp;";

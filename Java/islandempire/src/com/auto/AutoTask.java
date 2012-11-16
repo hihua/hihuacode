@@ -194,11 +194,17 @@ public class AutoTask extends Thread implements CallBackTask {
 		return requestMessage.request(host, clientv, cookie, username, username, page);
 	}
 	
-	public String getMyRanks() {
-		if (m_MyTowns == null)
+	public String getMyRanks(String d) {
+		if (m_MyTowns == null || d == null)
 			return null;
 		
-		return m_MyTowns.getRanks();	
+		if (d.equals("top_heroes"))
+			return m_MyTowns.getHeroes();
+		
+		if (d.equals("top_users"))
+			return m_MyTowns.getRanks();
+		
+		return null;
 	}
 	
 	public String getOtherRanks(String username, Long userId) {

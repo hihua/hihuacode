@@ -20,8 +20,8 @@ function requestMyMessages(callback) {
     });
 }
 
-function requestMyRanks(callback) {
-	var url = WebMyTowns + "?command=2"; 
+function requestMyRanks(callback, d) {
+	var url = WebMyTowns + "?command=2&do=" + d; 
 	Ajax_CallBack(url, "", "json", "", true, function(json) {
 		if (json != null)
 			callback(json);		
