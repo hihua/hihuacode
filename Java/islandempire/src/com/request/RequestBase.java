@@ -13,8 +13,22 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 import java.util.Map.Entry;
 import java.util.zip.GZIPInputStream;
+
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.ParseException;
+import org.apache.http.StatusLine;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.CoreConnectionPNames;
+import org.apache.http.util.EntityUtils;
 
 import com.util.Logs;
 
@@ -95,6 +109,199 @@ public class RequestBase {
 			
 			connection.setRequestProperty(key, value);
 		}
+	}
+	
+	protected String requestClient(String webUrl, HashMap<String, String> header, String body) {
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+		httpclient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, m_ConnectTimeout);
+		httpclient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, m_ReadTimeout);
+		
+		int times = m_Times;
+    	while (times-- > 0) {
+    		if (body == null) {
+    			HttpGet httpGet = new HttpGet(webUrl);    			
+    			if (header != null) {
+    				for (Entry<String, String> entry : header.entrySet()) {
+    					String key = entry.getKey();
+    					String value = entry.getValue();
+    					httpGet.addHeader(key, value);
+    				}
+    			}
+    			    			    			
+    			
+    			HttpResponse response = null;
+    			
+    			try {
+    				response = httpclient.execute(httpGet);    				
+    	        } catch (ClientProtocolException e) {
+    	        	Log.writeLogs(e.toString());	        	
+    			} catch (IOException e) {
+    				Log.writeLogs(e.toString());
+    			}			
+
+    			if (response == null)    				
+    				continue;
+    			    			
+    			int code = 0;			
+    			StatusLine status = response.getStatusLine();
+    			if (status == null) {
+    				httpGet.releaseConnection();
+    				httpclient.getConnectionManager().shutdown();
+    				continue;
+    			}
+    			
+    			code = status.getStatusCode();
+    			if (code != 200)
+    				Log.writeLogs("ResponseCode: " + code);			
+    			
+    			HttpEntity entity = response.getEntity();
+    			if (entity == null) {
+    				httpGet.releaseConnection();
+    				httpclient.getConnectionManager().shutdown();
+    				continue;
+    			}
+    									
+    			String content = null;
+    			
+    			try {
+    				content = EntityUtils.toString(entity);
+    			} catch (ParseException e) {
+    				Log.writeLogs(e.toString());	   
+    			} catch (IOException e) {
+    				Log.writeLogs(e.toString());
+    			}
+    			
+    			if (content == null) {				
+    				httpclient.getConnectionManager().shutdown();
+    				continue;
+    			}
+    			
+    			if (code != 200) {
+    				Log.writeLogs(content);				
+    				continue;
+    			} else
+    				httpGet.releaseConnection();
+    			
+    			Header[] headers = response.getAllHeaders();
+    			if (headers != null) {
+    				m_Headers = new HashMap<String, List<String>>();
+    				for (int i = 0;i < headers.length;i++) {
+    					String name = headers[i].getName();
+    					String value = headers[i].getValue();
+    					
+    					if (m_Headers.containsKey(name)) {
+    						List<String> list = m_Headers.get(name);
+    						list.add(value);
+    					} else {
+    						List<String> list = new Vector<String>();
+    						list.add(value);
+    						m_Headers.put(name, list);
+    					}
+    				}
+    			}
+    			
+    			httpclient.getConnectionManager().shutdown();
+    			return content;
+    		} else {
+    			HttpPost httpPost = new HttpPost(webUrl);
+    			if (header != null) {
+    				for (Entry<String, String> entry : header.entrySet()) {
+    					String key = entry.getKey();
+    					String value = entry.getValue();
+    					httpPost.addHeader(key, value);
+    				}
+    			}
+    			
+    			StringEntity string = null;
+    			
+    			try {
+    				string = new StringEntity(body, m_ReqCharset);
+    				string.setContentType("application/x-www-form-urlencoded");
+    				httpPost.setEntity(string);
+    			} catch (UnsupportedEncodingException e) {
+    				Log.writeLogs(e.toString());
+    				httpPost.releaseConnection();
+    				httpclient.getConnectionManager().shutdown();
+    				continue;
+    			}
+    			
+    			HttpResponse response = null;
+    			
+    			try {
+    				response = httpclient.execute(httpPost);                         
+    	        } catch (ClientProtocolException e) {
+    	        	Log.writeLogs(e.toString());	        	
+    			} catch (IOException e) {
+    				Log.writeLogs(e.toString());
+    			}
+    			
+    			if (response == null)    				
+    				continue;
+    			    			
+    			int code = 0;			
+    			StatusLine status = response.getStatusLine();
+    			if (status == null) {
+    				httpPost.releaseConnection();
+    				httpclient.getConnectionManager().shutdown();
+    				continue;
+    			}
+    			
+    			code = status.getStatusCode();
+    			if (code != 200)
+    				Log.writeLogs("ResponseCode: " + code);			
+    			
+    			HttpEntity entity = response.getEntity();
+    			if (entity == null) {		
+    				httpPost.releaseConnection();
+    				httpclient.getConnectionManager().shutdown();
+    				continue;
+    			}
+    									
+    			String content = null;
+    			
+    			try {
+    				content = EntityUtils.toString(entity);
+    			} catch (ParseException e) {
+    				Log.writeLogs(e.toString());	   
+    			} catch (IOException e) {
+    				Log.writeLogs(e.toString());
+    			}
+    			
+    			if (content == null) {				
+    				httpclient.getConnectionManager().shutdown();
+    				continue;
+    			}
+    			
+    			if (code != 200) {
+    				Log.writeLogs(content);				
+    				continue;
+    			} else
+    				httpPost.releaseConnection();
+    			
+    			Header[] headers = response.getAllHeaders();
+    			if (headers != null) {
+    				m_Headers = new HashMap<String, List<String>>();
+    				for (int i = 0;i < headers.length;i++) {
+    					String name = headers[i].getName();
+    					String value = headers[i].getValue();
+    					
+    					if (m_Headers.containsKey(name)) {
+    						List<String> list = m_Headers.get(name);
+    						list.add(value);
+    					} else {
+    						List<String> list = new Vector<String>();
+    						list.add(value);
+    						m_Headers.put(name, list);
+    					}
+    				}
+    			}
+    			
+    			httpclient.getConnectionManager().shutdown();
+    			return content;
+    		}
+    	}
+    	
+    	return null;
 	}
 	
 	protected String request(String webUrl, HashMap<String, String> header, String body) {

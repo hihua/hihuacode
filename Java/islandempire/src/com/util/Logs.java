@@ -21,7 +21,7 @@ public class Logs {
 				
 	}
 		
-	public synchronized void writeLogs(String content) {
+	public synchronized void writeLogs(String content) {		
 		File dir = new File(m_Path);
 		if (!dir.exists() && !dir.mkdirs())
 			return;
