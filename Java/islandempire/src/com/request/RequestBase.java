@@ -151,8 +151,10 @@ public class RequestBase {
     			}
     			
     			code = status.getStatusCode();
-    			if (code != 200)
-    				Log.writeLogs("ResponseCode: " + code);			
+    			if (code != 200) {
+    				Log.writeLogs("Url: " + webUrl);    				
+    				Log.writeLogs("ResponseCode: " + code);
+    			}
     			
     			HttpEntity entity = response.getEntity();
     			if (entity == null) {
@@ -247,8 +249,11 @@ public class RequestBase {
     			}
     			
     			code = status.getStatusCode();
-    			if (code != 200)
-    				Log.writeLogs("ResponseCode: " + code);			
+    			if (code != 200) {
+    				Log.writeLogs("Url: " + webUrl);
+    				Log.writeLogs("body: " + body);    				
+    				Log.writeLogs("ResponseCode: " + code);
+    			}
     			
     			HttpEntity entity = response.getEntity();
     			if (entity == null) {		
