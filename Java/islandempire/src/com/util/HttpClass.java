@@ -1,32 +1,30 @@
 package com.util;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.zip.GZIPInputStream;
 
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.HttpVersion;
-import org.apache.http.ParseException;
 import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.conn.scheme.PlainSocketFactory;
-import org.apache.http.conn.scheme.Scheme;
-import org.apache.http.conn.scheme.SchemeRegistry;
-import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
-import org.apache.http.util.EntityUtils;
 
 import com.entity.EntityRequest;
 import com.entity.EntityResponse;
@@ -86,15 +84,34 @@ public class HttpClass {
 		if (httpPost != null)
 			httpPost.abort();
 	}
+				
+	private void closeStream(InputStreamReader stream) {
+		if (stream != null) {
+			try {				
+				stream.close();
+			} catch (IOException e) {
+				
+			}
+		}
+	}
+	
+	private void closeReader(BufferedReader reader) {
+		if (reader != null) {
+			try {				
+				reader.close();				
+			} catch (IOException e) {
+				
+			}
+		}
+	}
 			
 	private void closeStream(InputStream stream) {
-		if (stream == null)
-			return;
-		
-		try {
-			stream.close();
-		} catch (IOException e) {
-			logError(e.toString(), null);
+		if (stream != null) {
+			try {
+				stream.close();
+			} catch (IOException e) {
+				logError(e.toString(), null);
+			}
 		}
 	}
 	
@@ -175,16 +192,12 @@ public class HttpClass {
 				String body = null;
 				
 				try {
-					body = EntityUtils.toString(entity);
-				} catch (ParseException e) {
+					body = getBody(entity, req.getCharset());
+				} catch (Exception e) {
 					abort(httpGet, httpPost);
 					logError(e.toString(), req);					
 					continue;
-				} catch (IOException e) {
-					abort(httpGet, httpPost);
-					logError(e.toString(), req);					
-					continue;
-				}			
+				}		
 				
 				if (code != HttpStatus.SC_OK) {
 					abort(httpGet, httpPost);
@@ -198,11 +211,8 @@ public class HttpClass {
 					String body = null;
 					
 					try {
-						body = EntityUtils.toString(entity);
-					} catch (ParseException e) {
-						abort(httpGet, httpPost);
-						logError(e.toString(), req);						
-					} catch (IOException e) {
+						body = getBody(entity, req.getCharset());
+					} catch (Exception e) {
 						abort(httpGet, httpPost);
 						logError(e.toString(), req);						
 					}
@@ -239,4 +249,37 @@ public class HttpClass {
 		
 		return null;
 	}
+	
+	private String getBody(HttpEntity entity, String charset) throws Exception {
+    	InputStream inputStream = getInputStream(entity);		
+		InputStreamReader streamReader = new InputStreamReader(inputStream, charset);				
+		BufferedReader bufferReader = new BufferedReader(streamReader);
+		StringBuilder sb = new StringBuilder();
+		String s = "";
+				
+		while ((s = bufferReader.readLine()) != null) {				
+			sb.append(s);
+			sb.append("\n");
+		}
+		
+		closeStream(inputStream);
+		closeStream(streamReader);
+		closeReader(bufferReader);						    			
+		return sb.toString();		
+    }
+	
+	private InputStream getInputStream(HttpEntity entity) throws Exception {    			
+		Header header = entity.getContentEncoding();
+		InputStream inputStream = entity.getContent();;
+				
+		if (header != null && inputStream != null) {
+			String value = header.getValue();
+			if (value != null && value.equals("gzip")) {				
+				InputStream gzip = new GZIPInputStream(inputStream);
+				return gzip;
+			}
+		}
+		    	
+		return inputStream;
+    }
 }
