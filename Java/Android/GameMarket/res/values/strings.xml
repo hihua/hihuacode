@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GameMarket</string>
+    <string name="welcome_init">正在初始化</string>
+    <string name="request_host">http://api.gfan.com/market/api/</string>
+    <string name="request_ad">homeMasterRecommend</string>
+    <string name="request_column">getAllCategory</string>
+    <string name="request_tag">allGroupTags</string>
+    <string name="request_app_recommend">getHomeRecommend</string>
+    <string name="request_app_hot">getRecommendProducts</string>
+    <string name="request_app_new">tagApps</string>
+    <string name="request_app_tag">tagApps</string>
+    <string name="request_detail">getProductDetail</string>
+    <string name="request_comment">getComments</string>
+    <string name="request_download">getDownloadUrl</string>    
+    <string name="column_myapp">我的应用</string>
+    <string name="tag_more">更多</string>
+    <string name="app_download">下载</string>
+    <string name="app_run">运行</string>
+    <string name="app_downloading">下载中</string>    
+    <string name="app_comment">评论</string>
+    <string name="app_collect">收藏</string>
+    <string name="app_share">分享</string>
+    <string name="comment_submit">提交</string>
+    <string name="comment_reply">回复</string>
+    <string name="game_image">游戏图片</string>
+    <string name="detail_intro">介绍</string>
+    <string name="detail_intro_ext">展开</string>    
+</resources>
