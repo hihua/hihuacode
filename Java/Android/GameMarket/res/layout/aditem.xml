@@ -50,10 +50,11 @@
             android:src="@drawable/ad_desc_triangle" />
     </RelativeLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/aditem_layout_column"
         android:layout_width="fill_parent"
-        android:layout_height="25dp" >
-    </RelativeLayout>
+        android:layout_height="25dp"
+        android:orientation="horizontal" >
+    </LinearLayout>
 
 </LinearLayout>

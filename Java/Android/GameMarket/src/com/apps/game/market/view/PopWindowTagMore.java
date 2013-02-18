@@ -95,9 +95,9 @@ public class PopWindowTagMore implements OnClickListener {
 		}
 		
 		mPop = new PopupWindow(layout, width, LayoutParams.WRAP_CONTENT, true);		
-		layout.setOnTouchListener(new OnTouchListener() {
+		layout.setOnTouchListener(new OnTouchListener() {			
 			@Override
-			public boolean onTouch(View v, MotionEvent event) {				
+			public boolean onTouch(View v, MotionEvent event) {
 				if (mPop != null && mPop.isShowing()) {
 					mPop.dismiss();
 					mPop = null;

@@ -16,6 +16,8 @@ import com.apps.game.market.view.ScrollViewAd;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.Gravity;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
@@ -232,6 +234,151 @@ public abstract class ViewColumn extends ViewBase {
 		return classes;
 	}
 	
+	protected boolean setSubColumn(final ViewGroup parent, int current) {
+		boolean classes = false;
+		boolean single = mEntityColumn.getSingle();
+		List<EntityColumnClass> columnClasses = mEntityColumn.getColumnClass();
+		if (columnClasses != null) {
+			classes = true;			
+			int lastId = 0, position = 0;
+			boolean first = true;
+			LinearLayout selected = null;
+			for (EntityColumnClass columnClass : columnClasses) {
+				String name = columnClass.getName();			
+				RelativeLayout relativeLayout = new RelativeLayout(mContext);
+				LinearLayout.LayoutParams linearParams = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT, 1.0f);
+				if (first) {
+					int marginRight = mContext.getResources().getDimensionPixelSize(R.dimen.subcolumn_right_margins_right);
+					linearParams.rightMargin = marginRight;
+					first = false;
+				} else {
+					int marginLeft = mContext.getResources().getDimensionPixelSize(R.dimen.subcolumn_right_margins_left);
+					linearParams.leftMargin = marginLeft;
+				}
+				
+				relativeLayout.setLayoutParams(linearParams);				
+				TextView textView = new TextView(mContext);				
+				RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+				relativeParams.alignWithParent = true;
+				relativeParams.addRule(RelativeLayout.ALIGN_BOTTOM, RelativeLayout.TRUE);
+				int marginLeft = mContext.getResources().getDimensionPixelSize(R.dimen.subcolumn_left_margins_left);							
+				relativeParams.leftMargin = marginLeft;				
+				lastId = mGlobalData.getViewId();
+				textView.setId(lastId);
+				textView.setLayoutParams(relativeParams);
+				textView.setText(name);
+				textView.setTextColor(Color.WHITE);
+				textView.setGravity(Gravity.BOTTOM);				
+				relativeLayout.addView(textView);
+												
+				Map<String, String> map = columnClass.getUrls();
+				if (map != null) {
+					for (Entry<String, String> entry : map.entrySet()) {
+						String key = entry.getKey();
+						String value = entry.getValue();
+						LinearLayout layout = new LinearLayout(mContext);
+						int width = mContext.getResources().getDimensionPixelSize(R.dimen.subcolumn_tag_width);
+						int height = mContext.getResources().getDimensionPixelSize(R.dimen.subcolumn_tag_height);
+						relativeParams = new RelativeLayout.LayoutParams(width, height);
+						relativeParams.alignWithParent = true;
+						relativeParams.addRule(RelativeLayout.RIGHT_OF, lastId);
+						relativeParams.addRule(RelativeLayout.ALIGN_BOTTOM, RelativeLayout.TRUE);
+						relativeParams.leftMargin = marginLeft;						
+						layout.setLayoutParams(relativeParams);
+						layout.setOrientation(LinearLayout.VERTICAL);
+						layout.setGravity(Gravity.BOTTOM);
+						lastId = mGlobalData.getViewId();
+						layout.setId(lastId);
+												
+						textView = new TextView(mContext);
+						LinearLayout.LayoutParams linearLayout = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+						linearLayout.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
+						textView.setLayoutParams(linearLayout);
+						textView.setText(key);
+						textView.setTextColor(Color.WHITE);
+						textView.setGravity(Gravity.BOTTOM);
+						layout.addView(textView);
+												
+						if (position == current) {						
+							selected = layout;
+							layout.setBackgroundResource(R.drawable.column_selected);
+						} else {
+							relativeLayout.addView(layout);							
+							layout.setBackgroundResource(R.drawable.column_no_select);
+							layout.setClickable(true);
+							layout.setOnClickListener(new SubColumnClick(this, parent, position, value));
+						}
+																		
+						position++;
+					}
+				}
+				
+				if (!single) {
+					LinearLayout layout = new LinearLayout(mContext);
+					int height = mContext.getResources().getDimensionPixelSize(R.dimen.subcolumn_double_height);
+					relativeParams = new RelativeLayout.LayoutParams(LayoutParams.FILL_PARENT, height);
+					relativeParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+					layout.setLayoutParams(relativeParams);
+					layout.setOrientation(LinearLayout.VERTICAL);
+					layout.setBackgroundResource(R.color.double_app_top);
+					relativeLayout.addView(layout);
+				} else {
+					LinearLayout layout = new LinearLayout(mContext);
+					int height = mContext.getResources().getDimensionPixelSize(R.dimen.subcolumn_single_height);
+					relativeParams = new RelativeLayout.LayoutParams(LayoutParams.FILL_PARENT, height);			
+					relativeParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+					layout.setLayoutParams(relativeParams);
+					layout.setOrientation(LinearLayout.VERTICAL);			
+					layout.setBackgroundResource(R.color.single_app_line);
+					parent.addView(layout);
+					relativeLayout.addView(layout);
+				}
+				
+				if (selected != null) {
+					relativeLayout.addView(selected);
+					selected = null;
+				}
+				
+				parent.addView(relativeLayout);
+			}			
+		} else {
+			String desc = mEntityColumn.getDesc();
+			if (desc != null) {
+				classes = true;
+				RelativeLayout relativeLayout = new RelativeLayout(mContext);
+				LinearLayout.LayoutParams linearParams = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
+				relativeLayout.setLayoutParams(linearParams);
+				
+				TextView textView = new TextView(mContext);
+				textView.setId(mGlobalData.getViewId());
+				RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+				relativeParams.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
+				int marginLeft = mContext.getResources().getDimensionPixelSize(R.dimen.subcolumn_desc_margins_left);
+				int marginTop = mContext.getResources().getDimensionPixelSize(R.dimen.subcolumn_desc_margins_top);
+				int marginRight = mContext.getResources().getDimensionPixelSize(R.dimen.subcolumn_desc_margins_right);
+				int marginBottom = mContext.getResources().getDimensionPixelSize(R.dimen.subcolumn_desc_margins_bottom);
+				relativeParams.setMargins(marginLeft, marginTop, marginRight, marginBottom);
+				textView.setLayoutParams(relativeParams);
+				textView.setText(desc);
+				textView.setTextColor(Color.WHITE);
+				textView.setGravity(Gravity.CENTER_VERTICAL);
+				relativeLayout.addView(textView);
+				
+				LinearLayout layout = new LinearLayout(mContext);
+				int height = mContext.getResources().getDimensionPixelSize(R.dimen.subcolumn_single_height);
+				relativeParams = new RelativeLayout.LayoutParams(LayoutParams.FILL_PARENT, height);			
+				relativeParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+				layout.setLayoutParams(relativeParams);
+				layout.setOrientation(LinearLayout.VERTICAL);			
+				layout.setBackgroundResource(R.color.single_app_line);
+				relativeLayout.addView(layout);
+				parent.addView(relativeLayout);
+			}	
+		}
+		
+		return classes;
+	}
+	
 	protected void setAds(ScrollViewAd scrollViewAd, List<EntityAd> ads) {
 		for (EntityAd entityAd : ads) {
 			ImageView imageView = new ImageView(mContext);
@@ -273,7 +420,31 @@ public abstract class ViewColumn extends ViewBase {
 		}
 	}
 	
+	public void onSubColumn(final ViewGroup parent, final int position, final String url) {
+		
+	}
+	
 	protected abstract void onInit();
 	protected abstract void onRefresh();
-	protected abstract void onStop();
+	protected abstract void onStop();	
+}
+
+class SubColumnClick implements OnClickListener {
+	private final ViewColumn mViewColumn;
+	private final ViewGroup mParent;	
+	private final int mPosition;
+	private final String mUrl;
+	
+	SubColumnClick(final ViewColumn viewColumn, final ViewGroup parent, final int position, final String url) {
+		mViewColumn = viewColumn;
+		mParent = parent;		
+		mPosition = position;
+		mUrl = url;
+	}
+
+	@Override
+	public void onClick(View v) {		
+		mParent.removeAllViews();
+		mViewColumn.onSubColumn(mParent, mPosition, mUrl);
+	}	
 }

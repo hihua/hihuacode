@@ -10,13 +10,17 @@ import com.apps.game.market.entity.app.EntityComment;
 import com.apps.game.market.enums.EnumAppStatus;
 import com.apps.game.market.request.RequestComment;
 import com.apps.game.market.request.RequestDetail;
+import com.apps.game.market.request.RequestDownload;
 import com.apps.game.market.request.RequestImage;
 import com.apps.game.market.request.callback.RequestCallBackComment;
 import com.apps.game.market.request.callback.RequestCallBackDetail;
 import com.apps.game.market.util.ImageCache;
 import com.apps.game.market.viewholder.ViewHolderCommentApp;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -107,7 +111,7 @@ public class ActivityDetail extends ActivityBase implements RequestCallBackDetai
 		switch (status) {
 			case NOINSTALL:
 				mAppAction.setOnClickListener(this);
-				mAppStatus.setText(R.string.app_download);
+				mAppStatus.setText(R.string.app_download);				
 				break;
 				
 			case INSTALL:
@@ -127,7 +131,7 @@ public class ActivityDetail extends ActivityBase implements RequestCallBackDetai
 	}
 
 	@Override
-	protected void onAppClick(View v) {
+	protected void onAppClick(final View v) {
 		int id = v.getId();
 		if (id == R.id.detail_app_intro_ext_textview || id == R.id.detail_app_intro_ext_imageview) {
 			LayoutParams layoutParams = mAppDesc.getLayoutParams();
@@ -169,6 +173,41 @@ public class ActivityDetail extends ActivityBase implements RequestCallBackDetai
 			}
 			
 			return;
+		}
+		
+		if (id == R.id.detail_app_action) {
+			EnumAppStatus status = mEntityApp.getStatus();
+			if (status == EnumAppStatus.NOINSTALL) {
+				View view = mInflater.inflate(R.layout.dialog_download, null);
+				TextView textView = (TextView) view.findViewById(R.id.dialog_download_app_name);
+				textView.setText(entityApp.getName());
+				textView = (TextView) view.findViewById(R.id.dialog_download_app_size);
+				long size = entityApp.getSize();
+				double d = (double)size / 1024d / 1024d;
+				textView.setText("文件大小: " + mFormat.format(d) + "M");
+				AlertDialog.Builder builder = new Builder(mContext);			
+				builder.setTitle("是否下载");
+				builder.setView(view);
+				builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();						
+						RequestDownload requestApp = new RequestDownload(entityApp);
+						requestApp.request();
+						notifyDataSetChanged();
+					}
+				});
+
+				builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				});
+
+				builder.create().show();
+				return;
+			}
 		}
 	}
 				

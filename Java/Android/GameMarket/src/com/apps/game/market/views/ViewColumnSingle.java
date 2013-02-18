@@ -84,7 +84,7 @@ public class ViewColumnSingle extends ViewColumn implements RequestCallBackAd, S
 	public void onCallBackAd(boolean success) {
 		LinearLayout layout = (LinearLayout) mInflater.inflate(R.layout.aditem, null);
 		RelativeLayout layoutAd = (RelativeLayout) layout.findViewById(R.id.aditem_layout);		
-		RelativeLayout layoutColumn = (RelativeLayout) layout.findViewById(R.id.aditem_layout_column);
+		LinearLayout layoutColumn = (LinearLayout) layout.findViewById(R.id.aditem_layout_column);
 		
 		if (success && mEntityColumn != null) {
 			long id = mEntityColumn.getId();
@@ -106,7 +106,7 @@ public class ViewColumnSingle extends ViewColumn implements RequestCallBackAd, S
 			} else
 				layout.removeView(layoutAd);
 						
-			boolean classes = setClasses(layoutColumn, 0);
+			boolean classes = setSubColumn(layoutColumn, 0);
 			if (!classes)
 				layout.removeView(layoutColumn);
 			
@@ -154,6 +154,13 @@ public class ViewColumnSingle extends ViewColumn implements RequestCallBackAd, S
 	protected void onStop() {
 		if (mAdapter != null)
 			mAdapter.stop();
+	}
+
+
+
+	@Override
+	public void onSubColumn(final ViewGroup parent, final int position, final String url) {		
+		setSubColumn(parent, 0);
 	}
 }
 
@@ -318,7 +325,8 @@ class SingleAppListAdapter extends BaseAdapter implements OnClickListener, OnScr
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					dialog.dismiss();
-					downloadApp(entityApp);
+					RequestDownload requestApp = new RequestDownload(entityApp);
+					requestApp.request();
 				}
 			});
 
@@ -349,10 +357,5 @@ class SingleAppListAdapter extends BaseAdapter implements OnClickListener, OnScr
 	
 	public void stop() {
 		mTasks.stop();
-	}
-	
-	private void downloadApp(EntityApp entityApp) {
-		RequestDownload requestApp = new RequestDownload(entityApp);
-		requestApp.request();
 	}
 }

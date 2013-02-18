@@ -5,13 +5,13 @@
     <dimen name="column_margins_top">1dp</dimen>
     <dimen name="column_margins_right">2dp</dimen>
     <dimen name="column_margins_bottom">3dp</dimen>
-    <dimen name="subcolumn_left_margins_left">4dp</dimen>
+    <dimen name="subcolumn_left_margins_left">5dp</dimen>
     <dimen name="subcolumn_left_margins_top">0dp</dimen>
     <dimen name="subcolumn_left_margins_right">5dp</dimen>
     <dimen name="subcolumn_left_margins_bottom">0dp</dimen>
-    <dimen name="subcolumn_right_margins_left">5dp</dimen>
+    <dimen name="subcolumn_right_margins_left">0.8dp</dimen>
     <dimen name="subcolumn_right_margins_top">0dp</dimen>
-    <dimen name="subcolumn_right_margins_right">5dp</dimen>
+    <dimen name="subcolumn_right_margins_right">1dp</dimen>
     <dimen name="subcolumn_right_margins_bottom">0dp</dimen>
     <dimen name="subcolumn_double_left_margins_left">0dp</dimen>
     <dimen name="subcolumn_double_left_margins_top">0dp</dimen>

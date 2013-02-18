@@ -25,6 +25,7 @@ import com.apps.game.market.entity.EntityDownload;
 import com.apps.game.market.entity.EntityRequest;
 import com.apps.game.market.entity.EntityResponse;
 import com.apps.game.market.entity.app.EntityApp;
+import com.apps.game.market.enums.EnumAppStatus;
 import com.apps.game.market.util.ApkManager;
 import com.apps.game.market.util.FileManager;
 import com.apps.game.market.util.ImageCache;
@@ -48,6 +49,7 @@ public class RequestDownload extends RequestBase {
 		String name = mEntityApp.getName();
 		String icon = mEntityApp.getIcon(); 
 		long pid = mEntityApp.getPid();
+		mEntityApp.setStatus(EnumAppStatus.DOWNLOADING);
 		ImageCache imageCache = ImageCache.getInstance();
 		Drawable drawable = imageCache.get(icon);
 		if (drawable == null) {

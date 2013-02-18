@@ -24,6 +24,7 @@ import com.apps.game.market.entity.app.EntityColumnClass;
 import com.apps.game.market.request.app.RequestAppHot;
 import com.apps.game.market.request.app.RequestAppNew;
 import com.apps.game.market.request.app.RequestAppRecommend;
+import com.apps.game.market.request.app.RequestAppTag;
 import com.apps.game.market.request.callback.RequestCallBackColumn;
 
 public class RequestColumn extends RequestBase {
@@ -125,11 +126,11 @@ public class RequestColumn extends RequestBase {
 										Map<String, String> urls = new LinkedHashMap<String, String>();
 										
 										if (index == 1) {
-											urls.put("本周", "tagApps?id=189");
-											urls.put("总排名", "tagApps?id=77");
+											urls.put("本周", "189");
+											urls.put("总排名", "159");
 										} else {
-											urls.put("本周", "tagApps?id=374");
-											urls.put("总排名", "tagApps?id=381");
+											urls.put("本周", "374");
+											urls.put("总排名", "381");
 										}
 										
 										entityColumnClass.setUrls(urls);
@@ -140,13 +141,13 @@ public class RequestColumn extends RequestBase {
 										urls = new LinkedHashMap<String, String>();
 										
 										if (index == 1) {
-											urls.put("本周", "tagApps?id=395");
-											urls.put("总排名", "tagApps?id=62");
-											entityColumn.setRequest(new RequestAppHot());
+											urls.put("本周", "395");
+											urls.put("总排名", "62");
+											entityColumn.setRequest(new RequestAppTag(189));
 										} else {
-											urls.put("本周", "tagApps?id=395");
-											urls.put("总排名", "tagApps?id=442");
-											entityColumn.setRequest(new RequestAppNew());
+											urls.put("本周", "58");
+											urls.put("总排名", "442");
+											entityColumn.setRequest(new RequestAppTag(374));
 										}
 										
 										entityColumnClass.setUrls(urls);

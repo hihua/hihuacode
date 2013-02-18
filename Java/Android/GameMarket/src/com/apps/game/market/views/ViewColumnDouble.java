@@ -4,7 +4,10 @@ import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Vector;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -28,7 +31,9 @@ import com.apps.game.market.entity.app.EntityApp;
 import com.apps.game.market.entity.app.EntityColumn;
 import com.apps.game.market.global.GlobalData;
 import com.apps.game.market.request.RequestAd;
+import com.apps.game.market.request.RequestDownload;
 import com.apps.game.market.request.app.RequestApp;
+import com.apps.game.market.request.app.RequestAppTag;
 import com.apps.game.market.request.callback.RequestCallBackAd;
 import com.apps.game.market.request.callback.RequestCallBackApp;
 import com.apps.game.market.task.TaskImage;
@@ -81,7 +86,7 @@ public class ViewColumnDouble extends ViewColumn implements RequestCallBackAd, S
 	public void onCallBackAd(boolean success) {
 		LinearLayout layout = (LinearLayout) mInflater.inflate(R.layout.aditem, null);
 		RelativeLayout layoutAd = (RelativeLayout) layout.findViewById(R.id.aditem_layout);		
-		RelativeLayout layoutColumn = (RelativeLayout) layout.findViewById(R.id.aditem_layout_column);
+		LinearLayout layoutColumn = (LinearLayout) layout.findViewById(R.id.aditem_layout_column);
 		
 		if (success && mEntityColumn != null) {
 			long id = mEntityColumn.getId();
@@ -103,7 +108,7 @@ public class ViewColumnDouble extends ViewColumn implements RequestCallBackAd, S
 			} else
 				layout.removeView(layoutAd);						
 						
-			boolean classes = setClasses(layoutColumn, 0);
+			boolean classes = setSubColumn(layoutColumn, 0);
 			if (!classes)
 				layout.removeView(layoutColumn);
 				
@@ -151,6 +156,20 @@ public class ViewColumnDouble extends ViewColumn implements RequestCallBackAd, S
 	protected void onStop() {
 		if (mAdapter != null)
 			mAdapter.stop();
+	}
+
+	@Override
+	public void onSubColumn(final ViewGroup parent, final int position, final String url) {
+		if (mAdapter != null) {
+			mAdapter.stop();
+			mAdapter = null;
+		}
+		
+		long tagId = Long.parseLong(url);
+		RequestApp requestApp = new RequestAppTag(tagId);
+		mAdapter = new DoubleAppListAdapter(mContext, mListView, requestApp);
+		mListView.setAdapter(mAdapter);		
+		setSubColumn(parent, position);
 	}
 }
 
@@ -269,21 +288,28 @@ class DoubleAppListAdapter extends BaseAdapter implements OnClickListener, OnScr
 		holder.getDcount1().setText(String.valueOf(dcount));
 		holder.getPcount1().setText(String.valueOf(pcount));
 		holder.getRating1().setRating(entityApp1.getRating());
+		TextView action = holder.getAction1();
+		action.setTag(entityApp1);
 						
 		switch (entityApp1.getStatus()) {
 			case NOINSTALL:
-				holder.getAction1().setText(R.string.app_download);
+				action.setText(R.string.app_download);
+				action.setClickable(true);
+				action.setOnClickListener(this);				
 				break;
 			
 			case INSTALL:
-				holder.getAction1().setText(R.string.app_run);
+				action.setText(R.string.app_run);
+				action.setClickable(true);
+				action.setOnClickListener(this);
 				break;
 				
 			case DOWNLOADING:
-				holder.getAction1().setText(R.string.app_downloading);
+				action.setText(R.string.app_downloading);
+				action.setClickable(false);
 				break;
 		}
-		
+				
 		LinearLayout layout = holder.getLayout1();
 		layout.setTag(entityApp1);
 		layout.setOnClickListener(this);
@@ -317,18 +343,24 @@ class DoubleAppListAdapter extends BaseAdapter implements OnClickListener, OnScr
 			holder.getDcount2().setText(String.valueOf(dcount));
 			holder.getPcount2().setText(String.valueOf(pcount));
 			holder.getRating2().setRating(entityApp2.getRating());
+			action = holder.getAction2();
+			action.setTag(entityApp2);
 			
 			switch (entityApp2.getStatus()) {
 				case NOINSTALL:
-					holder.getAction2().setText(R.string.app_download);
+					action.setText(R.string.app_download);
+					action.setClickable(true);
+					action.setOnClickListener(this);
 					break;
 				
 				case INSTALL:
-					holder.getAction2().setText(R.string.app_run);
+					action.setText(R.string.app_run);
+					action.setClickable(true);
+					action.setOnClickListener(this);
 					break;
 					
 				case DOWNLOADING:
-					holder.getAction2().setText(R.string.app_downloading);
+					action.setText(R.string.app_downloading);
 					break;
 			}
 			
@@ -397,14 +429,48 @@ class DoubleAppListAdapter extends BaseAdapter implements OnClickListener, OnScr
 	@Override
 	public void onClick(View v) {
 		Object obj = v.getTag();
-		if (v instanceof LinearLayout && obj != null) {
-			if (obj instanceof EntityApp) {				
-				final EntityApp entityApp = (EntityApp) v.getTag();
-				GlobalData globalData = GlobalData.globalData;
-				globalData.setSelectApp(entityApp);
-				Intent intent = new Intent(mContext, ActivityDetail.class); 
-				mContext.startActivity(intent);
-			}			
+		if (v instanceof LinearLayout && obj != null && obj instanceof EntityApp) {							
+			final EntityApp entityApp = (EntityApp) obj;
+			GlobalData globalData = GlobalData.globalData;
+			globalData.setSelectApp(entityApp);
+			Intent intent = new Intent(mContext, ActivityDetail.class); 
+			mContext.startActivity(intent);
+			return;
 		}
+		
+		if (v.getId() == R.id.app_action1 || v.getId() == R.id.app_action2) {
+			if (v instanceof TextView && obj != null && obj instanceof EntityApp) {
+				final EntityApp entityApp = (EntityApp) obj;
+				View view = mInflater.inflate(R.layout.dialog_download, null);
+				TextView textView = (TextView) view.findViewById(R.id.dialog_download_app_name);
+				textView.setText(entityApp.getName());
+				textView = (TextView) view.findViewById(R.id.dialog_download_app_size);
+				long size = entityApp.getSize();
+				double d = (double)size / 1024d / 1024d;
+				textView.setText("文件大小: " + mFormat.format(d) + "M");
+				AlertDialog.Builder builder = new Builder(mContext);			
+				builder.setTitle("是否下载");
+				builder.setView(view);
+				builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();						
+						RequestDownload requestApp = new RequestDownload(entityApp);
+						requestApp.request();
+						notifyDataSetChanged();
+					}
+				});
+
+				builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				});
+
+				builder.create().show();
+				return;
+			}
+		}		
 	}
 }
