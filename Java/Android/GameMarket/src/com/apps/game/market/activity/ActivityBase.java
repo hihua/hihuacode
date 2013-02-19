@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Vector;
 
 import com.apps.game.market.R;
+import com.apps.game.market.entity.app.EntityApp;
 import com.apps.game.market.entity.app.EntityColumn;
 import com.apps.game.market.entity.app.EntityTag;
 import com.apps.game.market.global.GlobalData;
@@ -52,6 +53,7 @@ public abstract class ActivityBase extends Activity implements OnClickListener {
 	@Override
 	protected void onResume() {		
 		super.onResume();
+		mGlobalObject.setActivity(this);
 		onAppResume();
 	}
 	
@@ -222,9 +224,10 @@ public abstract class ActivityBase extends Activity implements OnClickListener {
 		Intent intent = new Intent(this, ActivityTag.class); 
         startActivity(intent);
 	}
-
+		
 	protected abstract void onAppCreate();
 	protected abstract void onAppClose();
 	protected abstract void onAppResume();
 	protected abstract void onAppClick(View v);
+	public abstract void onAppStatus(EntityApp entityApp);
 }

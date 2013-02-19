@@ -204,7 +204,7 @@ public class ActivityDetail extends ActivityBase implements RequestCallBackDetai
 						dialog.dismiss();
 					}
 				});
-
+								
 				builder.create().show();
 				return;
 			}

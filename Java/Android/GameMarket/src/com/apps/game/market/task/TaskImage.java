@@ -111,13 +111,16 @@ public class TaskImage implements Runnable, Callback {
 							msg.what = 0;
 							msg.obj = entityImage;				
 							mHandler.sendMessage(msg);
-						}			
+						}
 					}
-				}									
+				}
 				
 				if (mLock || mQuit)
 					break;
 			}
+			
+			if (mQuit)
+				break;
 		}
 	}
 	

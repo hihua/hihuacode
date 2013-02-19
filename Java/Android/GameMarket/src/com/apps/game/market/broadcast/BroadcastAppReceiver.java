@@ -1,12 +1,18 @@
 package com.apps.game.market.broadcast;
 
+import com.apps.game.market.activity.ActivityBase;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 
 public class BroadcastAppReceiver extends BroadcastReceiver {
+	private ActivityBase mActivityBase = null;
+	
+	public void setActivity(ActivityBase activityBase) {
+		mActivityBase = activityBase;
+	}
 
 	@Override
 	public void onReceive(Context context, Intent intent) {

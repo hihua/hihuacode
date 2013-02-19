@@ -2,6 +2,9 @@ package com.apps.game.market.request;
 
 import java.io.InputStream;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Message;
 import android.widget.ImageView;
@@ -47,8 +50,20 @@ public class RequestImage extends RequestBase {
 				msg.what = -1;
 				msg.obj = entityImage;				
 				mHandler.sendMessage(msg);
+				return;
 			}			
 		}
+		
+		Drawable drawable = mContext.getResources().getDrawable(android.R.drawable.ic_menu_gallery);
+		EntityImage entityImage = new EntityImage();
+		entityImage.setUrl(mUrl);
+		entityImage.setImageView(mImageView);
+		entityImage.setDrawable(drawable);
+						
+		Message msg = mHandler.obtainMessage();
+		msg.what = -1;
+		msg.obj = entityImage;				
+		mHandler.sendMessage(msg);
 	}
 
 	@Override

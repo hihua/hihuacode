@@ -22,10 +22,13 @@ import android.widget.RemoteViews;
 
 import com.apps.game.market.R;
 import com.apps.game.market.entity.EntityDownload;
+import com.apps.game.market.entity.EntityImage;
 import com.apps.game.market.entity.EntityRequest;
 import com.apps.game.market.entity.EntityResponse;
 import com.apps.game.market.entity.app.EntityApp;
 import com.apps.game.market.enums.EnumAppStatus;
+import com.apps.game.market.enums.EnumDownloadStatus;
+import com.apps.game.market.request.callback.RequestCallBackDownload;
 import com.apps.game.market.util.ApkManager;
 import com.apps.game.market.util.FileManager;
 import com.apps.game.market.util.ImageCache;
@@ -33,33 +36,57 @@ import com.apps.game.market.util.Numeric;
 
 public class RequestDownload extends RequestBase {
 	private String mBody = "";
+	private boolean mCancel = false;
+	private boolean mBusy = false;
 	private final int mResId = R.string.request_download;
 	private final String mContent = "<request version=\"2\"><uid></uid><p_id>%d</p_id><source_type>0</source_type></request>";	
 	private NotificationManager mNotificationManager;
 	private Notification mNotification;
-	private final int mNotificationId = Numeric.rndNumber(500, 2000);
+	private int mNotificationId = Numeric.rndNumber(500, 2000);
 	private EntityApp mEntityApp;	
 	private EntityDownload mEntityDownload;
+	private RequestCallBackDownload mCallBack;
 	
-	public RequestDownload(EntityApp entityApp) {
+	public RequestDownload(RequestCallBackDownload callBack) {		
+		mCallBack = callBack;
+	}
+	
+	public EntityApp getEntityApp() {
+		return mEntityApp;
+	}
+	
+	public void setEntityApp(EntityApp entityApp) {
 		mEntityApp = entityApp;
 	}
 	
-	public void request() {
-		String name = mEntityApp.getName();
-		String icon = mEntityApp.getIcon(); 
-		long pid = mEntityApp.getPid();
+	public boolean getBusy() {
+		return mBusy;
+	}
+	
+	public void setBusy(boolean busy) {
+		mBusy = busy;
+	}
+	
+	public void request(EntityApp entityApp) {
+		mBusy = true;
+		mEntityApp = entityApp;
 		mEntityApp.setStatus(EnumAppStatus.DOWNLOADING);
+		String icon = mEntityApp.getIcon();		
 		ImageCache imageCache = ImageCache.getInstance();
 		Drawable drawable = imageCache.get(icon);
 		if (drawable == null) {
 			mHandler = new Handler(this);
 			RequestImage requestImage = new RequestImage(icon, null, true);
 			requestImage.setHandler(mHandler);
-			requestImage.request();
-			return;
-		}			
-		
+			requestImage.request();			
+		} else
+			request(drawable);
+	}
+	
+	private void request(Drawable drawable) {
+		String name = mEntityApp.getName();		
+		long pid = mEntityApp.getPid();
+		mNotificationId = Numeric.rndNumber(500, 2000);
 		mNotification = new Notification(android.R.drawable.stat_sys_download, name + " 开始下载", System.currentTimeMillis());		  
 		mNotification.contentView = new RemoteViews(mContext.getPackageName(), R.layout.notify_download);
 		
@@ -75,6 +102,10 @@ public class RequestDownload extends RequestBase {
 		mBody = String.format(mContent, pid);
 		super.request();
 	}
+	
+	public void cancel() {
+		mCancel = true;
+	}
 			
 	@Override
 	protected void onTask(EntityRequest req) {	
@@ -82,7 +113,7 @@ public class RequestDownload extends RequestBase {
 		req.setUrl(setUrl(mResId));
 		req.setBody(mBody);
 		EntityResponse resp = mHttpClass.request(req);
-		if (resp != null) {
+		if (resp != null) {						
 			String url = parse(resp);
 			resp.close();
 			if (url != null) {								
@@ -114,7 +145,10 @@ public class RequestDownload extends RequestBase {
 								while (true) {					
 									try {
 										int len = stream.read(buffer);
-										if (len > 0) {			
+										if (len > 0) {
+											if (mCancel)
+												break;
+											
 											if (mEntityDownload.write(buffer, 0, len)) {
 												position += len;
 												mEntityDownload.setPosition(position);
@@ -145,10 +179,14 @@ public class RequestDownload extends RequestBase {
 								resp.close();
 								mEntityDownload.close();
 								
-								if (error)					
-									mHandler.sendEmptyMessage(5);
-								else
-									mHandler.sendEmptyMessage(0);
+								if (mCancel)
+									mHandler.sendEmptyMessage(6);
+								else {
+									if (error)					
+										mHandler.sendEmptyMessage(5);
+									else
+										mHandler.sendEmptyMessage(0);
+								}							
 							} else
 								mHandler.sendEmptyMessage(2);
 						}
@@ -165,8 +203,10 @@ public class RequestDownload extends RequestBase {
 	protected void onMessage(Message msg) {
 		int what = msg.what;
 		switch (what) {
-			case -1: {
-				request();
+			case -1: {				
+				EntityImage entityImage = (EntityImage) msg.obj;
+				Drawable drawable = entityImage.getDrawable();
+				request(drawable);							
 			}
 			break;
 		
@@ -177,6 +217,8 @@ public class RequestDownload extends RequestBase {
 				mNotificationManager.notify(mNotificationId, mNotification);				
 				ApkManager.installApk(mContext, mEntityDownload.getFile());			
 				mNotificationManager.cancel(mNotificationId);
+				if (mCallBack != null)
+					mCallBack.onCallBackDownload(this, EnumDownloadStatus.FINISH, mEntityApp);
 			}
 			break;
 									
@@ -191,7 +233,9 @@ public class RequestDownload extends RequestBase {
 			case 2: {
 				PendingIntent contentIntent = PendingIntent.getActivity(mContext, mNotificationId, null, 0);
 				mNotification.setLatestEventInfo(mContext, mEntityApp.getName(), "获取下载链接失败", contentIntent);
-				mNotificationManager.notify(mNotificationId, mNotification);
+				mNotificationManager.notify(mNotificationId, mNotification);				
+				if (mCallBack != null)
+					mCallBack.onCallBackDownload(this, EnumDownloadStatus.FAILED, mEntityApp);
 			}
 			break;
 			
@@ -199,6 +243,8 @@ public class RequestDownload extends RequestBase {
 				PendingIntent contentIntent = PendingIntent.getActivity(mContext, mNotificationId, null, 0);
 				mNotification.setLatestEventInfo(mContext, mEntityApp.getName(), "获取下载文件名错误", contentIntent);
 				mNotificationManager.notify(mNotificationId, mNotification);
+				if (mCallBack != null)
+					mCallBack.onCallBackDownload(this, EnumDownloadStatus.FAILED, mEntityApp);
 			}
 			break;
 			
@@ -206,6 +252,8 @@ public class RequestDownload extends RequestBase {
 				PendingIntent contentIntent = PendingIntent.getActivity(mContext, mNotificationId, null, 0);
 				mNotification.setLatestEventInfo(mContext, mEntityApp.getName(), "初始化下载失败", contentIntent);
 				mNotificationManager.notify(mNotificationId, mNotification);
+				if (mCallBack != null)
+					mCallBack.onCallBackDownload(this, EnumDownloadStatus.FAILED, mEntityApp);
 			}
 			break;
 			
@@ -213,6 +261,17 @@ public class RequestDownload extends RequestBase {
 				PendingIntent contentIntent = PendingIntent.getActivity(mContext, mNotificationId, null, 0);
 				mNotification.setLatestEventInfo(mContext, mEntityApp.getName(), "文件写入失败", contentIntent);
 				mNotificationManager.notify(mNotificationId, mNotification);
+				if (mCallBack != null)
+					mCallBack.onCallBackDownload(this, EnumDownloadStatus.FAILED, mEntityApp);
+			}
+			break;
+			
+			case 6: {
+				PendingIntent contentIntent = PendingIntent.getActivity(mContext, mNotificationId, null, 0);
+				mNotification.setLatestEventInfo(mContext, mEntityApp.getName(), "用户取消", contentIntent);
+				mNotificationManager.notify(mNotificationId, mNotification);
+				if (mCallBack != null)
+					mCallBack.onCallBackDownload(this, EnumDownloadStatus.CANCEL, mEntityApp);
 			}
 			break;
 				
@@ -220,6 +279,8 @@ public class RequestDownload extends RequestBase {
 				PendingIntent contentIntent = PendingIntent.getActivity(mContext, mNotificationId, null, 0);
 				mNotification.setLatestEventInfo(mContext, mEntityApp.getName(), "下载失败", contentIntent);
 				mNotificationManager.notify(mNotificationId, mNotification);
+				if (mCallBack != null)
+					mCallBack.onCallBackDownload(this, EnumDownloadStatus.FAILED, mEntityApp);
 			}
 			break;
 		}

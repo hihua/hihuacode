@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 
+import com.apps.game.market.activity.ActivityBase;
 import com.apps.game.market.broadcast.BroadcastAppReceiver;
+import com.apps.game.market.task.TaskDownload;
 import com.apps.game.market.util.DeviceInfo;
 import com.apps.game.market.util.FileManager;
 
@@ -14,6 +16,7 @@ public class GlobalObject {
 	private BroadcastAppReceiver mBroadcastAppReceiver;
 	private DeviceInfo mDeviceInfo;
 	private FileManager mFileManager;
+	private TaskDownload mTaskDownload;
 			
 	public GlobalObject(Context context) {
 		mContext = context;
@@ -21,6 +24,7 @@ public class GlobalObject {
 	}
 	
 	public void init() {
+		mTaskDownload = new TaskDownload();
 		mFileManager = new FileManager(mContext);
 		initDeviceInfo();
 		registerBroadcastAppReceiver();
@@ -45,6 +49,11 @@ public class GlobalObject {
 	
 	public void setContext(Context context) {
 		mContext = context;
+	}
+	
+	public void setActivity(ActivityBase activityBase) {
+		mTaskDownload.setActivity(activityBase);
+		mBroadcastAppReceiver.setActivity(activityBase);
 	}
 	
 	public void close() {

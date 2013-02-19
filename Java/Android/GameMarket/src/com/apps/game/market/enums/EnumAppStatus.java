@@ -1,5 +1,5 @@
 package com.apps.game.market.enums;
 
 public enum EnumAppStatus {
-	NOINSTALL, DOWNLOADING, INSTALL
+	NOINSTALL, INSTALL, INSTALLED, WAITING, DOWNLOADING, 
 }
