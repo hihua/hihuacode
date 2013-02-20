@@ -118,10 +118,8 @@ public class RequestDownload extends RequestBase {
 			resp.close();
 			if (url != null) {								
 				FileManager fileManager = mGlobalObject.getFileManager();
-				String filename = fileManager.getFilename(url);
-				if (filename == null)
-					mHandler.sendEmptyMessage(3);
-				else {
+				String filename = mEntityApp.getPackageName() + ".apk";
+				if (filename != null) {
 					long size = mEntityApp.getSize();
 					mEntityDownload = fileManager.getDownloadStream(filename, size);
 					if (mEntityDownload != null) {

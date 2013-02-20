@@ -184,7 +184,7 @@ public abstract class RequestApp extends RequestBase {
 					
 					entityApp.setPackageName(text);					
 					if (mGlobalData.appInstalled(text))
-						entityApp.setStatus(EnumAppStatus.INSTALL);
+						entityApp.setStatus(EnumAppStatus.INSTALLED);
 					else
 						entityApp.setStatus(EnumAppStatus.NOINSTALL);
 											

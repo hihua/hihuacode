@@ -28,11 +28,10 @@ import com.apps.game.market.util.FileManager;
 
 public class TaskDownload implements RequestCallBackDownload {
 	private final GlobalObject mGlobalObject = GlobalObject.globalObject;
-	private final GlobalData mGlobalData = GlobalData.globalData;
-	private final FileManager mFileManager = mGlobalObject.getFileManager();
+	private final GlobalData mGlobalData = GlobalData.globalData;	
 	private final int Max = 2;
 	private ActivityBase mActivityBase = null;
-	private List<EntityApp> mList = new Vector<EntityApp>();
+	private final List<EntityApp> mList = new Vector<EntityApp>();
 	private final DecimalFormat mFormat = new DecimalFormat("##0.00");
 	private RequestDownload[] mRequestDownload = new RequestDownload[Max];
 		
@@ -80,9 +79,10 @@ public class TaskDownload implements RequestCallBackDownload {
 		builder.create().show();
 	}
 	
-	public boolean installApp(Context context, EntityApp entityApp) {		
+	public boolean installApp(Context context, EntityApp entityApp) {
+		final FileManager fileManager = mGlobalObject.getFileManager();
 		String packageName = entityApp.getPackageName();
-		String filename = mFileManager.getAppsPath() + "/" + packageName + ".apk";
+		String filename = fileManager.getAppsPath() + "/" + packageName + ".apk";
 		File file = new File(filename);
 		if (file.exists() && file.isFile()) {
 			ApkManager.installApk(context, file);
