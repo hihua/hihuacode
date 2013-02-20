@@ -51,9 +51,9 @@ public class ApkManager {
 		}		
 	}
 	
-	public static void uninstallApk(Context context, String pack) {
+	public static void uninstallApk(Context context, String packageName) {
 		try {
-			Uri uri = Uri.parse("package:" + pack);
+			Uri uri = Uri.parse("package:" + packageName);
 			Intent intent = new Intent(Intent.ACTION_DELETE, uri);
 			context.startActivity(intent);			
 		} catch (Exception e) {
@@ -61,10 +61,10 @@ public class ApkManager {
 		}
 	}
 	
-	public static boolean runApp(Context context, String pack) {
+	public static boolean runApp(Context context, String packageName) {
 		try {
 			PackageManager packageManager = context.getPackageManager();
-			Intent intent = packageManager.getLaunchIntentForPackage(pack);
+			Intent intent = packageManager.getLaunchIntentForPackage(packageName);
 			if (intent != null) {
 				context.startActivity(intent);
 				return true;
@@ -76,7 +76,7 @@ public class ApkManager {
 		}		
 	}
 	
-	public static List<EntityAppInfo> getApps(Context context, String pack) {
+	public static List<EntityAppInfo> getApps(Context context) {
 		try {
 			List<EntityAppInfo> list = new ArrayList<EntityAppInfo>();
 			PackageManager packageManager = context.getPackageManager();

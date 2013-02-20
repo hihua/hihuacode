@@ -10,17 +10,14 @@ import com.apps.game.market.entity.app.EntityComment;
 import com.apps.game.market.enums.EnumAppStatus;
 import com.apps.game.market.request.RequestComment;
 import com.apps.game.market.request.RequestDetail;
-import com.apps.game.market.request.RequestDownload;
 import com.apps.game.market.request.RequestImage;
 import com.apps.game.market.request.callback.RequestCallBackComment;
 import com.apps.game.market.request.callback.RequestCallBackDetail;
+import com.apps.game.market.task.TaskDownload;
 import com.apps.game.market.util.ImageCache;
 import com.apps.game.market.viewholder.ViewHolderCommentApp;
 
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -116,7 +113,17 @@ public class ActivityDetail extends ActivityBase implements RequestCallBackDetai
 				
 			case INSTALL:
 				mAppAction.setOnClickListener(this);
+				mAppStatus.setText(R.string.app_install);
+				break;
+				
+			case INSTALLED:
+				mAppAction.setOnClickListener(this);
 				mAppStatus.setText(R.string.app_run);
+				break;
+				
+			case WAITING:
+				mAppAction.setOnClickListener(this);
+				mAppStatus.setText(R.string.app_waiting);
 				break;
 				
 			case DOWNLOADING:
@@ -175,39 +182,32 @@ public class ActivityDetail extends ActivityBase implements RequestCallBackDetai
 			return;
 		}
 		
-		if (id == R.id.detail_app_action) {
+		if (id == R.id.detail_app_action) {			
+			TaskDownload taskDownload = mGlobalObject.getTaskDownload();
 			EnumAppStatus status = mEntityApp.getStatus();
-			if (status == EnumAppStatus.NOINSTALL) {
-				View view = mInflater.inflate(R.layout.dialog_download, null);
-				TextView textView = (TextView) view.findViewById(R.id.dialog_download_app_name);
-				textView.setText(entityApp.getName());
-				textView = (TextView) view.findViewById(R.id.dialog_download_app_size);
-				long size = entityApp.getSize();
-				double d = (double)size / 1024d / 1024d;
-				textView.setText("文件大小: " + mFormat.format(d) + "M");
-				AlertDialog.Builder builder = new Builder(mContext);			
-				builder.setTitle("是否下载");
-				builder.setView(view);
-				builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.dismiss();						
-						RequestDownload requestApp = new RequestDownload(entityApp);
-						requestApp.request();
-						notifyDataSetChanged();
-					}
-				});
-
-				builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.dismiss();
-					}
-				});
-								
-				builder.create().show();
-				return;
-			}
+			switch (status) {
+				case NOINSTALL:
+					taskDownload.downloadApp(this, mEntityApp);
+					break;
+					
+				case INSTALL:
+					if (!taskDownload.installApp(this, mEntityApp))
+						onAppStatus(mEntityApp);
+					
+					break;
+					
+				case INSTALLED:
+					taskDownload.runApp(this, mEntityApp);					
+					break;
+			
+				case WAITING:					
+					taskDownload.downloadCancel(this, mEntityApp);
+					break;
+					
+				case DOWNLOADING:
+					taskDownload.downloadCancel(this, mEntityApp);		
+					break;
+			}		
 		}
 	}
 				
@@ -278,6 +278,34 @@ public class ActivityDetail extends ActivityBase implements RequestCallBackDetai
 				
 		MarginLayoutParams layoutParams = (MarginLayoutParams) gallery.getLayoutParams();
 		layoutParams.setMargins(-offset, layoutParams.topMargin, layoutParams.rightMargin, layoutParams.bottomMargin);
+	}
+
+	@Override
+	public void onAppStatus(EntityApp entityApp) {
+		if (entityApp.equals(mEntityApp)) {
+			EnumAppStatus status = entityApp.getStatus();
+			switch (status) {
+				case NOINSTALL:					
+					mAppStatus.setText(R.string.app_download);				
+					break;
+					
+				case INSTALL:					
+					mAppStatus.setText(R.string.app_install);
+					break;
+					
+				case INSTALLED:					
+					mAppStatus.setText(R.string.app_run);
+					break;
+					
+				case WAITING:					
+					mAppStatus.setText(R.string.app_waiting);
+					break;
+					
+				case DOWNLOADING:
+					mAppStatus.setText(R.string.app_downloading);				
+					break;
+			}
+		}		
 	}
 }
 

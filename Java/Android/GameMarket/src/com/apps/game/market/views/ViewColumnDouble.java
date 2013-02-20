@@ -29,13 +29,16 @@ import com.apps.game.market.activity.ActivityDetail;
 import com.apps.game.market.entity.app.EntityAd;
 import com.apps.game.market.entity.app.EntityApp;
 import com.apps.game.market.entity.app.EntityColumn;
+import com.apps.game.market.enums.EnumAppStatus;
 import com.apps.game.market.global.GlobalData;
+import com.apps.game.market.global.GlobalObject;
 import com.apps.game.market.request.RequestAd;
 import com.apps.game.market.request.RequestDownload;
 import com.apps.game.market.request.app.RequestApp;
 import com.apps.game.market.request.app.RequestAppTag;
 import com.apps.game.market.request.callback.RequestCallBackAd;
 import com.apps.game.market.request.callback.RequestCallBackApp;
+import com.apps.game.market.task.TaskDownload;
 import com.apps.game.market.task.TaskImage;
 import com.apps.game.market.util.ImageCache;
 import com.apps.game.market.view.ScrollViewAd;
@@ -171,9 +174,16 @@ public class ViewColumnDouble extends ViewColumn implements RequestCallBackAd, S
 		mListView.setAdapter(mAdapter);		
 		setSubColumn(parent, position);
 	}
+	
+	@Override
+	public void onAppStatus(EntityApp entityApp) {
+		if (mAdapter != null)
+			mAdapter.setAppStatus(entityApp);
+	}
 }
 
 class DoubleAppListAdapter extends BaseAdapter implements OnClickListener, OnScrollListener, RequestCallBackApp {
+	private final GlobalObject mGlobalObject = GlobalObject.globalObject;
 	private final RequestApp mRequestApp;
 	private final ListView mListView;
 	private final long mPageSize = 50;
@@ -299,7 +309,19 @@ class DoubleAppListAdapter extends BaseAdapter implements OnClickListener, OnScr
 				break;
 			
 			case INSTALL:
+				action.setText(R.string.app_install);
+				action.setClickable(true);
+				action.setOnClickListener(this);
+				break;
+				
+			case INSTALLED:
 				action.setText(R.string.app_run);
+				action.setClickable(true);
+				action.setOnClickListener(this);
+				break;
+				
+			case WAITING:
+				action.setText(R.string.app_waiting);
 				action.setClickable(true);
 				action.setOnClickListener(this);
 				break;
@@ -307,6 +329,7 @@ class DoubleAppListAdapter extends BaseAdapter implements OnClickListener, OnScr
 			case DOWNLOADING:
 				action.setText(R.string.app_downloading);
 				action.setClickable(false);
+				action.setOnClickListener(this);
 				break;
 		}
 				
@@ -354,13 +377,27 @@ class DoubleAppListAdapter extends BaseAdapter implements OnClickListener, OnScr
 					break;
 				
 				case INSTALL:
+					action.setText(R.string.app_install);
+					action.setClickable(true);
+					action.setOnClickListener(this);
+					break;
+					
+				case INSTALLED:
 					action.setText(R.string.app_run);
+					action.setClickable(true);
+					action.setOnClickListener(this);
+					break;
+					
+				case WAITING:
+					action.setText(R.string.app_waiting);
 					action.setClickable(true);
 					action.setOnClickListener(this);
 					break;
 					
 				case DOWNLOADING:
 					action.setText(R.string.app_downloading);
+					action.setClickable(false);
+					action.setOnClickListener(this);
 					break;
 			}
 			
@@ -441,36 +478,37 @@ class DoubleAppListAdapter extends BaseAdapter implements OnClickListener, OnScr
 		if (v.getId() == R.id.app_action1 || v.getId() == R.id.app_action2) {
 			if (v instanceof TextView && obj != null && obj instanceof EntityApp) {
 				final EntityApp entityApp = (EntityApp) obj;
-				View view = mInflater.inflate(R.layout.dialog_download, null);
-				TextView textView = (TextView) view.findViewById(R.id.dialog_download_app_name);
-				textView.setText(entityApp.getName());
-				textView = (TextView) view.findViewById(R.id.dialog_download_app_size);
-				long size = entityApp.getSize();
-				double d = (double)size / 1024d / 1024d;
-				textView.setText("文件大小: " + mFormat.format(d) + "M");
-				AlertDialog.Builder builder = new Builder(mContext);			
-				builder.setTitle("是否下载");
-				builder.setView(view);
-				builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.dismiss();						
-						RequestDownload requestApp = new RequestDownload(entityApp);
-						requestApp.request();
-						notifyDataSetChanged();
-					}
-				});
-
-				builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.dismiss();
-					}
-				});
-
-				builder.create().show();
+				TaskDownload taskDownload = mGlobalObject.getTaskDownload();
+				EnumAppStatus status = entityApp.getStatus();
+				switch (status) {
+					case NOINSTALL:
+						taskDownload.downloadApp(mContext, entityApp);
+						break;
+						
+					case INSTALL:
+						if (!taskDownload.installApp(mContext, entityApp))
+							setAppStatus(entityApp);
+						
+						break;
+						
+					case INSTALLED:
+						taskDownload.runApp(mContext, entityApp);					
+						break;
+				
+					case WAITING:					
+						taskDownload.downloadCancel(mContext, entityApp);
+						break;
+						
+					case DOWNLOADING:
+						taskDownload.downloadCancel(mContext, entityApp);		
+						break;
+				}
 				return;
 			}
 		}		
+	}
+	
+	public void setAppStatus(EntityApp entityApp) {
+		notifyDataSetChanged();
 	}
 }

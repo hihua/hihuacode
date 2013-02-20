@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 
 import com.apps.game.market.R;
 import com.apps.game.market.entity.app.EntityAd;
+import com.apps.game.market.entity.app.EntityApp;
 import com.apps.game.market.entity.app.EntityColumn;
 import com.apps.game.market.entity.app.EntityColumnClass;
 import com.apps.game.market.global.GlobalData;
@@ -418,6 +419,10 @@ public abstract class ViewColumn extends ViewBase {
 				scrollViewAd.putView(imageView, true);
 			}				
 		}
+	}
+	
+	public void onAppStatus(EntityApp entityApp) {
+		
 	}
 	
 	public void onSubColumn(final ViewGroup parent, final int position, final String url) {

@@ -51,6 +51,10 @@ public class GlobalObject {
 		mContext = context;
 	}
 	
+	public TaskDownload getTaskDownload() {
+		return mTaskDownload;
+	}
+	
 	public void setActivity(ActivityBase activityBase) {
 		mTaskDownload.setActivity(activityBase);
 		mBroadcastAppReceiver.setActivity(activityBase);

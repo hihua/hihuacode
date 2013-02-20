@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.apps.game.market.R;
+import com.apps.game.market.entity.app.EntityApp;
 import com.apps.game.market.views.ViewColumn;
 
 public class ActivityIndex extends ActivityBase implements OnPageChangeListener, OnClickListener {
@@ -129,6 +130,12 @@ public class ActivityIndex extends ActivityBase implements OnPageChangeListener,
 			for (ViewColumn viewColumn : mViewColumns)
 				viewColumn.stop();
 		}
+	}
+
+	@Override
+	public void onAppStatus(EntityApp entityApp) {
+		if (mCurrent != null)
+			mCurrent.onAppStatus(entityApp);		
 	}
 }
 

@@ -5,18 +5,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
+import android.content.Context;
 import android.content.Intent;
 
+import com.apps.game.market.entity.EntityAppInfo;
 import com.apps.game.market.entity.app.EntityAd;
 import com.apps.game.market.entity.app.EntityApp;
 import com.apps.game.market.entity.app.EntityColumn;
 import com.apps.game.market.entity.app.EntityTag;
 import com.apps.game.market.enums.EnumAppStatus;
+import com.apps.game.market.util.ApkManager;
 
 public class GlobalData {
 	public static GlobalData globalData = null;
 	private Map<String, EntityApp> remoteApps = new HashMap<String, EntityApp>();
-	private Map<String, EntityApp> localApps = new HashMap<String, EntityApp>();
+	private Map<String, EntityAppInfo> localApps = new HashMap<String, EntityAppInfo>();
 	private Map<Long, List<EntityAd>> ads = new HashMap<Long, List<EntityAd>>();
 	private List<EntityColumn> columns = new Vector<EntityColumn>();
 	private List<EntityTag> tags = new Vector<EntityTag>();
@@ -30,7 +33,13 @@ public class GlobalData {
 		globalData = this;
 	}
 	
-	public boolean init() {
+	public boolean init(Context context) {
+		List<EntityAppInfo> list = ApkManager.getApps(context);
+		if (list != null) {
+			for (EntityAppInfo entityAppInfo : list)
+				putLocalApp(entityAppInfo);			
+		}
+		
 		return true;
 	}
 	
@@ -40,7 +49,7 @@ public class GlobalData {
 			remoteApps.put(packageName, remoteApp);
 	}
 	
-	public void putLocalApp(EntityApp remoteApp) {
+	public void putLocalApp(EntityAppInfo remoteApp) {
 		String packageName = remoteApp.getPackageName();
 		if (!localApps.containsKey(packageName))
 			localApps.put(packageName, remoteApp);

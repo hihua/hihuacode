@@ -100,7 +100,7 @@ public class ActivityWelcome extends Activity implements RequestCallBackColumn, 
 	
 	private boolean init() {
 		GlobalData globalData = new GlobalData();
-		if (!globalData.init())
+		if (!globalData.init(this))
 			return false;
 		
 		GlobalObject globalObject = new GlobalObject(this);
