@@ -28,8 +28,7 @@ public class RequestImage extends RequestBase {
 	
 	@Override
 	protected void onTask(EntityRequest req) {
-		ImageCache imageCache = ImageCache.getInstance();
-		
+		ImageCache imageCache = ImageCache.getInstance();		
 		req.setHeader(null);
 		req.setString(false);
 		req.setUrl(mUrl);

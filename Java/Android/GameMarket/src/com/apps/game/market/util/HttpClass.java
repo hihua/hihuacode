@@ -73,8 +73,8 @@ public class HttpClass {
 		while (times > 0) {
     		URL url = null;
     		
-    		try {
-    			 url = new URL(webUrl);
+    		try {    			
+    			url = new URL(webUrl);
     		} catch (MalformedURLException e) {			
     			return null;
     		}
@@ -102,9 +102,8 @@ public class HttpClass {
     				connection.setRequestMethod("GET");
     			} catch (ProtocolException e) {				
     				return null;
-    			}
-    						
-    			connection.setDoOutput(true);
+    			}    			
+    			
     			connection.setDoInput(true);
     			
     			try {
