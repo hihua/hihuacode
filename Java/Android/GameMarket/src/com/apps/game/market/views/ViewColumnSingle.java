@@ -13,7 +13,6 @@ import com.apps.game.market.enums.EnumAppStatus;
 import com.apps.game.market.global.GlobalData;
 import com.apps.game.market.global.GlobalObject;
 import com.apps.game.market.request.RequestAd;
-import com.apps.game.market.request.RequestDownload;
 import com.apps.game.market.request.app.RequestApp;
 import com.apps.game.market.request.callback.RequestCallBackAd;
 import com.apps.game.market.request.callback.RequestCallBackApp;
@@ -24,10 +23,7 @@ import com.apps.game.market.view.ScrollViewAd;
 import com.apps.game.market.view.callback.ScrollViewAdCallBack;
 import com.apps.game.market.viewholder.ViewHolderSingleApp;
 
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -235,7 +231,7 @@ class SingleAppListAdapter extends BaseAdapter implements OnClickListener, OnScr
 		if (drawable != null)
 			holder.getIcon().setImageDrawable(drawable);
 		else							
-			holder.getIcon().setImageResource(R.drawable.ic_menu_refresh);
+			holder.getIcon().setImageResource(R.drawable.ic_launcher);
 		
 		String name = entityApp.getName();
 		if (name.length() > 10)

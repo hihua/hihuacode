@@ -13,11 +13,14 @@ import android.widget.LinearLayout;
 import com.apps.game.market.R;
 import com.apps.game.market.entity.app.EntityApp;
 import com.apps.game.market.views.ViewColumn;
+import com.apps.game.market.views.ViewColumnMyApp;
 
 public class ActivityIndex extends ActivityBase implements OnPageChangeListener, OnClickListener {
 	private ViewPager mPager;	
 	private ViewColumn mCurrent;
-
+	private LinearLayout mLinearHeader;
+	private LinearLayout mLayoutColumn;
+	
 	@Override
 	protected void onAppCreate() {
 		setContentView(R.layout.index);
@@ -65,9 +68,10 @@ public class ActivityIndex extends ActivityBase implements OnPageChangeListener,
 	}
 	
 	private void layout() {
-		LinearLayout column = (LinearLayout) findViewById(R.id.index_layout_column);
+		mLinearHeader = (LinearLayout) findViewById(R.id.header_layout);
+		mLayoutColumn = (LinearLayout) findViewById(R.id.index_layout_column);
 		mPager = (ViewPager) findViewById(R.id.index_viewpager);
-		layoutColumns(column, mPager);
+		layoutColumns(mLayoutColumn, mPager);
 		mPager.setAdapter(new IndexPagerAdapter(mViewColumns));
 		mPager.setCurrentItem(0);
 		mPager.setOnPageChangeListener(this);
@@ -121,6 +125,15 @@ public class ActivityIndex extends ActivityBase implements OnPageChangeListener,
 		viewColumn.startScroll();
 		viewColumn.setHighlight(true);
 		viewColumn.refresh();
+		
+		if (viewColumn instanceof ViewColumnMyApp) {
+			showTop(true);
+			showBottom(true);
+		} else {
+			showTop(false);
+			showBottom(false);
+		}
+		
 		mCurrent = viewColumn;
 	}
 	
@@ -136,6 +149,32 @@ public class ActivityIndex extends ActivityBase implements OnPageChangeListener,
 	public void onAppStatus(EntityApp entityApp) {
 		if (mCurrent != null)
 			mCurrent.onAppStatus(entityApp);		
+	}
+	
+	private void showTop(boolean hide) {
+		if (hide) {
+			if (mLinearHeader != null && mLinearHeader.getVisibility() == View.VISIBLE)
+				mLinearHeader.setVisibility(View.GONE);
+			
+			if (mLayoutColumn != null && mLayoutColumn.getVisibility() == View.VISIBLE)
+				mLayoutColumn.setVisibility(View.GONE);
+		} else {
+			if (mLinearHeader != null && mLinearHeader.getVisibility() == View.GONE)
+				mLinearHeader.setVisibility(View.VISIBLE);
+			
+			if (mLayoutColumn != null && mLayoutColumn.getVisibility() == View.GONE)
+				mLayoutColumn.setVisibility(View.VISIBLE);
+		}
+	}
+	
+	private void showBottom(boolean hide) {
+		if (hide) {
+			if (mLinearBottom != null && mLinearBottom.getVisibility() == View.VISIBLE)
+				mLinearBottom.setVisibility(View.GONE);			
+		} else {						
+			if (mLinearBottom != null && mLinearBottom.getVisibility() == View.GONE)
+				mLinearBottom.setVisibility(View.VISIBLE);
+		}
 	}
 }
 

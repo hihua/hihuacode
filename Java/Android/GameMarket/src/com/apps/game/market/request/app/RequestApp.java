@@ -19,6 +19,7 @@ import com.apps.game.market.entity.app.EntityApp;
 import com.apps.game.market.enums.EnumAppStatus;
 import com.apps.game.market.request.RequestBase;
 import com.apps.game.market.request.callback.RequestCallBackApp;
+import com.apps.game.market.util.FileManager;
 
 public abstract class RequestApp extends RequestBase {
 	protected RequestCallBackApp mCallBack;
@@ -85,6 +86,7 @@ public abstract class RequestApp extends RequestBase {
 				
 		Iterator<Element> elements = parent.elementIterator("product");
 		if (elements != null) {
+			final FileManager fileManager = mGlobalObject.getFileManager(); 
 			List<EntityApp> list = new Vector<EntityApp>();
 			while (elements.hasNext()) {
 				try {
@@ -183,10 +185,14 @@ public abstract class RequestApp extends RequestBase {
 						continue;
 					
 					entityApp.setPackageName(text);					
-					if (mGlobalData.appInstalled(text))
+					if (mGlobalData.appInstalled(text)) 
 						entityApp.setStatus(EnumAppStatus.INSTALLED);
-					else
-						entityApp.setStatus(EnumAppStatus.NOINSTALL);
+					else {
+						if (fileManager.appExists(text))
+							entityApp.setStatus(EnumAppStatus.INSTALL);
+						else
+							entityApp.setStatus(EnumAppStatus.NOINSTALL);
+					}
 											
 					if (entityApp.getPcount() % 2 == 0)
 						entityApp.setRating((float) (entityApp.getDcount() % 5 + 0.5));

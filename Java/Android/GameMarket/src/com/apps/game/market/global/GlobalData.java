@@ -19,7 +19,7 @@ import com.apps.game.market.util.ApkManager;
 public class GlobalData {
 	public static GlobalData globalData = null;
 	private Map<String, EntityApp> remoteApps = new HashMap<String, EntityApp>();
-	private Map<String, EntityAppInfo> localApps = new HashMap<String, EntityAppInfo>();
+	private List<EntityAppInfo> localApps = new Vector<EntityAppInfo>();
 	private Map<Long, List<EntityAd>> ads = new HashMap<Long, List<EntityAd>>();
 	private List<EntityColumn> columns = new Vector<EntityColumn>();
 	private List<EntityTag> tags = new Vector<EntityTag>();
@@ -43,22 +43,33 @@ public class GlobalData {
 		return true;
 	}
 	
+	public List<EntityAppInfo> getLocalApps() {
+		return localApps;
+	}
+	
 	public synchronized void putRemoteApp(EntityApp remoteApp) {
 		String packageName = remoteApp.getPackageName();
 		if (!remoteApps.containsKey(packageName))
 			remoteApps.put(packageName, remoteApp);
 	}
 	
-	public void putLocalApp(EntityAppInfo remoteApp) {
-		String packageName = remoteApp.getPackageName();
-		if (!localApps.containsKey(packageName))
-			localApps.put(packageName, remoteApp);
+	public void putLocalApp(EntityAppInfo entityAppInfo) {
+		String packageName = entityAppInfo.getPackageName();
+		for (EntityAppInfo appInfo : localApps) {
+			if (appInfo.getPackageName().equals(packageName))
+				return;
+		}
+		
+		localApps.add(entityAppInfo);
 	}
 	
-	public void removeLocalApp(EntityApp localApp) {
-		String packageName = localApp.getPackageName();
-		if (localApps.containsKey(packageName))
-			localApps.remove(packageName);
+	public void removeLocalApp(String packageName) {
+		for (EntityAppInfo appInfo : localApps) {
+			if (appInfo.getPackageName().equals(packageName)) {
+				localApps.remove(appInfo);
+				break;
+			}				
+		}
 		
 		if (remoteApps.containsKey(packageName)) {
 			EntityApp remoteApp = remoteApps.get(packageName);
@@ -67,10 +78,12 @@ public class GlobalData {
 	}
 	
 	public boolean appInstalled(String packageName) {
-		if (localApps.containsKey(packageName))
-			return true;
-		else
-			return false;
+		for (EntityAppInfo appInfo : localApps) {
+			if (appInfo.getPackageName().equals(packageName))
+				return true;
+		}
+		
+		return false;
 	}
 	
 	public boolean existAds(long id) {

@@ -82,12 +82,17 @@ public class ApkManager {
 			PackageManager packageManager = context.getPackageManager();
 			List<PackageInfo> packages = packageManager.getInstalledPackages(0);
 			for (PackageInfo packinfo : packages) {				
-				if ((packinfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
+				if ((packinfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0 && !packinfo.packageName.equals("com.apps.game.market")) {
 					EntityAppInfo appInfo = new EntityAppInfo();
 					appInfo.setAppName(packinfo.applicationInfo.loadLabel(packageManager).toString());
 					appInfo.setAppIcon(packinfo.applicationInfo.loadIcon(packageManager));
-					appInfo.setPackageName(packinfo.packageName);
-					appInfo.setVersionName(packinfo.versionName);
+					appInfo.setPackageName(packinfo.packageName);					
+					String versionName = packinfo.versionName;
+					int p = versionName.indexOf(" ");
+					if (p > -1)
+						versionName = versionName.substring(0, p);
+					
+					appInfo.setVersionName(versionName);
 					appInfo.setVersionCode(packinfo.versionCode);
 					String dir = packinfo.applicationInfo.publicSourceDir;
 					File file = new File(dir);

@@ -36,7 +36,8 @@ public abstract class ActivityBase extends Activity implements OnClickListener {
 	protected List<EntityColumn> mColumns;	
 	protected List<ViewColumn> mViewColumns = new Vector<ViewColumn>();
 	protected EntityTag mEntityTag;
-	
+	protected LinearLayout mLinearBottom;
+		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);		
@@ -60,7 +61,7 @@ public abstract class ActivityBase extends Activity implements OnClickListener {
 	protected void layoutTags() {
 		View v = findViewById(R.id.bottom_layout);
 		if (v != null) {
-			LinearLayout layout = (LinearLayout) v;		
+			mLinearBottom = (LinearLayout) v;		
 			mTags = mGlobalData.getTags();
 			if (mTags != null) {
 				int index = 0;
@@ -96,7 +97,7 @@ public abstract class ActivityBase extends Activity implements OnClickListener {
 					
 					Drawable drawable = getResources().getDrawable(resId);					
 					textView.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null);										
-					layout.addView(textView);
+					mLinearBottom.addView(textView);
 					index++;
 					
 					if (index == 4)
@@ -113,7 +114,7 @@ public abstract class ActivityBase extends Activity implements OnClickListener {
 				textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13.0f);
 				Drawable drawable = getResources().getDrawable(R.drawable.tag_more);				
 				textView.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null);
-				layout.addView(textView);
+				mLinearBottom.addView(textView);
 			}
 		}		
 	}

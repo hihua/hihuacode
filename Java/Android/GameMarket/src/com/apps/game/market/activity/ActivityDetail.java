@@ -127,6 +127,7 @@ public class ActivityDetail extends ActivityBase implements RequestCallBackDetai
 				break;
 				
 			case DOWNLOADING:
+				mAppAction.setOnClickListener(this);
 				mAppStatus.setText(R.string.app_downloading);				
 				break;
 		}

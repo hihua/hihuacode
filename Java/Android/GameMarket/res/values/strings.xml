@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GameMarket</string>
+
+    <string name="app_name">GameMarket</string>
     <string name="welcome_init">正在初始化</string>
     <string name="request_host">http://api.gfan.com/market/api/</string>
     <string name="request_ad">homeMasterRecommend</string>
@@ -12,17 +13,20 @@
     <string name="request_app_tag">tagApps</string>
     <string name="request_detail">getProductDetail</string>
     <string name="request_comment">getComments</string>
-    <string name="request_download">getDownloadUrl</string>    
+    <string name="request_download">getDownloadUrl</string>
     <string name="column_myapp">我的应用</string>
     <string name="tag_more">更多</string>
     <string name="app_download">下载</string>
     <string name="app_install">安装</string>
+    <string name="app_installed">已安装</string>
     <string name="app_run">运行</string>
-    <string name="app_waiting">等待下载</string> 
-    <string name="app_downloading">下载中</string>    
+    <string name="app_waiting">等待下载</string>
+    <string name="app_downloading">下载中</string>
     <string name="app_comment">评论</string>
     <string name="app_collect">收藏</string>
-    <string name="app_share">分享</string>    
+    <string name="app_share">分享</string>
+    <string name="app_browse">最近浏览</string>
+    <string name="app_click_run">点击运行游戏</string>
     <string name="dialog_app_filesize">文件大小: </string>
     <string name="dialog_app_download">是否下载</string>
     <string name="dialog_confirm">确认</string>
@@ -35,5 +39,7 @@
     <string name="detail_intro">介绍</string>
     <string name="detail_intro_ext">展开</string>
     <string name="error_no_apkfile">安装失败，没有此apk安装文件</string>
-      
+    <string name="myapp_size">大小: </string>
+    <string name="myapp_version">版本: </string>
+
 </resources>

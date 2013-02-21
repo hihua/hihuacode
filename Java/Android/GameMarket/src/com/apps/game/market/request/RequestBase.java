@@ -21,7 +21,7 @@ public abstract class RequestBase implements Runnable, Callback {
 	protected GlobalData mGlobalData;
 	protected HttpClass mHttpClass;	
 	protected Handler mHandler;
-	protected Context mContext;	
+	protected Context mContext;
 	private EntityRequest mEntityRequest = null;
 			
 	protected RequestBase() {

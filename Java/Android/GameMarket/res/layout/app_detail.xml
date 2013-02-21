@@ -134,7 +134,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="4dp"
-                android:background="@drawable/detail_app_download" >
+                android:background="@drawable/detail_app_download"
+                android:clickable="true" >
 
                 <TextView
                     android:id="@+id/detail_app_status"
@@ -316,8 +317,8 @@
                 <Gallery
                     android:id="@+id/detail_app_images"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"                    
-                    android:layout_marginTop="15dp"                    
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
                     android:spacing="8dp" />
 
                 <RatingBar

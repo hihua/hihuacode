@@ -225,7 +225,7 @@ class TagAppListAdapter extends BaseAdapter implements OnScrollListener, Request
 		if (drawable != null)
 			holder.getIcon1().setImageDrawable(drawable);
 		else							
-			holder.getIcon1().setImageResource(R.drawable.ic_menu_refresh);
+			holder.getIcon1().setImageResource(R.drawable.ic_launcher);
 		
 		String name = entityApp1.getName();
 		if (name.length() > 6)
@@ -293,7 +293,7 @@ class TagAppListAdapter extends BaseAdapter implements OnScrollListener, Request
 			if (drawable != null)
 				holder.getIcon2().setImageDrawable(drawable);
 			else								
-				holder.getIcon2().setImageResource(R.drawable.ic_menu_refresh);
+				holder.getIcon2().setImageResource(R.drawable.ic_launcher);
 											
 			name = entityApp2.getName();
 			if (name.length() > 6)
@@ -403,7 +403,8 @@ class TagAppListAdapter extends BaseAdapter implements OnScrollListener, Request
 		}
 	}
 	
-	public void refresh() {		
+	public void refresh() {
+		notifyDataSetChanged();
 		mTasks.lock(false);
 	}
 	

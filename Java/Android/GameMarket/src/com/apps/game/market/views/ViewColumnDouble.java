@@ -4,10 +4,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Vector;
 
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -33,7 +30,6 @@ import com.apps.game.market.enums.EnumAppStatus;
 import com.apps.game.market.global.GlobalData;
 import com.apps.game.market.global.GlobalObject;
 import com.apps.game.market.request.RequestAd;
-import com.apps.game.market.request.RequestDownload;
 import com.apps.game.market.request.app.RequestApp;
 import com.apps.game.market.request.app.RequestAppTag;
 import com.apps.game.market.request.callback.RequestCallBackAd;
@@ -277,7 +273,7 @@ class DoubleAppListAdapter extends BaseAdapter implements OnClickListener, OnScr
 		if (drawable != null)
 			holder.getIcon1().setImageDrawable(drawable);
 		else							
-			holder.getIcon1().setImageResource(R.drawable.ic_menu_refresh);
+			holder.getIcon1().setImageResource(R.drawable.ic_launcher);
 		
 		String name = entityApp1.getName();
 		if (name.length() > 6)
@@ -345,7 +341,7 @@ class DoubleAppListAdapter extends BaseAdapter implements OnClickListener, OnScr
 			if (drawable != null)
 				holder.getIcon2().setImageDrawable(drawable);
 			else								
-				holder.getIcon2().setImageResource(R.drawable.ic_menu_refresh);
+				holder.getIcon2().setImageResource(R.drawable.ic_launcher);
 											
 			name = entityApp2.getName();
 			if (name.length() > 6)
@@ -455,7 +451,8 @@ class DoubleAppListAdapter extends BaseAdapter implements OnClickListener, OnScr
 		}
 	}
 	
-	public void refresh() {		
+	public void refresh() {
+		notifyDataSetChanged();
 		mTasks.lock(false);
 	}
 	

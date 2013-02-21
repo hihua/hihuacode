@@ -4,8 +4,6 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 
 import com.apps.game.market.entity.EntityDownload;
 
@@ -56,6 +54,15 @@ public class FileManager {
 
 	public String getCachePath() {
 		return cachePath;
+	}
+	
+	public boolean appExists(String packageName) {
+		final String dir = getAppsPath();
+		final File file = new File(dir, packageName + ".apk");
+		if (file.exists() && file.isFile())
+			return true;
+		else
+			return false;
 	}
 	
 	public String getFilename(String url) {

@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Message;
 import android.widget.ImageView;
 
+import com.apps.game.market.R;
 import com.apps.game.market.entity.EntityImage;
 import com.apps.game.market.entity.EntityRequest;
 import com.apps.game.market.entity.EntityResponse;
