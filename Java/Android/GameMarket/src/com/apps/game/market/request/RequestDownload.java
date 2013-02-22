@@ -13,6 +13,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
@@ -42,7 +43,7 @@ public class RequestDownload extends RequestBase {
 	private final String mContent = "<request version=\"2\"><uid></uid><p_id>%d</p_id><source_type>0</source_type></request>";	
 	private NotificationManager mNotificationManager;
 	private Notification mNotification;
-	private int mNotificationId = Numeric.rndNumber(500, 2000);
+	private int mNotificationId = 0;
 	private EntityApp mEntityApp;	
 	private EntityDownload mEntityDownload;
 	private RequestCallBackDownload mCallBack;
@@ -84,7 +85,7 @@ public class RequestDownload extends RequestBase {
 	}
 	
 	private void request(Drawable drawable) {
-		String name = mEntityApp.getName();		
+		String name = mEntityApp.getName();
 		long pid = mEntityApp.getPid();
 		mNotificationId = Numeric.rndNumber(500, 2000);
 		mNotification = new Notification(android.R.drawable.stat_sys_download, name + " 开始下载", System.currentTimeMillis());		  
@@ -95,7 +96,7 @@ public class RequestDownload extends RequestBase {
 		mNotification.contentView.setProgressBar(R.id.notify_download_progressbar, 100, 0, false);  
 		mNotification.contentView.setTextViewText(R.id.notify_download_app_name, name);
 		mNotification.contentView.setTextViewText(R.id.notify_download_progress, "0%");			
-		mNotification.contentIntent = PendingIntent.getActivity(mContext, 0, null, 0); 
+		mNotification.contentIntent = PendingIntent.getActivity(mContext, mNotificationId, new Intent(), 0); 
 		
 		mNotificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
 		mNotificationManager.notify(mNotificationId, mNotification);
@@ -210,7 +211,7 @@ public class RequestDownload extends RequestBase {
 		
 			case 0: {
 				String name = mEntityApp.getName();
-				PendingIntent contentIntent = PendingIntent.getActivity(mContext, mNotificationId, null, 0);
+				PendingIntent contentIntent = PendingIntent.getActivity(mContext, mNotificationId, new Intent(), 0);
 				mNotification.setLatestEventInfo(mContext, name, "下载完成", contentIntent);
 				mNotificationManager.notify(mNotificationId, mNotification);				
 				ApkManager.installApk(mContext, mEntityDownload.getFile());			
@@ -229,7 +230,7 @@ public class RequestDownload extends RequestBase {
 			break;
 			
 			case 2: {
-				PendingIntent contentIntent = PendingIntent.getActivity(mContext, mNotificationId, null, 0);
+				PendingIntent contentIntent = PendingIntent.getActivity(mContext, mNotificationId, new Intent(), 0);
 				mNotification.setLatestEventInfo(mContext, mEntityApp.getName(), "获取下载链接失败", contentIntent);
 				mNotificationManager.notify(mNotificationId, mNotification);				
 				if (mCallBack != null)
@@ -238,7 +239,7 @@ public class RequestDownload extends RequestBase {
 			break;
 			
 			case 3: {
-				PendingIntent contentIntent = PendingIntent.getActivity(mContext, mNotificationId, null, 0);
+				PendingIntent contentIntent = PendingIntent.getActivity(mContext, mNotificationId, new Intent(), 0);
 				mNotification.setLatestEventInfo(mContext, mEntityApp.getName(), "获取下载文件名错误", contentIntent);
 				mNotificationManager.notify(mNotificationId, mNotification);
 				if (mCallBack != null)
@@ -247,7 +248,7 @@ public class RequestDownload extends RequestBase {
 			break;
 			
 			case 4: {
-				PendingIntent contentIntent = PendingIntent.getActivity(mContext, mNotificationId, null, 0);
+				PendingIntent contentIntent = PendingIntent.getActivity(mContext, mNotificationId, new Intent(), 0);
 				mNotification.setLatestEventInfo(mContext, mEntityApp.getName(), "初始化下载失败", contentIntent);
 				mNotificationManager.notify(mNotificationId, mNotification);
 				if (mCallBack != null)
@@ -256,7 +257,7 @@ public class RequestDownload extends RequestBase {
 			break;
 			
 			case 5: {
-				PendingIntent contentIntent = PendingIntent.getActivity(mContext, mNotificationId, null, 0);
+				PendingIntent contentIntent = PendingIntent.getActivity(mContext, mNotificationId, new Intent(), 0);
 				mNotification.setLatestEventInfo(mContext, mEntityApp.getName(), "文件写入失败", contentIntent);
 				mNotificationManager.notify(mNotificationId, mNotification);
 				if (mCallBack != null)
@@ -265,7 +266,7 @@ public class RequestDownload extends RequestBase {
 			break;
 			
 			case 6: {
-				PendingIntent contentIntent = PendingIntent.getActivity(mContext, mNotificationId, null, 0);
+				PendingIntent contentIntent = PendingIntent.getActivity(mContext, mNotificationId, new Intent(), 0);
 				mNotification.setLatestEventInfo(mContext, mEntityApp.getName(), "用户取消", contentIntent);
 				mNotificationManager.notify(mNotificationId, mNotification);
 				if (mCallBack != null)
@@ -274,7 +275,7 @@ public class RequestDownload extends RequestBase {
 			break;
 				
 			default: {
-				PendingIntent contentIntent = PendingIntent.getActivity(mContext, mNotificationId, null, 0);
+				PendingIntent contentIntent = PendingIntent.getActivity(mContext, mNotificationId, new Intent(), 0);
 				mNotification.setLatestEventInfo(mContext, mEntityApp.getName(), "下载失败", contentIntent);
 				mNotificationManager.notify(mNotificationId, mNotification);
 				if (mCallBack != null)

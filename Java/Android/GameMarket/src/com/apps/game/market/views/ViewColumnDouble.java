@@ -275,10 +275,7 @@ class DoubleAppListAdapter extends BaseAdapter implements OnClickListener, OnScr
 		else							
 			holder.getIcon1().setImageResource(R.drawable.ic_launcher);
 		
-		String name = entityApp1.getName();
-		if (name.length() > 6)
-			name = name.substring(0, 6);
-		
+		String name = entityApp1.getName();		
 		holder.getName1().setText(name);
 		
 		String price = entityApp1.getPrice();
@@ -343,10 +340,7 @@ class DoubleAppListAdapter extends BaseAdapter implements OnClickListener, OnScr
 			else								
 				holder.getIcon2().setImageResource(R.drawable.ic_launcher);
 											
-			name = entityApp2.getName();
-			if (name.length() > 6)
-				name = name.substring(0, 6);
-			
+			name = entityApp2.getName();		
 			holder.getName2().setText(name);
 			
 			price = entityApp2.getPrice();

@@ -15,6 +15,7 @@
     <color name="detail_app_top_background">#156475</color>
     <color name="detail_app_bottom_background">#FFFFFF</color>
     <color name="detail_app_button">#FFFEFE</color>
+    <color name="detail_app_text">#FFFEFE</color>
     <color name="detail_app_image_background">#1E90A8</color>
     <color name="detail_app_image_line">#156475</color>
     <color name="detail_app_intro_ext">#2F68F1</color>
@@ -28,5 +29,7 @@
     <color name="myapp_banner">#1E90A8</color>
     <color name="myapp_background">#156475</color>
     <color name="myapp_text">#FFFEFE</color>
+    <color name="double_app_text">#FFFEFE</color>
+    <color name="single_app_text">#FFFEFE</color>
 
 </resources>

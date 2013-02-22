@@ -17,7 +17,7 @@
 
     <LinearLayout
         android:id="@+id/single_app_layout"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginBottom="3dp"
@@ -27,35 +27,31 @@
         android:clickable="true"
         android:orientation="vertical" >
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:layout_height="wrap_content" >
 
             <TextView
                 android:id="@+id/single_app_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:paddingRight="52dp"
+                android:singleLine="true"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/white" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="|"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/white" />
+                android:textColor="@color/single_app_text" />
 
             <TextView
                 android:id="@+id/single_app_size"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
-                android:textColor="@color/white" />
-        </LinearLayout>
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/single_app_text" />
+        </RelativeLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
@@ -64,11 +60,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="20dp"
-                android:textColor="@color/white" />
+                android:textColor="@color/single_app_text" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="2dp"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/download_times" />
 
@@ -77,11 +75,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="15dp"
-                android:textColor="@color/white" />
+                android:textColor="@color/single_app_text" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="2dp"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/comment_times" />
 
@@ -89,7 +89,7 @@
                 android:id="@+id/single_app_pcount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white" />
+                android:textColor="@color/single_app_text" />
         </LinearLayout>
     </LinearLayout>
 
@@ -99,7 +99,7 @@
         android:layout_height="48dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="10dp"        
+        android:layout_marginRight="10dp"
         android:contentDescription="@string/app_name"
         android:src="@drawable/single_download" />
 

@@ -21,6 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="2dp"
+            android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/myapp_text" />
 
@@ -36,12 +37,12 @@
                 android:layout_width="38dp"
                 android:layout_height="38dp"
                 android:layout_marginLeft="2dp"
-                android:layout_marginRight="2dp"                
+                android:layout_marginRight="2dp"
                 android:contentDescription="@string/app_name" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"                
+                android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
                 <TextView
@@ -75,6 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="2dp"
+            android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/myapp_text" />
 
@@ -90,12 +92,12 @@
                 android:layout_width="38dp"
                 android:layout_height="38dp"
                 android:layout_marginLeft="2dp"
-                android:layout_marginRight="2dp"                
+                android:layout_marginRight="2dp"
                 android:contentDescription="@string/app_name" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"                
+                android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
                 <TextView

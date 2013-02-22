@@ -20,6 +20,9 @@ public class GlobalData {
 	public static GlobalData globalData = null;
 	private Map<String, EntityApp> remoteApps = new HashMap<String, EntityApp>();
 	private List<EntityAppInfo> localApps = new Vector<EntityAppInfo>();
+	private List<EntityApp> downloadApps = new Vector<EntityApp>();
+	private List<EntityApp> collectApps = new Vector<EntityApp>();
+	private List<EntityApp> browseApps = new Vector<EntityApp>();
 	private Map<Long, List<EntityAd>> ads = new HashMap<Long, List<EntityAd>>();
 	private List<EntityColumn> columns = new Vector<EntityColumn>();
 	private List<EntityTag> tags = new Vector<EntityTag>();
@@ -37,7 +40,7 @@ public class GlobalData {
 		List<EntityAppInfo> list = ApkManager.getApps(context);
 		if (list != null) {
 			for (EntityAppInfo entityAppInfo : list)
-				putLocalApp(entityAppInfo);			
+				addLocalApp(entityAppInfo);			
 		}
 		
 		return true;
@@ -53,7 +56,7 @@ public class GlobalData {
 			remoteApps.put(packageName, remoteApp);
 	}
 	
-	public void putLocalApp(EntityAppInfo entityAppInfo) {
+	public void addLocalApp(EntityAppInfo entityAppInfo) {
 		String packageName = entityAppInfo.getPackageName();
 		for (EntityAppInfo appInfo : localApps) {
 			if (appInfo.getPackageName().equals(packageName))
@@ -84,6 +87,33 @@ public class GlobalData {
 		}
 		
 		return false;
+	}
+	
+	public void addDownloadApp(EntityApp remoteApp) {
+		if (downloadApps.indexOf(remoteApp) == -1)
+			downloadApps.add(remoteApp);
+	}
+	
+	public List<EntityApp> getDownloadApps() {
+		return downloadApps;
+	}
+	
+	public void addCollectApp(EntityApp remoteApp) {
+		if (collectApps.indexOf(remoteApp) == -1)
+			collectApps.add(remoteApp);
+	}
+	
+	public List<EntityApp> getCollectApps() {
+		return collectApps;
+	}
+	
+	public void addBrowseApp(EntityApp remoteApp) {
+		browseApps.remove(remoteApp);
+		browseApps.add(0, remoteApp);
+	}
+	
+	public List<EntityApp> getBrowseApps() {
+		return browseApps;
 	}
 	
 	public boolean existAds(long id) {

@@ -88,8 +88,7 @@ public class TaskDownload implements RequestCallBackDownload {
 			ApkManager.installApk(context, file);
 			return true;
 		} else {
-			String msg = context.getString(R.string.error_no_apkfile);
-			Toast.makeText(context, msg, Toast.LENGTH_LONG).show(); 
+			Toast.makeText(context, R.string.error_no_apkfile, Toast.LENGTH_LONG).show(); 
 			entityApp.setStatus(EnumAppStatus.NOINSTALL);
 			return false;
 		}			
@@ -185,6 +184,7 @@ public class TaskDownload implements RequestCallBackDownload {
 		switch (status) {
 			case FINISH:
 				entityApp.setStatus(EnumAppStatus.INSTALL);
+				mGlobalData.addDownloadApp(entityApp);
 				break;
 				
 			case CANCEL:

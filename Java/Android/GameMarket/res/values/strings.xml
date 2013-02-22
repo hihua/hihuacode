@@ -21,6 +21,8 @@
     <string name="app_installed">已安装</string>
     <string name="app_run">运行</string>
     <string name="app_waiting">等待下载</string>
+    <string name="app_free">免费</string>
+    <string name="app_fee">收费</string>
     <string name="app_downloading">下载中</string>
     <string name="app_comment">评论</string>
     <string name="app_collect">收藏</string>
@@ -38,7 +40,9 @@
     <string name="game_image">游戏图片</string>
     <string name="detail_intro">介绍</string>
     <string name="detail_intro_ext">展开</string>
+    <string name="detail_app_collect">是否收藏？</string>
     <string name="error_no_apkfile">安装失败，没有此apk安装文件</string>
+    <string name="tip_collect_success">收藏成功</string>
     <string name="myapp_size">大小: </string>
     <string name="myapp_version">版本: </string>
 

@@ -73,6 +73,7 @@ public abstract class ActivityBase extends Activity implements OnClickListener {
 					textView.setClickable(true);					
 					textView.setOnClickListener(this);
 					textView.setGravity(Gravity.CENTER);
+					textView.setSingleLine(true);
 					textView.setText(name);
 					textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13.0f);
 					
@@ -111,6 +112,7 @@ public abstract class ActivityBase extends Activity implements OnClickListener {
 				textView.setOnClickListener(this);
 				textView.setGravity(Gravity.CENTER);
 				textView.setText(R.string.tag_more);
+				textView.setSingleLine(true);
 				textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13.0f);
 				Drawable drawable = getResources().getDrawable(R.drawable.tag_more);				
 				textView.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null);
@@ -145,6 +147,7 @@ public abstract class ActivityBase extends Activity implements OnClickListener {
 				textView.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
 				textView.setText(name);
 				textView.setTextColor(color);
+				textView.setSingleLine(true);
 				textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18.0f);				
 				frameLayout.addView(textView);
 				layoutColumn.addView(frameLayout);				
@@ -181,6 +184,7 @@ public abstract class ActivityBase extends Activity implements OnClickListener {
 		textView.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
 		textView.setText(R.string.column_myapp);
 		textView.setTextColor(color);
+		textView.setSingleLine(true);
 		textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18.0f);		
 		frameLayout.addView(textView);
 		layoutColumn.addView(frameLayout);

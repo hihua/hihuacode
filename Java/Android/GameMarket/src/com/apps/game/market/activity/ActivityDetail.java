@@ -17,7 +17,10 @@ import com.apps.game.market.task.TaskDownload;
 import com.apps.game.market.util.ImageCache;
 import com.apps.game.market.viewholder.ViewHolderCommentApp;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +37,7 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ActivityDetail extends ActivityBase implements RequestCallBackDetail {
 	private EntityApp mEntityApp = null;
@@ -48,6 +52,8 @@ public class ActivityDetail extends ActivityBase implements RequestCallBackDetai
 	private FrameLayout mAppAction;
 	private TextView mAppStatus;
 	private TextView mAppDesc;
+	private FrameLayout mAppCollect;
+	private FrameLayout mAppShare;
 	private ScrollView mAppIntroScrollView;
 	private ListView mAppCommentListView;
 	private TextView mAppExtTextView;
@@ -65,7 +71,7 @@ public class ActivityDetail extends ActivityBase implements RequestCallBackDetai
 	private final RequestDetail mRequestDetail = new RequestDetail(this);
 	
 	@Override
-	protected void onAppCreate() {
+	protected void onAppCreate() {		
 		setContentView(R.layout.app_detail);		
 		layout();
 	}
@@ -135,7 +141,9 @@ public class ActivityDetail extends ActivityBase implements RequestCallBackDetai
 		if (mEntityApp.getDetail())
 			init();
 		else
-			mRequestDetail.request(mEntityApp);		
+			mRequestDetail.request(mEntityApp);
+		
+		mGlobalData.addBrowseApp(mEntityApp);
 	}
 
 	@Override
@@ -183,7 +191,7 @@ public class ActivityDetail extends ActivityBase implements RequestCallBackDetai
 			return;
 		}
 		
-		if (id == R.id.detail_app_action) {			
+		if (id == R.id.detail_app_action) {
 			TaskDownload taskDownload = mGlobalObject.getTaskDownload();
 			EnumAppStatus status = mEntityApp.getStatus();
 			switch (status) {
@@ -208,7 +216,38 @@ public class ActivityDetail extends ActivityBase implements RequestCallBackDetai
 				case DOWNLOADING:
 					taskDownload.downloadCancel(this, mEntityApp);		
 					break;
-			}		
+			}
+			
+			return;
+		}
+		
+		if (id == R.id.detail_app_collect) {
+			final Context context = this;
+			AlertDialog.Builder builder = new Builder(this);
+			String name = mEntityApp.getName();
+			String collect = getString(R.string.detail_app_collect);
+			String confirm = getString(R.string.dialog_confirm);
+			String cancel = getString(R.string.dialog_cancel);
+			builder.setMessage(collect);
+			builder.setTitle(name);
+			builder.setPositiveButton(confirm, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();						
+					mGlobalData.addCollectApp(mEntityApp);					
+					Toast.makeText(context, R.string.tip_collect_success, Toast.LENGTH_LONG).show();
+				}
+			});
+
+			builder.setNegativeButton(cancel, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+				}
+			});
+							
+			builder.create().show();
+			return;
 		}
 	}
 				
@@ -223,6 +262,8 @@ public class ActivityDetail extends ActivityBase implements RequestCallBackDetai
 		mAppPCount = (TextView) findViewById(R.id.detail_app_pcount);
 		mAppAction = (FrameLayout) findViewById(R.id.detail_app_action);
 		mAppStatus = (TextView) findViewById(R.id.detail_app_status);
+		mAppCollect = (FrameLayout) findViewById(R.id.detail_app_collect);
+		mAppShare = (FrameLayout) findViewById(R.id.detail_app_share);
 		mAppDesc = (TextView) findViewById(R.id.detail_app_desc);
 		mAppIntroScrollView = (ScrollView) findViewById(R.id.detail_app_intro_scrollview);
 		mAppCommentListView = (ListView) findViewById(R.id.detail_app_comment_listview);
@@ -232,11 +273,14 @@ public class ActivityDetail extends ActivityBase implements RequestCallBackDetai
 		mAppIntroFrameLayout = (FrameLayout) findViewById(R.id.detail_app_intro);
 		mAppIntroTextView = (TextView) findViewById(R.id.detail_app_intro_textview);
 		mAppCommentFrameLayout = (FrameLayout) findViewById(R.id.detail_app_comment);
-		mAppCommentTextView = (TextView) findViewById(R.id.detail_app_comment_textview);		
+		mAppCommentTextView = (TextView) findViewById(R.id.detail_app_comment_textview);
+		mAppCollect.setOnClickListener(this);
+		mAppShare.setOnClickListener(this);
 		mAppExtTextView.setOnClickListener(this);
 		mAppExtImageView.setOnClickListener(this);		
 		mAppIntroTextView.setOnClickListener(this);
-		mAppCommentTextView.setOnClickListener(this);		
+		mAppCommentTextView.setOnClickListener(this);
+		mAppName.setSelected(true);
 	}
 	
 	private void init() {

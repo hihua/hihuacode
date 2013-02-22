@@ -233,10 +233,7 @@ class SingleAppListAdapter extends BaseAdapter implements OnClickListener, OnScr
 		else							
 			holder.getIcon().setImageResource(R.drawable.ic_launcher);
 		
-		String name = entityApp.getName();
-		if (name.length() > 10)
-			name = name.substring(0, 10);
-			
+		String name = entityApp.getName();			
 		holder.getName().setText(name);
 				
 		long size = entityApp.getSize();

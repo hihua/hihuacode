@@ -24,38 +24,37 @@
             android:orientation="vertical" >
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="2dp"
-            android:orientation="horizontal" >
+            android:layout_marginRight="2dp" >
 
             <TextView
                 android:id="@+id/app_name1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:paddingRight="45dp"
+                android:singleLine="true"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/white" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="| "
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/white" />
+                android:textColor="@color/double_app_text" />
 
             <TextView
                 android:id="@+id/app_price1"
-                android:layout_width="wrap_content"
+                android:layout_width="32dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white" />
-        </LinearLayout>
+                android:layout_alignParentBottom="false"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/double_app_text" />
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:layout_marginLeft="2dp"           
+            android:layout_marginLeft="2dp"
             android:orientation="horizontal" >
 
             <ImageView
@@ -78,7 +77,7 @@
                     android:id="@+id/app_type_size1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/double_app_text" />
 
                 <LinearLayout
                     android:layout_width="fill_parent"
@@ -97,7 +96,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/double_app_text" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -110,7 +109,7 @@
                         android:id="@+id/app_pcount1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/double_app_text" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -129,7 +128,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="2dp" />
-            
+
             <TextView
                 android:id="@+id/app_action1"
                 android:layout_width="wrap_content"
@@ -137,7 +136,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="5dp"
-                android:textColor="@color/white" />
+                android:textColor="@color/double_app_text" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -159,32 +158,31 @@
             android:orientation="vertical" >
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="2dp"
-            android:orientation="horizontal" >
+            android:layout_marginRight="2dp" >
 
             <TextView
                 android:id="@+id/app_name2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:paddingRight="45dp"
+                android:singleLine="true"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/white" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="| "
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/white" />
+                android:textColor="@color/double_app_text" />
 
             <TextView
                 android:id="@+id/app_price2"
-                android:layout_width="wrap_content"
+                android:layout_width="32dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white" />
-        </LinearLayout>
+                android:layout_alignParentBottom="false"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/double_app_text" />
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -213,7 +211,7 @@
                     android:id="@+id/app_type_size2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/double_app_text" />
 
                 <LinearLayout
                     android:layout_width="fill_parent"
@@ -232,7 +230,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/double_app_text" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -245,7 +243,7 @@
                         android:id="@+id/app_pcount2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/double_app_text" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -272,7 +270,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="5dp"
-                android:textColor="@color/white" />
+                android:textColor="@color/double_app_text" />
         </RelativeLayout>
     </LinearLayout>
 

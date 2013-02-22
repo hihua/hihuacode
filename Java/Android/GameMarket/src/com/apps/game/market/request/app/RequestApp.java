@@ -14,6 +14,7 @@ import org.dom4j.io.SAXReader;
 import android.os.Message;
 import android.util.Log;
 
+import com.apps.game.market.R;
 import com.apps.game.market.entity.EntityResponse;
 import com.apps.game.market.entity.app.EntityApp;
 import com.apps.game.market.enums.EnumAppStatus;
@@ -129,11 +130,11 @@ public abstract class RequestApp extends RequestBase {
 					text = attr.getText();
 					if (text == null)
 						continue;
-					
+										
 					if (text.equals("0"))
-						entityApp.setPrice("免费");
+						entityApp.setPrice(mContext.getString(R.string.app_free));
 					else
-						entityApp.setPrice("收费");
+						entityApp.setPrice(mContext.getString(R.string.app_fee));
 					
 					attr = element.attribute("rating");
 					if (attr == null)
@@ -188,9 +189,10 @@ public abstract class RequestApp extends RequestBase {
 					if (mGlobalData.appInstalled(text)) 
 						entityApp.setStatus(EnumAppStatus.INSTALLED);
 					else {
-						if (fileManager.appExists(text))
+						if (fileManager.appExists(text)) {
+							mGlobalData.addDownloadApp(entityApp);
 							entityApp.setStatus(EnumAppStatus.INSTALL);
-						else
+						} else
 							entityApp.setStatus(EnumAppStatus.NOINSTALL);
 					}
 											
