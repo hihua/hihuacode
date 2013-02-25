@@ -1,7 +1,5 @@
 package com.apps.game.market.activity;
 
-import java.util.List;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
@@ -72,7 +70,7 @@ public class ActivityIndex extends ActivityBase implements OnPageChangeListener,
 		mLayoutColumn = (LinearLayout) findViewById(R.id.index_layout_column);
 		mPager = (ViewPager) findViewById(R.id.index_viewpager);
 		layoutColumns(mLayoutColumn, mPager);
-		mPager.setAdapter(new IndexPagerAdapter(mViewColumns));
+		mPager.setAdapter(new AdapterIndexPager(mViewColumns));
 		mPager.setCurrentItem(0);
 		mPager.setOnPageChangeListener(this);
 		
@@ -176,35 +174,4 @@ public class ActivityIndex extends ActivityBase implements OnPageChangeListener,
 				mLinearBottom.setVisibility(View.VISIBLE);
 		}
 	}
-}
-
-class IndexPagerAdapter extends PagerAdapter {
-	private List<ViewColumn> mViewColumns;
-			
-	IndexPagerAdapter(List<ViewColumn> viewColumns) {
-		mViewColumns = viewColumns;
-	}
-
-	@Override
-	public int getCount() {		
-		return mViewColumns.size();
-	}
-
-	@Override
-	public boolean isViewFromObject(View view, Object object) {
-		return view == object;
-	}
-	
-	@Override
-    public void destroyItem(ViewGroup viewGroup, int position, Object object) {
-		viewGroup.removeView((View) object);
-    }
-    
-    @Override
-    public Object instantiateItem(ViewGroup viewGroup, int position) {    	    	
-    	ViewColumn viewColumn = mViewColumns.get(position);    	
-    	View view = viewColumn.getView();
-        viewGroup.addView(view);
-        return view;
-    }
 }

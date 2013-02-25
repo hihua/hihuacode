@@ -1,9 +1,9 @@
 package com.apps.game.market.task;
 
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.apps.game.market.entity.EntityImage;
 import com.apps.game.market.entity.EntityRequest;
@@ -12,7 +12,8 @@ import com.apps.game.market.request.RequestImage;
 import com.apps.game.market.util.HttpClass;
 import com.apps.game.market.util.ImageCache;
 
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Handler.Callback;
 import android.os.Message;
@@ -22,7 +23,7 @@ public class TaskImage implements Runnable, Callback {
 	private boolean mQuit = false;
 	private boolean mLock = false;
 	private boolean mCache = true;
-	private final Map<ImageView, String> mTasks = new HashMap<ImageView, String>();
+	private final Map<ImageView, String> mTasks = new ConcurrentHashMap<ImageView, String>();
 	private final HttpClass mHttpClass = new HttpClass();
 	private final ImageCache mImageCache = ImageCache.getInstance();
 	private final Handler mHandler = new Handler(this);
@@ -85,10 +86,9 @@ public class TaskImage implements Runnable, Callback {
 					
 			for (Entry<ImageView, String> entry : mTasks.entrySet()) {
 				final ImageView imageView = entry.getKey();
-				final String url = entry.getValue();
-								
-				Drawable drawable = mImageCache.get(url);
-				if (drawable == null) {
+				final String url = entry.getValue();								
+				Bitmap bitmap = mImageCache.get(url);
+				if (bitmap == null) {
 					final EntityRequest req = new EntityRequest(); 
 					req.setHeader(null);
 					req.setString(false);
@@ -96,16 +96,16 @@ public class TaskImage implements Runnable, Callback {
 					EntityResponse resp = mHttpClass.request(req);
 					if (resp != null) {
 						final InputStream stream = resp.getStream();
-						drawable = Drawable.createFromStream(stream, "");
+						bitmap = BitmapFactory.decodeStream(stream);
 						resp.close();
-						if (drawable != null) {
+						if (bitmap != null) {
 							if (mCache)
-								mImageCache.set(url, drawable);
+								mImageCache.set(url, bitmap);
 							
 							final EntityImage entityImage = new EntityImage();
 							entityImage.setUrl(url);
 							entityImage.setImageView(imageView);
-							entityImage.setDrawable(drawable);
+							entityImage.setBitmap(bitmap);
 											
 							Message msg = mHandler.obtainMessage();
 							msg.what = 0;
@@ -126,10 +126,10 @@ public class TaskImage implements Runnable, Callback {
 	
 	@Override
 	public boolean handleMessage(Message msg) {
-		EntityImage entityImage = (EntityImage) msg.obj;
-		ImageView imageView = entityImage.getImageView();
-		Drawable drawable = entityImage.getDrawable();
-		imageView.setImageDrawable(drawable);
+		final EntityImage entityImage = (EntityImage) msg.obj;
+		final ImageView imageView = entityImage.getImageView();
+		final Bitmap bitmap = entityImage.getBitmap();
+		imageView.setImageBitmap(bitmap);
 		return true;
 	}
 }

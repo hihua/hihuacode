@@ -2,6 +2,8 @@ package com.apps.game.market.request;
 
 import java.io.InputStream;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Message;
 import android.widget.ImageView;
@@ -31,16 +33,16 @@ public class RequestImage extends RequestBase {
 		EntityResponse resp = mHttpClass.request(req);
 		if (resp != null) {
 			InputStream stream = resp.getStream();
-			Drawable drawable = Drawable.createFromStream(stream, "");			
+			Bitmap bitmap = BitmapFactory.decodeStream(stream);			
 			resp.close();
-			if (drawable != null) {
+			if (bitmap != null) {
 				if (mCache)
-					imageCache.set(mUrl, drawable);
+					imageCache.set(mUrl, bitmap);
 				
 				EntityImage entityImage = new EntityImage();
 				entityImage.setUrl(mUrl);
 				entityImage.setImageView(mImageView);
-				entityImage.setDrawable(drawable);
+				entityImage.setBitmap(bitmap);
 								
 				Message msg = mHandler.obtainMessage();
 				msg.what = -1;
@@ -50,11 +52,11 @@ public class RequestImage extends RequestBase {
 			}			
 		}
 		
-		Drawable drawable = mContext.getResources().getDrawable(android.R.drawable.ic_menu_gallery);
+		Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), android.R.drawable.ic_menu_gallery);		
 		EntityImage entityImage = new EntityImage();
 		entityImage.setUrl(mUrl);
 		entityImage.setImageView(mImageView);
-		entityImage.setDrawable(drawable);
+		entityImage.setBitmap(bitmap);
 						
 		Message msg = mHandler.obtainMessage();
 		msg.what = -1;
@@ -66,8 +68,10 @@ public class RequestImage extends RequestBase {
 	protected void onMessage(Message msg) {
 		EntityImage entityImage = (EntityImage) msg.obj;
 		ImageView imageView = entityImage.getImageView();
-		Drawable drawable = entityImage.getDrawable();		
+		Bitmap bitmap = entityImage.getBitmap();
 		if (imageView != null)
-			imageView.setImageDrawable(drawable);		
+			imageView.setImageBitmap(bitmap);
+		
+		
 	}
 }

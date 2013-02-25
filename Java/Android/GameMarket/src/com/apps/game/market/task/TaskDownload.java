@@ -45,20 +45,20 @@ public class TaskDownload implements RequestCallBackDownload {
 	}
 	
 	public void downloadApp(Context context, final EntityApp entityApp) {
-		String filesize = context.getString(R.string.dialog_app_filesize);
-		String download = context.getString(R.string.dialog_app_download);
-		String confirm = context.getString(R.string.dialog_confirm);
-		String cancel = context.getString(R.string.dialog_cancel);
+		final String filesize = context.getString(R.string.dialog_app_filesize);
+		final String download = context.getString(R.string.dialog_app_download);
+		final String confirm = context.getString(R.string.dialog_confirm);
+		final String cancel = context.getString(R.string.dialog_cancel);
 		
-		LayoutInflater inflater = LayoutInflater.from(context);
-		View view = inflater.inflate(R.layout.dialog_download, null);
+		final LayoutInflater inflater = LayoutInflater.from(context);
+		final View view = inflater.inflate(R.layout.dialog_download, null);
 		TextView textView = (TextView) view.findViewById(R.id.dialog_download_app_name);
 		textView.setText(entityApp.getName());
 		textView = (TextView) view.findViewById(R.id.dialog_download_app_size);
-		long size = entityApp.getSize();
-		double d = (double)size / 1024d / 1024d;
+		final long size = entityApp.getSize();
+		final double d = (double)size / 1024d / 1024d;
 		textView.setText(filesize + mFormat.format(d) + "M");
-		AlertDialog.Builder builder = new Builder(context);			
+		final AlertDialog.Builder builder = new Builder(context);			
 		builder.setTitle(download);
 		builder.setView(view);
 		builder.setPositiveButton(confirm, new DialogInterface.OnClickListener() {
@@ -81,9 +81,8 @@ public class TaskDownload implements RequestCallBackDownload {
 	
 	public boolean installApp(Context context, EntityApp entityApp) {
 		final FileManager fileManager = mGlobalObject.getFileManager();
-		String packageName = entityApp.getPackageName();
-		String filename = fileManager.getAppsPath() + "/" + packageName + ".apk";
-		File file = new File(filename);
+		final String packageName = entityApp.getPackageName();		
+		final File file = new File(fileManager.getAppsPath(), packageName + ".apk");
 		if (file.exists() && file.isFile()) {
 			ApkManager.installApk(context, file);
 			return true;
@@ -96,11 +95,11 @@ public class TaskDownload implements RequestCallBackDownload {
 	
 	public void runApp(final Context context, final EntityApp entityApp) {
 		final String packageName = entityApp.getPackageName();
-		AlertDialog.Builder builder = new Builder(context);
-		String name = entityApp.getName();
-		String run = context.getString(R.string.dialog_app_run);
-		String confirm = context.getString(R.string.dialog_confirm);
-		String cancel = context.getString(R.string.dialog_cancel);
+		final AlertDialog.Builder builder = new Builder(context);
+		final String name = entityApp.getName();
+		final String run = context.getString(R.string.dialog_app_run);
+		final String confirm = context.getString(R.string.dialog_confirm);
+		final String cancel = context.getString(R.string.dialog_cancel);
 		builder.setMessage(run);
 		builder.setTitle(name);
 		builder.setPositiveButton(confirm, new DialogInterface.OnClickListener() {
@@ -122,11 +121,11 @@ public class TaskDownload implements RequestCallBackDownload {
 	}
 	
 	public void downloadCancel(final Context context, final EntityApp entityApp) {
-		AlertDialog.Builder builder = new Builder(context);
-		String name = entityApp.getName();
-		String downloadCancel = context.getString(R.string.dialog_app_download_cancel);
-		String confirm = context.getString(R.string.dialog_confirm);
-		String cancel = context.getString(R.string.dialog_cancel);
+		final AlertDialog.Builder builder = new Builder(context);
+		final String name = entityApp.getName();
+		final String downloadCancel = context.getString(R.string.dialog_app_download_cancel);
+		final String confirm = context.getString(R.string.dialog_confirm);
+		final String cancel = context.getString(R.string.dialog_cancel);
 		builder.setMessage(downloadCancel);
 		builder.setTitle(name);
 		builder.setPositiveButton(confirm, new DialogInterface.OnClickListener() {
@@ -149,7 +148,7 @@ public class TaskDownload implements RequestCallBackDownload {
 		
 	private void add(EntityApp entityApp) {				
 		for (RequestDownload requestDownload : mRequestDownload) {			
-			boolean busy = requestDownload.getBusy();
+			final boolean busy = requestDownload.getBusy();
 			if (!busy) {
 				requestDownload.request(entityApp);
 				if (mActivityBase != null)

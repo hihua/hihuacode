@@ -1,12 +1,12 @@
 package com.apps.game.market.entity;
 
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
 import android.widget.ImageView;
 
 public class EntityImage {
 	private String url;
 	private ImageView imageView;
-	private Drawable drawable;
+	private Bitmap bitmap;
 
 	public String getUrl() {
 		return url;
@@ -16,8 +16,8 @@ public class EntityImage {
 		return imageView;
 	}
 
-	public Drawable getDrawable() {
-		return drawable;
+	public Bitmap getBitmap() {
+		return bitmap;
 	}
 
 	public void setUrl(String url) {
@@ -28,7 +28,7 @@ public class EntityImage {
 		this.imageView = imageView;
 	}
 
-	public void setDrawable(Drawable drawable) {
-		this.drawable = drawable;
+	public void setBitmap(Bitmap bitmap) {
+		this.bitmap = bitmap;
 	}
 }

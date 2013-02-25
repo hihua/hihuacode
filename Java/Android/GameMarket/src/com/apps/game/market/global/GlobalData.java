@@ -98,6 +98,10 @@ public class GlobalData {
 		return downloadApps;
 	}
 	
+	public void removeDownloadApps(EntityApp entityApp) {
+		downloadApps.remove(entityApp);
+	}
+	
 	public void addCollectApp(EntityApp remoteApp) {
 		if (collectApps.indexOf(remoteApp) == -1)
 			collectApps.add(remoteApp);
@@ -105,6 +109,10 @@ public class GlobalData {
 	
 	public List<EntityApp> getCollectApps() {
 		return collectApps;
+	}
+	
+	public void removeCollectApps(EntityApp entityApp) {
+		collectApps.remove(entityApp);
 	}
 	
 	public void addBrowseApp(EntityApp remoteApp) {

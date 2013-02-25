@@ -1,20 +1,23 @@
 package com.apps.game.market.viewholder;
 
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class ViewHolderMyApp {
+public class ViewHolderMyAppDownload {
 	private LinearLayout layout1;
 	private LinearLayout layout2;
 	private ImageView icon1;
 	private ImageView icon2;
 	private TextView name1;
 	private TextView name2;
+	private FrameLayout del1;
+	private FrameLayout del2;
 	private TextView size1;
 	private TextView size2;
-	private TextView version1;
-	private TextView version2;
+	private TextView install1;
+	private TextView install2;
 
 	public LinearLayout getLayout1() {
 		return layout1;
@@ -40,6 +43,14 @@ public class ViewHolderMyApp {
 		return name2;
 	}
 
+	public FrameLayout getDel1() {
+		return del1;
+	}
+
+	public FrameLayout getDel2() {
+		return del2;
+	}
+
 	public TextView getSize1() {
 		return size1;
 	}
@@ -48,12 +59,12 @@ public class ViewHolderMyApp {
 		return size2;
 	}
 
-	public TextView getVersion1() {
-		return version1;
+	public TextView getInstall1() {
+		return install1;
 	}
 
-	public TextView getVersion2() {
-		return version2;
+	public TextView getInstall2() {
+		return install2;
 	}
 
 	public void setLayout1(LinearLayout layout1) {
@@ -80,6 +91,14 @@ public class ViewHolderMyApp {
 		this.name2 = name2;
 	}
 
+	public void setDel1(FrameLayout del1) {
+		this.del1 = del1;
+	}
+
+	public void setDel2(FrameLayout del2) {
+		this.del2 = del2;
+	}
+
 	public void setSize1(TextView size1) {
 		this.size1 = size1;
 	}
@@ -88,11 +107,11 @@ public class ViewHolderMyApp {
 		this.size2 = size2;
 	}
 
-	public void setVersion1(TextView version1) {
-		this.version1 = version1;
+	public void setInstall1(TextView install1) {
+		this.install1 = install1;
 	}
 
-	public void setVersion2(TextView version2) {
-		this.version2 = version2;
+	public void setInstall2(TextView install2) {
+		this.install2 = install2;
 	}
 }

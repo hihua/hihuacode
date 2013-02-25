@@ -5,7 +5,7 @@ import java.util.Vector;
 
 import com.apps.game.market.entity.EntityImageCache;
 
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
 
 public class ImageCache {
 	private static ImageCache mImageCache;
@@ -23,7 +23,7 @@ public class ImageCache {
 
 	}
 			
-	public void set(String url, Drawable drawable) {
+	public void set(String url, Bitmap bitmap) {
 		synchronized (mList) {
 			for (EntityImageCache imageCache : mList) {
 				if (imageCache.getUrl().equals(url)) {
@@ -37,16 +37,16 @@ public class ImageCache {
 							
 			EntityImageCache imageCache = new EntityImageCache();
 			imageCache.setUrl(url);
-			imageCache.setDrawable(drawable);
+			imageCache.setBitmap(bitmap);
 			mList.add(imageCache);			
 		}		
 	}
 	
-	public Drawable get(String url) {
+	public Bitmap get(String url) {
 		synchronized (mList) {
 			for (EntityImageCache imageCache : mList) {
 				if (imageCache.getUrl().equals(url)) {
-					return imageCache.getDrawable();				
+					return imageCache.getBitmap();
 				}
 			}
 			

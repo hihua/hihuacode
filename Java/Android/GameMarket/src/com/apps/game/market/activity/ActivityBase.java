@@ -19,6 +19,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -121,7 +122,7 @@ public abstract class ActivityBase extends Activity implements OnClickListener {
 		}		
 	}
 	
-	protected void layoutColumns(ViewGroup layoutColumn , ViewGroup parent) {			
+	protected void layoutColumns(ViewGroup layoutColumn , ViewPager parent) {			
 		int color = getResources().getColor(R.color.column_button);	
 		mColumns = mGlobalData.getColumns();
 		int index = 0;
@@ -185,7 +186,7 @@ public abstract class ActivityBase extends Activity implements OnClickListener {
 		textView.setText(R.string.column_myapp);
 		textView.setTextColor(color);
 		textView.setSingleLine(true);
-		textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18.0f);		
+		textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18.0f);
 		frameLayout.addView(textView);
 		layoutColumn.addView(frameLayout);
 		if (parent != null) {

@@ -35,6 +35,10 @@
     <string name="dialog_cancel">取消</string>
     <string name="dialog_app_run">确认运行吗？</string>
     <string name="dialog_app_download_cancel">确认取消下载吗？</string>
+    <string name="dialog_myapp_download_del">是否删除安装包</string>
+    <string name="dialog_myapp_download_install">是否安装</string>
+    <string name="dialog_myapp_download_reinstall">是否重新安装</string>
+    <string name="dialog_myapp_collect_del">是否删除此收藏</string>
     <string name="comment_submit">提交</string>
     <string name="comment_reply">回复</string>
     <string name="game_image">游戏图片</string>
@@ -43,7 +47,12 @@
     <string name="detail_app_collect">是否收藏？</string>
     <string name="error_no_apkfile">安装失败，没有此apk安装文件</string>
     <string name="tip_collect_success">收藏成功</string>
+    <string name="tip_myapp_download_del_success">删除安装包成功</string>
+    <string name="tip_myapp_download_del_error">删除安装包失败</string>
+    <string name="tip_myapp_collect_del_success">删除此收藏成功</string>
     <string name="myapp_size">大小: </string>
     <string name="myapp_version">版本: </string>
-
-</resources>
+    <string name="myapp_del">删除</string>
+    <string name="myapp_install">安装</string>    
+    <string name="myapp_reinstall">重新安装</string>
+    </resources>

@@ -21,7 +21,7 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,12 +86,12 @@ public class ActivityDetail extends ActivityBase implements RequestCallBackDetai
 		mEntityApp = mGlobalData.getSelectApp();
 		String url = mEntityApp.getIcon();		
 		ImageCache imageCache = ImageCache.getInstance();
-		Drawable drawable = imageCache.get(url);
-		if (drawable == null) {
+		Bitmap bitmap = imageCache.get(url);
+		if (bitmap == null) {
 			RequestImage requestImage = new RequestImage(url, mAppIcon, false);
 			requestImage.request();
 		} else
-			mAppIcon.setImageDrawable(drawable);
+			mAppIcon.setImageBitmap(bitmap);
 						
 		if (mEntityApp.getName() != null)
 			mAppName.setText(mEntityApp.getName());

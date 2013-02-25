@@ -14,6 +14,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
@@ -74,25 +75,24 @@ public class RequestDownload extends RequestBase {
 		mEntityApp.setStatus(EnumAppStatus.DOWNLOADING);
 		String icon = mEntityApp.getIcon();		
 		ImageCache imageCache = ImageCache.getInstance();
-		Drawable drawable = imageCache.get(icon);
-		if (drawable == null) {
+		Bitmap bitmap = imageCache.get(icon);
+		if (bitmap == null) {
 			mHandler = new Handler(this);
 			RequestImage requestImage = new RequestImage(icon, null, true);
 			requestImage.setHandler(mHandler);
 			requestImage.request();			
 		} else
-			request(drawable);
+			request(bitmap);
 	}
 	
-	private void request(Drawable drawable) {
+	private void request(Bitmap bitmap) {
 		String name = mEntityApp.getName();
 		long pid = mEntityApp.getPid();
 		mNotificationId = Numeric.rndNumber(500, 2000);
 		mNotification = new Notification(android.R.drawable.stat_sys_download, name + " 开始下载", System.currentTimeMillis());		  
 		mNotification.contentView = new RemoteViews(mContext.getPackageName(), R.layout.notify_download);
-		
-		BitmapDrawable bitmap = (BitmapDrawable) drawable;
-		mNotification.contentView.setImageViewBitmap(R.id.notify_download_app_icon, bitmap.getBitmap());				
+				
+		mNotification.contentView.setImageViewBitmap(R.id.notify_download_app_icon, bitmap);
 		mNotification.contentView.setProgressBar(R.id.notify_download_progressbar, 100, 0, false);  
 		mNotification.contentView.setTextViewText(R.id.notify_download_app_name, name);
 		mNotification.contentView.setTextViewText(R.id.notify_download_progress, "0%");			
@@ -204,8 +204,8 @@ public class RequestDownload extends RequestBase {
 		switch (what) {
 			case -1: {				
 				EntityImage entityImage = (EntityImage) msg.obj;
-				Drawable drawable = entityImage.getDrawable();
-				request(drawable);							
+				Bitmap bitmap = entityImage.getBitmap();
+				request(bitmap);							
 			}
 			break;
 		
