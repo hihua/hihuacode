@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.apps.game.market.R;
 import com.apps.game.market.entity.EntityAppInfo;
+import com.apps.game.market.view.PopWindowMyAppRun;
 import com.apps.game.market.viewholder.ViewHolderMyAppInstalled;
 
 import android.content.Context;
@@ -143,10 +144,10 @@ public class AdapterMyAppInstalled extends BaseAdapter implements OnClickListene
 	public void onClick(View view) {
 		int id = view.getId();
 		Object object = view.getTag();
-		if (id == R.id.myapp_version1 || id == R.id.myapp_version2 && object != null) {
+		if (id == R.id.myapp_layout1 || id == R.id.myapp_layout2 && object != null) {
 			EntityAppInfo entityAppInfo = (EntityAppInfo) object;
-			String packageName = entityAppInfo.getPackageName();
-			
+			PopWindowMyAppRun pop = new PopWindowMyAppRun(mContext, entityAppInfo);
+			pop.show();			
 		}
 	}	
 	

@@ -27,8 +27,7 @@ public class PopWindowTagMore implements OnClickListener {
 	private Context mContext;
 	private LayoutInflater mInflater;
 	private PopupWindow mPop;
-	private EntityTag mEntityTag;
-	private GlobalObject mGlobalObject = GlobalObject.globalObject;
+	private EntityTag mEntityTag;	
 	private GlobalData mGlobalData = GlobalData.globalData;
 	private List<EntityTag> mTags;
 
@@ -41,13 +40,13 @@ public class PopWindowTagMore implements OnClickListener {
 	}
 
 	private void setView() {
-		int width = mContext.getResources().getDimensionPixelSize(R.dimen.tag_more_width);			
-		LinearLayout layout = (LinearLayout) mInflater.inflate(R.layout.tag_more, null, false);
+		int width = mContext.getResources().getDimensionPixelSize(R.dimen.popwindow_tag_more_width);			
+		LinearLayout layout = (LinearLayout) mInflater.inflate(R.layout.popwindow_tag_more, null, false);
 		int size = mTags.size();
-		int left = mContext.getResources().getDimensionPixelSize(R.dimen.tag_more_item_margins_left);
-		int top = mContext.getResources().getDimensionPixelSize(R.dimen.tag_more_item_margins_top);
-		int right = mContext.getResources().getDimensionPixelSize(R.dimen.tag_more_item_margins_right);
-		int bottom = mContext.getResources().getDimensionPixelSize(R.dimen.tag_more_item_margins_bottom);		
+		int left = mContext.getResources().getDimensionPixelSize(R.dimen.popwindow_tag_more_item_margins_left);
+		int top = mContext.getResources().getDimensionPixelSize(R.dimen.popwindow_tag_more_item_margins_top);
+		int right = mContext.getResources().getDimensionPixelSize(R.dimen.popwindow_tag_more_item_margins_right);
+		int bottom = mContext.getResources().getDimensionPixelSize(R.dimen.popwindow_tag_more_item_margins_bottom);		
 		StringBuilder s = new StringBuilder();
 		
 		for (int i = 4;i < size;i++) {

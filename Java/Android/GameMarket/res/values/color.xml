@@ -31,5 +31,9 @@
     <color name="myapp_text">#FFFEFE</color>
     <color name="double_app_text">#FFFEFE</color>
     <color name="single_app_text">#FFFEFE</color>
-
+    <color name="myapp_run_top1">#1C859B</color>
+    <color name="myapp_run_top2">#19798F</color>
+    <color name="popwindow_myapp_run_title">#FFFEFE</color>
+    <color name="popwindow_myapp_run_msg">#000000</color>
+    <color name="popwindow_myapp_run_button">#FFFEFE</color>
 </resources>

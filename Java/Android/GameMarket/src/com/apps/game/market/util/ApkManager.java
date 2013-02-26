@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.util.Log;
 
@@ -111,5 +112,36 @@ public class ApkManager {
 			Log.e("getApps", e.toString());
 			return null;
 		}		
+	}
+	
+	public static EntityAppInfo getApp(Context context, String packageName) {
+		PackageManager packageManager = context.getPackageManager();
+		
+		try {
+			PackageInfo packinfo = packageManager.getPackageInfo(packageName, 0);
+			if (packinfo != null) {
+				EntityAppInfo appInfo = new EntityAppInfo();
+				appInfo.setAppName(packinfo.applicationInfo.loadLabel(packageManager).toString());
+				appInfo.setAppIcon(packinfo.applicationInfo.loadIcon(packageManager));
+				appInfo.setPackageName(packinfo.packageName);					
+				String versionName = packinfo.versionName;
+				int p = versionName.indexOf(" ");
+				if (p > -1)
+					versionName = versionName.substring(0, p);
+				
+				appInfo.setVersionName(versionName);
+				appInfo.setVersionCode(packinfo.versionCode);
+				String dir = packinfo.applicationInfo.publicSourceDir;
+				File file = new File(dir);
+				if (file.exists())						
+					appInfo.setSize(file.length());
+				
+				return appInfo;
+			} else
+				return null;
+		} catch (NameNotFoundException e) {
+			Log.e("getApp", e.toString());
+			return null;
+		}
 	}
 }

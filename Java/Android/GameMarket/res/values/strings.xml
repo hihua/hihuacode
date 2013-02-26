@@ -39,6 +39,9 @@
     <string name="dialog_myapp_download_install">是否安装</string>
     <string name="dialog_myapp_download_reinstall">是否重新安装</string>
     <string name="dialog_myapp_collect_del">是否删除此收藏</string>
+    <string name="popwindow_myapp_run_title">打开游戏</string>
+    <string name="popwindow_myapp_run_msg">你确定运行游戏: </string>
+    <string name="popwindow_myapp_run_ma">吗？</string>
     <string name="comment_submit">提交</string>
     <string name="comment_reply">回复</string>
     <string name="game_image">游戏图片</string>
@@ -53,6 +56,7 @@
     <string name="myapp_size">大小: </string>
     <string name="myapp_version">版本: </string>
     <string name="myapp_del">删除</string>
-    <string name="myapp_install">安装</string>    
+    <string name="myapp_install">安装</string>
     <string name="myapp_reinstall">重新安装</string>
-    </resources>
+
+</resources>

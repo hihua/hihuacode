@@ -36,9 +36,10 @@
     <dimen name="detail_app_desc_height">82dp</dimen>
     <dimen name="detail_app_gallery_width">120dp</dimen>
     <dimen name="detail_app_gallery_space">10dp</dimen>
-    <dimen name="tag_more_width">80dp</dimen>
-    <dimen name="tag_more_item_margins_left">4dp</dimen>
-    <dimen name="tag_more_item_margins_top">4dp</dimen>
-    <dimen name="tag_more_item_margins_right">4dp</dimen>
-    <dimen name="tag_more_item_margins_bottom">4dp</dimen>
+    <dimen name="popwindow_tag_more_width">80dp</dimen>
+    <dimen name="popwindow_tag_more_item_margins_left">4dp</dimen>
+    <dimen name="popwindow_tag_more_item_margins_top">4dp</dimen>
+    <dimen name="popwindow_tag_more_item_margins_right">4dp</dimen>
+    <dimen name="popwindow_tag_more_item_margins_bottom">4dp</dimen>
+    <dimen name="popwindow_myapp_run_width">220dp</dimen>
 </resources>

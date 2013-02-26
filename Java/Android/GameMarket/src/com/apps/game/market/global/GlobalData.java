@@ -59,8 +59,10 @@ public class GlobalData {
 	public void addLocalApp(EntityAppInfo entityAppInfo) {
 		String packageName = entityAppInfo.getPackageName();
 		for (EntityAppInfo appInfo : localApps) {
-			if (appInfo.getPackageName().equals(packageName))
-				return;
+			if (appInfo.getPackageName().equals(packageName)) {
+				localApps.remove(appInfo);
+				break;
+			}				
 		}
 		
 		localApps.add(entityAppInfo);
