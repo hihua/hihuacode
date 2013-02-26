@@ -35,12 +35,23 @@ public class PopWindowSearchWord implements OnClickListener {
 	}
 	
 	private void setView() {		
-		mRoot = (LinearLayout) mInflater.inflate(R.layout.popwindow_searchword, null, false);		
+		mRoot = (LinearLayout) mInflater.inflate(R.layout.popwindow_searchword, null);
+		mRoot.setOnTouchListener(new OnTouchListener() {			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {				
+				if (mPop != null && mPop.isShowing()) {
+					mPop.dismiss();
+					mPop = null;
+				}
+				
+				return false;
+			}
+		});
 	}
 	
 	public void setList(List<EntitySearchWord> list) {
 		boolean compare = false;
-		if (list.size() == 1) {
+		if (list != null && list.size() == 1) {
 			Editable editable = mView.getText();
 			EntitySearchWord searchWord = list.get(0);
 			if (editable != null && searchWord.getHotWords() != null) {
@@ -69,36 +80,28 @@ public class PopWindowSearchWord implements OnClickListener {
 				
 				long resultNumber = searchWord.getResultNumber();
 				String text = hostWords + "(" + resultNumber + ")";
-				TextView textView = new TextView(mContext);
-				LinearLayout.LayoutParams linearParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+				LinearLayout layout = new LinearLayout(mContext);
+				layout.setOrientation(LinearLayout.VERTICAL);
+				TextView textView = new TextView(mContext);				
+				LinearLayout.LayoutParams linearParams = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
 				linearParams.leftMargin = marginLeft;
 				linearParams.topMargin = marginTop;
 				linearParams.bottomMargin = marginButtom;
-				textView.setLayoutParams(linearParams);
+				layout.setLayoutParams(linearParams);
 				textView.setText(text);
-				textView.setSingleLine(true);
-				textView.setTag(searchWord);				
 				textView.setTextColor(Color.BLACK);
-				textView.setClickable(true);
-				textView.setOnClickListener(this);
-				mRoot.addView(textView);
+				textView.setSingleLine(true);
+				layout.setTag(searchWord);				
+				layout.setClickable(true);
+				layout.setOnClickListener(this);
+				layout.addView(textView);
+				mRoot.addView(layout);
 			}
 			
 			int width = mView.getWidth();			
 			mPop = new PopupWindow(mRoot, width, LayoutParams.WRAP_CONTENT, true);
 			mPop.setOutsideTouchable(false);
-			mPop.showAsDropDown(mView, 0, 1);
-			mRoot.setOnTouchListener(new OnTouchListener() {			
-				@Override
-				public boolean onTouch(View v, MotionEvent event) {
-					if (mPop != null && mPop.isShowing()) {
-						mPop.dismiss();
-						mPop = null;
-					}
-					
-					return false;
-				}
-			});
+			mPop.showAsDropDown(mView, 0, 1);			
 		} else {
 			if (mPop != null && mPop.isShowing()) {
 				mPop.dismiss();
@@ -108,12 +111,11 @@ public class PopWindowSearchWord implements OnClickListener {
 	}
 		
 	@Override
-	public void onClick(View view) {
+	public void onClick(View view) {		
 		Object obj = view.getTag();
-		if (view instanceof TextView && obj != null && obj instanceof EntitySearchWord) {						
+		if (view instanceof LinearLayout && obj != null && obj instanceof EntitySearchWord) {						
 			EntitySearchWord searchWord = (EntitySearchWord) obj;			
 			mView.setText(searchWord.getHotWords());
-			Log.i("aaa", mView.getText().toString());
 			
 			if (mPop != null && mPop.isShowing()) {
 				mPop.dismiss();

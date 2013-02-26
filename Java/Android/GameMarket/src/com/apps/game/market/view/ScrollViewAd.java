@@ -27,7 +27,7 @@ public class ScrollViewAd extends ViewGroup {
 	private Timer mTimer;
 	private int mFake = 0;
 	private ScrollViewAdCallBack mCallBack;
-	private Handler mHandle = new Handler() {
+	private final Handler mHandle = new Handler() {
 		@Override  
         public void handleMessage(Message msg) {
 			toScroll(true, true);
@@ -129,7 +129,10 @@ public class ScrollViewAd extends ViewGroup {
 	}
 
 	@Override
-	protected void onLayout(boolean changed, int l, int t, int r, int b) {		
+	protected void onLayout(boolean changed, int l, int t, int r, int b) {
+		if (!changed)
+			return;
+		
 		final int width = getWidth();
 		final int height = getHeight();		
 		int startLeft = -width;

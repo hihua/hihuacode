@@ -25,6 +25,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
+import android.text.Selection;
 import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -227,7 +228,7 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 				
 				@Override
 				public void afterTextChanged(Editable s) {
-					
+					Selection.setSelection(s, s.length());
 				}
 			});
 		}
