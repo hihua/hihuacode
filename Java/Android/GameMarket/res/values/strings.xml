@@ -4,6 +4,7 @@
     <string name="app_name">GameMarket</string>
     <string name="welcome_init">正在初始化</string>
     <string name="request_host">http://api.gfan.com/market/api/</string>
+    <string name="request_searchword">http://search.gfan.com/search/search/marketHotWords?q=</string>
     <string name="request_ad">homeMasterRecommend</string>
     <string name="request_column">getAllCategory</string>
     <string name="request_tag">allGroupTags</string>

@@ -18,10 +18,10 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 public class PopWindowMyAppRun implements OnClickListener {	
-	private Context mContext;
-	private LayoutInflater mInflater;
+	private final Context mContext;
+	private final LayoutInflater mInflater;
 	private PopupWindow mPop;
-	private EntityAppInfo mEntityAppInfo;
+	private final EntityAppInfo mEntityAppInfo;
 	private LinearLayout mRoot;
 
 	public PopWindowMyAppRun(Context context, EntityAppInfo entityAppInfo) {

@@ -35,10 +35,9 @@
             android:layout_width="130dp"
             android:layout_height="25dp"
             android:layout_gravity="center_vertical"
-            android:ems="10"
             android:gravity="center_vertical"
             android:inputType="none"
-            android:maxLength="30"
+            android:maxLength="50"
             android:paddingLeft="2dp"
             android:singleLine="true"
             android:textSize="16sp" />
@@ -48,8 +47,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="3dp"
-            android:contentDescription="@string/app_name"
             android:clickable="true"
+            android:contentDescription="@string/app_name"
             android:src="@drawable/search" />
     </LinearLayout>
 

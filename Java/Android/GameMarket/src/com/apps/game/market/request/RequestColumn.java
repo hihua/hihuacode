@@ -46,7 +46,7 @@ public class RequestColumn extends RequestBase {
 		EntityResponse resp = mHttpClass.request(req);
 		if (resp != null) {
 			list = parse(resp);
-			resp.close();			
+			resp.close();
 		}
 		
 		if (list != null) {				

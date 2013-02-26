@@ -42,4 +42,6 @@
     <dimen name="popwindow_tag_more_item_margins_right">4dp</dimen>
     <dimen name="popwindow_tag_more_item_margins_bottom">4dp</dimen>
     <dimen name="popwindow_myapp_run_width">220dp</dimen>
-</resources>
+    <dimen name="popwindow_searchword_margins_left">2dp</dimen>
+    <dimen name="popwindow_searchword_margins_top">3dp</dimen>
+    <dimen name="popwindow_searchword_margins_bottom">3dp</dimen></resources>

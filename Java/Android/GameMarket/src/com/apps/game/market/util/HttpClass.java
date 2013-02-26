@@ -224,7 +224,8 @@ public class HttpClass {
 			closeStream(inputStream);
 			closeReader(streamReader);
 			closeReader(bufferReader);
-			connection.disconnect();
+			connection.disconnect();			
+			resp.setBody(sb.toString());
 			return resp;
 		} catch (IOException e) {
 			closeStream(inputStream);

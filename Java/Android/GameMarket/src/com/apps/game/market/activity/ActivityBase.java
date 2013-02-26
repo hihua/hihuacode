@@ -4,11 +4,15 @@ import java.util.List;
 import java.util.Vector;
 
 import com.apps.game.market.R;
+import com.apps.game.market.entity.EntitySearchWord;
 import com.apps.game.market.entity.app.EntityApp;
 import com.apps.game.market.entity.app.EntityColumn;
 import com.apps.game.market.entity.app.EntityTag;
 import com.apps.game.market.global.GlobalData;
 import com.apps.game.market.global.GlobalObject;
+import com.apps.game.market.request.RequestSearchWord;
+import com.apps.game.market.request.callback.RequestCallBackSearchWord;
+import com.apps.game.market.view.PopWindowSearchWord;
 import com.apps.game.market.view.PopWindowTagMore;
 import com.apps.game.market.views.ViewColumn;
 import com.apps.game.market.views.ViewColumnDouble;
@@ -20,17 +24,20 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Gallery.LayoutParams;
 
-public abstract class ActivityBase extends Activity implements OnClickListener {
+public abstract class ActivityBase extends Activity implements OnClickListener, RequestCallBackSearchWord {
 	protected GlobalObject mGlobalObject = GlobalObject.globalObject;
 	protected GlobalData mGlobalData = GlobalData.globalData;
 	protected List<EntityTag> mTags;
@@ -38,12 +45,15 @@ public abstract class ActivityBase extends Activity implements OnClickListener {
 	protected List<ViewColumn> mViewColumns = new Vector<ViewColumn>();
 	protected EntityTag mEntityTag;
 	protected LinearLayout mLinearBottom;
-		
+	private PopWindowSearchWord mSearchWord;
+	private EditText mSearch;
+			
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);		
 		onAppCreate();
 		layoutTags();
+		layoutSearch();
 	}
 	
 	@Override
@@ -194,6 +204,34 @@ public abstract class ActivityBase extends Activity implements OnClickListener {
 			mViewColumns.add(viewColumn);
 		}
 	}
+	
+	private void layoutSearch() {
+		View view = findViewById(R.id.header_edittext_search);
+		if (view != null) {			
+			final EditText search = (EditText) view;			
+			final RequestCallBackSearchWord mCallBack = this;
+			mSearch = search;
+			search.addTextChangedListener(new TextWatcher() {				
+				@Override
+				public void beforeTextChanged(CharSequence s, int start, int count,	int after) {
+					
+				}
+				
+				@Override
+				public void onTextChanged(CharSequence s, int start, int before, int count) {
+					if (count > 0) {
+						RequestSearchWord request = new RequestSearchWord(mCallBack);
+						request.request(s.toString());
+					}										
+				}						
+				
+				@Override
+				public void afterTextChanged(Editable s) {
+					
+				}
+			});
+		}
+	}
 		
 	@Override
 	public void onClick(View v) {
@@ -226,6 +264,14 @@ public abstract class ActivityBase extends Activity implements OnClickListener {
 		onAppClick(v);
 	}
 	
+	@Override
+	public void onCallBackSearchWord(List<EntitySearchWord> searchWords) {
+		if (mSearchWord == null)
+			mSearchWord = new PopWindowSearchWord(this, mSearch);
+		
+		mSearchWord.setList(searchWords);
+	}
+
 	protected void entryTag(EntityTag entityTag) {
 		Intent intent = new Intent(this, ActivityTag.class); 
         startActivity(intent);

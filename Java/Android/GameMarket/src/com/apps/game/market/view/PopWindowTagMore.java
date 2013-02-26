@@ -6,7 +6,6 @@ import com.apps.game.market.R;
 import com.apps.game.market.activity.ActivityTag;
 import com.apps.game.market.entity.app.EntityTag;
 import com.apps.game.market.global.GlobalData;
-import com.apps.game.market.global.GlobalObject;
 
 import android.content.Context;
 import android.content.Intent;
@@ -24,12 +23,12 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 public class PopWindowTagMore implements OnClickListener {
-	private Context mContext;
-	private LayoutInflater mInflater;
+	private final Context mContext;
+	private final LayoutInflater mInflater;
 	private PopupWindow mPop;
-	private EntityTag mEntityTag;	
-	private GlobalData mGlobalData = GlobalData.globalData;
-	private List<EntityTag> mTags;
+	private final EntityTag mEntityTag;	
+	private final GlobalData mGlobalData = GlobalData.globalData;
+	private final List<EntityTag> mTags;
 
 	public PopWindowTagMore(Context context, EntityTag entityTag) {
 		mContext = context;
