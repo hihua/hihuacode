@@ -83,8 +83,7 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 					String name = entityTag.getName();
 					TextView textView = new TextView(this);
 					textView.setTag(entityTag);
-					textView.setLayoutParams(new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT, 1.0f));
-					textView.setClickable(true);					
+					textView.setLayoutParams(new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT, 1.0f));										
 					textView.setOnClickListener(this);
 					textView.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM);
 					textView.setSingleLine(true);
@@ -132,10 +131,13 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 						break;
 					}
 					
-					if (selected)
+					if (selected) {
 						textView.setTextColor(getResources().getColor(R.color.tag_select));
-					else
+						textView.setClickable(false);
+					} else {
 						textView.setTextColor(getResources().getColor(R.color.tag_no_select));
+						textView.setClickable(true);
+					}
 					
 					Drawable drawable = getResources().getDrawable(resId);					
 					textView.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null);
@@ -279,11 +281,7 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 		int id = v.getId();
 		Object object = v.getTag();
 		if (mTags != null && object != null) {
-			if (object instanceof EntityTag) {
-				EntityTag tag = mGlobalData.getSelectTag();
-				if (tag != null && tag.equals(object))
-					return;
-				
+			if (object instanceof EntityTag) {								
 				for (EntityTag entityTag : mTags) {					
 					if (object.equals(entityTag)) {						
 						mGlobalData.setSelectTag(entityTag);

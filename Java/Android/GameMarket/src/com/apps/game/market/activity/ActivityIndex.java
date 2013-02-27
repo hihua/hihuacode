@@ -19,6 +19,7 @@ public class ActivityIndex extends ActivityBase implements OnPageChangeListener,
 	private ViewColumn mCurrent;
 	private LinearLayout mLinearHeader;
 	private LinearLayout mLayoutColumn;
+	private boolean mInit = false;
 	
 	@Override
 	protected void onAppCreate() {
@@ -29,6 +30,19 @@ public class ActivityIndex extends ActivityBase implements OnPageChangeListener,
 	
 	@Override
 	protected void onAppEntry() {
+		
+	}
+	
+	@Override
+	protected void onAppClose() {
+		if (mCurrent != null)
+			mCurrent.stopScroll();
+		
+		mGlobalData.setLastIntent(getIntent());
+	}	
+	
+	@Override
+	protected void onAppResume() {
 		int selectColumn  = mGlobalData.getSelectColumn();
 		if (selectColumn != -1) {									
 			mPager.setCurrentItem(selectColumn, false);			
@@ -44,19 +58,6 @@ public class ActivityIndex extends ActivityBase implements OnPageChangeListener,
 		}
 		
 		mGlobalData.setSelectTag(null);
-	}
-	
-	@Override
-	protected void onAppClose() {
-		if (mCurrent != null)
-			mCurrent.stopScroll();
-		
-		mGlobalData.setLastIntent(getIntent());
-	}	
-	
-	@Override
-	protected void onAppResume() {
-		
 	}		
 
 	@Override
@@ -67,8 +68,11 @@ public class ActivityIndex extends ActivityBase implements OnPageChangeListener,
 	}
 
 	private void init() {
-		mGlobalObject.setContext(this);
-		mGlobalObject.init();		
+		if (!mInit) {
+			mGlobalObject.setContext(this);
+			mGlobalObject.init();
+			mInit = true;
+		}			
 	}
 	
 	private void layout() {

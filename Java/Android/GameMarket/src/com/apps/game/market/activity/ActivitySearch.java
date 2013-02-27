@@ -24,8 +24,7 @@ public class ActivitySearch extends ActivityBase {
 	
 	@Override
 	protected void onAppCreate() {
-		String keyword = getIntent().getStringExtra("keyword");	
-		mKeyword = keyword;
+		mKeyword = getIntent().getStringExtra("keyword");		
 		setContentView(R.layout.search);		
 		layout();
 	}
