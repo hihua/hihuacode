@@ -75,14 +75,9 @@ public class ActivityDetail extends ActivityBase implements RequestCallBackDetai
 		setContentView(R.layout.app_detail);		
 		layout();
 	}
-
+	
 	@Override
-	protected void onAppClose() {
-		mImageViews.clear();
-	}
-
-	@Override
-	protected void onAppResume() {
+	protected void onAppEntry() {
 		mEntityApp = mGlobalData.getSelectApp();
 		String url = mEntityApp.getIcon();		
 		ImageCache imageCache = ImageCache.getInstance();
@@ -144,6 +139,16 @@ public class ActivityDetail extends ActivityBase implements RequestCallBackDetai
 			mRequestDetail.request(mEntityApp);
 		
 		mGlobalData.addBrowseApp(mEntityApp);
+	}
+
+	@Override
+	protected void onAppClose() {
+		mImageViews.clear();
+	}
+
+	@Override
+	protected void onAppResume() {
+		
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.apps.game.market.R;
+import com.apps.game.market.adapter.AdapterIndexPager;
 import com.apps.game.market.entity.app.EntityApp;
 import com.apps.game.market.views.ViewColumn;
 import com.apps.game.market.views.ViewColumnMyApp;
@@ -27,15 +28,7 @@ public class ActivityIndex extends ActivityBase implements OnPageChangeListener,
 	}
 	
 	@Override
-	protected void onAppClose() {
-		if (mCurrent != null)
-			mCurrent.stopScroll();
-		
-		mGlobalData.setLastIntent(getIntent());
-	}	
-	
-	@Override
-	protected void onAppResume() {
+	protected void onAppEntry() {
 		int selectColumn  = mGlobalData.getSelectColumn();
 		if (selectColumn != -1) {									
 			mPager.setCurrentItem(selectColumn, false);			
@@ -51,6 +44,19 @@ public class ActivityIndex extends ActivityBase implements OnPageChangeListener,
 		}
 		
 		mGlobalData.setSelectTag(null);
+	}
+	
+	@Override
+	protected void onAppClose() {
+		if (mCurrent != null)
+			mCurrent.stopScroll();
+		
+		mGlobalData.setLastIntent(getIntent());
+	}	
+	
+	@Override
+	protected void onAppResume() {
+		
 	}		
 
 	@Override

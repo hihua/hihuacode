@@ -48,6 +48,7 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 	protected LinearLayout mLinearBottom;
 	private PopWindowSearchWord mSearchWord;
 	private EditText mSearch;
+	protected String mKeyword = "";
 			
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -55,6 +56,7 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 		onAppCreate();
 		layoutTags();
 		layoutSearch();
+		onAppEntry();
 	}
 	
 	@Override
@@ -76,7 +78,7 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 			mLinearBottom = (LinearLayout) v;		
 			mTags = mGlobalData.getTags();
 			if (mTags != null) {
-				int index = 0;
+				int index = 0;				
 				for (EntityTag entityTag : mTags) {
 					String name = entityTag.getName();
 					TextView textView = new TextView(this);
@@ -84,32 +86,60 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 					textView.setLayoutParams(new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT, 1.0f));
 					textView.setClickable(true);					
 					textView.setOnClickListener(this);
-					textView.setGravity(Gravity.CENTER);
+					textView.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM);
 					textView.setSingleLine(true);
 					textView.setText(name);
-					textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13.0f);
+					textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12.0f);
+					textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12.0f);
+					boolean selected = false;
 					
 					int resId = 0;			
 					switch (index) {
-						case 0:
-							resId = R.drawable.tag1;
-							break;
+						case 0: {
+							if (mEntityTag != null && entityTag.equals(mEntityTag)) {
+								resId = R.drawable.tag1_selected;
+								selected = true;
+							} else
+								resId = R.drawable.tag1;
+						}
+						break;
 							
-						case 1:
-							resId = R.drawable.tag2;
-							break;
+						case 1: {
+							if (mEntityTag != null && entityTag.equals(mEntityTag)) {
+								resId = R.drawable.tag2_selected;
+								selected = true;
+							} else
+								resId = R.drawable.tag2;
+						}
+						break;
 							
-						case 2:
-							resId = R.drawable.tag3;
-							break;
+						case 2: {
+							if (mEntityTag != null && entityTag.equals(mEntityTag)) {
+								resId = R.drawable.tag3_selected;
+								selected = true;
+							} else
+								resId = R.drawable.tag3;
+						}
+						break;
 							
-						case 3:
-							resId = R.drawable.tag4;
-							break;
+						case 3: {
+							if (mEntityTag != null && entityTag.equals(mEntityTag)) {
+								resId = R.drawable.tag4_selected;
+								selected = true;
+							} else
+								resId = R.drawable.tag4;
+						}
+						break;
 					}
 					
+					if (selected)
+						textView.setTextColor(getResources().getColor(R.color.tag_select));
+					else
+						textView.setTextColor(getResources().getColor(R.color.tag_no_select));
+					
 					Drawable drawable = getResources().getDrawable(resId);					
-					textView.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null);										
+					textView.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null);
+					textView.setCompoundDrawablePadding(4);
 					mLinearBottom.addView(textView);
 					index++;
 					
@@ -122,12 +152,13 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 				textView.setLayoutParams(new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT, 1.0f));
 				textView.setClickable(true);
 				textView.setOnClickListener(this);
-				textView.setGravity(Gravity.CENTER);
+				textView.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM);
 				textView.setText(R.string.tag_more);
 				textView.setSingleLine(true);
-				textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13.0f);
+				textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f);
 				Drawable drawable = getResources().getDrawable(R.drawable.tag_more);				
 				textView.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null);
+				textView.setCompoundDrawablePadding(4);
 				mLinearBottom.addView(textView);
 			}
 		}		
@@ -207,9 +238,16 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 	}
 	
 	private void layoutSearch() {
-		View view = findViewById(R.id.header_edittext_search);
+		View view = findViewById(R.id.header_imageview_search);
+		if (view != null)
+			view.setOnClickListener(this);
+				
+		view = findViewById(R.id.header_edittext_search);
 		if (view != null) {			
-			final EditText search = (EditText) view;			
+			final EditText search = (EditText) view;
+			if (mKeyword.length() > 0)
+				search.setText(mKeyword);
+				
 			final RequestCallBackSearchWord mCallBack = this;
 			mSearch = search;
 			search.addTextChangedListener(new TextWatcher() {				
@@ -220,9 +258,11 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 				
 				@Override
 				public void onTextChanged(CharSequence s, int start, int before, int count) {
-					if (count > 0) {
+					String keyword = s.toString();					
+					if (count > 0 && !keyword.equals(mKeyword)) {
 						RequestSearchWord request = new RequestSearchWord(mCallBack);
 						request.request(s.toString());
+						mKeyword = keyword;
 					}										
 				}						
 				
@@ -236,6 +276,7 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 		
 	@Override
 	public void onClick(View v) {
+		int id = v.getId();
 		Object object = v.getTag();
 		if (mTags != null && object != null) {
 			if (object instanceof EntityTag) {
@@ -253,13 +294,21 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 			}			
 		}
 		
-		if (v.getId() == R.id.tag_more_id) {
+		if (id == R.id.tag_more_id) {
 			if (mTags != null && mTags.size() > 4) {
-				PopWindowTagMore pop = new PopWindowTagMore(this, mEntityTag);
-				pop.show(v);
+				PopWindowTagMore pop = new PopWindowTagMore(this, (TextView) v, mEntityTag);
+				pop.show();
 			}
 			
 			return;
+		}
+		
+		if (id == R.id.header_imageview_search) {
+			Editable editable = mSearch.getText();
+			if (editable.length() > 0) {
+				String keyword = editable.toString();
+				search(keyword);
+			}				
 		}
 				
 		onAppClick(v);
@@ -277,8 +326,23 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 		Intent intent = new Intent(this, ActivityTag.class); 
         startActivity(intent);
 	}
+	
+	protected void search(String keyword) {
+		mSearch.setText("");
+		mKeyword = "";
+		Intent intent = new Intent();
+		intent.putExtra("keyword", keyword);
+		intent.setClass(this, ActivitySearch.class);
+		startActivity(intent);
+	}
+	
+	protected void setSearch(String keyword) {
+		if (mSearch != null)
+			mSearch.setText(keyword);
+	}
 		
 	protected abstract void onAppCreate();
+	protected abstract void onAppEntry();
 	protected abstract void onAppClose();
 	protected abstract void onAppResume();
 	protected abstract void onAppClick(View v);

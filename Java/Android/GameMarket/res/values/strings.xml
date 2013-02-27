@@ -7,6 +7,7 @@
     <string name="request_searchword">http://search.gfan.com/search/search/marketHotWords?q=</string>
     <string name="request_ad">homeMasterRecommend</string>
     <string name="request_column">getAllCategory</string>
+    <string name="request_search">search</string>
     <string name="request_tag">allGroupTags</string>
     <string name="request_app_recommend">getHomeRecommend</string>
     <string name="request_app_hot">getRecommendProducts</string>

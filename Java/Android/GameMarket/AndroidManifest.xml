@@ -46,6 +46,12 @@
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="adjustPan" >
         </activity>
+        <activity
+            android:name=".activity.ActivitySearch"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
 
         <receiver
             android:name=".broadcast.BroadcastAppReceiver"

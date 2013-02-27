@@ -8,7 +8,6 @@ import com.apps.game.market.entity.EntitySearchWord;
 import android.content.Context;
 import android.graphics.Color;
 import android.text.Editable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -68,9 +67,10 @@ public class PopWindowSearchWord implements OnClickListener {
 				mPop = null;
 			}
 			
-			int marginLeft = mContext.getResources().getDimensionPixelSize(R.dimen.popwindow_searchword_margins_left);
-			int marginTop = mContext.getResources().getDimensionPixelSize(R.dimen.popwindow_tag_more_item_margins_top);
-			int marginButtom = mContext.getResources().getDimensionPixelSize(R.dimen.popwindow_searchword_margins_bottom);
+			int paddingLeft = mContext.getResources().getDimensionPixelSize(R.dimen.popwindow_searchword_padding_left);
+			int paddingRight = mContext.getResources().getDimensionPixelSize(R.dimen.popwindow_searchword_padding_right);
+			int paddingTop = mContext.getResources().getDimensionPixelSize(R.dimen.popwindow_searchword_padding_top);
+			int paddingBottom = mContext.getResources().getDimensionPixelSize(R.dimen.popwindow_searchword_padding_bottom);
 			
 			mRoot.removeAllViews();
 			for (EntitySearchWord searchWord : list) {
@@ -79,23 +79,18 @@ public class PopWindowSearchWord implements OnClickListener {
 					continue;
 				
 				long resultNumber = searchWord.getResultNumber();
-				String text = hostWords + "(" + resultNumber + ")";
-				LinearLayout layout = new LinearLayout(mContext);
-				layout.setOrientation(LinearLayout.VERTICAL);
+				String text = hostWords + "(" + resultNumber + ")";				
 				TextView textView = new TextView(mContext);				
 				LinearLayout.LayoutParams linearParams = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
-				linearParams.leftMargin = marginLeft;
-				linearParams.topMargin = marginTop;
-				linearParams.bottomMargin = marginButtom;
-				layout.setLayoutParams(linearParams);
+				textView.setLayoutParams(linearParams);
+				textView.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
 				textView.setText(text);
 				textView.setTextColor(Color.BLACK);
 				textView.setSingleLine(true);
-				layout.setTag(searchWord);				
-				layout.setClickable(true);
-				layout.setOnClickListener(this);
-				layout.addView(textView);
-				mRoot.addView(layout);
+				textView.setTag(searchWord);				
+				textView.setClickable(true);
+				textView.setOnClickListener(this);				
+				mRoot.addView(textView);
 			}
 			
 			int width = mView.getWidth();			
@@ -113,7 +108,7 @@ public class PopWindowSearchWord implements OnClickListener {
 	@Override
 	public void onClick(View view) {		
 		Object obj = view.getTag();
-		if (view instanceof LinearLayout && obj != null && obj instanceof EntitySearchWord) {						
+		if (view instanceof TextView && obj != null && obj instanceof EntitySearchWord) {						
 			EntitySearchWord searchWord = (EntitySearchWord) obj;			
 			mView.setText(searchWord.getHotWords());
 			

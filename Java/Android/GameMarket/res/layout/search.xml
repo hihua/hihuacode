@@ -16,23 +16,26 @@
         android:orientation="vertical" >
 
         <LinearLayout
-            android:id="@+id/index_layout_column"
+            android:id="@+id/search_layout_column"
             android:layout_width="fill_parent"
             android:layout_height="40dp"
             android:background="@color/column_background"
             android:orientation="horizontal" >
-            
         </LinearLayout>
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/index_viewpager"
+        <ListView
+            android:id="@+id/search_listview"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" />
+            android:layout_height="fill_parent"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:listSelector="@android:color/transparent" >
+        </ListView>
     </LinearLayout>
 
     <include
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="68dp"
         layout="@layout/bottom" />
 
 </LinearLayout>

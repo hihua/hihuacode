@@ -24,6 +24,8 @@
     <color name="comment_app_nick">#2E2E2E</color>
     <color name="comment_app_reply">#FFFEFE</color>
     <color name="comment_app_content">#2E2E2E</color>
+    <color name="tag_select">#2DDBFE</color>
+    <color name="tag_no_select">#727272</color>
     <color name="tag_more_select">#FFFEFE</color>
     <color name="tag_more_no_select">#1F91AA</color>
     <color name="myapp_banner">#1E90A8</color>

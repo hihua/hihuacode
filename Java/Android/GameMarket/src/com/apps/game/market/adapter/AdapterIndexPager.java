@@ -1,4 +1,4 @@
-package com.apps.game.market.activity;
+package com.apps.game.market.adapter;
 
 import java.util.List;
 

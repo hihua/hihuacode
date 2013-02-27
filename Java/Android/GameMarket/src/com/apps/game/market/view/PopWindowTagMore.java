@@ -9,6 +9,7 @@ import com.apps.game.market.global.GlobalData;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -29,9 +30,11 @@ public class PopWindowTagMore implements OnClickListener {
 	private final EntityTag mEntityTag;	
 	private final GlobalData mGlobalData = GlobalData.globalData;
 	private final List<EntityTag> mTags;
+	private final TextView mTextView;
 
-	public PopWindowTagMore(Context context, EntityTag entityTag) {
+	public PopWindowTagMore(Context context, TextView textView, EntityTag entityTag) {
 		mContext = context;
+		mTextView = textView;
 		mEntityTag = entityTag;
 		mInflater = LayoutInflater.from(context);
 		mTags = mGlobalData.getTags();
@@ -99,6 +102,10 @@ public class PopWindowTagMore implements OnClickListener {
 				if (mPop != null && mPop.isShowing()) {
 					mPop.dismiss();
 					mPop = null;
+					
+					mTextView.setTextColor(mContext.getResources().getColor(R.color.tag_no_select));
+					Drawable drawable = mContext.getResources().getDrawable(R.drawable.tag_more);					
+					mTextView.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null);
 				}
 				
 				return false;
@@ -106,8 +113,11 @@ public class PopWindowTagMore implements OnClickListener {
 		});
 	}
 	
-	public void show(View view) {
-		mPop.showAsDropDown(view, 0, 10);
+	public void show() {
+		mPop.showAsDropDown(mTextView, 0, 10);
+		mTextView.setTextColor(mContext.getResources().getColor(R.color.tag_select));
+		Drawable drawable = mContext.getResources().getDrawable(R.drawable.tag_more_selected);					
+		mTextView.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null);
 	}
 
 	@Override
@@ -120,6 +130,10 @@ public class PopWindowTagMore implements OnClickListener {
 		if (mPop != null && mPop.isShowing()) {
 			mPop.dismiss();
 			mPop = null;
+			
+			mTextView.setTextColor(mContext.getResources().getColor(R.color.tag_no_select));
+			Drawable drawable = mContext.getResources().getDrawable(R.drawable.tag_more);					
+			mTextView.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null);
 		}
 		
 		mGlobalData.setSelectTag(entityTag);
