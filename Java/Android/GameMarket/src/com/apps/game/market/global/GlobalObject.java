@@ -1,7 +1,6 @@
 package com.apps.game.market.global;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.IntentFilter;
 
 import com.apps.game.market.activity.ActivityBase;
@@ -18,7 +17,7 @@ public class GlobalObject {
 	private FileManager mFileManager;
 	private TaskDownload mTaskDownload;
 			
-	public GlobalObject(Context context) {
+	public GlobalObject(Context context) {	
 		mContext = context;
 		globalObject = this;
 	}
@@ -73,12 +72,8 @@ public class GlobalObject {
 	
 	public void registerBroadcastAppReceiver() {
 		if (mBroadcastAppReceiver == null) {
-			mBroadcastAppReceiver = new BroadcastAppReceiver();
-			IntentFilter filter = new IntentFilter(Intent.ACTION_PACKAGE_ADDED);
-	        filter.addAction(Intent.ACTION_PACKAGE_REMOVED);
-	        filter.addAction(Intent.ACTION_PACKAGE_CHANGED);
-	        filter.addDataScheme("package");
-	        mContext.registerReceiver(mBroadcastAppReceiver, filter);
+			mBroadcastAppReceiver = new BroadcastAppReceiver();			
+	        mContext.registerReceiver(mBroadcastAppReceiver, new IntentFilter());	        
 		}		        
 	}
 }

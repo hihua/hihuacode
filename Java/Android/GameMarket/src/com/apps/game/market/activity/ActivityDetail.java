@@ -155,7 +155,7 @@ public class ActivityDetail extends ActivityBase implements RequestCallBackDetai
 	protected void onAppClick(final View v) {
 		int id = v.getId();
 		if (id == R.id.detail_app_intro_ext_textview || id == R.id.detail_app_intro_ext_imageview) {
-			LayoutParams layoutParams = mAppDesc.getLayoutParams();
+			final LayoutParams layoutParams = mAppDesc.getLayoutParams();
 			if (mExt) {
 				int height = getResources().getDimensionPixelSize(R.dimen.detail_app_desc_height);
 				layoutParams.height = height;				
@@ -197,8 +197,8 @@ public class ActivityDetail extends ActivityBase implements RequestCallBackDetai
 		}
 		
 		if (id == R.id.detail_app_action) {
-			TaskDownload taskDownload = mGlobalObject.getTaskDownload();
-			EnumAppStatus status = mEntityApp.getStatus();
+			final TaskDownload taskDownload = mGlobalObject.getTaskDownload();
+			final EnumAppStatus status = mEntityApp.getStatus();
 			switch (status) {
 				case NOINSTALL:
 					taskDownload.downloadApp(this, mEntityApp);
@@ -228,11 +228,11 @@ public class ActivityDetail extends ActivityBase implements RequestCallBackDetai
 		
 		if (id == R.id.detail_app_collect) {
 			final Context context = this;
-			AlertDialog.Builder builder = new Builder(this);
-			String name = mEntityApp.getName();
-			String collect = getString(R.string.detail_app_collect);
-			String confirm = getString(R.string.dialog_confirm);
-			String cancel = getString(R.string.dialog_cancel);
+			final AlertDialog.Builder builder = new Builder(this);
+			final String name = mEntityApp.getName();
+			final String collect = getString(R.string.detail_app_collect);
+			final String confirm = getString(R.string.dialog_confirm);
+			final String cancel = getString(R.string.dialog_cancel);
 			builder.setMessage(collect);
 			builder.setTitle(name);
 			builder.setPositiveButton(confirm, new DialogInterface.OnClickListener() {

@@ -93,8 +93,14 @@ public class FileManager {
 					entityDownload.setPosition(0);
 					entityDownload.setAppend(false);
 				} else {
-					entityDownload.setPosition(file.length());
-					entityDownload.setAppend(true);
+					//entityDownload.setPosition(file.length());
+					//entityDownload.setAppend(true);
+					
+					if (!file.delete())
+						return null;
+					
+					entityDownload.setPosition(0);
+					entityDownload.setAppend(false);
 				}
 			}
 		}

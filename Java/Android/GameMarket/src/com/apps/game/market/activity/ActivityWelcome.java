@@ -39,9 +39,9 @@ public class ActivityWelcome extends Activity implements RequestCallBackColumn, 
 	};
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {		
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.welcome);		
+		setContentView(R.layout.welcome);
 		mTextView = (TextView) findViewById(R.id.welcome_textView);
 				
 		if (mTimer == null) {
@@ -103,8 +103,7 @@ public class ActivityWelcome extends Activity implements RequestCallBackColumn, 
 		if (!globalData.init(this))
 			return false;
 		
-		GlobalObject globalObject = new GlobalObject(this);
-		
+		GlobalObject globalObject = new GlobalObject(this);		
 		RequestColumn requestColumn = new RequestColumn(this);
 		requestColumn.request();
 		return true;

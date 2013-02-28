@@ -6,6 +6,7 @@ import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -28,13 +29,15 @@ public class ViewColumnDouble extends ViewColumn implements RequestCallBackAd, S
 	private ListView mListView;
 	private TextView mTextViewAdName;
 	private TextView mTextViewAdPosition;
-	private RequestAd mRequestAd;
+	private final RequestAd mRequestAd;
 	private LinearLayout mLayoutRoot;	
 	private List<EntityAd> mAds;
 	private AdapterDoubleApp mAdapter;
+	private final OnClickListener mOnClick;
 	
-	public ViewColumnDouble(Context context, ViewPager parent, ViewGroup layoutColumn, EntityColumn entityColumn) {
+	public ViewColumnDouble(Context context, ViewPager parent, ViewGroup layoutColumn, EntityColumn entityColumn, OnClickListener onClick) {		 
 		super(context, parent, layoutColumn, entityColumn);
+		mOnClick = onClick;
 		mRequestAd = new RequestAd(this);
 	}
 
@@ -98,7 +101,7 @@ public class ViewColumnDouble extends ViewColumn implements RequestCallBackAd, S
 		}
 		
 		if (mEntityColumn != null) {
-			mAdapter = new AdapterDoubleApp(mContext, mListView, mEntityColumn.getRequest());
+			mAdapter = new AdapterDoubleApp(mContext, mListView, mEntityColumn.getRequest(), mOnClick);
 			mListView.setAdapter(mAdapter);			
 		}
 	}
@@ -148,7 +151,7 @@ public class ViewColumnDouble extends ViewColumn implements RequestCallBackAd, S
 		
 		long tagId = Long.parseLong(url);
 		RequestApp requestApp = new RequestAppTag(tagId);
-		mAdapter = new AdapterDoubleApp(mContext, mListView, requestApp);
+		mAdapter = new AdapterDoubleApp(mContext, mListView, requestApp, mOnClick);
 		mListView.setAdapter(mAdapter);		
 		setSubColumn(parent, position);
 	}

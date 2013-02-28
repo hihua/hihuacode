@@ -16,6 +16,7 @@ import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -26,13 +27,15 @@ public class ViewColumnSingle extends ViewColumn implements RequestCallBackAd, S
 	private ListView mListView;
 	private TextView mTextViewAdName;
 	private TextView mTextViewAdPosition;
-	private RequestAd mRequestAd;
+	private final RequestAd mRequestAd;
 	private ViewGroup mLayoutRoot;	
 	private List<EntityAd> mAds;
 	private AdapterSingleApp mAdapter;
+	private final OnClickListener mOnClick;
 	
-	public ViewColumnSingle(Context context, ViewPager parent, ViewGroup layoutColumn, EntityColumn entityColumn) {
+	public ViewColumnSingle(Context context, ViewPager parent, ViewGroup layoutColumn, EntityColumn entityColumn, OnClickListener onClick) {
 		super(context, parent, layoutColumn, entityColumn);
+		mOnClick = onClick;
 		mRequestAd = new RequestAd(this);
 	}
 		
@@ -94,7 +97,7 @@ public class ViewColumnSingle extends ViewColumn implements RequestCallBackAd, S
 		}
 		
 		if (mEntityColumn != null) {
-			mAdapter = new AdapterSingleApp(mContext, mListView, mEntityColumn.getRequest());
+			mAdapter = new AdapterSingleApp(mContext, mListView, mEntityColumn.getRequest(), mOnClick);
 			mListView.setAdapter(mAdapter);	
 		}
 	}

@@ -90,7 +90,7 @@ public class AdapterMyAppInstalled extends BaseAdapter implements OnClickListene
 			holder.getIcon1().setImageResource(R.drawable.ic_launcher);
 		else
 			holder.getIcon1().setImageDrawable(drawable);
-		
+				
 		String name = entityAppInfo1.getAppName();		
 		holder.getName1().setText(name);
 		
@@ -142,11 +142,11 @@ public class AdapterMyAppInstalled extends BaseAdapter implements OnClickListene
 
 	@Override
 	public void onClick(View view) {
-		int id = view.getId();
-		Object object = view.getTag();
+		final int id = view.getId();
+		final Object object = view.getTag();
 		if (id == R.id.myapp_layout1 || id == R.id.myapp_layout2 && object != null) {
-			EntityAppInfo entityAppInfo = (EntityAppInfo) object;
-			PopWindowMyAppRun pop = new PopWindowMyAppRun(mContext, entityAppInfo);
+			final EntityAppInfo entityAppInfo = (EntityAppInfo) object;
+			final PopWindowMyAppRun pop = new PopWindowMyAppRun(mContext, entityAppInfo);
 			pop.show();			
 		}
 	}	

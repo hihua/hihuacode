@@ -8,10 +8,12 @@ import com.apps.game.market.entity.EntitySearchWord;
 import com.apps.game.market.entity.app.EntityApp;
 import com.apps.game.market.entity.app.EntityColumn;
 import com.apps.game.market.entity.app.EntityTag;
+import com.apps.game.market.enums.EnumAppStatus;
 import com.apps.game.market.global.GlobalData;
 import com.apps.game.market.global.GlobalObject;
 import com.apps.game.market.request.RequestSearchWord;
 import com.apps.game.market.request.callback.RequestCallBackSearchWord;
+import com.apps.game.market.task.TaskDownload;
 import com.apps.game.market.view.PopWindowSearchWord;
 import com.apps.game.market.view.PopWindowTagMore;
 import com.apps.game.market.views.ViewColumn;
@@ -80,8 +82,8 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 			if (mTags != null) {
 				int index = 0;				
 				for (EntityTag entityTag : mTags) {
-					String name = entityTag.getName();
-					TextView textView = new TextView(this);
+					final String name = entityTag.getName();
+					final TextView textView = new TextView(this);
 					textView.setTag(entityTag);
 					textView.setLayoutParams(new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT, 1.0f));										
 					textView.setOnClickListener(this);
@@ -149,7 +151,7 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 						break;
 				}
 				
-				TextView textView = new TextView(this);	
+				final TextView textView = new TextView(this);	
 				textView.setId(R.id.tag_more_id);
 				textView.setLayoutParams(new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT, 1.0f));
 				textView.setClickable(true);
@@ -166,27 +168,27 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 		}		
 	}
 	
-	protected void layoutColumns(ViewGroup layoutColumn , ViewPager parent) {			
+	protected void layoutColumns(final ViewGroup layoutColumn, final ViewPager parent) {			
 		int color = getResources().getColor(R.color.column_button);	
 		mColumns = mGlobalData.getColumns();
 		int index = 0;
 		if (mColumns != null) {			
 			for (EntityColumn entityColumn : mColumns) {			
-				String name = entityColumn.getName();
+				final String name = entityColumn.getName();
 				boolean single = entityColumn.getSingle();
-				FrameLayout frameLayout = new FrameLayout(this);
+				final FrameLayout frameLayout = new FrameLayout(this);
 				frameLayout.setTag(index);
 				frameLayout.setClickable(true);
 				frameLayout.setOnClickListener(this);
-				LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT, 1.0f);
+				final LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT, 1.0f);
 				int marginLeft = getResources().getDimensionPixelSize(R.dimen.column_margins_left);
 				int marginTop = getResources().getDimensionPixelSize(R.dimen.column_margins_top);
 				int marginRight = getResources().getDimensionPixelSize(R.dimen.column_margins_right);
 				int marginBottom = getResources().getDimensionPixelSize(R.dimen.column_margins_bottom);
 				linearLayoutParams.setMargins(marginLeft, marginTop, marginRight, marginBottom);
 				frameLayout.setLayoutParams(linearLayoutParams);				
-				TextView textView = new TextView(this);
-				FrameLayout.LayoutParams frameLayoutParams = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.FILL_PARENT);
+				final TextView textView = new TextView(this);
+				final FrameLayout.LayoutParams frameLayoutParams = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.FILL_PARENT);
 				frameLayoutParams.gravity = Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL;				
 				textView.setLayoutParams(frameLayoutParams);				
 				textView.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
@@ -199,9 +201,9 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 				if (parent != null) {
 					ViewColumn viewColumn = null;					
 					if (single)
-						viewColumn = new ViewColumnSingle(this, parent, frameLayout, entityColumn);
+						viewColumn = new ViewColumnSingle(this, parent, frameLayout, entityColumn, this);
 					else
-						viewColumn = new ViewColumnDouble(this, parent, frameLayout, entityColumn);
+						viewColumn = new ViewColumnDouble(this, parent, frameLayout, entityColumn, this);
 					
 					mViewColumns.add(viewColumn);
 				}
@@ -210,20 +212,20 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 			}
 		}
 		
-		FrameLayout frameLayout = new FrameLayout(this);
+		final FrameLayout frameLayout = new FrameLayout(this);
 		frameLayout.setTag(index);
 		frameLayout.setId(R.id.column_myapp_id);
 		frameLayout.setClickable(true);
 		frameLayout.setOnClickListener(this);
-		LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT, 1.0f);
+		final LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT, 1.0f);
 		int marginLeft = getResources().getDimensionPixelSize(R.dimen.column_margins_left);
 		int marginTop = getResources().getDimensionPixelSize(R.dimen.column_margins_top);
 		int marginRight = getResources().getDimensionPixelSize(R.dimen.column_margins_right);
 		int marginBottom = getResources().getDimensionPixelSize(R.dimen.column_margins_bottom);
 		linearLayoutParams.setMargins(marginLeft, marginTop, marginRight, marginBottom);
 		frameLayout.setLayoutParams(linearLayoutParams);
-		TextView textView = new TextView(this);		
-		FrameLayout.LayoutParams frameLayoutParams = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.FILL_PARENT);
+		final TextView textView = new TextView(this);		
+		final FrameLayout.LayoutParams frameLayoutParams = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.FILL_PARENT);
 		frameLayoutParams.gravity = Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL;
 		textView.setLayoutParams(frameLayoutParams);		
 		textView.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
@@ -234,7 +236,7 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 		frameLayout.addView(textView);
 		layoutColumn.addView(frameLayout);
 		if (parent != null) {
-			ViewColumn viewColumn = new ViewColumnMyApp(this, parent, frameLayout, null); 
+			final ViewColumn viewColumn = new ViewColumnMyApp(this, parent, frameLayout, null, this); 
 			mViewColumns.add(viewColumn);
 		}
 	}
@@ -260,7 +262,7 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 				
 				@Override
 				public void onTextChanged(CharSequence s, int start, int before, int count) {
-					String keyword = s.toString();					
+					final String keyword = s.toString();					
 					if (count > 0 && !keyword.equals(mKeyword)) {
 						RequestSearchWord request = new RequestSearchWord(mCallBack);
 						request.request(s.toString());
@@ -278,12 +280,12 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 		
 	@Override
 	public void onClick(View v) {
-		int id = v.getId();
-		Object object = v.getTag();
-		if (mTags != null && object != null) {
-			if (object instanceof EntityTag) {								
+		final int id = v.getId();
+		final Object obj = v.getTag();
+		if (mTags != null && obj != null) {
+			if (obj instanceof EntityTag) {								
 				for (EntityTag entityTag : mTags) {					
-					if (object.equals(entityTag)) {						
+					if (obj.equals(entityTag)) {						
 						mGlobalData.setSelectTag(entityTag);
 						entryTag(entityTag);						
 						return;
@@ -308,35 +310,145 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 				search(keyword);
 			}				
 		}
+		
+		if (id == R.id.single_app_icon || id == R.id.single_app_layout) {
+			if (obj != null && obj instanceof EntityApp) {							
+				final EntityApp entityApp = (EntityApp) obj;
+				entryDetail(entityApp);
+				return;
+			}
+		}
+		
+		if (id == R.id.app_name1 || id == R.id.app_name2) {
+			if (obj != null && obj instanceof EntityApp) {							
+				final EntityApp entityApp = (EntityApp) obj;
+				entryDetail(entityApp);
+				return;
+			}
+		}
+		
+		if (id == R.id.app_price1 || id == R.id.app_price2) {
+			if (obj != null && obj instanceof EntityApp) {							
+				final EntityApp entityApp = (EntityApp) obj;
+				entryDetail(entityApp);
+				return;
+			}
+		}
+		
+		if (id == R.id.app_icon1 || id == R.id.app_icon2) {
+			if (obj != null && obj instanceof EntityApp) {							
+				final EntityApp entityApp = (EntityApp) obj;
+				entryDetail(entityApp);
+				return;
+			}
+		}
+		
+		if (id == R.id.app_class1 || id == R.id.app_class2) {
+			if (obj != null && obj instanceof EntityApp) {							
+				final EntityApp entityApp = (EntityApp) obj;
+				entryDetail(entityApp);
+				return;
+			}
+		}
+		
+		if (id == R.id.myapp_download_name1 || id == R.id.myapp_download_name2) {
+			if (obj != null && obj instanceof EntityApp) {							
+				final EntityApp entityApp = (EntityApp) obj;
+				entryDetail(entityApp);
+				return;
+			}
+		}
+		
+		if (id == R.id.myapp_download_icon1 || id == R.id.myapp_download_icon2) {
+			if (obj != null && obj instanceof EntityApp) {							
+				final EntityApp entityApp = (EntityApp) obj;
+				entryDetail(entityApp);
+				return;
+			}
+		}
+		
+		if (id == R.id.myapp_collect_name1 || id == R.id.myapp_collect_name2) {
+			if (obj != null && obj instanceof EntityApp) {							
+				final EntityApp entityApp = (EntityApp) obj;
+				entryDetail(entityApp);
+				return;
+			}
+		}
+		
+		if (id == R.id.myapp_collect_icon1 || id == R.id.myapp_collect_icon2) {
+			if (obj != null && obj instanceof EntityApp) {							
+				final EntityApp entityApp = (EntityApp) obj;
+				entryDetail(entityApp);
+				return;
+			}
+		}
+				
+		if (id == R.id.single_app_download || id == R.id.app_action1 || id == R.id.app_action2 || id == R.id.myapp_collect_action1 || id == R.id.myapp_collect_action2) {
+			if (obj != null && obj instanceof EntityApp) {
+				final EntityApp entityApp = (EntityApp) obj;
+				final TaskDownload taskDownload = mGlobalObject.getTaskDownload();
+				final EnumAppStatus status = entityApp.getStatus();
+				switch (status) {
+					case NOINSTALL:
+						taskDownload.downloadApp(this, entityApp);
+						break;
+						
+					case INSTALL:
+						if (!taskDownload.installApp(this, entityApp))
+							onAppStatus(entityApp);
+						
+						break;
+						
+					case INSTALLED:
+						taskDownload.runApp(this, entityApp);					
+						break;
+				
+					case WAITING:					
+						taskDownload.downloadCancel(this, entityApp);
+						break;
+						
+					case DOWNLOADING:
+						taskDownload.downloadCancel(this, entityApp);		
+						break;
+				}
+				return;
+			}
+		}
 				
 		onAppClick(v);
 	}
 	
 	@Override
-	public void onCallBackSearchWord(List<EntitySearchWord> searchWords) {
+	public void onCallBackSearchWord(final List<EntitySearchWord> searchWords) {
 		if (mSearchWord == null)
 			mSearchWord = new PopWindowSearchWord(this, mSearch);
 		
 		mSearchWord.setList(searchWords);
 	}
 
-	protected void entryTag(EntityTag entityTag) {
-		Intent intent = new Intent(this, ActivityTag.class); 
+	protected void entryTag(final EntityTag entityTag) {
+		final Intent intent = new Intent(this, ActivityTag.class); 
         startActivity(intent);
 	}
 	
-	protected void search(String keyword) {
+	protected void search(final String keyword) {
 		mSearch.setText("");
 		mKeyword = "";
-		Intent intent = new Intent();
+		final Intent intent = new Intent();
 		intent.putExtra("keyword", keyword);
 		intent.setClass(this, ActivitySearch.class);
 		startActivity(intent);
 	}
 	
-	protected void setSearch(String keyword) {
+	protected void setSearch(final String keyword) {
 		if (mSearch != null)
 			mSearch.setText(keyword);
+	}
+	
+	private void entryDetail(final EntityApp entityApp) {		
+		mGlobalData.setSelectApp(entityApp);
+		final Intent intent = new Intent(this, ActivityDetail.class); 
+		startActivity(intent);
 	}
 		
 	protected abstract void onAppCreate();

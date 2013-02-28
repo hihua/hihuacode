@@ -13,7 +13,6 @@
         android:layout_marginRight="2dp"
         android:layout_weight="1"
         android:background="@color/double_app_background"
-        android:clickable="true"
         android:orientation="vertical" >
 
         <LinearLayout
@@ -35,6 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
+                android:clickable="true"
                 android:paddingRight="45dp"
                 android:singleLine="true"
                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -43,9 +43,10 @@
             <TextView
                 android:id="@+id/app_price1"
                 android:layout_width="32dp"
-                android:layout_height="wrap_content"                
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:clickable="true"
                 android:textColor="@color/double_app_text" />
         </RelativeLayout>
 
@@ -63,13 +64,16 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
                 android:layout_marginTop="3dp"
+                android:clickable="true"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/ic_menu_refresh" />
 
             <LinearLayout
+                android:id="@+id/app_class1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
+                android:clickable="true"
                 android:orientation="vertical" >
 
                 <TextView
@@ -146,7 +150,6 @@
         android:layout_marginBottom="2dp"
         android:layout_weight="1"
         android:background="@color/double_app_background"
-        android:clickable="true"
         android:orientation="vertical" >
 
         <LinearLayout
@@ -168,6 +171,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
+                android:clickable="true"
                 android:paddingRight="45dp"
                 android:singleLine="true"
                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -180,6 +184,7 @@
                 android:layout_alignParentBottom="false"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:clickable="true"
                 android:textColor="@color/double_app_text" />
         </RelativeLayout>
 
@@ -197,13 +202,16 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
                 android:layout_marginTop="3dp"
+                android:clickable="true"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/ic_menu_refresh" />
 
             <LinearLayout
+                android:id="@+id/app_class2"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
+                android:clickable="true"
                 android:orientation="vertical" >
 
                 <TextView

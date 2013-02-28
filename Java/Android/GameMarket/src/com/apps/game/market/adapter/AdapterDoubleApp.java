@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Vector;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,19 +20,15 @@ import android.widget.TextView;
 import android.widget.AbsListView.OnScrollListener;
 
 import com.apps.game.market.R;
-import com.apps.game.market.activity.ActivityDetail;
 import com.apps.game.market.entity.app.EntityApp;
-import com.apps.game.market.enums.EnumAppStatus;
-import com.apps.game.market.global.GlobalData;
 import com.apps.game.market.global.GlobalObject;
 import com.apps.game.market.request.app.RequestApp;
 import com.apps.game.market.request.callback.RequestCallBackApp;
-import com.apps.game.market.task.TaskDownload;
 import com.apps.game.market.task.TaskImage;
 import com.apps.game.market.util.ImageCache;
 import com.apps.game.market.viewholder.ViewHolderDoubleApp;
 
-public class AdapterDoubleApp extends BaseAdapter implements OnClickListener, OnScrollListener, RequestCallBackApp {
+public class AdapterDoubleApp extends BaseAdapter implements OnScrollListener, RequestCallBackApp {
 	private final GlobalObject mGlobalObject = GlobalObject.globalObject;
 	private final RequestApp mRequestApp;
 	private final ListView mListView;
@@ -45,13 +40,15 @@ public class AdapterDoubleApp extends BaseAdapter implements OnClickListener, On
 	private final ImageCache mImageCache = ImageCache.getInstance();
 	private final Context mContext;
 	private final DecimalFormat mFormat = new DecimalFormat("##0.00");
+	private final OnClickListener mOnClick;
 		
-	public AdapterDoubleApp(Context context, ListView listView, RequestApp requestApp) {
+	public AdapterDoubleApp(Context context, ListView listView, RequestApp requestApp, OnClickListener onClick) {
 		mContext = context;
 		mListView = listView;
 		mInflater = LayoutInflater.from(context);
 		mListView.setOnScrollListener(this);
 		mRequestApp = requestApp;
+		mOnClick = onClick;
 		requestApp.setCallBackApp(this);
 		requestApp.request(0, mPageSize);
 		mTasks.start();
@@ -90,6 +87,8 @@ public class AdapterDoubleApp extends BaseAdapter implements OnClickListener, On
 			holder.setName2((TextView) convertView.findViewById(R.id.app_name2));
 			holder.setPrice1((TextView) convertView.findViewById(R.id.app_price1));
 			holder.setPrice2((TextView) convertView.findViewById(R.id.app_price2));
+			holder.setClass1((LinearLayout) convertView.findViewById(R.id.app_class1));
+			holder.setClass2((LinearLayout) convertView.findViewById(R.id.app_class2));
 			holder.setTypeSize1((TextView) convertView.findViewById(R.id.app_type_size1));
 			holder.setTypeSize2((TextView) convertView.findViewById(R.id.app_type_size2));
 			holder.setDcount1((TextView) convertView.findViewById(R.id.app_dcount1));
@@ -121,134 +120,150 @@ public class AdapterDoubleApp extends BaseAdapter implements OnClickListener, On
 		if (position * 2 + 1 < mList.size())
 			entityApp2 = mList.get(position * 2 + 1);
 				
-		String icon = entityApp1.getIcon();
-		mTasks.setUrl(icon, holder.getIcon1());
+		ImageView imageView = holder.getIcon1();
+		String text = entityApp1.getIcon();
+		mTasks.setUrl(text, imageView);
 		
-		Bitmap bitmap = mImageCache.get(icon);
+		Bitmap bitmap = mImageCache.get(text);
 		if (bitmap != null)
-			holder.getIcon1().setImageBitmap(bitmap);
+			imageView.setImageBitmap(bitmap);
 		else							
-			holder.getIcon1().setImageResource(R.drawable.ic_launcher);
+			imageView.setImageResource(R.drawable.ic_launcher);
 		
-		String name = entityApp1.getName();		
-		holder.getName1().setText(name);
+		TextView textView = holder.getName1();
+		text = entityApp1.getName();		
+		textView.setText(text);
+		textView.setTag(entityApp1);
+		textView.setOnClickListener(mOnClick);
 		
-		String price = entityApp1.getPrice();
-		holder.getPrice1().setText(price);
+		textView = holder.getPrice1();
+		text = entityApp1.getPrice();
+		textView.setText(text);
+		textView.setTag(entityApp1);
+		textView.setOnClickListener(mOnClick);
 		
-		String type = entityApp1.getType();	
+		text = entityApp1.getType();	
 		long size = entityApp1.getSize();
 		double d = (double)size / 1024d / 1024d;
-		holder.getTypeSize1().setText(type + " " + mFormat.format(d) + "M");
+		holder.getTypeSize1().setText(text + " " + mFormat.format(d) + "M");
 		
 		long dcount = entityApp1.getDcount();		
 		long pcount = entityApp1.getPcount();
 		holder.getDcount1().setText(String.valueOf(dcount));
 		holder.getPcount1().setText(String.valueOf(pcount));
 		holder.getRating1().setRating(entityApp1.getRating());
-		TextView action = holder.getAction1();
-		action.setTag(entityApp1);
+		
+		textView = holder.getAction1();
+		textView.setTag(entityApp1);
 						
 		switch (entityApp1.getStatus()) {
 			case NOINSTALL:
-				action.setText(R.string.app_download);
-				action.setClickable(true);
-				action.setOnClickListener(this);				
+				textView.setText(R.string.app_download);
+				textView.setClickable(true);
+				textView.setOnClickListener(mOnClick);				
 				break;
 			
 			case INSTALL:
-				action.setText(R.string.app_install);
-				action.setClickable(true);
-				action.setOnClickListener(this);
+				textView.setText(R.string.app_install);
+				textView.setClickable(true);
+				textView.setOnClickListener(mOnClick);
 				break;
 				
 			case INSTALLED:
-				action.setText(R.string.app_run);
-				action.setClickable(true);
-				action.setOnClickListener(this);
+				textView.setText(R.string.app_run);
+				textView.setClickable(true);
+				textView.setOnClickListener(mOnClick);
 				break;
 				
 			case WAITING:
-				action.setText(R.string.app_waiting);
-				action.setClickable(true);
-				action.setOnClickListener(this);
+				textView.setText(R.string.app_waiting);
+				textView.setClickable(true);
+				textView.setOnClickListener(mOnClick);
 				break;
 				
 			case DOWNLOADING:
-				action.setText(R.string.app_downloading);
-				action.setClickable(false);
-				action.setOnClickListener(this);
+				textView.setText(R.string.app_downloading);
+				textView.setClickable(false);
+				textView.setOnClickListener(mOnClick);
 				break;
-		}
+		}								
 				
-		LinearLayout layout = holder.getLayout1();
+		LinearLayout layout = holder.getClass1();
 		layout.setTag(entityApp1);
-		layout.setOnClickListener(this);
+		layout.setOnClickListener(mOnClick);
 		
-		if (entityApp2 != null) {
-			icon = entityApp2.getIcon();		
-			mTasks.setUrl(icon, holder.getIcon2());
-						
-			bitmap = mImageCache.get(icon);
+		if (entityApp2 != null) {			
+			imageView = holder.getIcon2();
+			text = entityApp2.getIcon();
+			mTasks.setUrl(text, imageView);
+			
+			bitmap = mImageCache.get(text);
 			if (bitmap != null)
-				holder.getIcon2().setImageBitmap(bitmap);
-			else								
-				holder.getIcon2().setImageResource(R.drawable.ic_launcher);
+				imageView.setImageBitmap(bitmap);
+			else							
+				imageView.setImageResource(R.drawable.ic_launcher);
 											
-			name = entityApp2.getName();		
-			holder.getName2().setText(name);
+			textView = holder.getName2();
+			text = entityApp2.getName();		
+			textView.setText(text);
+			textView.setTag(entityApp2);
+			textView.setOnClickListener(mOnClick);
 			
-			price = entityApp2.getPrice();
-			holder.getPrice2().setText(price);
+			textView = holder.getPrice2();
+			text = entityApp2.getPrice();
+			textView.setText(text);
+			textView.setTag(entityApp2);
+			textView.setOnClickListener(mOnClick);
 			
-			type = entityApp2.getType();	
+			text = entityApp2.getType();	
 			size = entityApp2.getSize();
 			d = (double)size / 1024d / 1024d;
-			holder.getTypeSize2().setText(type + " " + mFormat.format(d) + "M");
+			holder.getTypeSize2().setText(text + " " + mFormat.format(d) + "M");
 			
 			dcount = entityApp2.getDcount();		
 			pcount = entityApp2.getPcount();
 			holder.getDcount2().setText(String.valueOf(dcount));
 			holder.getPcount2().setText(String.valueOf(pcount));
 			holder.getRating2().setRating(entityApp2.getRating());
-			action = holder.getAction2();
-			action.setTag(entityApp2);
+			
+			textView = holder.getAction2();
+			textView.setTag(entityApp2);
 			
 			switch (entityApp2.getStatus()) {
 				case NOINSTALL:
-					action.setText(R.string.app_download);
-					action.setClickable(true);
-					action.setOnClickListener(this);
+					textView.setText(R.string.app_download);
+					textView.setClickable(true);
+					textView.setOnClickListener(mOnClick);
 					break;
 				
 				case INSTALL:
-					action.setText(R.string.app_install);
-					action.setClickable(true);
-					action.setOnClickListener(this);
+					textView.setText(R.string.app_install);
+					textView.setClickable(true);
+					textView.setOnClickListener(mOnClick);
 					break;
 					
 				case INSTALLED:
-					action.setText(R.string.app_run);
-					action.setClickable(true);
-					action.setOnClickListener(this);
+					textView.setText(R.string.app_run);
+					textView.setClickable(true);
+					textView.setOnClickListener(mOnClick);
 					break;
 					
 				case WAITING:
-					action.setText(R.string.app_waiting);
-					action.setClickable(true);
-					action.setOnClickListener(this);
+					textView.setText(R.string.app_waiting);
+					textView.setClickable(true);
+					textView.setOnClickListener(mOnClick);
 					break;
 					
 				case DOWNLOADING:
-					action.setText(R.string.app_downloading);
-					action.setClickable(false);
-					action.setOnClickListener(this);
+					textView.setText(R.string.app_downloading);
+					textView.setClickable(false);
+					textView.setOnClickListener(mOnClick);
 					break;
 			}
-			
-			layout = holder.getLayout2();
+						
+			layout = holder.getClass2();
 			layout.setTag(entityApp2);
-			layout.setOnClickListener(this);
+			layout.setOnClickListener(mOnClick);
 			
 			if (holder.getLayout2().getVisibility() == View.INVISIBLE)
 				holder.getLayout2().setVisibility(View.VISIBLE);
@@ -272,7 +287,7 @@ public class AdapterDoubleApp extends BaseAdapter implements OnClickListener, On
 
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-		int count = mListView.getHeaderViewsCount();
+		final int count = mListView.getHeaderViewsCount();
 		if (firstVisibleItem + visibleItemCount == totalItemCount && !mRequest) {
 			//long p = (totalItemCount - count) * 2 / mPageSize;			
 			mRequestApp.request((totalItemCount - count) * 2, mPageSize);			
@@ -308,52 +323,7 @@ public class AdapterDoubleApp extends BaseAdapter implements OnClickListener, On
 	public void stop() {
 		mTasks.stop();
 	}
-
-	@Override
-	public void onClick(View v) {
-		Object obj = v.getTag();
-		if (v instanceof LinearLayout && obj != null && obj instanceof EntityApp) {							
-			final EntityApp entityApp = (EntityApp) obj;
-			GlobalData globalData = GlobalData.globalData;
-			globalData.setSelectApp(entityApp);
-			Intent intent = new Intent(mContext, ActivityDetail.class); 
-			mContext.startActivity(intent);
-			return;
-		}
 		
-		if (v.getId() == R.id.app_action1 || v.getId() == R.id.app_action2) {
-			if (v instanceof TextView && obj != null && obj instanceof EntityApp) {
-				final EntityApp entityApp = (EntityApp) obj;
-				TaskDownload taskDownload = mGlobalObject.getTaskDownload();
-				EnumAppStatus status = entityApp.getStatus();
-				switch (status) {
-					case NOINSTALL:
-						taskDownload.downloadApp(mContext, entityApp);
-						break;
-						
-					case INSTALL:
-						if (!taskDownload.installApp(mContext, entityApp))
-							setAppStatus(entityApp);
-						
-						break;
-						
-					case INSTALLED:
-						taskDownload.runApp(mContext, entityApp);					
-						break;
-				
-					case WAITING:					
-						taskDownload.downloadCancel(mContext, entityApp);
-						break;
-						
-					case DOWNLOADING:
-						taskDownload.downloadCancel(mContext, entityApp);		
-						break;
-				}
-				return;
-			}
-		}		
-	}
-	
 	public void setAppStatus(EntityApp entityApp) {
 		notifyDataSetChanged();
 	}

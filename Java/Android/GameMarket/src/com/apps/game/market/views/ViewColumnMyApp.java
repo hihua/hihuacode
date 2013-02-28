@@ -35,9 +35,11 @@ public class ViewColumnMyApp extends ViewColumn implements OnClickListener {
 	private AdapterMyAppCollect mAdapterCollect;
 	private AdapterMyAppBrowse mAdapterBrowse;
 	private FrameLayout mCurrent;
+	private final OnClickListener mOnClick;
 
-	public ViewColumnMyApp(Context context, ViewPager parent, ViewGroup layoutColumn, EntityColumn entityColumn) {
+	public ViewColumnMyApp(Context context, ViewPager parent, ViewGroup layoutColumn, EntityColumn entityColumn, OnClickListener onClick) {		
 		super(context, parent, layoutColumn, entityColumn);
+		mOnClick = onClick;
 	}
 
 	@Override
@@ -117,7 +119,7 @@ public class ViewColumnMyApp extends ViewColumn implements OnClickListener {
 				if (!mCurrent.equals(mLayoutDownload)) {
 					adapterStop();					
 					List<EntityApp> list = mGlobalData.getDownloadApps();
-					mAdapterDownload = new AdapterMyAppDownload(mContext, mListView, list);					
+					mAdapterDownload = new AdapterMyAppDownload(mContext, mListView, list, mOnClick);					
 					mListView.setAdapter(mAdapterDownload);	
 					setBackground(mLayoutDownload);
 					showBanner(true);
@@ -129,7 +131,7 @@ public class ViewColumnMyApp extends ViewColumn implements OnClickListener {
 				if (!mCurrent.equals(mLayoutCollect)) {
 					adapterStop();					
 					List<EntityApp> list = mGlobalData.getCollectApps();
-					mAdapterCollect = new AdapterMyAppCollect(mContext, mListView, list);					
+					mAdapterCollect = new AdapterMyAppCollect(mContext, mListView, list, mOnClick);					
 					mListView.setAdapter(mAdapterCollect);	
 					setBackground(mLayoutCollect);
 					showBanner(true);
@@ -141,7 +143,7 @@ public class ViewColumnMyApp extends ViewColumn implements OnClickListener {
 				if (!mCurrent.equals(mLayoutBrowse)) {
 					adapterStop();
 					List<EntityApp> list = mGlobalData.getBrowseApps();
-					mAdapterBrowse = new AdapterMyAppBrowse(mContext, mListView, list);					
+					mAdapterBrowse = new AdapterMyAppBrowse(mContext, mListView, list, mOnClick);					
 					mListView.setAdapter(mAdapterBrowse);	
 					setBackground(mLayoutBrowse);
 					showBanner(true);

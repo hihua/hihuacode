@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Vector;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,19 +19,15 @@ import android.widget.TextView;
 import android.widget.AbsListView.OnScrollListener;
 
 import com.apps.game.market.R;
-import com.apps.game.market.activity.ActivityDetail;
 import com.apps.game.market.entity.app.EntityApp;
-import com.apps.game.market.enums.EnumAppStatus;
-import com.apps.game.market.global.GlobalData;
 import com.apps.game.market.global.GlobalObject;
 import com.apps.game.market.request.app.RequestApp;
 import com.apps.game.market.request.callback.RequestCallBackApp;
-import com.apps.game.market.task.TaskDownload;
 import com.apps.game.market.task.TaskImage;
 import com.apps.game.market.util.ImageCache;
 import com.apps.game.market.viewholder.ViewHolderSingleApp;
 
-public class AdapterSingleApp extends BaseAdapter implements OnClickListener, OnScrollListener, RequestCallBackApp {
+public class AdapterSingleApp extends BaseAdapter implements OnScrollListener, RequestCallBackApp {
 	private final GlobalObject mGlobalObject = GlobalObject.globalObject;
 	private final RequestApp mRequestApp;
 	private final ListView mListView;
@@ -44,13 +39,15 @@ public class AdapterSingleApp extends BaseAdapter implements OnClickListener, On
 	private final ImageCache mImageCache = ImageCache.getInstance();
 	private final Context mContext;
 	private final DecimalFormat mFormat = new DecimalFormat("##0.00");
+	private final OnClickListener mOnClick;
 		
-	public AdapterSingleApp(Context context, ListView listView, RequestApp requestApp) {
+	public AdapterSingleApp(Context context, ListView listView, RequestApp requestApp, OnClickListener onClick) {
 		mContext = context;
 		mListView = listView;
 		mInflater = LayoutInflater.from(context);
 		mListView.setOnScrollListener(this);
 		mRequestApp = requestApp;
+		mOnClick = onClick;
 		requestApp.setCallBackApp(this);
 		requestApp.request(0, mPageSize);
 		mTasks.start();
@@ -90,25 +87,33 @@ public class AdapterSingleApp extends BaseAdapter implements OnClickListener, On
 		} else
 			holder = (ViewHolderSingleApp) convertView.getTag();
 						
-		EntityApp entityApp = mList.get(position);						
-		String url = entityApp.getIcon();
-		mTasks.setUrl(url, holder.getIcon());
+		final EntityApp entityApp = mList.get(position);
 		
-		Bitmap bitmap = mImageCache.get(url);
+		ImageView imageView = holder.getIcon();
+		imageView.setTag(entityApp);
+		imageView.setOnClickListener(mOnClick);
+		
+		String text = entityApp.getIcon();
+		mTasks.setUrl(text, imageView);
+		
+		Bitmap bitmap = mImageCache.get(text);
 		if (bitmap != null)
-			holder.getIcon().setImageBitmap(bitmap);
+			imageView.setImageBitmap(bitmap);
 		else							
-			holder.getIcon().setImageResource(R.drawable.ic_launcher);
+			imageView.setImageResource(R.drawable.ic_launcher);
 		
-		String name = entityApp.getName();			
-		holder.getName().setText(name);
+		TextView textView = holder.getName();
+		text = entityApp.getName();		
+		textView.setText(text);
+		textView.setTag(entityApp);
+		textView.setOnClickListener(mOnClick);
 				
 		long size = entityApp.getSize();
 		double d = (double)size / 1024d / 1024d;		
 		holder.getSize().setText(mFormat.format(d) + "M");
 		
-		String price = entityApp.getPrice();
-		holder.getPrice().setText(price);
+		text = entityApp.getPrice();
+		holder.getPrice().setText(text);
 		
 		long dcount = entityApp.getDcount();		
 		holder.getDcount().setText(String.valueOf(dcount));
@@ -116,17 +121,13 @@ public class AdapterSingleApp extends BaseAdapter implements OnClickListener, On
 		long pcount = entityApp.getPcount();		
 		holder.getPcount().setText(String.valueOf(pcount));
 				
-		ImageView download = holder.getDownload();
-		download.setTag(entityApp);
-		download.setOnClickListener(this);
-		
-		ImageView icon = holder.getIcon();
-		icon.setTag(entityApp);
-		icon.setOnClickListener(this);
-		
+		imageView = holder.getDownload();
+		imageView.setTag(entityApp);
+		imageView.setOnClickListener(mOnClick);
+				
 		LinearLayout layout = holder.getLayout();
 		layout.setTag(entityApp);
-		layout.setOnClickListener(this);
+		layout.setOnClickListener(mOnClick);
 		
 		return convertView;
 	}
@@ -145,7 +146,7 @@ public class AdapterSingleApp extends BaseAdapter implements OnClickListener, On
 
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-		int count = mListView.getHeaderViewsCount();
+		final int count = mListView.getHeaderViewsCount();
 		if (firstVisibleItem + visibleItemCount == totalItemCount && !mRequest) {
 			//long p = (totalItemCount - count) / mPageSize;			
 			mRequestApp.request(totalItemCount - count, mPageSize);	
@@ -172,48 +173,7 @@ public class AdapterSingleApp extends BaseAdapter implements OnClickListener, On
 			break;
 		}
 	}
-
-	@Override
-	public void onClick(View v) {
-		if (v.getId() == R.id.single_app_download) {
-			final EntityApp entityApp = (EntityApp) v.getTag();
-			TaskDownload taskDownload = mGlobalObject.getTaskDownload();
-			EnumAppStatus status = entityApp.getStatus();
-			switch (status) {
-				case NOINSTALL:
-					taskDownload.downloadApp(mContext, entityApp);
-					break;
-					
-				case INSTALL:
-					if (!taskDownload.installApp(mContext, entityApp))
-						setAppStatus(entityApp);
-					
-					break;
-					
-				case INSTALLED:
-					taskDownload.runApp(mContext, entityApp);					
-					break;
-			
-				case WAITING:					
-					taskDownload.downloadCancel(mContext, entityApp);
-					break;
-					
-				case DOWNLOADING:
-					taskDownload.downloadCancel(mContext, entityApp);		
-					break;
-			}
-			return;
-		}
 		
-		if (v.getId() == R.id.single_app_icon || v.getId() == R.id.single_app_layout) {
-			final EntityApp entityApp = (EntityApp) v.getTag();
-			GlobalData globalData = GlobalData.globalData;
-			globalData.setSelectApp(entityApp);
-			Intent intent = new Intent(mContext, ActivityDetail.class); 
-	        mContext.startActivity(intent);
-		}
-	}
-	
 	public void refresh() {
 		notifyDataSetChanged();
 		mTasks.lock(false);

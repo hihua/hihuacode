@@ -44,9 +44,8 @@ public abstract class RequestBase implements Runnable, Callback {
 		pool.submit(this);
 	}
 	
-	protected String setUrl(String url) {
-		Context context = mGlobalObject.getContext();
-		Resources resources = context.getResources();
+	protected String setUrl(String url) {		
+		Resources resources = mContext.getResources();
 		String host = resources.getString(R.string.request_host);
 		return host + url;
 	}

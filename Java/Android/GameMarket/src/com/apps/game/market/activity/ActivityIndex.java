@@ -96,7 +96,7 @@ public class ActivityIndex extends ActivityBase implements OnPageChangeListener,
 			Object obj = v.getTag();
 			if (obj != null && obj instanceof Integer) {
 				boolean found = false;
-				Integer index = (Integer) obj;
+				final Integer index = (Integer) obj;
 				for (ViewColumn viewColumn : mViewColumns) {
 					ViewGroup viewGroup = viewColumn.getViewColumn();
 					if (viewGroup.equals(v) && mCurrent != null && !viewColumn.equals(mCurrent)) {

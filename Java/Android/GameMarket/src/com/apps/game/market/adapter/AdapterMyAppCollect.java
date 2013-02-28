@@ -4,12 +4,9 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 import com.apps.game.market.R;
-import com.apps.game.market.activity.ActivityDetail;
 import com.apps.game.market.entity.app.EntityApp;
-import com.apps.game.market.enums.EnumAppStatus;
 import com.apps.game.market.global.GlobalData;
 import com.apps.game.market.global.GlobalObject;
-import com.apps.game.market.task.TaskDownload;
 import com.apps.game.market.task.TaskImage;
 import com.apps.game.market.util.ImageCache;
 import com.apps.game.market.viewholder.ViewHolderMyAppCollect;
@@ -18,7 +15,6 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,11 +40,13 @@ public class AdapterMyAppCollect extends BaseAdapter implements OnClickListener,
 	private final ImageCache mImageCache = ImageCache.getInstance();
 	private final Context mContext;
 	private final DecimalFormat mFormat = new DecimalFormat("##0.00");
+	private final OnClickListener mOnClick;
 		
-	public AdapterMyAppCollect(Context context, ListView listView, List<EntityApp> list) {
+	public AdapterMyAppCollect(Context context, ListView listView, List<EntityApp> list, OnClickListener onClick) {
 		mContext = context;
 		mListView = listView;
 		mList = list;
+		mOnClick = onClick;
 		mInflater = LayoutInflater.from(context);
 		mListView.setOnScrollListener(this);		
 		mTasks.start();
@@ -78,9 +76,9 @@ public class AdapterMyAppCollect extends BaseAdapter implements OnClickListener,
 		ViewHolderMyAppCollect holder = null;
 		if (convertView == null) {
 			holder = new ViewHolderMyAppCollect();
-			convertView = mInflater.inflate(R.layout.myapp_collect, parent, false);
+			convertView = mInflater.inflate(R.layout.myapp_collect, parent, false);	
 			holder.setLayout1((LinearLayout) convertView.findViewById(R.id.myapp_collect_layout1));
-			holder.setLayout2((LinearLayout) convertView.findViewById(R.id.myapp_collect_layout2));			
+			holder.setLayout2((LinearLayout) convertView.findViewById(R.id.myapp_collect_layout2));
 			holder.setIcon1((ImageView) convertView.findViewById(R.id.myapp_collect_icon1));
 			holder.setIcon2((ImageView) convertView.findViewById(R.id.myapp_collect_icon2));
 			holder.setName1((TextView) convertView.findViewById(R.id.myapp_collect_name1));
@@ -103,141 +101,139 @@ public class AdapterMyAppCollect extends BaseAdapter implements OnClickListener,
 			entityApp2 = mList.get(position * 2 + 1);
 				
 		ImageView imageView = holder.getIcon1();
-		String icon = entityApp1.getIcon();
-		mTasks.setUrl(icon, imageView);
+		String text = entityApp1.getIcon();
+		mTasks.setUrl(text, imageView);
 		
-		Bitmap bitmap = mImageCache.get(icon);
+		Bitmap bitmap = mImageCache.get(text);
 		if (bitmap != null)
 			imageView.setImageBitmap(bitmap);
 		else							
 			imageView.setImageResource(R.drawable.ic_launcher);
 		
 		imageView.setTag(entityApp1);
-		imageView.setOnClickListener(this);
+		imageView.setOnClickListener(mOnClick);
 		
 		TextView textView = holder.getName1();
-		String name = entityApp1.getName();		
-		textView.setText(name);
+		text = entityApp1.getName();		
+		textView.setText(text);
 		textView.setTag(entityApp1);
-		textView.setOnClickListener(this);
+		textView.setOnClickListener(mOnClick);
 		
-		String price = entityApp1.getPrice();
-		holder.getPrice1().setText(price);
+		textView = holder.getPrice1();
+		text = entityApp1.getPrice();
+		textView.setText(text);
+		textView.setTag(entityApp1);
+		textView.setOnClickListener(mOnClick);
 		
 		long size = entityApp1.getSize();
 		double d = (double)size / 1024d / 1024d;
 		holder.getSize1().setText(mFormat.format(d) + "M");
 		
-		TextView action = holder.getAction1();
-		action.setTag(entityApp1);		
+		textView = holder.getAction1();
+		textView.setTag(entityApp1);		
 		switch (entityApp1.getStatus()) {
 			case NOINSTALL:
-				action.setText(R.string.app_download);
-				action.setClickable(true);
-				action.setOnClickListener(this);				
+				textView.setText(R.string.app_download);
+				textView.setClickable(true);
+				textView.setOnClickListener(mOnClick);				
 				break;
 			
 			case INSTALL:
-				action.setText(R.string.app_install);
-				action.setClickable(true);
-				action.setOnClickListener(this);
+				textView.setText(R.string.app_install);
+				textView.setClickable(true);
+				textView.setOnClickListener(mOnClick);
 				break;
 				
 			case INSTALLED:
-				action.setText(R.string.app_run);
-				action.setClickable(true);
-				action.setOnClickListener(this);
+				textView.setText(R.string.app_run);
+				textView.setClickable(true);
+				textView.setOnClickListener(mOnClick);
 				break;
 				
 			case WAITING:
-				action.setText(R.string.app_waiting);
-				action.setClickable(true);
-				action.setOnClickListener(this);
+				textView.setText(R.string.app_waiting);
+				textView.setClickable(true);
+				textView.setOnClickListener(mOnClick);
 				break;
 				
 			case DOWNLOADING:
-				action.setText(R.string.app_downloading);
-				action.setClickable(false);
-				action.setOnClickListener(this);
+				textView.setText(R.string.app_downloading);
+				textView.setClickable(false);
+				textView.setOnClickListener(mOnClick);
 				break;
 		}		
 				
 		FrameLayout frameLayout = holder.getDel1();
 		frameLayout.setTag(entityApp1);
-		frameLayout.setOnClickListener(this);
-		
-		LinearLayout layout = holder.getLayout1();
-		layout.setTag(entityApp1);
-		layout.setOnClickListener(this);
-		
+		frameLayout.setOnClickListener(this);				
+				
 		if (entityApp2 != null) {
 			imageView = holder.getIcon2();
-			icon = entityApp2.getIcon();
-			mTasks.setUrl(icon, imageView);
+			text = entityApp2.getIcon();
+			mTasks.setUrl(text, imageView);
 			
-			bitmap = mImageCache.get(icon);
+			bitmap = mImageCache.get(text);
 			if (bitmap != null)
 				imageView.setImageBitmap(bitmap);
 			else							
 				imageView.setImageResource(R.drawable.ic_launcher);
 			
 			imageView.setTag(entityApp2);
-			imageView.setOnClickListener(this);
+			imageView.setOnClickListener(mOnClick);
 			
 			textView = holder.getName2();
-			name = entityApp2.getName();
-			textView.setText(name);
+			text = entityApp2.getName();
+			textView.setText(text);
 			textView.setTag(entityApp2);
-			textView.setOnClickListener(this);	
+			textView.setOnClickListener(mOnClick);	
 			
-			price = entityApp2.getPrice();
-			holder.getPrice2().setText(price);
+			textView = holder.getPrice2();
+			text = entityApp2.getPrice();
+			textView.setText(text);
+			textView.setTag(entityApp2);
+			textView.setOnClickListener(mOnClick);
 			
 			size = entityApp2.getSize();
 			d = (double)size / 1024d / 1024d;
 			holder.getSize2().setText(mFormat.format(d) + "M");
 			
-			action = holder.getAction2();
-			action.setTag(entityApp2);			
+			textView = holder.getAction2();
+			textView.setTag(entityApp2);			
 			switch (entityApp2.getStatus()) {
 				case NOINSTALL:
-					action.setText(R.string.app_download);
-					action.setClickable(true);
-					action.setOnClickListener(this);
+					textView.setText(R.string.app_download);
+					textView.setClickable(true);
+					textView.setOnClickListener(mOnClick);
 					break;
 				
 				case INSTALL:
-					action.setText(R.string.app_install);
-					action.setClickable(true);
-					action.setOnClickListener(this);
+					textView.setText(R.string.app_install);
+					textView.setClickable(true);
+					textView.setOnClickListener(mOnClick);
 					break;
 					
 				case INSTALLED:
-					action.setText(R.string.app_run);
-					action.setClickable(true);
-					action.setOnClickListener(this);
+					textView.setText(R.string.app_run);
+					textView.setClickable(true);
+					textView.setOnClickListener(mOnClick);
 					break;
 					
 				case WAITING:
-					action.setText(R.string.app_waiting);
-					action.setClickable(true);
-					action.setOnClickListener(this);
+					textView.setText(R.string.app_waiting);
+					textView.setClickable(true);
+					textView.setOnClickListener(mOnClick);
 					break;
 					
 				case DOWNLOADING:
-					action.setText(R.string.app_downloading);
-					action.setClickable(false);
-					action.setOnClickListener(this);
+					textView.setText(R.string.app_downloading);
+					textView.setClickable(false);
+					textView.setOnClickListener(mOnClick);
 					break;
 			}
 					
 			frameLayout = holder.getDel2();
 			frameLayout.setTag(entityApp2);
-			frameLayout.setOnClickListener(this);
-			
-			layout = holder.getLayout2();
-			layout.setTag(entityApp2);
-			layout.setOnClickListener(this);
+			frameLayout.setOnClickListener(this);						
 			
 			if (holder.getLayout2().getVisibility() == View.INVISIBLE)
 				holder.getLayout2().setVisibility(View.VISIBLE);
@@ -284,25 +280,7 @@ public class AdapterMyAppCollect extends BaseAdapter implements OnClickListener,
 	@Override
 	public void onClick(View v) {
 		int id = v.getId();
-		Object obj = v.getTag();
-		if ((id == R.id.myapp_collect_icon1 || id == R.id.myapp_collect_icon2) && obj != null && obj instanceof EntityApp) {
-			final EntityApp entityApp = (EntityApp) obj;
-			GlobalData globalData = GlobalData.globalData;
-			globalData.setSelectApp(entityApp);
-			Intent intent = new Intent(mContext, ActivityDetail.class); 
-	        mContext.startActivity(intent);
-	        return;
-		}
-		
-		if ((id == R.id.myapp_collect_name1 || id == R.id.myapp_collect_name2) && obj != null && obj instanceof EntityApp) {
-			final EntityApp entityApp = (EntityApp) obj;
-			GlobalData globalData = GlobalData.globalData;
-			globalData.setSelectApp(entityApp);
-			Intent intent = new Intent(mContext, ActivityDetail.class); 
-	        mContext.startActivity(intent);
-	        return;
-		}
-						
+		Object obj = v.getTag();								
 		if ((id == R.id.myapp_collect_del1 || id == R.id.myapp_collect_del2) && obj != null && obj instanceof EntityApp) {							
 			final EntityApp entityApp = (EntityApp) obj;
 			final AlertDialog.Builder builder = new Builder(mContext);
@@ -332,36 +310,6 @@ public class AdapterMyAppCollect extends BaseAdapter implements OnClickListener,
 			builder.create().show();
 			return;
 		}
-		
-		if ((id == R.id.myapp_collect_action1 || id == R.id.myapp_collect_action2) && obj != null && obj instanceof EntityApp) {							
-			final EntityApp entityApp = (EntityApp) obj;
-			final TaskDownload taskDownload = mGlobalObject.getTaskDownload();
-			final EnumAppStatus status = entityApp.getStatus();
-			switch (status) {
-				case NOINSTALL:
-					taskDownload.downloadApp(mContext, entityApp);
-					break;
-					
-				case INSTALL:
-					if (!taskDownload.installApp(mContext, entityApp))
-						setAppStatus(entityApp);
-					
-					break;
-					
-				case INSTALLED:
-					taskDownload.runApp(mContext, entityApp);					
-					break;
-			
-				case WAITING:					
-					taskDownload.downloadCancel(mContext, entityApp);
-					break;
-					
-				case DOWNLOADING:
-					taskDownload.downloadCancel(mContext, entityApp);		
-					break;
-			}
-			return;
-		}		
 	}
 	
 	public void setAppStatus(EntityApp entityApp) {

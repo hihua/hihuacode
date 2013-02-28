@@ -58,18 +58,8 @@ public class ActivityTag extends ActivityBase {
 	}
 
 	@Override
-	protected void onAppClick(View v) {
-		Object obj = v.getTag();
-		if (v instanceof LinearLayout && obj != null && obj instanceof EntityApp) {
-			mFinish = false;
-			final EntityApp entityApp = (EntityApp) v.getTag();
-			GlobalData globalData = GlobalData.globalData;
-			globalData.setSelectApp(entityApp);
-			Intent intent = new Intent(this, ActivityDetail.class); 
-	        startActivity(intent);
-	        return;			
-		}
-		
+	protected void onAppClick(final View v) {		
+		Object obj = v.getTag();				
 		if (v instanceof FrameLayout) {
 			Intent intent = mGlobalData.getLastIntent();
 			if (intent != null && obj != null && obj instanceof Integer) {
@@ -78,39 +68,7 @@ public class ActivityTag extends ActivityBase {
 				onBackPressed();
 				return;
 			}
-		}
-		
-		if (v.getId() == R.id.app_action1 || v.getId() == R.id.app_action2) {
-			if (v instanceof TextView && obj != null && obj instanceof EntityApp) {
-				final EntityApp entityApp = (EntityApp) obj;
-				TaskDownload taskDownload = mGlobalObject.getTaskDownload();
-				EnumAppStatus status = entityApp.getStatus();
-				switch (status) {
-					case NOINSTALL:
-						taskDownload.downloadApp(this, entityApp);
-						break;
-						
-					case INSTALL:
-						if (!taskDownload.installApp(this, entityApp))
-							onAppStatus(entityApp);
-						
-						break;
-						
-					case INSTALLED:
-						taskDownload.runApp(this, entityApp);					
-						break;
-				
-					case WAITING:					
-						taskDownload.downloadCancel(this, entityApp);
-						break;
-						
-					case DOWNLOADING:
-						taskDownload.downloadCancel(this, entityApp);		
-						break;
-				}
-				return;
-			}
-		}
+		}		
 	}
 	
 	private void layout() {

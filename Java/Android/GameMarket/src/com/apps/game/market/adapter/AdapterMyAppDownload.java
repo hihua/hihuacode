@@ -5,7 +5,6 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 import com.apps.game.market.R;
-import com.apps.game.market.activity.ActivityDetail;
 import com.apps.game.market.entity.app.EntityApp;
 import com.apps.game.market.enums.EnumAppStatus;
 import com.apps.game.market.global.GlobalData;
@@ -20,7 +19,6 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,11 +44,13 @@ public class AdapterMyAppDownload extends BaseAdapter implements OnClickListener
 	private final ImageCache mImageCache = ImageCache.getInstance();
 	private final Context mContext;
 	private final DecimalFormat mFormat = new DecimalFormat("##0.00");
+	private final OnClickListener mOnClick;
 		
-	public AdapterMyAppDownload(Context context, ListView listView, List<EntityApp> list) {
+	public AdapterMyAppDownload(Context context, ListView listView, List<EntityApp> list, OnClickListener onClick) {
 		mContext = context;
 		mListView = listView;
 		mList = list;
+		mOnClick = onClick;
 		mInflater = LayoutInflater.from(context);
 		mListView.setOnScrollListener(this);		
 		mTasks.start();
@@ -113,13 +113,13 @@ public class AdapterMyAppDownload extends BaseAdapter implements OnClickListener
 			imageView.setImageResource(R.drawable.ic_launcher);
 		
 		imageView.setTag(entityApp1);
-		imageView.setOnClickListener(this);
+		imageView.setOnClickListener(mOnClick);
 		
 		TextView textView = holder.getName1();
 		String name = entityApp1.getName();		
 		textView.setText(name);
 		textView.setTag(entityApp1);
-		textView.setOnClickListener(this);
+		textView.setOnClickListener(mOnClick);
 		
 		long size = entityApp1.getSize();
 		double d = (double)size / 1024d / 1024d;
@@ -133,14 +133,11 @@ public class AdapterMyAppDownload extends BaseAdapter implements OnClickListener
 				
 		textView.setTag(entityApp1);
 		textView.setOnClickListener(this);
+		
 		FrameLayout frameLayout = holder.getDel1();
 		frameLayout.setTag(entityApp1);
 		frameLayout.setOnClickListener(this);
-		
-		LinearLayout layout = holder.getLayout1();
-		layout.setTag(entityApp1);
-		layout.setOnClickListener(this);
-		
+				
 		if (entityApp2 != null) {
 			imageView = holder.getIcon2();
 			icon = entityApp2.getIcon();
@@ -153,13 +150,13 @@ public class AdapterMyAppDownload extends BaseAdapter implements OnClickListener
 				imageView.setImageResource(R.drawable.ic_launcher);
 			
 			imageView.setTag(entityApp2);
-			imageView.setOnClickListener(this);
+			imageView.setOnClickListener(mOnClick);
 			
 			textView = holder.getName2();
 			name = entityApp2.getName();
 			textView.setText(name);
 			textView.setTag(entityApp2);
-			textView.setOnClickListener(this);
+			textView.setOnClickListener(mOnClick);
 									
 			size = entityApp2.getSize();
 			d = (double)size / 1024d / 1024d;
@@ -173,13 +170,10 @@ public class AdapterMyAppDownload extends BaseAdapter implements OnClickListener
 					
 			textView.setTag(entityApp2);
 			textView.setOnClickListener(this);
+			
 			frameLayout = holder.getDel2();
 			frameLayout.setTag(entityApp2);
 			frameLayout.setOnClickListener(this);
-			
-			layout = holder.getLayout2();
-			layout.setTag(entityApp2);
-			layout.setOnClickListener(this);
 			
 			if (holder.getLayout2().getVisibility() == View.INVISIBLE)
 				holder.getLayout2().setVisibility(View.VISIBLE);
@@ -225,26 +219,8 @@ public class AdapterMyAppDownload extends BaseAdapter implements OnClickListener
 
 	@Override
 	public void onClick(View v) {
-		int id = v.getId();
-		Object obj = v.getTag();
-		if ((id == R.id.myapp_download_icon1 || id == R.id.myapp_download_icon2) && obj != null && obj instanceof EntityApp) {
-			final EntityApp entityApp = (EntityApp) obj;
-			GlobalData globalData = GlobalData.globalData;
-			globalData.setSelectApp(entityApp);
-			Intent intent = new Intent(mContext, ActivityDetail.class); 
-	        mContext.startActivity(intent);
-	        return;
-		}
-		
-		if ((id == R.id.myapp_download_name1 || id == R.id.myapp_download_name2) && obj != null && obj instanceof EntityApp) {
-			final EntityApp entityApp = (EntityApp) obj;
-			GlobalData globalData = GlobalData.globalData;
-			globalData.setSelectApp(entityApp);
-			Intent intent = new Intent(mContext, ActivityDetail.class); 
-	        mContext.startActivity(intent);
-	        return;
-		}
-		
+		final int id = v.getId();
+		final Object obj = v.getTag();				
 		if ((id == R.id.myapp_download_del1 || id == R.id.myapp_download_del2) && obj != null && obj instanceof EntityApp) {							
 			final EntityApp entityApp = (EntityApp) obj;						
 			final AlertDialog.Builder builder = new Builder(mContext);

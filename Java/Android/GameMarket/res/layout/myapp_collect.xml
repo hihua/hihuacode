@@ -12,8 +12,7 @@
         android:layout_marginBottom="2dp"
         android:layout_marginRight="2dp"
         android:layout_weight="1"
-        android:background="@color/double_app_background"
-        android:clickable="true"
+        android:background="@color/double_app_background"        
         android:orientation="vertical" >
 
         <LinearLayout
@@ -37,13 +36,14 @@
                 android:layout_alignParentLeft="true"
                 android:clickable="true"
                 android:paddingRight="45dp"
-                android:singleLine="true"
+                android:singleLine="true"               
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/double_app_text" />
 
             <TextView
                 android:id="@+id/myapp_collect_price1"
                 android:layout_width="32dp"
+                android:clickable="true"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
@@ -61,10 +61,10 @@
                 android:id="@+id/myapp_collect_icon1"
                 android:layout_width="34dp"
                 android:layout_height="34dp"
+                android:clickable="true"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="3dp"
-                android:clickable="true"
+                android:layout_marginTop="3dp"                
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/ic_menu_refresh" />
 
@@ -118,8 +118,7 @@
         android:layout_marginBottom="2dp"
         android:layout_marginRight="2dp"
         android:layout_weight="1"
-        android:background="@color/double_app_background"
-        android:clickable="true"
+        android:background="@color/double_app_background"        
         android:orientation="vertical" >
 
         <LinearLayout

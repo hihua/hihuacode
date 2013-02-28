@@ -14,6 +14,8 @@ public class ViewHolderDoubleApp {
 	private TextView name2;
 	private TextView price1;
 	private TextView price2;
+	private LinearLayout class1;
+	private LinearLayout class2;
 	private TextView typeSize1;
 	private TextView typeSize2;
 	private TextView dcount1;
@@ -55,6 +57,14 @@ public class ViewHolderDoubleApp {
 
 	public TextView getPrice2() {
 		return price2;
+	}
+
+	public LinearLayout getClass1() {
+		return class1;
+	}
+
+	public LinearLayout getClass2() {
+		return class2;
 	}
 
 	public TextView getTypeSize1() {
@@ -127,6 +137,14 @@ public class ViewHolderDoubleApp {
 
 	public void setPrice2(TextView price2) {
 		this.price2 = price2;
+	}
+
+	public void setClass1(LinearLayout class1) {
+		this.class1 = class1;
+	}
+
+	public void setClass2(LinearLayout class2) {
+		this.class2 = class2;
 	}
 
 	public void setTypeSize1(TextView typeSize1) {

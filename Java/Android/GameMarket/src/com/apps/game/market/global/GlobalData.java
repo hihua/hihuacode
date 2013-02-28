@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
+import java.util.concurrent.ConcurrentHashMap;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,7 +19,7 @@ import com.apps.game.market.util.ApkManager;
 
 public class GlobalData {
 	public static GlobalData globalData = null;
-	private Map<String, EntityApp> remoteApps = new HashMap<String, EntityApp>();
+	private Map<String, EntityApp> remoteApps = new ConcurrentHashMap<String, EntityApp>();
 	private List<EntityAppInfo> localApps = new Vector<EntityAppInfo>();
 	private List<EntityApp> downloadApps = new Vector<EntityApp>();
 	private List<EntityApp> collectApps = new Vector<EntityApp>();
@@ -50,10 +51,17 @@ public class GlobalData {
 		return localApps;
 	}
 	
-	public synchronized void putRemoteApp(EntityApp remoteApp) {
+	public void putRemoteApp(EntityApp remoteApp) {
 		String packageName = remoteApp.getPackageName();
 		if (!remoteApps.containsKey(packageName))
 			remoteApps.put(packageName, remoteApp);
+	}
+	
+	public EntityApp getRemoteApp(String packageName) {
+		if (remoteApps.containsKey(packageName))
+			return remoteApps.get(packageName);
+		else
+			return null;
 	}
 	
 	public void addLocalApp(EntityAppInfo entityAppInfo) {
@@ -74,12 +82,7 @@ public class GlobalData {
 				localApps.remove(appInfo);
 				break;
 			}				
-		}
-		
-		if (remoteApps.containsKey(packageName)) {
-			EntityApp remoteApp = remoteApps.get(packageName);
-			remoteApp.setStatus(EnumAppStatus.NOINSTALL);
-		}
+		}		
 	}
 	
 	public boolean appInstalled(String packageName) {

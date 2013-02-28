@@ -18,9 +18,8 @@ import android.util.Log;
 public class ApkManager {
 	public static void installApk(Context context, String dir, String filename) {
 		try {
-			Intent intent = new Intent();
-			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			intent.setAction(Intent.ACTION_VIEW);
+			Intent intent = new Intent(Intent.ACTION_VIEW);
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);			
 			intent.setDataAndType(Uri.fromFile(new File(dir, filename)), "application/vnd.android.package-archive");
 			context.startActivity(intent);			
 		} catch (Exception e) {
@@ -30,9 +29,8 @@ public class ApkManager {
 	
 	public static void installApk(Context context, String filepath) {
 		try {
-			Intent intent = new Intent();
-			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			intent.setAction(Intent.ACTION_VIEW);
+			Intent intent = new Intent(Intent.ACTION_VIEW);
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);			
 			intent.setDataAndType(Uri.fromFile(new File(filepath)), "application/vnd.android.package-archive");
 			context.startActivity(intent);			
 		} catch (Exception e) {
@@ -42,9 +40,8 @@ public class ApkManager {
 	
 	public static void installApk(Context context, File file) {
 		try {
-			Intent intent = new Intent();
-			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			intent.setAction(Intent.ACTION_VIEW);
+			Intent intent = new Intent(Intent.ACTION_VIEW);
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);			
 			intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
 			context.startActivity(intent);			
 		} catch (Exception e) {
