@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/tag_background"
     android:gravity="bottom"
-    android:paddingBottom="4dp"
+    android:paddingBottom="1dp"
     android:orientation="horizontal" >
 
 </LinearLayout>

@@ -44,8 +44,7 @@
     </LinearLayout>
 
     <include
-        android:layout_width="fill_parent"
-        android:layout_height="68dp"
+        android:layout_width="fill_parent"        
         layout="@layout/bottom" />
 
 </LinearLayout>
