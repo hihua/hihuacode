@@ -12,7 +12,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.27"
+        android:layout_weight="0.26"
         android:background="@color/detail_app_top_background" >
 
         <RelativeLayout
@@ -153,10 +153,11 @@
             <FrameLayout
                 android:id="@+id/detail_app_intro"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="5dp"
-                android:layout_weight="0.5"
+                android:layout_weight="1"
                 android:background="@drawable/detail_app_intro_select"
                 android:clickable="true" >
 
@@ -173,9 +174,10 @@
             <FrameLayout
                 android:id="@+id/detail_app_comment"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
                 android:layout_marginRight="5dp"
-                android:layout_weight="0.5"
+                android:layout_weight="1"
                 android:background="@drawable/detail_app_intro_no_select"
                 android:clickable="true" >
 
@@ -193,8 +195,9 @@
                 android:id="@+id/detail_app_collect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="center"
                 android:layout_marginRight="5dp"
+                android:layout_weight="1"
                 android:background="@drawable/detail_app_button"
                 android:clickable="true" >
 
@@ -211,8 +214,9 @@
                 android:id="@+id/detail_app_share"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="center"
                 android:layout_marginRight="10dp"
+                android:layout_weight="1"
                 android:background="@drawable/detail_app_button"
                 android:clickable="true" >
 
@@ -230,7 +234,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.73"
+        android:layout_weight="0.74"
         android:background="@color/detail_app_bottom_background" >
 
         <ScrollView
