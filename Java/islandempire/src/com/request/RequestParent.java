@@ -124,7 +124,7 @@ public class RequestParent extends RequestBase {
 			return null;
 		
 		setHeader(authorization, clientv, cookie, md5);
-		return requestClient(webUrl, m_Header, body);
+		return request(webUrl, m_Header, body);
 	}
 	
 	protected String requestUrl(String webUrl, String clientv, String cookie, String body) {

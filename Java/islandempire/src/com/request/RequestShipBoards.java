@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 public class RequestShipBoards extends RequestParent {
-	private final String URL = "/ship_boards/save_board";
+	private final String URL = "/ship_boards";
 	private final StringBuilder m_URL = new StringBuilder();
 	private final StringBuilder m_Body = new StringBuilder();
 	private final StringBuilder m_Troops = new StringBuilder();
@@ -12,7 +12,7 @@ public class RequestShipBoards extends RequestParent {
 	public boolean request(String host, String clientv, String cookie, Long userId, Long townId, HashMap<String, Long> soldiers) {
 		m_URL.setLength(0);
 		m_URL.append(host);
-		m_URL.append(URL);
+		m_URL.append(URL + "/save_board");
 		
 		m_Body.setLength(0);
 		m_Body.append("user_id=");
@@ -35,6 +35,22 @@ public class RequestShipBoards extends RequestParent {
 		m_Body.append(m_Troops.toString());
 		
 		String response = requestUrl(m_URL.toString(), clientv, cookie, m_Body.toString());
+		if (response == null)
+			return false;
+		else
+			return true;
+	}
+	
+	public boolean request(String host, String clientv, String cookie, Long userId, Long townId) {
+		m_URL.setLength(0);
+		m_URL.append(host);
+		m_URL.append(URL + "/show_board_info?");
+		m_URL.append("user_id=");
+		m_URL.append(userId);
+		m_URL.append("&town_id=");
+		m_URL.append(townId);
+		
+		String response = requestUrl(m_URL.toString(), clientv, cookie, null);
 		if (response == null)
 			return false;
 		else

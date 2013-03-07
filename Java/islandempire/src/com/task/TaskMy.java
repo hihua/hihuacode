@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 import java.util.Vector;
 import java.util.Map.Entry;
@@ -42,8 +43,10 @@ import com.request.RequestArmy;
 import com.request.RequestBuildings;
 import com.request.RequestCallBack;
 import com.request.RequestDeals;
+import com.request.RequestDiscounts;
 import com.request.RequestEquipment;
 import com.request.RequestEvent;
+import com.request.RequestGifts;
 import com.request.RequestIsland;
 import com.request.RequestMessage;
 import com.request.RequestRanks;
@@ -79,9 +82,12 @@ public class TaskMy extends TaskBase {
 	private final RequestEquipment m_RequestEquipment = new RequestEquipment();
 	private final RequestRanks m_RequestRanks = new RequestRanks();
 	private final RequestRewards m_RequestRewards = new RequestRewards();
+	private final RequestGifts m_RequestGifts = new RequestGifts();
+	private final RequestDiscounts m_RequestDiscounts = new RequestDiscounts();
 	private final RequestCallBack m_RequestCallBack = new RequestCallBack();
-	private final RequestShipBoards m_RequestShipBoards = new RequestShipBoards();
+	private final RequestShipBoards m_RequestShipBoards = new RequestShipBoards();	
 	private final List<Long> m_Village = new Vector<Long>();
+	private final Map<Long, Long> m_DealIds = new HashMap<Long, Long>();
 	private Config m_ConfigNew = null;
 	private Date m_Rewards = null;
 
@@ -234,6 +240,8 @@ public class TaskMy extends TaskBase {
 		String cookie = config.getCookie();
 				
 		m_RequestRewards.request(host, clientv, cookie, userId);
+		m_RequestGifts.request(host, clientv, cookie, userId);
+		m_RequestDiscounts.request(host, clientv, cookie, userId);		
 		m_Rewards = new Date();
 	}
 	
@@ -1218,20 +1226,28 @@ public class TaskMy extends TaskBase {
 			return 9000;
 	}
 	
-	private HashMap<String, Long> getAttackSoldier(Town town, long count) {		
+	private HashMap<String, Long> getAttackSoldier(Town town, long count, boolean shipBoards) {		
 		long left = count;
 		HashMap<String, Long> soldiers = new HashMap<String, Long>();
 		HashMap<String, Long> more = new HashMap<String, Long>();
 		
-		left -= getAttackSoldier(count, town.getSoldierBerserker(), soldiers, more);
-		left -= getAttackSoldier(count, town.getSoldierPegasus(), soldiers, more);
-		left -= getAttackSoldier(count, town.getSoldierIronclad(), soldiers, more);
-		left -= getAttackSoldier(count, town.getSoldierDestroyer(), soldiers, more);
-		left -= getAttackSoldier(count, town.getSoldierCatapult(), soldiers, more);
-		left -= getAttackSoldier(count, town.getSoldierFrigate(), soldiers, more);
-		left -= getAttackSoldier(count, town.getSoldierMusketman(), soldiers, more);
-		left -= getAttackSoldier(count, town.getSoldierInfantry(), soldiers, more);
-				
+		if (shipBoards) {
+			left -= getAttackSoldier(count, town.getSoldierBerserker(), soldiers, more, shipBoards);
+			left -= getAttackSoldier(count, town.getSoldierPegasus(), soldiers, more, shipBoards);
+			left -= getAttackSoldier(count, town.getSoldierIronclad(), soldiers, more, shipBoards);
+			left -= getAttackSoldier(count, town.getSoldierDestroyer(), soldiers, more, shipBoards);
+			left -= getAttackSoldier(count, town.getSoldierCatapult(), soldiers, more, shipBoards);
+			left -= getAttackSoldier(count, town.getSoldierFrigate(), soldiers, more, shipBoards);
+			left -= getAttackSoldier(count, town.getSoldierMusketman(), soldiers, more, shipBoards);
+			left -= getAttackSoldier(count, town.getSoldierInfantry(), soldiers, more, shipBoards);
+		} else {
+			left -= getAttackSoldier(count, town.getSoldierBerserker(), soldiers, more, shipBoards);			
+			left -= getAttackSoldier(count, town.getSoldierIronclad(), soldiers, more, shipBoards);			
+			left -= getAttackSoldier(count, town.getSoldierCatapult(), soldiers, more, shipBoards);			
+			left -= getAttackSoldier(count, town.getSoldierMusketman(), soldiers, more, shipBoards);
+			left -= getAttackSoldier(count, town.getSoldierInfantry(), soldiers, more, shipBoards);
+		}
+						
 		if (left > 0 && more.size() > 0) {
 			for (Entry<String, Long> entry : more.entrySet()) {
 				String key = entry.getKey();
@@ -1254,9 +1270,12 @@ public class TaskMy extends TaskBase {
 			return null;
 	}
 	
-	private long getAttackSoldier(long count, Soldier soldier, HashMap<String, Long> soldiers, HashMap<String, Long> more) {
+	private long getAttackSoldier(long count, Soldier soldier, HashMap<String, Long> soldiers, HashMap<String, Long> more, boolean shipBoards) {
 		if (soldier != null && soldier.getName() != null && soldier.getCount() != null && soldier.getCount() > 0) {
 			long total = count / 5;
+			if (!shipBoards)
+				total = count / 3;			
+
 			if (total < soldier.getCount())
 				more.put(soldier.getName(), soldier.getCount() - total);
 			else
@@ -1479,7 +1498,7 @@ public class TaskMy extends TaskBase {
 				return;
 			
 			long count = getAttackCount(islandVillage.getLevel());
-			HashMap<String, Long> soldiers = getAttackSoldier(town, count);
+			HashMap<String, Long> soldiers = getAttackSoldier(town, count, true);
 			if (soldiers == null)
 				return;
 			
@@ -1495,17 +1514,33 @@ public class TaskMy extends TaskBase {
 					if (id == null)
 						continue;
 					
-					if (id.equals(townId)) {
+					if (id.equals(islandVillage.getId())) {
 						found = true;
 						break;
 					}
 				}
 				
-				if (!found || !m_RequestShipBoards.request(host, clientv, cookie, userId, townId, soldiers)) {
+				if (found) {
+					soldiers = getAttackSoldier(town, count, false);
+					if (soldiers == null)
+						return;
+				}					
+				
+				if (!found && !m_RequestShipBoards.request(host, clientv, cookie, userId, townId, soldiers)) {
 					error++;
 					continue;
 				}
 			}
+			
+//			if (!m_RequestShipBoards.request(host, clientv, cookie, userId, townId, soldiers)) {
+//				error++;
+//				continue;
+//			}
+//			
+//			if (!m_RequestShipBoards.request(host, clientv, cookie, userId, townId)) {
+//				error++;
+//				continue;
+//			}
 															
 			if (m_RequestArmy.request(host, clientv, cookie, townId, islandVillage.getId(), townId, soldiers, h)) {
 				m_Village.add(islandVillage.getId());

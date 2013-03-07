@@ -70,4 +70,24 @@ public class RequestDeals extends RequestParent {
 		else
 			return Resources.parse(response);
 	}
+	
+	public boolean request(String host, String clientv, String cookie, Long dealId, String username) {
+		m_URL.setLength(0);
+		m_URL.append(host);
+		m_URL.append(URL);
+		m_URL.append("/");
+		m_URL.append(dealId);
+		m_URL.append(".json");
+		
+		m_Body.setLength(0);
+		m_Body.append("username=");
+		m_Body.append(username);
+		m_Body.append("&_method=delete&do=buy");
+		
+		String response = requestUrl(m_URL.toString(), clientv, cookie, m_Body.toString());
+		if (response == null)
+			return false;
+		else
+			return true;
+	}
 }
