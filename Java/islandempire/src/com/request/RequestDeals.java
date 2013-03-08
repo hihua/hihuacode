@@ -82,12 +82,31 @@ public class RequestDeals extends RequestParent {
 		m_Body.setLength(0);
 		m_Body.append("username=");
 		m_Body.append(username);
-		m_Body.append("&_method=delete&do=buy");
+		m_Body.append("&_method=delete&do=cancel");
 		
 		String response = requestUrl(m_URL.toString(), clientv, cookie, m_Body.toString());
 		if (response == null)
 			return false;
 		else
 			return true;
+	}
+	
+	public List<Deal> request(String host, String clientv, String cookie, String d, String username, Long townId) {
+		m_URL.setLength(0);
+		m_URL.append(host);
+		m_URL.append(URL);
+		m_URL.append(".json");
+		m_URL.append("?do=");
+		m_URL.append(d);
+		m_URL.append("&username=");
+		m_URL.append(username);
+		m_URL.append("&town_id=");
+		m_URL.append(townId);
+		
+		String response = requestUrl(m_URL.toString(), clientv, cookie, null);
+		if (response == null)
+			return null;
+		else
+			return Deal.parse(response);
 	}
 }

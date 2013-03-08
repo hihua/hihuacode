@@ -63,6 +63,7 @@ import com.towns.OtherTown;
 import com.towns.Resources;
 import com.towns.Town;
 import com.towns.TransportTown;
+import com.util.DateTime;
 import com.util.Logs;
 import com.util.Numeric;
 
@@ -1595,6 +1596,12 @@ public class TaskMy extends TaskBase {
 	}
 	
 	private void sells(Town town, Config config, ConfigTown configTown) {
+		Long townId = town.getId();
+		String username = town.getOwner();
+		String host = config.getHost();
+		String clientv = config.getClientv();
+		String cookie = config.getCookie();
+				
 		if (!configTown.getSell() || configTown.getSells() == null)
 			return;
 		
@@ -1603,23 +1610,64 @@ public class TaskMy extends TaskBase {
 			return;
 		
 		Long leftCapacity = buildingMarket.getLeftCapacity();
-		if (leftCapacity == null || leftCapacity <= 0)
+		if (leftCapacity == null)
+			return;
+		
+		boolean sell = false;
+		
+		if (username != null) {
+			List<Deal> list = m_RequestDeals.request(host, clientv, cookie, "my_list", username, townId);
+			if (list != null) {
+				for (Deal deal : list) {
+					Long id = deal.getId();
+					if (id == null)
+						continue;
+						
+					long now = DateTime.getTime(new Date());
+					if (m_DealIds.containsKey(id)) {							
+						Long timestamp = m_DealIds.get(id);
+						if (now - timestamp > 600) {
+							if (m_RequestDeals.request(host, clientv, cookie, id, username)) {
+								m_DealIds.remove(id);
+								sell = true;
+							}
+						}
+					} else
+						m_DealIds.put(id, now);
+				}
+			}
+		}
+		
+		if (leftCapacity <= 0 && !sell)
 			return;
 				
 		Resources resourcesWood = town.getResourcesWood();
-		if (resourcesWood != null && sells(town, config, configTown.getSells(), resourcesWood, leftCapacity))
-			return;
-		
 		Resources resourcesFood = town.getResourcesFood();
-		if (resourcesFood != null && sells(town, config, configTown.getSells(), resourcesFood, leftCapacity))
-			return;
-		
 		Resources resourcesIron = town.getResourcesIron();
-		if (resourcesIron != null && sells(town, config, configTown.getSells(), resourcesIron, leftCapacity))
-			return;
-		
 		Resources resourcesMarble = town.getResourcesMarble();
-		if (resourcesMarble != null && sells(town, config, configTown.getSells(), resourcesMarble, leftCapacity))
+		
+		if (resourcesWood != null && resourcesFood != null) {
+			if (resourcesWood.getResourceCount() != null && resourcesFood.getResourceCount() != null) {
+				if (resourcesWood.getResourceCount() > resourcesFood.getResourceCount()) {
+					if (sells(town, config, configTown.getSells(), resourcesWood, buildingMarket.getCapacity()))
+						return;
+				} else {
+					if (sells(town, config, configTown.getSells(), resourcesFood, buildingMarket.getCapacity()))
+						return;
+				}
+			}
+		}
+		
+		if (resourcesWood != null && sells(town, config, configTown.getSells(), resourcesWood, buildingMarket.getCapacity()))
+			return;		
+		
+		if (resourcesFood != null && sells(town, config, configTown.getSells(), resourcesFood, buildingMarket.getCapacity()))
+			return;		
+		
+		if (resourcesIron != null && sells(town, config, configTown.getSells(), resourcesIron, buildingMarket.getCapacity()))
+			return;		
+		
+		if (resourcesMarble != null && sells(town, config, configTown.getSells(), resourcesMarble, buildingMarket.getCapacity()))
 			return;
 	}
 	
