@@ -80,7 +80,7 @@ public class AdapterMyAppInstalled extends BaseAdapter implements OnClickListene
 		} else			
 			holder = (ViewHolderMyAppInstalled) convertView.getTag();
 		
-		EntityAppInfo entityAppInfo1 = mList.get(position);
+		EntityAppInfo entityAppInfo1 = mList.get(position * 2);
 		EntityAppInfo entityAppInfo2 = null;		
 		if (position * 2 + 1 < mList.size())
 			entityAppInfo2 = mList.get(position * 2 + 1);

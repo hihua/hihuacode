@@ -25,23 +25,25 @@ public class BroadcastAppReceiver extends BroadcastReceiver {
 	public void onReceive(Context context, Intent intent) {
 		String action = intent.getAction();
 		if (action.equals(Intent.ACTION_PACKAGE_ADDED)) {	
-			GlobalData globalData = GlobalData.globalData;			
-			Uri uri = intent.getData();
-			String packageName = uri.getSchemeSpecificPart();			
-			if (!globalData.appInstalled(packageName)) {
-				EntityAppInfo appInfo = ApkManager.getApp(context, packageName);
-				if (appInfo != null)
-					globalData.addLocalApp(appInfo);								
-			}
-			
-			EntityApp entityApp = globalData.getRemoteApp(packageName);
-			if (entityApp != null) {
-				if (entityApp.getStatus() != EnumAppStatus.INSTALLED) {
-					entityApp.setStatus(EnumAppStatus.INSTALLED);
-					if (mActivityBase != null)
-						mActivityBase.onAppStatus(entityApp);
-				}				
-			}
+			GlobalData globalData = GlobalData.globalData;
+			if (globalData != null) {
+				Uri uri = intent.getData();
+				String packageName = uri.getSchemeSpecificPart();			
+				if (!globalData.appInstalled(packageName)) {
+					EntityAppInfo appInfo = ApkManager.getApp(context, packageName);
+					if (appInfo != null)
+						globalData.addLocalApp(appInfo);								
+				}
+				
+				EntityApp entityApp = globalData.getRemoteApp(packageName);
+				if (entityApp != null) {
+					if (entityApp.getStatus() != EnumAppStatus.INSTALLED) {
+						entityApp.setStatus(EnumAppStatus.INSTALLED);
+						if (mActivityBase != null)
+							mActivityBase.onAppStatus(entityApp);
+					}				
+				}
+			}			
 			
 			return;
 		}
@@ -49,20 +51,22 @@ public class BroadcastAppReceiver extends BroadcastReceiver {
 		if (action.equals(Intent.ACTION_PACKAGE_REMOVED)) {
 			GlobalData globalData = GlobalData.globalData;
 			GlobalObject globalObject = GlobalObject.globalObject;
-			FileManager fileManager = globalObject.getFileManager();
-			Uri uri = intent.getData();
-			String packageName = uri.getSchemeSpecificPart();			
-			globalData.removeLocalApp(packageName);				
-			EntityApp entityApp = globalData.getRemoteApp(packageName);
-			if (entityApp != null) {
-				if (fileManager.appExists(packageName))
-					entityApp.setStatus(EnumAppStatus.INSTALL);
-				else
-					entityApp.setStatus(EnumAppStatus.NOINSTALL);
-				
-				if (mActivityBase != null)
-					mActivityBase.onAppStatus(entityApp);
-			}
+			if (globalObject != null && globalData != null) {
+				FileManager fileManager = globalObject.getFileManager();
+				Uri uri = intent.getData();
+				String packageName = uri.getSchemeSpecificPart();			
+				globalData.removeLocalApp(packageName);				
+				EntityApp entityApp = globalData.getRemoteApp(packageName);
+				if (entityApp != null) {
+					if (fileManager.appExists(packageName))
+						entityApp.setStatus(EnumAppStatus.INSTALL);
+					else
+						entityApp.setStatus(EnumAppStatus.NOINSTALL);
+					
+					if (mActivityBase != null)
+						mActivityBase.onAppStatus(entityApp);
+				}
+			}			
 			
 			return;
 		}

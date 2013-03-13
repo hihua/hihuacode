@@ -3,6 +3,7 @@ package com.apps.game.market.activity;
 import java.util.List;
 import java.util.Vector;
 
+import com.apps.game.market.App;
 import com.apps.game.market.R;
 import com.apps.game.market.entity.EntitySearchWord;
 import com.apps.game.market.entity.app.EntityApp;
@@ -41,8 +42,8 @@ import android.widget.TextView;
 import android.widget.Gallery.LayoutParams;
 
 public abstract class ActivityBase extends Activity implements OnClickListener, RequestCallBackSearchWord {
-	protected GlobalObject mGlobalObject = GlobalObject.globalObject;
-	protected GlobalData mGlobalData = GlobalData.globalData;
+	protected GlobalObject mGlobalObject;
+	protected GlobalData mGlobalData;
 	protected List<EntityTag> mTags;
 	protected List<EntityColumn> mColumns;	
 	protected List<ViewColumn> mViewColumns = new Vector<ViewColumn>();
@@ -54,7 +55,10 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 			
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
-		super.onCreate(savedInstanceState);		
+		super.onCreate(savedInstanceState);
+		App app = (App) getApplication();
+		mGlobalObject = app.globalObject;
+		mGlobalData = app.globalData;		
 		onAppCreate();
 		layoutTags();
 		layoutSearch();

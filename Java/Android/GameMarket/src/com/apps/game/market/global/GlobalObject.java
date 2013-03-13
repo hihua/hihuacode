@@ -17,8 +17,7 @@ public class GlobalObject {
 	private FileManager mFileManager;
 	private TaskDownload mTaskDownload;
 			
-	public GlobalObject(Context context) {	
-		mContext = context;
+	public GlobalObject() {		
 		globalObject = this;
 	}
 	

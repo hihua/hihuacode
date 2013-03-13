@@ -45,7 +45,7 @@ public abstract class RequestBase implements Runnable, Callback {
 	}
 	
 	protected String setUrl(String url) {		
-		Resources resources = mContext.getResources();
+		Resources resources = mContext.getResources();		
 		String host = resources.getString(R.string.request_host);
 		return host + url;
 	}

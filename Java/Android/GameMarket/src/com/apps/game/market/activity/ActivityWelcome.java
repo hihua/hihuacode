@@ -3,6 +3,7 @@ package com.apps.game.market.activity;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.apps.game.market.App;
 import com.apps.game.market.R;
 import com.apps.game.market.entity.app.EntityColumn;
 import com.apps.game.market.global.GlobalData;
@@ -99,11 +100,14 @@ public class ActivityWelcome extends Activity implements RequestCallBackColumn, 
 	}
 	
 	private boolean init() {
-		GlobalData globalData = new GlobalData();
+		App app = (App) getApplication();
+		GlobalData globalData = app.globalData;
 		if (!globalData.init(this))
 			return false;
+				
+		GlobalObject globalObject = app.globalObject;
+		globalObject.setContext(this);
 		
-		GlobalObject globalObject = new GlobalObject(this);		
 		RequestColumn requestColumn = new RequestColumn(this);
 		requestColumn.request();
 		return true;
