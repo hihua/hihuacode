@@ -4,7 +4,7 @@
 	<host>http://54.248.236.194</host>
 	<clientv>1.5.4</clientv>
 	<userid>23568</userid>
-	<cookie>_game001_server_session=BAh7BiIPc2Vzc2lvbl9pZCIlYTI5NmExZmZmMmQ3ZWNmYjliYzdjMjViODllOTMyYTc%3D--2d46ec64c524b5d369a93b717229c7c4e0e5b084; cookie_salt=BAhbB2kCEFwiRTVjMTMzZjFhYjA5NzFkNjg4MmFjZTMxNGUyNjZjMzBjZmJmYTI3MWZjYmQzNTk4NGUyODQ0OTNmNGRjZGNkNTA%3D--8c6e4764b5802ea694947b1f8291378a42f822e2</cookie>
+	<cookie>cookie_salt=BAhbB2kCEFwiRWFjNjhmYmJhZjRhOGNjZDE2NWFlMzUzYjM5NmZjMThjNDY3ZjZiNGRhYWM5NDUzM2I4M2FiOTJkZjU4MjRjOGY%3D--36119effb9b87d762790c452b9fa3209a57eb760; _game001_server_session=BAh7BiIPc2Vzc2lvbl9pZCIlMDM2MTAxNjMzYzdkMzc2ODAzZDVlMzg0NThmZTI1OWU%3D--fe40e8da2b9083dcabbdcfe1f0f43ca1cc739fbc</cookie>
 	<autotowns>30</autotowns>
 	<equipment>
 		<max>35</max>
@@ -46,10 +46,10 @@
 		<buys wood="90" food="90" iron="90" marble="90">true</buys>
 	</towns>
 	<towns id="178718">
-		<autoupgrade priority="18,16,17">true</autoupgrade>
+		<autoupgrade priority="">false</autoupgrade>
 		<autoattack level="0-0">false</autoattack>
-		<autorecruit>false</autorecruit>
-		<sells wood="60" food="60" iron="60" marble="60" gold="60">true</sells>
+		<autorecruit>true</autorecruit>
+		<sells wood="80" food="80" iron="95" marble="95" gold="60">true</sells>
 		<buys wood="0" food="0" iron="80" marble="80">true</buys>
 	</towns>
 </config>
