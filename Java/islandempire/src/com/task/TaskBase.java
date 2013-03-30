@@ -54,6 +54,7 @@ public abstract class TaskBase extends Thread {
 	
 	public void setDelay(long delay) {
 		m_Delay = delay;
+
 	}
 	
 	protected abstract void onEntry();
