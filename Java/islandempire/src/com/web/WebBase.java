@@ -19,6 +19,7 @@ public abstract class WebBase extends HttpServlet {
 		response.setCharacterEncoding(Charset);
 		PrintWriter out = response.getWriter();
 		onPost(request, response, out);
+		
 		out.flush();
 		out.close();
 	}
