@@ -1,0 +1,140 @@
+﻿生成启动时间为 2013-4-22 17:51:56。
+     1>项目“F:\MyApp\AudioPlayer\AudioPlayer\AudioPlayer.vcxproj”在节点 2 上(build 个目标)。
+     1>PrepareForBuild:
+         正在创建目录“F:\MyApp\AudioPlayer\Release\”。
+       InitializeBuildStatus:
+         正在创建“Release\AudioPlayer.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+       ClCompile:
+         C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MTd /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yc"StdAfx.h" /Fp"Release\AudioPlayer.pch" /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
+         stdafx.cpp
+         C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MTd /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yu"StdAfx.h" /Fp"Release\AudioPlayer.pch" /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt AudioPlayer.cpp Cdrom.cpp ClockInfo.cpp Decode.cpp Dsp.cpp DxSound.cpp FastFourierTransform.cpp Lyric.cpp LyricSearch.cpp SongList.cpp Spectrum.cpp Util.cpp xml\tinystr.cpp xml\tinyxml.cpp xml\tinyxmlerror.cpp xml\tinyxmlparser.cpp
+         AudioPlayer.cpp
+     1>AudioPlayer.cpp(846): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+         Cdrom.cpp
+     1>Cdrom.cpp(148): warning C4018: “>”: 有符号/无符号不匹配
+     1>Cdrom.cpp(171): warning C4244: “=”: 从“int64_t”转换到“DWORD”，可能丢失数据
+         ClockInfo.cpp
+         Decode.cpp
+     1>Decode.cpp(114): warning C4244: “=”: 从“int64_t”转换到“int”，可能丢失数据
+     1>Decode.cpp(126): warning C4018: “>”: 有符号/无符号不匹配
+     1>Decode.cpp(174): warning C4244: “参数”: 从“int64_t”转换到“int”，可能丢失数据
+     1>Decode.cpp(212): warning C4018: “>”: 有符号/无符号不匹配
+     1>Decode.cpp(389): warning C4244: “初始化”: 从“int64_t”转换到“long”，可能丢失数据
+     1>Decode.cpp(467): warning C4244: “初始化”: 从“int64_t”转换到“long”，可能丢失数据
+         Dsp.cpp
+     1>Dsp.cpp(79): warning C4244: “=”: 从“DWORD”转换到“WORD”，可能丢失数据
+     1>Dsp.cpp(205): warning C4244: “初始化”: 从“double”转换到“FLOAT”，可能丢失数据
+     1>Dsp.cpp(230): warning C4244: “初始化”: 从“double”转换到“FLOAT”，可能丢失数据
+     1>Dsp.cpp(255): warning C4244: “初始化”: 从“double”转换到“FLOAT”，可能丢失数据
+         DxSound.cpp
+         FastFourierTransform.cpp
+     1>FastFourierTransform.cpp(196): warning C4244: “=”: 从“int”转换到“float”，可能丢失数据
+     1>FastFourierTransform.cpp(233): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+         Lyric.cpp
+     1>Lyric.cpp(627): warning C4018: “<=”: 有符号/无符号不匹配
+     1>Lyric.cpp(1059): warning C4018: “<=”: 有符号/无符号不匹配
+         LyricSearch.cpp
+         SongList.cpp
+         Spectrum.cpp
+     1>Spectrum.cpp(210): warning C4018: “<”: 有符号/无符号不匹配
+     1>Spectrum.cpp(263): warning C4018: “<”: 有符号/无符号不匹配
+     1>Spectrum.cpp(275): warning C4244: “=”: 从“float”转换到“LONG”，可能丢失数据
+         Util.cpp
+     1>Util.cpp(65): warning C4244: “=”: 从“float”转换到“INT”，可能丢失数据
+     1>Util.cpp(66): warning C4244: “=”: 从“float”转换到“INT”，可能丢失数据
+     1>Util.cpp(144): warning C4018: “>”: 有符号/无符号不匹配
+         tinystr.cpp
+         tinyxml.cpp
+     1>xml\tinyxml.cpp(28): warning C4627: “#include <sstream>”: 在查找预编译头使用时跳过
+                 将指令添加到“StdAfx.h”或重新生成预编译头
+     1>xml\tinyxml.cpp(29): warning C4627: “#include <iostream>”: 在查找预编译头使用时跳过
+                 将指令添加到“StdAfx.h”或重新生成预编译头
+     1>xml\tinyxml.cpp(117): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 参见“sprintf”的声明
+     1>xml\tinyxml.cpp(690): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 参见“sprintf”的声明
+     1>xml\tinyxml.cpp(712): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 参见“sprintf”的声明
+     1>xml\tinyxml.cpp(1276): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 参见“sprintf”的声明
+     1>xml\tinyxml.cpp(1287): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 参见“sprintf”的声明
+         tinyxmlerror.cpp
+         tinyxmlparser.cpp
+       ResourceCompile:
+         C:\Program Files\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /D _UNICODE /D UNICODE /l"0x0409" /nologo /fo"Release\AudioPlayer.res" AudioPlayer.rc 
+       Link:
+         C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\MyApp\AudioPlayer\Release\AudioPlayer.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Release\AudioPlayer.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"F:\MyApp\AudioPlayer\Release\AudioPlayer.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\MyApp\AudioPlayer\Release\AudioPlayer.lib" /MACHINE:X86 Release\AudioPlayer.res
+         Release\AudioPlayer.obj
+         Release\Cdrom.obj
+         Release\ClockInfo.obj
+         Release\Decode.obj
+         Release\Dsp.obj
+         Release\DxSound.obj
+         Release\FastFourierTransform.obj
+         Release\Lyric.obj
+         Release\LyricSearch.obj
+         Release\SongList.obj
+         Release\Spectrum.obj
+         Release\stdafx.obj
+         Release\Util.obj
+         Release\tinystr.obj
+         Release\tinyxml.obj
+         Release\tinyxmlerror.obj
+         Release\tinyxmlparser.obj
+     1>zlib_debug.lib(uncompr.obj) : warning LNK4075: 忽略“/EDITANDCONTINUE”(由于“/OPT:ICF”规范)
+         正在生成代码
+         已完成代码的生成
+     1>libavutil.a(parseutils.o) : warning LNK4049: 已导入本地定义的符号 __pctype
+     1>libavutil.a(eval.o) : warning LNK4049: 已导入本地定义的符号 __pctype
+     1>libmingwex.lib(strtoimax.o) : warning LNK4049: 已导入本地定义的符号 __pctype
+     1>libavformat.a(http.o) : warning LNK4049: 已导入本地定义的符号 __pctype
+     1>libavformat.a(subtitles.o) : warning LNK4049: 已导入本地定义的符号 __pctype
+     1>libavformat.a(httpauth.o) : warning LNK4049: 已导入本地定义的符号 __pctype
+     1>libavformat.a(urldecode.o) : warning LNK4049: 已导入本地定义的符号 __pctype
+     1>libavformat.a(utils.o) : warning LNK4049: 已导入本地定义的符号 __pctype
+     1>libavformat.a(hls.o) : warning LNK4049: 已导入本地定义的符号 __pctype
+     1>libavformat.a(hlsproto.o) : warning LNK4049: 已导入本地定义的符号 __pctype
+     1>libavformat.a(rtmphttp.o) : warning LNK4049: 已导入本地定义的符号 __pctype
+     1>libavcodec.a(xbmdec.o) : warning LNK4049: 已导入本地定义的符号 __pctype
+     1>libavcodec.a(dvdsubdec.o) : warning LNK4049: 已导入本地定义的符号 __pctype
+     1>libavcodec.a(realtextdec.o) : warning LNK4049: 已导入本地定义的符号 __pctype
+     1>libavcodec.a(samidec.o) : warning LNK4049: 已导入本地定义的符号 __pctype
+     1>libavutil.a(parseutils.o) : warning LNK4049: 已导入本地定义的符号 ___mb_cur_max
+     1>libavutil.a(eval.o) : warning LNK4049: 已导入本地定义的符号 ___mb_cur_max
+     1>libmingwex.lib(strtoimax.o) : warning LNK4049: 已导入本地定义的符号 ___mb_cur_max
+     1>libavformat.a(http.o) : warning LNK4049: 已导入本地定义的符号 ___mb_cur_max
+     1>libavformat.a(subtitles.o) : warning LNK4049: 已导入本地定义的符号 ___mb_cur_max
+     1>libavformat.a(httpauth.o) : warning LNK4049: 已导入本地定义的符号 ___mb_cur_max
+     1>libavformat.a(urldecode.o) : warning LNK4049: 已导入本地定义的符号 ___mb_cur_max
+     1>libavformat.a(utils.o) : warning LNK4049: 已导入本地定义的符号 ___mb_cur_max
+     1>libavformat.a(hls.o) : warning LNK4049: 已导入本地定义的符号 ___mb_cur_max
+     1>libavformat.a(hlsproto.o) : warning LNK4049: 已导入本地定义的符号 ___mb_cur_max
+     1>libavformat.a(rtmphttp.o) : warning LNK4049: 已导入本地定义的符号 ___mb_cur_max
+     1>libavcodec.a(xbmdec.o) : warning LNK4049: 已导入本地定义的符号 ___mb_cur_max
+     1>libavcodec.a(dvdsubdec.o) : warning LNK4049: 已导入本地定义的符号 ___mb_cur_max
+     1>libavcodec.a(realtextdec.o) : warning LNK4049: 已导入本地定义的符号 ___mb_cur_max
+     1>libavcodec.a(samidec.o) : warning LNK4049: 已导入本地定义的符号 ___mb_cur_max
+     1>libavformat.a(md5proto.o) : warning LNK4049: 已导入本地定义的符号 __iob
+     1>libavutil.a(log.o) : warning LNK4049: 已导入本地定义的符号 __iob
+     1>zlib_debug.lib(adler32.obj) : warning LNK4099: 未找到 PDB“vc90.pdb”(使用“zlib_debug.lib(adler32.obj)”或在“F:\MyApp\AudioPlayer\Release\vc90.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+     1>zlib_debug.lib(compress.obj) : warning LNK4099: 未找到 PDB“vc90.pdb”(使用“zlib_debug.lib(compress.obj)”或在“F:\MyApp\AudioPlayer\Release\vc90.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+     1>zlib_debug.lib(crc32.obj) : warning LNK4099: 未找到 PDB“vc90.pdb”(使用“zlib_debug.lib(crc32.obj)”或在“F:\MyApp\AudioPlayer\Release\vc90.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+     1>zlib_debug.lib(deflate.obj) : warning LNK4099: 未找到 PDB“vc90.pdb”(使用“zlib_debug.lib(deflate.obj)”或在“F:\MyApp\AudioPlayer\Release\vc90.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+     1>zlib_debug.lib(inffast.obj) : warning LNK4099: 未找到 PDB“vc90.pdb”(使用“zlib_debug.lib(inffast.obj)”或在“F:\MyApp\AudioPlayer\Release\vc90.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+     1>zlib_debug.lib(inflate.obj) : warning LNK4099: 未找到 PDB“vc90.pdb”(使用“zlib_debug.lib(inflate.obj)”或在“F:\MyApp\AudioPlayer\Release\vc90.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+     1>zlib_debug.lib(inftrees.obj) : warning LNK4099: 未找到 PDB“vc90.pdb”(使用“zlib_debug.lib(inftrees.obj)”或在“F:\MyApp\AudioPlayer\Release\vc90.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+     1>zlib_debug.lib(trees.obj) : warning LNK4099: 未找到 PDB“vc90.pdb”(使用“zlib_debug.lib(trees.obj)”或在“F:\MyApp\AudioPlayer\Release\vc90.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+     1>zlib_debug.lib(uncompr.obj) : warning LNK4099: 未找到 PDB“vc90.pdb”(使用“zlib_debug.lib(uncompr.obj)”或在“F:\MyApp\AudioPlayer\Release\vc90.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+     1>zlib_debug.lib(zutil.obj) : warning LNK4099: 未找到 PDB“vc90.pdb”(使用“zlib_debug.lib(zutil.obj)”或在“F:\MyApp\AudioPlayer\Release\vc90.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+         AudioPlayer.vcxproj -> F:\MyApp\AudioPlayer\Release\AudioPlayer.exe
+       Manifest:
+         C:\Program Files\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"F:\MyApp\AudioPlayer\Release\AudioPlayer.exe;#1" /manifest Release\AudioPlayer.exe.intermediate.manifest
+       FinalizeBuildStatus:
+         正在删除文件“Release\AudioPlayer.unsuccessfulbuild”。
+         正在对“Release\AudioPlayer.lastbuildstate”执行 Touch 任务。
+     1>已完成生成项目“F:\MyApp\AudioPlayer\AudioPlayer\AudioPlayer.vcxproj”(build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:04.26

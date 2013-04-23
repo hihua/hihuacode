@@ -1,0 +1,257 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#ifndef APSTUDIO_INVOKED
+#include "targetver.h"
+#endif
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "windows.h"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 中文(简体，中国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU_AUDIOPLAYER MENU
+BEGIN
+    POPUP "操作(&O)"
+    BEGIN
+        MENUITEM "开始(&S)",                      IDM_PLAY_START
+        MENUITEM "停止(&E)",                      IDM_PLAY_STOP
+        MENUITEM "暂停(&P)",                      IDM_PLAY_PAUSE
+    END
+    POPUP "频谱(&F)"
+    BEGIN
+        MENUITEM "25帧/秒",                       IDM_MENU_25FPS
+        MENUITEM "30帧/秒",                       IDM_MENU_30FPS
+        MENUITEM "40帧/秒",                       IDM_MENU_40FPS, CHECKED
+        MENUITEM "50帧/秒",                       IDM_MENU_50FPS
+    END
+    POPUP "歌词(&L)"
+    BEGIN
+        MENUITEM "显示(&S)",                      IDM_MENU_LYRIC_STATUS, CHECKED
+        MENUITEM "字体(&Z)",                      IDM_MENU_LYRIC_FONT
+        MENUITEM "颜色(&C)",                      IDM_MENU_LYRIC_COLOR
+        POPUP "延迟(&D)"
+        BEGIN
+            MENUITEM "-0.5秒",                       IDM_MENU_LYRIC_SUB_500
+            MENUITEM "-1秒",                         IDM_MENU_LYRIC_SUB_1000
+            MENUITEM "-3秒",                         IDM_MENU_LYRIC_SUB_3000
+            MENUITEM "0秒",                          IDM_MENU_LYRIC_0
+            MENUITEM "+0.5秒",                       IDM_MENU_LYRIC_ADD_500
+            MENUITEM "+1秒",                         IDM_MENU_LYRIC_ADD_1000
+            MENUITEM "+3秒",                         IDM_MENU_LYRIC_ADD_3000
+        END
+        MENUITEM "搜索(&F)",                      IDM_MENU_LYRIC_SEARCH
+    END
+    POPUP "均衡器(&D)"
+    BEGIN
+        MENUITEM "启用",                          IDM_MENU_DSP_STATUS
+        MENUITEM "变调、变速、节拍",                    IDM_MENU_DSP_SOUNDTOUCH
+    END
+END
+
+IDR_MENU_SONGLIST MENU
+BEGIN
+    POPUP ""
+    BEGIN
+        MENUITEM "添加文件夹",                       IDM_SONGLIST_ADD_DIR
+        MENUITEM "添加文件",                        IDM_SONGLIST_ADD_FILE
+        MENUITEM "移除文件",                        IDM_SONGLIST_REMOVE_FILE
+        MENUITEM "清空列表",                        IDM_SONGLIST_REMOVE_ALL
+    END
+END
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#ifndef APSTUDIO_INVOKED\r\n"
+    "#include ""targetver.h""\r\n"
+    "#endif\r\n"
+    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""windows.h""\r\n"
+    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_AUDIOPLAYER         ICON                    "res\\AudioPlayer.ico"
+IDI_AUDIOPLAYER_SMALL   ICON                    "res\\AudioPlayer_Small.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// PNG
+//
+
+IDB_PNG_9               PNG                     "res\\9.png"
+IDB_PNG_COLON           PNG                     "res\\colon.png"
+IDB_PNG_PAUSE           PNG                     "res\\pause.png"
+IDB_PNG_PLAY            PNG                     "res\\play.png"
+IDB_PNG_0               PNG                     "res\\0.png"
+IDB_PNG_1               PNG                     "res\\1.png"
+IDB_PNG_2               PNG                     "res\\2.png"
+IDB_PNG_3               PNG                     "res\\3.png"
+IDB_PNG_4               PNG                     "res\\4.png"
+IDB_PNG_5               PNG                     "res\\5.png"
+IDB_PNG_6               PNG                     "res\\6.png"
+IDB_PNG_7               PNG                     "res\\7.png"
+IDB_PNG_8               PNG                     "res\\8.png"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DIALOG_FONTCOLOR DIALOGEX 0, 0, 210, 90
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "歌词字体颜色"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_SLIDER_COLOR_RED,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | TBS_TOOLTIPS | WS_TABSTOP,7,7,145,15
+    CONTROL         "",IDC_SLIDER_COLOR_GREEN,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | TBS_TOOLTIPS | WS_TABSTOP,7,28,145,15
+    CONTROL         "",IDC_SLIDER_COLOR_BLUE,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | TBS_TOOLTIPS | WS_TABSTOP,7,49,145,15
+    CONTROL         "背景色",IDC_CHECK_COLOR_BACKGROUD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,13,72,40,10
+    EDITTEXT        IDC_EDIT_COLOR_RED,155,7,40,14,ES_AUTOHSCROLL | ES_NUMBER
+    EDITTEXT        IDC_EDIT_COLOR_GREEN,155,29,40,14,ES_AUTOHSCROLL | ES_NUMBER
+    EDITTEXT        IDC_EDIT_COLOR_BLUE,155,51,40,14,ES_AUTOHSCROLL | ES_NUMBER
+END
+
+IDD_DIALOG_LYRICSEARCH DIALOGEX 0, 0, 316, 159
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "歌词搜索"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_LIST_LYRIC,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,29,302,123
+    LTEXT           "歌手",IDC_STATIC_ARTIST,7,10,17,8
+    EDITTEXT        IDC_EDIT_ARTIST,27,7,66,14,ES_AUTOHSCROLL
+    LTEXT           "歌曲",IDC_STATIC_TITLE,98,10,17,8
+    EDITTEXT        IDC_EDIT_TITLE,118,7,107,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "搜索",IDC_BUTTON_LYRIC_SEARCH,227,7,40,14
+    PUSHBUTTON      "刷新",IDC_BUTTON_LYRIC_REFRESH,269,7,40,14
+END
+
+IDD_DIALOG_SOUNDTOUCH DIALOGEX 0, 0, 203, 90
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "变调、变速、节拍"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_EDIT_SOUNDTOUCH_TEMPOCHANGE_IM,42,7,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_SOUNDTOUCH_PITCHSEMITONES_IM,42,29,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_SOUNDTOUCH_RATECHANGE_IM,42,51,40,14,ES_AUTOHSCROLL
+    CONTROL         "启用",IDC_CHECK_SOUNDTOUCH_STATUS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,13,72,32,10
+    CONTROL         "",IDC_SPIN_SOUNDTOUCH_TEMPOCHANGE_IM,"msctls_updown32",UDS_WRAP | UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_ARROWKEYS | UDS_NOTHOUSANDS,82,7,11,14
+    CONTROL         "",IDC_SPIN_SOUNDTOUCH_PITCHSEMITONES_IM,"msctls_updown32",UDS_WRAP | UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_ARROWKEYS | UDS_NOTHOUSANDS,82,29,11,14
+    CONTROL         "",IDC_SPIN_SOUNDTOUCH_RATECHANGE_IM,"msctls_updown32",UDS_WRAP | UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_ARROWKEYS | UDS_NOTHOUSANDS,82,51,10,14
+    EDITTEXT        IDC_EDIT_SOUNDTOUCH_TEMPOCHANGE_RE,109,7,40,14,ES_AUTOHSCROLL | ES_NUMBER
+    CONTROL         "",IDC_SPIN_SOUNDTOUCH_TEMPOCHANGE_RE,"msctls_updown32",UDS_WRAP | UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_ARROWKEYS | UDS_NOTHOUSANDS,149,7,11,14
+    EDITTEXT        IDC_EDIT_SOUNDTOUCH_PITCHSEMITONES_RE,109,29,40,14,ES_AUTOHSCROLL | ES_NUMBER
+    CONTROL         "",IDC_SPIN_SOUNDTOUCH_PITCHSEMITONES_RE,"msctls_updown32",UDS_WRAP | UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_ARROWKEYS | UDS_NOTHOUSANDS,149,29,11,14
+    EDITTEXT        IDC_EDIT_SOUNDTOUCH_RATECHANGE_RE,109,51,40,14,ES_AUTOHSCROLL | ES_NUMBER
+    CONTROL         "",IDC_SPIN_SOUNDTOUCH_RATECHANGE_RE,"msctls_updown32",UDS_WRAP | UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_ARROWKEYS | UDS_NOTHOUSANDS,149,51,11,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_DIALOG_FONTCOLOR, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 203
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 83
+    END
+
+    IDD_DIALOG_LYRICSEARCH, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 309
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 152
+    END
+
+    IDD_DIALOG_SOUNDTOUCH, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 196
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 83
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_APP_TITLE           "AudioPlayer"
+    IDC_AUDIOPLAYER         "AUDIOPLAYER"
+END
+
+#endif    // 中文(简体，中国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

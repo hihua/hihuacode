@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="源文件\xml">
+      <UniqueIdentifier>{b2161206-6b5e-4b0c-8660-06dcda62c77b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="头文件\libtag">
+      <UniqueIdentifier>{cd779ed8-dbeb-4ade-8ee3-32a09a1d1f68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\xml">
+      <UniqueIdentifier>{caaf3a02-f79c-493c-87a6-8ace1ea7e8be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\libvld">
+      <UniqueIdentifier>{4e7e2f64-be65-4bf0-b612-9b390ecdb0b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\soundtouch">
+      <UniqueIdentifier>{11fc7de5-309c-4561-8ba9-ecd8adc1fc0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AudioPlayer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ClockInfo.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Decode.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Dsp.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DxSound.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FastFourierTransform.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Lyric.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="LyricSearch.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SongList.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Spectrum.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Util.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="xml\tinystr.cpp">
+      <Filter>源文件\xml</Filter>
+    </ClCompile>
+    <ClCompile Include="xml\tinyxml.cpp">
+      <Filter>源文件\xml</Filter>
+    </ClCompile>
+    <ClCompile Include="xml\tinyxmlerror.cpp">
+      <Filter>源文件\xml</Filter>
+    </ClCompile>
+    <ClCompile Include="xml\tinyxmlparser.cpp">
+      <Filter>源文件\xml</Filter>
+    </ClCompile>
+    <ClCompile Include="Cdrom.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AudioPlayer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ClockInfo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Decode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Dsp.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DxSound.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FastFourierTransform.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Lyric.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="LyricSearch.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SongList.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Spectrum.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Util.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="libtag\compat.h">
+      <Filter>头文件\libtag</Filter>
+    </ClInclude>
+    <ClInclude Include="libtag\crc.h">
+      <Filter>头文件\libtag</Filter>
+    </ClInclude>
+    <ClInclude Include="libtag\debug.h">
+      <Filter>头文件\libtag</Filter>
+    </ClInclude>
+    <ClInclude Include="libtag\field.h">
+      <Filter>头文件\libtag</Filter>
+    </ClInclude>
+    <ClInclude Include="libtag\file.h">
+      <Filter>头文件\libtag</Filter>
+    </ClInclude>
+    <ClInclude Include="libtag\frame.h">
+      <Filter>头文件\libtag</Filter>
+    </ClInclude>
+    <ClInclude Include="libtag\frametype.h">
+      <Filter>头文件\libtag</Filter>
+    </ClInclude>
+    <ClInclude Include="libtag\genre.h">
+      <Filter>头文件\libtag</Filter>
+    </ClInclude>
+    <ClInclude Include="libtag\global.h">
+      <Filter>头文件\libtag</Filter>
+    </ClInclude>
+    <ClInclude Include="libtag\id3tag.h">
+      <Filter>头文件\libtag</Filter>
+    </ClInclude>
+    <ClInclude Include="libtag\latin1.h">
+      <Filter>头文件\libtag</Filter>
+    </ClInclude>
+    <ClInclude Include="libtag\parse.h">
+      <Filter>头文件\libtag</Filter>
+    </ClInclude>
+    <ClInclude Include="libtag\render.h">
+      <Filter>头文件\libtag</Filter>
+    </ClInclude>
+    <ClInclude Include="libtag\tag.h">
+      <Filter>头文件\libtag</Filter>
+    </ClInclude>
+    <ClInclude Include="libtag\ucs4.h">
+      <Filter>头文件\libtag</Filter>
+    </ClInclude>
+    <ClInclude Include="libtag\utf16.h">
+      <Filter>头文件\libtag</Filter>
+    </ClInclude>
+    <ClInclude Include="libtag\utf8.h">
+      <Filter>头文件\libtag</Filter>
+    </ClInclude>
+    <ClInclude Include="libtag\util.h">
+      <Filter>头文件\libtag</Filter>
+    </ClInclude>
+    <ClInclude Include="libtag\version.h">
+      <Filter>头文件\libtag</Filter>
+    </ClInclude>
+    <ClInclude Include="xml\tinystr.h">
+      <Filter>头文件\xml</Filter>
+    </ClInclude>
+    <ClInclude Include="xml\tinyxml.h">
+      <Filter>头文件\xml</Filter>
+    </ClInclude>
+    <ClInclude Include="libvld\vld.h">
+      <Filter>头文件\libvld</Filter>
+    </ClInclude>
+    <ClInclude Include="libvld\vldapi.h">
+      <Filter>头文件\libvld</Filter>
+    </ClInclude>
+    <ClInclude Include="soundtouch\BPMDetect.h">
+      <Filter>头文件\soundtouch</Filter>
+    </ClInclude>
+    <ClInclude Include="soundtouch\FIFOSampleBuffer.h">
+      <Filter>头文件\soundtouch</Filter>
+    </ClInclude>
+    <ClInclude Include="soundtouch\FIFOSamplePipe.h">
+      <Filter>头文件\soundtouch</Filter>
+    </ClInclude>
+    <ClInclude Include="soundtouch\SoundTouch.h">
+      <Filter>头文件\soundtouch</Filter>
+    </ClInclude>
+    <ClInclude Include="soundtouch\STTypes.h">
+      <Filter>头文件\soundtouch</Filter>
+    </ClInclude>
+    <ClInclude Include="Cdrom.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\0.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\1.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\2.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\3.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\4.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\5.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\6.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\7.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\8.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\9.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\AudioPlayer.ico">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\AudioPlayer_Small.ico">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\colon.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\pause.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\play.png">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="AudioPlayer.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
