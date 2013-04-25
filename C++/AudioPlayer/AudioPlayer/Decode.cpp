@@ -285,9 +285,9 @@ void DecodeRelease(PLAYERDECODE* decode)
 	}
 
 	if (decode->format != NULL)
-	{		
-		avformat_free_context(decode->format);
-		decode->format = NULL;
+	{			
+		//avformat_free_context(decode->format);
+		avformat_close_input(&decode->format);		
 	}
 	
 	decode->swred = FALSE;
@@ -381,7 +381,10 @@ void DecodeTag(PLAYERINFO* playerinfo)
 				if (title != NULL)
 				{
 					SplitTitle(title, &playertag->title);
-					SAFE_DELETE_ARRAY(title);
+					if (playertag->title == NULL)
+						playertag->title = title;
+					else
+						SAFE_DELETE_ARRAY(title);
 				}
 			}
 		}
