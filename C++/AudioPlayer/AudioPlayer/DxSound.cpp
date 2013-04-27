@@ -6,7 +6,6 @@
 #include "SongList.h"
 #include "Lyric.h"
 #include "Dsp.h"
-#include "Cdrom.h"
 
 LPDIRECTSOUND dsound;
 
@@ -133,7 +132,7 @@ void DxPlay(PLAYERINFO* playerinfo, PLAYERSTATUS* status)
 	DWORD total = 0, last = 0, sum = 0;
 	int channels = playerinfo->decode.channels;
 	int bits = playerinfo->decode.bits;
-	
+		
 	while (*status == ID_STATUS_START || *status == ID_STATUS_PAUSE)
 	{			
 		if (playerinfo->seek >= 0)
@@ -227,7 +226,7 @@ DWORD DxSetBuffer(DWORD& offset, DWORD& index, PLAYERBUFFER* temp, PLAYERBUFFER*
 {
 	DWORD count = 0;
 	if (DecodeFrame(temp->buffer, temp->total, count, decode) && count > 0)
-	{				
+	{		
 		UINT left = 0;
 		LPVOID in = temp->buffer;
 		DWORD size = 0;
