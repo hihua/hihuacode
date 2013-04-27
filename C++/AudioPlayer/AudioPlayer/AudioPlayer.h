@@ -233,6 +233,7 @@ struct SONGLIST
 	HANDLE thread;
 	HANDLE exit;
 	DWORD thread_id;
+	BOOL quit;
 };
 
 struct SPECTRUM

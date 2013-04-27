@@ -47,6 +47,7 @@ SONGLIST* SongListInit(const RECT* rect, const MAINWND* main_wnd)
 	SongListColumn();	
 	ListView_SetBkColor(songlist.hWnd, RGB(0, 0, 0));
 
+	songlist.quit = FALSE;
 	songlist.exit = CreateEvent(NULL, FALSE, FALSE, NULL);
 	songlist.thread = CreateThread(NULL, 0, SongListThread, &songlist, 0, &songlist.thread_id);
 	return &songlist;
@@ -183,6 +184,9 @@ void RefreshItem(int n)
 
 void DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 {	
+	if (songlist.quit)
+		return;
+
 	UINT n = lpDrawItemStruct->itemID;
 	HDC* mdc = &lpDrawItemStruct->hDC;
 	HWND* hWnd = &songlist.hWnd;	
@@ -190,9 +194,9 @@ void DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	IMGINFO* imgplay = &songlist.imgplay;
 	IMGINFO* imgpause = &songlist.imgpause;
 	PLAYERINFO* playerinfo = GetPlayerInfo(n);
-	if (playerinfo == NULL)
+	if (playerinfo == NULL)	
 		return;
-
+	
 	HFONT font = (HFONT)GetCurrentObject(*mdc, OBJ_FONT);
 	SelectObject(*bdc, font);		
 
@@ -335,7 +339,7 @@ void SongListRemove(int n, PLAYERENTRY* player)
 
 			ListView_DeleteItem(songlist.hWnd, n);
 		}
-	}			
+	}
 }
 
 void SongListClear(PLAYERENTRY* player)
@@ -357,7 +361,7 @@ void SongListClear(PLAYERENTRY* player)
 		else
 			PlayInfoRelease(current, TRUE);
 	}
-
+		
 	ListView_DeleteAllItems(songlist.hWnd);
 	first = NULL;
 	last = NULL;
@@ -372,7 +376,7 @@ void SongListClear()
 		next = next->next;
 		PlayInfoRelease(current, TRUE);
 	}
-
+		
 	ListView_DeleteAllItems(songlist.hWnd);
 	first = NULL;
 	last = NULL;
@@ -631,6 +635,7 @@ DWORD WINAPI SongListThread(LPVOID param)
 		DispatchMessage(&msg);
 	}
 
+	songlist.quit = TRUE;
 	SongListClear();
 	CloseHandle(songlist.thread);
 	DeleteObject(songlist.bitmap);

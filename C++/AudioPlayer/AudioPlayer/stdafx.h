@@ -29,7 +29,6 @@
 #include <winhttp.h>
 
 #include <winioctl.h>
-#include <mmreg.h>
 #include <ntddscsi.h>
 #include <ntddcdrm.h>
 
