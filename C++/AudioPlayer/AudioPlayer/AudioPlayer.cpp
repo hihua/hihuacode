@@ -384,28 +384,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 		case IDM_MENU_LYRIC_STATUS:
 			{
-				HMENU menu = GetMenu(main_wnd.hWnd);
-				if (menu != NULL)
+				if (GetLyricStatus())
 				{
-					if (GetMenuState(menu, IDM_MENU_LYRIC_STATUS, MF_BYCOMMAND | MF_CHECKED) > 0)
-					{
-						HMENU sub = GetSubMenu(menu, 2);
-						if (sub != NULL)
-						{
-							ModifyMenu(sub, 0, MF_BYPOSITION | MF_UNCHECKED, IDM_MENU_LYRIC_STATUS, _T("Òþ²Ø(&H)"));
-							LyricShow(FALSE);
-						}
-					}
-					else
-					{
-						HMENU sub = GetSubMenu(menu, 2);
-						if (sub != NULL)
-						{
-							ModifyMenu(sub, 0, MF_BYPOSITION | MF_CHECKED, IDM_MENU_LYRIC_STATUS, _T("ÏÔÊ¾(&S)"));
-							LyricShow(TRUE);
-						}
-					}
-				}				
+					SetLyricStatus(FALSE);
+				}
+				else
+				{
+					SetLyricStatus(TRUE);
+					LyricInfoReStart(player.current);
+				}			
 			}
 			break;
 
@@ -1143,4 +1130,38 @@ void CDROMRelease()
 	}
 
 	main_cdrom = NULL;
+}
+
+BOOL GetLyricStatus()
+{
+	HMENU menu = GetMenu(main_wnd.hWnd);
+	if (menu != NULL)
+	{
+		if (GetMenuState(menu, IDM_MENU_LYRIC_STATUS, MF_BYCOMMAND | MF_CHECKED) > 0)
+			return TRUE;
+	}
+
+	return FALSE;
+}
+
+void SetLyricStatus(BOOL status)
+{
+	HMENU menu = GetMenu(main_wnd.hWnd);
+	if (menu != NULL)
+	{		
+		HMENU sub = GetSubMenu(menu, 2);
+		if (sub != NULL)
+		{
+			if (status)
+			{
+				ModifyMenu(sub, 0, MF_BYPOSITION | MF_CHECKED, IDM_MENU_LYRIC_STATUS, _T("ÏÔÊ¾(&S)"));
+				LyricShow(TRUE);
+			}
+			else
+			{
+				ModifyMenu(sub, 0, MF_BYPOSITION | MF_UNCHECKED, IDM_MENU_LYRIC_STATUS, _T("Òþ²Ø(&H)"));
+				LyricShow(FALSE);
+			}		
+		}
+	}
 }

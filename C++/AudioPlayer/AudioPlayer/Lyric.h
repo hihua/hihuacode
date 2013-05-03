@@ -25,6 +25,8 @@ void LyricReset(LYRIC* lyric, PLAYERINFO* playerinfo);
 void LyricClear(LYRIC* lyric);
 void LyricInfoReset(LYRICINFO* lyricinfo, LYRIC* lyric, PLAYERINFO* playerinfo, BOOL redraw);
 void LyricInfoReset(int seek, DWORD start, PLAYERINFO* playerinfo);
+void LyricInfoTime(int ms, const PLAYERINFO* playerinfo);
+void LyricInfoReStart(const PLAYERINFO* playerinfo);
 void LyricInfoClear(LYRICINFO* lyricinfo);
 void LyricHwndClear();
 void LyricDraw(PLAYERINFO* playerinfo);

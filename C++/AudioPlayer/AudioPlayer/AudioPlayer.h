@@ -323,3 +323,5 @@ void PlayInfoPrepare(PLAYERINFO* playerinfo);
 void PlayInfoRelease(PLAYERINFO* playerinfo, BOOL all);
 CDROM* GetCDROM();
 void CDROMRelease();
+BOOL GetLyricStatus();
+void SetLyricStatus(BOOL status);

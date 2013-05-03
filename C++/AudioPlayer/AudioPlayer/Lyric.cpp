@@ -47,7 +47,7 @@ LYRICWMD* LyricInit(const MAINWND* main_wnd)
 	lyric_wnd.logfont.lfClipPrecision = CLIP_DEFAULT_PRECIS;
 	lyric_wnd.logfont.lfQuality = NONANTIALIASED_QUALITY;
 	lyric_wnd.logfont.lfPitchAndFamily = DEFAULT_PITCH | FF_SWISS;
-	StrCat(lyric_wnd.logfont.lfFaceName, L"ËÎÌå");	
+	StrCat(lyric_wnd.logfont.lfFaceName, L"Ó×Ô²");	
 		
 	HWND destop = GetDesktopWindow();
 	GetClientRect(destop, &lyric_wnd.rect);	
@@ -838,32 +838,8 @@ void LyricInfoReset(LYRICINFO* lyricinfo, LYRIC* lyric, PLAYERINFO* playerinfo, 
 	{
 		if (lyric_wnd.run)
 		{
-			int* ms = &playerinfo->ms;
-			LYRICINFO* prev = NULL;
-			lyric_wnd.current = playerinfo->lyricinfo;
-			lyric_wnd.next = NULL;
-
-			while (lyric_wnd.current != NULL)
-			{
-				if (*ms < lyric_wnd.current->ms + lyric_wnd.current->delay)
-					break;
-				else
-				{
-					prev = lyric_wnd.current;
-					lyric_wnd.current = lyric_wnd.current->next;
-				}
-			}
-
-			if (lyric_wnd.current != NULL)
-			{				
-				if (prev != NULL)
-				{						
-					lyric_wnd.next = lyric_wnd.current;
-					lyric_wnd.current = prev;					
-				}
-				else									
-					lyric_wnd.next = lyric_wnd.current->next;				
-			}			
+			int ms = playerinfo->ms;
+			LyricInfoTime(ms, playerinfo);			
 		}
 		else
 		{			
@@ -882,33 +858,49 @@ void LyricInfoReset(int seek, DWORD start, PLAYERINFO* playerinfo)
 		EnterCriticalSection(&playerinfo->lock_lyricinfo);
 		int* ms = &playerinfo->ms;
 		*ms = seek + (timeGetTime() - start);
-		LYRICINFO* prev = NULL;
-		lyric_wnd.current = playerinfo->lyricinfo;
-		lyric_wnd.next = NULL;
-
-		while (lyric_wnd.current != NULL)
-		{
-			if (*ms < lyric_wnd.current->ms + lyric_wnd.current->delay)
-				break;
-			else
-			{
-				prev = lyric_wnd.current;
-				lyric_wnd.current = lyric_wnd.current->next;
-			}
-		}
-
-		if (lyric_wnd.current != NULL)
-		{				
-			if (prev != NULL)
-			{						
-				lyric_wnd.next = lyric_wnd.current;
-				lyric_wnd.current = prev;					
-			}
-			else									
-				lyric_wnd.next = lyric_wnd.current->next;				
-		}
-
+		LyricInfoTime(*ms, playerinfo);
 		LeaveCriticalSection(&playerinfo->lock_lyricinfo);
+	}
+}
+
+void LyricInfoTime(int ms, const PLAYERINFO* playerinfo)
+{
+	LYRICINFO* prev = NULL;
+	lyric_wnd.current = playerinfo->lyricinfo;
+	lyric_wnd.next = NULL;
+
+	while (lyric_wnd.current != NULL)
+	{
+		if (ms < lyric_wnd.current->ms + lyric_wnd.current->delay)
+			break;
+		else
+		{
+			prev = lyric_wnd.current;
+			lyric_wnd.current = lyric_wnd.current->next;
+		}
+	}
+
+	if (lyric_wnd.current != NULL)
+	{				
+		if (prev != NULL)
+		{						
+			lyric_wnd.next = lyric_wnd.current;
+			lyric_wnd.current = prev;					
+		}
+		else									
+			lyric_wnd.next = lyric_wnd.current->next;				
+	}
+}
+
+void LyricInfoReStart(const PLAYERINFO* playerinfo)
+{
+	if (playerinfo == NULL)
+		return;
+
+	if (!lyric_wnd.run)
+	{		
+		lyric_wnd.automatic = TRUE;
+		SetEvent(lyric_wnd.handle);
 	}
 }
 
@@ -1148,32 +1140,32 @@ DWORD WINAPI LyricThread(LPVOID param)
 					{
 						PLAYERTAG* playertag = &playerinfo->tag;
 						if (lyric_wnd.automatic)
-						{						
+						{	
 							HTTPREQ* httpreq = &lyric_wnd.httpreq;
-							LYRIC* lyric = GetLyric(playertag->artist, playertag->title, httpreq);						
-							if (lyric != NULL)
+							if (playerinfo->lyric == NULL)
+							{								
+								LYRIC* lyric = GetLyric(playertag->artist, playertag->title, httpreq);
+								if (lyric != NULL)								
+									LyricReset(lyric, playerinfo);								
+							}
+							
+							if (GetLyricStatus())
 							{
-								if (!lyric_wnd.run)
-								{
-									lyric_wnd.run = TRUE;
-									LyricReset(lyric, playerinfo);
-									LYRIC* ly = SelectLyric(playerinfo);
-									if (ly != NULL)
-									{								
-										LYRICINFO* lyricinfo = SetLyricInfo(ly, httpreq);
-										if (lyricinfo != NULL)
-										{									
-											LyricInfoReset(lyricinfo, ly, playerinfo, FALSE);
-											LyricDraw(playerinfo);
-											LyricHwndClear();
-										}
+								lyric_wnd.run = TRUE;
+								LYRIC* ly = SelectLyric(playerinfo);
+								if (ly != NULL)
+								{								
+									LYRICINFO* lyricinfo = SetLyricInfo(ly, httpreq);
+									if (lyricinfo != NULL)
+									{
+										LyricInfoReset(lyricinfo, ly, playerinfo, FALSE);
+										LyricDraw(playerinfo);
+										LyricHwndClear();
 									}
-
-									lyric_wnd.run = FALSE;
 								}
-								else
-									LyricClear(lyric);
-							}						
+
+								lyric_wnd.run = FALSE;
+							}							
 						}
 						else
 						{
@@ -1186,8 +1178,7 @@ DWORD WINAPI LyricThread(LPVOID param)
 				}
 				
 				LyricSearchClear(TRUE);
-				if (!lyric_wnd.run)
-					SetEvent(lyric_wnd.stop);
+				SetEvent(lyric_wnd.stop);
 			}
 
 			if (*status == ID_STATUS_EXIT)

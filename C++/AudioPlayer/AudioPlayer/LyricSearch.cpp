@@ -363,6 +363,8 @@ DWORD WINAPI LyricSearchThread(LPVOID param)
 									ListView_SetItemText(listview, i, 3, L"");
 								}
 							}
+
+							SetLyricStatus(TRUE);
 						}
 						else
 							LyricInfoClear(lyricinfo);
