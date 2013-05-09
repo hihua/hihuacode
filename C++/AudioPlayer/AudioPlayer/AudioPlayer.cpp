@@ -77,6 +77,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow, MAINWND* main_wnd)
 	if (!main_wnd->hWnd)
 		return FALSE;
 	
+	main_wnd->spectrumline = TRUE;
 	main_cdrom = GetCDROM();
 	Gdiplus::GdiplusStartupInput startupInput;	
 	Gdiplus::GdiplusStartup(&gditoken, &startupInput, NULL);
@@ -363,6 +364,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					MessageBox(hWnd, L"正在扫描文件", L"错误", MB_ICONERROR);
 				else
 					SongListClear(&player);
+			}
+			break;
+
+		case IDM_MENU_SPECTRUM_LINE:
+			{
+				if (GetSpectrumLine())
+					SetSpectrumLine(FALSE);
+				else
+					SetSpectrumLine(TRUE);
 			}
 			break;
 
@@ -716,7 +726,7 @@ void SetFPS(UINT id)
 
 		if (sub != NULL && count > 0)
 		{
-			for (int i = 0;i < count;i++)
+			for (int i = 1;i < count;i++)
 			{
 				UINT idx = GetMenuItemID(sub, i);
 				if (idx == id)		
@@ -892,7 +902,10 @@ DWORD WINAPI MainThread(LPVOID param)
 					{
 						SetWindowText(playerinfo);
 						if (!playerinfo->cd)
+						{
 							LyricStart();
+							LyricSearchArtistTile(playerinfo);
+						}
 
 						TrackEnable(TRUE);
 						DxPlay(playerinfo, &playerstatus);
@@ -904,9 +917,10 @@ DWORD WINAPI MainThread(LPVOID param)
 				
 				TrackEnable(FALSE);
 				LyricStop();
+				LyricSearchClear();
 				SpectrumStop();
 				ClockInfoStop();
-
+				
 				playerinfo->playing = FALSE;
 				playerinfo->pause = FALSE;
 				SetWindowText(playerinfo);
@@ -1011,11 +1025,9 @@ void PlayInfoRelease(PLAYERINFO* playerinfo, BOOL all)
 	playerinfo->playing = FALSE;
 	playerinfo->pause = FALSE;
 	
-	LYRIC* lyric = playerinfo->lyric;
-	LyricClear(lyric);
-	playerinfo->lyric = NULL;
-	playerinfo->lyricid = 0;
-
+	if (playerinfo->n == -1 || all)
+		LyricClear(playerinfo);
+		
 	LYRICINFO* lyricinfo = playerinfo->lyricinfo;
 	LyricInfoClear(lyricinfo);
 	playerinfo->lyricinfo = NULL;
@@ -1025,7 +1037,7 @@ void PlayInfoRelease(PLAYERINFO* playerinfo, BOOL all)
 		DeleteCriticalSection(&playerinfo->lock_lyric);
 		DeleteCriticalSection(&playerinfo->lock_lyricinfo);
 		playerinfo->n = -1;
-		SAFE_DELETE(playerinfo);		
+		SAFE_DELETE(playerinfo);
 	}
 }
 
@@ -1164,4 +1176,27 @@ void SetLyricStatus(BOOL status)
 			}		
 		}
 	}
+}
+
+BOOL GetSpectrumLine()
+{
+	return main_wnd.spectrumline;
+}
+
+void SetSpectrumLine(BOOL status)
+{
+	HMENU menu = GetMenu(main_wnd.hWnd);
+	if (menu != NULL)
+	{		
+		HMENU sub = GetSubMenu(menu, 1);
+		if (sub != NULL)
+		{
+			if (status)			
+				CheckMenuItem(sub, IDM_MENU_SPECTRUM_LINE, MF_BYCOMMAND | MF_CHECKED);			
+			else			
+				CheckMenuItem(sub, IDM_MENU_SPECTRUM_LINE, MF_BYCOMMAND | MF_UNCHECKED);				
+		}
+	}
+
+	main_wnd.spectrumline = status;
 }

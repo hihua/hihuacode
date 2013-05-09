@@ -23,6 +23,7 @@ LYRICINFO* ExcuteLyricInfo(const char* body);
 LYRICINFO* InsertLyricInfo(int ms, const char* content, LYRICINFO* first);
 void LyricReset(LYRIC* lyric, PLAYERINFO* playerinfo);
 void LyricClear(LYRIC* lyric);
+void LyricClear(PLAYERINFO* playerinfo);
 void LyricInfoReset(LYRICINFO* lyricinfo, LYRIC* lyric, PLAYERINFO* playerinfo, BOOL redraw);
 void LyricInfoReset(int seek, DWORD start, PLAYERINFO* playerinfo);
 void LyricInfoTime(int ms, const PLAYERINFO* playerinfo);

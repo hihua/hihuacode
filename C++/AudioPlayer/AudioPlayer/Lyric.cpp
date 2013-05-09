@@ -368,6 +368,20 @@ LYRIC* SelectLyric(PLAYERINFO* playerinfo)
 	PLAYERTAG* playertag = &playerinfo->tag;
 	LYRIC* lyric = playerinfo->lyric;
 	LYRIC* ly = NULL;
+	if (playerinfo->lyricid > 0)
+	{
+		ly = lyric;
+		while (ly != NULL)
+		{
+			if (ly->id == playerinfo->lyricid)
+				return ly;
+			else
+				ly = ly->next;
+		}
+
+		ly = NULL;
+	}
+
 	wchar_t* filename = CharToWideChar(playerinfo->filename, strlen(playerinfo->filename));
 
 	wchar_t* a = NULL;
@@ -827,6 +841,15 @@ void LyricClear(LYRIC* lyric)
 	}
 }
 
+void LyricClear(PLAYERINFO* playerinfo)
+{
+	LYRIC* lyric = playerinfo->lyric;
+	EnterCriticalSection(&playerinfo->lock_lyric);
+	LyricClear(playerinfo->lyric);
+	playerinfo->lyric = NULL;
+	LeaveCriticalSection(&playerinfo->lock_lyric);
+}
+
 void LyricInfoReset(LYRICINFO* lyricinfo, LYRIC* lyric, PLAYERINFO* playerinfo, BOOL redraw)
 {
 	EnterCriticalSection(&playerinfo->lock_lyricinfo);
@@ -1145,8 +1168,11 @@ DWORD WINAPI LyricThread(LPVOID param)
 							if (playerinfo->lyric == NULL)
 							{								
 								LYRIC* lyric = GetLyric(playertag->artist, playertag->title, httpreq);
-								if (lyric != NULL)								
-									LyricReset(lyric, playerinfo);								
+								if (lyric != NULL)
+								{
+									LyricReset(lyric, playerinfo);
+									LyricSearchList(lyric, playerinfo->lyricid);
+								}
 							}
 							
 							if (GetLyricStatus())
@@ -1157,8 +1183,9 @@ DWORD WINAPI LyricThread(LPVOID param)
 								{								
 									LYRICINFO* lyricinfo = SetLyricInfo(ly, httpreq);
 									if (lyricinfo != NULL)
-									{
+									{										
 										LyricInfoReset(lyricinfo, ly, playerinfo, FALSE);
+										LyricSearchList(playerinfo->lyric, playerinfo->lyricid);
 										LyricDraw(playerinfo);
 										LyricHwndClear();
 									}
@@ -1177,7 +1204,6 @@ DWORD WINAPI LyricThread(LPVOID param)
 					}
 				}
 				
-				LyricSearchClear(TRUE);
 				SetEvent(lyric_wnd.stop);
 			}
 

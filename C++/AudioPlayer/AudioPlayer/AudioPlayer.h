@@ -154,6 +154,7 @@ struct MAINWND
 	DWORD thread_id;
 	DWORD track;
 	BOOL lock_track;
+	BOOL spectrumline;
 };
 
 struct HTTPREQ
@@ -244,8 +245,12 @@ struct SPECTRUM
 	HDC mdc;
 	HDC bdc;
 	HDC gdc;
+	HDC pdc;
+	HDC hdc;
 	HBITMAP mbitmap;
 	HBITMAP gbitmap;
+	HBITMAP pbitmap;
+	HBITMAP hbitmap;
 	HBRUSH black;
 	CFastFourierTransform* fft;
 	LONG max[BANDCOUNT];
@@ -272,9 +277,7 @@ struct LYRICSEARCH
 	HANDLE thread;
 	HANDLE exit;
 	DWORD thread_id;	
-	HTTPREQ httpreq;
-	BOOL clear;
-	LYRIC* lyric;
+	HTTPREQ httpreq;	
 };
 
 struct SOUNDTOUCH
@@ -325,3 +328,5 @@ CDROM* GetCDROM();
 void CDROMRelease();
 BOOL GetLyricStatus();
 void SetLyricStatus(BOOL status);
+BOOL GetSpectrumLine();
+void SetSpectrumLine(BOOL status);

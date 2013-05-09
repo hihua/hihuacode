@@ -387,6 +387,28 @@ void DecodeTag(PLAYERINFO* playerinfo)
 						SAFE_DELETE_ARRAY(title);
 				}
 			}
+
+			if (playertag->title != NULL)
+			{
+				wchar_t* title = playertag->title;
+				wchar_t* first = NULL;
+				wchar_t* second = NULL;
+				Split(title, L".", &first, &second);
+				if (first != NULL && second != NULL)
+				{
+					if (IsNumber(first))
+					{
+						SAFE_DELETE_ARRAY(title);
+						playertag->title = second;
+					}
+					else
+					{
+						SAFE_DELETE_ARRAY(second);
+					}
+
+					SAFE_DELETE_ARRAY(first);
+				}				
+			}
 		}
 		
 		long duration = format->duration / 1000;

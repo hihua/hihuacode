@@ -20,8 +20,7 @@ LYRICSEARCH* LyricSearchInit(const MAINWND* main_wnd)
 
 	UnlockResource(htemp);
 	FreeResource(htemp);
-
-	LyricSearchClear(TRUE);
+		
 	lyric_search.httpreq.resolveTimeout = 10000;
 	lyric_search.httpreq.connectTimeout = 10000;
 	lyric_search.httpreq.sendTimeout = 10000;
@@ -40,11 +39,6 @@ void LyricSearchShow(BOOL show)
 		ShowWindow(lyric_search.hWnd, SW_HIDE);
 }
 
-void LyricSearchClear(BOOL clear)
-{
-	lyric_search.clear = clear;
-}
-
 void LyricSearchArtistTile(PLAYERINFO* playerinfo)
 {
 	PLAYERTAG* playertag = &playerinfo->tag;
@@ -59,69 +53,11 @@ void LyricSearchArtistTile(PLAYERINFO* playerinfo)
 		SetDlgItemText(lyric_search.hWnd, IDC_EDIT_TITLE, L"");
 }
 
-void LyricSearchRefresh()
-{
-	PLAYERENTRY* player = lyric_search.player;
-	if (player != NULL)
-	{
-		PLAYERINFO* playerinfo = player->current;
-		if (playerinfo != NULL && lyric_search.clear)
-		{	
-			LyricSearchArtistTile(playerinfo);			
-			LYRIC* current = playerinfo->lyric;			
-			LyricSearchList(current, playerinfo->lyricid);
-			LYRIC* first = NULL;
-			LYRIC* last = NULL;
-
-			while (current != NULL)
-			{
-				LYRIC* lyric = new LYRIC();
-				lyric->id = current->id;
-				if (current->artist != NULL)
-				{
-					DWORD length = wcslen(current->artist);
-					lyric->artist = new wchar_t[length + 1];
-					wmemset(lyric->artist, 0, length + 1);
-					StrCat(lyric->artist, current->artist);
-				}
-
-				if (current->title != NULL)
-				{
-					DWORD length = wcslen(current->title);
-					lyric->title = new wchar_t[length + 1];
-					wmemset(lyric->title, 0, length + 1);
-					StrCat(lyric->title, current->title);
-				}
-
-				lyric->asame = current->asame;
-				lyric->tsame = current->tsame;
-				lyric->aword = current->aword;
-				lyric->tword = current->tword;
-				lyric->n = current->n;
-				lyric->next = NULL;
-
-				if (first == NULL)
-				{
-					first = lyric;
-					last = lyric;
-				}
-				else
-				{
-					last->next = lyric;
-					last = lyric;
-				}
-
-				current = current->next;
-			}
-
-			LyricClear(lyric_search.lyric);
-			lyric_search.lyric = first;				
-		}
-	}
-}
-
 void LyricSearchList(LYRIC* lyric, DWORD lyricid)
 {	
+	if (lyric == NULL)
+		return;
+
 	HWND listview = GetDlgItem(lyric_search.hWnd, IDC_LIST_LYRIC);
 	ListView_DeleteAllItems(listview);
 	
@@ -159,6 +95,14 @@ void LyricSearchList(LYRIC* lyric, DWORD lyricid)
 
 		lyric = lyric->next;
 	}	
+}
+
+void LyricSearchClear()
+{
+	SetDlgItemText(lyric_search.hWnd, IDC_EDIT_ARTIST, L"");
+	SetDlgItemText(lyric_search.hWnd, IDC_EDIT_TITLE, L"");
+	HWND listview = GetDlgItem(lyric_search.hWnd, IDC_LIST_LYRIC);
+	ListView_DeleteAllItems(listview);
 }
 
 void LyricSearchExit()
@@ -202,12 +146,6 @@ int CALLBACK LyricSearchProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 		}		
 		break;
 
-	case WM_SHOWWINDOW:
-		{
-			LyricSearchRefresh();
-		}
-		break;
-
 	case WM_COMMAND:
 		{			
 			WORD id = LOWORD(wParam);
@@ -223,13 +161,6 @@ int CALLBACK LyricSearchProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 						{
 							PostThreadMessage(lyric_search.thread_id, ID_CMD_LYRIC, 0, 0);
 							EnableWindow(GetDlgItem(hWnd, id), FALSE);
-						}
-						break;
-
-					case IDC_BUTTON_LYRIC_REFRESH:
-						{
-							LyricSearchClear(TRUE);
-							LyricSearchRefresh();
 						}
 						break;
 					}
@@ -250,21 +181,56 @@ int CALLBACK LyricSearchProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 				{
 				case NM_DBLCLK:
 					{	
-						LYRIC* lyric = lyric_search.lyric;
-						if (lyric != NULL && lpnmia->iItem > -1)
+						PLAYERENTRY* player = lyric_search.player;
+						if (player != NULL)
 						{
-							int n = lpnmia->iItem;
-							while (lyric != NULL)
+							PLAYERINFO* playerinfo = player->current;
+							if (playerinfo != NULL)
 							{
-								if (lyric->n == n)
-									break;
-								else
-									lyric = lyric->next;
-							}
+								LYRIC* lyric = playerinfo->lyric;
+								if (lyric != NULL && lpnmia->iItem > -1)
+								{
+									int n = lpnmia->iItem;
+									while (lyric != NULL)
+									{
+										if (lyric->n == n)
+											break;
+										else
+											lyric = lyric->next;
+									}
 
-							if (lyric != NULL)
-								PostThreadMessage(lyric_search.thread_id, ID_CMD_LYRICINFO, (WPARAM)lyric, 0);							
-						}												
+									if (lyric != NULL)
+									{
+										LYRIC* ly = new LYRIC();										
+										ly->id = lyric->id;
+										if (lyric->artist != NULL)
+										{
+											DWORD length = wcslen(lyric->artist);
+											ly->artist = new wchar_t[length + 1];
+											wmemset(ly->artist, 0, length + 1);
+											StrCat(ly->artist, lyric->artist);
+										}
+
+										if (lyric->title != NULL)
+										{
+											DWORD length = wcslen(lyric->title);
+											ly->title = new wchar_t[length + 1];
+											wmemset(ly->title, 0, length + 1);
+											StrCat(ly->title, lyric->title);
+										}
+
+										ly->asame = lyric->asame;
+										ly->tsame = lyric->tsame;
+										ly->aword = lyric->aword;
+										ly->tword = lyric->tword;
+										ly->n = lyric->n;
+										ly->next = NULL;
+
+										PostThreadMessage(lyric_search.thread_id, ID_CMD_LYRICINFO, (WPARAM)ly, 0);
+									}
+								}
+							}
+						}																	
 					}
 					break;
 				}
@@ -289,8 +255,7 @@ DWORD WINAPI LyricSearchThread(LPVOID param)
 		switch (msg.message)
 		{
 		case ID_CMD_LYRIC:
-			{
-				LyricSearchClear(FALSE);
+			{				
 				HWND hWnd = lyric_search.hWnd;
 				HTTPREQ* httpreq = &lyric_search.httpreq;
 				wchar_t* artist = NULL;
@@ -322,13 +287,13 @@ DWORD WINAPI LyricSearchThread(LPVOID param)
 					if (player != NULL)
 					{
 						PLAYERINFO* playerinfo = player->current;
-						if (playerinfo != NULL)						
-							lyricid = playerinfo->lyricid;		
-					}
-
-					LyricSearchList(lyric, lyricid);
-					LyricClear(lyric_search.lyric);
-					lyric_search.lyric = lyric;
+						if (playerinfo != NULL)
+						{
+							lyricid = playerinfo->lyricid;							
+							LyricReset(lyric, playerinfo);
+							LyricSearchList(lyric, lyricid);
+						}
+					}										
 				}
 
 				EnableWindow(GetDlgItem(hWnd, IDC_BUTTON_LYRIC_SEARCH), TRUE);
@@ -372,6 +337,8 @@ DWORD WINAPI LyricSearchThread(LPVOID param)
 					else					
 						LyricInfoClear(lyricinfo);					
 				}
+
+				LyricClear(lyric);	
 			}
 			break;
 		}
@@ -379,8 +346,6 @@ DWORD WINAPI LyricSearchThread(LPVOID param)
 		DispatchMessage(&msg);
 	}
 
-	LyricClear(lyric_search.lyric);
-	lyric_search.lyric = NULL;
 	CloseHandle(lyric_search.thread);	
 	HttpClose(&lyric_search.httpreq, TRUE);
 	PostMessage(lyric_search.hWnd, WM_QUIT, 0, 0);		

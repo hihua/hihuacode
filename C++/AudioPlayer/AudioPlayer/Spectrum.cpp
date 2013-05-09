@@ -52,10 +52,16 @@ SPECTRUM* SpectrumInit(const RECT* rect, const MAINWND* main_wnd)
 	spectrum.mdc = GetDC(spectrum.hWnd);
 	spectrum.bdc = CreateCompatibleDC(spectrum.mdc);
 	spectrum.gdc = CreateCompatibleDC(spectrum.mdc);
+	spectrum.pdc = CreateCompatibleDC(spectrum.mdc);
+	spectrum.hdc = CreateCompatibleDC(spectrum.mdc);
 	spectrum.mbitmap = CreateCompatibleBitmap(spectrum.mdc, spectrum.rect.right - spectrum.rect.left, spectrum.rect.bottom - spectrum.rect.top);
 	spectrum.gbitmap = CreateCompatibleBitmap(spectrum.mdc, spectrum.rect.right - spectrum.rect.left, spectrum.rect.bottom - spectrum.rect.top);
+	spectrum.pbitmap = CreateCompatibleBitmap(spectrum.mdc, spectrum.rect.right - spectrum.rect.left, spectrum.rect.bottom - spectrum.rect.top);
+	spectrum.hbitmap = CreateCompatibleBitmap(spectrum.mdc, spectrum.rect.right - spectrum.rect.left, spectrum.rect.bottom - spectrum.rect.top);
 	SelectObject(spectrum.bdc, spectrum.mbitmap);
 	SelectObject(spectrum.gdc, spectrum.gbitmap);
+	SelectObject(spectrum.pdc, spectrum.pbitmap);
+	SelectObject(spectrum.hdc, spectrum.hbitmap);
 	spectrum.black = CreateSolidBrush(RGB(0, 0, 0));
 
 	CFastFourierTransform* fft = new CFastFourierTransform(SAMPLESIZE);
@@ -65,6 +71,21 @@ SPECTRUM* SpectrumInit(const RECT* rect, const MAINWND* main_wnd)
 	DWORD colors[] = { RGB(255, 0, 0), RGB(255, 255, 0), RGB(0, 255, 0) };
 	if (!SpectrumGradient(&spectrum.gdc, &spectrum.rect, colors, sizeof(colors) / sizeof(DWORD), GRADIENT_FILL_RECT_V))
 		return NULL;
+
+	if (!SpectrumGradient(&spectrum.pdc, &spectrum.rect, colors, sizeof(colors) / sizeof(DWORD), GRADIENT_FILL_RECT_V))
+		return NULL;
+
+	if (!SpectrumGradient(&spectrum.hdc, &spectrum.rect, colors, sizeof(colors) / sizeof(DWORD), GRADIENT_FILL_RECT_V))
+		return NULL;
+
+	for (int i = 0;i < h;i++)
+	{
+		if (i % 2 == 0)
+			continue;
+
+		MoveToEx(spectrum.gdc, 0, i, NULL);
+		LineTo(spectrum.gdc, w, i);
+	}
 
 	spectrum.handle = CreateEvent(NULL, FALSE, FALSE, NULL);
 	spectrum.stop = CreateEvent(NULL, TRUE, TRUE, NULL);
@@ -319,11 +340,14 @@ void SpectrumDraw()
 			spectrum.top[bd] = rect.top;
 		}
 
-		BitBlt(spectrum.bdc, rect.left, rect.top, BANDWIDTH, rect.bottom - rect.top, spectrum.gdc, rect.left, rect.top, SRCCOPY);
+		if (GetSpectrumLine())			
+			BitBlt(spectrum.bdc, rect.left, rect.top, BANDWIDTH, rect.bottom - rect.top, spectrum.gdc, rect.left, rect.top, SRCCOPY);
+		else
+			BitBlt(spectrum.bdc, rect.left, rect.top, BANDWIDTH, rect.bottom - rect.top, spectrum.pdc, rect.left, rect.top, SRCCOPY);
 
 		rect.top = spectrum.max[bd];				
 		rect.bottom = rect.top + 1;
-		BitBlt(spectrum.bdc, rect.left, rect.top, BANDWIDTH, rect.bottom - rect.top, spectrum.gdc, rect.left, rect.top, SRCCOPY);
+		BitBlt(spectrum.bdc, rect.left, rect.top, BANDWIDTH, rect.bottom - rect.top, spectrum.hdc, rect.left, rect.top, SRCCOPY);
 	}
 
 	//ReleaseArray(fft);
@@ -434,8 +458,12 @@ DWORD WINAPI SpectrumThread(LPVOID param)
 	DeleteObject(spectrum.black);
 	DeleteObject(spectrum.mbitmap);
 	DeleteObject(spectrum.gbitmap);
+	DeleteObject(spectrum.pbitmap);
+	DeleteObject(spectrum.hbitmap);
 	DeleteDC(spectrum.bdc);
 	DeleteDC(spectrum.gdc);
+	DeleteDC(spectrum.pdc);
+	DeleteDC(spectrum.hdc);
 	ReleaseDC(spectrum.hWnd, spectrum.mdc);	
 	CloseHandle(spectrum.stop);
 	CloseHandle(spectrum.handle);
