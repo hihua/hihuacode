@@ -1,0 +1,18 @@
+﻿E:\Development\Java1.6\bin\javac -encoding UTF-8 -target 1.6 -bootclasspath E:\Development\Android\platforms\android-8\android.jar;E:\Development\Android\tools\support\annotations.jar;F:\MyAndroid\GameMarket\libs\android-support-v13.jar;F:\MyAndroid\GameMarket\libs\dom4j-1.6.1.jar -d bin\classes src\com\apps\game\market\activity\*.java src\com\apps\game\market\adapter\*.java src\com\apps\game\market\broadcast\*.java src\com\apps\game\market\entity\*.java src\com\apps\game\market\entity\app\*.java src\com\apps\game\market\enums\*.java src\com\apps\game\market\global\*.java src\com\apps\game\market\request\*.java src\com\apps\game\market\request\app\*.java src\com\apps\game\market\request\callback\*.java src\com\apps\game\market\task\*.java src\com\apps\game\market\util\*.java src\com\apps\game\market\view\*.java src\com\apps\game\market\view\callback\*.java src\com\apps\game\market\viewholder\*.java src\com\apps\game\market\views\*.java gen\com\apps\game\market\*.java src\com\apps\game\market\*.java
+
+E:\Development\Java1.6\bin\javac -encoding UTF-8 -classpath E:\Development\Android\platforms\android-8\android.jar;E:\Development\Android\tools\support\annotations.jar;F:\MyAndroid\GameMarket\libs\android-support-v13.jar;F:\MyAndroid\GameMarket\libs\dom4j-1.6.1.jar -d bin\classes src\com\apps\game\market\activity\*.java src\com\apps\game\market\adapter\*.java src\com\apps\game\market\broadcast\*.java src\com\apps\game\market\entity\*.java src\com\apps\game\market\entity\app\*.java src\com\apps\game\market\enums\*.java src\com\apps\game\market\global\*.java src\com\apps\game\market\request\*.java src\com\apps\game\market\request\app\*.java src\com\apps\game\market\request\callback\*.java src\com\apps\game\market\task\*.java src\com\apps\game\market\util\*.java src\com\apps\game\market\view\*.java src\com\apps\game\market\view\callback\*.java src\com\apps\game\market\viewholder\*.java src\com\apps\game\market\views\*.java gen\com\apps\game\market\*.java src\com\apps\game\market\*.java
+
+
+E:\Development\Android\platform-tools\dx.bat --dex --output=F:\MyAndroid\GameMarket\bin\classes.dex F:\MyAndroid\GameMarket\bin\classes E:\Development\Android\platforms\android-8\android.jar E:\Development\Android\tools\support\annotations.jar F:\MyAndroid\GameMarket\libs\android-support-v13.jar F:\MyAndroid\GameMarket\libs\dom4j-1.6.1.jar
+
+E:\Development\Android\platform-tools\aapt.exe package -f -M AndroidManifest.xml -S res -A assets -I E:\Development\Android\platforms\android-8\android.jar -F bin\res 
+
+
+E:\Development\Android\tools\apkbuilder.bat F:\MyAndroid\GameMarket\bin\GameMarket.apk -v -u -rf F:\MyAndroid\GameMarket\src -f F:\MyAndroid\GameMarket\bin\classes.dex -z F:\MyAndroid\GameMarket\bin\res
+
+E:\Development\Java1.6\bin\jarsigner -keystore E:\Development\Java1.6\bin\myandroid.keystore -storepass 12345678 -keypass 12345678 -signedjar F:\MyAndroid\GameMarket\bin\GameMarket.apk F:\MyAndroid\GameMarket\bin\GameMarket.apk byread
+
+E:\Development\Java1.6\bin\jarsigner -keystore E:\Development\Java1.6\bin\myandroid.keystore -storepass 12345678 -keypass 12345678 -signedjar F:\MyAndroid\GameMarket\bin\GameMarket_singed.apk F:\MyAndroid\GameMarket\bin\GameMarket.apk myandroid.keystore
+
+
+keytool -genkey -alias myandroid.keystore -keyalg RSA -validity 20000 -keystore myandroid.keystore

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="column_select_id" type="id"/>
+    <item name="column_select_text_id" type="id"/>
+    <item name="column_myapp_id" type="id"/>
+    <item name="column_myapp_installed_id" type="id"/>
+    <item name="column_myapp_downloaded_id" type="id"/>
+    <item name="column_myapp_collect_id" type="id"/>
+    <item name="column_myapp_browse_id" type="id"/>
+    <item name="tag_more_id" type="id"/>
+    <item name="tag_more_text_id" type="id"/>
+
+</resources>

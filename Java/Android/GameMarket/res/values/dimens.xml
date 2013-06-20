@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="popwindow_tag_more_width">85dp</dimen>
+    <dimen name="popwindow_tag_more_item_padding_left">5dp</dimen>
+    <dimen name="popwindow_tag_more_item_padding_top">5dp</dimen>
+    <dimen name="popwindow_tag_more_item_padding_right">5dp</dimen>
+    <dimen name="popwindow_tag_more_item_padding_bottom">5dp</dimen>
+    <dimen name="popwindow_searchword_padding_left">6dp</dimen>
+    <dimen name="popwindow_searchword_padding_right">6dp</dimen>
+    <dimen name="popwindow_searchword_padding_top">5dp</dimen>
+    <dimen name="popwindow_searchword_padding_bottom">5dp</dimen>
+    <dimen name="popwindow_column_select_margin_left">6dp</dimen>
+    <dimen name="popwindow_column_select_margin_top">8dp</dimen>
+    <dimen name="popwindow_column_select_margin_right">6dp</dimen>
+    <dimen name="popwindow_column_select_margin_bottom">8dp</dimen>
+    <dimen name="column_select_width">100dp</dimen>
+    <dimen name="column_select_margin_left">6dp</dimen>
+    <dimen name="column_select_margin_top">2dp</dimen>
+    <dimen name="column_select_margin_right">3dp</dimen>
+    <dimen name="column_select_margin_bottom">2dp</dimen>
+    <dimen name="column_dropdown_margin_left">3dp</dimen>
+    <dimen name="column_dropdown_margin_top">2dp</dimen>
+    <dimen name="column_dropdown_margin_right">6dp</dimen>
+    <dimen name="column_dropdown_margin_bottom">2dp</dimen>
+
+</resources>
