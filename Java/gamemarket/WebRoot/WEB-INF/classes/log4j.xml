@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<!-- Declare the ConsoleAppender -->
+	<appender name="Console" class="org.apache.log4j.ConsoleAppender">
+		<param name="Threshold" value="DEBUG" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"	value="%-d{yyyy-MM-dd HH:mm:ss}-[%p]-(%F:%L)-%m%n" />
+		</layout>
+	</appender>
+
+	<!-- Declare the RollingFileAppender -->
+	<appender name="DefaultBySize" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.home}/logs/gamemarket/gamemarket.log" /><!-- 设置File参数：日志输出文件名 -->
+		<param name="Append" value="false" /><!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 -->
+		<param name="MaxBackupIndex" value="100" />
+		<param name="MaxFileSize" value="50M" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-d{yyyy-MM-dd HH:mm:ss}-[%p]-(%F:%L)-%m%n" /><!-- 设置输出文件项目和格式 -->
+		</layout>
+	</appender>
+
+  	<!-- Declare the DailyRollingFileAppender -->
+	<appender name="DefaultByDate" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${catalina.home}/logs/gamemarket/gamemarket.log" /><!-- 设置File参数：日志输出文件名 -->
+		<param name="DatePattern" value="'.'yyyy-MM-dd-a" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-d{yyyy-MM-dd HH:mm:ss}-[%p]-(%F:%L)-%m%n" /><!-- 设置输出文件项目和格式 -->
+		</layout>
+	</appender>	
+	
+	<!-- Declare the RollingFileAppender -->
+	<appender name="DebugBySize" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.home}/logs/gamemarket/gamemarket_debug.log" /><!-- 设置File参数：日志输出文件名 -->
+		<param name="Append" value="false" /><!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 -->
+		<param name="MaxBackupIndex" value="100" />
+		<param name="MaxFileSize" value="50M" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-d{yyyy-MM-dd HH:mm:ss}-[%p]-(%F:%L)-%m%n" /><!-- 设置输出文件项目和格式 -->
+		</layout>
+	</appender>
+
+  	<!-- Declare the DailyRollingFileAppender -->
+	<appender name="DebugByDate" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${catalina.home}/logs/gamemarket/gamemarket_debug.log" /><!-- 设置File参数：日志输出文件名 -->
+		<param name="DatePattern" value="'.'yyyy-MM-dd-a" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-d{yyyy-MM-dd HH:mm:ss}-[%p]-(%F:%L)-%m%n" /><!-- 设置输出文件项目和格式 -->
+		</layout>
+	</appender>
+	
+	<!-- Declare the RollingFileAppender -->
+	<appender name="InfoBySize" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.home}/logs/gamemarket/gamemarket_info.log" /><!-- 设置File参数：日志输出文件名 -->
+		<param name="Append" value="false" /><!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 -->
+		<param name="MaxBackupIndex" value="100" />
+		<param name="MaxFileSize" value="50M" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-d{yyyy-MM-dd HH:mm:ss}-[%p]-(%F:%L)-%m%n" /><!-- 设置输出文件项目和格式 -->
+		</layout>
+	</appender>
+	
+	<!-- Declare the DailyRollingFileAppender -->
+	<appender name="InfoByDate" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${catalina.home}/logs/gamemarket/gamemarket_info.log" /><!-- 设置File参数：日志输出文件名 -->
+		<param name="DatePattern" value="'.'yyyy-MM-dd-a" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-d{yyyy-MM-dd HH:mm:ss}-[%p]-(%F:%L)-%m%n" /><!-- 设置输出文件项目和格式 -->
+		</layout>
+	</appender>
+
+  	<!-- Declare the RollingFileAppender -->
+	<appender name="ErrorBySize" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.home}/logs/gamemarket/gamemarket_error.log" /><!-- 设置File参数：日志输出文件名 -->
+		<param name="Append" value="false" /><!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 -->
+		<param name="MaxBackupIndex" value="100" />
+		<param name="MaxFileSize" value="50M" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-d{yyyy-MM-dd HH:mm:ss}-[%p]-(%F:%L)-%m%n" /><!-- 设置输出文件项目和格式 -->
+		</layout>
+	</appender>
+	
+	<!-- Declare the DailyRollingFileAppender -->
+	<appender name="ErrorByDate" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${catalina.home}/logs/gamemarket/gamemarket_error.log" /><!-- 设置File参数：日志输出文件名 -->
+		<param name="DatePattern" value="'.'yyyy-MM-dd-a" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-d{yyyy-MM-dd HH:mm:ss}-[%p]-(%F:%L)-%m%n" /><!-- 设置输出文件项目和格式 -->
+		</layout>
+	</appender>
+	
+	<!-- Declare the RollingFileAppender -->
+	<appender name="WarningBySize" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.home}/logs/gamemarket/gamemarket_warning.log" /><!-- 设置File参数：日志输出文件名 -->
+		<param name="Append" value="false" /><!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 -->
+		<param name="MaxBackupIndex" value="100" />
+		<param name="MaxFileSize" value="50M" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-d{yyyy-MM-dd HH:mm:ss}-[%p]-(%F:%L)-%m%n" /><!-- 设置输出文件项目和格式 -->
+		</layout>
+	</appender>
+	
+	<!-- Declare the DailyRollingFileAppender -->
+	<appender name="WarningByDate" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${catalina.home}/logs/gamemarket/gamemarket_warning.log" /><!-- 设置File参数：日志输出文件名 -->
+		<param name="DatePattern" value="'.'yyyy-MM-dd-a" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-d{yyyy-MM-dd HH:mm:ss}-[%p]-(%F:%L)-%m%n" /><!-- 设置输出文件项目和格式 -->
+		</layout>
+	</appender>	
+		
+	<root>
+		<priority value="INFO" />		
+		<appender-ref ref="DefaultByDate" />
+		<appender-ref ref="Console" />		
+	</root>
+			
+<!--	<logger name="debug" additivity="false">	   -->
+<!--	   <appender-ref ref="DebugByDate" />-->
+<!--	   <appender-ref ref="console" />-->
+<!--	</logger>-->
+<!--	-->
+<!--	<logger name="info" additivity="false">	   -->
+<!--	   <appender-ref ref="InfoByDate" />-->
+<!--	   <appender-ref ref="console" />-->
+<!--	</logger>-->
+<!--	-->
+<!--	<logger name="error" additivity="false">	   -->
+<!--	   <appender-ref ref="ErrorByDate" />-->
+<!--	   <appender-ref ref="console" />-->
+<!--	</logger>-->
+<!--	-->
+<!--	<logger name="warning" additivity="false">	   -->
+<!--	   <appender-ref ref="WarningByDate" />-->
+<!--	   <appender-ref ref="console" />-->
+<!--	</logger>-->
+</log4j:configuration>
