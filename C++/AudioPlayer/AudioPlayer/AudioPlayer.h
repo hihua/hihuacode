@@ -155,6 +155,7 @@ struct MAINWND
 	DWORD track;
 	BOOL lock_track;
 	BOOL spectrumline;
+	ULONG_PTR gdiToken;
 };
 
 struct HTTPREQ
@@ -173,19 +174,18 @@ struct HTTPREQ
 
 struct LYRICWMD
 {
-	TCHAR* name;
-	HWND hWnd;
-	RECT rect;
-	HDC mdc;
-	HDC bdc;
-	HBITMAP bitmap;
-	HBRUSH brush;
+	TCHAR* name;	
+	HWND hWnd;	
+	RECT rect;	
+	HDC mdc;	
+	HDC bdc;	
+	HBITMAP mbitmap;	
 	LOGFONT logfont;
-	HFONT hfont;
-	LONG height;
+	Gdiplus::Font* font;	
 	COLORREF mask;
 	COLORREF foreground;
 	COLORREF background;
+	BLENDFUNCTION blend;
 	PLAYERSTATUS* status;
 	PLAYERENTRY* player;
 	HTTPREQ httpreq;

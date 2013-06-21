@@ -76,7 +76,10 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow, MAINWND* main_wnd)
 		
 	if (!main_wnd->hWnd)
 		return FALSE;
-	
+
+	Gdiplus::GdiplusStartupInput gdiInput;
+	Gdiplus::GdiplusStartup(&main_wnd->gdiToken, &gdiInput, NULL);
+		
 	main_wnd->spectrumline = TRUE;
 	main_cdrom = GetCDROM();
 	Gdiplus::GdiplusStartupInput startupInput;	
@@ -903,7 +906,7 @@ DWORD WINAPI MainThread(LPVOID param)
 						SetWindowText(playerinfo);
 						if (!playerinfo->cd)
 						{
-							LyricStart();
+							//LyricStart();
 							LyricSearchArtistTile(playerinfo);
 						}
 
@@ -976,6 +979,7 @@ DWORD WINAPI MainThread(LPVOID param)
 	SongListExit();	
 	LyricSearchExit();
 	LyricExit();
+	Gdiplus::GdiplusShutdown(main_wnd.gdiToken);
 
 	PostMessage(main_wnd.hWnd, WM_QUIT, 0, 0);	
 	return 1;

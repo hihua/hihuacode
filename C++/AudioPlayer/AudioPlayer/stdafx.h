@@ -14,6 +14,7 @@
 #include <tchar.h>
 #include <shlwapi.h>
 #include <commdlg.h>
+#include <GdiPlus.h>
 
 #include <mmsystem.h>
 #include <mmreg.h>
@@ -27,6 +28,7 @@
 #include <comdef.h>
 #include <gdiplus.h>
 #include <winhttp.h>
+#include <winsock2.h>
 
 #include <winioctl.h>
 #include <ntddscsi.h>

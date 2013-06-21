@@ -5,6 +5,7 @@
 ATOM LyricReg(HINSTANCE hInstance, TCHAR* szWindowClass);
 LYRICWMD* LyricInit(const MAINWND* main_wnd);
 void LyricShow(BOOL show);
+HBITMAP CreateBitMap(const HDC* dc, const LONG width, const LONG height, PVOID* bits);
 void LyricSetDelay(LYRICINFO* lyricinfo, int delay);
 void LyricStart();
 void LyricStop();
