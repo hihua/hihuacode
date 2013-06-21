@@ -9,7 +9,7 @@ import android.graphics.Bitmap;
 
 public class ImageCache {
 	private static ImageCache mImageCache;
-	private final int mTotal = 15;
+	private final int mTotal = 30;
 	private final List<EntityImageCache> mList = new Vector<EntityImageCache>();
 	
 	public synchronized static ImageCache getInstance() {				
