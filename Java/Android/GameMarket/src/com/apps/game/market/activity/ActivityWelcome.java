@@ -11,12 +11,15 @@ import com.apps.game.market.request.RequestTag;
 import com.apps.game.market.request.callback.RequestCallBackAd;
 import com.apps.game.market.request.callback.RequestCallBackColumn;
 import com.apps.game.market.request.callback.RequestCallBackTag;
+import com.apps.game.market.task.TaskCaches;
+import com.apps.game.market.util.FileManager;
+import com.apps.game.market.view.callback.CacheFinishCallBack;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-public class ActivityWelcome extends Activity implements RequestCallBackColumn, RequestCallBackTag, RequestCallBackAd {
+public class ActivityWelcome extends Activity implements RequestCallBackColumn, RequestCallBackTag, RequestCallBackAd, CacheFinishCallBack {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,12 @@ public class ActivityWelcome extends Activity implements RequestCallBackColumn, 
 		}
 	}
 	
+	@Override
+	public void onCacheFinish() {
+		final RequestColumn requestColumn = new RequestColumn(this);
+		requestColumn.request();
+	}
+	
 	private boolean init() {
 		final App app = (App) getApplication();
 		final GlobalData globalData = app.globalData;
@@ -73,9 +82,11 @@ public class ActivityWelcome extends Activity implements RequestCallBackColumn, 
 				
 		final GlobalObject globalObject = app.globalObject;
 		globalObject.setContext(this);
-		
-		final RequestColumn requestColumn = new RequestColumn(this);
-		requestColumn.request();
+				
+		final FileManager fileManager = new FileManager(this);
+		final String cachePath = fileManager.getCachePath();		
+		final TaskCaches taskCaches = new TaskCaches(this);
+		taskCaches.execute(cachePath);
 		return true;
-	}	
+	}		
 }

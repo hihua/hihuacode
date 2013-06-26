@@ -93,7 +93,7 @@ public class TaskImage implements Runnable, Callback {
 					req.setHeader(null);
 					req.setString(false);
 					req.setUrl(url);					
-					EntityResponse resp = mHttpClass.request(req);
+					final EntityResponse resp = mHttpClass.request(req);
 					if (resp != null) {
 						final InputStream stream = resp.getStream();
 						bitmap = BitmapFactory.decodeStream(stream);
@@ -107,7 +107,7 @@ public class TaskImage implements Runnable, Callback {
 							entityImage.setImageView(imageView);
 							entityImage.setBitmap(bitmap);
 											
-							Message msg = mHandler.obtainMessage();
+							final Message msg = mHandler.obtainMessage();
 							msg.what = 0;
 							msg.obj = entityImage;				
 							mHandler.sendMessage(msg);

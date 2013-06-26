@@ -18,7 +18,7 @@ public class GlobalObject {
 	private TaskDownload mTaskDownload;
 			
 	public GlobalObject() {		
-		globalObject = this;
+		globalObject = this;		
 	}
 	
 	public void init() {
