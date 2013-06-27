@@ -97,7 +97,7 @@ struct PLAYERTAG
 	wchar_t channels[10];
 };
 
-struct CDTrack
+struct CDTRACK
 {
 	wchar_t* driver;
 	HANDLE hfile;
@@ -113,7 +113,7 @@ struct CDTrack
 struct PLAYERINFO
 {	
 	BOOL cd;
-	CDTrack cdtrack;
+	CDTRACK cdtrack;
 	char* filename;
 	PLAYERDECODE decode;
 	PLAYERDX dx;	

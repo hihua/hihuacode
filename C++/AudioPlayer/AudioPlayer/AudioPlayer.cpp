@@ -906,7 +906,7 @@ DWORD WINAPI MainThread(LPVOID param)
 						SetWindowText(playerinfo);
 						if (!playerinfo->cd)
 						{
-							//LyricStart();
+							LyricStart();
 							LyricSearchArtistTile(playerinfo);
 						}
 

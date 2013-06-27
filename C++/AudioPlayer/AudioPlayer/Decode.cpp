@@ -44,7 +44,7 @@ BOOL DecodeInit(const char* filename, PLAYERDECODE* decode)
 BOOL DecodeCDInit(PLAYERINFO* playerinfo)
 {
 	PLAYERDECODE* decode = &playerinfo->decode;
-	CDTrack* cdtrack = &playerinfo->cdtrack;
+	CDTRACK* cdtrack = &playerinfo->cdtrack;
 	CDTrackInit(cdtrack);
 	
 	decode->io = avio_alloc_context(NULL, 0, 0, cdtrack, ReadCDPacket, NULL, SeekCDPacket);

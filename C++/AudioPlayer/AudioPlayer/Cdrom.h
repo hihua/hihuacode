@@ -43,5 +43,5 @@ DWORD GetCDEnd(const CDROM_TOC& toc, UCHAR track);
 BOOL ReadCDTrack(const HANDLE& hfile, DWORD start, DWORD count, void* buffer, DWORD size, DWORD& out);
 int ReadCDPacket(void* opaque, uint8_t* buf, int buf_size);
 int64_t SeekCDPacket(void *opaque, int64_t offset, int whence);
-BOOL CDTrackInit(CDTrack* cdtrack);
-void CDTrackRelease(CDTrack* cdtrack);
+BOOL CDTrackInit(CDTRACK* cdtrack);
+void CDTrackRelease(CDTRACK* cdtrack);

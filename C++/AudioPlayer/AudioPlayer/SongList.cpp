@@ -478,7 +478,7 @@ void SongListCD(const wchar_t* letter, UCHAR index, wchar_t* driver, DWORD secto
 		last = playerinfo;
 	}
 		
-	CDTrack* cdtrack = &playerinfo->cdtrack;
+	CDTRACK* cdtrack = &playerinfo->cdtrack;
 	cdtrack->driver = driver;
 	cdtrack->header = TRUE;
 	cdtrack->sector_start = sector_start;

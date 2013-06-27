@@ -93,6 +93,9 @@ UINT SoundTouchProcess(SOUNDTOUCH* soundtouch, LPVOID in, UINT in_count, LPVOID 
 	size = 0;
 		
 	soundTouch->putSamples(inptr, num);
+	//wchar_t b[128] = {0};
+	//wsprintf(b, L"s1:%d", soundTouch->numSamples() * align);
+	//DPRINT(b);
 	
 	do 
 	{
@@ -116,6 +119,10 @@ UINT SoundTouchProcess(SOUNDTOUCH* soundtouch, UINT num, LPVOID out, UINT out_co
 	UINT count = out_count / align;
 	UINT len = 0;
 	size = 0;
+
+	//wchar_t b[128] = {0};
+	//wsprintf(b, L"s2:%d", soundTouch->numSamples() * align);
+	//DPRINT(b);
 
 	do 
 	{

@@ -96,7 +96,7 @@ int ReadCDPacket(void* opaque, uint8_t* buf, int buf_size)
 	int total = 0;
 	int left = buf_size;
 	char* ptr = (char*)buf;
-	CDTrack* cdtrack = (CDTrack*)opaque;
+	CDTRACK* cdtrack = (CDTRACK*)opaque;
 	PLAYERBUFFER* cdbuffer = &cdtrack->cdbuffer;
 	
 	if (cdtrack->header)
@@ -167,13 +167,13 @@ int64_t SeekCDPacket(void *opaque, int64_t offset, int whence)
 	if (whence != 0)
 		return offset;
 			
-	CDTrack* cdtrack = (CDTrack*)opaque;	
+	CDTRACK* cdtrack = (CDTRACK*)opaque;	
 	cdtrack->start = cdtrack->sector_start + offset / RAW_SECTOR_SIZE;
 	cdtrack->left = 0;	
 	return offset;
 }
 
-BOOL CDTrackInit(CDTrack* cdtrack)
+BOOL CDTrackInit(CDTRACK* cdtrack)
 {	
 	PLAYERBUFFER* cdbuffer = &cdtrack->cdbuffer;
 	cdbuffer->total = RAW_SECTOR_SIZE * 25;
@@ -190,7 +190,7 @@ BOOL CDTrackInit(CDTrack* cdtrack)
 		return FALSE;
 }
 
-void CDTrackRelease(CDTrack* cdtrack)
+void CDTrackRelease(CDTRACK* cdtrack)
 {
 	if (cdtrack != NULL)
 	{
