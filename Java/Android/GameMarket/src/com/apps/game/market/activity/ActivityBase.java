@@ -16,10 +16,13 @@ import com.apps.game.market.global.GlobalObject;
 import com.apps.game.market.request.RequestSearchWord;
 import com.apps.game.market.request.callback.RequestCallBackInfo;
 import com.apps.game.market.request.callback.RequestCallBackSearchWord;
+import com.apps.game.market.task.TaskCaches;
 import com.apps.game.market.task.TaskDownload;
+import com.apps.game.market.util.FileManager;
 import com.apps.game.market.view.PopWindowMyAppRun;
 import com.apps.game.market.view.PopWindowSearchWord;
 import com.apps.game.market.view.PopWindowTagMore;
+import com.apps.game.market.view.callback.CacheFinishCallBack;
 import com.apps.game.market.views.ViewColumn;
 import com.apps.game.market.views.ViewColumnDouble;
 import com.apps.game.market.views.ViewColumnMyAppBrowse;
@@ -47,7 +50,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Gallery.LayoutParams;
 
-public abstract class ActivityBase extends Activity implements OnClickListener, RequestCallBackSearchWord, RequestCallBackInfo {
+public abstract class ActivityBase extends Activity implements OnClickListener, RequestCallBackSearchWord, RequestCallBackInfo, CacheFinishCallBack {
 	protected GlobalObject mGlobalObject;
 	protected GlobalData mGlobalData;
 	protected List<EntityTag> mTags;
@@ -439,8 +442,7 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 			
 			case R.id.popwindow_quit_confirm: {
 				super.onBackPressed();
-				close();		
-				finish();
+				close();
 			}
 			break;
 		}	
@@ -454,13 +456,18 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 			entryDetail(entityApp);
 	}
 
-	public void close() {
+	public void close() {		
 		mGlobalObject.close();
 		mGlobalData.close();
 		if (mViewColumns != null) {
 			for (ViewColumn viewColumn : mViewColumns)
 				viewColumn.stop();
 		}
+		
+		final FileManager fileManager = mGlobalObject.getFileManager();
+		final String cachePath = fileManager.getCachePath();		
+		final TaskCaches taskCaches = new TaskCaches(this);
+		taskCaches.execute(cachePath);
 	}
 			
 	@Override
@@ -469,7 +476,12 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 			mSearchWord = new PopWindowSearchWord(this, mSearch);
 		
 		mSearchWord.setList(searchWords);
-	}	
+	}
+	
+	@Override
+	public void onCacheFinish() {
+		finish();
+	}
 	
 	protected void entryTag(final EntityTag entityTag) {
 		final Intent intent = new Intent(this, ActivityTag.class); 

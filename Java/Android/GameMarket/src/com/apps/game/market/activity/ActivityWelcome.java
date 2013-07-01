@@ -11,15 +11,16 @@ import com.apps.game.market.request.RequestTag;
 import com.apps.game.market.request.callback.RequestCallBackAd;
 import com.apps.game.market.request.callback.RequestCallBackColumn;
 import com.apps.game.market.request.callback.RequestCallBackTag;
-import com.apps.game.market.task.TaskCaches;
-import com.apps.game.market.util.FileManager;
-import com.apps.game.market.view.callback.CacheFinishCallBack;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 
-public class ActivityWelcome extends Activity implements RequestCallBackColumn, RequestCallBackTag, RequestCallBackAd, CacheFinishCallBack {
+public class ActivityWelcome extends Activity implements RequestCallBackColumn, RequestCallBackTag, RequestCallBackAd {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,15 +66,28 @@ public class ActivityWelcome extends Activity implements RequestCallBackColumn, 
 		if (success) {
 			final RequestTag requestTag = new RequestTag(this);
 			requestTag.request();
+		} else {
+			final RequestCallBackColumn callback = this;
+			final ActivityWelcome activity = this;
+			final Dialog dialog = new AlertDialog.Builder(this).setTitle(R.string.welcome_error).setMessage(R.string.welcome_no_network).setPositiveButton(R.string.welcome_retry, new OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					final RequestColumn requestColumn = new RequestColumn(callback);
+					requestColumn.request();
+				}
+			}).setNegativeButton(R.string.welcome_quit, new OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					activity.finish();					
+				}
+			}).create();
+			
+			dialog.show();
 		}
 	}
-	
-	@Override
-	public void onCacheFinish() {
-		final RequestColumn requestColumn = new RequestColumn(this);
-		requestColumn.request();
-	}
-	
+			
 	private boolean init() {
 		final App app = (App) getApplication();
 		final GlobalData globalData = app.globalData;
@@ -82,11 +96,10 @@ public class ActivityWelcome extends Activity implements RequestCallBackColumn, 
 				
 		final GlobalObject globalObject = app.globalObject;
 		globalObject.setContext(this);
-				
-		final FileManager fileManager = new FileManager(this);
-		final String cachePath = fileManager.getCachePath();		
-		final TaskCaches taskCaches = new TaskCaches(this);
-		taskCaches.execute(cachePath);
+		
+		final RequestColumn requestColumn = new RequestColumn(this);
+		requestColumn.request();
+		
 		return true;
 	}		
 }

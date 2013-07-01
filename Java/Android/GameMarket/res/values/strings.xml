@@ -3,6 +3,10 @@
 
     <string name="app_name">UU Game World</string>
     <string name="welcome_init">正在初始化</string>
+    <string name="welcome_error">请求失败</string>
+    <string name="welcome_no_network">联网不成功，请检查网络</string>
+    <string name="welcome_retry">重试</string>
+    <string name="welcome_quit">退出</string>
     <string name="request_uu_host">http://58.63.224.75:8010/gc/</string>
     <string name="request_uu_column">gettop.aspx?imei=</string>
     <string name="request_uu_tag">lable.aspx?imei=</string>
