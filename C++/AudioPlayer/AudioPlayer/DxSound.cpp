@@ -50,7 +50,7 @@ BOOL DxBufferInit(PLAYERINFO* playerinfo)
 	LPDIRECTSOUNDBUFFER dbuffer = NULL;
 	PWAVEFORMATEXTENSIBLE waveformatEx = &dx->waveformatEx;
 	PWAVEFORMATEX waveformat = &waveformatEx->Format;
-	DWORD total = waveformat->nAvgBytesPerSec * 4;
+	DWORD total = waveformat->nAvgBytesPerSec * 2;
 	DWORD size = waveformat->nAvgBytesPerSec;
 	
 	ZeroMemory(&dx->desc, sizeof(DSBUFFERDESC));
@@ -107,9 +107,8 @@ BOOL DxBufferInit(PLAYERINFO* playerinfo)
 	char* buffer = new char[total];
 	playerinfo->buffer.buffer = buffer;
 	playerinfo->buffer.total = total;
-	//playerinfo->buffer.half = size;
-	playerinfo->buffer.half = total / 2;
-
+	playerinfo->buffer.half = size;
+	
 	buffer = new char[size];
 	playerinfo->temp.buffer = buffer;
 	playerinfo->temp.total = size;
@@ -123,7 +122,7 @@ void DxPlay(PLAYERINFO* playerinfo, PLAYERSTATUS* status)
 {
 	//hFile = CreateFile(L"D:\\tmp.txt", GENERIC_WRITE | GENERIC_READ, 0, NULL, CREATE_NEW, FILE_ATTRIBUTE_NORMAL, NULL);
 	BOOL inited = FALSE;
-	DWORD offset = 0, index = 0, play = 0, write = 0;
+	DWORD offset = 0, index = 0, left = 0, play = 0, write = 0;
 	PLAYERDX* dx = &playerinfo->dx;
 	LPDIRECTSOUNDBUFFER dbuffer = dx->dbuffer;
 	PWAVEFORMATEXTENSIBLE waveformatEx = &dx->waveformatEx;
@@ -145,7 +144,7 @@ void DxPlay(PLAYERINFO* playerinfo, PLAYERSTATUS* status)
 			sum = total;
 			DspFlush(temp->buffer, temp->total);
 
-			if (!DecodeSeek(decode, playerinfo->seek) || !DxSeek(offset, index, last, sum, temp, buffer, dbuffer, decode)) 
+			if (!DecodeSeek(decode, playerinfo->seek) || !DxSeek(offset, index, last, left, sum, temp, buffer, dbuffer, decode)) 
 			{
 				TrackLock(FALSE);
 				break;
@@ -168,7 +167,7 @@ void DxPlay(PLAYERINFO* playerinfo, PLAYERSTATUS* status)
 		{
 			if (!inited)
 			{
-				sum += DxSetBuffer(offset, index, temp, buffer, dbuffer, decode);
+				sum += DxSetFrame(offset, index, left, temp, buffer, dbuffer, decode);
 				if (sum == 0)
 					break;
 
@@ -209,13 +208,24 @@ void DxPlay(PLAYERINFO* playerinfo, PLAYERSTATUS* status)
 					//DWORD a = GetDistance(play, index, buffer->total);
 					//sprintf(b, "distance:%d/%d\r\n", a, buffer->total);
 					//WriteFile(hFile, b, strlen(b), &cc, NULL);
-					if (GetDistance(play, index, buffer->total) < buffer->half)
-						sum += DxSetBuffer(offset, index, temp, buffer, dbuffer, decode);
+					//if (GetDistance(play, index, buffer->total) < buffer->half)
+						//sum += DxSetBuffer(offset, index, temp, buffer, dbuffer, decode);
 
 					//sprintf(b, "sum:%d\r\n", sum);
 					//WriteFile(hFile, b, strlen(b), &cc, NULL);
 					//const char* ccc = "--------------------\r\n";
-					//WriteFile(hFile, ccc, strlen(ccc), &cc, NULL);		
+					//WriteFile(hFile, ccc, strlen(ccc), &cc, NULL);	
+
+					if (left > 0)
+					{
+						if (GetDistance(offset, play, buffer->total) > left)
+							sum += DxSetFrame(offset, index, left, temp, buffer, dbuffer, decode);
+					}
+					else
+					{
+						if (GetDistance(play, index, buffer->total) < buffer->half)
+							sum += DxSetFrame(offset, index, left, temp, buffer, dbuffer, decode);
+					}
 				}
 				else
 					break;
@@ -229,7 +239,7 @@ void DxPlay(PLAYERINFO* playerinfo, PLAYERSTATUS* status)
 	//CloseHandle(hFile);
 }
 
-BOOL DxSeek(DWORD& offset, DWORD& index, DWORD& last, DWORD& sum, PLAYERBUFFER* temp, PLAYERBUFFER* buffer, LPDIRECTSOUNDBUFFER dbuffer, PLAYERDECODE* decode)
+BOOL DxSeek(DWORD& offset, DWORD& index, DWORD& last, DWORD& left, DWORD& sum, PLAYERBUFFER* temp, PLAYERBUFFER* buffer, LPDIRECTSOUNDBUFFER dbuffer, PLAYERDECODE* decode)
 {	
 	DWORD play = 0, write = 0;
 	HRESULT hr = dbuffer->GetCurrentPosition(&play, &write);
@@ -239,8 +249,112 @@ BOOL DxSeek(DWORD& offset, DWORD& index, DWORD& last, DWORD& sum, PLAYERBUFFER* 
 	offset = play;
 	index = play;
 	last = play;
-	sum += DxSetBuffer(offset, index, temp, buffer, dbuffer, decode);
+	left = 0;
+	sum += DxSetFrame(offset, index, left, temp, buffer, dbuffer, decode);
 	return TRUE;	
+}
+
+//
+DWORD DxSetBuffer(LPVOID in, DWORD count, DWORD& offset, DWORD& index, PLAYERBUFFER* buffer, LPDIRECTSOUNDBUFFER dbuffer)
+{
+	DWORD sum = 0;
+	LPVOID out1 = NULL, out2 = NULL;
+	DWORD out_count1 = 0, out_count2 = 0;
+	SetBuffer(buffer->buffer, &out1, out_count1, &out2, out_count2, offset, count, buffer->total);
+	if (out_count1 > 0)
+	{
+		offset += out_count1;
+		offset %= buffer->total;
+	}
+
+	if (out_count2 > 0)	
+		offset = out_count2;
+	
+	DspOutput(in, count, out1, out_count1, out2, out_count2);
+		
+	LPVOID ptr1 = NULL, ptr2 = NULL;
+	DWORD count1 = 0, count2 = 0;
+	if (!DxLockBuffer(index, out_count1, &ptr1, count1, &ptr2, count2, dbuffer))
+		return sum;
+
+	CopyMemory(ptr1, out1, count1);
+	index += count1;
+	index %= buffer->total;
+	sum += count1;
+
+	if (count2 > 0)
+	{
+		CopyMemory(ptr2, (char*)out1 + count1, count2);
+		index = count2;
+		sum += count2;
+	}
+
+	if (!DxUnlockBuffer(ptr1, count1, ptr2, count2, dbuffer))
+		return sum;
+
+	if (out_count2 > 0)
+	{
+		ptr1 = NULL, ptr2 = NULL;
+		count1 = 0, count2 = 0;
+		if (!DxLockBuffer(index, out_count2, &ptr1, count1, &ptr2, count2, dbuffer))
+			return sum;
+
+		CopyMemory(ptr1, out2, count1);
+		index += count1;
+		index %= buffer->total;
+		sum += count1;
+
+		if (count2 > 0)
+		{
+			CopyMemory(ptr2, (char*)out2 + count2, count2);
+			index = count2;
+			sum += count2;
+		}
+
+		if (!DxUnlockBuffer(ptr1, count1, ptr2, count2, dbuffer))
+			return sum;
+	}
+
+	return sum;
+}
+
+//
+DWORD DxSetFrame(DWORD& offset, DWORD& index, DWORD& left, PLAYERBUFFER* temp, PLAYERBUFFER* buffer, LPDIRECTSOUNDBUFFER dbuffer, PLAYERDECODE* decode)
+{	
+	if (left > 0)
+	{		
+		DWORD sum = DxSetBuffer(NULL, left, offset, index, buffer, dbuffer);
+		left -= sum;
+		return sum;
+	}
+
+	DWORD count = 0;
+	if (DecodeFrame(temp->buffer, temp->total, count, decode) && count > 0)
+	{			
+		DWORD size = DspInput(temp->buffer, count);
+		if (size > temp->total)
+		{
+			left = size - temp->total;
+			size = temp->total;			
+		}
+		
+		return DxSetBuffer(temp->buffer, size, offset, index, buffer, dbuffer);		
+	} else
+		return 0;
+}
+
+//
+void SetBuffer(LPVOID buffer, LPVOID* out1, DWORD& out_count1, LPVOID* out2, DWORD& out_count2, DWORD offset, DWORD size, DWORD total)
+{
+	*out1 = (char*)buffer + offset;
+	out_count1 = size;
+
+	if (offset + size > total)
+	{
+		out_count1 = total - offset;
+		*out2 = buffer;
+		out_count2 = size - out_count1;
+	}	
 }
 
 DWORD DxSetBuffer(DWORD& offset, DWORD& index, PLAYERBUFFER* temp, PLAYERBUFFER* buffer, LPDIRECTSOUNDBUFFER dbuffer, PLAYERDECODE* decode)

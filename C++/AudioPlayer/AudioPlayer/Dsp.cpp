@@ -29,6 +29,50 @@ void DspSet(DWORD sampleRate, DWORD channels, WORD align)
 	SoundTouchSet(sampleRate, channels, align);
 }
 
+//
+DWORD DspInput(LPVOID in, UINT in_count)
+{
+	BOOL status = dsp.status;
+	if (status)
+	{
+		status = dsp.soundtouch.status;
+		if (status)		
+			return SoundTouchInput(&dsp.soundtouch, in, in_count);
+	}
+
+	return in_count;
+}
+
+//
+void DspOutput(LPVOID in, UINT in_count, LPVOID out1, UINT out_count1, LPVOID out2, UINT out_count2)
+{
+	SOUNDTOUCH* soundtouch = &dsp.soundtouch;
+	UINT samples = SoundTouchSamples(soundtouch);
+	if (samples > 0)
+	{
+		SoundTouchOutput(soundtouch, out1, out_count1);
+		if (out2 != NULL && out_count2 > 0)		
+			SoundTouchOutput(soundtouch, out2, out_count2);
+		
+		return;
+	}
+		
+	DWORD count = in_count;
+	if (in_count > out_count1)
+		count = out_count1;
+	
+	CopyMemory(out1, in, count);
+	in_count -= count;
+	
+	if (in_count > 0 && out2 != NULL && out_count2 > 0)
+	{		
+		if (in_count > out_count2)		
+			CopyMemory(out2, (char*)in + count, out_count2);					
+		else		
+			CopyMemory(out2, (char*)in + count, in_count);		
+	}		
+}
+
 BOOL DspProcess(LPVOID in, UINT in_count, LPVOID out, UINT out_count, DWORD& size, UINT& left, BOOL status)
 {	
 	if (status && left > 0)
@@ -79,6 +123,46 @@ void SoundTouchSet(DWORD sampleRate, DWORD channels, WORD align)
 	soundtouch->channels = channels;
 	soundTouch->setSampleRate(sampleRate);
 	soundTouch->setChannels(channels > 2 ? 2 : channels);
+}
+
+//
+UINT SoundTouchSamples(SOUNDTOUCH* soundtouch)
+{
+	SoundTouch* soundTouch = &soundtouch->soundTouch;
+	WORD align = soundtouch->align;
+	return soundTouch->numSamples() * align;
+}
+
+//
+UINT SoundTouchInput(SOUNDTOUCH* soundtouch, LPVOID in, UINT in_count)
+{
+	SoundTouch* soundTouch = &soundtouch->soundTouch;
+	SAMPLETYPE* inptr = (SAMPLETYPE*)in;
+	WORD align = soundtouch->align;
+	UINT num = in_count / align;
+	soundTouch->putSamples(inptr, num);
+	
+	return soundTouch->numSamples() * align;
+}
+
+//
+void SoundTouchOutput(SOUNDTOUCH* soundtouch, LPVOID out, UINT out_count)
+{
+	SoundTouch* soundTouch = &soundtouch->soundTouch;
+	SAMPLETYPE* outptr = (SAMPLETYPE*)out;
+	WORD align = soundtouch->align;	
+	UINT count = out_count / align;
+	UINT offset = 0, len = 0;
+	
+	do 
+	{
+		len = soundTouch->receiveSamples(outptr + offset, count);
+		if (len > 0)
+		{
+			count -= len;
+			offset += len * align;			
+		}				
+	} while (len > 0 && offset < out_count);
 }
 
 UINT SoundTouchProcess(SOUNDTOUCH* soundtouch, LPVOID in, UINT in_count, LPVOID out, UINT out_count, DWORD& size)
