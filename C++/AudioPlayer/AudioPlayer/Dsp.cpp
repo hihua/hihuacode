@@ -73,43 +73,6 @@ void DspOutput(LPVOID in, UINT in_count, LPVOID out1, UINT out_count1, LPVOID ou
 	}		
 }
 
-BOOL DspProcess(LPVOID in, UINT in_count, LPVOID out, UINT out_count, DWORD& size, UINT& left, BOOL status)
-{	
-	if (status && left > 0)
-	{
-		left = SoundTouchProcess(&dsp.soundtouch, left, out, out_count, size);
-		return TRUE;
-	}
-	else
-	{
-		BOOL status = dsp.status;
-		if (status)
-		{
-			status = dsp.soundtouch.status;
-			if (status)
-			{
-				left = SoundTouchProcess(&dsp.soundtouch, in, in_count, out, out_count, size);
-				return TRUE;
-			}
-		}
-
-		if (in_count > out_count)
-		{
-			CopyMemory(out, in, out_count);
-			size = out_count;
-			left = in_count - out_count;
-		}
-		else
-		{
-			CopyMemory(out, in, in_count);
-			size = in_count;
-			left = 0;
-		}
-
-		return FALSE;
-	}	
-}
-
 void DspFlush(char* out, DWORD size)
 {
 	SoundTouchFlush(out, size);
@@ -125,7 +88,6 @@ void SoundTouchSet(DWORD sampleRate, DWORD channels, WORD align)
 	soundTouch->setChannels(channels > 2 ? 2 : channels);
 }
 
-//
 UINT SoundTouchSamples(SOUNDTOUCH* soundtouch)
 {
 	SoundTouch* soundTouch = &soundtouch->soundTouch;
@@ -133,7 +95,6 @@ UINT SoundTouchSamples(SOUNDTOUCH* soundtouch)
 	return soundTouch->numSamples() * align;
 }
 
-//
 UINT SoundTouchInput(SOUNDTOUCH* soundtouch, LPVOID in, UINT in_count)
 {
 	SoundTouch* soundTouch = &soundtouch->soundTouch;
@@ -145,7 +106,6 @@ UINT SoundTouchInput(SOUNDTOUCH* soundtouch, LPVOID in, UINT in_count)
 	return soundTouch->numSamples() * align;
 }
 
-//
 void SoundTouchOutput(SOUNDTOUCH* soundtouch, LPVOID out, UINT out_count)
 {
 	SoundTouch* soundTouch = &soundtouch->soundTouch;
@@ -163,62 +123,6 @@ void SoundTouchOutput(SOUNDTOUCH* soundtouch, LPVOID out, UINT out_count)
 			offset += len * align;			
 		}				
 	} while (len > 0 && offset < out_count);
-}
-
-UINT SoundTouchProcess(SOUNDTOUCH* soundtouch, LPVOID in, UINT in_count, LPVOID out, UINT out_count, DWORD& size)
-{	
-	SoundTouch* soundTouch = &soundtouch->soundTouch;
-	SAMPLETYPE* inptr = (SAMPLETYPE*)in;
-	SAMPLETYPE* outptr = (SAMPLETYPE*)out;
-	WORD align = soundtouch->align;
-	UINT num = in_count / align;
-	UINT count = out_count / align;
-	UINT len = 0;
-	size = 0;
-		
-	soundTouch->putSamples(inptr, num);
-	//wchar_t b[128] = {0};
-	//wsprintf(b, L"s1:%d", soundTouch->numSamples() * align);
-	//DPRINT(b);
-	
-	do 
-	{
-		len = soundTouch->receiveSamples(outptr + size, count);
-		if (len > 0)
-		{
-			count -= len;
-			size += len * align;			
-		}				
-	} while (len > 0 && size < out_count);
-		
-	return soundTouch->numSamples() * align;		
-}
-
-UINT SoundTouchProcess(SOUNDTOUCH* soundtouch, UINT num, LPVOID out, UINT out_count, DWORD& size)
-{	
-	SoundTouch* soundTouch = &soundtouch->soundTouch;
-	SAMPLETYPE* outptr = (SAMPLETYPE*)out;
-	WORD align = soundtouch->align;
-	num = num / align;
-	UINT count = out_count / align;
-	UINT len = 0;
-	size = 0;
-
-	//wchar_t b[128] = {0};
-	//wsprintf(b, L"s2:%d", soundTouch->numSamples() * align);
-	//DPRINT(b);
-
-	do 
-	{
-		len = soundTouch->receiveSamples(outptr + size, count);
-		if (len > 0)
-		{
-			count -= len;
-			size += len * align;			
-		}				
-	} while (len > 0 && size < out_count);
-
-	return soundTouch->numSamples() * align;		
 }
 
 void SoundTouchFlush(char* out, DWORD size)
