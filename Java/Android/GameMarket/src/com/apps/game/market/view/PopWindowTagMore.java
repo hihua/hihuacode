@@ -3,6 +3,7 @@ package com.apps.game.market.view;
 import java.util.List;
 
 import com.apps.game.market.R;
+import com.apps.game.market.activity.ActivityBase;
 import com.apps.game.market.activity.ActivityTag;
 import com.apps.game.market.entity.app.EntityTag;
 import com.apps.game.market.global.GlobalData;
@@ -32,13 +33,15 @@ public class PopWindowTagMore implements OnClickListener {
 	private final List<EntityTag> mTags;
 	private final LinearLayout mLayout;
 	private TextView mTextView;
+	private final ActivityBase mActivityBase;
 
-	public PopWindowTagMore(Context context, LinearLayout layout, EntityTag entityTag) {
+	public PopWindowTagMore(Context context, LinearLayout layout, EntityTag entityTag, ActivityBase activityBase) {
 		mContext = context;
 		mLayout = layout;
 		mEntityTag = entityTag;
 		mInflater = LayoutInflater.from(context);
 		mTags = mGlobalData.getTags();
+		mActivityBase = activityBase;
 		setView();
 	}
 
@@ -167,6 +170,7 @@ public class PopWindowTagMore implements OnClickListener {
 		}
 		
 		mGlobalData.setSelectTag(entityTag);
+		mActivityBase.setFinish(true);
 		final Intent intent = new Intent(mContext, ActivityTag.class); 
 		mContext.startActivity(intent);
 	}

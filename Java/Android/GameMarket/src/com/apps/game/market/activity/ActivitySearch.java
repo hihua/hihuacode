@@ -15,7 +15,6 @@ import com.apps.game.market.request.app.RequestAppSearch;
 public class ActivitySearch extends ActivityBase {
 	private LinearLayout mLayoutColumn;
 	private ListView mListView;	
-	private boolean mFinish = false;	
 	private AdapterSearchApp mAdapter;
 	
 	@Override
@@ -40,7 +39,7 @@ public class ActivitySearch extends ActivityBase {
 	@Override
 	public void onBackPressed() {
 		super.onBackPressed();
-		mFinish = true;
+		setFinish(true);
 	}
 
 	@Override
@@ -56,8 +55,7 @@ public class ActivitySearch extends ActivityBase {
 			if (intent != null && obj != null && obj instanceof Integer) {
 				final Integer index = (Integer) obj;
 				mGlobalData.setSelectColumn(index);				
-				onBackPressed();
-				return;
+				onBackPressed();				
 			}
 		}				
 	}

@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.apps.game.market.entity.EntityAppInfo;
 import com.apps.game.market.entity.app.EntityAd;
@@ -47,6 +48,7 @@ public class GlobalData {
 	}
 	
 	public void close() {
+		Log.d(getClass().getName(), "close");
 		remoteApps.clear();
 		localApps.clear();
 		downloadApps.clear();

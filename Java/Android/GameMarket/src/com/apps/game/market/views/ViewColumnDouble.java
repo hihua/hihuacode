@@ -22,9 +22,9 @@ import com.apps.game.market.request.app.RequestApp;
 import com.apps.game.market.request.callback.RequestCallBackAd;
 import com.apps.game.market.request.callback.RequestCallBackInfo;
 import com.apps.game.market.view.ScrollViewAd;
-import com.apps.game.market.view.callback.ScrollViewAdCallBack;
+import com.apps.game.market.view.callback.CallBackScrollViewAd;
 
-public class ViewColumnDouble extends ViewColumn implements RequestCallBackAd, ScrollViewAdCallBack {
+public class ViewColumnDouble extends ViewColumn implements RequestCallBackAd, CallBackScrollViewAd {
 	private ScrollViewAd mScrollViewAd;
 	private ListView mListView;	
 	private final RequestAd mRequestAd;

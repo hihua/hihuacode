@@ -2,20 +2,20 @@ package com.apps.game.market.task;
 
 import java.io.File;
 
-import com.apps.game.market.view.callback.CacheFinishCallBack;
+import com.apps.game.market.view.callback.CallBackCacheFinish;
 
 import android.os.AsyncTask;
 
-public class TaskCaches extends AsyncTask<String, Integer, CacheFinishCallBack> {
+public class TaskCaches extends AsyncTask<String, Integer, CallBackCacheFinish> {
 	private final long mMax = 1024 * 1024 * 10;
-	private final CacheFinishCallBack mCallBack;
+	private final CallBackCacheFinish mCallBack;
 	
-	public TaskCaches(CacheFinishCallBack callBack) {
+	public TaskCaches(CallBackCacheFinish callBack) {
 		mCallBack = callBack;
 	}
 
 	@Override
-	protected CacheFinishCallBack doInBackground(String... params) {
+	protected CallBackCacheFinish doInBackground(String... params) {
 		final String cachePath = params[0];
 		final File file = new File(cachePath);
 		final File[] files = file.listFiles();
@@ -44,7 +44,7 @@ public class TaskCaches extends AsyncTask<String, Integer, CacheFinishCallBack> 
 	}
 
 	@Override
-	protected void onPostExecute(CacheFinishCallBack result) {
+	protected void onPostExecute(CallBackCacheFinish result) {
 		result.onCacheFinish();
 	}	
 }

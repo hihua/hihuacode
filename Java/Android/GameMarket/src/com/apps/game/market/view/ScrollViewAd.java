@@ -3,13 +3,12 @@ package com.apps.game.market.view;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.apps.game.market.view.callback.ScrollViewAdCallBack;
+import com.apps.game.market.view.callback.CallBackScrollViewAd;
 
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
@@ -28,7 +27,7 @@ public class ScrollViewAd extends ViewGroup {
 	private long mLastTime = 0;
 	private Timer mTimer;
 	private int mFake = 0;
-	private ScrollViewAdCallBack mCallBack;
+	private CallBackScrollViewAd mCallBack;
 	private final Handler mHandle = new Handler() {
 		@Override  
         public void handleMessage(Message msg) {
@@ -105,7 +104,7 @@ public class ScrollViewAd extends ViewGroup {
 		mListView = listView;
 	}
 	
-	public void setCallBack(ScrollViewAdCallBack callback) {
+	public void setCallBack(CallBackScrollViewAd callback) {
 		mCallBack = callback;
 	}
 	

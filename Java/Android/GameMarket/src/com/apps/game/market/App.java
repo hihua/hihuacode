@@ -12,13 +12,14 @@ public class App extends Application {
 	@Override
 	public void onCreate() {		
 		super.onCreate();
+		close();
 		init();
 	}
 		
 	@Override
 	public void onTerminate() {		
 		super.onTerminate();
-		close();
+		//close();
 	}
 
 	private void init() {

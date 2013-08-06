@@ -87,7 +87,8 @@ public class RequestDownload extends RequestBase {
 		final String name = mEntityApp.getName();
 		final long pid = mEntityApp.getPid();
 		mNotificationId = Numeric.rndNumber(500, 2000);
-		mNotification = new Notification(android.R.drawable.stat_sys_download, name + " 开始下载", System.currentTimeMillis());		  
+		mNotification = new Notification(android.R.drawable.stat_sys_download, name + " 开始下载", System.currentTimeMillis());
+		mNotification.flags = Notification.FLAG_NO_CLEAR;
 		mNotification.contentView = new RemoteViews(mContext.getPackageName(), R.layout.notify_download);
 				
 		mNotification.contentView.setImageViewBitmap(R.id.notify_download_app_icon, bitmap);
@@ -227,7 +228,7 @@ public class RequestDownload extends RequestBase {
 		final String filename = mEntityApp.getPackageName() + ".apk";
 		if (filename != null) {
 			final long size = mEntityApp.getSize();
-			mEntityDownload = fileManager.getDownloadStream(filename, size);
+			mEntityDownload = fileManager.getDownloadStream(fileManager.getAppsPath(), filename, size);
 			if (mEntityDownload != null) {
 				if (mEntityDownload.getFinish())	
 					mHandler.sendEmptyMessage(0);

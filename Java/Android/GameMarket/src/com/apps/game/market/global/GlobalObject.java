@@ -29,8 +29,7 @@ public class GlobalObject {
 	}
 	
 	public void initDeviceInfo() {
-		if (mDeviceInfo == null)
-			mDeviceInfo = new DeviceInfo(mContext);	
+		mDeviceInfo = new DeviceInfo(mContext);	
 	}
 	
 	public FileManager getFileManager() {

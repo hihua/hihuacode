@@ -14,8 +14,7 @@ import android.widget.ListView;
 
 public class ActivityTag extends ActivityBase {
 	private LinearLayout mLayoutColumn;
-	private ListView mListView;	
-	private boolean mFinish = false;	
+	private ListView mListView;		
 	private AdapterTagApp mAdapter;
 		
 	@Override
@@ -41,7 +40,7 @@ public class ActivityTag extends ActivityBase {
 	@Override
 	public void onBackPressed() {
 		super.onBackPressed();
-		mFinish = true;
+		setFinish(true);
 	}
 
 	@Override

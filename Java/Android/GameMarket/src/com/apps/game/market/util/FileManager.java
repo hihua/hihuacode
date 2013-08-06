@@ -15,6 +15,7 @@ public class FileManager {
 	private String rootPath;
 	private String appsPath;
 	private String cachePath;
+	private String upgradePath;
 
 	public FileManager(Context context) {
 		init(context);
@@ -31,6 +32,7 @@ public class FileManager {
 		rootPath = root.getPath() + "/" + app;
 		appsPath = rootPath + "/app";
 		cachePath = rootPath + "/cache";
+		upgradePath = rootPath + "/upgrade";
 
 		File path = new File(appsPath);
 		if (!path.exists())
@@ -40,8 +42,13 @@ public class FileManager {
 		if (!path.exists())
 			path.mkdirs();
 		
+		path = new File(upgradePath);
+		if (!path.exists())
+			path.mkdirs();
+		
 		appsPath += "/";
 		cachePath += "/";
+		upgradePath += "/";
 	}
 
 	public String getRootPath() {
@@ -54,6 +61,10 @@ public class FileManager {
 
 	public String getCachePath() {
 		return cachePath;
+	}
+	
+	public String getUpgradePath() {
+		return upgradePath;
 	}
 	
 	public long appExists(String packageName) {
@@ -73,9 +84,9 @@ public class FileManager {
 		return url.substring(p);
 	}
 	
-	public EntityDownload getDownloadStream(String filename, long size) {
+	public EntityDownload getDownloadStream(String dir, String filename, long size) {
 		final EntityDownload entityDownload = new EntityDownload();
-		final String path = getAppsPath() + filename;		
+		final String path = dir + filename;		
 		final File file = new File(path);
 		entityDownload.setFile(file);
 		

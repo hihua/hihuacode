@@ -1,5 +1,10 @@
 package com.apps.game.market.request;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,6 +23,7 @@ import com.apps.game.market.global.GlobalData;
 import com.apps.game.market.global.GlobalObject;
 import com.apps.game.market.util.DeviceInfo;
 import com.apps.game.market.util.HttpClass;
+import com.apps.game.market.util.Numeric;
 import com.apps.game.market.util.ThreadPool;
 
 @SuppressLint("HandlerLeak")
@@ -26,10 +32,13 @@ public abstract class RequestBase implements Runnable, Callback {
 	protected final GlobalData mGlobalData;
 	protected final HttpClass mHttpClass;	
 	protected Handler mHandler;
-	protected final Context mContext;
+	protected Context mContext;
 	private EntityRequest mEntityRequest;
+	private final String mKey = "GameMarket_UU";
 	protected final boolean mUU = true;
-			
+	private final char End = 0x03;
+	private final char Over = 0x04;
+				
 	protected RequestBase() {
 		mGlobalObject = GlobalObject.globalObject;
 		mGlobalData = GlobalData.globalData;
@@ -83,7 +92,39 @@ public abstract class RequestBase implements Runnable, Callback {
 		}		
 	}
 	
-	private String getIMEI() {
+	protected String setSpUrl(int resId) {
+		final Context context = mGlobalObject.getContext();
+		final Resources resources = context.getResources();
+		final String host = resources.getString(R.string.request_sp_host);
+		final String url = resources.getString(resId);
+		return host + url;
+	}
+	
+	protected String setString(int v) {
+		return String.valueOf(v);
+	}
+	
+	protected String setString(String s) {
+		if (s == null)
+			return "";
+		else {
+			try {
+				final String charsetName = mEntityRequest.getCharset();
+				return URLEncoder.encode(s, charsetName);
+			} catch (UnsupportedEncodingException e) {
+				return "";
+			}			
+		}
+	}
+	
+	protected String setString(boolean b) {
+		if (b)
+			return "1";
+		else
+			return "0";
+	}
+	
+	protected String getIMEI() {
 		DeviceInfo deviceInfo = mGlobalObject.getDeviceInfo();
 		if (deviceInfo == null)
 			return null;			
@@ -104,14 +145,29 @@ public abstract class RequestBase implements Runnable, Callback {
 		}
 	}
 	
+	protected boolean checkSuccess(EntityResponse resp) {
+		JSONObject json = null;
+		
+		try {
+			final String body = resp.getBody();
+			json = new JSONObject(body);
+		} catch (JSONException e) {			
+			return false;
+		}
+		
+		if (checkSuccess(json))
+			return true;
+		else
+			return false;
+	}
+	
 	protected JSONObject getContent(EntityResponse resp) {
 		JSONObject json = null;
 		
 		try {
 			final String body = resp.getBody();
 			json = new JSONObject(body);
-		} catch (JSONException e) {
-			Log.e("getContent", e.toString());
+		} catch (JSONException e) {			
 			return null;
 		}
 		
@@ -120,10 +176,61 @@ public abstract class RequestBase implements Runnable, Callback {
 		
 		try {
 			return json.getJSONObject("content");			
-		} catch (JSONException e) {
-			Log.e("getContent", e.toString());
+		} catch (JSONException e) {			
 			return null;
 		}
+	}
+	
+	protected boolean setKey(Map<String, String> tree) {
+		final StringBuilder sb = new StringBuilder();
+		for (final Entry<String, String> entry : tree.entrySet()) {
+			final String keys = entry.getKey();
+			final String values = entry.getValue();
+			
+			if (keys == null)
+				continue;
+			
+			sb.append(keys);
+			sb.append(":");			
+			if (values != null)
+				sb.append(values);
+			
+			sb.append(End);
+		}
+		
+		sb.append(Over);
+		sb.append(mKey);
+		
+		final String charsetName = mEntityRequest.getCharset();
+		final String md5 = Numeric.md5(sb.toString(), charsetName);
+		if (md5 != null) {
+			tree.put("key", md5);
+			return true;
+		} else
+			return false;
+	}
+	
+	protected String setRequest(Map<String, String> tree) {
+		final StringBuilder sb = new StringBuilder();
+		for (final Entry<String, String> entry : tree.entrySet()) {
+			final String keys = entry.getKey();
+			final String values = entry.getValue();
+			
+			if (keys == null)
+				continue;
+			
+			sb.append("&");
+			sb.append(keys);
+			sb.append("=");
+			if (values != null)
+				sb.append(values);						
+		}
+		
+		if (sb.length() > 0) {
+			sb.deleteCharAt(0);		
+			return sb.toString();
+		} else
+			return null;
 	}
 	
 	protected boolean checkString(String s) {

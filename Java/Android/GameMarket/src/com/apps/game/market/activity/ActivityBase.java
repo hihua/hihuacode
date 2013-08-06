@@ -16,13 +16,14 @@ import com.apps.game.market.global.GlobalObject;
 import com.apps.game.market.request.RequestSearchWord;
 import com.apps.game.market.request.callback.RequestCallBackInfo;
 import com.apps.game.market.request.callback.RequestCallBackSearchWord;
+import com.apps.game.market.service.ServiceManager;
 import com.apps.game.market.task.TaskCaches;
 import com.apps.game.market.task.TaskDownload;
 import com.apps.game.market.util.FileManager;
 import com.apps.game.market.view.PopWindowMyAppRun;
 import com.apps.game.market.view.PopWindowSearchWord;
 import com.apps.game.market.view.PopWindowTagMore;
-import com.apps.game.market.view.callback.CacheFinishCallBack;
+import com.apps.game.market.view.callback.CallBackCacheFinish;
 import com.apps.game.market.views.ViewColumn;
 import com.apps.game.market.views.ViewColumnDouble;
 import com.apps.game.market.views.ViewColumnMyAppBrowse;
@@ -50,7 +51,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Gallery.LayoutParams;
 
-public abstract class ActivityBase extends Activity implements OnClickListener, RequestCallBackSearchWord, RequestCallBackInfo, CacheFinishCallBack {
+public abstract class ActivityBase extends Activity implements OnClickListener, RequestCallBackSearchWord, RequestCallBackInfo, CallBackCacheFinish {
 	protected GlobalObject mGlobalObject;
 	protected GlobalData mGlobalData;
 	protected List<EntityTag> mTags;
@@ -61,6 +62,7 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 	private PopWindowSearchWord mSearchWord;
 	private EditText mSearch;
 	protected String mKeyword = "";
+	protected boolean mFinish = false;
 			
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -75,16 +77,23 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 	}
 	
 	@Override
-	protected void onStop() {
+	protected void onPause() {
+		ServiceManager.startUpgrade(this, 10000L, 2000L);
+		super.onPause();
+	}
+
+	@Override
+	protected void onStop() {		
 		super.onStop();
 		onAppClose();		
 	}
 
 	@Override
-	protected void onResume() {		
+	protected void onResume() {
+		ServiceManager.stopUpgrade(this);						
 		super.onResume();
 		mGlobalObject.setActivity(this);
-		onAppResume();
+		onAppResume();		
 	}
 	
 	protected void layoutTags() {
@@ -364,7 +373,7 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 		
 			case R.id.tag_more_id: {
 				if (mTags != null && mTags.size() > 4) {
-					PopWindowTagMore pop = new PopWindowTagMore(this, (LinearLayout) v, mEntityTag);
+					PopWindowTagMore pop = new PopWindowTagMore(this, (LinearLayout) v, mEntityTag, this);
 					pop.show();
 				}
 			}
@@ -441,8 +450,8 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 			break;
 			
 			case R.id.popwindow_quit_confirm: {
-				super.onBackPressed();
 				close();
+				super.onBackPressed();				
 			}
 			break;
 		}	
@@ -483,7 +492,12 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 		finish();
 	}
 	
+	public void setFinish(boolean finish) {
+		mFinish = finish;
+	}
+	
 	protected void entryTag(final EntityTag entityTag) {
+		setFinish(true);
 		final Intent intent = new Intent(this, ActivityTag.class); 
         startActivity(intent);
 	}
@@ -507,7 +521,7 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 		final Intent intent = new Intent(this, ActivityDetail.class); 
 		startActivity(intent);
 	}
-		
+
 	protected abstract void onAppCreate();
 	protected abstract void onAppEntry();
 	protected abstract void onAppClose();
