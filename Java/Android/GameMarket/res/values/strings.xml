@@ -14,7 +14,7 @@
     <string name="welcome_upgrade">升级</string>
     <string name="welcome_force">此版本已无法使用，必须升级</string>
     <string name="welcome_click_download">点击下载</string>
-    <string name="request_sp_host">http://192.168.26.118:8080/gamemarket/</string>
+    <string name="request_sp_host">http://58.63.224.75:7888/gamemarket/</string>
     <string name="request_sp_upgrade">upgrade</string>
     <string name="request_sp_entry">entry</string>
     <string name="request_uu_host">http://58.63.224.75:8010/gc/</string>
