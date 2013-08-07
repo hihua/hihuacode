@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+  <display-name></display-name>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>WebAdmin</servlet-name>
+    <servlet-class>com.gamemarket.servlet.web.WebAdmin</servlet-class>
+  </servlet>  
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>WebRecord</servlet-name>
+    <servlet-class>com.gamemarket.servlet.web.WebRecord</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>WebTable</servlet-name>
+    <servlet-class>com.gamemarket.servlet.web.WebTable</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>WebImageCode</servlet-name>
+    <servlet-class>com.gamemarket.servlet.web.WebImageCode</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>WebUpgrade</servlet-name>
+    <servlet-class>com.gamemarket.servlet.web.WebUpgrade</servlet-class>
+  </servlet>  
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>SpUpgrade</servlet-name>
+    <servlet-class>com.gamemarket.servlet.sp.SpUpgrade</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>SpEntry</servlet-name>
+    <servlet-class>com.gamemarket.servlet.sp.SpEntry</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>WebEntry</servlet-name>
+    <servlet-class>com.gamemarket.servlet.web.WebEntry</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>WebVersion</servlet-name>
+    <servlet-class>com.gamemarket.servlet.web.WebVersion</servlet-class>
+  </servlet>
+
+
+
+
+
+
+
+
+
+
+  
+  <listener>	
+  	<listener-class>com.gamemarket.main.Main</listener-class>
+  </listener>
+
+  <servlet-mapping>
+    <servlet-name>WebAdmin</servlet-name>
+    <url-pattern>/servlet/admin</url-pattern>
+  </servlet-mapping>  
+  <servlet-mapping>
+    <servlet-name>WebRecord</servlet-name>
+    <url-pattern>/servlet/record</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>WebTable</servlet-name>
+    <url-pattern>/servlet/table</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>WebImageCode</servlet-name>
+    <url-pattern>/servlet/imagecode</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>WebUpgrade</servlet-name>
+    <url-pattern>/servlet/upgrade</url-pattern>
+  </servlet-mapping>  
+  <servlet-mapping>
+    <servlet-name>SpUpgrade</servlet-name>
+    <url-pattern>/upgrade</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SpEntry</servlet-name>
+    <url-pattern>/entry</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>WebEntry</servlet-name>
+    <url-pattern>/servlet/entry</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>WebVersion</servlet-name>
+    <url-pattern>/servlet/version</url-pattern>
+  </servlet-mapping>  
+</web-app>
