@@ -81,7 +81,7 @@ public class RequestVersion extends RequestBase {
 				
 				final EntityResponse resp = mHttpClass.request(req);
 				if (resp != null) {
-					final byte[] buffer = new byte[5];
+					final byte[] buffer = new byte[8192];
 					final InputStream stream = resp.getStream();
 					long position = mEntityDownload.getPosition();								
 					boolean error = false;

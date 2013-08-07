@@ -78,7 +78,7 @@ public abstract class ActivityBase extends Activity implements OnClickListener, 
 	
 	@Override
 	protected void onPause() {
-		ServiceManager.startUpgrade(this, 10000L, 2000L);
+		ServiceManager.startUpgrade(this, 10000L, 7200000L);
 		super.onPause();
 	}
 

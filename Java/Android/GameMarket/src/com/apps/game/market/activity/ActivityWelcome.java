@@ -41,8 +41,8 @@ public class ActivityWelcome extends Activity implements RequestCallBackColumn, 
 	}
 			
 	@Override
-	protected void onPause() {		
-		ServiceManager.startUpgrade(this, 10000L, 2000L);
+	protected void onPause() {
+		ServiceManager.startUpgrade(this, 10000L, 7200000L);
 		super.onPause();
 	}
 
