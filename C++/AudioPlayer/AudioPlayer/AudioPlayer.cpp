@@ -125,7 +125,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow, MAINWND* main_wnd)
 	if (!SongListInit(&rect, main_wnd))
 		return FALSE;
 
-	LYRICWMD* lyric_wnd = LyricInit(main_wnd);
+	LYRICWND* lyric_wnd = LyricInit(main_wnd);
 	if (lyric_wnd == NULL)
 		return FALSE;
 

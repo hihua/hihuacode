@@ -3,7 +3,7 @@
 #define HTTPHEADER L"Referer: http://ttlrcct.qianqian.com/\r\nAccept: image/gif, image/x-xbitmap, image/jpg, image/pjpeg, text/html, text/xml, */*\r\nUser-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)\r\nConnection: close\r\nCache-Control: no-cache\r\n"
 
 ATOM LyricReg(HINSTANCE hInstance, TCHAR* szWindowClass);
-LYRICWMD* LyricInit(const MAINWND* main_wnd);
+LYRICWND* LyricInit(const MAINWND* main_wnd);
 void LyricShow(BOOL show);
 HBITMAP CreateBitMap(const HDC* dc, const LONG width, const LONG height, PVOID* bits);
 void LyricSetDelay(LYRICINFO* lyricinfo, int delay);

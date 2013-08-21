@@ -5,7 +5,7 @@
 #include "Spectrum.h"
 #include "xml/tinyxml.h"
 
-LYRICWMD lyric_wnd;
+LYRICWND lyric_wnd;
 
 ATOM LyricReg(HINSTANCE hInstance, TCHAR* szWindowClass)
 {	
@@ -26,7 +26,7 @@ ATOM LyricReg(HINSTANCE hInstance, TCHAR* szWindowClass)
 	return RegisterClassEx(&wcex);
 }
 
-LYRICWMD* LyricInit(const MAINWND* main_wnd)
+LYRICWND* LyricInit(const MAINWND* main_wnd)
 {
 	lyric_wnd.name = L"Lyric HWND";
 	LyricReg(main_wnd->inst, lyric_wnd.name);
@@ -69,11 +69,16 @@ LYRICWMD* LyricInit(const MAINWND* main_wnd)
 			
 	lyric_wnd.logfont.lfHeight = w / 30;		
 	lyric_wnd.mdc = GetDC(lyric_wnd.hWnd);	
-	lyric_wnd.bdc = CreateCompatibleDC(lyric_wnd.mdc);	
+	lyric_wnd.bdc = CreateCompatibleDC(lyric_wnd.mdc);
+	lyric_wnd.cdc = CreateCompatibleDC(lyric_wnd.mdc);
+		
 	lyric_wnd.mbitmap = CreateCompatibleBitmap(lyric_wnd.mdc, w, h);	
+	lyric_wnd.cbitmap = CreateCompatibleBitmap(lyric_wnd.mdc, w, h);
 	//lyric_wnd.brush = CreateSolidBrush(lyric_wnd.mask);	
 	SelectObject(lyric_wnd.bdc, lyric_wnd.mbitmap);	
+	SelectObject(lyric_wnd.cdc, lyric_wnd.cbitmap);	
 	SetBkMode(lyric_wnd.bdc, TRANSPARENT);
+	SetBkMode(lyric_wnd.cdc, TRANSPARENT);
 	SetTextColor(lyric_wnd.bdc, lyric_wnd.foreground);
 		
 	lyric_wnd.blend.BlendOp = AC_SRC_OVER;
@@ -94,7 +99,8 @@ LYRICWMD* LyricInit(const MAINWND* main_wnd)
 	ShowWindow(lyric_wnd.hWnd, SW_SHOW);
 	UpdateWindow(lyric_wnd.hWnd);
 		
-	//FillRect(lyric_wnd.bdc, &lyric_wnd.rect, lyric_wnd.brush);
+	/*HBRUSH alpha = CreateSolidBrush(NULL_BRUSH);
+	FillRect(lyric_wnd.bdc, &lyric_wnd.rect, alpha);*/
 	//Gdiplus::SolidBrush brush(Gdiplus::Color(255, 255, 132, 0));	
 	//Gdiplus::RectF r(0, 0, w, h);
 	
@@ -105,7 +111,7 @@ LYRICWMD* LyricInit(const MAINWND* main_wnd)
 	//Gdiplus::StringFormat sf;
 	//sf.SetAlignment(Gdiplus::StringAlignment::StringAlignmentCenter);
 	//sf.SetLineAlignment(Gdiplus::StringAlignment::StringAlignmentCenter);
-	//graphics.DrawString(L"TEST", -1, lyric_wnd.font, r, &lyric_wnd.sf, &brush);
+	//graphics.DrawString(L"TEST", -1, lyric_wnd.font, r, &sf, &brush);
 	
 	//TransparentBlt(lyric_wnd.sdc, 0, 0, w, h, lyric_wnd.bdc, 0, 0, w, h, 0);
 	
@@ -123,6 +129,13 @@ LYRICWMD* LyricInit(const MAINWND* main_wnd)
 	//BOOL ret2 = UpdateLayeredWindow(lyric_wnd.hWnd, lyric_wnd.mdc, NULL, &s, lyric_wnd.bdc, &p, RGB(255,255,255), NULL, ULW_COLORKEY);
 	//BOOL ret1 = UpdateLayeredWindow(lyric_wnd.bWnd, lyric_wnd.ndc, &point, &s, lyric_wnd.bdc, &p, RGB(255,255,255), &blend, ULW_COLORKEY);
 	//BOOL ret = UpdateLayeredWindow(lyric_wnd.hWnd, lyric_wnd.mdc, NULL, &size, lyric_wnd.bdc, &p, 0, &lyric_wnd.blend, ULW_ALPHA);
+
+	//BitBlt(lyric_wnd.bdc, 0, 0, w, h, bdc, 0, 0, SRCCOPY);
+	//ret = UpdateLayeredWindow(lyric_wnd.hWnd, lyric_wnd.mdc, NULL, &size, bdc, &p, 0, &lyric_wnd.blend, ULW_ALPHA);
+
+	//Gdiplus::SolidBrush(Gdiplus::Color(0, 0, 0, 0));	
+	//graphics.DrawString(L"TEST1234", -1, lyric_wnd.font, r, &sf, &brush);
+	//ret = UpdateLayeredWindow(lyric_wnd.hWnd, lyric_wnd.mdc, NULL, &size, lyric_wnd.bdc, &p, 0, &lyric_wnd.blend, ULW_ALPHA);
 	//BOOL ret = UpdateLayeredWindow(lyric_wnd.hWnd, NULL, NULL, NULL, NULL, NULL, RGB(255,255,255), &blend, ULW_COLORKEY);
 	//DWORD v = GetLastError();
 	//BitBlt(lyric_wnd.mdc, 0, 0, w, h, lyric_wnd.sdc, 0, 0, SRCCOPY);
@@ -229,7 +242,7 @@ LYRIC* GetLyric(const wchar_t* tag_artist, const wchar_t* tag_title, HTTPREQ* re
 	if (tag_title == NULL)
 		return NULL;
 	
-	wchar_t* host = L"http://ttlrcct2.qianqian.com/dll/lyricsvr.dll?sh?";
+	wchar_t* host = L"http://ttlrcct.qianqian.com/dll/lyricsvr.dll?sh?";
 	unsigned char r = RandomNum(255);
 	if (r % 2 == 0)
 		host = L"http://ttlrcct.qianqian.com/dll/lyricsvr.dll?sh?";
@@ -690,7 +703,7 @@ int SetCode(const LYRIC* lyric)
 
 LYRICINFO* SetLyricInfo(const LYRIC* lyric, HTTPREQ* req)
 {
-	wchar_t* host = L"http://ttlrcct2.qianqian.com/dll/lyricsvr.dll?dl?Id=";
+	wchar_t* host = L"http://ttlrcct.qianqian.com/dll/lyricsvr.dll?dl?Id=";
 	unsigned char r = RandomNum(255);
 	if (r % 2 == 0)
 		host = L"http://ttlrcct.qianqian.com/dll/lyricsvr.dll?dl?Id=";
@@ -1022,13 +1035,13 @@ void LyricDraw(PLAYERINFO* playerinfo)
 	PLAYERSTATUS* status = lyric_wnd.status;	
 	HDC* mdc = &lyric_wnd.mdc;
 	HDC* bdc = &lyric_wnd.bdc;
+	HDC* cdc = &lyric_wnd.cdc;
 	Gdiplus::Graphics graphics(*bdc);	
 	Gdiplus::StringFormat sf;
 	sf.SetAlignment(Gdiplus::StringAlignment::StringAlignmentCenter);	
 	BLENDFUNCTION* blend = &lyric_wnd.blend;
 	Gdiplus::RectF rectf(0, 0, 0, 0);
-	Gdiplus::SolidBrush brush(Gdiplus::Color(0, 0, 0, 0));
-	HBRUSH alpha = CreateSolidBrush(NULL_BRUSH);
+	Gdiplus::SolidBrush brush(Gdiplus::Color(0, 0, 0, 0));	
 	BOOL scroll = FALSE;
 	BOOL entry = FALSE;
 	DWORD sleep = 30;
@@ -1106,7 +1119,7 @@ void LyricDraw(PLAYERINFO* playerinfo)
 				}
 				else
 				{
-					FillRect(*bdc, rect, alpha);								
+					BitBlt(lyric_wnd.bdc, 0, 0, widht, height, lyric_wnd.cdc, 0, 0, SRCCOPY);
 					currentY -= step;
 					nextY -= step;
 					rectf.X = 0;
@@ -1186,7 +1199,8 @@ void LyricDraw(PLAYERINFO* playerinfo)
 				}
 				else
 				{					
-					FillRect(*bdc, rect, alpha);
+					BitBlt(lyric_wnd.bdc, 0, 0, widht, height, lyric_wnd.cdc, 0, 0, SRCCOPY);
+
 					if (lyric_wnd.current != NULL && lyric_wnd.current->content != NULL)
 					{
 						rectf.Y = nextY;
@@ -1203,8 +1217,7 @@ void LyricDraw(PLAYERINFO* playerinfo)
 		Sleep(sleep);
 	}
 
-	graphics.ReleaseHDC(*bdc);
-	DeleteObject(alpha);
+	graphics.ReleaseHDC(*bdc);	
 	lyric_wnd.current = NULL;
 	lyric_wnd.next = NULL;
 }

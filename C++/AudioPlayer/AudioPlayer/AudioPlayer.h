@@ -172,14 +172,16 @@ struct HTTPREQ
 	int receiveTimeout;
 };
 
-struct LYRICWMD
+struct LYRICWND
 {
 	TCHAR* name;	
 	HWND hWnd;	
 	RECT rect;	
 	HDC mdc;	
-	HDC bdc;	
+	HDC bdc;
+	HDC cdc;
 	HBITMAP mbitmap;	
+	HBITMAP cbitmap;
 	LOGFONT logfont;
 	Gdiplus::Font* font;	
 	COLORREF mask;

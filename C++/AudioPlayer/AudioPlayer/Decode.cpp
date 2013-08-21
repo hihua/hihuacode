@@ -171,7 +171,7 @@ BOOL DecodeFrame(char* buffer, DWORD size, DWORD& count, PLAYERDECODE* decode)
 
 			if (got > 0) 
 			{					
-				int data_size = av_samples_get_buffer_size(NULL, decode->frame->channels, decode->frame->nb_samples, decode->context->sample_fmt, 1);
+				int data_size = av_samples_get_buffer_size(NULL, decode->context->channels, decode->frame->nb_samples, decode->context->sample_fmt, 1);
 				if (data_size > 0)
 				{	
 					//int src_layout = (decode->frame->channel_layout > 0 && decode->frame->channels == av_get_channel_layout_nb_channels(decode->frame->channel_layout)) ? decode->frame->channel_layout : av_get_default_channel_layout(decode->frame->channels);
