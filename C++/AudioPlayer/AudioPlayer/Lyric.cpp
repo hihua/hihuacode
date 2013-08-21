@@ -1317,7 +1317,9 @@ DWORD WINAPI LyricThread(LPVOID param)
 		}
 	}
 
-	DeleteObject(lyric_wnd.mbitmap);	
+	DeleteObject(lyric_wnd.cbitmap);
+	DeleteObject(lyric_wnd.mbitmap);
+	DeleteDC(lyric_wnd.cdc);
 	DeleteDC(lyric_wnd.bdc);	
 	ReleaseDC(lyric_wnd.hWnd, lyric_wnd.mdc);	
 	CloseHandle(lyric_wnd.stop);
