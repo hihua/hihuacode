@@ -142,6 +142,7 @@ public class RequestDownload extends RequestBase {
 		
 			case 0: {
 				final String name = mEntityApp.getName();
+				final long pid = mEntityApp.getPid();
 				final PendingIntent contentIntent = PendingIntent.getActivity(mContext, mNotificationId, new Intent(), 0);
 				mNotification.setLatestEventInfo(mContext, name, "下载完成", contentIntent);
 				mNotificationManager.notify(mNotificationId, mNotification);				
@@ -149,6 +150,9 @@ public class RequestDownload extends RequestBase {
 				mNotificationManager.cancel(mNotificationId);
 				if (mCallBack != null)
 					mCallBack.onCallBackDownload(this, EnumDownloadStatus.FINISH, mEntityApp);
+				
+				final RequestFinish requestFinish = new RequestFinish();
+				requestFinish.request(pid, "0");
 			}
 			break;
 									

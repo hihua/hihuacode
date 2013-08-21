@@ -5,32 +5,27 @@ import java.util.Timer;
 import com.apps.game.market.task.TaskUpgrade;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
-import android.util.Log;
 
 public class ServiceUpgrade extends Service {
-	private Timer mTimer = new Timer();
+	private Timer mTimer;
 	private UpgradeBind mUpgradeBind = new UpgradeBind();
 	private TaskUpgrade mTask;
 
 	@Override
-	public IBinder onBind(Intent intent) {
-		Log.d("ServiceUpgrade", "----onBind-----");
+	public IBinder onBind(Intent intent) {		
 		return mUpgradeBind;
 	}
 
 	@Override
-	public void onCreate() {
-		Log.d("ServiceUpgrade", "----onCreate-----");
+	public void onCreate() {		
 		super.onCreate();				
 	}
 
 	@Override
-	public void onDestroy() {	
-		Log.d("ServiceUpgrade", "----onDestroy-----");		
+	public void onDestroy() {				
 		super.onDestroy();
 	}
 
@@ -46,10 +41,9 @@ public class ServiceUpgrade extends Service {
 		super.onStart(intent, startId);
 	}
 	
-	public void startTask(long delay, long period, boolean show) {
-		final Context context = getApplicationContext();
+	private void startTask(long delay, long period, boolean show) {
 		if (mTask == null)
-			mTask = new TaskUpgrade(context);						
+			mTask = new TaskUpgrade(this);						
 		
 		if (mTimer == null)
 			mTimer = new Timer();
@@ -57,7 +51,7 @@ public class ServiceUpgrade extends Service {
 		mTimer.scheduleAtFixedRate(mTask, delay, period);
 	}
 	
-	public void stopTask() {
+	private void stopTask() {
 		if (mTimer != null) {
 			mTimer.cancel();
 			mTimer.purge();

@@ -10,6 +10,7 @@ import com.apps.game.market.entity.app.EntityComment;
 import com.apps.game.market.enums.EnumAppStatus;
 import com.apps.game.market.request.RequestComment;
 import com.apps.game.market.request.RequestDetail;
+import com.apps.game.market.request.RequestFinish;
 import com.apps.game.market.request.RequestImage;
 import com.apps.game.market.request.callback.RequestCallBackComment;
 import com.apps.game.market.request.callback.RequestCallBackDetail;
@@ -133,8 +134,12 @@ public class ActivityDetail extends ActivityBase implements RequestCallBackDetai
 		
 		if (mEntityApp.getDetail())
 			init();
-		else
+		else {
+			final long pid = mEntityApp.getPid();
 			mRequestDetail.request(mEntityApp);
+			final RequestFinish requestFinish = new RequestFinish();
+			requestFinish.request(pid, "2");
+		}
 		
 		mGlobalData.addBrowseApp(mEntityApp);
 	}

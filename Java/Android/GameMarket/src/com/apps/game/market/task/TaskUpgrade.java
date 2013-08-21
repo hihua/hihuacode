@@ -31,8 +31,9 @@ public class TaskUpgrade extends TimerTask implements RequestCallBackUpgrade {
 	}
 	
 	@Override
-	public void run() {	
-		mRequestUpgrade.request();
+	public void run() {
+		if (mRequestUpgrade != null)
+			mRequestUpgrade.request();
 	}
 
 	@Override
