@@ -1,6 +1,7 @@
 package com.apps.game.market;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.apps.game.market.global.GlobalData;
 import com.apps.game.market.global.GlobalObject;
@@ -17,7 +18,8 @@ public class App extends Application {
 	}
 		
 	@Override
-	public void onTerminate() {		
+	public void onTerminate() {
+		Log.d("Application", "close");
 		super.onTerminate();
 		//close();
 	}
