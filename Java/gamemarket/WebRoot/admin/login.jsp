@@ -1,66 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="include/header.jsp"%>
-<script type="text/javascript">
-	function login() {
-		var username = $("#username").val();
-		var password = $("#password").val();
-		var code = $("#code").val();
-		if (username.length == 0) {
-			alert("请输入管理员账户");
-			return;
-		}			
-		
-		if (password.length == 0) {
-			alert("请输入管理员密码");
-			return;
-		}
-		
-		if (code.length == 0) {
-			alert("请输入安全验证码");
-			return;
-		}
-		
-		var body = "command=1&username=" + username + "&password=" + password + "&code=" + code;
-		request("admin", body, onLogin);
-	}
-	
-	function onLogin(code, result) {
-		switch (code) {
-			case 0:
-				window.location.href = "main.jsp";
-				break;
-				
-			case 1:
-				alert("用户名密码错误");
-				$("#code").val("");
-				setCode();
-				break;
-			
-			case 2:
-				alert("参数错误");
-				$("#code").val("");
-				setCode();
-				break;			
-						
-			case 3:
-				alert("验证码错误");
-				$("#code").val("");
-				setCode();
-				break;
-				
-			default:
-				alert("登录失败");
-				$("#code").val("");
-				setCode();
-				break;
-		}
-	}
-	
-	function setCode() {
-		var imagecode = $("#imagecode");
-		imagecode.attr("src", "../servlet/imagecode");		
-	}
-</script>
 <table width="640" border="0" cellspacing="0" cellpadding="0" align="center">
 	<tr>
 		<td height="390" valign="top" background="images/admin.gif">
@@ -99,7 +38,7 @@
 									<table width="100%" border="0" cellspacing="0" cellpadding="0">
 										<tr>
 											<td width="26%" height="34">&nbsp;</td>
-											<td width="25%"><input type="button" value=" 登录 " onclick="login()" /></td>
+											<td width="25%"><input type="button" value=" 登录 " onclick="login(this)" /></td>
 											<td><input type="button" value=" 重置 " onclick="window.location.href=window.location.href" /></td>
 										</tr>
 									</table></td>
@@ -112,4 +51,67 @@
 		</td>
 	</tr>
 </table>
+<script type="text/javascript">
+	function login(obj) {
+		var username = $("#username").val();
+		var password = $("#password").val();
+		var code = $("#code").val();
+		if (username.length == 0) {
+			alert("请输入管理员账户");
+			return;
+		}			
+		
+		if (password.length == 0) {
+			alert("请输入管理员密码");
+			return;
+		}
+		
+		if (code.length == 0) {
+			alert("请输入安全验证码");
+			return;
+		}
+		
+		$(obj).attr("disabled", true);
+		var body = "command=1&username=" + username + "&password=" + password + "&code=" + code;
+		request("admin", body, onLogin, obj);
+	}
+	
+	function onLogin(code, result, obj) {
+		$(obj).attr("disabled", false);
+		switch (code) {
+			case 0:
+				window.location.href = "main.jsp";
+				break;
+				
+			case 1:
+				alert("用户名密码错误");
+				$("#code").val("");
+				setCode();
+				break;
+			
+			case 2:
+				alert("参数错误");
+				$("#code").val("");
+				setCode();
+				break;			
+						
+			case 3:
+				alert("验证码错误");
+				$("#code").val("");
+				setCode();
+				break;
+				
+			default:
+				alert("登录失败");
+				$("#code").val("");
+				setCode();
+				break;
+		}
+	}
+	
+	function setCode() {
+		var imagecode = $("#imagecode");
+		imagecode.attr("src", "../servlet/imagecode");		
+	}
+</script>
 <%@ include file="include/bottom.jsp"%>

@@ -4,7 +4,7 @@
 	<tr>
 		<td align="center" height="60">			
 			渠道名称：<input type="text" id="table_name" maxlength="30" />&nbsp;
-			<input type="button" value=" 添加 " onclick="addTable()" />
+			<input type="button" value=" 添加 " onclick="addTable(this)" />
 		</td>		
 	</tr>
 </table>
@@ -20,12 +20,13 @@
 </table>
 <script type="text/javascript">
 	var servlet = "table";
+	var packet = "packet";
 	function getTables() {
 		var body = "command=1";
-		request(servlet, body, onGetTables);	
+		request(servlet, body, onGetTables, null);	
 	}
 	
-	function onGetTables(code, content) {
+	function onGetTables(code, content, obj) {
 		clearTable("#tables");
 		switch (code) {
 			case 0: {
@@ -45,9 +46,9 @@
 						html += "<td><span>" + tableDate.pattern("yyyy-MM-dd HH:mm:ss") + "</span></td>";
 						
 						if (tableId == 0)
-							html += "<td>&nbsp;</td>";
+							html += "<td><input type=\"button\" value=\" 打包 \" onclick=\"addPacket(this, " + tableId + ")\" /></td>";
 						else
-							html += "<td><input type=\"button\" value=\" 删除 \" onclick=\"delTable(" + tableId + ")\" /></td>";
+							html += "<td><input type=\"button\" value=\" 打包 \" onclick=\"addPacket(this, " + tableId + ")\" />&nbsp;<input type=\"button\" value=\" 删除 \" onclick=\"delTable(this, " + tableId + ")\" /></td>";
 							
 						$("#tables").append(html);	
 					});
@@ -57,7 +58,7 @@
 		}
 	}
 	
-	function addTable() {
+	function addTable(obj) {
 		var tableName = $("#table_name").val();
 		if (window.confirm("是否添加")) {
 			if (tableName.length == 0) {
@@ -65,12 +66,14 @@
 				return;			
 			}
 			
+			$(obj).attr("disabled", true);
 			var body = "command=0&table_name=" + encodeURIComponent(tableName);
-			request(servlet, body, onAddTable);
+			request(servlet, body, onAddTable, obj);
 		}
 	}
 	
-	function onAddTable(code, content) {
+	function onAddTable(code, content, obj) {
+		$(obj).attr("disabled", false);
 		switch (code) {
 			case 0:
 				getTables();
@@ -91,14 +94,16 @@
 		}			
 	}
 	
-	function delTable(tableId) {
+	function delTable(obj, tableId) {
 		if (window.confirm("是否删除")) {
+			$(obj).attr("disabled", true);
 			var body = "command=2&table_id=" + tableId;
-			request(servlet, body, onDelTable);
+			request(servlet, body, onDelTable, obj);
 		}		
 	}
 	
-	function onDelTable(code, content) {
+	function onDelTable(code, content, obj) {
+		$(obj).attr("disabled", false);
 		switch (code) {
 			case 0:
 				getTables();
@@ -121,6 +126,71 @@
 				alert("删除失败" + code);
 				break;
 		}			
+	}
+	
+	function addPacket(obj, tableId) {
+		if (window.confirm("是否打包")) {
+			$(obj).attr("disabled", true);
+			var body = "command=0&table_id=" + tableId;
+			request(packet, body, onAddPacket, obj);
+		}
+	}
+	
+	function onAddPacket(code, content, obj) {
+		$(obj).attr("disabled", false);
+		switch (code) {
+			case 0:				
+				alert("打包成功");
+				break;
+			
+			case 1:				
+				alert("打包失败");
+				break;
+				
+			case 2:				
+				alert("打包失败,没有该渠道信息");
+				break;
+				
+			case 3:				
+				alert("打包失败,没有权限");
+				break;
+				
+			case 4:				
+				alert("打包失败,应用正在升级");
+				break;
+				
+			case 5:				
+				alert("打包失败,应用正在升级");
+				break;
+				
+			case 6:				
+				alert("打包失败,复制文件夹失败");
+				break;
+				
+			case 7:				
+				alert("打包失败,没找到渠道名称文件");
+				break;
+				
+			case 8:				
+				alert("打包失败,修改渠道名称失败");
+				break;
+				
+			case 9:				
+				alert("打包失败,调用脚本失败");
+				break;
+				
+			case 10:				
+				alert("打包失败,执行脚本失败");
+				break;
+				
+			case 11:				
+				alert("打包失败,复制文件失败");
+				break;
+				
+			default:
+				alert("打包失败" + code);
+				break;
+		}
 	}
 	
 	getTables();

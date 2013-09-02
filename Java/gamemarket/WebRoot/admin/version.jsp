@@ -5,7 +5,7 @@
 		<td align="center" height="60">			
 			开始日期：<input type="text" id="version_start_date"/>&nbsp;
 			结束日期：<input type="text" id="version_end_date"/>&nbsp;
-			<input type="button" value=" 查询 " onclick="queryVersion()" />
+			<input type="button" value=" 查询 " onclick="queryVersion(this)" />
 		</td>		
 	</tr>
 </table>
@@ -19,7 +19,7 @@
 </table>
 <script type="text/javascript">
 	var servlet = "version";		
-	function queryVersion() {
+	function queryVersion(obj) {
 		var date = new Date();		
 		var versionStartDate = $("#version_start_date").val();
 		var versionEndDate = $("#version_end_date").val();
@@ -56,12 +56,14 @@
 			return;		
 		}						
 			
+		$(obj).attr("disabled", true);
 		var body = "command=0&version_start_date=" + startDate + "&version_end_date=" + endDate;
-		request(servlet, body, onQueryversion);	
+		request(servlet, body, onQueryversion, obj);	
 	}
 	
-	function onQueryversion(code, content) {
-		clearTable("#versions");
+	function onQueryversion(code, content, obj) {
+		$(obj).attr("disabled", false);
+		clearTable("#versions");		
 		switch(code) {
 			case 0: {
 				if (content != null) {

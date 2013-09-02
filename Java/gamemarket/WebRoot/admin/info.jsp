@@ -9,8 +9,8 @@
 	</tr>
 	<tr align="center" height="40">
 		<td><span id="admin_username"></span></td>
-		<td><input type="text" id="admin_desc" maxlength="30" />&nbsp;<input type="button" value=" 修改 " onclick="modifyDesc()" /></td>
-		<td>原密码:<input type="password" id="admin_oldpassword" maxlength="20" />&nbsp;新密码:<input type="password" id="admin_password" maxlength="20" />&nbsp;<input type="button" value=" 修改 " onclick="modifyPassword()" /></td>
+		<td><input type="text" id="admin_desc" maxlength="30" />&nbsp;<input type="button" value=" 修改 " onclick="modifyDesc(this)" /></td>
+		<td>原密码:<input type="password" id="admin_oldpassword" maxlength="20" />&nbsp;新密码:<input type="password" id="admin_password" maxlength="20" />&nbsp;<input type="button" value=" 修改 " onclick="modifyPassword(this)" /></td>
 		<td><span id="admin_date"></span></td>
 	</tr>
 </table>
@@ -19,10 +19,10 @@
 	var adminId = 0;
 	function getInfo() {
 		var body = "command=0";
-		request(servlet, body, onInfo);
+		request(servlet, body, onInfo, null);
 	}
 	
-	function onInfo(code, content) {
+	function onInfo(code, content, obj) {
 		switch (code) {
 			case 0: {
 				if (content != null) {
@@ -47,18 +47,20 @@
 		}
 	}
 	
-	function modifyDesc() {
+	function modifyDesc(obj) {
 		if (window.confirm("是否修改")) {
 			var desc = $("#admin_desc").val();
 			if (desc.length > 0) {
+				$(obj).attr("disabled", true);
 				var body = "command=5&admin_id=" + adminId + "&admin_desc=" + encodeURIComponent(desc);
-				request(servlet, body, onModifyDesc);
+				request(servlet, body, onModifyDesc, obj);
 			} else
 				alert("请输入描述");		
 		}
 	}
 	
-	function onModifyDesc(code, content) {
+	function onModifyDesc(code, content, obj) {
+		$(obj).attr("disabled", false);
 		switch (code) {
 			case 0:
 				getInfo();
@@ -79,14 +81,15 @@
 		}	
 	}
 	
-	function modifyPassword() {
+	function modifyPassword(obj) {
 		if (window.confirm("是否修改密码")) {
 			var adminOldPassword = $("#admin_oldpassword").val();
 			var adminPassword = $("#admin_password").val();
 			if (adminOldPassword.length > 0) {
 				if (adminPassword.length > 0) {
+					$(obj).attr("disabled", true);
 					var body = "command=8&admin_id=" + adminId + "&admin_oldpassword=" + encodeURIComponent(adminOldPassword) + "&admin_password=" + encodeURIComponent(adminPassword);
-					request(servlet, body, onModifyPassword);
+					request(servlet, body, onModifyPassword, obj);
 				} else
 					alert("请输入新密码");				
 			} else
@@ -94,7 +97,8 @@
 		}
 	}
 	
-	function onModifyPassword(code, content) {
+	function onModifyPassword(code, content, obj) {
+		$(obj).attr("disabled", false);
 		switch (code) {
 			case 0:
 				alert("修改成功");

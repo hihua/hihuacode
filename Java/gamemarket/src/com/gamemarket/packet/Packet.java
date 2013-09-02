@@ -111,7 +111,9 @@ public class Packet {
 	}
 	
 	private boolean writeXML(final Document document, final String filepath, final String charset) {
-		final OutputFormat format = new OutputFormat("  ", true, charset);
+		final OutputFormat format = new OutputFormat("	", true, charset);
+		format.setLineSeparator("\r\n");
+		format.setTrimText(true);
 		final StringWriter sw = new StringWriter();		
 		final XMLWriter writer = new XMLWriter(sw, format);		
 		String xml = null;
@@ -191,7 +193,7 @@ public class Packet {
 		return document;
 	}
 	
-	private boolean deleteDirectory(final File dir) {
+	public boolean deleteDirectory(final File dir) {
 		if (!dir.exists())			
 			return true;
 				
@@ -211,7 +213,7 @@ public class Packet {
 		return dir.delete();		
 	}
 	
-	private boolean copyFile(final File src, final File dest) {
+	public boolean copyFile(final File src, final File dest) {
 		FileInputStream in = null;
 		
 		try {
@@ -266,7 +268,7 @@ public class Packet {
 		final File source = new File(src);		
 		final File[] files = source.listFiles();
 		if (files != null) {
-			for (final File file : files) {
+			for (final File file : files) {				
 				if (file.isFile()) {
 					final String s = target.getAbsolutePath() + File.separator + file.getName();				
 					final File f = new File(s);  
@@ -277,7 +279,8 @@ public class Packet {
 				if (file.isDirectory()) {
 	                final String from = src + File.separator + file.getName();
 	                final String to = dest + File.separator + file.getName();
-	                return copyDirectiory(from, to);  
+	                if (!copyDirectiory(from, to))
+	                	return false;  
 	            } 
 			}
 		}		
@@ -322,14 +325,14 @@ public class Packet {
 		return writeXML(document, entry, mCharset);
 	}
 	
-	public boolean execute(final String bat, final String outpath, final String outfile) {
+	public boolean execute(final String bat, final String outpath, final String outfile, final String srcpath) {
 		InputStream in = null;
 		InputStreamReader reader = null;
 		BufferedReader buffered = null;		
-		final String command = bat + " " + outpath + " " +  outfile;
+		final String command = bat + " " + outpath + " " + outfile + " " + srcpath;
 		
 		try {
-			final Process p = Runtime.getRuntime().exec(command);
+			final Process p = Runtime.getRuntime().exec(command);			
 			in = p.getInputStream(); 
 			reader = new InputStreamReader(in);
 			buffered = new BufferedReader(reader);

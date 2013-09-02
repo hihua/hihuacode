@@ -2,7 +2,7 @@
 setlocal enabledelayedexpansion
 set name=%2
 set outpath=%1
-set dirpath=D:\GameMarket
+set dirpath=%3
 set javapath=E:\Development\Java1.6
 set androidpath=E:\Development\Android
 set charset=UTF-8
@@ -39,6 +39,8 @@ md %outpath%
 if not exist %outclasses% (
 md %outclasses%
 )
+
+%aapt% package -f -m -J %genpath% -S %res% -M %manifest% -I %android%
 
 for /R %libspath% %%i in (*.jar) do (
 set libs=!libs!%sp%%%i

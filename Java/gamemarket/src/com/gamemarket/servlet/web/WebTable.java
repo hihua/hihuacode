@@ -28,7 +28,7 @@ public class WebTable extends WebBase {
 		if (command.equals("0")) {
 			final String tableName = getParameter(request, "table_name");
 						
-			if (checkString(tableName)) {				
+			if (checkString(tableName)) {
 				final Map<String, Object> admin = getAdmin(content, request);
 				if (admin != null) {
 					final Object object = admin.get("admin_id");

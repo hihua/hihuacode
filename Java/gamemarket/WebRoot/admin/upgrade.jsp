@@ -29,10 +29,10 @@
 	var servlet = "upgrade";
 	function getUpgrade() {
 		var body = "command=3";
-		request(servlet, body, onGetUpgrade);
+		request(servlet, body, onGetUpgrade, null);
 	}
 	
-	function onGetUpgrade(code, content) {
+	function onGetUpgrade(code, content, obj) {
 		var upgradeTable = $("#upgrade_table");
 		upgradeTable.empty();
 		
@@ -59,10 +59,10 @@
 	
 	function getUpgrades() {
 		var body = "command=2";
-		request(servlet, body, onGetUpgrades);
+		request(servlet, body, onGetUpgrades, null);
 	}
 	
-	function onGetUpgrades(code, content) {
+	function onGetUpgrades(code, content, obj) {
 		clearTable("#upgrades");
 		switch (code) {
 			case 0: {
@@ -100,12 +100,12 @@
 						if (upgradeFilename != null && upgradeFilename.length > 0)
 							html += "<input type=\"button\" value=\" 下载\" onclick=\"download('" + upgradeFilename + "')\" />&nbsp;";				
 						
-						html += "<input type=\"button\" value=\" 修改\" onclick=\"updateForce(" + tableId + ")\" />";
+						html += "<input type=\"button\" value=\" 修改\" onclick=\"updateForce(this, " + tableId + ")\" />";
 						
 						if (tableId == 0)
 							html += "&nbsp;";
 						else
-							html += "&nbsp;<input type=\"button\" value=\" 删除 \" onclick=\"delUpgrade(" + tableId + ")\" />";
+							html += "&nbsp;<input type=\"button\" value=\" 删除 \" onclick=\"delUpgrade(this, " + tableId + ")\" />";
 						
 						html += "</td>";
 						$("#upgrades").append(html);
@@ -173,14 +173,16 @@
 		}	
 	}
 	
-	function delUpgrade(tableId) {
+	function delUpgrade(obj, tableId) {
 		if (window.confirm("是否删除")) {
+			$(obj).attr("disabled", true);
 			var body = "command=1&upgrade_table=" + tableId;
-			request(servlet, body, onDelUpgrade);	
+			request(servlet, body, onDelUpgrade, obj);	
 		}		
 	}
 	
-	function onDelUpgrade(code, content) {
+	function onDelUpgrade(code, content, obj) {
+		$(obj).attr("disabled", false);
 		switch (code) {
 			case 0:
 				getUpgrade();
@@ -206,18 +208,20 @@
 		}		
 	}
 	
-	function updateForce(tableId) {
+	function updateForce(obj, tableId) {
 		if (window.confirm("是否修改")) {
 			var upgradeForce = 0;
 			if ($("#upgrade_force_" + tableId).attr("checked"))
 				upgradeForce = 1;
 	
+			$(obj).attr("disabled", true);
 			var body = "command=4&upgrade_table=" + tableId + "&upgrade_force=" + upgradeForce;
-			request(servlet, body, onUpdateForce);	
+			request(servlet, body, onUpdateForce, obj);	
 		}		
 	}
 	
-	function onUpdateForce(code, content) {
+	function onUpdateForce(code, content, obj) {
+		$(obj).attr("disabled", false);
 		switch (code) {
 			case 0:
 				getUpgrade();

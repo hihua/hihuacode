@@ -6,7 +6,7 @@
 			用户名：<input type="text" id="admin_username" maxlength="20" />&nbsp;
 			密码：<input type="password" id="admin_password" maxlength="20" />&nbsp;
 			描述：<input type="text" id="admin_desc" maxlength="30" />&nbsp;
-			<input type="button" value=" 提交 " onclick="addAdmin()" />			
+			<input type="button" value=" 提交 " onclick="addAdmin(this)" />			
 		</td>		
 	</tr>
 </table>
@@ -24,13 +24,12 @@
 	var servlet = "admin";
 	function getInfo() {
 		var body = "command=0";
-		request(servlet, body, onGetInfo);
+		request(servlet, body, onGetInfo, null);
 	}
 	
-	function onGetInfo(code, content) {
+	function onGetInfo(code, content, obj) {
 		if (code == 0) {		
-			var adminParent = content.admin_parent;
-						
+			var adminParent = content.admin_parent;						
 			if (adminParent == 0 || adminParent == 1) {
 				getAdmins(adminParent);
 				$("#add").show();
@@ -45,10 +44,10 @@
 		else
 			body = "command=7";		
 			
-		request(servlet, body, onGetAdmins);
+		request(servlet, body, onGetAdmins, null);
 	}
 		
-	function onGetAdmins(code, content) {
+	function onGetAdmins(code, content, obj) {
 		clearTable("#admins");
 		switch (code) {
 			case 0: {
@@ -66,15 +65,15 @@
 						html += "<tr align=\"center\" height=\"40\">";
 						
 					html += "<td><span>" + adminUsername + "</span></td>";
-					html += "<td><input type=\"text\" id=\"admin_desc_" + adminId + "\" maxlength=\"30\" value=\"" + adminDesc + "\" />&nbsp;<input type=\"button\" value=\" 修改 \" onclick=\"modifyDesc(" + adminId + ")\" /></td>";
+					html += "<td><input type=\"text\" id=\"admin_desc_" + adminId + "\" maxlength=\"30\" value=\"" + adminDesc + "\" />&nbsp;<input type=\"button\" value=\" 修改 \" onclick=\"modifyDesc(this, " + adminId + ")\" /></td>";
 					if (adminParent == 1)
 						html += "<td><span>管理员</span></td>";
 					else
 						html += "<td><span>普通用户</span></td>";					
 					
-					html += "<td>新密码:<input type=\"password\" id=\"admin_password_" + adminId + "\" maxlength=\"20\" />&nbsp;<input type=\"button\" value=\" 修改 \" onclick=\"modifyPassword(" + adminId + ")\" /></td>";
+					html += "<td>新密码:<input type=\"password\" id=\"admin_password_" + adminId + "\" maxlength=\"20\" />&nbsp;<input type=\"button\" value=\" 修改 \" onclick=\"modifyPassword(this, " + adminId + ")\" /></td>";
 					html +=	"<td><span>" + adminDate.pattern("yyyy-MM-dd HH:mm:ss") + "</span></td>";
-					html +=	"<td><input type=\"button\" value=\" 删除 \" onclick=\"delAdmin(" + adminId + ")\" /></td>";		
+					html +=	"<td><input type=\"button\" value=\" 删除 \" onclick=\"delAdmin(this, " + adminId + ")\" /></td>";		
 					$("#admins").append(html);			
 				});	
 			}
@@ -94,7 +93,7 @@
 		}	
 	}
 	
-	function addAdmin() {		
+	function addAdmin(obj) {		
 		var adminUsername = $("#admin_username").val();
 		var adminPassword = $("#admin_password").val();
 		var adminDesc = $("#admin_desc").val();
@@ -110,12 +109,14 @@
 				return;			
 			}
 			
+			$(obj).attr("disabled", true);
 			var body = "command=6&admin_username=" + encodeURIComponent(adminUsername) + "&admin_password=" + encodeURIComponent(adminPassword) + "&admin_desc=" + encodeURIComponent(adminDesc);
-			request(servlet, body, onAddAdmin);			
+			request(servlet, body, onAddAdmin, obj);			
 		}		
 	}
 	
-	function onAddAdmin(code, content) {
+	function onAddAdmin(code, content, obj) {
+		$(obj).attr("disabled", false);
 		switch (code) {
 			case 0:
 				getInfo();
@@ -140,14 +141,16 @@
 		}				
 	}
 	
-	function delAdmin(adminId) {		
+	function delAdmin(obj, adminId) {		
 		if (window.confirm("是否删除")) {
+			$(obj).attr("disabled", true);
 			var body = "command=4&admin_id=" + adminId;
-			request(servlet, body, onDelAdmin);
+			request(servlet, body, onDelAdmin, obj);
 		}
 	}
 	
-	function onDelAdmin(code, content) {
+	function onDelAdmin(code, content, obj) {
+		$(obj).attr("disabled", false);
 		switch (code) {
 			case 0:
 				getInfo();
@@ -172,18 +175,20 @@
 		}	
 	}
 	
-	function modifyDesc(adminId) {
+	function modifyDesc(obj, adminId) {
 		if (window.confirm("是否修改")) {
 			var desc = $("#admin_desc_" + adminId).val();
 			if (desc.length > 0) {
+				$(obj).attr("disabled", true);
 				var body = "command=5&admin_id=" + adminId + "&admin_desc=" + encodeURIComponent(desc);
-				request(servlet, body, onModifyDesc);
+				request(servlet, body, onModifyDesc, obj);
 			} else
 				alert("请输入描述");
 		}
 	}
 	
-	function onModifyDesc(code, content) {
+	function onModifyDesc(code, content, obj) {
+		$(obj).attr("disabled", false);
 		switch (code) {
 			case 0:
 				getInfo();
@@ -208,18 +213,20 @@
 		}		
 	}
 	
-	function modifyPassword(adminId) {
+	function modifyPassword(obj, adminId) {
 		if (window.confirm("是否修改")) {			
 			var adminPassword = $("#admin_password_" + adminId).val();
 			if (adminPassword.length > 0) {
+				$(obj).attr("disabled", true);
 				var body = "command=8&admin_id=" + adminId + "&admin_password=" + encodeURIComponent(adminPassword);
-				request(servlet, body, onModifyPassword);
+				request(servlet, body, onModifyPassword, obj);
 			} else
 				alert("请输入新密码");
 		}
 	}
 	
-	function onModifyPassword(code, content) {
+	function onModifyPassword(code, content, obj) {
+		$(obj).attr("disabled", false);
 		switch (code) {
 			case 0:
 				alert("修改成功");

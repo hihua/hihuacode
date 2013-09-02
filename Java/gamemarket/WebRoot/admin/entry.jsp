@@ -6,7 +6,7 @@
 			渠道名称：<select id="entry_table"></select>&nbsp;
 			开始日期：<input type="text" id="entry_start_date"/>&nbsp;
 			结束日期：<input type="text" id="entry_end_date"/>&nbsp;
-			<input type="button" value=" 查询 " onclick="queryEntry()" />
+			<input type="button" value=" 查询 " onclick="queryEntry(this)" />
 		</td>		
 	</tr>
 </table>
@@ -23,32 +23,35 @@
 	var servlet = "entry";
 	function getEntry() {
 		var body = "command=0";
-		request(servlet, body, onGetEntry);	
+		request(servlet, body, onGetEntry, null);	
 	}
 	
-	function onGetEntry(code, content) {
+	function onGetEntry(code, content, obj) {
 		var entryTable = $("#entry_table");
 		entryTable.empty();
 		
-		if (code == 0) {			
-			if (content != null) {
-				var i = 0;
-				$.each(content, function(idx, table) {
-					var tableId = table.table_id;
-					var tableName = table.table_name;
-					
-					if (i == 0)
-						entryTable.append("<option value=\"" + tableId + "\" selected=\"selected\">" + tableName + "</option>");
-					else
-					 	entryTable.append("<option value=\"" + tableId + "\">" + tableName + "</option>");
-					 	
-					i++; 
-				});
-			}			
-		}		
+		switch (code) {
+			case 0: {
+				if (content != null) {
+					var i = 0;
+					$.each(content, function(idx, table) {
+						var tableId = table.table_id;
+						var tableName = table.table_name;
+						
+						if (i == 0)
+							entryTable.append("<option value=\"" + tableId + "\" selected=\"selected\">" + tableName + "</option>");
+						else
+						 	entryTable.append("<option value=\"" + tableId + "\">" + tableName + "</option>");
+						 	
+						i++; 
+					});
+				}
+			}
+			break;		
+		}				
 	}
 	
-	function queryEntry() {
+	function queryEntry(obj) {
 		var date = new Date();
 		var entryTable = $("#entry_table").val();
 		var entryStartDate = $("#entry_start_date").val();
@@ -91,11 +94,13 @@
 			return;		
 		}						
 			
+		$(obj).attr("disabled", true);	
 		var body = "command=1&entry_table=" + entryTable + "&entry_start_date=" + startDate + "&entry_end_date=" + endDate;
-		request(servlet, body, onQueryEntry);	
+		request(servlet, body, onQueryEntry, obj);	
 	}
 	
-	function onQueryEntry(code, content) {
+	function onQueryEntry(code, content, obj) {
+		$(obj).attr("disabled", false);
 		clearTable("#entrys");
 		switch(code) {
 			case 0: {

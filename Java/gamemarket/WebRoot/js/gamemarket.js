@@ -1,4 +1,4 @@
-function request(url, body, callback) {
+function request(url, body, callback, obj) {
 	url = "../servlet/" + url;
 	Ajax_CallBack(url, body, "json", "", true, function(json) {
 		var code = getCode(json);
@@ -10,15 +10,15 @@ function request(url, body, callback) {
 				
 			case 0:
 				var content = getContent(json);
-				callback(code, content);
+				callback(code, content, obj);
 				break;
 				
 			default:
-				callback(code, null);
+				callback(code, null, obj);
 				break;
 		}		
 	}, function(response, error, status) {
-		callback(-3, null);
+		callback(-3, null, obj);
     });
 }
 
