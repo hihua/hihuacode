@@ -43,10 +43,7 @@
 					</tr>
 					<tr>
 						<td><a href="upgrade.jsp" target="main" class="IndexMenuLink1">渠道版本</a></td>
-					</tr>	
-					<tr>
-						<td>应用打包</td>
-					</tr>																		
+					</tr>																						
 				</table>
 			</div> 
 			<br />
@@ -89,18 +86,20 @@
 	
 	function getInfo() {
 		var body = "command=0";
-		request("admin", body, onInfo);
+		request("admin", body, onInfo, null);
 	}
 	
-	function onInfo(code, result) {
-		if (code == 0) {		
-			var adminParent = result.admin_parent;
-												
-			if (adminParent == 0 || adminParent == 1)
-				showUserManager();
-				
-			if (adminParent == 0)
-				showUpgradeManager();
+	function onInfo(code, content, obj) {
+		switch (code) {
+			case 0: {
+				if (content != null) {
+					var adminParent = content.admin_parent;
+													
+					if (adminParent == 0 || adminParent == 1)
+						showUserManager();					
+				}
+			}
+			break;		
 		}
 	}
 	
@@ -109,12 +108,7 @@
 		var html = "<tr><td><a href=\"user.jsp\" target=\"main\" class=\"IndexMenuLink1\">用户管理</a></td></tr>";
 		$("#user_manager").append(html);
 	}
-	
-	function showUpgradeManager() {
-		var html = "<tr><td>升级管理</td></tr>";
-		$("#app_manager").append(html);
-	}
-		
+			
 	$(document.body).css("background-color", "#799AE1");
 	getInfo();
 </script>

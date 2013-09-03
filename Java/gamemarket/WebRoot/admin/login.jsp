@@ -76,7 +76,7 @@
 		request("admin", body, onLogin, obj);
 	}
 	
-	function onLogin(code, result, obj) {
+	function onLogin(code, content, obj) {
 		$(obj).attr("disabled", false);
 		switch (code) {
 			case 0:

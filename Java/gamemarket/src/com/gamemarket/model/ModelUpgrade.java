@@ -136,7 +136,7 @@ public class ModelUpgrade extends ModelBase {
 		}
 	}
 	
-	public List<Map<String, Object>> upgradeSelectTable(final int adminId, final int adminParent) {
+	public List<Map<String, Object>> upgradeSelectTable1(final int adminId, final int adminParent) {
 		PreparedStatement pre;
 		
 		try {

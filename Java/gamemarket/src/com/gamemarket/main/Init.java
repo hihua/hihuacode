@@ -1,8 +1,5 @@
 package com.gamemarket.main;
 
-import java.util.Map;
-
-import com.gamemarket.model.ModelAdmin;
 import com.gamemarket.util.db.DataBase;
 
 public class Init {

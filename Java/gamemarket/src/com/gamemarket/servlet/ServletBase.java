@@ -47,7 +47,7 @@ public abstract class ServletBase extends HttpServlet {
 				
 		final JSONObject json = JSONObject.fromObject(content);
 		final String s = json.toString();
-		//Log.log(Level.INFO, s);
+		writeLog(Level.INFO, s);
 		out.print(s);
 		out.flush();
 		out.close();

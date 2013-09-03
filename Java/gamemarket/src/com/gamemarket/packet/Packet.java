@@ -295,10 +295,10 @@ public class Packet {
 						
 		try {
 			final Element root = document.getRootElement();
-			Attribute attribute = root.attribute("android:versionCode");
+			Attribute attribute = root.attribute("versionCode");
 			attribute.setText(String.valueOf(versionCode));
 			
-			attribute = root.attribute("android:versionName");
+			attribute = root.attribute("versionName");
 			attribute.setText(versionName);
 		} catch (Exception e) {
 			Log.log(Level.ERROR, e.getMessage(), e);

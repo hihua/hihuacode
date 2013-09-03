@@ -78,34 +78,4 @@ public class ModelPacket extends ModelBase {
 			return false;
 		}
 	}
-	
-	public boolean packetUpdateFilename(final String packetFilename) {
-		PreparedStatement pre;
-		
-		try {
-			pre = mConn.prepareStatement("{call p_packet_update(?)}");
-		} catch (SQLException e) {				
-			Log.log(Level.ERROR, e.getMessage(), e);			
-			return false;
-		}
-		
-		try {
-			int i = 1;		
-			pre.setString(i++, packetFilename);
-		} catch (SQLException e) {				
-			closeStmt(pre);			
-			Log.log(Level.ERROR, e.getMessage(), e);
-			return false;
-		}
-		
-		try {
-			pre.execute();			
-			closeStmt(pre);
-			return true;
-		} catch (SQLException e) {
-			closeStmt(pre);
-			Log.log(Level.ERROR, e.getMessage(), e);
-			return false;
-		}
-	}
 }

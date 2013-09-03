@@ -139,52 +139,56 @@
 	function onAddPacket(code, content, obj) {
 		$(obj).attr("disabled", false);
 		switch (code) {
-			case 0:				
+			case 0:
 				alert("打包成功");
 				break;
 			
-			case 1:				
-				alert("打包失败");
+			case 1:
+				alert("打包失败,参数错误");
 				break;
 				
-			case 2:				
+			case 2:
 				alert("打包失败,没有该渠道信息");
 				break;
 				
-			case 3:				
+			case 3:
 				alert("打包失败,没有权限");
 				break;
 				
-			case 4:				
+			case 4:
 				alert("打包失败,应用正在升级");
 				break;
 				
 			case 5:				
-				alert("打包失败,应用正在升级");
+				alert("打包失败,创建文件夹失败");
 				break;
 				
-			case 6:				
+			case 6:
 				alert("打包失败,复制文件夹失败");
 				break;
 				
-			case 7:				
+			case 7:
 				alert("打包失败,没找到渠道名称文件");
 				break;
 				
-			case 8:				
+			case 8:
 				alert("打包失败,修改渠道名称失败");
 				break;
 				
-			case 9:				
+			case 9:
 				alert("打包失败,调用脚本失败");
 				break;
 				
-			case 10:				
+			case 10:
 				alert("打包失败,执行脚本失败");
 				break;
 				
 			case 11:				
 				alert("打包失败,复制文件失败");
+				break;
+				
+			case 12:				
+				alert("打包失败,更新数据失败");
 				break;
 				
 			default:
