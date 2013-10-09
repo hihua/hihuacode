@@ -150,7 +150,7 @@ public class RequestBase {
     				return null;
     			}
     						
-    			connection.setDoOutput(true);
+    			connection.setDoOutput(false);
     			connection.setDoInput(true);
     			
     			try {

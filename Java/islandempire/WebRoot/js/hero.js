@@ -32,6 +32,9 @@ function setHero(json) {
 			var equipments = hero.equipments;
 			if (equipments != null) {
 				$.each(equipments, function(idx, equipment) {
+					if (equipment.equipment_id == null)
+						return;
+						
 					html += "<tr><td align=\"left\" height=\"25\" title=\"" + equipment.equipment_id + "\">" + equipment.equipment_name + "</td>";					
 					html += "<td>" + equipment.level + "," + equipment.need_hero_level + "," + equipment.enhance_level + "</td>";
 					html += "<td>" + equipment.attack + "," + equipment.defense + "," + equipment.intelligence + "</td></tr>";					

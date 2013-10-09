@@ -35,7 +35,7 @@ public class RequestArmy extends RequestParent {
 			m_Body.append("&hero_id=");
 			m_Body.append(hero.getId());
 		}
-		
+				
 		String response = requestUrl(m_URL.toString(), clientv, cookie, m_Body.toString());
 		if (response == null)
 			return false;

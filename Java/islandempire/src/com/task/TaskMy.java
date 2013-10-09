@@ -47,6 +47,8 @@ import com.request.RequestDiscounts;
 import com.request.RequestEquipment;
 import com.request.RequestEvent;
 import com.request.RequestGifts;
+import com.request.RequestHeros;
+import com.request.RequestHonor;
 import com.request.RequestIsland;
 import com.request.RequestMessage;
 import com.request.RequestRanks;
@@ -86,7 +88,9 @@ public class TaskMy extends TaskBase {
 	private final RequestGifts m_RequestGifts = new RequestGifts();
 	private final RequestDiscounts m_RequestDiscounts = new RequestDiscounts();
 	private final RequestCallBack m_RequestCallBack = new RequestCallBack();
-	private final RequestShipBoards m_RequestShipBoards = new RequestShipBoards();	
+	private final RequestShipBoards m_RequestShipBoards = new RequestShipBoards();
+	private final RequestHonor m_RequestHonor = new RequestHonor();
+	private final RequestHeros m_RequestHeros = new RequestHeros();
 	private final List<Long> m_Village = new Vector<Long>();
 	private final Map<Long, Long> m_DealIds = new HashMap<Long, Long>();
 	private Config m_ConfigNew = null;
@@ -156,6 +160,7 @@ public class TaskMy extends TaskBase {
 			sells(town, m_Config, configTown);
 			buys(town, m_Config, configTown);
 			recruit(town, m_Config, configTown);
+			hero(town, m_Config);
 			attack(town, m_Config, configTown);
 			transport(town, m_Config, configTown);
 			equipment(townInfo, m_Config, townId);
@@ -242,7 +247,8 @@ public class TaskMy extends TaskBase {
 				
 		m_RequestRewards.request(host, clientv, cookie, userId);
 		m_RequestGifts.request(host, clientv, cookie, userId);
-		m_RequestDiscounts.request(host, clientv, cookie, userId);		
+		m_RequestDiscounts.request(host, clientv, cookie, userId);
+		m_RequestHonor.request(host, clientv, cookie, userId);
 		m_Rewards = new Date();
 	}
 	
@@ -1243,7 +1249,6 @@ public class TaskMy extends TaskBase {
 			left -= getAttackSoldier(count, town.getSoldierInfantry(), soldiers, more, shipBoards);
 		} else {
 			left -= getAttackSoldier(count, town.getSoldierBerserker(), soldiers, more, shipBoards);			
-			left -= getAttackSoldier(count, town.getSoldierIronclad(), soldiers, more, shipBoards);			
 			left -= getAttackSoldier(count, town.getSoldierCatapult(), soldiers, more, shipBoards);			
 			left -= getAttackSoldier(count, town.getSoldierMusketman(), soldiers, more, shipBoards);
 			left -= getAttackSoldier(count, town.getSoldierInfantry(), soldiers, more, shipBoards);
@@ -1454,6 +1459,25 @@ public class TaskMy extends TaskBase {
 		}
 		
 		return false;
+	}
+	
+	private void hero(Town town, Config config) {
+		String host = config.getHost();
+		String clientv = config.getClientv();
+		String cookie = config.getCookie();
+		
+		Hero hero = town.getHero();
+		if (hero == null)
+			return;
+		
+		Long id = hero.getId();
+		Long status = hero.getStatus();
+		
+		if (id == null)
+			return;
+		
+		if (status == 2)
+			m_RequestHeros.request(host, clientv, cookie, 1L, id);
 	}
 		
 	private void attack(Town town, Config config, ConfigTown configTown) {
