@@ -14,6 +14,9 @@ public class RequestParent extends RequestBase {
 	private final String[] AcceptEncoding = { "Accept-Encoding", "gzip, deflate" };
 	private final String[] AcceptLanguage = { "Accept-Language", "zh-cn" };
 	private final String[] Macid = { "macid", "NDAzMDA0RTJEQ0ZB" };
+	private final String[] Idfa = { "idfa", "DFB94F11-EC7F-49C0-BF84-1B529EA465C0" };
+	private final String[] SystemVersion = { "systemVersion", "6.1" };
+	private final String[] Openudid = { "openudid", "FA2CFA7B-2E7C-4512-9491-F7C4EAAF6CD6" };
 	private final String Key = "3da541559918a808c2402bba5012f6c60b27661c";
 	private final String Sig = "sig";
 	private final String Clientv = "clientv";
@@ -32,7 +35,7 @@ public class RequestParent extends RequestBase {
 				
         StringBuilder sb = new StringBuilder();
         sb.append(Key);
-        sb.append(Udid[1]);
+        sb.append(Openudid[1]);
         sb.append(content);
         sb.append(Appid[1]);
         
@@ -90,11 +93,14 @@ public class RequestParent extends RequestBase {
 		m_Header.put(AcceptEncoding[0], AcceptEncoding[1]);
 		m_Header.put(AcceptLanguage[0], AcceptLanguage[1]);
 		m_Header.put(Accept[0], Accept[1]);
-		m_Header.put(Udid[0], Udid[1]);		
+		//m_Header.put(Udid[0], Udid[1]);
 		m_Header.put(UserAgent[0], UserAgent[1]);		
 		m_Header.put(Appid[0], Appid[1]);
 		m_Header.put(Locale[0], Locale[1]);
 		m_Header.put(Macid[0], Macid[1]);
+		m_Header.put(Idfa[0], Idfa[1]);
+		m_Header.put(SystemVersion[0], SystemVersion[1]);
+		m_Header.put(Openudid[0], Openudid[1]);
 		
 		if (cookie != null)
 			m_Header.put(Cookie, cookie);
@@ -109,10 +115,10 @@ public class RequestParent extends RequestBase {
 		
 		m_Authorization.setLength(0);		
 		if (username == null)
-			m_Authorization.append(UserName);
+			m_Authorization.append(UserName.replaceAll("_", "%5F"));
 		else
-			m_Authorization.append(username);
-		
+			m_Authorization.append(username.replaceAll("_", "%5F"));
+						
 		m_Authorization.append(":");
 		if (password == null)
 			m_Authorization.append(Password);
@@ -122,7 +128,7 @@ public class RequestParent extends RequestBase {
 		String authorization = getBase64(m_Authorization.toString());		
 		if (authorization == null)
 			return null;
-		
+				
 		setHeader(authorization, clientv, cookie, md5);
 		return request(webUrl, m_Header, body);
 	}
