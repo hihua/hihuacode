@@ -1240,8 +1240,7 @@ public class TaskMy extends TaskBase {
 		
 		if (shipBoards) {
 			left -= getAttackSoldier(count, town.getSoldierBerserker(), soldiers, more, shipBoards);
-			left -= getAttackSoldier(count, town.getSoldierPegasus(), soldiers, more, shipBoards);
-			left -= getAttackSoldier(count, town.getSoldierIronclad(), soldiers, more, shipBoards);
+			left -= getAttackSoldier(count, town.getSoldierPegasus(), soldiers, more, shipBoards);			
 			left -= getAttackSoldier(count, town.getSoldierDestroyer(), soldiers, more, shipBoards);
 			left -= getAttackSoldier(count, town.getSoldierCatapult(), soldiers, more, shipBoards);
 			left -= getAttackSoldier(count, town.getSoldierFrigate(), soldiers, more, shipBoards);

@@ -12,7 +12,7 @@ public class RequestHonor extends RequestParent {
 		m_Body.setLength(0);
 		m_Body.append("user_id=");
 		m_Body.append(userId);
-		
-		requestUrl(URL.toString(), clientv, cookie, m_Body.toString());
+				
+		requestUrl(m_URL.toString(), clientv, cookie, m_Body.toString());		
 	}
 }
