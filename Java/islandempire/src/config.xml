@@ -4,7 +4,7 @@
 	<host>http://54.248.20.212</host>
 	<clientv>1.7.0</clientv>
 	<userid>110023568</userid>
-	<cookie>_game001_server_session=BAh7ByIPc2Vzc2lvbl9pZCIlNDdjZTJhNDFhMmE4ZTk5M2NkMjQ4ZWU3ZDk3OWFhYzEiDHVzZXJfaWRpBJDTjgY%3D--daada433477fea7117c9260737113d751f76cb5b; cookie_salt=BAhbB2kEkNOOBiJFY2QzMzE1NjYxMDRlMjk1ODM2YmY5MTk5MTJhYTE4NzBjZjI4MmNiZjBmZWRkNDI3YWY0NzdkMjczMjEyYzk1MA%3D%3D--1c62d00fa105eed239a2459d48f83f5e6e1b301c</cookie>
+	<cookie>cookie_salt=BAhbB2kEkNOOBiJFNWYyNDgxMzI2OWE0ZWViNzEzOGNhYzQ4NmFhMDIwZWUxNzVlMDUyYjM3MWUyZTIyYTQ2ZjAzM2I2YmU0M2U1Mg%3D%3D--e731979a38c80ba423b5a921731d5f8b436552df; _game001_server_session=BAh7ByIPc2Vzc2lvbl9pZCIlMTU0ZmNlNDE5OWUzMGI5MjU3ZmNiZTJjZWNiOWQ4M2MiDHVzZXJfaWRpBJDTjgY%3D--693fbb5f01caf309217ba6c5cb62c9de427448c4</cookie>
 	<autotowns>30</autotowns>
 	<equipment>
 		<max>35</max>

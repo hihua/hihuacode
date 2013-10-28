@@ -142,6 +142,30 @@ public class WebOthers extends WebBase {
 			}
 			break;
 			
+			case 4: {
+				String townId = request.getParameter("town_id");
+				if (!Numeric.isNumber(townId)) {
+					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);					
+					return;
+				}
+				
+				String packet = task.getOtherHero(Long.parseLong(townId));
+				if (packet == null)  {
+					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);					
+					return;
+				}
+				
+				try {
+					JSONObject json = JSONObject.fromObject(packet);
+					String s = json.toString();
+					out.print(s);					
+				} catch (Exception e) {
+					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);					
+					return;
+				}
+			}
+			break;
+			
 			default: {
 				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);				
 			}

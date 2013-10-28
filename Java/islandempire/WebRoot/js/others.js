@@ -39,3 +39,13 @@ function requestOtherRanks(username, userId, callback) {
         return null;
     });
 }
+
+function requestOtherHero(username, townId, callback) {
+	var url = WebOthers + "?command=4&username=" + username + "&town_id=" + townId; 
+	Ajax_CallBack(url, "", "json", "", true, function(json) {
+		if (json != null)
+			callback(json);		
+	}, function(response, error, status) {
+        return null;
+    });
+}
