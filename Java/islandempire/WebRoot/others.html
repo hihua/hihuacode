@@ -511,8 +511,17 @@
 				html += "<td align=\"left\" width=\"34%\" height=\"25\">状态: </td>";				
 				if (town.city_status == "normal")
 					html += "<td>" + town.city_status + "</td>";
-				else
-					html += "<td style=\"color:#FF0000\">" + town.city_status + "</td>";
+				else {
+					if (town.city_status == "under_protection") {
+						if (town.protection_finish_at != null) {
+							var date = new Date(town.protection_finish_at * 1000);
+							var finishTime = date.pattern("yyyy-MM-dd HH:mm:ss");
+							html += "<td style=\"color:#FF0000\" title=\"" + finishTime + "\">" + town.city_status + "</td>";
+						} else
+							html += "<td style=\"color:#FF0000\">" + town.city_status + "</td>";
+					} else
+						html += "<td style=\"color:#FF0000\">" + town.city_status + "</td>";
+				}
 					        
 				html += "</tr>";
 				html += "<tr>";
