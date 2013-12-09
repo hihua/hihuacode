@@ -52,6 +52,7 @@ import com.request.RequestHonor;
 import com.request.RequestIsland;
 import com.request.RequestMessage;
 import com.request.RequestRanks;
+import com.request.RequestReceive;
 import com.request.RequestRecruit;
 import com.request.RequestRewards;
 import com.request.RequestShipBoards;
@@ -91,10 +92,12 @@ public class TaskMy extends TaskBase {
 	private final RequestShipBoards m_RequestShipBoards = new RequestShipBoards();
 	private final RequestHonor m_RequestHonor = new RequestHonor();
 	private final RequestHeros m_RequestHeros = new RequestHeros();
+	private final RequestReceive m_RequestReceive = new RequestReceive();
 	private final List<Long> m_Village = new Vector<Long>();
 	private final Map<Long, Long> m_DealIds = new HashMap<Long, Long>();
 	private Config m_ConfigNew = null;
 	private Date m_Rewards = null;
+	private Date m_Receive = null;
 
 	public TaskMy(String taskName, Config config, CallBackTask callBack) {
 		super(taskName, config.getAutoTowns(), callBack);
@@ -157,6 +160,7 @@ public class TaskMy extends TaskBase {
 			if (autoUpgrade)
 				upgrade(town, m_Config, configTown);
 									
+			receive(town, m_Config);
 			sells(town, m_Config, configTown);
 			buys(town, m_Config, configTown);
 			recruit(town, m_Config, configTown);
@@ -231,6 +235,40 @@ public class TaskMy extends TaskBase {
 		}
 		
 		return true;
+	}
+	
+	private void receive(Town town, Config config) {				
+		if (m_Receive != null) {
+			Date now = new Date();
+			if (now.getTime() - m_Receive.getTime() < 15 * 60 * 1000)
+				return;	
+		}
+		
+		String host = config.getHost();		
+		String clientv = config.getClientv();
+		String cookie = config.getCookie();
+		
+		BuildingResource buildingWood = town.getBuildingWood();
+		BuildingResource buildingFood = town.getBuildingFood();
+		m_RequestReceive.request(host, clientv, cookie, buildingWood.getId());
+		m_RequestReceive.request(host, clientv, cookie, buildingFood.getId());
+		
+		if (town.getResourceType() == 1) {
+			BuildingResource buildingGold = town.getBuildingGold();
+			m_RequestReceive.request(host, clientv, cookie, buildingGold.getId());
+		}
+		
+		if (town.getResourceType() == 2) {
+			BuildingResource buildingMarble = town.getBuildingMarble();
+			m_RequestReceive.request(host, clientv, cookie, buildingMarble.getId());
+		}
+		
+		if (town.getResourceType() == 3) {
+			BuildingResource buildingIron = town.getBuildingIron();
+			m_RequestReceive.request(host, clientv, cookie, buildingIron.getId());
+		}
+		
+		m_Receive = new Date();
 	}
 	
 	private void setRewards(Config config) {		
@@ -1527,7 +1565,7 @@ public class TaskMy extends TaskBase {
 				return;
 			
 			Hero h = null;
-			if (hero != null && islandVillage.getLevel() >= hero.getLevel() - 6)
+			if (hero != null)
 				h = hero;
 						
 			List<IslandBuilding> islandBuildings = m_RequestIsland.request(host, clientv, cookie, islandNumber, userId);
@@ -2180,7 +2218,8 @@ public class TaskMy extends TaskBase {
 									
 			total++;
 			Long type = equipment.getType();
-			if (type > -1 && type < 8) {
+			Long subType = equipment.getSubType();
+			if (type > -1 && type < 8 && subType == 7) {
 				if (lv < 0) {
 					mins.add(equipment);
 					lv = equipment.getLevel();
@@ -2208,15 +2247,15 @@ public class TaskMy extends TaskBase {
 			if (freeSafeResources == null || freeSafeResources.getAll() == null)
 				continue;
 			
-			Long level = equipment.getLevel();
-			if (level < equipmentMax)
-				continue;
+			//Long level = equipment.getLevel();
+			//if (level < equipmentMax)
+			//	continue;
 			
 			Long enhanceLevel = equipment.getEnhanceLevel();
 			if (enhanceLevel >= 15)
 				continue;						
-									
-			if (type > -1 && type < 8)
+												
+			if (type > -1 && type < 8 && subType == 7)
 				eqs.add(equipment);		
 		}
 						
@@ -2301,15 +2340,70 @@ public class TaskMy extends TaskBase {
 			}				
 		}
 		
-		if (total > 50 && minfo != null) {
-			Equipment min = null;			
-			for (Equipment equipment : mins) {				
-				if (min == null || min.getEnhanceLevel() > equipment.getEnhanceLevel())
-					min = equipment;
+//		if (total > 50 && minfo != null) {
+//			Equipment min = null;			
+//			for (Equipment equipment : mins) {				
+//				if (min == null || min.getEnhanceLevel() > equipment.getEnhanceLevel())
+//					min = equipment;
+//			}
+//			
+//			if (min != null)
+//				m_RequestEquipment.request(host, clientv, cookie, min.getEquipmentId(), "sold_to_npc", "delete", minfo.getTownId());
+//		}
+		
+		if (minfo != null)
+			sellEquipment(towns, config, equipments, minfo);
+	}
+	
+	private void sellEquipment(Towns towns, Config config, List<Equipment> equipments, TownInfo minfo) {
+		String host = config.getHost();
+		String clientv = config.getClientv();
+		String cookie = config.getCookie();		
+		Long townId = minfo.getTownId();
+		
+		for (Equipment equipment : equipments) {
+			Long equipmentId = equipment.getEquipmentId();
+			Long type = equipment.getType();
+			Long subType = equipment.getSubType();
+			String equipmentName = equipment.getEquipmentName();
+			if (equipmentName == null)
+				continue;
+			
+			if (type > -1 && type < 8) {
+				if (subType == 7)
+					continue;
+				
+				if (subType == 6 && equipment.getEnhanceLevel() > 9)
+					continue;
+				
+				if (m_RequestEquipment.request(host, clientv, cookie, equipmentId, "sold_to_npc", "delete", townId))
+					Log.writeLogs("sell equipment: " + equipmentName + " type: " + type + " subtype: " + subType);
+				else
+					Log.writeLogs("sell equipment error: " + equipmentName + " type: " + type + " subtype: " + subType);
+				
+				continue;
 			}
 			
-			if (min != null)
-				m_RequestEquipment.request(host, clientv, cookie, min.getEquipmentId(), "sold_to_npc", "delete", minfo.getTownId());
+			if (type == 8) {
+				boolean found = false;				
+				for (Equipment equ : equipments) {
+					if (equ.getEquipmentId() == equipmentId)
+						continue;
+					
+					String name = equ.getEquipmentName();
+					if (equipmentName.equals(name)) {
+						found = true;
+						break;
+					}
+				}
+				
+				if (found) {
+					if (m_RequestEquipment.request(host, clientv, cookie, equipmentId, "sold_to_npc", "delete", townId))
+						Log.writeLogs("sell equipment: " + equipmentName + " type: " + type + " subtype: " + subType);
+					else
+						Log.writeLogs("sell equipment error: " + equipmentName + " type: " + type + " subtype: " + subType);
+				}
+			}
 		}
 	}
 }

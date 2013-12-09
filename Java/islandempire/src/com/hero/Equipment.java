@@ -20,6 +20,8 @@ import net.sf.json.JSONObject;
 
 public class Equipment {
 	private Long defense;
+	private Long count;
+	private Long skillSid;
 	private Long enhanceLevel;
 	private Long npcPrice;
 	private String iconUrl;
@@ -45,6 +47,14 @@ public class Equipment {
 
 	public Long getDefense() {
 		return defense;
+	}
+
+	public Long getCount() {
+		return count;
+	}
+
+	public Long getSkillSid() {
+		return skillSid;
 	}
 
 	public Long getEnhanceLevel() {
@@ -139,6 +149,14 @@ public class Equipment {
 		this.defense = defense;
 	}
 
+	public void setCount(Long count) {
+		this.count = count;
+	}
+
+	public void setSkillSid(Long skillSid) {
+		this.skillSid = skillSid;
+	}
+
 	public void setEnhanceLevel(Long enhanceLevel) {
 		this.enhanceLevel = enhanceLevel;
 	}
@@ -226,7 +244,7 @@ public class Equipment {
 	public void setBindType(Long bindType) {
 		this.bindType = bindType;
 	}
-	
+
 	public static List<Equipment> parse(String response) {
 		JSONObject json = JSONObject.fromObject(response);
 		if (json == null || json.get("town") == null)
@@ -242,6 +260,8 @@ public class Equipment {
 			JSONObject array = (JSONObject) arrays.get(i);
 			Equipment equipment = new Equipment();
 			equipment.setDefense(array.get("defense") != null ? array.getLong("defense") : null);
+			equipment.setCount(array.get("count") != null ? array.getLong("count") : null);
+			equipment.setSkillSid(array.get("skill_sid") != null ? array.getLong("skill_sid") : null);
 			equipment.setEnhanceLevel(array.get("enhance_level") != null ? array.getLong("enhance_level") : null);
 			equipment.setNpcPrice(array.get("npc_price") != null ? array.getLong("npc_price") : null);
 			equipment.setIconUrl(array.get("icon_url") != null ? array.getString("icon_url") : null);

@@ -643,20 +643,7 @@ public class Town {
 				}
 								
 				if (buildingType.equals(2L) || buildingType.equals(5L) || buildingType.equals(6L) || buildingType.equals(7L) || buildingType.equals(8L)) {
-					JSONArray lines = array.getJSONArray("lines");
-					List<BuildingLine> buildingLines = new Vector<BuildingLine>();
-					if (lines != null) {						
-						for (int j = 0; j < lines.size(); j++) {
-							JSONObject line = (JSONObject) lines.get(j);		
-							BuildingLine buildingLine = new BuildingLine();							
-							buildingLine.setLevel((line.get("level") != null) ? line.getLong("level") : null);
-							buildingLine.setId((line.get("id") != null) ? line.getLong("id") : null);
-							buildingLine.setCurrentOutput((line.get("current_output") != null) ? line.getLong("current_output") : null);
-							buildingLine.setStatus((line.get("status") != null) ? line.getString("status") : null);
-							buildingLines.add(buildingLine);
-						}
-					}
-					
+										
 					BuildingResource buildingResource = new BuildingResource();
 					buildingResource.setMaxLevel(maxLevel);
 					buildingResource.setDurability(durability);
@@ -665,7 +652,6 @@ public class Town {
 					buildingResource.setBuildingType(buildingType);
 					buildingResource.setStatus(status);
 					buildingResource.setAnchorIndex(anchorIndex);
-					buildingResource.setLine(buildingLines);
 										
 					if (buildingType.equals(2L)) {
 						towns.setBuildingWood(buildingResource);

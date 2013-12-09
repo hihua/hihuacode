@@ -652,25 +652,25 @@
 						html += "<td align=\"left\" valign=\"top\" width=\"45%\"><a href=\"#\" onclick=\"setTransport(" + townId + ", 'wood', " + resource.resource_count + ", " + fleetQuota + ");return false;\" class=\"AdminToolsLink1\">" + resource.resource_count + "</a>/" + resource.max_volume + "</td>";
 						html += "<td align=\"left\" valign=\"top\" width=\"30%\">" + resource.increase_per_hour + "/h</td>";
 						html += "</tr>";
-						html += "<tr>";
+// 						html += "<tr>";
 												
-						var tmp = "";							
-						$.each(buildings, function(idx, building) {
-							if (building.building_type == 2) {
-								var lines = building.lines;
-								$.each(lines, function(idx, line) {
-									if (line.status == "upgrading")											
-										tmp += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, line.id, true) + "\">" + line.level + "</span>&nbsp;&nbsp;";											
-									else
-										tmp += "<a href=\"#\" onclick=\"upgradeBuilding(" + line.id + ");return false;\" class=\"AdminToolsLink1\">" + line.level + "</a>&nbsp;&nbsp;";
-								});						
-							}								
-						});
+// 						var tmp = "";							
+// 						$.each(buildings, function(idx, building) {
+// 							if (building.building_type == 2) {
+// 								var lines = building.lines;
+// 								$.each(lines, function(idx, line) {
+// 									if (line.status == "upgrading")											
+// 										tmp += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, line.id, true) + "\">" + line.level + "</span>&nbsp;&nbsp;";											
+// 									else
+// 										tmp += "<a href=\"#\" onclick=\"upgradeBuilding(" + line.id + ");return false;\" class=\"AdminToolsLink1\">" + line.level + "</a>&nbsp;&nbsp;";
+// 								});						
+// 							}								
+// 						});
 						
-						html += "<td align=\"left\" valign=\"top\" width=\"25%\" height=\"20\">&nbsp;</td>";
-						html += "<td align=\"left\" valign=\"top\" width=\"45%\">" + tmp + "</td>";
-						html += "<td align=\"left\" valign=\"top\" width=\"30%\">&nbsp;</td>";							
-						html += "</tr>";							
+// 						html += "<td align=\"left\" valign=\"top\" width=\"25%\" height=\"20\">&nbsp;</td>";
+// 						html += "<td align=\"left\" valign=\"top\" width=\"45%\">" + tmp + "</td>";
+// 						html += "<td align=\"left\" valign=\"top\" width=\"30%\">&nbsp;</td>";							
+// 						html += "</tr>";							
 						html += "</table>";
 						html += "</td>";
 						html += "</tr>";
@@ -688,25 +688,25 @@
 						html += "<td align=\"left\" valign=\"top\" width=\"45%\"><a href=\"#\" onclick=\"setTransport(" + townId + ", 'food', " + resource.resource_count + ", " + fleetQuota + ");return false;\" class=\"AdminToolsLink1\">" + resource.resource_count + "</a>/" + resource.max_volume + "</td>";
 						html += "<td align=\"left\" valign=\"top\" width=\"30%\">" + resource.increase_per_hour + "/h</td>";
 						html += "</tr>";
-						html += "<tr>";
+// 						html += "<tr>";
 												
-						var tmp = "";							
-						$.each(buildings, function(idx, building) {
-							if (building.building_type == 5) {
-								var lines = building.lines;
-								$.each(lines, function(idx, line) {
-									if (line.status == "upgrading")											
-										tmp += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, line.id, true) + "\">" + line.level + "</span>&nbsp;&nbsp;";											
-									else
-										tmp += "<a href=\"#\" onclick=\"upgradeBuilding(" + line.id + ");return false;\" class=\"AdminToolsLink1\">" + line.level + "</a>&nbsp;&nbsp;";
-								});						
-							}								
-						});
+// 						var tmp = "";							
+// 						$.each(buildings, function(idx, building) {
+// 							if (building.building_type == 5) {
+// 								var lines = building.lines;
+// 								$.each(lines, function(idx, line) {
+// 									if (line.status == "upgrading")											
+// 										tmp += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, line.id, true) + "\">" + line.level + "</span>&nbsp;&nbsp;";											
+// 									else
+// 										tmp += "<a href=\"#\" onclick=\"upgradeBuilding(" + line.id + ");return false;\" class=\"AdminToolsLink1\">" + line.level + "</a>&nbsp;&nbsp;";
+// 								});						
+// 							}								
+// 						});
 						
-						html += "<td align=\"left\" valign=\"top\" width=\"25%\" height=\"20\">&nbsp;</td>";
-						html += "<td align=\"left\" valign=\"top\" width=\"45%\">" + tmp + "</td>";
-						html += "<td align=\"left\" valign=\"top\" width=\"30%\">&nbsp;</td>";							
-						html += "</tr>";							
+// 						html += "<td align=\"left\" valign=\"top\" width=\"25%\" height=\"20\">&nbsp;</td>";
+// 						html += "<td align=\"left\" valign=\"top\" width=\"45%\">" + tmp + "</td>";
+// 						html += "<td align=\"left\" valign=\"top\" width=\"30%\">&nbsp;</td>";							
+// 						html += "</tr>";							
 						html += "</table>";
 						html += "</td>";
 						html += "</tr>";
@@ -726,24 +726,24 @@
 							html += "<td align=\"left\" valign=\"top\" width=\"30%\">" + resource.increase_per_hour + "/h</td>";
 							html += "</tr>";
 							
-							var tmp = "";							
-							$.each(buildings, function(idx, building) {
-								if (building.building_type == 8) {
-									var lines = building.lines;
-									$.each(lines, function(idx, line) {
-										if (line.status == "upgrading")											
-											tmp += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, line.id, true) + "\">" + line.level + "</span>&nbsp;&nbsp;";											
-										else
-											tmp += "<a href=\"#\" onclick=\"upgradeBuilding(" + line.id + ");return false;\" class=\"AdminToolsLink1\">" + line.level + "</a>&nbsp;&nbsp;";
-									});						
-								}								
-							});
+// 							var tmp = "";							
+// 							$.each(buildings, function(idx, building) {
+// 								if (building.building_type == 8) {
+// 									var lines = building.lines;
+// 									$.each(lines, function(idx, line) {
+// 										if (line.status == "upgrading")											
+// 											tmp += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, line.id, true) + "\">" + line.level + "</span>&nbsp;&nbsp;";											
+// 										else
+// 											tmp += "<a href=\"#\" onclick=\"upgradeBuilding(" + line.id + ");return false;\" class=\"AdminToolsLink1\">" + line.level + "</a>&nbsp;&nbsp;";
+// 									});						
+// 								}								
+// 							});
 																				
-							html += "<tr>";
-							html += "<td align=\"left\" valign=\"top\" width=\"25%\" height=\"20\">&nbsp;</td>";
-							html += "<td align=\"left\" valign=\"top\" width=\"45%\">" + tmp + "</td>";
-							html += "<td align=\"left\" valign=\"top\" width=\"30%\">&nbsp;</td>";							
-							html += "</tr>";													
+// 							html += "<tr>";
+// 							html += "<td align=\"left\" valign=\"top\" width=\"25%\" height=\"20\">&nbsp;</td>";
+// 							html += "<td align=\"left\" valign=\"top\" width=\"45%\">" + tmp + "</td>";
+// 							html += "<td align=\"left\" valign=\"top\" width=\"30%\">&nbsp;</td>";							
+// 							html += "</tr>";													
 							html += "</table>";
 							html += "</td>";
 							html += "</tr>";
@@ -764,24 +764,24 @@
 							html += "<td align=\"left\" valign=\"top\" width=\"30%\">" + resource.increase_per_hour + "/h</td>";
 							html += "</tr>";	
 							
-							var tmp = "";							
-							$.each(buildings, function(idx, building) {
-								if (building.building_type == 6) {
-									var lines = building.lines;
-									$.each(lines, function(idx, line) {
-										if (line.status == "upgrading")											
-											tmp += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, line.id, true) + "\">" + line.level + "</span>&nbsp;&nbsp;";											
-										else
-											tmp += "<a href=\"#\" onclick=\"upgradeBuilding(" + line.id + ");return false;\" class=\"AdminToolsLink1\">" + line.level + "</a>&nbsp;&nbsp;";
-									});						
-								}								
-							});
+// 							var tmp = "";							
+// 							$.each(buildings, function(idx, building) {
+// 								if (building.building_type == 6) {
+// 									var lines = building.lines;
+// 									$.each(lines, function(idx, line) {
+// 										if (line.status == "upgrading")											
+// 											tmp += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, line.id, true) + "\">" + line.level + "</span>&nbsp;&nbsp;";											
+// 										else
+// 											tmp += "<a href=\"#\" onclick=\"upgradeBuilding(" + line.id + ");return false;\" class=\"AdminToolsLink1\">" + line.level + "</a>&nbsp;&nbsp;";
+// 									});						
+// 								}								
+// 							});
 									
-							html += "<tr>";	
-							html += "<td align=\"left\" valign=\"top\" width=\"25%\" height=\"20\">&nbsp;</td>";
-							html += "<td align=\"left\" valign=\"top\" width=\"45%\">" + tmp + "</td>";
-							html += "<td align=\"left\" valign=\"top\" width=\"30%\">&nbsp;</td>";							
-							html += "</tr>";			
+// 							html += "<tr>";	
+// 							html += "<td align=\"left\" valign=\"top\" width=\"25%\" height=\"20\">&nbsp;</td>";
+// 							html += "<td align=\"left\" valign=\"top\" width=\"45%\">" + tmp + "</td>";
+// 							html += "<td align=\"left\" valign=\"top\" width=\"30%\">&nbsp;</td>";							
+// 							html += "</tr>";			
 							html += "</table>";
 							html += "</td>";
 							html += "</tr>";
@@ -802,24 +802,24 @@
 							html += "<td align=\"left\" valign=\"top\" width=\"30%\">" + resource.increase_per_hour + "/h</td>";
 							html += "</tr>";
 							
-							var tmp = "";							
-							$.each(buildings, function(idx, building) {
-								if (building.building_type == 7) {
-									var lines = building.lines;
-									$.each(lines, function(idx, line) {
-										if (line.status == "upgrading")											
-											tmp += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, line.id, true) + "\">" + line.level + "</span>&nbsp;&nbsp;";											
-										else
-											tmp += "<a href=\"#\" onclick=\"upgradeBuilding(" + line.id + ");return false;\" class=\"AdminToolsLink1\">" + line.level + "</a>&nbsp;&nbsp;";
-									});						
-								}								
-							});
+// 							var tmp = "";							
+// 							$.each(buildings, function(idx, building) {
+// 								if (building.building_type == 7) {
+// 									var lines = building.lines;
+// 									$.each(lines, function(idx, line) {
+// 										if (line.status == "upgrading")											
+// 											tmp += "<span style=\"color:#FF0000\" title=\"" + getFinishTime(buildingQueues, line.id, true) + "\">" + line.level + "</span>&nbsp;&nbsp;";											
+// 										else
+// 											tmp += "<a href=\"#\" onclick=\"upgradeBuilding(" + line.id + ");return false;\" class=\"AdminToolsLink1\">" + line.level + "</a>&nbsp;&nbsp;";
+// 									});						
+// 								}								
+// 							});
 																			
-							html += "<tr>";	
-							html += "<td align=\"left\" valign=\"top\" width=\"25%\" height=\"20\">&nbsp;</td>";
-							html += "<td align=\"left\" valign=\"top\" width=\"45%\">" + tmp + "</td>";
-							html += "<td align=\"left\" valign=\"top\" width=\"30%\">&nbsp;</td>";							
-							html += "</tr>";														
+// 							html += "<tr>";	
+// 							html += "<td align=\"left\" valign=\"top\" width=\"25%\" height=\"20\">&nbsp;</td>";
+// 							html += "<td align=\"left\" valign=\"top\" width=\"45%\">" + tmp + "</td>";
+// 							html += "<td align=\"left\" valign=\"top\" width=\"30%\">&nbsp;</td>";							
+// 							html += "</tr>";														
 							html += "</table>";
 							html += "</td>";
 							html += "</tr>";
