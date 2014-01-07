@@ -1037,6 +1037,7 @@ void LyricDraw(PLAYERINFO* playerinfo)
 	HDC* bdc = &lyric_wnd.bdc;
 	HDC* cdc = &lyric_wnd.cdc;
 	Gdiplus::Graphics graphics(*bdc);	
+	graphics.SetTextRenderingHint(Gdiplus::TextRenderingHintAntiAlias);
 	Gdiplus::StringFormat sf;
 	sf.SetAlignment(Gdiplus::StringAlignment::StringAlignmentCenter);	
 	BLENDFUNCTION* blend = &lyric_wnd.blend;
