@@ -254,8 +254,7 @@ public class ActivityMain extends Activity implements BDLocationListener, MKOffl
 		if (mHandler != null)
 			mHandler.removeCallbacks(this);
 
-		super.onDestroy();
-		System.gc();
+		super.onDestroy();		
 	}
 
 	@Override

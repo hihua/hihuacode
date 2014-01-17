@@ -100,8 +100,10 @@ public class ServiceLocation extends Service implements BDLocationListener {
 			}						
 		}
 		
-		if (mLocationClient != null)
+		if (mLocationClient != null) {
 			mLocationClient.stop();
+			mLocationClient = null;
+		}
 	}
 
 	@Override
