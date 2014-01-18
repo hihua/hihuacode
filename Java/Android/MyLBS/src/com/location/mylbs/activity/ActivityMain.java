@@ -471,9 +471,12 @@ public class ActivityMain extends Activity implements BDLocationListener, MKOffl
 
 	@Override
 	public void onGetPermissionState(final int state) {
+		if (state == 0)
+			return;
+		
 		final String content = getString(R.string.baidu_permission_error, state);
 		final Toast toast = Toast.makeText(this, content, Toast.LENGTH_LONG);
-		toast.show();
+		toast.show();			
 	}
 	
 	@Override

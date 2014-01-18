@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">我们的定位系统</string>
+    <string name="app_name">家庭定位系统</string>
     <string name="baidu_appkey">95ec0e925774579b599bbbd12446f7b5</string>
     <string name="request_host">http://www.haircodechina.com.cn/mylbs/asp/</string>
     <string name="request_location">location.asp</string>
