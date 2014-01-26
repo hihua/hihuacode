@@ -2203,10 +2203,7 @@ public class TaskMy extends TaskBase {
 		if (equipmentTowns == null || equipmentTowns.size() == 0)
 			return;
 				
-		Long equipmentMax = config.getEquipmentMax();
-		if (equipmentMax <= 0)
-			return;
-		
+		Long equipmentMax = config.getEquipmentMax();				
 		List<Equipment> eqs = new Vector<Equipment>();
 		List<Equipment> mins = new Vector<Equipment>();
 		Equipment eq = null;
@@ -2219,7 +2216,7 @@ public class TaskMy extends TaskBase {
 			total++;
 			Long type = equipment.getType();
 			Long subType = equipment.getSubType();
-			if (type > -1 && type < 8 && subType == 7) {
+			if (type > -1 && type < 8 && subType > 6) {
 				if (lv < 0) {
 					mins.add(equipment);
 					lv = equipment.getLevel();
@@ -2255,7 +2252,7 @@ public class TaskMy extends TaskBase {
 			if (enhanceLevel >= 15)
 				continue;						
 												
-			if (type > -1 && type < 8 && subType == 7)
+			if (type > -1 && type < 8 && subType > 6)
 				eqs.add(equipment);		
 		}
 						
@@ -2265,29 +2262,96 @@ public class TaskMy extends TaskBase {
 				eq = equipment;
 		}
 		
-		if (eq == null)
-			return;
-		
-		Long all = 0L;
-		Long safe = 0L;
-		Enhance enhance = eq.getEnhance();
-		
-		if (eq.getEnhanceLevel() > 4) {						
-			FreeSafeResources freeSafeResources = enhance.getFreeSafeResources();
-			all = freeSafeResources.getAll();
-			safe = 2L;
-		} else {
-			NeedResources needResources = enhance.getNeedResources();
-			all = needResources.getAll();
-		}
+		if (eq != null) {
+			Long all = 0L;
+			Long safe = 0L;
+			Enhance enhance = eq.getEnhance();
+			
+			if (eq.getEnhanceLevel() > 4) {						
+				FreeSafeResources freeSafeResources = enhance.getFreeSafeResources();
+				all = freeSafeResources.getAll();
+				safe = 2L;
+			} else {
+				NeedResources needResources = enhance.getNeedResources();
+				all = needResources.getAll();
+			}
+			
+			List<TownInfo> townInfos = towns.getTownInfos();
+			if (townInfos == null)
+				return;
+			
+			TownInfo tinfo = null, minfo = null;
+			Long max = 0L;
+			
+			for (TownInfo townInfo : townInfos) {
+				Long id = townInfo.getTownId();
+				if (id == null)
+					continue;
+				
+				Town town = townInfo.getTown();
+				if (town == null)
+					continue;
+				
+				Resources resourcesWood = town.getResourcesWood();
+				Resources resourcesFood = town.getResourcesFood();
+				Resources resourcesIron = town.getResourcesIron();
+				Resources resourcesMarble = town.getResourcesMarble();
+				Resources resourcesGold = town.getResourcesGold();
+				if (resourcesGold != null && resourcesGold.getResourceCount() != null) {
+					if (minfo == null || minfo.getTown().getResourcesGold().getResourceCount() > resourcesGold.getResourceCount())
+						minfo = townInfo;
+				}
+				
+				if (equipmentTowns.indexOf(id) == -1)
+					continue;			
+				
+				if (resourcesWood == null || resourcesFood == null || resourcesMarble == null || resourcesIron == null || resourcesGold == null)
+					continue;
+				
+				Long woodCount = resourcesWood.getResourceCount();
+				Long foodCount = resourcesFood.getResourceCount();
+				Long marbleCount = resourcesMarble.getResourceCount();
+				Long ironCount = resourcesIron.getResourceCount();
+				Long goldCount = resourcesGold.getResourceCount();
+				
+				if (woodCount == null || foodCount == null || marbleCount == null || ironCount == null || goldCount == null)
+					continue;
+				
+				if (woodCount < all || foodCount < all || marbleCount < all || ironCount < all || goldCount < all)
+					continue;
+				
+				Long count = woodCount + foodCount + marbleCount + ironCount + goldCount;
+				if (tinfo == null || max < count) {
+					tinfo = townInfo;
+					max = count;
+				}
+			}
+			
+			if (tinfo != null && equipmentMax > 0) {
+				List<Resources> resources = m_RequestEquipment.request(host, clientv, cookie, eq.getEquipmentId(), safe, "enhance", 0L, userId, "put", tinfo.getTownId());
+				if (resources != null) {
+					Town town = tinfo.getTown();
+					setResources(town, resources);
+				}				
+			}
+			
+//			if (total > 50 && minfo != null) {
+//				Equipment min = null;			
+//				for (Equipment equipment : mins) {				
+//					if (min == null || min.getEnhanceLevel() > equipment.getEnhanceLevel())
+//						min = equipment;
+//				}
+//				
+//				if (min != null)
+//					m_RequestEquipment.request(host, clientv, cookie, min.getEquipmentId(), "sold_to_npc", "delete", minfo.getTownId());
+//			}
+		}	
 		
 		List<TownInfo> townInfos = towns.getTownInfos();
 		if (townInfos == null)
 			return;
 		
-		TownInfo tinfo = null, minfo = null;
-		Long max = 0L;
-		
+		TownInfo minfo = null;
 		for (TownInfo townInfo : townInfos) {
 			Long id = townInfo.getTownId();
 			if (id == null)
@@ -2297,59 +2361,13 @@ public class TaskMy extends TaskBase {
 			if (town == null)
 				continue;
 			
-			Resources resourcesWood = town.getResourcesWood();
-			Resources resourcesFood = town.getResourcesFood();
-			Resources resourcesIron = town.getResourcesIron();
-			Resources resourcesMarble = town.getResourcesMarble();
 			Resources resourcesGold = town.getResourcesGold();
+			
 			if (resourcesGold != null && resourcesGold.getResourceCount() != null) {
 				if (minfo == null || minfo.getTown().getResourcesGold().getResourceCount() > resourcesGold.getResourceCount())
 					minfo = townInfo;
 			}
-			
-			if (equipmentTowns.indexOf(id) == -1)
-				continue;			
-			
-			if (resourcesWood == null || resourcesFood == null || resourcesMarble == null || resourcesIron == null || resourcesGold == null)
-				continue;
-			
-			Long woodCount = resourcesWood.getResourceCount();
-			Long foodCount = resourcesFood.getResourceCount();
-			Long marbleCount = resourcesMarble.getResourceCount();
-			Long ironCount = resourcesIron.getResourceCount();
-			Long goldCount = resourcesGold.getResourceCount();
-			
-			if (woodCount == null || foodCount == null || marbleCount == null || ironCount == null || goldCount == null)
-				continue;
-			
-			if (woodCount < all || foodCount < all || marbleCount < all || ironCount < all || goldCount < all)
-				continue;
-			
-			Long count = woodCount + foodCount + marbleCount + ironCount + goldCount;
-			if (tinfo == null || max < count) {
-				tinfo = townInfo;
-				max = count;
-			}
 		}
-		
-		if (tinfo != null) {
-			List<Resources> resources = m_RequestEquipment.request(host, clientv, cookie, eq.getEquipmentId(), safe, "enhance", 0L, userId, "put", tinfo.getTownId());
-			if (resources != null) {
-				Town town = tinfo.getTown();
-				setResources(town, resources);
-			}				
-		}
-		
-//		if (total > 50 && minfo != null) {
-//			Equipment min = null;			
-//			for (Equipment equipment : mins) {				
-//				if (min == null || min.getEnhanceLevel() > equipment.getEnhanceLevel())
-//					min = equipment;
-//			}
-//			
-//			if (min != null)
-//				m_RequestEquipment.request(host, clientv, cookie, min.getEquipmentId(), "sold_to_npc", "delete", minfo.getTownId());
-//		}
 		
 		if (minfo != null)
 			sellEquipment(towns, config, equipments, minfo);
@@ -2370,7 +2388,7 @@ public class TaskMy extends TaskBase {
 				continue;
 			
 			if (type > -1 && type < 8) {
-				if (subType == 7)
+				if (subType > 6)
 					continue;
 				
 				if (subType == 6 && equipment.getEnhanceLevel() > 9)

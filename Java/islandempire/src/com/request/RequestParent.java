@@ -22,7 +22,7 @@ public class RequestParent extends RequestBase {
 	private final String Clientv = "clientv";
 	private final String Authorization = "Authorization";
 	private final String Cookie = "Cookie";	
-	private final String UserName = "hihua";
+	private final String UserName = "abb_02";
 	private final String Password = "12345678";
 	private final HashMap<String, String> m_Header = new HashMap<String, String>();
 	private final StringBuilder m_Authorization = new StringBuilder();
