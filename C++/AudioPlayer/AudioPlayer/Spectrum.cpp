@@ -289,6 +289,10 @@ void SpectrumDraw()
 		fs *= 1.2F;
 		fs = (fs * (float)log(bd + 2.0F));
 
+		wchar_t buf[128] = {0};
+		swprintf(buf, L"%d %d %10.8f", spectrum.rect.bottom, bd, fs);
+		DPRINT(buf);
+
 		RECT rect;
 		rect.left = bd * BANDWIDTH + bd * BANDSPACE;
 		rect.right = rect.left + BANDWIDTH;

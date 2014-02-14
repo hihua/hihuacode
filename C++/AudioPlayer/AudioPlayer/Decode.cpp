@@ -287,7 +287,7 @@ void DecodeRelease(PLAYERDECODE* decode)
 	if (decode->format != NULL)
 	{			
 		//avformat_free_context(decode->format);
-		avformat_close_input(&decode->format);		
+		avformat_close_input(&decode->format);				
 	}
 	
 	decode->swred = FALSE;

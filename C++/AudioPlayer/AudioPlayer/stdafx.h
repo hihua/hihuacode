@@ -15,6 +15,7 @@
 #include <shlwapi.h>
 #include <commdlg.h>
 #include <GdiPlus.h>
+#include <GdiplusEnums.h>
 
 #include <mmsystem.h>
 #include <mmreg.h>
