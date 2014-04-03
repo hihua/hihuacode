@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="textview_servertime">#0000FF</color>
+    <color name="textview_clienttime">#0000FF</color>
+    <color name="popwindow_waitfor">#B0000000</color>
+    <color name="popwindow_select_object">#B0000000</color>
+    <color name="tv_click">#FFDEEEF8</color>
+    <color name="tv_normal">#FFFFFFFF</color>
+</resources>

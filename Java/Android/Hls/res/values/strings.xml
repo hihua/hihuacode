@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">家庭定位系统</string>    
+    <string name="request_host">http://www.haircodechina.com.cn/hls/asp/</string>
+    <string name="request_location">location.asp</string>
+    <string name="request_relation">relation.asp</string>
+    <string name="request_select">select.asp</string>
+    <string name="request_selects">selects.asp</string>    
+    <string name="request_relation_refresh">正在刷新</string>
+    <string name="request_relation_success">刷新成功</string>
+    <string name="request_relation_fail">刷新失败</string>
+    <string name="location_my_location">正在获取我的位置</string>
+    <string name="location_my_error">正在获取我的错误%d</string>
+    <string name="location_my_fail">正在获取我的失败</string>
+    <string name="baidu_init_error">初始化错误</string>
+    <string name="baidu_networkstate_error">网络错误%d</string>
+    <string name="baidu_permission_error">授权验证错误%d</string>
+    <string name="menu_refresh">刷新</string>
+    <string name="menu_network_start">强制联网开启</string>
+    <string name="menu_network_close">强制联网关闭</string>
+    <string name="menu_route">路线</string>
+    <string name="menu_select_object">选择对象</string>
+    <string name="status_prepare_success">状态修改成功</string>
+    <string name="status_prepare_fail">状态修改失败</string>
+
+</resources>
