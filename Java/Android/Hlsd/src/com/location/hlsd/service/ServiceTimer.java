@@ -10,6 +10,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.IBinder;
 import android.provider.Settings;
+import android.util.Log;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -56,17 +57,19 @@ public class ServiceTimer extends Service implements BDLocationListener, HandleL
 
 	@Override
 	public void onStart(final Intent intent, final int startId) {		
-		if (checkStatus())						
-			startLocation();
-				
 		super.onStart(intent, startId);
+		Log.e("hls", "onStart");
+		if (checkStatus())		
+			startLocation();
 	}
 
 	@Override
 	public void onReceiveLocation(final BDLocation location) {	
+		Log.e("hls", "onReceiveLocation");
 		if (location != null) {
-			final int loctype = location.getLocType();
-			if (loctype == 61 || loctype == 65 || loctype == 66 || loctype == 161) {
+			final int locType = location.getLocType();
+			Log.e("hls", "onReceiveLocation " + locType);
+			if (locType == 61 || locType == 65 || locType == 66 || locType == 161) {
 				if (mEntityLocations == null)
 					mEntityLocations = new EntityLocations();
 						
@@ -74,7 +77,7 @@ public class ServiceTimer extends Service implements BDLocationListener, HandleL
 				final double latitude = location.getLatitude();
 				final double longitude = location.getLongitude();
 				final float radius = location.getRadius();
-				final float direction = location.getDerect();
+				final float direction = location.getDirection();
 								
 				mEntityLocations.setClientTime(clientTime);
 				mEntityLocations.setLatitude(latitude);
@@ -87,8 +90,9 @@ public class ServiceTimer extends Service implements BDLocationListener, HandleL
 					mThreadPool = new ThreadPool();
 											
 				if (mRequestLocation == null)
-					mRequestLocation = new RequestLocation(this, mThreadPool, this);
+					mRequestLocation = new RequestLocation(mThreadPool, this);
 				
+				Log.e("hls", "request");
 				mRequestLocation.request(mEntityRelation, mEntityLocations);				
 			}
 		}
@@ -99,11 +103,6 @@ public class ServiceTimer extends Service implements BDLocationListener, HandleL
 		}
 	}
 
-	@Override
-	public void onReceivePoi(final BDLocation location) {
-		
-	}
-	
 	@Override
 	public void onLocation(final boolean success) {
 		stopSelf();
@@ -123,15 +122,11 @@ public class ServiceTimer extends Service implements BDLocationListener, HandleL
 		if (mEntityRelation == null)
 			mEntityRelation = EntityRelation.getRelation();			
 		
-		if (mEntityRelation != null) {						
-			if (mLocationClient == null)
-				mLocationClient = EntityLocation.initLocation(this, 0, this);						
-			
-			EntityLocation.requestLocation(mLocationClient);
-		}
+		if (mEntityRelation != null)
+			mLocationClient = EntityLocation.initLocation(getApplicationContext(), 0, this);		
 	}		
 				
-	private boolean checkStatus() {		
+	private boolean checkStatus() {
 		if (getAirplaneMode()) {						
 			if (getStatus())
 				setAirplaneMode(false);

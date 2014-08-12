@@ -1,22 +1,19 @@
 package com.location.hlsd.request;
 
-import android.content.Context;
 import android.os.Message;
 
-import com.location.hlsd.R;
 import com.location.hlsd.entity.EntityLocations;
 import com.location.hlsd.entity.EntityRelation;
-import com.location.hlsd.entity.EntityRequest;
-import com.location.hlsd.entity.EntityResponse;
 import com.location.hlsd.handle.HandleLocation;
+import com.location.hlsd.util.HttpClass;
 import com.location.hlsd.util.ThreadPool;
 
 public final class RequestLocation extends RequestBase {
 	private final StringBuilder mParameter = new StringBuilder();
 	private final HandleLocation mHandleLocation;
 
-	public RequestLocation(final Context context, final ThreadPool threadPool, final HandleLocation handleLocation) {
-		super(context, threadPool);
+	public RequestLocation(final ThreadPool threadPool, final HandleLocation handleLocation) {
+		super(threadPool);
 		mHandleLocation = handleLocation;
 	}
 	
@@ -30,6 +27,7 @@ public final class RequestLocation extends RequestBase {
 		final String map = entityLocations.getMap();
 		
 		mParameter.setLength(0);
+		mParameter.append("http://www.haircodechina.com.cn/hls/asp/location.asp?");
 		mParameter.append("name=");
 		mParameter.append(from);
 		mParameter.append("&client_time=");
@@ -60,19 +58,11 @@ public final class RequestLocation extends RequestBase {
 	}
 
 	@Override
-	protected void onTask(final EntityRequest entityRequest) {
-		final String url = setUrl(R.string.request_location, mParameter.toString());
-		entityRequest.setUrl(url);
-				
-		final EntityResponse entityResponse = mHttpClass.request(entityRequest);
-		if (entityResponse != null) {			
-			entityResponse.close();
-			if (mHandleLocation != null)
-				mHandler.sendEmptyMessage(0);
-		} else {
-			if (mHandleLocation != null)
-				mHandler.sendEmptyMessage(1);
-		}
+	protected void onTask() {
+		final String url = mParameter.toString();						
+		boolean success = HttpClass.request(url);
+		if (mHandleLocation != null)
+			mHandler.sendEmptyMessage(success ? 0 : 1);		
 	}
 
 	@Override

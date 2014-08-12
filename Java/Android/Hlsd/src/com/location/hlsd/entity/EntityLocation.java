@@ -16,9 +16,11 @@ import com.amap.api.location.LocationProviderProxy;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.baidu.location.LocationClientOption.LocationMode;
 import com.location.hlsd.R;
 
 import android.content.Context;
+import android.util.Log;
 
 public class EntityLocation {
 	private String color;
@@ -50,26 +52,19 @@ public class EntityLocation {
 		locationManagerProxy.requestLocationUpdates(LocationProviderProxy.AMapNetwork, minTime, minDistance, listener);		
 	}
 
-	public static LocationClient initLocation(final Context context, final int scanSpan, final BDLocationListener listener) {
-		final String appkey = context.getString(R.string.baidu_appkey);
+	public static LocationClient initLocation(final Context context, final int scanSpan, final BDLocationListener listener) {		
 		final LocationClientOption locationClientOption = new LocationClientOption();		
-		locationClientOption.setScanSpan(scanSpan);		
-		locationClientOption.setCoorType("bd09ll");
-		locationClientOption.disableCache(true);
-
+		locationClientOption.setLocationMode(LocationMode.Hight_Accuracy);		
+		locationClientOption.setNeedDeviceDirect(true);
+		locationClientOption.setIsNeedAddress(false);
+		locationClientOption.setCoorType("gcj02");
+				
 		final LocationClient locationClient = new LocationClient(context);		
 		locationClient.setLocOption(locationClientOption);
 		locationClient.registerLocationListener(listener);
-		locationClient.start();		
-		return locationClient;
-	}
-	
-	public static void requestLocation(final LocationClient locationClient) {
-		if (!locationClient.isStarted())
-			locationClient.start();
-		
-		locationClient.requestLocation();
-	}
+		locationClient.start();
+		return locationClient;					
+	}	
 			
 	public static EntityLocation parseLocation(final InputStream in) {
 		Document document = null;

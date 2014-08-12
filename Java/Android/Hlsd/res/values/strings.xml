@@ -1,8 +1,5 @@
 <resources>
 
-    <string name="app_name">hlsd</string>
-    <string name="baidu_appkey">95ec0e925774579b599bbbd12446f7b5</string>
-    <string name="request_host">http://www.haircodechina.com.cn/hls/asp/</string>
-    <string name="request_location">location.asp</string>
-    
+    <string name="app_name">hlsd</string>    
+        
 </resources>
