@@ -13,6 +13,7 @@ import org.dom4j.io.SAXReader;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.baidu.location.LocationClientOption.LocationMode;
 
 import android.content.Context;
 
@@ -37,25 +38,20 @@ public class EntityLocation {
 	}
 
 	public static LocationClient initLocation(final Context context, final int scanSpan, final BDLocationListener listener) {		
-		final LocationClientOption locationClientOption = new LocationClientOption();		
-		locationClientOption.setScanSpan(scanSpan);		
-		locationClientOption.setCoorType("bd09ll");
-		locationClientOption.disableCache(true);
-
-		final LocationClient locationClient = new LocationClient(context);		
-		locationClient.setLocOption(locationClientOption);
+		final LocationClientOption locationOption = new LocationClientOption();
+		locationOption.setCoorType("bd09ll");
+		locationOption.setLocationMode(LocationMode.Hight_Accuracy);
+		locationOption.setIsNeedAddress(false);
+		locationOption.setNeedDeviceDirect(true);
+				
+		final LocationClient locationClient = new LocationClient(context);
+		locationClient.setLocOption(locationOption);
 		locationClient.registerLocationListener(listener);
-		locationClient.start();		
+		locationClient.start();
+		
 		return locationClient;
 	}
-	
-	public static void requestLocation(final LocationClient locationClient) {
-		if (!locationClient.isStarted())
-			locationClient.start();
-		
-		locationClient.requestLocation();
-	}
-			
+				
 	public static EntityLocation parseLocation(final InputStream in) {
 		Document document = null;
 						

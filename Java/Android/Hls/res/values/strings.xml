@@ -23,5 +23,8 @@
     <string name="menu_select_object">选择对象</string>
     <string name="status_prepare_success">状态修改成功</string>
     <string name="status_prepare_fail">状态修改失败</string>
+    <string name="address">地址</string>
+    <string name="address_failed">获取地址失败</string>
+    <string name="confirm">确定</string>
 
 </resources>

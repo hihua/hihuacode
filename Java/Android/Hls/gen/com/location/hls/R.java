@@ -39,10 +39,13 @@ public final class R {
         public static final int popwindow_waitfor=0x7f030003;
     }
     public static final class string {
+        public static final int address=0x7f060016;
+        public static final int address_failed=0x7f060017;
         public static final int app_name=0x7f060000;
         public static final int baidu_init_error=0x7f06000c;
         public static final int baidu_networkstate_error=0x7f06000d;
         public static final int baidu_permission_error=0x7f06000e;
+        public static final int confirm=0x7f060018;
         public static final int location_my_error=0x7f06000a;
         public static final int location_my_fail=0x7f06000b;
         public static final int location_my_location=0x7f060009;
