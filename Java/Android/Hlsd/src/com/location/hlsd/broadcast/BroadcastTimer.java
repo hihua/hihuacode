@@ -52,7 +52,7 @@ public class BroadcastTimer extends BroadcastReceiver implements BDLocationListe
 			mEntityRelation = EntityRelation.getRelation();			
 		
 		if (mEntityRelation != null)
-			mLocationClient = EntityLocation.initLocation(context, 0, this);		
+			mLocationClient = EntityLocation.initLocation(context, this);		
 	}
 	
 	private boolean checkStatus(final Context context) {

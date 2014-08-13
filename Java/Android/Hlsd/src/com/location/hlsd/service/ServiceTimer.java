@@ -123,7 +123,7 @@ public class ServiceTimer extends Service implements BDLocationListener, HandleL
 			mEntityRelation = EntityRelation.getRelation();			
 		
 		if (mEntityRelation != null)
-			mLocationClient = EntityLocation.initLocation(getApplicationContext(), 0, this);		
+			mLocationClient = EntityLocation.initLocation(this, this);		
 	}		
 				
 	private boolean checkStatus() {
