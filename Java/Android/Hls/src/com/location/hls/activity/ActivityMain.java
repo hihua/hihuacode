@@ -96,10 +96,10 @@ public class ActivityMain extends Activity implements BDLocationListener, OnGetR
 	private double mLongitude = mDefaultY;
 	private float mZoom = 12.7f;
 	private boolean mStatus = false;
-	
+		
 	@Override
 	protected void onCreate(final Bundle bundle) {
-		super.onCreate(bundle);		
+		super.onCreate(bundle);	
 		mEntityRelation = EntityRelation.getRelation();
 		if (mEntityRelation != null)
 			mStatus = mEntityRelation.getStatus();
@@ -572,7 +572,7 @@ public class ActivityMain extends Activity implements BDLocationListener, OnGetR
 				final double latitude = location.getLatitude();
 				final double longitude = location.getLongitude();
 				
-				if (mLatitude != mDefaultX || mLongitude != mDefaultY) {
+				if ((mLatitude != mDefaultX || mLongitude != mDefaultY) && mRoutePlanSearch == null) {
 					mRoutePlanSearch = RoutePlanSearch.newInstance();
 					mRoutePlanSearch.setOnGetRoutePlanResultListener(this);
 																									
@@ -583,10 +583,8 @@ public class ActivityMain extends Activity implements BDLocationListener, OnGetR
 					walkingRoutePlanOption.from(from);
 					walkingRoutePlanOption.to(to);
 					
-					if (!mRoutePlanSearch.walkingSearch(walkingRoutePlanOption)) {
-						mRoutePlanSearch.destroy();
-						mRoutePlanSearch = null;
-					}
+					if (!mRoutePlanSearch.walkingSearch(walkingRoutePlanOption))						
+						mRoutePlanSearch = null;					
 				}				
 			}			
 		}		
@@ -623,16 +621,14 @@ public class ActivityMain extends Activity implements BDLocationListener, OnGetR
 	public boolean onMarkerClick(final Marker marker) {
 		if (marker != null) {
 			final LatLng latLng = marker.getPosition();
-			if (latLng != null) {
+			if (latLng != null && mGeoCoder == null) {
 				final ReverseGeoCodeOption reverseGeoCodeOption = new ReverseGeoCodeOption();
 				reverseGeoCodeOption.location(latLng);
 				
 				mGeoCoder = GeoCoder.newInstance();
 				mGeoCoder.setOnGetGeoCodeResultListener(this);
-				if (!mGeoCoder.reverseGeoCode(reverseGeoCodeOption)) {
-					mGeoCoder.destroy();
-					mGeoCoder = null;
-				}
+				if (!mGeoCoder.reverseGeoCode(reverseGeoCodeOption))					
+					mGeoCoder = null;				
 			}			
 		}
 					
