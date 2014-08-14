@@ -31,19 +31,6 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="1csBh2eEmjbCd8fzDnNLW5QD" />
 
-<!--         <activity -->
-<!--             android:name=".activity.ActivityMain" -->
-<!--             android:label="@string/app_name" -->
-<!--             android:launchMode="singleTask" -->
-<!--             android:screenOrientation="portrait" -->
-<!--             android:theme="@android:style/Theme.NoTitleBar" > -->
-<!--             <intent-filter> -->
-<!--                 <action android:name="android.intent.action.MAIN" /> -->
-
-<!--                 <category android:name="android.intent.category.LAUNCHER" /> -->
-<!--             </intent-filter> -->
-<!--         </activity> -->
-
         <receiver android:name=".broadcast.BroadcastBoot" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -58,7 +45,11 @@
         </service>
         <service
             android:name=".service.ServiceTimer"
-            android:enabled="true" >
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.location.hlsd.service.ServiceTimer" />
+            </intent-filter>
         </service>
     </application>
 
