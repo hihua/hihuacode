@@ -56,13 +56,23 @@ public class ServiceTimer extends Service implements BDLocationListener, HandleL
 
 	@Override
 	public void onStart(final Intent intent, final int startId) {		
-		super.onStart(intent, startId);		
+		super.onStart(intent, startId);
+		if (mLocationClient != null && mLocationClient.isStarted())
+			mLocationClient.stop();			
+				
+		mLocationClient = null;
+		
 		if (checkStatus())		
 			startLocation();
 	}
 
 	@Override
-	public void onReceiveLocation(final BDLocation location) {		
+	public void onReceiveLocation(final BDLocation location) {
+		if (mLocationClient != null) {
+			mLocationClient.stop();
+			mLocationClient = null;
+		}
+		
 		if (location != null) {
 			final int locType = location.getLocType();			
 			if (locType == 61 || locType == 65 || locType == 66 || locType == 161) {
@@ -90,12 +100,7 @@ public class ServiceTimer extends Service implements BDLocationListener, HandleL
 								
 				mRequestLocation.request(mEntityRelation, mEntityLocations);				
 			}
-		}
-		
-		if (mLocationClient != null) {
-			mLocationClient.stop();
-			mLocationClient = null;
-		}
+		}				
 	}
 
 	@Override
