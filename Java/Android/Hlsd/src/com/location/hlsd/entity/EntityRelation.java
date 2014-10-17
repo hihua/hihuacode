@@ -20,7 +20,7 @@ public class EntityRelation {
 	private boolean status;
 	private String from;
 	private String to;
-
+	
 	public boolean getStatus() {
 		return status;
 	}
@@ -44,7 +44,7 @@ public class EntityRelation {
 	public void setTo(final String to) {
 		this.to = to;
 	}
-
+			
 	public static EntityRelation getRelation() {
 		final File root = Environment.getExternalStorageDirectory();
 		if (root == null)
@@ -138,11 +138,11 @@ public class EntityRelation {
 			final JSONObject json = new JSONObject(content);
 			final boolean status = json.getBoolean("status");
 			final String from = json.getString("from");
-			final String to = json.getString("to");
+			final String to = json.getString("to");			
 			final EntityRelation entityRelation = new EntityRelation();
 			entityRelation.setStatus(status);
 			entityRelation.setFrom(from);
-			entityRelation.setTo(to);
+			entityRelation.setTo(to);			
 			return entityRelation;
 		} catch (final JSONException e) {
 			return null;

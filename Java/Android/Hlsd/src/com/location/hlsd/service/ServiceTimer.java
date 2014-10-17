@@ -64,6 +64,8 @@ public class ServiceTimer extends Service implements BDLocationListener, HandleL
 		
 		if (checkStatus())		
 			startLocation();
+		else
+			stopSelf();
 	}
 
 	@Override
@@ -98,48 +100,63 @@ public class ServiceTimer extends Service implements BDLocationListener, HandleL
 				if (mRequestLocation == null)
 					mRequestLocation = new RequestLocation(mThreadPool, this);
 								
-				mRequestLocation.request(mEntityRelation, mEntityLocations);				
+				mRequestLocation.request(mEntityRelation, mEntityLocations);
+				return;
 			}
-		}				
+		}
+		
+		stopSelf();
 	}
 
 	@Override
 	public void onLocation(final boolean success) {
 		stopSelf();
 	}
-	
-	public boolean getStatus() {
-		final EntityRelation relation = EntityRelation.getRelation();
-		if (relation != null) {
-			final boolean status = relation.getStatus();
-			return status;
-		}
 		
-		return false;	
+	private void getRelation() {
+		if (mEntityRelation == null)
+			mEntityRelation = EntityRelation.getRelation();
 	}
 			
-	private void startLocation() {
-		if (mEntityRelation == null)
-			mEntityRelation = EntityRelation.getRelation();			
-		
+	private void startLocation() {		
 		if (mEntityRelation != null)
 			mLocationClient = EntityLocation.initLocation(this, this);		
 	}		
 				
 	private boolean checkStatus() {
-		if (getAirplaneMode()) {						
-			if (getStatus())
-				setAirplaneMode(false);
-			
-			return false;
-		} else {
-			if (getNetworkAvailable())
-				return true;
-			else {
-				setMobileData(true);
-				return false;
+		getRelation();
+		
+		if (mEntityRelation != null) {
+			if (getAirplaneMode()) {						
+				if (mEntityRelation.getStatus())
+					setAirplaneMode(false);
+			} else {				
+				final NetworkInfo networkInfo = getNetwork();
+				if (networkInfo != null) {					
+					final String typeName = networkInfo.getTypeName();					
+					if (typeName != null) {
+						if (typeName.equalsIgnoreCase("WIFI")) {
+							if (networkInfo.isAvailable() && networkInfo.isConnected())
+								return true;
+						} else {
+							if (typeName.equalsIgnoreCase("MOBILE")) {
+								if (mEntityRelation.getStatus()) {
+									if (networkInfo.isConnected())										
+										return true;
+									 else		
+										setMobileData(true);									
+								}								
+							}
+						}						
+					}					
+				} else {
+					if (mEntityRelation.getStatus())
+						setMobileData(true);					
+				}
 			}
-		}	
+		} 
+		
+		return false;
 	}
 	
 	private boolean getAirplaneMode() {
@@ -157,19 +174,16 @@ public class ServiceTimer extends Service implements BDLocationListener, HandleL
 		sendBroadcast(intent);
 	}
 	
-	private boolean getNetworkAvailable() {
-		final ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-		if (cm != null) {
-			final NetworkInfo network = cm.getActiveNetworkInfo();
-			if (network != null)
-				return network.isAvailable();
-		}
-		
-		return false;	
+	private NetworkInfo getNetwork() {		
+		final ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+		if (connectivityManager != null) {
+			return connectivityManager.getActiveNetworkInfo();			
+		} else
+			return null;	
 	}
 	
 	private void setMobileData(final boolean enable) {
-		final ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);    
+		final ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);    
 	    Class<?> cmClass = null;
 	    Field field = null;     
 	    Object object = null;
@@ -177,16 +191,16 @@ public class ServiceTimer extends Service implements BDLocationListener, HandleL
 	    Method setMobileDataEnabled = null;
 	    
 	    try {
-	    	String name = cm.getClass().getName();
+	    	String name = connectivityManager.getClass().getName();
 	    	cmClass = Class.forName(name);
 	    	field = cmClass.getDeclaredField("mService");    
 	    	field.setAccessible(true);
-	    	object = field.get(cm);
+	    	object = field.get(connectivityManager);
 	    	name = object.getClass().getName();
 	    	iClass = Class.forName(name);
 	    	setMobileDataEnabled = iClass.getDeclaredMethod("setMobileDataEnabled", Boolean.TYPE);
 	    	setMobileDataEnabled.setAccessible(true);
-	    	setMobileDataEnabled.invoke(object, enable);    
+	    	setMobileDataEnabled.invoke(object, enable);	    	
 	    } catch (final ClassNotFoundException e) {
 	    	
 	    } catch (final NoSuchFieldException e) {
