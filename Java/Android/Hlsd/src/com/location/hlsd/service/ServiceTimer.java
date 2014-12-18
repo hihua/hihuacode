@@ -69,7 +69,7 @@ public class ServiceTimer extends Service implements BDLocationListener, HandleL
 	}
 
 	@Override
-	public void onReceiveLocation(final BDLocation location) {
+	public void onReceiveLocation(final BDLocation location) {		
 		if (mLocationClient != null) {
 			mLocationClient.stop();
 			mLocationClient = null;
