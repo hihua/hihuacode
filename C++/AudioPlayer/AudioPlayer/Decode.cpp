@@ -5,10 +5,10 @@
 
 BOOL DecodeInit(const char* filename, PLAYERDECODE* decode)
 {	
-	int ret = avformat_open_input(&decode->format, filename, NULL, NULL);
+	int ret = avformat_open_input(&decode->format, filename, NULL, NULL);	
 	if (ret == 0)
 	{		
-		ret = avformat_find_stream_info(decode->format, NULL);
+		ret = avformat_find_stream_info(decode->format, NULL);		
 		if (ret >= 0)
 		{			
 			int index = -1;
@@ -156,7 +156,8 @@ BOOL DecodeFrame(char* buffer, DWORD size, DWORD& count, PLAYERDECODE* decode)
 				decode->frame = avcodec_alloc_frame();
 				if (decode->frame == NULL)
 					return FALSE;			
-			} else
+			} 
+			else
 				avcodec_get_frame_defaults(decode->frame);
 
 			int len = avcodec_decode_audio4(decode->context, decode->frame, &got, &decode->packet);
@@ -165,7 +166,7 @@ BOOL DecodeFrame(char* buffer, DWORD size, DWORD& count, PLAYERDECODE* decode)
 				err = TRUE;
 				break;
 			}
-
+						
 			decode->packet.size -= len;
 			decode->packet.data += len;
 
@@ -183,14 +184,14 @@ BOOL DecodeFrame(char* buffer, DWORD size, DWORD& count, PLAYERDECODE* decode)
 						if (decode->swr == NULL || (ret = swr_init(decode->swr)) < 0)
 							return FALSE;
 
-						decode->buffer = new unsigned char[AVCODEC_MAX_AUDIO_FRAME_SIZE * 4];
+						decode->buffer = new unsigned char[192000 * 4];
 						decode->swred = TRUE;
 					}
 
 					if (decode->swr != NULL)
 					{
 						uint8_t* out = decode->buffer;
-						int out_count = AVCODEC_MAX_AUDIO_FRAME_SIZE * 4 / decode->channels / av_get_bytes_per_sample(decode->fmt);
+						int out_count = 192000 * 4 / decode->channels / av_get_bytes_per_sample(decode->fmt);
 						
 						len = swr_convert(decode->swr, &out, out_count, (const uint8_t**)decode->frame->extended_data, decode->frame->nb_samples);
 						if (len < 0)

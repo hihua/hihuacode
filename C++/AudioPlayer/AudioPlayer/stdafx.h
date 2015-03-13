@@ -50,29 +50,45 @@ extern "C"
 {
 #endif
 
+/*
 #include <libavcodec/avcodec.h>
 #include <libavformat/avformat.h>
 #include <libswresample/swresample.h>
 
-//#pragma comment(lib, "avcodec.lib")
-//#pragma comment(lib, "avformat.lib")
-//#pragma comment(lib, "avdevice.lib")
-//#pragma comment(lib, "avutil.lib")
-//#pragma comment(lib, "swscale.lib")
-//#pragma comment(lib, "swresample.lib")
-//#pragma comment(lib, "avfilter.lib")
+#pragma comment(lib, "avcodec.lib")
+#pragma comment(lib, "avformat.lib")
+#pragma comment(lib, "avdevice.lib")
+#pragma comment(lib, "avutil.lib")
+#pragma comment(lib, "swscale.lib")
+#pragma comment(lib, "swresample.lib")
+#pragma comment(lib, "avfilter.lib")
 
 #pragma comment(lib, "libgcc.a")
 #pragma comment(lib, "libmingwex.lib")
 #pragma comment(lib, "libcoldname.a")
 
-#pragma comment(lib, "libavcodec.a")
-#pragma comment(lib, "libavformat.a")
-#pragma comment(lib, "libavdevice.a")
-#pragma comment(lib, "libavutil.a")
-#pragma comment(lib, "libswscale.a")
-#pragma comment(lib, "libswresample.a")
-#pragma comment(lib, "libavfilter.a")
+//#pragma comment(lib, "libavcodec.a")
+//#pragma comment(lib, "libavformat.a")
+//#pragma comment(lib, "libavdevice.a")
+//#pragma comment(lib, "libavutil.a")
+//#pragma comment(lib, "libswscale.a")
+//#pragma comment(lib, "libswresample.a")
+//#pragma comment(lib, "libavfilter.a")
+
+*/
+
+#include <libavcodec/avcodec.h>
+#include <libavformat/avformat.h>
+#include <libswresample/swresample.h>
+
+#pragma comment(lib, "avcodec-55.lib")
+#pragma comment(lib, "avformat-55.lib")
+#pragma comment(lib, "avdevice-55.lib")
+#pragma comment(lib, "avutil-52.lib")
+#pragma comment(lib, "swscale-2.lib")
+#pragma comment(lib, "swresample-0.lib")
+#pragma comment(lib, "avfilter-4.lib")
+
 #ifdef __cplusplus
 }
 #endif
