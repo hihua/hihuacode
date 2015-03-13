@@ -191,7 +191,7 @@ public abstract class WebBase extends ServletBase {
 			try {
 				list = upload.parseRequest(request);
 			} catch (FileUploadException e) {
-				writeLog(Level.ERROR, e.getMessage(), e);				
+				writeLog(Level.ERROR, e.getMessage(), e);
 			}
 			
 			if (!dir.endsWith("/") && !dir.endsWith("\\"))
