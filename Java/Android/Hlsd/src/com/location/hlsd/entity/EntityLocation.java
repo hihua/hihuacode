@@ -17,7 +17,6 @@ public class EntityLocation {
 		locationOption.setNeedDeviceDirect(true);
 						
 		final LocationClient locationClient = new LocationClient(context);
-		locationClient.setForBaiduMap(true);
 		locationClient.setLocOption(locationOption);
 		locationClient.registerLocationListener(listener);
 		locationClient.start();
