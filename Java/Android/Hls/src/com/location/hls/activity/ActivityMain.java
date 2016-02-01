@@ -46,6 +46,7 @@ import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
+import com.baidu.mapapi.search.route.BikingRouteResult;
 import com.baidu.mapapi.search.route.DrivingRouteResult;
 import com.baidu.mapapi.search.route.OnGetRoutePlanResultListener;
 import com.baidu.mapapi.search.route.PlanNode;
@@ -608,7 +609,7 @@ public class ActivityMain extends Activity implements BDLocationListener, OnGetR
 		if (result != null && result.error == SearchResult.ERRORNO.NO_ERROR) {
 			final List<WalkingRouteLine> list = result.getRouteLines();
         	if (list != null && list.size() > 0) {
-        		final WalkingRouteLine walkingRouteLine = list.get(0);        	        	
+        		final WalkingRouteLine walkingRouteLine = list.get(0);
 	        	final WalkingRouteOverlay overlay = new WalkingRouteOverlay(mBaiduMap);            
 	            overlay.setData(walkingRouteLine);  
 	            overlay.addToMap();  
@@ -654,5 +655,10 @@ public class ActivityMain extends Activity implements BDLocationListener, OnGetR
 		alertDialog.setMessage(address);
 		alertDialog.setPositiveButton(R.string.confirm, null);
 		alertDialog.show();
+	}
+
+	@Override
+	public void onGetBikingRouteResult(BikingRouteResult bikingRouteResult) {
+		
 	}		
 }
